@@ -11,21 +11,21 @@ expression: decoded_viewed
       BinaryString: ""
     PaddingBottom:
       UDim:
-        - 13.369999885559082
+        - 13.37
         - 42
     PaddingLeft:
       UDim:
-        - -13.369999885559082
+        - -13.37
         - 42
     PaddingRight:
       UDim:
-        - 13.369999885559082
+        - 13.37
         - -42
     PaddingTop:
       UDim:
-        - -13.369999885559082
+        - -13.37
         - -42
     Tags:
-      BinaryString: ""
+      Tags: []
   children: []
 

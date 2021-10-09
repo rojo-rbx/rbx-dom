@@ -48,6 +48,7 @@ impl Type {
             VariantType::String => Type::String,
             VariantType::BinaryString => Type::String,
             VariantType::Content => Type::String,
+            VariantType::Tags => Type::String,
 
             VariantType::Bool => Type::Bool,
             VariantType::Int32 => Type::Int32,
@@ -79,7 +80,7 @@ impl Type {
         })
     }
 
-    pub fn to_default_rbx_type(&self) -> Option<VariantType> {
+    pub fn to_default_rbx_type(self) -> Option<VariantType> {
         Some(match self {
             // Since many buffers aren't going to be valid UTF-8, it's safer to
             // pick BinaryString for unknown property types instead of String.

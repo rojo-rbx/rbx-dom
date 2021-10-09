@@ -4,7 +4,7 @@ expression: text_decoded
 
 ---
 num_types: 1
-num_instances: 3
+num_instances: 1
 chunks:
   - Meta:
       entries:
@@ -12,66 +12,38 @@ chunks:
           - "true"
   - Inst:
       type_id: 0
-      type_name: Vector3Value
+      type_name: Folder
       object_format: 0
       referents:
         - 0
-        - 1
-        - 2
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-        - ""
-        - ""
   - Prop:
       type_id: 0
       prop_name: Name
       prop_type: String
       values:
-        - "1337, -1337, 0"
-        - "0.15625, -0.15625, 0.1"
-        - "inf, -inf, nan"
+        - Folder
   - Prop:
       type_id: 0
       prop_name: SourceAssetId
       prop_type: Int64
       values:
         - -1
-        - -1
-        - -1
   - Prop:
       type_id: 0
       prop_name: Tags
       prop_type: String
       values:
-        - ""
-        - ""
-        - ""
-  - Prop:
-      type_id: 0
-      prop_name: Value
-      prop_type: Vector3
-      values:
-        - - 1337.0
-          - -1337.0
-          - 0.0
-        - - 0.15625
-          - -0.15625
-          - 0.1
-        - - .inf
-          - -.inf
-          - .nan
+        - "Cool\u0000My\u0000Tags"
   - Prnt:
       version: 0
       links:
         - - 0
-          - -1
-        - - 1
-          - -1
-        - - 2
           - -1
   - End
 

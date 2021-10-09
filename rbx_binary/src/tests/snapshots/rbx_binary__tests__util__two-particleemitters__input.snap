@@ -88,10 +88,10 @@ chunks:
       prop_name: Lifetime
       prop_type: NumberRange
       values:
-        - - -20.200000762939454
-          - 10.100000381469727
-        - - -20.200000762939454
-          - 10.100000381469727
+        - - -20.2
+          - 10.1
+        - - -20.2
+          - 10.1
   - Prop:
       type_id: 0
       prop_name: LightEmission
@@ -141,10 +141,10 @@ chunks:
       prop_name: Rotation
       prop_type: NumberRange
       values:
-        - - -6.659999847412109
-          - 6.659999847412109
-        - - -6.659999847412109
-          - 6.659999847412109
+        - - -6.66
+          - 6.66
+        - - -6.66
+          - 6.66
   - Prop:
       type_id: 0
       prop_name: Size
@@ -154,13 +154,13 @@ chunks:
             - time: 0.0
               value: 1.0
               envelope: 0.0
-            - time: 0.08036739379167557
-              value: 0.5624997615814209
+            - time: 0.080367394
+              value: 0.56249976
               envelope: 0.0
-            - time: 0.12169919162988663
-              value: 1.9374996423721314
+            - time: 0.12169919
+              value: 1.9374996
               envelope: 0.0
-            - time: 0.14351320266723634
+            - time: 0.1435132
               value: 3.75
               envelope: 0.0
             - time: 1.0
@@ -170,13 +170,13 @@ chunks:
             - time: 0.0
               value: 1.0
               envelope: 0.0
-            - time: 0.08036739379167557
-              value: 0.5624997615814209
+            - time: 0.080367394
+              value: 0.56249976
               envelope: 0.0
-            - time: 0.12169919162988663
-              value: 1.9374996423721314
+            - time: 0.12169919
+              value: 1.9374996
               envelope: 0.0
-            - time: 0.14351320266723634
+            - time: 0.1435132
               value: 3.75
               envelope: 0.0
             - time: 1.0

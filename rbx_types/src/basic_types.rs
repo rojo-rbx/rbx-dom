@@ -98,6 +98,9 @@ impl Vector3 {
     /// (-1.0, 0.0, 0.0) -> 3
     /// (0.0, -1.0, 0.0) -> 4
     /// (0.0, 0.0, -1.0) -> 5
+    // We accidentally did not follow this convention, but that's okay, it's not
+    // a huge deal and not something we can change now.
+    #[allow(clippy::wrong_self_convention)]
     pub fn to_normal_id(&self) -> Option<u8> {
         fn get_normal_id(position: u8, value: i32) -> Option<u8> {
             match value {
@@ -215,6 +218,16 @@ impl Color3 {
     }
 }
 
+impl From<Color3uint8> for Color3 {
+    fn from(value: Color3uint8) -> Self {
+        Self {
+            r: value.r as f32 / 255.0,
+            g: value.g as f32 / 255.0,
+            b: value.b as f32 / 255.0,
+        }
+    }
+}
+
 /// Represents non-HDR colors, i.e. those whose individual color channels do not
 /// exceed 1. This type is used for serializing properties like
 /// [`BasePart.Color`][BasePart.Color], but is not exposed as a distinct type to
@@ -235,6 +248,16 @@ pub struct Color3uint8 {
 impl Color3uint8 {
     pub fn new(r: u8, g: u8, b: u8) -> Self {
         Self { r, g, b }
+    }
+}
+
+impl From<Color3> for Color3uint8 {
+    fn from(value: Color3) -> Self {
+        Self {
+            r: ((value.r.max(0.0).min(1.0)) * 255.0).round() as u8,
+            g: ((value.g.max(0.0).min(1.0)) * 255.0).round() as u8,
+            b: ((value.b.max(0.0).min(1.0)) * 255.0).round() as u8,
+        }
     }
 }
 

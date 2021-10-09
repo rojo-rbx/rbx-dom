@@ -4,62 +4,42 @@ expression: text_roundtrip
 
 ---
 num_types: 1
-num_instances: 3
+num_instances: 1
 chunks:
   - Inst:
       type_id: 0
-      type_name: Color3Value
+      type_name: Folder
       object_format: 0
       referents:
         - 0
-        - 1
-        - 2
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-        - ""
-        - ""
   - Prop:
       type_id: 0
       prop_name: Name
       prop_type: String
       values:
-        - Value
-        - Value
-        - Value
+        - Folder
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
   - Prop:
       type_id: 0
       prop_name: Tags
       prop_type: String
       values:
-        - ""
-        - ""
-        - ""
-  - Prop:
-      type_id: 0
-      prop_name: Value
-      prop_type: Color3
-      values:
-        - - 0.0
-          - 0.3137255
-          - 0.49803922
-        - - 1.0
-          - 0.70588237
-          - 0.078431375
-        - - 2.0078433
-          - 1.0196079
-          - 0.039215688
+        - "Cool\u0000My\u0000Tags"
   - Prnt:
       version: 0
       links:
         - - 0
-          - -1
-        - - 1
-          - -1
-        - - 2
           - -1
   - End
 

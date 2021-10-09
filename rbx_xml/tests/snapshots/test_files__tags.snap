@@ -9,7 +9,12 @@ expression: viewer.view_children(&dom)
   properties:
     AttributesSerialize:
       BinaryString: ""
+    SourceAssetId:
+      Int64: -1
     Tags:
-      Tags: []
+      Tags:
+        - Cool
+        - My
+        - Tags
   children: []
 

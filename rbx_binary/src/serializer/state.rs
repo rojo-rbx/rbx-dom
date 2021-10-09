@@ -15,6 +15,7 @@ use rbx_dom_weak::{
     },
     WeakDom,
 };
+
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
 
 use crate::{
@@ -572,11 +573,15 @@ impl<'a, W: Write> SerializerState<'a, W> {
                                 Variant::BinaryString(value) => {
                                     chunk.write_binary_string(value.as_ref())?;
                                 }
+                                Variant::Tags(value) => {
+                                    let buf = value.encode();
+                                    chunk.write_binary_string(&buf)?;
+                                }
                                 _ => {
                                     return type_mismatch(
                                         i,
                                         &rbx_value,
-                                        "String, Content, or BinaryString",
+                                        "String, Content, Tags, or BinaryString",
                                     );
                                 }
                             }
@@ -948,9 +953,11 @@ impl<'a, W: Write> SerializerState<'a, W> {
                                     b.push(value.b);
                                 }
                                 Variant::Color3(value) => {
-                                    r.push((value.r.max(0.0).min(1.0) * 255.0).round() as u8);
-                                    g.push((value.g.max(0.0).min(1.0) * 255.0).round() as u8);
-                                    b.push((value.b.max(0.0).min(1.0) * 255.0).round() as u8);
+                                    let color: Color3uint8 = (*value).into();
+
+                                    r.push(color.r);
+                                    g.push(color.g);
+                                    b.push(color.b);
                                 }
                                 _ => return type_mismatch(i, &rbx_value, "Color3uint8 or Color3"),
                             }
