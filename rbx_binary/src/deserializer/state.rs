@@ -318,7 +318,9 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                 VariantType::Tags => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = Tags::decode(chunk.read_binary_string()?).map_err(|_| {
+                        let buffer = chunk.read_binary_string()?;
+
+                        let value = Tags::decode(buffer.as_ref()).map_err(|_| {
                             InnerError::InvalidPropData {
                                 type_name: type_info.type_name.clone(),
                                 prop_name: prop_name.clone(),

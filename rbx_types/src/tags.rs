@@ -25,12 +25,18 @@ impl Tags {
         &mut self.members
     }
 
-    pub fn decode(buf: Vec<u8>) -> Result<Self, FromUtf8Error> {
+    /// Decodes tags from a buffer containing `\0`-delimited tag names.
+    pub fn decode(buf: &[u8]) -> Result<Self, FromUtf8Error> {
         Ok(buf
             .split(|element| *element == 0)
             .map(|tag_name| String::from_utf8(tag_name.to_vec()))
             .collect::<Result<Vec<String>, _>>()?
             .into())
+    }
+
+    /// Encodes tags into a buffer by joining them with `\0` bytes.
+    pub fn encode(&self) -> Vec<u8> {
+        self.members.join("\0").into_bytes()
     }
 }
 
@@ -60,7 +66,7 @@ mod test {
 
     #[test]
     fn from_binary_string() {
-        let value = b"ez\0pz".to_vec();
+        let value = b"ez\0pz";
 
         assert_eq!(Tags::decode(value).unwrap().as_slice(), &["ez", "pz"])
     }

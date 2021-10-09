@@ -41,7 +41,7 @@ impl ConvertVariant for Variant {
                 Ok(Cow::Owned(Color3uint8::from(*value).into()))
             }
             (Variant::BinaryString(value), VariantType::Tags) => Ok(Cow::Owned(
-                Tags::decode(value.to_owned().into_vec())
+                Tags::decode(value.as_ref())
                     .map_err(|_| "Tags contain invalid UTF-8")?
                     .into(),
             )),
