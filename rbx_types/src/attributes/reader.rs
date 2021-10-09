@@ -23,8 +23,8 @@ pub(crate) fn read_attributes<R: Read>(
         let key = String::from_utf8(key_buf).map_err(AttributeError::KeyBadUnicode)?;
 
         let type_id = read_u8(&mut value).map_err(|_| AttributeError::NoValueType)?;
-        let ty = type_id::to_variant_type(type_id)
-            .ok_or_else(|| AttributeError::InvalidValueType(type_id))?;
+        let ty =
+            type_id::to_variant_type(type_id).ok_or(AttributeError::InvalidValueType(type_id))?;
 
         let value = match ty {
             VariantType::BrickColor => {
@@ -32,7 +32,7 @@ pub(crate) fn read_attributes<R: Read>(
                     read_u32(&mut value).map_err(|_| AttributeError::ReadType("BrickColor"))?;
 
                 BrickColor::from_number(color as u16)
-                    .ok_or_else(|| AttributeError::InvalidBrickColor(color))?
+                    .ok_or(AttributeError::InvalidBrickColor(color))?
                     .into()
             }
 

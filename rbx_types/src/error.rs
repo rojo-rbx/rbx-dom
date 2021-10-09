@@ -9,27 +9,16 @@ pub struct Error {
     source: Box<InnerError>,
 }
 
-impl From<InnerError> for Error {
-    fn from(inner: InnerError) -> Self {
-        Self {
-            source: Box::new(inner),
-        }
-    }
-}
-
 impl From<AttributeError> for Error {
-    fn from(inner: AttributeError) -> Self {
+    fn from(source: AttributeError) -> Self {
         Self {
-            source: Box::new(inner.into()),
+            source: Box::new(source.into()),
         }
     }
 }
 
 #[derive(Debug, Error)]
-pub(crate) enum InnerError {
+enum InnerError {
     #[error(transparent)]
-    AttributeError {
-        #[from]
-        source: AttributeError,
-    },
+    AttributeError(#[from] AttributeError),
 }
