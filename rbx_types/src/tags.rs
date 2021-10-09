@@ -1,5 +1,9 @@
 use std::string::FromUtf8Error;
 
+/// Contains a list of tags that can be applied to an instance.
+///
+/// This object does not ensure that tags are unique; there may be duplicate
+/// values in the list of tags.
 #[derive(Default, Clone, Debug, Eq, PartialEq)]
 #[cfg_attr(
     feature = "serde",
@@ -7,22 +11,29 @@ use std::string::FromUtf8Error;
     serde(transparent)
 )]
 pub struct Tags {
+    // Future improvement: use a single String to hold all tags, delimited by
+    // `\0` like Roblox does for serialization.
     members: Vec<String>,
 }
 
 impl Tags {
+    /// Create a new `Tags` empty container.
     pub fn new() -> Tags {
         Self {
             members: Vec::new(),
         }
     }
 
-    pub fn as_slice(&self) -> &[String] {
-        &self.members
+    /// Add a tag to the list of tags in the container.
+    pub fn push(&mut self, tag: &str) {
+        self.members.push(tag.to_owned());
     }
 
-    pub fn as_mut_slice(&mut self) -> &mut [String] {
-        &mut self.members
+    /// Returns an iterator over all of the tags in the container.
+    pub fn iter(&self) -> TagsIter<'_> {
+        TagsIter {
+            internal: self.members.iter(),
+        }
     }
 
     /// Decodes tags from a buffer containing `\0`-delimited tag names.
@@ -44,6 +55,18 @@ impl Tags {
 impl From<Vec<String>> for Tags {
     fn from(members: Vec<String>) -> Tags {
         Self { members }
+    }
+}
+
+pub struct TagsIter<'a> {
+    internal: std::slice::Iter<'a, String>,
+}
+
+impl<'a> Iterator for TagsIter<'a> {
+    type Item = &'a str;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.internal.next().map(|v| v.as_str())
     }
 }
 
@@ -71,7 +94,7 @@ mod test {
         let value = b"ez\0pz";
         let tags = Tags::decode(value).unwrap();
 
-        assert_eq!(tags.as_slice(), &["ez", "pz"]);
+        assert_eq!(tags.iter().collect::<Vec<_>>(), &["ez", "pz"]);
         assert_eq!(tags.encode(), value);
     }
 
@@ -81,6 +104,6 @@ mod test {
         let expected: &[String] = &[];
         let result = Tags::decode(input).unwrap();
 
-        assert_eq!(result.as_slice(), expected);
+        assert_eq!(result.iter().collect::<Vec<_>>(), expected);
     }
 }
