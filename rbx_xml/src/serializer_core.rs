@@ -136,11 +136,11 @@ fn write_characters_or_cdata<W: Write>(
     if has_outer_whitespace {
         writer
             .write(XmlWriteEvent::cdata(value))
-            .map_err(|e| NewEncodeError::new_from_writer(e.into(), &writer))?;
+            .map_err(|e| NewEncodeError::new_from_writer(e.into(), writer))?;
     } else {
         writer
             .write(XmlWriteEvent::characters(value))
-            .map_err(|e| NewEncodeError::new_from_writer(e.into(), &writer))?;
+            .map_err(|e| NewEncodeError::new_from_writer(e.into(), writer))?;
     }
 
     Ok(())

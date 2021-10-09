@@ -565,7 +565,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
                         for (i, rbx_value) in values {
                             match rbx_value.as_ref() {
                                 Variant::String(value) => {
-                                    chunk.write_string(&value)?;
+                                    chunk.write_string(value)?;
                                 }
                                 Variant::Content(value) => {
                                     chunk.write_string(value.as_ref())?;

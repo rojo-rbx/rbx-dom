@@ -88,6 +88,7 @@ pub enum ValueCategory {
 }
 
 #[derive(Debug, Clone, Copy, Deserialize)]
+#[allow(clippy::enum_variant_names)]
 pub enum Security {
     None,
     LocalUserSecurity,
