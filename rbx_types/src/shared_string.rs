@@ -66,7 +66,7 @@ impl SharedString {
 
     #[inline]
     pub fn data(&self) -> &[u8] {
-        &self.data.as_ref().unwrap()
+        self.data.as_ref().unwrap()
     }
 
     #[inline]
