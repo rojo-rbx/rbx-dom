@@ -54,22 +54,25 @@ mod test {
     #[test]
     #[cfg(feature = "serde")]
     fn serialization() {
-        let serialized = "[\"is\",\"that\",\"your\",\"grandma's\",\"coat?\"]";
-        let tags = vec!["is", "that", "your", "grandma's", "coat?"]
-            .into_iter()
-            .map(String::from)
-            .collect::<Vec<String>>();
-        let value = Tags::from(tags);
+        let serialized = r#"["foo","grandma's","coat?","bar"]"#;
+        let expected = Tags::from(vec![
+            "foo".to_owned(),
+            "grandma's".to_owned(),
+            "coat?".to_owned(),
+            "bar".to_owned(),
+        ]);
 
-        assert_eq!(serialized, serde_json::to_string(&value).unwrap());
-        assert_eq!(value, serde_json::from_str::<Tags>(serialized).unwrap());
+        assert_eq!(serialized, serde_json::to_string(&expected).unwrap());
+        assert_eq!(expected, serde_json::from_str::<Tags>(serialized).unwrap());
     }
 
     #[test]
-    fn from_binary_string() {
+    fn decode_encode() {
         let value = b"ez\0pz";
+        let tags = Tags::decode(value).unwrap();
 
-        assert_eq!(Tags::decode(value).unwrap().as_slice(), &["ez", "pz"])
+        assert_eq!(tags.as_slice(), &["ez", "pz"]);
+        assert_eq!(tags.encode(), value);
     }
 
     #[test]
