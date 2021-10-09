@@ -107,17 +107,19 @@ mod tests {
 
     use super::*;
 
-    // This is taken from rbx-test-files/models/attributes/xml.rbxmx, but with the NaN removed.
-    // This is pasted raw as to not create a circular dependency in test (rbx_types -> rbx_xml/rbx_binary -> rbx_types)
+    // This is taken from rbx-test-files/models/attributes/xml.rbxmx, but with
+    // the NaN and Infinity removed. This is pasted raw as to not create a
+    // circular dependency in test
+    // (rbx_types -> rbx_xml/rbx_binary -> rbx_types)
     const ATTRIBUTES_BASE64: &str = "\
-        DgAAAAYAAABTdHJpbmcCDQAAAEhlbGxvLCB3b3JsZCEHAAAAQm9vbGVhbgMBBgAAAE51bWJl\
-        cgYAAAAAgBzIQAsAAABOdW1iZXJSYW5nZRsAAKBAAAAgQQQAAABVRGltCQAAAD9kAAAABQAA\
-        AFVEaW0yCgAAAD8KAAAAMzMzPx4AAAAEAAAAUmVjdBwAAIA/AAAAQAAAQEAAAIBACgAAAEJy\
-        aWNrQ29sb3IO7AMAAAYAAABDb2xvcjMPo6IiPwAAAAAAAIA/DgAAAE51bWJlclNlcXVlbmNl\
-        FwMAAAAAAAAAAAAAAAAAgD8AAAAAAAAAPwAAAAAAAAAAAACAPwAAgD8HAAAAVmVjdG9yMhAA\
-        ACBBAABIQgcAAABWZWN0b3IzEQAAgD8AAABAAABAQA0AAABDb2xvclNlcXVlbmNlGQMAAAAA\
-        AAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAA/AAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAA\
-        AAAAgD8IAAAASW5maW5pdHkGAAAAAAAA8H8=";
+        DQAAAAcAAABCb29sZWFuAwEKAAAAQnJpY2tDb2xvcg7sAwAABgAAAENvbG9yMw+joiI/AAAA\
+        AAAAgD8NAAAAQ29sb3JTZXF1ZW5jZRkDAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAA\
+        PwAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/BgAAAE51bWJlcgYAAAAAgBzIQAsA\
+        AABOdW1iZXJSYW5nZRsAAKBAAAAgQQ4AAABOdW1iZXJTZXF1ZW5jZRcDAAAAAAAAAAAAAAAA\
+        AIA/AAAAAAAAAD8AAAAAAAAAAAAAgD8AAIA/BAAAAFJlY3QcAACAPwAAAEAAAEBAAACAQAYA\
+        AABTdHJpbmcCDQAAAEhlbGxvLCB3b3JsZCEEAAAAVURpbQkAAAA/ZAAAAAUAAABVRGltMgoA\
+        AAA/CgAAADMzMz8eAAAABwAAAFZlY3RvcjIQAAAgQQAASEIHAAAAVmVjdG9yMxEAAIA/AAAA\
+        QAAAQEA=";
 
     #[test]
     #[cfg(feature = "serde")]
