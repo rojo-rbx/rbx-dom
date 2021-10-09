@@ -128,7 +128,7 @@ mod tests {
         let attributes = Attributes::from_reader(&attributes_value[..])
             .expect("couldn't deserialize attributes");
 
-        let attributes_stable_order = BTreeMap::from_iter(attributes.clone().into_iter());
+        let attributes_stable_order: BTreeMap<_, _> = attributes.clone().into_iter().collect();
         insta::assert_yaml_snapshot!(attributes_stable_order);
 
         let mut new_attribute_bytes = Vec::<u8>::new();
@@ -139,7 +139,7 @@ mod tests {
         let new_attributes = Attributes::from_reader(new_attribute_bytes.as_slice())
             .expect("couldn't deserialize crate produced binary");
 
-        let new_attributes_stable_order = BTreeMap::from_iter(new_attributes.into_iter());
+        let new_attributes_stable_order: BTreeMap<_, _> = new_attributes.into_iter().collect();
 
         assert_eq!(attributes_stable_order, new_attributes_stable_order);
     }
