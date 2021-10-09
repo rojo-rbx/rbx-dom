@@ -5,8 +5,8 @@ use std::collections::BTreeMap;
 use rbx_dom_weak::types::{
     Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
     ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Matrix3, NumberRange,
-    NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Region3int16, UDim,
-    UDim2, Variant, VariantType, Vector2, Vector2int16, Vector3, Vector3int16,
+    NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Region3int16, Tags,
+    UDim, UDim2, Variant, VariantType, Vector2, Vector2int16, Vector3, Vector3int16,
 };
 use serde::Serialize;
 
@@ -67,6 +67,15 @@ pub fn encode() -> anyhow::Result<String> {
                 NumberSequenceKeypoint::new(1.0, 22.0, 0.0),
             ],
         }
+        .into(),
+    );
+    values.insert(
+        "Tags",
+        Tags::from(vec![
+            "foo".to_owned(),
+            "con'fusion?!".to_owned(),
+            "bar".to_owned(),
+        ])
         .into(),
     );
     values.insert(
