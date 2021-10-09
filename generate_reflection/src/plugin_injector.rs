@@ -54,7 +54,7 @@ impl<'a> PluginInjector<'a> {
 impl<'a> Drop for PluginInjector<'a> {
     fn drop(&mut self) {
         log::info!("Uninstalling Studio Plugin");
-        remove_plugin(&self.roblox_studio);
+        remove_plugin(self.roblox_studio);
     }
 }
 
