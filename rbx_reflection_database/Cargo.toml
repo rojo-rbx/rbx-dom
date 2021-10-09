@@ -16,5 +16,5 @@ edition = "2018"
 rbx_reflection = { version = "4.1.0", path = "../rbx_reflection" }
 
 lazy_static = "1.4.0"
-serde = "1.0.104"
-rmp-serde = "0.14.2"
+serde = "1.0.130"
+rmp-serde = "0.14.4"

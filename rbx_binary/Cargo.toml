@@ -18,17 +18,17 @@ rbx_dom_weak = { version = "2.2.0", path = "../rbx_dom_weak" }
 rbx_reflection = { version = "4.1.0", path = "../rbx_reflection" }
 rbx_reflection_database = { version = "0.2.1", path = "../rbx_reflection_database" }
 
-log = "0.4.6"
-lz4 = "1.23.1"
-thiserror = "1.0.16"
-serde = { version = "1.0.103", features = ["derive"], optional = true }
+log = "0.4.14"
+lz4 = "1.23.2"
+thiserror = "1.0.30"
+serde = { version = "1.0.130", features = ["derive"], optional = true }
 
 [dev-dependencies]
-criterion = "0.3"
+criterion = "0.3.5"
 env_logger = "0.7.1"
-heck = "0.3.1"
-insta = "0.16.0"
-serde = { version = "1.0.103", features = ["derive"] }
+heck = "0.3.3"
+insta = "0.16.1"
+serde = { version = "1.0.130", features = ["derive"] }
 
 [[bench]]
 name = "deserializer"

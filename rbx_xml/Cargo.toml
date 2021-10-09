@@ -16,9 +16,9 @@ rbx_reflection = { version = "4.1.0", path = "../rbx_reflection" }
 rbx_reflection_database = { version = "0.2.1", path = "../rbx_reflection_database" }
 
 base64 = "0.11.0"
-log = "0.4.6"
-xml-rs = "0.8.0"
+log = "0.4.14"
+xml-rs = "0.8.4"
 
 [dev-dependencies]
 env_logger = "0.7.1"
-insta = "0.16.0"
+insta = "0.16.1"
