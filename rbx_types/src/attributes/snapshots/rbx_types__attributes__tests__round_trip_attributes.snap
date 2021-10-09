@@ -30,8 +30,6 @@ ColorSequence:
           - 0.0
           - 0.0
           - 1.0
-"Infinity":
-  Float64: .inf
 Number:
   Float64: 12345.0
 NumberRange:
