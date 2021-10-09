@@ -24,8 +24,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
   children: []
 - referent: referent-1
   name: Region 2
@@ -48,7 +47,6 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
   children: []
 

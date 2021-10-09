@@ -10,7 +10,6 @@ expression: decoded_viewed
     AttributesSerialize:
       BinaryString: ""
     Tags:
-      Tags:
-        - ""
+      Tags: []
   children: []
 

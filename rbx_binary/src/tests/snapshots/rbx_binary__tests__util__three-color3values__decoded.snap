@@ -10,8 +10,7 @@ expression: decoded_viewed
     AttributesSerialize:
       BinaryString: ""
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       Color3:
         - 0.0
@@ -25,8 +24,7 @@ expression: decoded_viewed
     AttributesSerialize:
       BinaryString: ""
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       Color3:
         - 1.0
@@ -40,8 +38,7 @@ expression: decoded_viewed
     AttributesSerialize:
       BinaryString: ""
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       Color3:
         - 2.007843255996704

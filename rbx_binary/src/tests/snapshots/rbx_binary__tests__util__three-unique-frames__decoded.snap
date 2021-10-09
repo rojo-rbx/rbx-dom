@@ -66,8 +66,7 @@ expression: decoded_viewed
     Style:
       Enum: 0
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Visible:
       Bool: true
     ZIndex:
@@ -136,8 +135,7 @@ expression: decoded_viewed
     Style:
       Enum: 0
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Visible:
       Bool: true
     ZIndex:
@@ -206,8 +204,7 @@ expression: decoded_viewed
     Style:
       Enum: 0
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Visible:
       Bool: true
     ZIndex:

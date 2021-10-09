@@ -24,8 +24,7 @@ expression: viewer.view_children(&dom)
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     TwistLimitsEnabled:
       Bool: false
     TwistLowerAngle:

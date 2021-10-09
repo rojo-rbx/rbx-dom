@@ -10,8 +10,7 @@ expression: decoded_viewed
     AttributesSerialize:
       BinaryString: ""
     Tags:
-      Tags:
-        - ""
+      Tags: []
   children:
     - referent: referent-1
       name: Parent
@@ -20,8 +19,7 @@ expression: decoded_viewed
         AttributesSerialize:
           BinaryString: ""
         Tags:
-          Tags:
-            - ""
+          Tags: []
       children:
         - referent: referent-2
           name: Child
@@ -30,7 +28,6 @@ expression: decoded_viewed
             AttributesSerialize:
               BinaryString: ""
             Tags:
-              Tags:
-                - ""
+              Tags: []
           children: []
 

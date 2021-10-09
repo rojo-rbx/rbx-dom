@@ -12,8 +12,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -40,8 +39,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -68,8 +66,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -96,8 +93,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -124,8 +120,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -152,8 +147,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -180,8 +174,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -208,8 +201,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -236,8 +228,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -264,8 +255,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -292,8 +282,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -320,8 +309,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -348,8 +336,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -376,8 +363,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -404,8 +390,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -432,8 +417,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -460,8 +444,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -488,8 +471,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -516,8 +498,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -544,8 +525,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -572,8 +552,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -600,8 +579,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -628,8 +606,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
@@ -656,8 +633,7 @@ expression: decoded_viewed
     SourceAssetId:
       Int64: -1
     Tags:
-      Tags:
-        - ""
+      Tags: []
     Value:
       CFrame:
         position:
