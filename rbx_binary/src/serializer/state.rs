@@ -574,8 +574,8 @@ impl<'a, W: Write> SerializerState<'a, W> {
                                     chunk.write_binary_string(value.as_ref())?;
                                 }
                                 Variant::Tags(value) => {
-                                    let buf = value.as_slice().join("\u{0000}").into_bytes();
-                                    chunk.write_binary_string(buf.as_ref())?;
+                                    let buf = value.encode();
+                                    chunk.write_binary_string(&buf)?;
                                 }
                                 _ => {
                                     return type_mismatch(

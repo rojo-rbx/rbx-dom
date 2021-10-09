@@ -14,10 +14,10 @@ pub fn write_tags<W: Write>(
     property_name: &str,
     value: &Tags,
 ) -> Result<(), EncodeError> {
+    let encoded = value.encode();
+
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
-    writer.write_string(&base64::encode(
-        value.as_slice().join("\u{0000}").as_bytes(),
-    ))?;
+    writer.write_string(&base64::encode(&encoded))?;
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
