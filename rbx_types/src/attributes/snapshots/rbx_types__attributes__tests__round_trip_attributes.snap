@@ -1,0 +1,78 @@
+---
+source: rbx_types/src/attributes/mod.rs
+expression: attributes_stable_order
+
+---
+Boolean:
+  Bool: true
+BrickColor:
+  BrickColor: 1004
+Color3:
+  Color3:
+    - 0.63529414
+    - 0.0
+    - 1.0
+ColorSequence:
+  ColorSequence:
+    keypoints:
+      - time: 0.0
+        color:
+          - 1.0
+          - 0.0
+          - 0.0
+      - time: 0.5
+        color:
+          - 0.0
+          - 1.0
+          - 0.0
+      - time: 1.0
+        color:
+          - 0.0
+          - 0.0
+          - 1.0
+Number:
+  Float64: 12345.0
+NumberRange:
+  NumberRange:
+    - 5.0
+    - 10.0
+NumberSequence:
+  NumberSequence:
+    keypoints:
+      - time: 0.0
+        value: 1.0
+        envelope: 0.0
+      - time: 0.5
+        value: 0.0
+        envelope: 0.0
+      - time: 1.0
+        value: 1.0
+        envelope: 0.0
+Rect:
+  Rect:
+    - - 1.0
+      - 2.0
+    - - 3.0
+      - 4.0
+String:
+  BinaryString: SGVsbG8sIHdvcmxkIQ==
+UDim:
+  UDim:
+    - 0.5
+    - 100
+UDim2:
+  UDim2:
+    - - 0.5
+      - 10
+    - - 0.7
+      - 30
+Vector2:
+  Vector2:
+    - 10.0
+    - 50.0
+Vector3:
+  Vector3:
+    - 1.0
+    - 2.0
+    - 3.0
+
