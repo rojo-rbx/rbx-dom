@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 
+## 2.3.0 (2021-10-11)
+* Updated to rbx_types 1.3.
+
 ## 2.2.0 (2021-07-19)
 * Updated to rbx_types 1.2.
 
