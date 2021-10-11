@@ -1,6 +1,6 @@
 use std::{
     borrow::Borrow,
-    collections::HashMap,
+    collections::BTreeMap,
     io::{self, Write},
 };
 
@@ -13,7 +13,7 @@ use crate::{
 
 /// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
 pub(crate) fn write_attributes<W: Write>(
-    map: &HashMap<String, Variant>,
+    map: &BTreeMap<String, Variant>,
     mut writer: W,
 ) -> Result<(), AttributeError> {
     writer.write_all(&(map.len() as u32).to_le_bytes())?;

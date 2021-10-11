@@ -9,7 +9,7 @@ mod writer;
 
 use std::{
     borrow::Borrow,
-    collections::HashMap,
+    collections::{btree_map, BTreeMap},
     hash::Hash,
     io::{Read, Write},
     iter::FromIterator,
@@ -29,7 +29,7 @@ pub(crate) use self::error::AttributeError;
     serde(transparent)
 )]
 pub struct Attributes {
-    data: HashMap<String, Variant>,
+    data: BTreeMap<String, Variant>,
 }
 
 impl Attributes {
@@ -95,7 +95,7 @@ impl FromIterator<(String, Variant)> for Attributes {
 /// An owning iterator over the entries of an `Attributes`.
 /// This is created by [`Attributes::into_iter`].
 pub struct AttributesIntoIter {
-    iter: std::collections::hash_map::IntoIter<String, Variant>,
+    iter: btree_map::IntoIter<String, Variant>,
 }
 
 impl Iterator for AttributesIntoIter {
@@ -108,8 +108,6 @@ impl Iterator for AttributesIntoIter {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::BTreeMap;
-
     use super::*;
 
     // This is taken from rbx-test-files/models/attributes/xml.rbxmx, but with
@@ -135,8 +133,7 @@ mod tests {
         let attributes = Attributes::from_reader(&attributes_value[..])
             .expect("couldn't deserialize attributes");
 
-        let attributes_stable_order: BTreeMap<_, _> = attributes.clone().into_iter().collect();
-        insta::assert_yaml_snapshot!(attributes_stable_order);
+        insta::assert_yaml_snapshot!(attributes);
 
         let mut new_attribute_bytes = Vec::<u8>::new();
         attributes
@@ -146,9 +143,7 @@ mod tests {
         let new_attributes = Attributes::from_reader(new_attribute_bytes.as_slice())
             .expect("couldn't deserialize crate produced binary");
 
-        let new_attributes_stable_order: BTreeMap<_, _> = new_attributes.into_iter().collect();
-
-        assert_eq!(attributes_stable_order, new_attributes_stable_order);
+        assert_eq!(attributes, new_attributes);
     }
 
     #[test]
