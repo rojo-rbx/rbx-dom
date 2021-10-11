@@ -1,6 +1,8 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+
+## 1.3.0 (2021-10-11)
 * Implemented `Tags`. ([#199])
 * Implemented `Attributes`. ([#166])
 
