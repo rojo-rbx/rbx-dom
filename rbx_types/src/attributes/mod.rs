@@ -23,6 +23,11 @@ use self::writer::write_attributes;
 pub(crate) use self::error::AttributeError;
 
 #[derive(Debug, Default, Clone, PartialEq)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(transparent)
+)]
 pub struct Attributes {
     data: HashMap<String, Variant>,
 }
