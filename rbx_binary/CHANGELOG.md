@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.6.4 (2021-10-11)
 * Fixed writing models where some instances have `Tags` properties and others do not.
 
 ## 0.6.3 (2021-10-11)
