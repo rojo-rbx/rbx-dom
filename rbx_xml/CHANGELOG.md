@@ -1,7 +1,9 @@
 # rbx_xml Changelog
 
 ## Unreleased
-* Added support for reading `BinaryString` as `Tags` and writing `Tags` as `BinaryString`. ([#199])
+
+## 0.12.3 (2021-10-11)
+* Added support for `Tags` values. ([#199])
 
 [#199]: https://github.com/rojo-rbx/rbx-dom/pull/199
 
