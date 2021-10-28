@@ -7,7 +7,7 @@ Add:
         Type: Serializes
       DataType:
         Value: String
-      Scriptability: Custom
+      Scriptability: None
     ExplicitAutoJoints:
       Serialization:
         Type: Serializes
