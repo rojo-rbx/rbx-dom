@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 
+## 0.2.2+roblox-503
+* Updated to Roblox version 503.
+
 ## 0.2.2+roblox-498
 * Updated to rbx_reflection 4.2.0
 * Updated to Roblox version 498.
