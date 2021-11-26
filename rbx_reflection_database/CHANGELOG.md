@@ -2,7 +2,11 @@
 
 ## Unreleased Changes
 
-## 0.2.2+roblox-503
+## 0.2.4+roblox-504
+* Updated to Roblox version 504.
+* Fixed `WeldConstraint` `Part0` and `Part1` aliases being incomplete. `Part0` and `Part1` properties should now serialize correctly.
+
+## 0.2.3+roblox-503
 * Updated to Roblox version 503.
 
 ## 0.2.2+roblox-498
