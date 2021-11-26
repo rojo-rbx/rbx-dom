@@ -56,4 +56,5 @@ binary_tests! {
     two_particleemitters,
     two_ray_values,
     two_terrainregions,
+    weldconstraint,
 }
