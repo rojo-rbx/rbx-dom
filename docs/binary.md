@@ -48,6 +48,7 @@ This document is based on:
 	- [Color3uint8](#color3uint8)
 	- [Int64](#int64)
 	- [SharedString](#sharedstring)
+	- [ProtectedString](#protectedstring)
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
@@ -611,6 +612,11 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 **Type ID `0x1c`**
 
 `SharedString` values are stored as an [Interleaved Array](#byte-interleaving) of `u32` values that represent indices in the [`SSTR`](#sstr-chunk) string array.
+
+### ProtectedString
+**Type ID `0x1d`**
+
+`ProtectedString` values are stored identically to [Strings](#string) with the difference that they are read as binary data.
 
 ### OptionalCoordinateFrame
 **Type ID `0x1e`**
