@@ -3,4 +3,4 @@
 	url = https://github.com/Roblox/testez.git
 [submodule "rbx-test-files"]
 	path = test-files
-	url = https://github.com/FilamentGames/rbx-test-files.git
+	url = https://github.com/rojo-rbx/rbx-test-files.git
