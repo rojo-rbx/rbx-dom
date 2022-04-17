@@ -23,38 +23,126 @@ pub(crate) fn to_basic_rotation_id(matrix3: Matrix3) -> Option<u8> {
     }
 }
 
-pub fn cross(a: Vector3, b: Vector3) -> Vector3 {
-    return Vector3::new(
-        a.y * b.z - b.y * a.z, 
-        a.z * b.x - b.z * a.x,
-        a.x * b.y - b.x * a.y,
-    );
-}
-pub fn from_normal_id(id: u8) -> Option<Vector3> {
-    if id > 5 {
-        return None;
+pub(crate) fn from_basic_rotation_id(id: u8) -> Option<Matrix3> {
+    match id {
+        0x02 => Some(Matrix3::identity()),
+        0x03 => Some(Matrix3::new(
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(0.0, 1.0, 0.0),
+        )),
+        0x05 => Some(Matrix3::new(
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+        )),
+        0x06 => Some(Matrix3::new(
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(0.0, -1.0, 0.0),
+        )),
+        0x07 => Some(Matrix3::new(
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+        )),
+        0x09 => Some(Matrix3::new(
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 1.0, 0.0),
+        )),
+        0x0a => Some(Matrix3::new(
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+        )),
+        0x0c => Some(Matrix3::new(
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(1.0, 0.0, 0.0),
+            Vector3::new(0.0, -1.0, 0.0),
+        )),
+        0x0d => Some(Matrix3::new(
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(1.0, 0.0, 0.0),
+        )),
+        0x0e => Some(Matrix3::new(
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(1.0, 0.0, 0.0),
+        )),
+        0x10 => Some(Matrix3::new(
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(1.0, 0.0, 0.0),
+        )),
+        0x11 => Some(Matrix3::new(
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(1.0, 0.0, 0.0),
+        )),
+        0x14 => Some(Matrix3::new(
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+        )),
+        0x15 => Some(Matrix3::new(
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(0.0, 1.0, 0.0),
+        )),
+        0x17 => Some(Matrix3::new(
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+        )),
+        0x18 => Some(Matrix3::new(
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(0.0, -1.0, 0.0),
+        )),
+        0x19 => Some(Matrix3::new(
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+        )),
+        0x1b => Some(Matrix3::new(
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 1.0, 0.0),
+        )),
+        0x1c => Some(Matrix3::new(
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+        )),
+        0x1e => Some(Matrix3::new(
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+            Vector3::new(0.0, -1.0, 0.0),
+        )),
+        0x1f => Some(Matrix3::new(
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+        )),
+        0x20 => Some(Matrix3::new(
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(0.0, 1.0, 0.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+        )),
+        0x22 => Some(Matrix3::new(
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(0.0, 0.0, 1.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+        )),
+        0x23 => Some(Matrix3::new(
+            Vector3::new(0.0, 0.0, -1.0),
+            Vector3::new(0.0, -1.0, 0.0),
+            Vector3::new(-1.0, 0.0, 0.0),
+        )),
+        _ => None,
     }
-
-    return Some(Vector3::new(
-        match id { 0 => 1.0, 3 => -1.0, _ => 0.0 },
-        match id { 1 => 1.0, 4 => -1.0, _ => 0.0 },
-        match id { 2 => 1.0, 5 => -1.0, _ => 0.0 },
-    ))
-}
-
-pub(crate) fn from_basic_rotation_id(raw_id: u8) -> Option<Matrix3> {
-    let id = raw_id - 1;
-    
-    // Check if value is in-range and legal.
-    if id >= 36 || id % 3 == (id / 6) % 3 {
-        return None 
-    }
-    
-    let x_col = from_normal_id(id / 6).unwrap();
-    let y_col = from_normal_id(id % 6).unwrap();
-    let z_col = cross(x_col, y_col);
-    
-    return Some(Matrix3::new(x_col, y_col, z_col));
 }
 
 #[cfg(test)]
