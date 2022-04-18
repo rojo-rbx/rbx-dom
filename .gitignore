@@ -1,10 +1,7 @@
 # Cargo stuff
-/target
+**/target
 **/*.rs.bk
 Cargo.lock
-
-# Criterion puts benchmark files into a target folder in each individual crate.
-/rbx_binary/target
 
 # It's useful to keep an API dump around for debugging reflection generation
 /api-dump.json
