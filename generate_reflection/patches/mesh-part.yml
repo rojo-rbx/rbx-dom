@@ -1,0 +1,8 @@
+Add:
+  MeshPart:
+    # 'Contents' is the name of the field in the Roblox file formats, so it
+    # makes sense to use it as the canonical name of this property.
+    MeshId:
+      DataType:
+        Value: Content
+      Scriptability: Read
