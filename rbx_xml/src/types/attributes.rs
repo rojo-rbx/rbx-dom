@@ -13,17 +13,21 @@ pub fn write_attributes<W: Write>(
     property_name: &str,
     value: &Attributes,
 ) -> Result<(), EncodeError> {
-    let mut encoded = Vec::new();
-    let written = value.to_writer(&mut encoded);
+    let mut buffer = Vec::new();
+    let encode = value.to_writer(&mut buffer);
 
-    if written.is_err() {
-        let err = written.unwrap_err();
+    if encode.is_err() {
+        let err = encode.unwrap_err();
         return Err(writer.error(EncodeErrorKind::TypeError(err)));
     }
 
+    let value = base64::encode(&buffer);
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
-    writer.write(XmlWriteEvent::cdata(&base64::encode(&encoded)))?;
-    writer.write(XmlWriteEvent::end_element())?;
 
+    if !value.is_empty() {
+        writer.write(XmlWriteEvent::cdata(&value))?;
+    }
+    
+    writer.write(XmlWriteEvent::end_element())?;
     Ok(())
 }
