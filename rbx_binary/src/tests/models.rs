@@ -57,4 +57,5 @@ binary_tests! {
     two_ray_values,
     two_terrainregions,
     weldconstraint,
+    package_link,
 }
