@@ -9,9 +9,9 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Enum, Faces, Matrix3, NumberRange, NumberSequence,
+        ColorSequenceKeypoint, Content, Enum, Faces, Matrix3, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim,
-        UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16, Content,
+        UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     WeakDom,
 };

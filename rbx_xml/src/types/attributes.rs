@@ -1,9 +1,9 @@
-use std::io::Write;
 use rbx_dom_weak::types::Attributes;
+use std::io::Write;
 
 use crate::{
-    serializer_core::{XmlEventWriter, XmlWriteEvent},
     error::{EncodeError, EncodeErrorKind},
+    serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
 pub const XML_TAG_NAME: &str = "BinaryString";
@@ -14,7 +14,7 @@ pub fn write_attributes<W: Write>(
     value: &Attributes,
 ) -> Result<(), EncodeError> {
     let mut buffer = Vec::new();
-    
+
     if let Err(write_error) = value.to_writer(&mut buffer) {
         return Err(writer.error(EncodeErrorKind::TypeError(write_error)));
     }
