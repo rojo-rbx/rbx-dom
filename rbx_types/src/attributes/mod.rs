@@ -61,6 +61,13 @@ impl Attributes {
         self.data.insert(key, value)
     }
 
+    /// Inserts an attribute with the given key and value.
+    /// Will overwrite the attribute that used to be there if one existed. 
+    pub fn with<K: Into<String>, V: Into<Variant>>(mut self, key: K, value: V) -> Self {
+        self.data.insert(key.into(), value.into());
+        self
+    }
+
     /// Removes an attribute with the given key.
     /// Will return the value that was there if one existed.
     pub fn remove<K: Hash + Eq + Borrow<str>>(&mut self, key: K) -> Option<Variant> {

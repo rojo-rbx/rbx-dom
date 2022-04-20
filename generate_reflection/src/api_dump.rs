@@ -297,7 +297,7 @@ fn variant_type_from_str(value: &str) -> Option<VariantType> {
         "TweenInfo" => return None,
 
         // These types are not generally implemented right now.
-        "QDir" | "QFont" => return None,
+        "QDir" | "QFont" | "DateTime" | "Font" => return None,
 
         _ => panic!("Unknown type {}", value),
     })

@@ -1,9 +1,9 @@
 //! Serializes every kind of value into a file for debugging rbx_dom_lua.
 
-use std::collections::BTreeMap;
+use std::{collections::BTreeMap};
 
 use rbx_dom_weak::types::{
-    Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+    Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
     ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Matrix3, NumberRange,
     NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Region3int16, Tags,
     UDim, UDim2, Variant, VariantType, Vector2, Vector2int16, Vector3, Vector3int16,
@@ -20,6 +20,25 @@ struct TestEntry {
 pub fn encode() -> anyhow::Result<String> {
     let mut values: BTreeMap<&str, Variant> = BTreeMap::new();
 
+    values.insert("Attributes", Attributes::new()
+        .with("TestBool", true)
+        .with("TestString", "Test")
+        .with("TestNumber", Variant::Float32(1337.9001))
+        .with("TestBrickColor", BrickColor::BrightYellow)
+        .with("TestColor3", Color3::new(0.1, 0.2, 0.3))
+        .with("TestVector2", Vector2::new(1.0, 2.0))
+        .with("TestVector3", Vector3::new(1.0, 2.0, 3.0))
+        .with("TestRect", Rect::new(
+            Vector2::new(1.0, 2.0), 
+            Vector2::new(3.0, 4.0)
+        ))
+        .with("TestUDim", UDim::new(1.0, 2))
+        .with("TestUDim2", UDim2::new(
+            UDim::new(1.0, 2),
+            UDim::new(3.0, 4)
+        ))
+        .into()
+    );
     values.insert("Axes", Axes::all().into());
     values.insert(
         "BinaryString",
