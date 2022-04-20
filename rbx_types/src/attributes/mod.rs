@@ -62,7 +62,7 @@ impl Attributes {
     }
 
     /// Inserts an attribute with the given key and value.
-    /// Will overwrite the attribute that used to be there if one existed. 
+    /// Will overwrite the attribute that used to be there if one existed.
     pub fn with<K: Into<String>, V: Into<Variant>>(mut self, key: K, value: V) -> Self {
         self.data.insert(key.into(), value.into());
         self
