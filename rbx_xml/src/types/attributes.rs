@@ -14,11 +14,9 @@ pub fn write_attributes<W: Write>(
     value: &Attributes,
 ) -> Result<(), EncodeError> {
     let mut buffer = Vec::new();
-    let encode = value.to_writer(&mut buffer);
-
-    if encode.is_err() {
-        let err = encode.unwrap_err();
-        return Err(writer.error(EncodeErrorKind::TypeError(err)));
+    
+    if let Err(write_error) = value.to_writer(&mut buffer) {
+        return Err(writer.error(EncodeErrorKind::TypeError(write_error)));
     }
 
     let value = base64::encode(&buffer);
