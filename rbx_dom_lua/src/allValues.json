@@ -1,4 +1,24 @@
 {
+  "Attributes": {
+    "value": {
+      "Attributes": {
+        "TestBool": {
+          "Bool": true
+        },
+        "TestString": {
+          "String": "Test"
+        },
+        "TestVector3": {
+          "Vector3": [
+            1.0,
+            2.0,
+            3.0
+          ]
+        }
+      }
+    },
+    "ty": "Attributes"
+  },
   "Axes": {
     "value": {
       "Axes": [

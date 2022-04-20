@@ -7,6 +7,7 @@
 //! 2. Add a 'mod' statement immediately below this comment
 //! 3. Add the type(s) to the declare_rbx_types! macro invocation
 
+mod attributes;
 mod axes;
 mod binary_string;
 mod bool;
@@ -48,6 +49,7 @@ use crate::{
 };
 
 use self::{
+    attributes::write_attributes,
     referent::{read_ref, write_ref},
     shared_string::{read_shared_string, write_shared_string},
     tags::write_tags,
@@ -99,6 +101,7 @@ macro_rules! declare_rbx_types {
         ) -> Result<(), EncodeError> {
             match value {
                 $(Variant::$variant_name(value) => value.write_outer_xml(xml_property_name, writer),)*
+                Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
 
                 // BrickColor values just encode as 32-bit ints, and have no
                 // unique appearance for reading.
