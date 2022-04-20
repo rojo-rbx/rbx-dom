@@ -1,7 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: Value
@@ -28,7 +27,7 @@ expression: decoded_viewed
     Value:
       Color3:
         - 1.0
-        - 0.70588237
+        - 0.7058824
         - 0.078431375
   children: []
 - referent: referent-2
