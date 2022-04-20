@@ -37,7 +37,7 @@ return {
 				return true, instance:GetAttributes()
 			end,
 
-			write = function (instance, attributes)
+			write = function (instance, _, attributes)
 				local existingAttributes = instance:GetAttributes()
 				local unseenAttributes = {}
 
