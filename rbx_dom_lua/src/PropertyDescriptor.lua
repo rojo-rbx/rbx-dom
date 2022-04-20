@@ -69,7 +69,7 @@ end
 
 function PropertyDescriptor:write(instance, value)
 	if self.scriptability == "ReadWrite" or self.scriptability == "Write" then
-		local success, err = xpcall(set, debug.traceback, instance, self.name, value)
+		local success, err = xpcall(set, debug.traceback, instance, value)
 
 		if success then
 			return success
@@ -81,7 +81,7 @@ function PropertyDescriptor:write(instance, value)
 	if self.scriptability == "Custom" then
 		local interface = customProperties[self.className][self.name]
 
-		return interface.write(instance, self.name, value)
+		return interface.write(instance, value)
 	end
 
 	if self.scriptability == "None" or self.scriptability == "Read" then
