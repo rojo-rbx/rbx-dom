@@ -28,8 +28,6 @@ local function serializeFloat(value)
 	else
 		return tostring(value)
 	end
-
-	return value
 end
 
 function EncodedValue.decode(encodedValue: any): (boolean, any)
