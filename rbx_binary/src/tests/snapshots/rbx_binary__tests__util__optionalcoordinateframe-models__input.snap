@@ -1,7 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 27
 expression: text_decoded
-
 ---
 num_types: 1
 num_instances: 3
@@ -208,7 +208,7 @@ chunks:
           orientation:
             - - 0.06294725
               - 0.403198
-              - 0.91294527
+              - 0.9129453
             - - 0.75241846
               - -0.6201453
               - 0.22200526
