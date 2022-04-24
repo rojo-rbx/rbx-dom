@@ -296,6 +296,14 @@ fn variant_type_from_str(value: &str) -> Option<VariantType> {
         // TweenInfo is not supported by rbx_types yet
         "TweenInfo" => return None,
 
+        // Font is not supported by rbx_types yet
+        "Font" => return None,
+
+        // While DateTime is possible to Serialize, the only use it has as a
+        // DataType is for the TextChatMessage class, which cannot be serialized
+        // (at least not saved to file as it is locked to nil parent)
+        "DateTime" => return None,
+
         // These types are not generally implemented right now.
         "QDir" | "QFont" => return None,
 
