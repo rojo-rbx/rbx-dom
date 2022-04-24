@@ -1,6 +1,7 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Added `Attributes::with` for creating attributes in code more easily.
 
 ## 1.3.0 (2021-10-11)
 * Implemented `Tags`. ([#199])
