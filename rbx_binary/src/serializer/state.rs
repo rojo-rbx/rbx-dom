@@ -9,9 +9,9 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Enum, Faces, Matrix3, NumberRange, NumberSequence,
+        ColorSequenceKeypoint, Content, Enum, Faces, Matrix3, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim,
-        UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16, Content,
+        UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     WeakDom,
 };
@@ -166,12 +166,11 @@ impl TypeInfos {
 
             let class_descriptor = rbx_reflection_database::get().classes.get(class);
 
-            let is_service;
-            if let Some(descriptor) = &class_descriptor {
-                is_service = descriptor.tags.contains(&ClassTag::Service);
+            let is_service = if let Some(descriptor) = &class_descriptor {
+                descriptor.tags.contains(&ClassTag::Service)
             } else {
                 log::info!("The class {} is not known to rbx_binary", class);
-                is_service = false;
+                false
             };
 
             let mut properties = BTreeMap::new();
