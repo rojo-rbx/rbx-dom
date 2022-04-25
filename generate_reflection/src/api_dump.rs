@@ -305,7 +305,7 @@ fn variant_type_from_str(value: &str) -> Option<VariantType> {
         "DateTime" => return None,
 
         // These types are not generally implemented right now.
-        "QDir" | "QFont" | "DateTime" | "Font" => return None,
+        "QDir" | "QFont" => return None,
 
         _ => panic!("Unknown type {}", value),
     })
