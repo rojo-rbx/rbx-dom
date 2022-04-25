@@ -11,13 +11,11 @@ local function unpackDecoder(f)
 end
 
 local function serializeFloat(value)
-	-- TODO: Figure out a better way to serialize infinity and NaN, neither of
-	-- which fit into JSON.
-	if value == math.huge or value == -math.huge then
-		return 999999999 * math.sign(value)
+	if value == value and math.abs(value) ~= 1/0 then
+		return value
+	else
+		return tostring(value)
 	end
-
-	return value
 end
 
 local ALL_AXES = {"X", "Y", "Z"}
@@ -192,12 +190,12 @@ types = {
 	},
 
 	Float32 = {
-		fromPod = identity,
+		fromPod = tonumber,
 		toPod = serializeFloat,
 	},
 
 	Float64 = {
-		fromPod = identity,
+		fromPod = tonumber,
 		toPod = serializeFloat,
 	},
 
