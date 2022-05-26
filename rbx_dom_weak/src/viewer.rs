@@ -81,7 +81,7 @@ impl DomViewer {
             .properties
             .iter()
             .map(|(key, value)| {
-                let key = key.clone();
+                let key = key.to_string();
                 let new_value = match value {
                     Variant::Ref(referent) => {
                         if referent.is_some() {
@@ -117,8 +117,8 @@ impl DomViewer {
 
         ViewedInstance {
             referent: self.referent_to_id.get(&referent).unwrap().clone(),
-            name: instance.name.clone(),
-            class: instance.class.clone(),
+            name: instance.name.to_string(),
+            class: instance.class.to_string(),
             properties,
             children,
         }

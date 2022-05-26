@@ -46,6 +46,7 @@ mod instance;
 mod viewer;
 
 pub use rbx_types as types;
+pub use smol_str::SmolStr as SmallString;
 
 pub use crate::{
     dom::WeakDom,
