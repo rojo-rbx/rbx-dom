@@ -237,7 +237,6 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
         to_visit.extend(referents);
 
         while let Some(referent) = to_visit.pop_front() {
-            // TODO: Turn into error
             let instance = self
                 .dom
                 .get_by_ref(referent)
