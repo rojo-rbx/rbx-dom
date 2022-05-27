@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{BTreeMap, BTreeSet, HashMap, VecDeque},
+    collections::{BTreeMap, BTreeSet, HashMap, HashSet, VecDeque},
     convert::TryInto,
     io::Write,
     u32,
@@ -88,6 +88,11 @@ struct TypeInfo {
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
     class_descriptor: Option<&'static ClassDescriptor<'static>>,
+
+    /// A set containing the properties that we have seen so far in the file and
+    /// processed. This helps us avoid traversing the reflection database
+    /// multiple times if there are many copies of the same kind of instance.
+    properties_visited: HashSet<(Cow<'static, str>, VariantType)>,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -200,6 +205,7 @@ impl TypeInfos {
                     object_refs: Vec::new(),
                     properties,
                     class_descriptor,
+                    properties_visited: HashSet::new(),
                 },
             );
         }
@@ -260,6 +266,20 @@ impl<'a, W: Write> SerializerState<'a, W> {
         type_info.object_refs.push(referent);
 
         for (prop_name, prop_value) in &instance.properties {
+            // Skip this property+value type pair if we've already seen it.
+            if type_info
+                .properties_visited
+                .contains(&(Cow::Borrowed(prop_name), prop_value.ty()))
+            {
+                continue;
+            }
+
+            // ...but add it to the set of visited properties if we haven't seen
+            // it.
+            type_info
+                .properties_visited
+                .insert((Cow::Owned(prop_name.clone()), prop_value.ty()));
+
             let canonical_name;
             let serialized_name;
             let serialized_ty;
