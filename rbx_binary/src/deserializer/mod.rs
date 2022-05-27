@@ -1,6 +1,7 @@
 mod error;
 mod header;
 mod state;
+mod vecmap;
 
 use std::{io::Read, str};
 

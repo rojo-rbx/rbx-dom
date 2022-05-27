@@ -22,7 +22,7 @@ use crate::{
     types::Type,
 };
 
-use super::{error::InnerError, header::FileHeader, Deserializer};
+use super::{error::InnerError, header::FileHeader, vecmap::VecMap, Deserializer};
 
 pub(super) struct DeserializerState<'a, R> {
     /// The user-provided configuration that we should use.
@@ -47,7 +47,7 @@ pub(super) struct DeserializerState<'a, R> {
     type_infos: HashMap<u32, TypeInfo>,
 
     /// All of the instances known by the deserializer.
-    instances_by_ref: HashMap<i32, Instance>,
+    instances_by_ref: VecMap<Instance>,
 
     /// Referents for all of the instances with no parent, in order they appear
     /// in the file.
@@ -94,7 +94,10 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         let header = FileHeader::decode(&mut input)?;
 
         let type_infos = HashMap::with_capacity(header.num_types as usize);
-        let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
+
+        // Reverse enough instances for the model, plus one for the root
+        // instance that we to contain them.
+        let instances_by_ref = VecMap::with_capacity(1 + header.num_instances as usize);
 
         Ok(DeserializerState {
             deserializer,
@@ -246,7 +249,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             // path, we should use the reflection database to figure out its
             // default name. This should be rare: effectively never!
 
-            for referent in &type_info.referents {
+            for &referent in &type_info.referents {
                 let instance = self.instances_by_ref.get_mut(referent).unwrap();
                 let value = chunk.read_string()?;
                 instance.builder.set_name(value);
@@ -299,28 +302,28 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         match binary_type {
             Type::String => match canonical_type {
                 VariantType::String => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_string()?;
                         instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 VariantType::Content => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value: Content = chunk.read_string()?.into();
                         instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 VariantType::BinaryString => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value: BinaryString = chunk.read_binary_string()?.into();
                         instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 VariantType::Tags => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let buffer = chunk.read_binary_string()?;
 
@@ -347,7 +350,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::Bool => match canonical_type {
                 VariantType::Bool => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_bool()?;
                         instance.builder.add_property(&canonical_name, value);
@@ -367,7 +370,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_i32_array(&mut values)?;
 
-                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                    for (value, &referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, value);
                     }
@@ -386,7 +389,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     let mut values = vec![0.0; type_info.referents.len()];
                     chunk.read_interleaved_f32_array(&mut values)?;
 
-                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                    for (value, &referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, value);
                     }
@@ -402,7 +405,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::Float64 => match canonical_type {
                 VariantType::Float64 => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_le_f64()?;
                         instance.builder.add_property(&canonical_name, value);
@@ -430,7 +433,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         .zip(offsets)
                         .map(|(scale, offset)| UDim::new(scale, offset));
 
-                    for (value, referent) in values.zip(&type_info.referents) {
+                    for (value, &referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, value);
                     }
@@ -469,7 +472,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
 
-                    for (value, referent) in values.zip(&type_info.referents) {
+                    for (value, &referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, value);
                     }
@@ -485,7 +488,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::Ray => match canonical_type {
                 VariantType::Ray => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let origin_x = chunk.read_le_f32()?;
                         let origin_y = chunk.read_le_f32()?;
                         let origin_z = chunk.read_le_f32()?;
@@ -515,7 +518,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::Faces => match canonical_type {
                 VariantType::Faces => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_u8()?;
                         let faces =
@@ -540,7 +543,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::Axes => match canonical_type {
                 VariantType::Axes => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_u8()?;
 
@@ -569,7 +572,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_u32_array(&mut values)?;
 
-                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                    for (value, &referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let color = value
                             .try_into()
@@ -610,7 +613,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         .zip(b)
                         .map(|((r, g), b)| Color3::new(r, g, b));
 
-                    for (color, referent) in colors.zip(&type_info.referents) {
+                    for (color, &referent) in colors.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, color);
                     }
@@ -634,7 +637,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     let values = x.into_iter().zip(y).map(|(x, y)| Vector2::new(x, y));
 
-                    for (value, referent) in values.zip(&type_info.referents) {
+                    for (value, &referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, value);
                     }
@@ -664,7 +667,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         .zip(z)
                         .map(|((x, y), z)| Vector3::new(x, y, z));
 
-                    for (value, referent) in values.zip(&type_info.referents) {
+                    for (value, &referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, value);
                     }
@@ -730,7 +733,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         .zip(rotations)
                         .map(|(position, rotation)| CFrame::new(position, rotation));
 
-                    for (cframe, referent) in values.zip(referents) {
+                    for (cframe, &referent) in values.zip(referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, cframe);
                     }
@@ -749,7 +752,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_u32_array(&mut values)?;
 
-                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                    for (value, &referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance
                             .builder
@@ -770,8 +773,8 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     let mut refs = vec![0; type_info.referents.len()];
                     chunk.read_referent_array(&mut refs)?;
 
-                    for (value, referent) in refs.into_iter().zip(&type_info.referents) {
-                        let rbx_value = if let Some(instance) = self.instances_by_ref.get(&value) {
+                    for (value, &referent) in refs.into_iter().zip(&type_info.referents) {
+                        let rbx_value = if let Some(instance) = self.instances_by_ref.get(value) {
                             instance.builder.referent()
                         } else {
                             Ref::none()
@@ -792,7 +795,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::Vector3int16 => match canonical_type {
                 VariantType::Vector3int16 => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(
                             &canonical_name,
@@ -815,7 +818,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::NumberSequence => match canonical_type {
                 VariantType::NumberSequence => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let keypoint_count = chunk.read_le_u32()?;
                         let mut keypoints = Vec::with_capacity(keypoint_count as usize);
@@ -844,7 +847,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::ColorSequence => match canonical_type {
                 VariantType::ColorSequence => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let keypoint_count = chunk.read_le_u32()? as usize;
                         let mut keypoints = Vec::with_capacity(keypoint_count);
@@ -879,7 +882,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::NumberRange => match canonical_type {
                 VariantType::NumberRange => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(
                             &canonical_name,
@@ -915,7 +918,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         },
                     );
 
-                    for (value, referent) in values.zip(&type_info.referents) {
+                    for (value, &referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, value)
                     }
@@ -931,7 +934,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::PhysicalProperties => match canonical_type {
                 VariantType::PhysicalProperties => {
-                    for referent in &type_info.referents {
+                    for &referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = if chunk.read_u8()? == 1 {
                             Variant::PhysicalProperties(PhysicalProperties::Custom(
@@ -976,7 +979,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         .zip(b)
                         .map(|((r, g), b)| Color3uint8::new(r, g, b));
 
-                    for (color, referent) in colors.into_iter().zip(&type_info.referents) {
+                    for (color, &referent) in colors.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, color);
                     }
@@ -995,7 +998,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_i64_array(&mut values)?;
 
-                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                    for (value, &referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, value);
                     }
@@ -1014,7 +1017,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_u32_array(&mut values)?;
 
-                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                    for (value, &referent) in values.into_iter().zip(&type_info.referents) {
                         let shared_string =
                             self.shared_strings.get(value as usize).ok_or_else(|| {
                                 InnerError::InvalidPropData {
@@ -1123,7 +1126,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                             }
                         });
 
-                    for (cframe, referent) in values.zip(referents) {
+                    for (cframe, &referent) in values.zip(referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(&canonical_name, cframe);
                     }
@@ -1167,7 +1170,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             if parent_ref == -1 {
                 self.root_instance_refs.push(id);
             } else {
-                let instance = self.instances_by_ref.get_mut(&parent_ref).unwrap();
+                let instance = self.instances_by_ref.get_mut(parent_ref).unwrap();
                 instance.children.push(id);
             }
         }
@@ -1206,7 +1209,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         }
 
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            let instance = self.instances_by_ref.remove(&referent).unwrap();
+            let instance = self.instances_by_ref.remove(referent).unwrap();
             let id = self.tree.insert(parent_ref, instance.builder);
 
             for referent in instance.children {
