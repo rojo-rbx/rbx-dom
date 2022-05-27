@@ -2,6 +2,7 @@
 
 ## Unreleased Changes
 * Added `WeakDom::into_raw` for enabling fast, non-tree-preserving transformations.
+* Added `empty`, `with_class`, and `set_class` methods to `InstanceBuilder`.
 
 ## 2.3.0 (2021-10-11)
 * Updated to rbx_types 1.3.
