@@ -225,6 +225,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
 
     /// Mark the given instance IDs and all of their descendants as intended for
     /// serialization with this serializer.
+    #[profiling::function]
     pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
         let mut to_visit = VecDeque::new();
         to_visit.extend(referents);
@@ -248,6 +249,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
     // Using the entry API here, as Clippy suggests, would require us to
     // clone canonical_name in a cold branch. We don't want to do that.
     #[allow(clippy::map_entry)]
+    #[profiling::function]
     pub fn collect_type_info(&mut self, referent: Ref) -> Result<(), InnerError> {
         let instance = self
             .dom
@@ -374,6 +376,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
 
     /// Populate the map from rbx-dom's instance ID space to the IDs that we'll
     /// be serializing to the model.
+    #[profiling::function]
     pub fn generate_referents(&mut self) {
         self.id_to_referent.reserve(self.relevant_instances.len());
 
@@ -410,6 +413,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
 
     /// Write out all of the SharedStrings in this file, if any exist,
     /// stored in a chunk named SSTR.
+    #[profiling::function]
     pub fn serialize_shared_strings(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing shared string chunk");
 
@@ -435,6 +439,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
 
     /// Write out the declarations of all instances, stored in a series of
     /// chunks named INST.
+    #[profiling::function]
     pub fn serialize_instances(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing instance chunks");
 
@@ -489,6 +494,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
     /// Write out batch declarations of property values for the instances
     /// previously defined in the INST chunks. Property data is contained in
     /// chunks named PROP.
+    #[profiling::function]
     pub fn serialize_properties(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing properties");
 
@@ -1064,6 +1070,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
 
     /// Write out the hierarchical relations between instances, stored in a
     /// chunk named PRNT.
+    #[profiling::function]
     pub fn serialize_parents(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing parent relationships");
 
@@ -1104,6 +1111,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
     /// Write the fixed, uncompressed end chunk used to verify that the file
     /// hasn't been truncated mistakenly. This chunk is named END\0, with a zero
     /// byte at the end.
+    #[profiling::function]
     pub fn serialize_end(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing file end");
 

@@ -113,6 +113,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(Chunk::decode(&mut self.input)?)
     }
 
+    #[profiling::function]
     pub(super) fn decode_meta_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let len = chunk.read_le_u32()?;
         self.metadata.reserve(len as usize);
@@ -127,6 +128,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_sstr_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_le_u32()?;
 
@@ -148,6 +150,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let type_name = chunk.read_string()?;
@@ -189,6 +192,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
@@ -1138,6 +1142,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_prnt_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_u8()?;
 
@@ -1170,6 +1175,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_end_chunk(&mut self, _chunk: &[u8]) -> Result<(), InnerError> {
         log::trace!("END chunk");
 
@@ -1182,6 +1188,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
+    #[profiling::function]
     pub(super) fn finish(mut self) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
 

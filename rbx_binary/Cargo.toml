@@ -22,6 +22,7 @@ log = "0.4.14"
 lz4 = "1.23.2"
 thiserror = "1.0.30"
 serde = { version = "1.0.130", features = ["derive"], optional = true }
+profiling = "1.0.6"
 
 [dev-dependencies]
 criterion = "0.3.5"
