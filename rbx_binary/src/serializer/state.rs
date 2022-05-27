@@ -266,6 +266,15 @@ impl<'a, W: Write> SerializerState<'a, W> {
         type_info.object_refs.push(referent);
 
         for (prop_name, prop_value) in &instance.properties {
+            // Discover and track any shared strings we come across.
+            if let Variant::SharedString(shared_string) = prop_value {
+                if !self.shared_string_ids.contains_key(shared_string) {
+                    let id = self.shared_strings.len() as u32;
+                    self.shared_string_ids.insert(shared_string.clone(), id);
+                    self.shared_strings.push(shared_string.clone())
+                }
+            }
+
             // Skip this property+value type pair if we've already seen it.
             if type_info
                 .properties_visited
@@ -379,14 +388,6 @@ impl<'a, W: Write> SerializerState<'a, W> {
 
                 if !prop_info.aliases.contains(prop_name) {
                     prop_info.aliases.insert(prop_name.clone());
-                }
-            }
-
-            if let Variant::SharedString(shared_string) = prop_value {
-                if !self.shared_string_ids.contains_key(shared_string) {
-                    let id = self.shared_strings.len() as u32;
-                    self.shared_string_ids.insert(shared_string.clone(), id);
-                    self.shared_strings.push(shared_string.clone())
                 }
             }
         }
