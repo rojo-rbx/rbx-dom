@@ -1,6 +1,7 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+* Added `WeakDom::into_raw` for enabling fast, non-tree-preserving transformations.
 
 ## 2.3.0 (2021-10-11)
 * Updated to rbx_types 1.3.
