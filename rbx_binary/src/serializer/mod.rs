@@ -1,4 +1,5 @@
 mod error;
+mod fastdom;
 mod state;
 
 use std::io::Write;

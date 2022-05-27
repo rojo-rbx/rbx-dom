@@ -13,7 +13,7 @@ use rbx_dom_weak::{
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim,
         UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
-    WeakDom,
+    Instance, WeakDom,
 };
 
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
@@ -27,7 +27,10 @@ use crate::{
     types::Type,
 };
 
-use super::error::InnerError;
+use super::{
+    error::InnerError,
+    fastdom::{FastDom, FastRef},
+};
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
@@ -37,6 +40,8 @@ static FILE_FOOTER: &[u8] = b"</roblox>";
 pub(super) struct SerializerState<'a, W> {
     /// The dom containing all of the instances that we're serializing.
     dom: &'a WeakDom,
+
+    fastdom: FastDom<'a>,
 
     /// Where the binary output should be written.
     output: W,
@@ -76,6 +81,10 @@ struct TypeInfo {
 
     /// The IDs of all of the instances of this type.
     object_refs: Vec<Ref>,
+
+    /// Temporary IDs assigned during serialization of all instances of this
+    /// type.
+    fastrefs: Vec<FastRef>,
 
     /// All of the defined properties for this type found on any instance of
     /// this type. Properties are keyed by their canonical name, and only one
@@ -203,6 +212,7 @@ impl TypeInfos {
                     type_id,
                     is_service,
                     object_refs: Vec::new(),
+                    fastrefs: Vec::new(),
                     properties,
                     class_descriptor,
                     properties_visited: HashSet::new(),
@@ -220,6 +230,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
     pub fn new(dom: &'a WeakDom, output: W) -> Self {
         SerializerState {
             dom,
+            fastdom: FastDom::new(),
             output,
             relevant_instances: Vec::new(),
             id_to_referent: HashMap::new(),
@@ -237,11 +248,16 @@ impl<'a, W: Write> SerializerState<'a, W> {
         to_visit.extend(referents);
 
         while let Some(referent) = to_visit.pop_front() {
-            self.relevant_instances.push(referent);
-            self.collect_type_info(referent)?;
-
             // TODO: Turn into error
-            let instance = self.dom.get_by_ref(referent).unwrap();
+            let instance = self
+                .dom
+                .get_by_ref(referent)
+                .ok_or_else(|| InnerError::InvalidInstanceId { referent })?;
+
+            let fastref = self.fastdom.insert(instance);
+            self.relevant_instances.push(referent);
+            self.collect_type_info(fastref, instance)?;
+
             to_visit.extend(instance.children());
         }
 
@@ -256,14 +272,14 @@ impl<'a, W: Write> SerializerState<'a, W> {
     // clone canonical_name in a cold branch. We don't want to do that.
     #[allow(clippy::map_entry)]
     #[profiling::function]
-    pub fn collect_type_info(&mut self, referent: Ref) -> Result<(), InnerError> {
-        let instance = self
-            .dom
-            .get_by_ref(referent)
-            .ok_or(InnerError::InvalidInstanceId { referent })?;
-
+    pub fn collect_type_info(
+        &mut self,
+        fastref: FastRef,
+        instance: &Instance,
+    ) -> Result<(), InnerError> {
         let type_info = self.type_infos.get_or_create(&instance.class);
-        type_info.object_refs.push(referent);
+        type_info.fastrefs.push(fastref);
+        type_info.object_refs.push(instance.referent());
 
         for (prop_name, prop_value) in &instance.properties {
             // Discover and track any shared strings we come across.
@@ -534,15 +550,15 @@ impl<'a, W: Write> SerializerState<'a, W> {
                 chunk.write_string(&prop_info.serialized_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
-                let dom = &self.dom;
+                let fastdom = &self.fastdom;
                 let values = type_info
-                    .object_refs
+                    .fastrefs
                     .iter()
-                    .map(|id| {
+                    .map(|&fastref| {
                         // This unwrap will not panic because we uphold the
                         // invariant that any ID in object_refs must be part of
                         // this dom.
-                        let instance = dom.get_by_ref(*id).unwrap();
+                        let instance = fastdom.get(fastref).unwrap();
 
                         // We store the Name property in a different field for
                         // convenience, but when serializing to the binary model
