@@ -13,7 +13,7 @@ use rbx_dom_weak::{
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim,
         UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
-    WeakDom,
+    Instance, WeakDom,
 };
 
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
@@ -34,9 +34,9 @@ static FILE_FOOTER: &[u8] = b"</roblox>";
 /// Represents all of the state during a single serialization session. A new
 /// `BinarySerializer` object should be created every time we want to serialize
 /// a binary model file.
-pub(super) struct SerializerState<'a, W> {
+pub(super) struct SerializerState<'dom, W> {
     /// The dom containing all of the instances that we're serializing.
-    dom: &'a WeakDom,
+    dom: &'dom WeakDom,
 
     /// Where the binary output should be written.
     output: W,
@@ -51,7 +51,7 @@ pub(super) struct SerializerState<'a, W> {
 
     /// All of the types of instance discovered by our serializer that we'll be
     /// writing into the output.
-    type_infos: TypeInfos,
+    type_infos: TypeInfos<'dom>,
 
     /// All of the SharedStrings in the DOM, in the order they'll be written
     // in.
@@ -65,7 +65,7 @@ pub(super) struct SerializerState<'a, W> {
 /// An instance class that our serializer knows about. We should have one struct
 /// per unique ClassName.
 #[derive(Debug)]
-struct TypeInfo {
+struct TypeInfo<'dom> {
     /// The ID that this serializer will use to refer to this type of instance.
     type_id: u32,
 
@@ -74,8 +74,8 @@ struct TypeInfo {
     /// ServiceProvider in most projects.
     is_service: bool,
 
-    /// The IDs of all of the instances of this type.
-    object_refs: Vec<Ref>,
+    /// All of the instances referenced by this type.
+    instances: Vec<&'dom Instance>,
 
     /// All of the defined properties for this type found on any instance of
     /// this type. Properties are keyed by their canonical name, and only one
@@ -141,20 +141,20 @@ struct PropInfo {
 /// struct was broken out to help encapsulate the behavior here and to ease
 /// self-borrowing issues from BinarySerializer getting too large.
 #[derive(Debug)]
-struct TypeInfos {
+struct TypeInfos<'dom> {
     /// A map containing one entry for each unique ClassName discovered in the
     /// DOM.
     ///
     /// These are stored sorted so that we naturally iterate over them in order
     /// and improve our chances of being deterministic.
-    values: BTreeMap<String, TypeInfo>,
+    values: BTreeMap<String, TypeInfo<'dom>>,
 
     /// The next type ID that should be assigned if a type is discovered and
     /// added to the serializer.
     next_type_id: u32,
 }
 
-impl TypeInfos {
+impl<'dom> TypeInfos<'dom> {
     fn new() -> Self {
         Self {
             values: BTreeMap::new(),
@@ -164,7 +164,7 @@ impl TypeInfos {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(&mut self, class: &str) -> &mut TypeInfo {
+    fn get_or_create(&mut self, class: &str) -> &mut TypeInfo<'dom> {
         if !self.values.contains_key(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
@@ -202,7 +202,7 @@ impl TypeInfos {
                 TypeInfo {
                     type_id,
                     is_service,
-                    object_refs: Vec::new(),
+                    instances: Vec::new(),
                     properties,
                     class_descriptor,
                     properties_visited: HashSet::new(),
@@ -216,8 +216,8 @@ impl TypeInfos {
     }
 }
 
-impl<'a, W: Write> SerializerState<'a, W> {
-    pub fn new(dom: &'a WeakDom, output: W) -> Self {
+impl<'dom, W: Write> SerializerState<'dom, W> {
+    pub fn new(dom: &'dom WeakDom, output: W) -> Self {
         SerializerState {
             dom,
             output,
@@ -237,11 +237,14 @@ impl<'a, W: Write> SerializerState<'a, W> {
         to_visit.extend(referents);
 
         while let Some(referent) = to_visit.pop_front() {
-            self.relevant_instances.push(referent);
-            self.collect_type_info(referent)?;
+            let instance = self
+                .dom
+                .get_by_ref(referent)
+                .ok_or(InnerError::InvalidInstanceId { referent })?;
 
-            // TODO: Turn into error
-            let instance = self.dom.get_by_ref(referent).unwrap();
+            self.relevant_instances.push(referent);
+            self.collect_type_info(instance)?;
+
             to_visit.extend(instance.children());
         }
 
@@ -256,14 +259,9 @@ impl<'a, W: Write> SerializerState<'a, W> {
     // clone canonical_name in a cold branch. We don't want to do that.
     #[allow(clippy::map_entry)]
     #[profiling::function]
-    pub fn collect_type_info(&mut self, referent: Ref) -> Result<(), InnerError> {
-        let instance = self
-            .dom
-            .get_by_ref(referent)
-            .ok_or(InnerError::InvalidInstanceId { referent })?;
-
+    pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
         let type_info = self.type_infos.get_or_create(&instance.class);
-        type_info.object_refs.push(referent);
+        type_info.instances.push(instance);
 
         for (prop_name, prop_value) in &instance.properties {
             // Discover and track any shared strings we come across.
@@ -468,7 +466,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
             log::trace!(
                 "Writing chunk for {} ({} instances)",
                 type_name,
-                type_info.object_refs.len()
+                type_info.instances.len()
             );
 
             let mut chunk = ChunkBuilder::new(b"INST", ChunkCompression::Compressed);
@@ -484,13 +482,13 @@ impl<'a, W: Write> SerializerState<'a, W> {
             // instead of a bool.
             chunk.write_bool(type_info.is_service)?;
 
-            chunk.write_le_u32(type_info.object_refs.len() as u32)?;
+            chunk.write_le_u32(type_info.instances.len() as u32)?;
 
             chunk.write_referent_array(
                 type_info
-                    .object_refs
+                    .instances
                     .iter()
-                    .map(|id| self.id_to_referent[id]),
+                    .map(|instance| self.id_to_referent[&instance.referent()]),
             )?;
 
             if type_info.is_service {
@@ -501,7 +499,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
                 // In 99.9% of cases, there's only going to be one copy of a
                 // given service, so we're not worried about doing this super
                 // efficiently.
-                for _ in 0..type_info.object_refs.len() {
+                for _ in 0..type_info.instances.len() {
                     chunk.write_u8(1)?;
                 }
             }
@@ -521,6 +519,7 @@ impl<'a, W: Write> SerializerState<'a, W> {
 
         for (type_name, type_info) in &self.type_infos.values {
             for (prop_name, prop_info) in &type_info.properties {
+                profiling::scope!("serialize property", prop_name.borrow());
                 log::trace!(
                     "Writing property {}.{} (type {:?})",
                     type_name,
@@ -534,16 +533,10 @@ impl<'a, W: Write> SerializerState<'a, W> {
                 chunk.write_string(&prop_info.serialized_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
-                let dom = &self.dom;
                 let values = type_info
-                    .object_refs
+                    .instances
                     .iter()
-                    .map(|id| {
-                        // This unwrap will not panic because we uphold the
-                        // invariant that any ID in object_refs must be part of
-                        // this dom.
-                        let instance = dom.get_by_ref(*id).unwrap();
-
+                    .map(|instance| {
                         // We store the Name property in a different field for
                         // convenience, but when serializing to the binary model
                         // format we need to handle it just like other properties.
@@ -582,7 +575,8 @@ impl<'a, W: Write> SerializerState<'a, W> {
                             prop_name: prop_name.to_string(),
                             valid_type_names,
                             actual_type_name: format!("{:?}", bad_value.ty()),
-                            instance_full_name: self.full_name_for(type_info.object_refs[i]),
+                            instance_full_name: self
+                                .full_name_for(type_info.instances[i].referent()),
                         })
                     };
 
