@@ -34,6 +34,10 @@ impl Ref {
         self.0.is_none()
     }
 
+    pub fn from_bits(bits: u128) -> Self {
+        Ref(NonZeroU128::new(bits))
+    }
+
     fn value(&self) -> u128 {
         match self.0 {
             Some(value) => value.get(),

@@ -1,0 +1,22 @@
+[package]
+name = "rbx_dom_weak3"
+description = "Weakly-typed Roblox DOM implementation for Rust"
+version = "3.0.0"
+license = "MIT"
+documentation = "https://docs.rs/rbx_dom_weak"
+homepage = "https://github.com/rojo-rbx/rbx-dom"
+repository = "https://github.com/rojo-rbx/rbx-dom.git"
+readme = "README.md"
+authors = ["Lucien Greathouse <me@lpghatguy.com>"]
+edition = "2018"
+
+[dependencies]
+once_cell = "1.12.0"
+rbx_types = { version = "1.3.0", path = "../rbx_types", features = ["serde"] }
+
+serde = "1.0.130"
+smol_str = "0.1.23"
+thunderdome = "0.5.0"
+
+[dev-dependencies]
+insta = "1.8.0"

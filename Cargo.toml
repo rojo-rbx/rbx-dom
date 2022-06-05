@@ -3,6 +3,7 @@ members = [
 	"generate_reflection",
 	"rbx_binary",
 	"rbx_dom_weak",
+	"rbx_dom_weak_v3",
 	"rbx_reflection",
 	"rbx_reflection_database",
 	"rbx_types",
