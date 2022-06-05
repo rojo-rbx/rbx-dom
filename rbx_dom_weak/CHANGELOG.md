@@ -1,6 +1,8 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+
+## 2.4.0 (2022-06-05)
 * Added `WeakDom::into_raw` for enabling fast, non-tree-preserving transformations.
 * Added `empty`, `with_class`, and `set_class` methods to `InstanceBuilder`.
 
