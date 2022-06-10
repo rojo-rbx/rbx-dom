@@ -1,5 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 2
@@ -22,7 +23,7 @@ chunks:
       prop_name: AttributesSerialize
       prop_type: String
       values:
-        - ""
+        - "\u0000\u0000\u0000\u0000"
   - Prop:
       type_id: 0
       prop_name: Name
@@ -40,7 +41,7 @@ chunks:
       prop_name: AttributesSerialize
       prop_type: String
       values:
-        - ""
+        - "\u0000\u0000\u0000\u0000"
   - Prop:
       type_id: 1
       prop_name: Name
@@ -67,3 +68,4 @@ chunks:
         - - 1
           - 0
   - End
+

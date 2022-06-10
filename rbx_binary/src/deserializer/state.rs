@@ -6,7 +6,7 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+        Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Matrix3,
         NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
         SharedString, Tags, UDim, UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
@@ -336,11 +336,28 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         instance.builder.add_property(&canonical_name, value);
                     }
                 }
+                VariantType::Attributes => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let buffer = chunk.read_binary_string()?;
+
+                        let value = Attributes::from_reader(buffer.as_slice()).map_err(|_| {
+                            InnerError::InvalidPropData {
+                                type_name: type_info.type_name.clone(),
+                                prop_name: prop_name.clone(),
+                                valid_value: "a buffer containing Attributes",
+                                actual_value: "invalid attributes".to_string(),
+                            }
+                        })?;
+
+                        instance.builder.add_property(&canonical_name, value);
+                    }
+                }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.clone(),
                         prop_name,
-                        valid_type_names: "String, Content, Tags, or BinaryString",
+                        valid_type_names: "String, Content, Tags, Attributes, or BinaryString",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }

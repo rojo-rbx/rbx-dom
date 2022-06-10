@@ -7,8 +7,8 @@ expression: decoded_viewed
   name: Model
   class: Model
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     LevelOfDetail:
       Enum: 0
     ModelMeshCFrame:
@@ -49,8 +49,8 @@ expression: decoded_viewed
       name: PackageLink
       class: PackageLink
       properties:
-        AttributesSerialize:
-          BinaryString: ""
+        Attributes:
+          Attributes: {}
         AutoUpdate:
           Bool: false
         PackageId:

@@ -1,7 +1,7 @@
 ---
 source: rbx_xml/tests/test-files.rs
+assertion_line: 26
 expression: viewer.view_children(&dom)
-
 ---
 - referent: referent-0
   name: Red Union 1
@@ -11,7 +11,7 @@ expression: viewer.view_children(&dom)
       Bool: false
     AssetId:
       Content: ""
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     BackParamA:
       Float32: -0.5
@@ -139,7 +139,7 @@ expression: viewer.view_children(&dom)
       Bool: false
     AssetId:
       Content: ""
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     BackParamA:
       Float32: -0.5
@@ -267,7 +267,7 @@ expression: viewer.view_children(&dom)
       Bool: false
     AssetId:
       Content: ""
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     BackParamA:
       Float32: -0.5

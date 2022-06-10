@@ -1,7 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 46
 expression: text_roundtrip
-
 ---
 num_types: 3
 num_instances: 4
@@ -30,7 +30,7 @@ chunks:
       prop_name: AttributesSerialize
       prop_type: String
       values:
-        - ""
+        - "\u0000\u0000\u0000\u0000"
   - Prop:
       type_id: 0
       prop_name: Name
@@ -61,8 +61,8 @@ chunks:
       prop_name: AttributesSerialize
       prop_type: String
       values:
-        - ""
-        - ""
+        - "\u0000\u0000\u0000\u0000"
+        - "\u0000\u0000\u0000\u0000"
   - Prop:
       type_id: 1
       prop_name: BackParamA
@@ -465,7 +465,7 @@ chunks:
       prop_name: AttributesSerialize
       prop_type: String
       values:
-        - ""
+        - "\u0000\u0000\u0000\u0000"
   - Prop:
       type_id: 2
       prop_name: CFrame0

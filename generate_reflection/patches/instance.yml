@@ -20,10 +20,9 @@ Add:
         As: AttributesSerialize
       Scriptability: None
     AttributesSerialize:
+      AliasFor: Attributes
       DataType:
         Value: BinaryString
-      Serialization:
-        Type: Serializes
       Scriptability: None
 
 Change:

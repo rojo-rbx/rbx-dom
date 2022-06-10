@@ -1,14 +1,14 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 33
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: Region 1
   class: TerrainRegion
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     ExtentsMax:
       Vector3int16:
         - 1
@@ -30,8 +30,8 @@ expression: decoded_viewed
   name: Region 2
   class: TerrainRegion
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     ExtentsMax:
       Vector3int16:
         - 1337

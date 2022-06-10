@@ -1,15 +1,15 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 33
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: ""
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes: []
     Color3:
@@ -29,8 +29,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - X
@@ -51,8 +51,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - X
@@ -74,8 +74,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - X
@@ -98,8 +98,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - X
@@ -121,8 +121,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - Y
@@ -143,8 +143,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - Y
@@ -166,8 +166,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - Z

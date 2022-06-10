@@ -1,13 +1,13 @@
 ---
 source: rbx_xml/tests/test-files.rs
+assertion_line: 26
 expression: viewer.view_children(&dom)
-
 ---
 - referent: referent-0
   name: Folder
   class: Folder
   properties:
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     SourceAssetId:
       Int64: -1
