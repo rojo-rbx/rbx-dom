@@ -47,6 +47,13 @@ impl WeakDom {
         dom
     }
 
+    /// Consumes the WeakDom, returning its underlying root ref and backing
+    /// storage. This method is useful when tree-preserving operations are too
+    /// slow.
+    pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance>) {
+        (self.root_ref, self.instances)
+    }
+
     /// Returns the referent of the root instance of the `WeakDom`.
     pub fn root_ref(&self) -> Ref {
         self.root_ref

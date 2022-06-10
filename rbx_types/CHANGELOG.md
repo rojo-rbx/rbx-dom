@@ -1,7 +1,10 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+
+## 1.4.0 (2022-06-05)
 * Added `Attributes::with` for creating attributes in code more easily.
+* Implemented `Hash` for `VariantTy`.
 
 ## 1.3.0 (2021-10-11)
 * Implemented `Tags`. ([#199])

@@ -53,6 +53,8 @@ impl<'a> Deserializer<'a> {
     /// Deserialize a Roblox binary model or place from the given stream using
     /// this deserializer.
     pub fn deserialize<R: Read>(&self, reader: R) -> Result<WeakDom, Error> {
+        profiling::scope!("rbx_binary::deserialize");
+
         let mut deserializer = DeserializerState::new(self, reader)?;
 
         loop {

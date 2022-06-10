@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use heck::KebabCase;
+use heck::ToKebabCase;
 
 use super::util::run_model_base_suite;
 
