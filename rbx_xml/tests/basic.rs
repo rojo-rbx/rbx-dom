@@ -1,8 +1,9 @@
 //! Temporary tests while re-bootstrapping rbx_xml
 
 use rbx_dom_weak::types::{
-    Attributes, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint, NumberRange,
-    NumberSequence, NumberSequenceKeypoint, Rect, Tags, UDim, UDim2, Variant, Vector2, Vector3,
+    Attributes, BinaryString, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint,
+    NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, Tags, UDim, UDim2, Variant, Vector2,
+    Vector3,
 };
 use rbx_dom_weak::{InstanceBuilder, WeakDom};
 
@@ -170,7 +171,10 @@ fn read_attributes() {
         "Rect".into(),
         Rect::new(Vector2::new(1.0, 2.0), Vector2::new(3.0, 4.0)).into(),
     );
-    // attributes.insert("String".into(), "Hello, world!".into());
+    attributes.insert(
+        "String".into(),
+        BinaryString::from(b"Hello, world!".as_slice()).into(),
+    );
     attributes.insert("UDim".into(), UDim::new(0.5, 100).into());
     attributes.insert(
         "UDim2".into(),
