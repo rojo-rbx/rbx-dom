@@ -25,6 +25,7 @@ macro_rules! binary_tests {
 }
 
 binary_tests! {
+    attributes,
     axes,
     bloomeffect,
     cframe_case_mixture,
