@@ -54,7 +54,7 @@ macro_rules! make_variant {
         )*
 
         /// Represents any type that can be held in a `Variant`.
-        #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+        #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
         #[non_exhaustive]
         #[cfg_attr(
             feature = "serde",
