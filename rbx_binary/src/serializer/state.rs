@@ -581,7 +581,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                     };
 
                 let invalid_value = |i: usize, bad_value: &Variant| InnerError::InvalidPropValue {
-                    instance_full_name: self.full_name_for(type_info.object_refs[i]),
+                    instance_full_name: self.full_name_for(type_info.instances[i].referent()),
                     type_name: type_name.clone(),
                     prop_name: prop_name.to_string(),
                     prop_type: format!("{:?}", bad_value.ty()),
