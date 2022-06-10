@@ -173,7 +173,7 @@ fn read_attributes() {
     );
     attributes.insert(
         "String".into(),
-        BinaryString::from(b"Hello, world!".as_slice()).into(),
+        BinaryString::from(&b"Hello, world!"[..]).into(),
     );
     attributes.insert("UDim".into(), UDim::new(0.5, 100).into());
     attributes.insert(
