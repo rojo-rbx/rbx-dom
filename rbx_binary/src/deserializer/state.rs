@@ -347,8 +347,9 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                             }
                             Err(err) => {
                                 log::warn!(
-                                    "Failed to deserialize attributes on {}: {err:?}",
-                                    type_info.type_name
+                                    "Failed to deserialize attributes on {}: {:?}",
+                                    type_info.type_name,
+                                    err
                                 );
 
                                 instance
