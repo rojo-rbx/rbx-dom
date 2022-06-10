@@ -341,16 +341,21 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let buffer = chunk.read_binary_string()?;
 
-                        let value = Attributes::from_reader(buffer.as_slice()).map_err(|_| {
-                            InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
-                                prop_name: prop_name.clone(),
-                                valid_value: "a buffer containing Attributes",
-                                actual_value: "invalid attributes".to_string(),
+                        match Attributes::from_reader(buffer.as_slice()) {
+                            Ok(value) => {
+                                instance.builder.add_property(&canonical_name, value);
                             }
-                        })?;
+                            Err(err) => {
+                                log::warn!(
+                                    "Failed to deserialize attributes on {}: {err:?}",
+                                    type_info.type_name
+                                );
 
-                        instance.builder.add_property(&canonical_name, value);
+                                instance
+                                    .builder
+                                    .add_property(&canonical_name, BinaryString::from(buffer));
+                            }
+                        }
                     }
                 }
                 invalid_type => {
