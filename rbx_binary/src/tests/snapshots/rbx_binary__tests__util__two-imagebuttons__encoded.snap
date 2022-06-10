@@ -34,8 +34,8 @@ chunks:
       prop_name: AttributesSerialize
       prop_type: String
       values:
-        - "\u0000\u0000\u0000\u0000"
-        - "\u0000\u0000\u0000\u0000"
+        - ""
+        - ""
   - Prop:
       type_id: 0
       prop_name: AutoButtonColor
