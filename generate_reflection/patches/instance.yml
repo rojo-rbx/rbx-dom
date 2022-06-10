@@ -14,7 +14,7 @@ Add:
     # refer to them with a different name.
     Attributes:
       DataType:
-        Value: BinaryString
+        Value: Attributes
       Serialization:
         Type: SerializesAs
         As: AttributesSerialize
