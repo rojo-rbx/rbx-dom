@@ -2,7 +2,7 @@
 
 use rbx_dom_weak::types::{
     Attributes, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint, NumberRange,
-    NumberSequence, NumberSequenceKeypoint, Tags, Variant,
+    NumberSequence, NumberSequenceKeypoint, Rect, Tags, UDim, UDim2, Variant, Vector2, Vector3,
 };
 use rbx_dom_weak::{InstanceBuilder, WeakDom};
 
@@ -166,15 +166,19 @@ fn read_attributes() {
         }
         .into(),
     );
-    // attributes.insert("Rect".into())
-    // - Rect: `1, 2, 3, 4`
-    // - String: `Hello, world!`
-    // - UDim: `0.5, 100`
-    // - UDim2: `{0.5, 10}, {0.7, 30}`
-    // - Vector2: `10, 50`
-    // - Vector3: `1, 2, 3`
-    // - Infinity: `math.huge`
-    // - NaN: `0/0`
+    attributes.insert(
+        "Rect".into(),
+        Rect::new(Vector2::new(1.0, 2.0), Vector2::new(3.0, 4.0)).into(),
+    );
+    // attributes.insert("String".into(), "Hello, world!".into());
+    attributes.insert("UDim".into(), UDim::new(0.5, 100).into());
+    attributes.insert(
+        "UDim2".into(),
+        UDim2::new(UDim::new(0.5, 10), UDim::new(0.7, 30)).into(),
+    );
+    attributes.insert("Vector2".into(), Vector2::new(10.0, 50.0).into());
+    attributes.insert("Vector3".into(), Vector3::new(1.0, 2.0, 3.0).into());
+    attributes.insert("Infinity".into(), f64::INFINITY.into());
 
     for (key, value) in attributes {
         assert_eq!(folder_attributes.get(key), Some(&value));
