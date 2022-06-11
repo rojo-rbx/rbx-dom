@@ -10,7 +10,7 @@ expression: viewer.view_children(&dom)
     Attachment0: "null"
     Attachment1: "null"
     Attributes:
-      BinaryString: ""
+      Attributes: {}
     Color:
       BrickColor: 1009
     Enabled:

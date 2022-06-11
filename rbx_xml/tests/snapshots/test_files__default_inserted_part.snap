@@ -10,7 +10,7 @@ expression: viewer.view_children(&dom)
     Anchored:
       Bool: false
     Attributes:
-      BinaryString: ""
+      Attributes: {}
     BackParamA:
       Float32: -0.5
     BackParamB:

@@ -8,7 +8,7 @@ expression: viewer.view_children(&dom)
   class: Folder
   properties:
     Attributes:
-      BinaryString: ""
+      Attributes: {}
     Tags:
       Tags: []
   children:
@@ -17,7 +17,7 @@ expression: viewer.view_children(&dom)
       class: ObjectValue
       properties:
         Attributes:
-          BinaryString: ""
+          Attributes: {}
         Tags:
           Tags: []
         Value: referent-0

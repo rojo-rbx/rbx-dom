@@ -4,7 +4,7 @@
 use std::borrow::{Borrow, Cow};
 use std::convert::TryInto;
 
-use rbx_dom_weak::types::{BrickColor, Color3uint8, Tags, Variant, VariantType};
+use rbx_dom_weak::types::{Attributes, BrickColor, Color3uint8, Tags, Variant, VariantType};
 
 pub trait ConvertVariant: Clone + Sized {
     fn try_convert(self, target_type: VariantType) -> Result<Self, String> {
@@ -45,6 +45,15 @@ impl ConvertVariant for Variant {
                     .map_err(|_| "Tags contain invalid UTF-8")?
                     .into(),
             )),
+            (Variant::BinaryString(value), VariantType::Attributes) => {
+                let bytes: &[u8] = value.as_ref();
+
+                Ok(Cow::Owned(
+                    Attributes::from_reader(bytes)
+                        .map_err(|_| "Unknown or invalid Attributes")?
+                        .into(),
+                ))
+            }
             (_, _) => Ok(value),
         }
     }

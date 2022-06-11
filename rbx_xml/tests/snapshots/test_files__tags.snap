@@ -8,7 +8,7 @@ expression: viewer.view_children(&dom)
   class: Folder
   properties:
     Attributes:
-      BinaryString: ""
+      Attributes: {}
     SourceAssetId:
       Int64: -1
     Tags:
