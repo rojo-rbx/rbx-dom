@@ -154,6 +154,32 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "serde")]
+    fn test_encode_json() {
+        use serde_json::{json, Value};
+
+        fn assert_json(value: Attributes, expected: Value) {
+            let encoded = serde_json::to_string(&value).unwrap();
+            let decoded: Value = serde_json::from_str(&encoded).unwrap();
+
+            assert_eq!(decoded, expected);
+        }
+
+        let empty = Attributes::new();
+        assert_json(empty, json!({}));
+
+        let number = Attributes::new().with("hello", 5.0f64);
+        assert_json(
+            number,
+            json!({
+                "hello": {
+                    "Float64": 5.0
+                }
+            }),
+        );
+    }
+
+    #[test]
     fn test_attribute_removal() {
         let mut attributes = Attributes::new();
         attributes.insert("key".to_owned(), Variant::Bool(true));
