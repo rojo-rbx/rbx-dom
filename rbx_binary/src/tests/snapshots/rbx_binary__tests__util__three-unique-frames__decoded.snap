@@ -1,7 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 33
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: Frame1
@@ -13,8 +13,8 @@ expression: decoded_viewed
       Vector2:
         - 0.1
         - 0.2
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     AutoLocalize:
       Bool: true
     BackgroundColor3:
@@ -82,8 +82,8 @@ expression: decoded_viewed
       Vector2:
         - 0.3
         - 0.4
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     AutoLocalize:
       Bool: true
     BackgroundColor3:
@@ -151,8 +151,8 @@ expression: decoded_viewed
       Vector2:
         - 0.5
         - 0.6
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     AutoLocalize:
       Bool: true
     BackgroundColor3:

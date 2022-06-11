@@ -1,7 +1,7 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 33
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: Brush your teeth
@@ -9,8 +9,8 @@ expression: decoded_viewed
   properties:
     Anchored:
       Bool: false
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     BackParamA:
       Float32: -0.5
     BackParamB:
@@ -130,8 +130,8 @@ expression: decoded_viewed
   properties:
     Anchored:
       Bool: false
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     BackParamA:
       Float32: -0.5
     BackParamB:
@@ -256,8 +256,8 @@ expression: decoded_viewed
   properties:
     Anchored:
       Bool: false
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     BackParamA:
       Float32: -0.5
     BackParamB:

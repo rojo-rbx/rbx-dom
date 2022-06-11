@@ -1,7 +1,7 @@
 ---
 source: rbx_xml/tests/test-files.rs
+assertion_line: 26
 expression: viewer.view_children(&dom)
-
 ---
 - referent: referent-0
   name: BodyAngularVelocity
@@ -12,7 +12,7 @@ expression: viewer.view_children(&dom)
         - 0.0
         - 2.0
         - 0.0
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     MaxTorque:
       Vector3:
@@ -28,7 +28,7 @@ expression: viewer.view_children(&dom)
   name: BodyForce
   class: BodyForce
   properties:
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     Force:
       Vector3:
@@ -42,7 +42,7 @@ expression: viewer.view_children(&dom)
   name: BodyGyro
   class: BodyGyro
   properties:
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     CFrame:
       CFrame:
@@ -76,7 +76,7 @@ expression: viewer.view_children(&dom)
   name: BodyPosition
   class: BodyPosition
   properties:
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     D:
       Float32: 1250.0
@@ -99,7 +99,7 @@ expression: viewer.view_children(&dom)
   name: BodyThrust
   class: BodyThrust
   properties:
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     Force:
       Vector3:
@@ -118,7 +118,7 @@ expression: viewer.view_children(&dom)
   name: BodyVelocity
   class: BodyVelocity
   properties:
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     MaxForce:
       Vector3:

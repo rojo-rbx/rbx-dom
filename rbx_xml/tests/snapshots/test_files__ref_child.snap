@@ -1,13 +1,13 @@
 ---
 source: rbx_xml/tests/test-files.rs
+assertion_line: 26
 expression: viewer.view_children(&dom)
-
 ---
 - referent: referent-0
   name: Value
   class: ObjectValue
   properties:
-    AttributesSerialize:
+    Attributes:
       BinaryString: ""
     Tags:
       Tags: []
@@ -17,7 +17,7 @@ expression: viewer.view_children(&dom)
       name: Ref Target
       class: Folder
       properties:
-        AttributesSerialize:
+        Attributes:
           BinaryString: ""
         Tags:
           Tags: []

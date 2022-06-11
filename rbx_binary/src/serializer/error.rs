@@ -45,6 +45,18 @@ pub(super) enum InnerError {
         prop_type: String,
     },
 
+    #[error(
+        "Invalid property value: The instance {instance_full_name} had a property \
+        ({type_name}.{prop_name}) of type {prop_type} with a value that could \
+        not be written."
+    )]
+    InvalidPropValue {
+        instance_full_name: String,
+        type_name: String,
+        prop_name: String,
+        prop_type: String,
+    },
+
     #[error("The instance with referent {referent:?} was not present in the dom.")]
     InvalidInstanceId { referent: Ref },
 }
