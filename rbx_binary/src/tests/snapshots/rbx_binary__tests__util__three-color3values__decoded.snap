@@ -7,8 +7,8 @@ expression: decoded_viewed
   name: Value
   class: Color3Value
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Tags:
       Tags: []
     Value:
@@ -21,8 +21,8 @@ expression: decoded_viewed
   name: Value
   class: Color3Value
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Tags:
       Tags: []
     Value:
@@ -35,8 +35,8 @@ expression: decoded_viewed
   name: Value
   class: Color3Value
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Tags:
       Tags: []
     Value:

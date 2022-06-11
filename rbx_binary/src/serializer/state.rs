@@ -580,6 +580,13 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         })
                     };
 
+                let invalid_value = |i: usize, bad_value: &Variant| InnerError::InvalidPropValue {
+                    instance_full_name: self.full_name_for(type_info.instances[i].referent()),
+                    type_name: type_name.clone(),
+                    prop_name: prop_name.to_string(),
+                    prop_type: format!("{:?}", bad_value.ty()),
+                };
+
                 match prop_info.prop_type {
                     Type::String => {
                         for (i, rbx_value) in values {
@@ -597,11 +604,20 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                                     let buf = value.encode();
                                     chunk.write_binary_string(&buf)?;
                                 }
+                                Variant::Attributes(value) => {
+                                    let mut buf = Vec::new();
+
+                                    value
+                                        .to_writer(&mut buf)
+                                        .map_err(|_| invalid_value(i, &rbx_value))?;
+
+                                    chunk.write_binary_string(&buf)?;
+                                }
                                 _ => {
                                     return type_mismatch(
                                         i,
                                         &rbx_value,
-                                        "String, Content, Tags, or BinaryString",
+                                        "String, Content, Tags, Attributes, or BinaryString",
                                     );
                                 }
                             }

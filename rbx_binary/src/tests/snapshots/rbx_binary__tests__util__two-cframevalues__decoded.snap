@@ -1,14 +1,14 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 33
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: "1, 2, 3, 4, 5, 6, -1, -2, -3, -4, -5, -6"
   class: CFrameValue
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     SourceAssetId:
       Int64: -1
     Tags:
@@ -34,8 +34,8 @@ expression: decoded_viewed
   name: "0.15625, -0.15625, 0.1, -0.1, 0, 0, 1337, -1337, inf, -inf, nan, nan"
   class: CFrameValue
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     SourceAssetId:
       Int64: -1
     Tags:

@@ -1,14 +1,14 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 33
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: Folder
   class: Folder
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     SourceAssetId:
       Int64: -1
     Tags:
@@ -20,8 +20,8 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AttributesSerialize:
-          BinaryString: ""
+        Attributes:
+          Attributes: {}
         BackParamA:
           Float32: -0.5
         BackParamB:
@@ -159,8 +159,8 @@ expression: decoded_viewed
           name: WeldConstraint
           class: WeldConstraint
           properties:
-            AttributesSerialize:
-              BinaryString: ""
+            Attributes:
+              Attributes: {}
             CFrame0:
               CFrame:
                 position:
@@ -192,8 +192,8 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AttributesSerialize:
-          BinaryString: ""
+        Attributes:
+          Attributes: {}
         BackParamA:
           Float32: -0.5
         BackParamB:

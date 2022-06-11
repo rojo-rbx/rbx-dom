@@ -1,15 +1,15 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 33
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: ""
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -31,8 +31,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -55,8 +55,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -80,8 +80,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -106,8 +106,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -133,8 +133,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -161,8 +161,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -190,8 +190,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -218,8 +218,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -245,8 +245,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -273,8 +273,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -300,8 +300,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -326,8 +326,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -353,8 +353,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -381,8 +381,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -408,8 +408,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -434,8 +434,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -461,8 +461,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -487,8 +487,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -512,8 +512,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -538,8 +538,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -565,8 +565,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -593,8 +593,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -620,8 +620,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -646,8 +646,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -673,8 +673,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -699,8 +699,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -724,8 +724,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -750,8 +750,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -777,8 +777,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -803,8 +803,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -828,8 +828,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -854,8 +854,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -879,8 +879,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -903,8 +903,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -928,8 +928,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -954,8 +954,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -981,8 +981,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1009,8 +1009,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1036,8 +1036,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1062,8 +1062,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1089,8 +1089,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1115,8 +1115,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1140,8 +1140,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1166,8 +1166,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1193,8 +1193,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1219,8 +1219,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1244,8 +1244,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1270,8 +1270,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1295,8 +1295,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1319,8 +1319,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1344,8 +1344,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1370,8 +1370,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1397,8 +1397,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1423,8 +1423,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1448,8 +1448,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1474,8 +1474,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1499,8 +1499,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1523,8 +1523,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1548,8 +1548,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1574,8 +1574,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1599,8 +1599,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1623,8 +1623,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397
@@ -1648,8 +1648,8 @@ expression: decoded_viewed
   class: Handles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color3:
       Color3:
         - 0.050980397

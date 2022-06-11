@@ -7,8 +7,8 @@ expression: decoded_viewed
   name: None
   class: Model
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     LevelOfDetail:
       Enum: 0
     ModelInPrimary:
@@ -65,8 +65,8 @@ expression: decoded_viewed
   name: Some
   class: Model
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     LevelOfDetail:
       Enum: 0
     ModelInPrimary:
@@ -137,8 +137,8 @@ expression: decoded_viewed
   name: SomeInfNaN
   class: Model
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     LevelOfDetail:
       Enum: 0
     ModelInPrimary:
