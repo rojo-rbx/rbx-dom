@@ -17758,7 +17758,7 @@
         },
         "Attributes": {
           "Name": "Attributes",
-          "Scriptability": "None",
+          "Scriptability": "Custom",
           "DataType": {
             "Value": "Attributes"
           },
