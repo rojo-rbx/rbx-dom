@@ -18,9 +18,11 @@ return {
 
 				for key in pairs(existing) do
 					if value[key] == nil then
-						instance:RemoveAttribute(key)
+						instance:SetAttribute(key, nil)
 					end
 				end
+
+				return true
 			end,
 		},
 		Tags = {
