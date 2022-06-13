@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 0.12.4 (2022-06-12)
+* Implemented serialization and deserialization for `Attributes`. ([#219])
+
+[#219]: https://github.com/rojo-rbx/rbx-dom/pull/219
+
 ## 0.12.3 (2021-10-11)
 * Added support for `Tags` values. ([#199])
 
