@@ -8,7 +8,7 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+        Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, Enum, Faces, Matrix3, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim,
         UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
@@ -1228,6 +1228,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             VariantType::OptionalCFrame => Variant::OptionalCFrame(None),
             VariantType::Tags => Variant::Tags(Tags::new()),
             VariantType::Content => Variant::Content(Content::new()),
+            VariantType::Attributes => Variant::Attributes(Attributes::new()),
             _ => return None,
         })
     }
