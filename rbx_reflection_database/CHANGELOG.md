@@ -2,6 +2,10 @@
 
 ## Unreleased Changes
 
+## 0.2.5+roblox-530
+* Updated to Roblox version 530.
+* `Instance.Attributes` is now the canonical version of `Instance.AttributesSerialize` and is marked as scriptable.
+
 ## 0.2.4+roblox-504
 * Updated to Roblox version 504.
 * Fixed `WeldConstraint` `Part0` and `Part1` aliases being incomplete. `Part0` and `Part1` properties should now serialize correctly.
