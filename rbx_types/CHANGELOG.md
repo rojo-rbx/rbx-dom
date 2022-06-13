@@ -2,6 +2,10 @@
 
 ## Unreleased Changes
 
+## 1.4.1 (2022-06-12)
+* `Attributes` can now decode from an empty buffer.
+* `Attributes` now encodes as an empty buffer when empty.
+
 ## 1.4.0 (2022-06-05)
 * Added `Attributes::with` for creating attributes in code more easily.
 * Implemented `Hash` for `VariantTy`.
