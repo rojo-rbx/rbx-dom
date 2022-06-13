@@ -64,6 +64,7 @@ pub(crate) fn write_attributes<W: Write>(
                 write_vector2(&mut writer, rect.max)?
             }
             Variant::BinaryString(string) => write_string(&mut writer, string)?,
+            Variant::String(string) => write_string(&mut writer, string)?,
             Variant::UDim(udim) => write_udim(&mut writer, *udim)?,
             Variant::UDim2(udim2) => {
                 write_udim(&mut writer, udim2.x)?;

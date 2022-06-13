@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 
+## 1.4.2 (2022-06-12)
+* `Variant::String` now encodes correctly inside of `Attributes`.
+
 ## 1.4.1 (2022-06-12)
 * `Attributes` can now decode from an empty buffer.
 * `Attributes` now encodes as an empty buffer when empty.

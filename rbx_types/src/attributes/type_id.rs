@@ -5,6 +5,8 @@ macro_rules! type_ids {
         pub(super) fn from_variant_type(ty: VariantType) -> Option<u8> {
             match ty {
                 $( VariantType::$ty => Some($id), )*
+
+                VariantType::String => Some(0x02),
                 _ => None,
             }
         }
