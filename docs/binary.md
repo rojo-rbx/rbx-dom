@@ -1,7 +1,7 @@
 # Roblox Binary Model Format, Version 0
 This is unofficial documentation for Roblox's binary model format. The binary model format is used for places (`.rbxl` files), models (`.rbxm` files), and many objects uploaded to Roblox's asset storage.
 
-The binary model format intended to supersede Roblox's older [XML model format](/xml).
+The binary model format intended to supersede Roblox's older [XML model format](xml.md).
 
 This document is based on:
 - [*ROBLOX File Format* by Gregory Comer](http://www.classy-studios.com/Downloads/RobloxFileSpec.pdf)
