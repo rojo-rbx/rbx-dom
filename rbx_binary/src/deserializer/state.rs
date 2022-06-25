@@ -13,7 +13,7 @@ use rbx_dom_weak::{
     },
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::DataType;
+use rbx_reflection::{DataType, PropertyKind, PropertySerialization};
 
 use crate::{
     cframe,
@@ -264,6 +264,33 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             &prop_name,
         ) {
             Some(descriptors) => {
+                // If this descriptor is known but wasn't supposed to be
+                // serialized, we should skip it.
+                //
+                // On 2021-09-07 (v494), BasePart.MaterialVariant was added as a
+                // serializable Referent property. It was removed soon after, on
+                // 2021-10-12 (v499). Any models saved during that period have
+                // BasePart.MaterialVariant present.
+                //
+                // On 2022-03-08 (v517), BasePart.MaterialVariant was
+                // reintroduced as a string property that does not serialize. It
+                // serializes as MaterialVariantSerialized.
+                //
+                // In case we run into a model serialized during that period, or
+                // this happens again, we need to make sure that the name we
+                // found is the one that's supposed to serialize.
+                if let PropertyKind::Canonical { serialization } = &descriptors.canonical.kind {
+                    if matches!(serialization, PropertySerialization::DoesNotSerialize) {
+                        log::debug!(
+                            "Skipping property {} as it is canonical and should not serialize.",
+                            descriptors.canonical.name
+                        );
+                        return Ok(());
+                    }
+                }
+
+                // TODO: Do we need an additional fix here?
+
                 canonical_name = descriptors.canonical.name.clone().into_owned();
                 canonical_type = match &descriptors.canonical.data_type {
                     DataType::Value(ty) => *ty,
