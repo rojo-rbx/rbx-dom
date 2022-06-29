@@ -223,7 +223,6 @@ pub(crate) enum EncodeErrorKind {
     Io(io::Error),
     Xml(xml::writer::Error),
     TypeError(rbx_dom_weak::types::Error),
-
     UnknownProperty {
         class_name: String,
         property_name: String,
@@ -246,7 +245,6 @@ impl fmt::Display for EncodeErrorKind {
             Io(err) => write!(output, "{}", err),
             Xml(err) => write!(output, "{}", err),
             TypeError(err) => write!(output, "{}", err),
-
             UnknownProperty {
                 class_name,
                 property_name,
@@ -282,7 +280,6 @@ impl std::error::Error for EncodeErrorKind {
             Io(err) => Some(err),
             Xml(err) => Some(err),
             TypeError(err) => Some(err),
-
             UnknownProperty { .. }
             | UnsupportedPropertyType(_)
             | UnsupportedPropertyConversion { .. } => None,

@@ -1,3 +1,4 @@
+--!strict
 local CollectionService = game:GetService("CollectionService")
 local setAttribute = require(script.Parent.setAttribute)
 
@@ -7,7 +8,7 @@ local setAttribute = require(script.Parent.setAttribute)
 return {
 	Instance = {
 		Tags = {
-			read = function(instance)
+			read = function(instance: Instance): (boolean, Tags)
 				return true, CollectionService:GetTags(instance)
 			end,
 
@@ -19,7 +20,7 @@ return {
 					unseenTags[tag] = true
 				end
 
-				for _, tag in ipairs(value) do
+				for _, tag in ipairs(tags) do
 					unseenTags[tag] = nil
 					CollectionService:AddTag(instance, tag)
 				end

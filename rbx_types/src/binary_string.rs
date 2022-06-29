@@ -18,6 +18,10 @@ impl BinaryString {
     pub fn into_vec(self) -> Vec<u8> {
         self.buffer
     }
+
+    pub fn is_empty(&self) -> bool {
+        self.buffer.is_empty()
+    }
 }
 
 impl From<Vec<u8>> for BinaryString {

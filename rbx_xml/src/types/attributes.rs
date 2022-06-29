@@ -1,9 +1,9 @@
-use rbx_dom_weak::types::Attributes;
 use std::io::Write;
+use rbx_dom_weak::types::Attributes;
 
 use crate::{
-    error::{EncodeError, EncodeErrorKind},
     serializer_core::{XmlEventWriter, XmlWriteEvent},
+    error::{EncodeError, EncodeErrorKind},
 };
 
 pub const XML_TAG_NAME: &str = "BinaryString";

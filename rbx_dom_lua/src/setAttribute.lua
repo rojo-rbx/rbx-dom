@@ -21,7 +21,7 @@ local function setAttribute(inst, name, value)
         and #name == math.clamp(#name, 1, 100)
         and name:match("[A-z0-9_]+")
         and name:sub(1, 3) ~= "RBX"
-
+    
     if not validName then
         return false, Error.new(Error.Kind.InvalidAttributeName, {
             inst = inst,
@@ -41,7 +41,7 @@ local function setAttribute(inst, name, value)
             })
         end
     end
-
+    
     -- TODO: Does this pcall ever fail?
     return pcall(function()
         inst:SetAttribute(name, value)

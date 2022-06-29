@@ -207,6 +207,16 @@
     },
     "ty": "Float64"
   },
+  "Font": {
+    "value": {
+      "Font": {
+        "Family": "rbxassetid://12345",
+        "Weight": "Regular",
+        "Style": "Normal"
+      }
+    },
+    "ty": "Font"
+  },
   "Int32": {
     "value": {
       "Int32": 6014

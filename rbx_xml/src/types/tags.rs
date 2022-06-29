@@ -18,7 +18,7 @@ pub fn write_tags<W: Write>(
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
 
     if !encoded.is_empty() {
-        writer.write_string(&encoded)?;
+        writer.write(XmlWriteEvent::cdata(&encoded))?
     }
 
     writer.write(XmlWriteEvent::end_element())?;

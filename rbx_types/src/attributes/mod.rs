@@ -80,6 +80,12 @@ impl Attributes {
     }
 }
 
+impl From<BTreeMap<String, Variant>> for Attributes {
+    fn from(data: BTreeMap<String, Variant>) -> Attributes {
+        Self { data }
+    }
+}
+
 impl IntoIterator for Attributes {
     type IntoIter = AttributesIntoIter;
     type Item = (String, Variant);

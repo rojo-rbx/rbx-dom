@@ -45,7 +45,6 @@ return function()
 
         local set = setAttribute(inst, tooMany, 0)
         expect(set).to.never.be.ok()
-
         set = setAttribute(inst, tooFew, 0)
         expect(set).to.never.be.ok()
     end)
