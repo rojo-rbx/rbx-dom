@@ -134,6 +134,7 @@ return {
 				end)
 
 				MESH_DISPATCH[meshPart] = dispatch
+				return true
 			end,
 		},
 	}
