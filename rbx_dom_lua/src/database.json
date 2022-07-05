@@ -20834,8 +20834,8 @@
             "NotScriptable"
           ],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "MeshId"
             }
           }
         },
@@ -21027,9 +21027,6 @@
         },
         "Material": {
           "Enum": 256
-        },
-        "MeshID": {
-          "Content": ""
         },
         "MeshId": {
           "Content": ""

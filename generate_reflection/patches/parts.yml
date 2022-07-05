@@ -65,6 +65,10 @@ Change:
     MeshId:
       Scriptability: Custom
 
+    # For some reason Roblox writes both MeshId AND MeshID?
+    MeshID:
+      AliasFor: MeshId
+
   Part:
     Shape:
       Serialization:
