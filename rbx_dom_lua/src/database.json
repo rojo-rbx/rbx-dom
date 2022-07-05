@@ -20825,7 +20825,7 @@
         },
         "MeshID": {
           "Name": "MeshID",
-          "Scriptability": "Custom",
+          "Scriptability": "None",
           "DataType": {
             "Value": "Content"
           },
@@ -20841,7 +20841,7 @@
         },
         "MeshId": {
           "Name": "MeshId",
-          "Scriptability": "Read",
+          "Scriptability": "Custom",
           "DataType": {
             "Value": "Content"
           },

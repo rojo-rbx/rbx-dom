@@ -64,9 +64,9 @@ return {
 		},
 	},
 	MeshPart = {
-		MeshID = {
-			read = function(instance)
-				return true, instance.MeshId
+		MeshId = {
+			read = function(meshPart: MeshPart)
+				return true, meshPart.MeshId
 			end,
 			write = function(meshPart: MeshPart, _, meshId: string)
 				if meshPart.MeshId == meshId then
