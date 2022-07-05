@@ -59,6 +59,12 @@ Change:
     formFactor:
       AliasFor: FormFactor
 
+  MeshPart:
+    # MeshPart.MeshId can't be written to under normal circumstances.
+    # It instead has to be deferred through InsertService:CreateMeshPartAsync
+    MeshID:
+      Scriptability: Custom
+
   Part:
     Shape:
       Serialization:
