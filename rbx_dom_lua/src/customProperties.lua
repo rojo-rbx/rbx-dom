@@ -119,9 +119,9 @@ return {
 							else
 								break
 							end
+						else
+							error("Unexpected response from CreateMeshPartAsync!", 2)
 						end
-
-						error("Unexpected response from CreateMeshPartAsync!", 2)
 					end
 
 					if not applied then
