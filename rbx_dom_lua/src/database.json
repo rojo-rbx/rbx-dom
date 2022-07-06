@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    533,
+    534,
     0,
-    5330256
+    5340446
   ],
   "Classes": {
     "ABTestService": {
@@ -1255,6 +1255,16 @@
         "NotCreatable",
         "NotReplicated",
         "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "AssetImportSession": {
+      "Name": "AssetImportSession",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
       ],
       "Superclass": "Instance",
       "Properties": {},
@@ -2924,6 +2934,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Content"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RunContext": {
+          "Name": "RunContext",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "RunContext"
           },
           "Tags": [],
           "Kind": {
@@ -19355,6 +19378,9 @@
         "LinkedSource": {
           "Content": ""
         },
+        "RunContext": {
+          "Enum": 0
+        },
         "Source": {
           "String": ""
         },
@@ -29862,6 +29888,9 @@
         },
         "LinkedSource": {
           "Content": ""
+        },
+        "RunContext": {
+          "Enum": 0
         },
         "Source": {
           "String": ""
@@ -48719,7 +48748,6 @@
     "ContextActionPriority": {
       "name": "ContextActionPriority",
       "items": {
-        "Default": 2000,
         "High": 3000,
         "Low": 1000,
         "Medium": 2000
@@ -50495,6 +50523,15 @@
         "MovementRelative": 0
       }
     },
+    "RunContext": {
+      "name": "RunContext",
+      "items": {
+        "Client": 2,
+        "Legacy": 0,
+        "Plugin": 3,
+        "Server": 1
+      }
+    },
     "RuntimeUndoBehavior": {
       "name": "RuntimeUndoBehavior",
       "items": {
@@ -51339,6 +51376,8 @@
         "HSROuter": 9,
         "HSROuterDetail": 8,
         "LayerCage": 2,
+        "LayerCageFittedToBase": 12,
+        "LayerCageFittedToPrev": 13,
         "None": 0,
         "OuterCage": 6,
         "Rbf": 5,
