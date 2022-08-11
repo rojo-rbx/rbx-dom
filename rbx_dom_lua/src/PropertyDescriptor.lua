@@ -1,200 +1,94 @@
-local database = require(script.database)
-local Error = require(script.Error)
-local PropertyDescriptor = require(script.PropertyDescriptor)
-local EncodedValue = require(script.EncodedValue)
+local Error = require(script.Parent.Error)
+local customProperties = require(script.Parent.customProperties)
 
-local function findCanonicalPropertyDescriptor(className, propertyName)
-	local currentClassName = className
+-- A wrapper around a property descriptor from the reflection database with some
+-- extra convenience methods.
+--
+-- The aim of this API is to facilitate looking up a property once, then reading
+-- from it or writing to it multiple times. It's also useful when a consumer
+-- wants to check additional constraints on the property before trying to use
+-- it, like scriptability.
+local PropertyDescriptor = {}
+PropertyDescriptor.__index = PropertyDescriptor
 
-	repeat
-		local currentClass = database.Classes[currentClassName]
-
-		if currentClass == nil then
-			return currentClass
-		end
-
-		local propertyData = currentClass.Properties[propertyName]
-		if propertyData ~= nil then
-			local canonicalData = propertyData.Kind.Canonical
-			if canonicalData ~= nil then
-				return PropertyDescriptor.fromRaw(propertyData, currentClassName, propertyName)
-			end
-
-			local aliasData = propertyData.Kind.Alias
-			if aliasData ~= nil then
-				return PropertyDescriptor.fromRaw(
-					currentClass.Properties[aliasData.AliasFor],
-					currentClassName,
-					aliasData.AliasFor)
-			end
-
-			return nil
-		end
-
-		currentClassName = currentClass.Superclass
-	until currentClassName == nil
-
-	return nil
+local function get(container, key)
+	return container[key]
 end
 
-local function readProperty(instance, propertyName)
-	local descriptor = findCanonicalPropertyDescriptor(instance.ClassName, propertyName)
-
-	if descriptor == nil then
-		local fullName = ("%s.%s"):format(instance.className, propertyName)
-
-		return false, Error.new(Error.Kind.UnknownProperty, fullName)
-	end
-
-	return descriptor:read(instance)
+local function set(container, key, value)
+	container[key] = value
 end
 
-local function writeProperty(instance, propertyName, value)
-	local descriptor = findCanonicalPropertyDescriptor(instance.ClassName, propertyName)
+function PropertyDescriptor.fromRaw(data, className, propertyName)
+	local key, value = next(data.DataType)
 
-	if descriptor == nil then
-		local fullName = ("%s.%s"):format(instance.className, propertyName)
+	return setmetatable({
+		-- The meanings of the key and value in DataType differ when the type of
+		-- the property is Enum. When the property is of type Enum, the key is
+		-- the name of the type:
+		--
+		-- { Enum = "<name of enum>" }
+		--
+		-- When the property is not of type Enum, the value is the name of the
+		-- type:
+		--
+		-- { Value = "<data type>" }
+		dataType = key == "Enum" and key or value,
 
-		return false, Error.new(Error.Kind.UnknownProperty, fullName)
-	end
-
-	return descriptor:write(instance, value)
+		scriptability = data.Scriptability,
+		className = className,
+		name = propertyName,
+	}, PropertyDescriptor)
 end
 
-local function findAllReadableProperties(className)
-	local currentClassName = className
-	local properties = {}
-	repeat
-		local currentClass = database.Classes[currentClassName]
+function PropertyDescriptor:read(instance)
+	if self.scriptability == "ReadWrite" or self.scriptability == "Read" then
+		local success, value = xpcall(get, debug.traceback, instance, self.name)
 
-		if currentClass == nil then
-			return currentClass
-		end
-
-		for name , values in pairs(currentClass.Properties) do
-			if values.Scriptability == "ReadWrite" or values.Scriptability == "Read" or values.Scriptability == "Custom"  then
-				table.insert(properties,name)
-			end
-		end
-
-		currentClassName = currentClass.Superclass
-	until currentClassName == nil
-
-	return properties
-end
-
-local function readAllReadableProperties(instance)
-	local read_properties = {}
-	local properties = findAllReadableProperties(instance.ClassName)
-	for _,property in ipairs(properties) do
-		local sucess,value = readProperty(instance,property)
-		if sucess then
-			read_properties[property] = value	
+		if success then
+			return success, value
+		else
+			return false, Error.new(Error.Kind.Roblox, value)
 		end
 	end
-	return read_properties
-end
 
-local function findAllDefaultProperties(className)
-	local currentClassName = className
-	local defaultProperties = {}
-	repeat
-		local currentClass = database.Classes[currentClassName]
+	if self.scriptability == "Custom" then
+		local interface = customProperties[self.className][self.name]
 
-		if currentClass == nil then
-			return currentClass
-		end
-
-		for name , values in pairs(currentClass.DefaultProperties) do
-			defaultProperties[name] = values
-		end
-
-		currentClassName = currentClass.Superclass
-	until currentClassName == nil
-
-	return defaultProperties
-end
-
-local function deepTableEquals(t1, t2)
-	local ty1 = type(t1)
-	local ty2 = type(t2)
-	if ty1 ~= ty2 then return false end
-	-- non-table types can be directly compared
-	if ty1 ~= 'table' and ty2 ~= 'table' then return t1 == t2 end
-	-- as well as tables which have the metamethod __eq
-	for k1, v1 in pairs(t1) do
-		local v2 = t2[k1]
-		if v2 == nil or not deepTableEquals(v1, v2) then return false end
+		return interface.read(instance, self.name)
 	end
-	for k2, v2 in pairs(t2) do
-		local v1 = t1[k2]
-		if v1 == nil or not deepTableEquals(v1, v2) then return false end
+
+	if self.scriptability == "None" or self.scriptability == "Write" then
+		local fullName = ("%s.%s"):format(instance.className, self.name)
+
+		return false, Error.new(Error.Kind.PropertyNotReadable, fullName)
 	end
-	return true
+
+	error(("Internal error: unexpected value of 'scriptability': %s"):format(tostring(self.scriptability)), 2)
 end
 
-local function findAllNoneDefaultPropertiesEncoded(instance)
-	local noneDefaultProperties = {}
-	local properties = readAllReadableProperties(instance)
-	local defaultProperties = findAllDefaultProperties(instance.ClassName)
-	for property ,value in pairs(properties)  do
-		local sucess,enocdedProrperty = EncodedValue.encodeNaive(value)
-		local defaultProperty = defaultProperties[property]
-		if sucess and defaultProperty then
-			if not deepTableEquals(enocdedProrperty,defaultProperty) then
-				noneDefaultProperties[property] = enocdedProrperty
-			end
-		elseif property == "Attributes" then
-			local attributes = {}
-			for name, attributeValue in pairs(value) do
-				local attributeSucess,enocdedattribute = EncodedValue.encodeNaive(attributeValue)
-				if attributeSucess  then
-					attributes[name] = enocdedattribute
-				end
-			end
-			if not deepTableEquals(attributes,defaultProperty) then
-				noneDefaultProperties[property] = attributes
-			end
+function PropertyDescriptor:write(instance, value)
+	if self.scriptability == "ReadWrite" or self.scriptability == "Write" then
+		local success, err = xpcall(set, debug.traceback, instance, self.name, value)
+
+		if success then
+			return success
+		else
+			return false, Error.new(Error.Kind.Roblox, err)
 		end
 	end
-	return noneDefaultProperties
-end
-local function findAllNoneDefaultPropertiesDecoded(instance)
-	local noneDefaultProperties = {}
-	local properties = readAllReadableProperties(instance)
-	local defaultProperties = findAllDefaultProperties(instance.ClassName)
-	for property ,value in pairs(properties)  do
-		local sucess, enocdedPorperty = EncodedValue.encodeNaive(value)
-		local defaultProperty = defaultProperties[property]
-		if sucess and defaultProperty then
-			if not deepTableEquals(enocdedPorperty,defaultProperty) then
-				noneDefaultProperties[property] = value
-			end
-		elseif property == "Attributes" then
-			local attributes = {}
-			for name, attributeValue in pairs(value) do
-				local attributeSucess,enocdedattribute = EncodedValue.encodeNaive(attributeValue)
-				if attributeSucess  then
-					attributes[name] = enocdedattribute
-				end
-			end
-			if not deepTableEquals(attributes,defaultProperty) then
-				noneDefaultProperties[property] = value
-			end
-		end
+
+	if self.scriptability == "Custom" then
+		local interface = customProperties[self.className][self.name]
+
+		return interface.write(instance, self.name, value)
 	end
-	return noneDefaultProperties
+
+	if self.scriptability == "None" or self.scriptability == "Read" then
+		local fullName = ("%s.%s"):format(instance.className, self.name)
+
+		return false, Error.new(Error.Kind.PropertyNotWritable, fullName)
+	end
 end
 
-return {
-	readProperty = readProperty,
-	writeProperty = writeProperty,
-	findCanonicalPropertyDescriptor = findCanonicalPropertyDescriptor,
-	Error = Error,
-	findAllReadableProperties = findAllReadableProperties,
-	readAllReadableProperties = readAllReadableProperties,
-	findAllDefaultProperties = findAllDefaultProperties,
-	findAllNoneDefaultPropertiesEncoded = findAllNoneDefaultPropertiesEncoded,
-	findAllNoneDefaultPropertiesDecoded = findAllNoneDefaultPropertiesDecoded,
-	EncodedValue = EncodedValue,
-}
+return PropertyDescriptor
