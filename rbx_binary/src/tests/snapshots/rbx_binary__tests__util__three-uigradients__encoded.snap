@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -28,38 +27,38 @@ chunks:
       prop_type: ColorSequence
       values:
         - keypoints:
-            - time: 0.0
+            - time: 0
               color:
-                - 1.0
-                - 1.0
-                - 1.0
-            - time: 1.0
+                - 1
+                - 1
+                - 1
+            - time: 1
               color:
-                - 1.0
-                - 1.0
-                - 1.0
+                - 1
+                - 1
+                - 1
         - keypoints:
-            - time: 0.0
+            - time: 0
               color:
-                - 1.0
-                - 1.0
-                - 1.0
-            - time: 1.0
+                - 1
+                - 1
+                - 1
+            - time: 1
               color:
-                - 1.0
-                - 1.0
-                - 1.0
+                - 1
+                - 1
+                - 1
         - keypoints:
-            - time: 0.0
+            - time: 0
               color:
-                - 1.0
-                - 1.0
-                - 1.0
-            - time: 1.0
+                - 1
+                - 1
+                - 1
+            - time: 1
               color:
-                - 1.0
-                - 1.0
-                - 1.0
+                - 1
+                - 1
+                - 1
   - Prop:
       type_id: 0
       prop_name: Enabled
@@ -81,20 +80,20 @@ chunks:
       prop_name: Offset
       prop_type: Vector2
       values:
-        - - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
+        - - 0
+          - 0
+        - - 0
+          - 0
+        - - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: Rotation
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: SourceAssetId
@@ -117,38 +116,38 @@ chunks:
       prop_type: NumberSequence
       values:
         - keypoints:
-            - time: 0.0
+            - time: 0
               value: 0.5
-              envelope: 0.0
+              envelope: 0
             - time: 0.2
               value: 0.75
-              envelope: 0.0
+              envelope: 0
             - time: 0.5
-              value: 0.0
-              envelope: 0.0
+              value: 0
+              envelope: 0
             - time: 0.6
               value: 0.8
-              envelope: 0.0
-            - time: 1.0
-              value: 1.0
-              envelope: 0.0
+              envelope: 0
+            - time: 1
+              value: 1
+              envelope: 0
         - keypoints:
-            - time: 0.0
-              value: 0.0
-              envelope: 0.0
+            - time: 0
+              value: 0
+              envelope: 0
             - time: 0.5
-              value: 1.0
-              envelope: 0.0
-            - time: 1.0
-              value: 0.0
-              envelope: 0.0
+              value: 1
+              envelope: 0
+            - time: 1
+              value: 0
+              envelope: 0
         - keypoints:
-            - time: 0.0
-              value: 0.0
-              envelope: 0.0
-            - time: 1.0
-              value: 0.0
-              envelope: 0.0
+            - time: 0
+              value: 0
+              envelope: 0
+            - time: 1
+              value: 0
+              envelope: 0
   - Prnt:
       version: 0
       links:

@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -41,19 +40,19 @@ expression: decoded_viewed
         CFrame:
           CFrame:
             position:
-              - -6.0
+              - -6
               - 0.5000011
-              - -11.0
+              - -11
             orientation:
-              - - 1.0
-                - 0.0
-                - 0.0
-              - - 0.0
-                - 1.0
-                - 0.0
-              - - 0.0
-                - 0.0
-                - 1.0
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
         CanCollide:
           Bool: true
         CanQuery:
@@ -98,21 +97,21 @@ expression: decoded_viewed
         PivotOffset:
           CFrame:
             position:
-              - 0.0
-              - 0.0
-              - 0.0
+              - 0
+              - 0
+              - 0
             orientation:
-              - - 1.0
-                - 0.0
-                - 0.0
-              - - 0.0
-                - 1.0
-                - 0.0
-              - - 0.0
-                - 0.0
-                - 1.0
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
         Reflectance:
-          Float32: 0.0
+          Float32: 0
         RightParamA:
           Float32: -0.5
         RightParamB:
@@ -125,16 +124,16 @@ expression: decoded_viewed
           Int32: 0
         RotVelocity:
           Vector3:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
         Shape:
           Enum: 1
         Size:
           Vector3:
-            - 4.0
-            - 1.0
-            - 2.0
+            - 4
+            - 1
+            - 2
         SourceAssetId:
           Int64: -1
         Tags:
@@ -148,12 +147,12 @@ expression: decoded_viewed
         TopSurfaceInput:
           Enum: 0
         Transparency:
-          Float32: 0.0
+          Float32: 0
         Velocity:
           Vector3:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
       children:
         - referent: referent-2
           name: WeldConstraint
@@ -164,19 +163,19 @@ expression: decoded_viewed
             CFrame0:
               CFrame:
                 position:
-                  - 4.0
-                  - 1.0
-                  - -4.0
+                  - 4
+                  - 1
+                  - -4
                 orientation:
-                  - - 1.0
-                    - 0.0
-                    - 0.0
-                  - - 0.0
-                    - 1.0
-                    - 0.0
-                  - - 0.0
-                    - 0.0
-                    - 1.0
+                  - - 1
+                    - 0
+                    - 0
+                  - - 0
+                    - 1
+                    - 0
+                  - - 0
+                    - 0
+                    - 1
             Part0: referent-1
             Part1: referent-3
             SourceAssetId:
@@ -213,19 +212,19 @@ expression: decoded_viewed
         CFrame:
           CFrame:
             position:
-              - -2.0
+              - -2
               - 1.5000011
-              - -15.0
+              - -15
             orientation:
-              - - 1.0
-                - 0.0
-                - 0.0
-              - - 0.0
-                - 1.0
-                - 0.0
-              - - 0.0
-                - 0.0
-                - 1.0
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
         CanCollide:
           Bool: true
         CanQuery:
@@ -270,21 +269,21 @@ expression: decoded_viewed
         PivotOffset:
           CFrame:
             position:
-              - 0.0
-              - 0.0
-              - 0.0
+              - 0
+              - 0
+              - 0
             orientation:
-              - - 1.0
-                - 0.0
-                - 0.0
-              - - 0.0
-                - 1.0
-                - 0.0
-              - - 0.0
-                - 0.0
-                - 1.0
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
         Reflectance:
-          Float32: 0.0
+          Float32: 0
         RightParamA:
           Float32: -0.5
         RightParamB:
@@ -297,16 +296,16 @@ expression: decoded_viewed
           Int32: 0
         RotVelocity:
           Vector3:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
         Shape:
           Enum: 1
         Size:
           Vector3:
-            - 4.0
-            - 1.0
-            - 2.0
+            - 4
+            - 1
+            - 2
         SourceAssetId:
           Int64: -1
         Tags:
@@ -320,11 +319,11 @@ expression: decoded_viewed
         TopSurfaceInput:
           Enum: 0
         Transparency:
-          Float32: 0.0
+          Float32: 0
         Velocity:
           Vector3:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
       children: []
 

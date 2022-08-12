@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -11,8 +10,8 @@ expression: decoded_viewed
       Bool: true
     AnchorPoint:
       Vector2:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
     Attributes:
       Attributes: {}
     AutoButtonColor:
@@ -23,11 +22,11 @@ expression: decoded_viewed
       Enum: 0
     BackgroundColor3:
       Color3:
-        - 1.0
-        - 1.0
-        - 1.0
+        - 1
+        - 1
+        - 1
     BackgroundTransparency:
-      Float32: 0.0
+      Float32: 0
     BorderColor3:
       Color3:
         - 0.10588236
@@ -47,19 +46,19 @@ expression: decoded_viewed
       Content: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageColor3:
       Color3:
-        - 1.0
-        - 1.0
-        - 1.0
+        - 1
+        - 1
+        - 1
     ImageRectOffset:
       Vector2:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
     ImageRectSize:
       Vector2:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
     ImageTransparency:
-      Float32: 0.0
+      Float32: 0
     LayoutOrder:
       Int32: 0
     Modal:
@@ -70,15 +69,15 @@ expression: decoded_viewed
     NextSelectionUp: "null"
     Position:
       UDim2:
-        - - 0.0
+        - - 0
           - 0
-        - - 0.0
+        - - 0
           - 0
     PressedImage:
       Content: ""
     RootLocalizationTable: "null"
     Rotation:
-      Float32: 0.0
+      Float32: 0
     ScaleType:
       Enum: 1
     Selectable:
@@ -88,20 +87,20 @@ expression: decoded_viewed
     SelectionImageObject: "null"
     Size:
       UDim2:
-        - - 0.0
+        - - 0
           - 100
-        - - 0.0
+        - - 0
           - 100
     SizeConstraint:
       Enum: 0
     SliceCenter:
       Rect:
-        - - -1.0
-          - -10.0
-        - - 8.0
-          - 9.0
+        - - -1
+          - -10
+        - - 8
+          - 9
     SliceScale:
-      Float32: 1.0
+      Float32: 1
     SourceAssetId:
       Int64: -1
     Style:
@@ -110,9 +109,9 @@ expression: decoded_viewed
       Tags: []
     TileSize:
       UDim2:
-        - - 1.0
+        - - 1
           - 0
-        - - 1.0
+        - - 1
           - 0
     Visible:
       Bool: true
@@ -127,8 +126,8 @@ expression: decoded_viewed
       Bool: true
     AnchorPoint:
       Vector2:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
     Attributes:
       Attributes: {}
     AutoButtonColor:
@@ -139,11 +138,11 @@ expression: decoded_viewed
       Enum: 0
     BackgroundColor3:
       Color3:
-        - 1.0
-        - 1.0
-        - 1.0
+        - 1
+        - 1
+        - 1
     BackgroundTransparency:
-      Float32: 0.0
+      Float32: 0
     BorderColor3:
       Color3:
         - 0.10588236
@@ -163,19 +162,19 @@ expression: decoded_viewed
       Content: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageColor3:
       Color3:
-        - 1.0
-        - 1.0
-        - 1.0
+        - 1
+        - 1
+        - 1
     ImageRectOffset:
       Vector2:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
     ImageRectSize:
       Vector2:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
     ImageTransparency:
-      Float32: 0.0
+      Float32: 0
     LayoutOrder:
       Int32: 0
     Modal:
@@ -186,15 +185,15 @@ expression: decoded_viewed
     NextSelectionUp: "null"
     Position:
       UDim2:
-        - - 0.0
+        - - 0
           - 0
-        - - 0.0
+        - - 0
           - 0
     PressedImage:
       Content: ""
     RootLocalizationTable: "null"
     Rotation:
-      Float32: 0.0
+      Float32: 0
     ScaleType:
       Enum: 1
     Selectable:
@@ -204,20 +203,20 @@ expression: decoded_viewed
     SelectionImageObject: "null"
     Size:
       UDim2:
-        - - 0.0
+        - - 0
           - 100
-        - - 0.0
+        - - 0
           - 100
     SizeConstraint:
       Enum: 0
     SliceCenter:
       Rect:
-        - - 0.0
-          - 1.0
-        - - 5.0
-          - 6.0
+        - - 0
+          - 1
+        - - 5
+          - 6
     SliceScale:
-      Float32: 1.0
+      Float32: 1
     SourceAssetId:
       Int64: -1
     Style:
@@ -226,9 +225,9 @@ expression: decoded_viewed
       Tags: []
     TileSize:
       UDim2:
-        - - 1.0
+        - - 1
           - 0
-        - - 1.0
+        - - 1
           - 0
     Visible:
       Bool: true

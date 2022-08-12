@@ -1,6 +1,5 @@
 ---
 source: rbx_xml/tests/test-files.rs
-assertion_line: 26
 expression: viewer.view_children(&dom)
 ---
 - referent: referent-0
@@ -9,18 +8,18 @@ expression: viewer.view_children(&dom)
   properties:
     AngularVelocity:
       Vector3:
-        - 0.0
-        - 2.0
-        - 0.0
+        - 0
+        - 2
+        - 0
     Attributes:
       Attributes: {}
     MaxTorque:
       Vector3:
-        - 4000.0
-        - 4000.0
-        - 4000.0
+        - 4000
+        - 4000
+        - 4000
     P:
-      Float32: 1250.0
+      Float32: 1250
     Tags:
       Tags: []
   children: []
@@ -32,9 +31,9 @@ expression: viewer.view_children(&dom)
       Attributes: {}
     Force:
       Vector3:
-        - 0.0
-        - 1.0
-        - 0.0
+        - 0
+        - 1
+        - 0
     Tags:
       Tags: []
   children: []
@@ -47,28 +46,28 @@ expression: viewer.view_children(&dom)
     CFrame:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     D:
-      Float32: 500.0
+      Float32: 500
     MaxTorque:
       Vector3:
-        - 400000.0
-        - 0.0
-        - 400000.0
+        - 400000
+        - 0
+        - 400000
     P:
-      Float32: 3000.0
+      Float32: 3000
     Tags:
       Tags: []
   children: []
@@ -79,19 +78,19 @@ expression: viewer.view_children(&dom)
     Attributes:
       Attributes: {}
     D:
-      Float32: 1250.0
+      Float32: 1250
     MaxForce:
       Vector3:
-        - 4000.0
-        - 4000.0
-        - 4000.0
+        - 4000
+        - 4000
+        - 4000
     P:
-      Float32: 10000.0
+      Float32: 10000
     Position:
       Vector3:
-        - 0.0
-        - 50.0
-        - 0.0
+        - 0
+        - 50
+        - 0
     Tags:
       Tags: []
   children: []
@@ -103,14 +102,14 @@ expression: viewer.view_children(&dom)
       Attributes: {}
     Force:
       Vector3:
-        - 0.0
-        - 1.0
-        - 0.0
+        - 0
+        - 1
+        - 0
     Location:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Tags:
       Tags: []
   children: []
@@ -122,17 +121,17 @@ expression: viewer.view_children(&dom)
       Attributes: {}
     MaxForce:
       Vector3:
-        - 4000.0
-        - 4000.0
-        - 4000.0
+        - 4000
+        - 4000
+        - 4000
     P:
-      Float32: 1250.0
+      Float32: 1250
     Tags:
       Tags: []
     Velocity:
       Vector3:
-        - 0.0
-        - 2.0
-        - 0.0
+        - 0
+        - 2
+        - 0
   children: []
 

@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -31,18 +30,18 @@ expression: decoded_viewed
       CFrame:
         position:
           - -5.5
-          - 4.0
+          - 4
           - -12.5
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     CanCollide:
       Bool: true
     CastShadow:
@@ -81,7 +80,7 @@ expression: decoded_viewed
     Material:
       Enum: 256
     Reflectance:
-      Float32: 0.0
+      Float32: 0
     RightParamA:
       Float32: -0.5
     RightParamB:
@@ -94,16 +93,16 @@ expression: decoded_viewed
       Int32: 0
     RotVelocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Shape:
       Enum: 1
     Size:
       Vector3:
-        - 1.0
-        - 2.0
-        - 3.0
+        - 1
+        - 2
+        - 3
     SourceAssetId:
       Int64: -1
     Tags:
@@ -117,12 +116,12 @@ expression: decoded_viewed
     TopSurfaceInput:
       Enum: 0
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Velocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   children: []
 - referent: referent-1
   name: Eat your greens
@@ -155,15 +154,15 @@ expression: decoded_viewed
           - -0.499993
           - -17.5
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     CanCollide:
       Bool: true
     CastShadow:
@@ -180,8 +179,8 @@ expression: decoded_viewed
         density: 0.7
         friction: 0.3
         elasticity: 0.5
-        frictionWeight: 1.0
-        elasticityWeight: 1.0
+        frictionWeight: 1
+        elasticityWeight: 1
     FormFactor:
       Enum: 1
     FrontParamA:
@@ -207,7 +206,7 @@ expression: decoded_viewed
     Material:
       Enum: 256
     Reflectance:
-      Float32: 0.0
+      Float32: 0
     RightParamA:
       Float32: -0.5
     RightParamB:
@@ -220,16 +219,16 @@ expression: decoded_viewed
       Int32: 0
     RotVelocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Shape:
       Enum: 1
     Size:
       Vector3:
-        - 4.0
-        - 5.0
-        - 6.0
+        - 4
+        - 5
+        - 6
     SourceAssetId:
       Int64: -1
     Tags:
@@ -243,12 +242,12 @@ expression: decoded_viewed
     TopSurfaceInput:
       Enum: 0
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Velocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   children: []
 - referent: referent-2
   name: Live wildly
@@ -281,15 +280,15 @@ expression: decoded_viewed
           - 8.5
           - -25.5
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     CanCollide:
       Bool: true
     CastShadow:
@@ -333,7 +332,7 @@ expression: decoded_viewed
     Material:
       Enum: 256
     Reflectance:
-      Float32: 0.0
+      Float32: 0
     RightParamA:
       Float32: -0.5
     RightParamB:
@@ -346,16 +345,16 @@ expression: decoded_viewed
       Int32: 0
     RotVelocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Shape:
       Enum: 1
     Size:
       Vector3:
-        - 7.0
-        - 8.0
-        - 9.0
+        - 7
+        - 8
+        - 9
     SourceAssetId:
       Int64: -1
     Tags:
@@ -369,11 +368,11 @@ expression: decoded_viewed
     TopSurfaceInput:
       Enum: 0
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Velocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   children: []
 

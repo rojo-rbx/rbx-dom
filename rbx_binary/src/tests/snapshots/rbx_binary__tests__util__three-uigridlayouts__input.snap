@@ -1,7 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
-
 ---
 num_types: 1
 num_instances: 3
@@ -31,7 +30,7 @@ chunks:
       prop_name: CellPadding
       prop_type: UDim2
       values:
-        - - - 0.0
+        - - - 0
             - 0
           - - -0.1
             - 100
@@ -56,7 +55,7 @@ chunks:
             - -1200
           - - -0.7
             - 1000
-        - - - 1.0
+        - - - 1
             - -300
           - - -1.1
             - 1200

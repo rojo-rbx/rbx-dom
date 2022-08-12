@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -47,17 +46,17 @@ chunks:
       prop_type: Ray
       values:
         - origin:
-            - 1.0
-            - 2.0
-            - 3.0
+            - 1
+            - 2
+            - 3
           direction:
-            - -4.0
-            - -5.0
-            - -4.0
+            - -4
+            - -5
+            - -4
         - origin:
-            - .inf
-            - -.inf
-            - .nan
+            - inf
+            - -inf
+            - NaN
           direction:
             - 0.5
             - 0.15625

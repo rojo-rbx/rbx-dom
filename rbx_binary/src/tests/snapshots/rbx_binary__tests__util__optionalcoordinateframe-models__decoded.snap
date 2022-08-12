@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -14,43 +13,43 @@ expression: decoded_viewed
     ModelInPrimary:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     ModelMeshCFrame:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     ModelMeshData:
       len: 0
       hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
     ModelMeshSize:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     NeedsPivotMigration:
       Bool: false
     PrimaryPart: "null"
@@ -72,43 +71,43 @@ expression: decoded_viewed
     ModelInPrimary:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     ModelMeshCFrame:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     ModelMeshData:
       len: 0
       hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
     ModelMeshSize:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     NeedsPivotMigration:
       Bool: false
     PrimaryPart: "null"
@@ -119,8 +118,8 @@ expression: decoded_viewed
     WorldPivotData:
       OptionalCFrame:
         position:
-          - 1.0
-          - -1.0
+          - 1
+          - -1
           - 0.5
         orientation:
           - - 0.06294725
@@ -144,43 +143,43 @@ expression: decoded_viewed
     ModelInPrimary:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     ModelMeshCFrame:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     ModelMeshData:
       len: 0
       hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
     ModelMeshSize:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     NeedsPivotMigration:
       Bool: false
     PrimaryPart: "null"
@@ -192,17 +191,17 @@ expression: decoded_viewed
       OptionalCFrame:
         position:
           - -0.5
-          - .inf
-          - .nan
+          - inf
+          - NaN
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
   children: []
 

@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -11,7 +10,7 @@ expression: decoded_viewed
       Attributes: {}
     CellPadding:
       UDim2:
-        - - 0.0
+        - - 0
           - 0
         - - -0.1
           - 100
@@ -83,7 +82,7 @@ expression: decoded_viewed
           - 250
     CellSize:
       UDim2:
-        - - 1.0
+        - - 1
           - -300
         - - -1.1
           - 1200

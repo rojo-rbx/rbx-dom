@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -47,33 +46,33 @@ chunks:
       prop_type: CFrame
       values:
         - position:
-            - 1.0
-            - 2.0
-            - 3.0
+            - 1
+            - 2
+            - 3
           orientation:
-            - - 4.0
-              - 5.0
-              - 6.0
-            - - -1.0
-              - -2.0
-              - -3.0
-            - - -4.0
-              - -5.0
-              - -6.0
+            - - 4
+              - 5
+              - 6
+            - - -1
+              - -2
+              - -3
+            - - -4
+              - -5
+              - -6
         - position:
             - 0.15625
             - -0.15625
             - 0.1
           orientation:
             - - -0.1
-              - 0.0
-              - 0.0
-            - - 1337.0
-              - -1337.0
-              - .inf
-            - - -.inf
-              - .nan
-              - .nan
+              - 0
+              - 0
+            - - 1337
+              - -1337
+              - inf
+            - - -inf
+              - NaN
+              - NaN
   - Prnt:
       version: 0
       links:

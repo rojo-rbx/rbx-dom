@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -123,14 +122,14 @@ chunks:
       prop_name: Transparency
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: Visible

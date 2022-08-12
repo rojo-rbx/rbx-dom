@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -44,64 +43,64 @@ chunks:
       prop_type: ColorSequence
       values:
         - keypoints:
-            - time: 0.0
+            - time: 0
               color:
-                - 1.0
-                - 1.0
-                - 1.0
+                - 1
+                - 1
+                - 1
             - time: 0.5
               color:
-                - 0.0
-                - 0.0
-                - 0.0
-            - time: 1.0
+                - 0
+                - 0
+                - 0
+            - time: 1
               color:
-                - 1.0
-                - 1.0
-                - 1.0
+                - 1
+                - 1
+                - 1
         - keypoints:
-            - time: 0.0
+            - time: 0
               color:
-                - 1.0
-                - 1.0
-                - 1.0
-            - time: 1.0
+                - 1
+                - 1
+                - 1
+            - time: 1
               color:
-                - 1.0
-                - 1.0
-                - 1.0
+                - 1
+                - 1
+                - 1
         - keypoints:
-            - time: 0.0
+            - time: 0
               color:
-                - 1.0
-                - 0.0
-                - 0.0
+                - 1
+                - 0
+                - 0
             - time: 0.5
               color:
-                - 0.0
-                - 1.0
-                - 0.0
-            - time: 1.0
+                - 0
+                - 1
+                - 0
+            - time: 1
               color:
-                - 0.0
-                - 0.0
-                - 1.0
+                - 0
+                - 0
+                - 1
   - Prop:
       type_id: 0
       prop_name: CurveSize0
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: CurveSize1
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: Enabled
@@ -123,17 +122,17 @@ chunks:
       prop_name: LightEmission
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: LightInfluence
       prop_type: Float32
       values:
-        - 1.0
-        - 1.0
-        - 1.0
+        - 1
+        - 1
+        - 1
   - Prop:
       type_id: 0
       prop_name: Name
@@ -179,9 +178,9 @@ chunks:
       prop_name: TextureLength
       prop_type: Float32
       values:
-        - 1.0
-        - 1.0
-        - 1.0
+        - 1
+        - 1
+        - 1
   - Prop:
       type_id: 0
       prop_name: TextureMode
@@ -195,59 +194,59 @@ chunks:
       prop_name: TextureSpeed
       prop_type: Float32
       values:
-        - 1.0
-        - 1.0
-        - 1.0
+        - 1
+        - 1
+        - 1
   - Prop:
       type_id: 0
       prop_name: Transparency
       prop_type: NumberSequence
       values:
         - keypoints:
-            - time: 0.0
+            - time: 0
               value: 0.5
-              envelope: 0.0
-            - time: 1.0
+              envelope: 0
+            - time: 1
               value: 0.5
-              envelope: 0.0
+              envelope: 0
         - keypoints:
-            - time: 0.0
+            - time: 0
               value: 0.5
-              envelope: 0.0
-            - time: 1.0
+              envelope: 0
+            - time: 1
               value: 0.5
-              envelope: 0.0
+              envelope: 0
         - keypoints:
-            - time: 0.0
+            - time: 0
               value: 0.5
-              envelope: 0.0
-            - time: 1.0
+              envelope: 0
+            - time: 1
               value: 0.5
-              envelope: 0.0
+              envelope: 0
   - Prop:
       type_id: 0
       prop_name: Width0
       prop_type: Float32
       values:
-        - 1.0
-        - 1.0
-        - 1.0
+        - 1
+        - 1
+        - 1
   - Prop:
       type_id: 0
       prop_name: Width1
       prop_type: Float32
       values:
-        - 1.0
-        - 1.0
-        - 1.0
+        - 1
+        - 1
+        - 1
   - Prop:
       type_id: 0
       prop_name: ZOffset
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prnt:
       version: 0
       links:

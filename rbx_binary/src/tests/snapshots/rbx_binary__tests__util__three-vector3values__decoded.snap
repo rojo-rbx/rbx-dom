@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -15,9 +14,9 @@ expression: decoded_viewed
       Tags: []
     Value:
       Vector3:
-        - 1337.0
-        - -1337.0
-        - 0.0
+        - 1337
+        - -1337
+        - 0
   children: []
 - referent: referent-1
   name: "0.15625, -0.15625, 0.1"
@@ -47,8 +46,8 @@ expression: decoded_viewed
       Tags: []
     Value:
       Vector3:
-        - .inf
-        - -.inf
-        - .nan
+        - inf
+        - -inf
+        - NaN
   children: []
 

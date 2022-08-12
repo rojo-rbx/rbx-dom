@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -14,33 +13,33 @@ expression: decoded_viewed
     Color:
       ColorSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             color:
-              - 1.0
-              - 1.0
-              - 1.0
+              - 1
+              - 1
+              - 1
           - time: 0.5
             color:
-              - 0.0
-              - 0.0
-              - 0.0
-          - time: 1.0
+              - 0
+              - 0
+              - 0
+          - time: 1
             color:
-              - 1.0
-              - 1.0
-              - 1.0
+              - 1
+              - 1
+              - 1
     CurveSize0:
-      Float32: 0.0
+      Float32: 0
     CurveSize1:
-      Float32: 0.0
+      Float32: 0
     Enabled:
       Bool: true
     FaceCamera:
       Bool: false
     LightEmission:
-      Float32: 0.0
+      Float32: 0
     LightInfluence:
-      Float32: 1.0
+      Float32: 1
     Segments:
       Int32: 10
     SourceAssetId:
@@ -50,26 +49,26 @@ expression: decoded_viewed
     Texture:
       Content: ""
     TextureLength:
-      Float32: 1.0
+      Float32: 1
     TextureMode:
       Enum: 0
     TextureSpeed:
-      Float32: 1.0
+      Float32: 1
     Transparency:
       NumberSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             value: 0.5
-            envelope: 0.0
-          - time: 1.0
+            envelope: 0
+          - time: 1
             value: 0.5
-            envelope: 0.0
+            envelope: 0
     Width0:
-      Float32: 1.0
+      Float32: 1
     Width1:
-      Float32: 1.0
+      Float32: 1
     ZOffset:
-      Float32: 0.0
+      Float32: 0
   children: []
 - referent: referent-1
   name: Beam
@@ -82,28 +81,28 @@ expression: decoded_viewed
     Color:
       ColorSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             color:
-              - 1.0
-              - 1.0
-              - 1.0
-          - time: 1.0
+              - 1
+              - 1
+              - 1
+          - time: 1
             color:
-              - 1.0
-              - 1.0
-              - 1.0
+              - 1
+              - 1
+              - 1
     CurveSize0:
-      Float32: 0.0
+      Float32: 0
     CurveSize1:
-      Float32: 0.0
+      Float32: 0
     Enabled:
       Bool: false
     FaceCamera:
       Bool: false
     LightEmission:
-      Float32: 0.0
+      Float32: 0
     LightInfluence:
-      Float32: 1.0
+      Float32: 1
     Segments:
       Int32: 10
     SourceAssetId:
@@ -113,26 +112,26 @@ expression: decoded_viewed
     Texture:
       Content: ""
     TextureLength:
-      Float32: 1.0
+      Float32: 1
     TextureMode:
       Enum: 0
     TextureSpeed:
-      Float32: 1.0
+      Float32: 1
     Transparency:
       NumberSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             value: 0.5
-            envelope: 0.0
-          - time: 1.0
+            envelope: 0
+          - time: 1
             value: 0.5
-            envelope: 0.0
+            envelope: 0
     Width0:
-      Float32: 1.0
+      Float32: 1
     Width1:
-      Float32: 1.0
+      Float32: 1
     ZOffset:
-      Float32: 0.0
+      Float32: 0
   children: []
 - referent: referent-2
   name: Beam
@@ -145,33 +144,33 @@ expression: decoded_viewed
     Color:
       ColorSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             color:
-              - 1.0
-              - 0.0
-              - 0.0
+              - 1
+              - 0
+              - 0
           - time: 0.5
             color:
-              - 0.0
-              - 1.0
-              - 0.0
-          - time: 1.0
+              - 0
+              - 1
+              - 0
+          - time: 1
             color:
-              - 0.0
-              - 0.0
-              - 1.0
+              - 0
+              - 0
+              - 1
     CurveSize0:
-      Float32: 0.0
+      Float32: 0
     CurveSize1:
-      Float32: 0.0
+      Float32: 0
     Enabled:
       Bool: true
     FaceCamera:
       Bool: false
     LightEmission:
-      Float32: 0.0
+      Float32: 0
     LightInfluence:
-      Float32: 1.0
+      Float32: 1
     Segments:
       Int32: 10
     SourceAssetId:
@@ -181,25 +180,25 @@ expression: decoded_viewed
     Texture:
       Content: ""
     TextureLength:
-      Float32: 1.0
+      Float32: 1
     TextureMode:
       Enum: 0
     TextureSpeed:
-      Float32: 1.0
+      Float32: 1
     Transparency:
       NumberSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             value: 0.5
-            envelope: 0.0
-          - time: 1.0
+            envelope: 0
+          - time: 1
             value: 0.5
-            envelope: 0.0
+            envelope: 0
     Width0:
-      Float32: 1.0
+      Float32: 1
     Width1:
-      Float32: 1.0
+      Float32: 1
     ZOffset:
-      Float32: 0.0
+      Float32: 0
   children: []
 
