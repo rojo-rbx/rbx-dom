@@ -84,6 +84,11 @@ local function findAllReadableProperties(className)
 end
 
 local function readAllReadableProperties(instance)
+	if typeof(instance) ~= "Instance" then 
+		local errorMessage = ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance))
+		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
+	end
+
 	local read_properties = {}
 	local properties = findAllReadableProperties(instance.ClassName)
 	for _,property in ipairs(properties) do
@@ -92,7 +97,7 @@ local function readAllReadableProperties(instance)
 			read_properties[property] = value	
 		end
 	end
-	return read_properties
+	return true, read_properties
 end
 
 local function findAllDefaultProperties(className)
@@ -134,6 +139,10 @@ local function deepTableEquals(t1, t2)
 end
 
 local function findAllNoneDefaultPropertiesEncoded(instance)
+	if typeof(instance) ~= "Instance" then 
+		local errorMessage = ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance))
+		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
+	end
 	local noneDefaultProperties = {}
 	local properties = readAllReadableProperties(instance)
 	local defaultProperties = findAllDefaultProperties(instance.ClassName)
@@ -157,9 +166,13 @@ local function findAllNoneDefaultPropertiesEncoded(instance)
 			end
 		end
 	end
-	return noneDefaultProperties
+	return true, noneDefaultProperties
 end
 local function findAllNoneDefaultPropertiesDecoded(instance)
+	if typeof(instance) ~= "Instance" then 
+		local errorMessage = ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance))
+		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
+	end
 	local noneDefaultProperties = {}
 	local properties = readAllReadableProperties(instance)
 	local defaultProperties = findAllDefaultProperties(instance.ClassName)
@@ -183,7 +196,7 @@ local function findAllNoneDefaultPropertiesDecoded(instance)
 			end
 		end
 	end
-	return noneDefaultProperties
+	return  true, noneDefaultProperties
 end
 
 return {

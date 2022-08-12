@@ -6,6 +6,7 @@ Error.Kind = {
 	PropertyNotReadable = "PropertyNotReadable",
 	PropertyNotWritable = "PropertyNotWritable",
 	Roblox = "Roblox",
+	InvalidInput = "InvalidInput",
 }
 
 setmetatable(Error.Kind, {
