@@ -37,6 +37,10 @@ local function findCanonicalPropertyDescriptor(className, propertyName)
 end
 
 local function readProperty(instance, propertyName)
+	if typeof(instance) ~= "Instance" then 
+		local errorMessage = ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance))
+		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
+	end
 	local descriptor = findCanonicalPropertyDescriptor(instance.ClassName, propertyName)
 
 	if descriptor == nil then
@@ -49,6 +53,14 @@ local function readProperty(instance, propertyName)
 end
 
 local function writeProperty(instance, propertyName, value)
+	if typeof(instance) ~= "Instance" then 
+		local errorMessage = ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance))
+		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
+	end
+	if type(value) ~= "string" then 
+		local errorMessage = ("Parameter 2 propertyName expect an string as input but got %s"):format(typeof(instance))
+		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
+	end
 	local descriptor = findCanonicalPropertyDescriptor(instance.ClassName, propertyName)
 
 	if descriptor == nil then

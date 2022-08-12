@@ -1,3 +1,4 @@
+local Error = require(script.Error)
 local base64 = require(script.Parent.base64)
 
 local function identity(...)
@@ -482,11 +483,15 @@ function EncodedValue.decode(encodedValue)
 end
 
 function EncodedValue.encode(rbxValue, propertyType)
-	assert(propertyType ~= nil, "Property type descriptor is required")
+	if propertyType == nil then
+		local errorMessage = "Property type descriptor is required"
+		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
+	end
 
 	local typeImpl = types[propertyType]
 	if typeImpl == nil then
-		return false, ("Missing encoder for property type %q"):format(propertyType)
+		local errorMessage = ("Missing encoder for property type %q"):format(propertyType)
+		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
 	end
 
 	return true, {
