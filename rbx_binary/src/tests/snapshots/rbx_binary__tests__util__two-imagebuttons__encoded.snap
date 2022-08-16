@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -25,10 +24,10 @@ chunks:
       prop_name: AnchorPoint
       prop_type: Vector2
       values:
-        - - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
+        - - 0
+          - 0
+        - - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
@@ -62,19 +61,19 @@ chunks:
       prop_name: BackgroundColor3
       prop_type: Color3
       values:
-        - - 1.0
-          - 1.0
-          - 1.0
-        - - 1.0
-          - 1.0
-          - 1.0
+        - - 1
+          - 1
+          - 1
+        - - 1
+          - 1
+          - 1
   - Prop:
       type_id: 0
       prop_name: BackgroundTransparency
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: BorderColor3
@@ -133,37 +132,37 @@ chunks:
       prop_name: ImageColor3
       prop_type: Color3
       values:
-        - - 1.0
-          - 1.0
-          - 1.0
-        - - 1.0
-          - 1.0
-          - 1.0
+        - - 1
+          - 1
+          - 1
+        - - 1
+          - 1
+          - 1
   - Prop:
       type_id: 0
       prop_name: ImageRectOffset
       prop_type: Vector2
       values:
-        - - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
+        - - 0
+          - 0
+        - - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: ImageRectSize
       prop_type: Vector2
       values:
-        - - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
+        - - 0
+          - 0
+        - - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: ImageTransparency
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: LayoutOrder
@@ -218,13 +217,13 @@ chunks:
       prop_name: Position
       prop_type: UDim2
       values:
-        - - - 0.0
+        - - - 0
             - 0
-          - - 0.0
+          - - 0
             - 0
-        - - - 0.0
+        - - - 0
             - 0
-          - - 0.0
+          - - 0
             - 0
   - Prop:
       type_id: 0
@@ -245,8 +244,8 @@ chunks:
       prop_name: Rotation
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: ScaleType
@@ -280,13 +279,13 @@ chunks:
       prop_name: Size
       prop_type: UDim2
       values:
-        - - - 0.0
+        - - - 0
             - 100
-          - - 0.0
+          - - 0
             - 100
-        - - - 0.0
+        - - - 0
             - 100
-          - - 0.0
+          - - 0
             - 100
   - Prop:
       type_id: 0
@@ -300,21 +299,21 @@ chunks:
       prop_name: SliceCenter
       prop_type: Rect
       values:
-        - - - -1.0
-            - -10.0
-          - - 8.0
-            - 9.0
-        - - - 0.0
-            - 1.0
-          - - 5.0
-            - 6.0
+        - - - -1
+            - -10
+          - - 8
+            - 9
+        - - - 0
+            - 1
+          - - 5
+            - 6
   - Prop:
       type_id: 0
       prop_name: SliceScale
       prop_type: Float32
       values:
-        - 1.0
-        - 1.0
+        - 1
+        - 1
   - Prop:
       type_id: 0
       prop_name: SourceAssetId
@@ -341,13 +340,13 @@ chunks:
       prop_name: TileSize
       prop_type: UDim2
       values:
-        - - - 1.0
+        - - - 1
             - 0
-          - - 1.0
+          - - 1
             - 0
-        - - - 1.0
+        - - - 1
             - 0
-          - - 1.0
+          - - 1
             - 0
   - Prop:
       type_id: 0

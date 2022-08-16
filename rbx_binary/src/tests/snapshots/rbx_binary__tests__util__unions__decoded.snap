@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -32,19 +31,19 @@ expression: decoded_viewed
     CFrame:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     CanCollide:
       Bool: true
     CastShadow:
@@ -72,9 +71,9 @@ expression: decoded_viewed
       Enum: 0
     InitialSize:
       Vector3:
-        - 5.0
-        - 2.0
-        - 2.0
+        - 5
+        - 2
+        - 2
     LODData:
       BinaryString: ""
     LeftParamA:
@@ -99,7 +98,7 @@ expression: decoded_viewed
     PhysicsData:
       BinaryString: ""
     Reflectance:
-      Float32: 0.0
+      Float32: 0
     RenderFidelity:
       Enum: 1
     RightParamA:
@@ -114,16 +113,16 @@ expression: decoded_viewed
       Int32: 0
     RotVelocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Size:
       Vector3:
-        - 5.0
-        - 2.0
-        - 2.0
+        - 5
+        - 2
+        - 2
     SmoothingAngle:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -137,14 +136,14 @@ expression: decoded_viewed
     TopSurfaceInput:
       Enum: 0
     Transparency:
-      Float32: 0.0
+      Float32: 0
     UsePartColor:
       Bool: false
     Velocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   children: []
 - referent: referent-1
   name: Red Union 2
@@ -175,19 +174,19 @@ expression: decoded_viewed
     CFrame:
       CFrame:
         position:
-          - -7.0
-          - 0.0
-          - 0.0
+          - -7
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     CanCollide:
       Bool: true
     CastShadow:
@@ -215,9 +214,9 @@ expression: decoded_viewed
       Enum: 0
     InitialSize:
       Vector3:
-        - 5.0
-        - 2.0
-        - 2.0
+        - 5
+        - 2
+        - 2
     LODData:
       BinaryString: ""
     LeftParamA:
@@ -242,7 +241,7 @@ expression: decoded_viewed
     PhysicsData:
       BinaryString: ""
     Reflectance:
-      Float32: 0.0
+      Float32: 0
     RenderFidelity:
       Enum: 1
     RightParamA:
@@ -257,16 +256,16 @@ expression: decoded_viewed
       Int32: 0
     RotVelocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Size:
       Vector3:
-        - 5.0
-        - 2.0
-        - 2.0
+        - 5
+        - 2
+        - 2
     SmoothingAngle:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -280,14 +279,14 @@ expression: decoded_viewed
     TopSurfaceInput:
       Enum: 0
     Transparency:
-      Float32: 0.0
+      Float32: 0
     UsePartColor:
       Bool: false
     Velocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   children: []
 - referent: referent-2
   name: Blue Union
@@ -318,19 +317,19 @@ expression: decoded_viewed
     CFrame:
       CFrame:
         position:
-          - -4.0
+          - -4
           - -3.5
-          - 0.0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     CanCollide:
       Bool: true
     CastShadow:
@@ -358,9 +357,9 @@ expression: decoded_viewed
       Enum: 0
     InitialSize:
       Vector3:
-        - 4.0
-        - 2.0
-        - 2.0
+        - 4
+        - 2
+        - 2
     LODData:
       BinaryString: ""
     LeftParamA:
@@ -385,7 +384,7 @@ expression: decoded_viewed
     PhysicsData:
       BinaryString: ""
     Reflectance:
-      Float32: 0.0
+      Float32: 0
     RenderFidelity:
       Enum: 1
     RightParamA:
@@ -400,16 +399,16 @@ expression: decoded_viewed
       Int32: 0
     RotVelocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Size:
       Vector3:
-        - 4.0
-        - 2.0
-        - 2.0
+        - 4
+        - 2
+        - 2
     SmoothingAngle:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -423,13 +422,13 @@ expression: decoded_viewed
     TopSurfaceInput:
       Enum: 0
     Transparency:
-      Float32: 0.0
+      Float32: 0
     UsePartColor:
       Bool: false
     Velocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   children: []
 

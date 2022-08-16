@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -41,94 +40,94 @@ chunks:
       prop_type: CFrame
       values:
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
   - Prop:
       type_id: 0
       prop_name: ModelMeshCFrame
       prop_type: CFrame
       values:
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
   - Prop:
       type_id: 0
       prop_name: ModelMeshData
@@ -142,15 +141,15 @@ chunks:
       prop_name: ModelMeshSize
       prop_type: Vector3
       values:
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: Name
@@ -198,8 +197,8 @@ chunks:
       values:
         - ~
         - position:
-            - 1.0
-            - -1.0
+            - 1
+            - -1
             - 0.5
           orientation:
             - - 0.06294725
@@ -213,18 +212,18 @@ chunks:
               - -0.34241003
         - position:
             - -0.5
-            - .inf
-            - .nan
+            - inf
+            - NaN
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
   - Prnt:
       version: 0
       links:

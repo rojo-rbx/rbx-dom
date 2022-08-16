@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -51,15 +50,15 @@ chunks:
       prop_name: Value
       prop_type: Vector3
       values:
-        - - 1337.0
-          - -1337.0
-          - 0.0
+        - - 1337
+          - -1337
+          - 0
         - - 0.15625
           - -0.15625
           - 0.1
-        - - .inf
-          - -.inf
-          - .nan
+        - - inf
+          - -inf
+          - NaN
   - Prnt:
       version: 0
       links:

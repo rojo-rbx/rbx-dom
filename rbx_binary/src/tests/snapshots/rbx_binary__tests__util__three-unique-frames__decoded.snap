@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -19,15 +18,15 @@ expression: decoded_viewed
       Bool: true
     BackgroundColor3:
       Color3:
-        - 1.0
+        - 1
         - 0.49803922
-        - 0.0
+        - 0
     BackgroundTransparency:
-      Float32: 0.0
+      Float32: 0
     BorderColor3:
       Color3:
-        - 1.0
-        - 0.0
+        - 1
+        - 0
         - 0.49803922
     BorderMode:
       Enum: 0
@@ -51,7 +50,7 @@ expression: decoded_viewed
           - 4
     RootLocalizationTable: "null"
     Rotation:
-      Float32: 0.0
+      Float32: 0
     Selectable:
       Bool: false
     SelectionImageObject: "null"
@@ -88,16 +87,16 @@ expression: decoded_viewed
       Bool: true
     BackgroundColor3:
       Color3:
-        - 0.0
-        - 1.0
-        - 0.0
+        - 0
+        - 1
+        - 0
     BackgroundTransparency:
       Float32: 0.1
     BorderColor3:
       Color3:
-        - 0.0
-        - 0.0
-        - 1.0
+        - 0
+        - 0
+        - 1
     BorderMode:
       Enum: 0
     BorderSizePixel:
@@ -120,7 +119,7 @@ expression: decoded_viewed
           - 32
     RootLocalizationTable: "null"
     Rotation:
-      Float32: 1.0
+      Float32: 1
     Selectable:
       Bool: false
     SelectionImageObject: "null"
@@ -157,16 +156,16 @@ expression: decoded_viewed
       Bool: true
     BackgroundColor3:
       Color3:
-        - 1.0
-        - 0.0
-        - 1.0
+        - 1
+        - 0
+        - 1
     BackgroundTransparency:
       Float32: 0.2
     BorderColor3:
       Color3:
-        - 1.0
-        - 1.0
-        - 0.0
+        - 1
+        - 1
+        - 0
     BorderMode:
       Enum: 0
     BorderSizePixel:
@@ -189,7 +188,7 @@ expression: decoded_viewed
           - 128
     RootLocalizationTable: "null"
     Rotation:
-      Float32: 2.0
+      Float32: 2
     Selectable:
       Bool: false
     SelectionImageObject: "null"

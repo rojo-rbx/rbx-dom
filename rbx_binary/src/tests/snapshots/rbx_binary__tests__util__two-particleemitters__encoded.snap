@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -18,12 +17,12 @@ chunks:
       prop_name: Acceleration
       prop_type: Vector3
       values:
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: AttributesSerialize
@@ -37,34 +36,34 @@ chunks:
       prop_type: ColorSequence
       values:
         - keypoints:
-            - time: 0.0
+            - time: 0
               color:
-                - 1.0
-                - 1.0
-                - 1.0
-            - time: 1.0
+                - 1
+                - 1
+                - 1
+            - time: 1
               color:
-                - 1.0
-                - 1.0
-                - 1.0
+                - 1
+                - 1
+                - 1
         - keypoints:
-            - time: 0.0
+            - time: 0
               color:
-                - 1.0
-                - 1.0
-                - 1.0
-            - time: 1.0
+                - 1
+                - 1
+                - 1
+            - time: 1
               color:
-                - 1.0
-                - 1.0
-                - 1.0
+                - 1
+                - 1
+                - 1
   - Prop:
       type_id: 0
       prop_name: Drag
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: EmissionDirection
@@ -93,15 +92,15 @@ chunks:
       prop_name: LightEmission
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: LightInfluence
       prop_type: Float32
       values:
-        - 1.0
-        - 1.0
+        - 1
+        - 1
   - Prop:
       type_id: 0
       prop_name: LockedToPart
@@ -121,17 +120,17 @@ chunks:
       prop_name: Rate
       prop_type: Float32
       values:
-        - 2.0
-        - 2.0
+        - 2
+        - 2
   - Prop:
       type_id: 0
       prop_name: RotSpeed
       prop_type: NumberRange
       values:
-        - - 45.0
-          - 46.0
-        - - 45.0
-          - 46.0
+        - - 45
+          - 46
+        - - 45
+          - 46
   - Prop:
       type_id: 0
       prop_name: Rotation
@@ -147,37 +146,37 @@ chunks:
       prop_type: NumberSequence
       values:
         - keypoints:
-            - time: 0.0
-              value: 1.0
-              envelope: 0.0
+            - time: 0
+              value: 1
+              envelope: 0
             - time: 0.080367394
               value: 0.56249976
-              envelope: 0.0
+              envelope: 0
             - time: 0.12169919
               value: 1.9374996
-              envelope: 0.0
+              envelope: 0
             - time: 0.1435132
               value: 3.75
-              envelope: 0.0
-            - time: 1.0
-              value: 1.0
-              envelope: 0.0
+              envelope: 0
+            - time: 1
+              value: 1
+              envelope: 0
         - keypoints:
-            - time: 0.0
-              value: 1.0
-              envelope: 0.0
+            - time: 0
+              value: 1
+              envelope: 0
             - time: 0.080367394
               value: 0.56249976
-              envelope: 0.0
+              envelope: 0
             - time: 0.12169919
               value: 1.9374996
-              envelope: 0.0
+              envelope: 0
             - time: 0.1435132
               value: 3.75
-              envelope: 0.0
-            - time: 1.0
-              value: 1.0
-              envelope: 0.0
+              envelope: 0
+            - time: 1
+              value: 1
+              envelope: 0
   - Prop:
       type_id: 0
       prop_name: SourceAssetId
@@ -190,19 +189,19 @@ chunks:
       prop_name: Speed
       prop_type: NumberRange
       values:
-        - - 2.0
-          - 5.0
-        - - 2.0
-          - 5.0
+        - - 2
+          - 5
+        - - 2
+          - 5
   - Prop:
       type_id: 0
       prop_name: SpreadAngle
       prop_type: Vector2
       values:
-        - - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
+        - - 0
+          - 0
+        - - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: Tags
@@ -223,33 +222,33 @@ chunks:
       prop_type: NumberSequence
       values:
         - keypoints:
-            - time: 0.0
-              value: 0.0
-              envelope: 0.0
-            - time: 1.0
-              value: 0.0
-              envelope: 0.0
+            - time: 0
+              value: 0
+              envelope: 0
+            - time: 1
+              value: 0
+              envelope: 0
         - keypoints:
-            - time: 0.0
-              value: 0.0
-              envelope: 0.0
-            - time: 1.0
-              value: 0.0
-              envelope: 0.0
+            - time: 0
+              value: 0
+              envelope: 0
+            - time: 1
+              value: 0
+              envelope: 0
   - Prop:
       type_id: 0
       prop_name: VelocityInheritance
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: ZOffset
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
   - Prnt:
       version: 0
       links:

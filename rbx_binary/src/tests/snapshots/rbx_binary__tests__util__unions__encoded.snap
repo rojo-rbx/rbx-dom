@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -115,47 +114,47 @@ chunks:
       prop_type: CFrame
       values:
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
-            - -7.0
-            - 0.0
-            - 0.0
+            - -7
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
-            - -4.0
+            - -4
             - -3.5
-            - 0.0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
   - Prop:
       type_id: 0
       prop_name: CanCollide
@@ -255,15 +254,15 @@ chunks:
       prop_name: InitialSize
       prop_type: Vector3
       values:
-        - - 5.0
-          - 2.0
-          - 2.0
-        - - 5.0
-          - 2.0
-          - 2.0
-        - - 4.0
-          - 2.0
-          - 2.0
+        - - 5
+          - 2
+          - 2
+        - - 5
+          - 2
+          - 2
+        - - 4
+          - 2
+          - 2
   - Prop:
       type_id: 0
       prop_name: LODData
@@ -365,9 +364,9 @@ chunks:
       prop_name: Reflectance
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: RenderFidelity
@@ -421,37 +420,37 @@ chunks:
       prop_name: RotVelocity
       prop_type: Vector3
       values:
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: size
       prop_type: Vector3
       values:
-        - - 5.0
-          - 2.0
-          - 2.0
-        - - 5.0
-          - 2.0
-          - 2.0
-        - - 4.0
-          - 2.0
-          - 2.0
+        - - 5
+          - 2
+          - 2
+        - - 5
+          - 2
+          - 2
+        - - 4
+          - 2
+          - 2
   - Prop:
       type_id: 0
       prop_name: SmoothingAngle
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: SourceAssetId
@@ -505,9 +504,9 @@ chunks:
       prop_name: Transparency
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: UsePartColor
@@ -521,15 +520,15 @@ chunks:
       prop_name: Velocity
       prop_type: Vector3
       values:
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
   - Prnt:
       version: 0
       links:

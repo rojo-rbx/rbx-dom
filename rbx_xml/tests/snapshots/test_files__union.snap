@@ -1,6 +1,5 @@
 ---
 source: rbx_xml/tests/test-files.rs
-assertion_line: 26
 expression: viewer.view_children(&dom)
 ---
 - referent: referent-0
@@ -32,19 +31,19 @@ expression: viewer.view_children(&dom)
     CFrame:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     CanCollide:
       Bool: true
     CastShadow:
@@ -84,7 +83,7 @@ expression: viewer.view_children(&dom)
       len: 1803
       hash: db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3
     Reflectance:
-      Float32: 0.0
+      Float32: 0
     RenderFidelity:
       Enum: 1
     RightParamA:
@@ -99,16 +98,16 @@ expression: viewer.view_children(&dom)
       Int32: 0
     RotVelocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Size:
       Vector3:
-        - 5.0
-        - 2.0
-        - 2.0
+        - 5
+        - 2
+        - 2
     SmoothingAngle:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -122,14 +121,14 @@ expression: viewer.view_children(&dom)
     TopSurfaceInput:
       Enum: 0
     Transparency:
-      Float32: 0.0
+      Float32: 0
     UsePartColor:
       Bool: false
     Velocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   children: []
 - referent: referent-1
   name: Red Union 2
@@ -160,19 +159,19 @@ expression: viewer.view_children(&dom)
     CFrame:
       CFrame:
         position:
-          - -7.0
-          - 0.0
-          - 0.0
+          - -7
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     CanCollide:
       Bool: true
     CastShadow:
@@ -212,7 +211,7 @@ expression: viewer.view_children(&dom)
       len: 1803
       hash: db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3
     Reflectance:
-      Float32: 0.0
+      Float32: 0
     RenderFidelity:
       Enum: 1
     RightParamA:
@@ -227,16 +226,16 @@ expression: viewer.view_children(&dom)
       Int32: 0
     RotVelocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Size:
       Vector3:
-        - 5.0
-        - 2.0
-        - 2.0
+        - 5
+        - 2
+        - 2
     SmoothingAngle:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -250,14 +249,14 @@ expression: viewer.view_children(&dom)
     TopSurfaceInput:
       Enum: 0
     Transparency:
-      Float32: 0.0
+      Float32: 0
     UsePartColor:
       Bool: false
     Velocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   children: []
 - referent: referent-2
   name: Blue Union
@@ -288,19 +287,19 @@ expression: viewer.view_children(&dom)
     CFrame:
       CFrame:
         position:
-          - -4.0
+          - -4
           - -3.5
-          - 0.0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 1.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - 1.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
     CanCollide:
       Bool: true
     CastShadow:
@@ -340,7 +339,7 @@ expression: viewer.view_children(&dom)
       len: 1367
       hash: cc62d7045ec238081b7ebbd97ce5ce7dc15166e688168c307247089135718bdb
     Reflectance:
-      Float32: 0.0
+      Float32: 0
     RenderFidelity:
       Enum: 1
     RightParamA:
@@ -355,16 +354,16 @@ expression: viewer.view_children(&dom)
       Int32: 0
     RotVelocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
     Size:
       Vector3:
-        - 4.0
-        - 2.0
-        - 2.0
+        - 4
+        - 2
+        - 2
     SmoothingAngle:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -378,13 +377,13 @@ expression: viewer.view_children(&dom)
     TopSurfaceInput:
       Enum: 0
     Transparency:
-      Float32: 0.0
+      Float32: 0
     UsePartColor:
       Bool: false
     Velocity:
       Vector3:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   children: []
 

@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -43,10 +42,10 @@ chunks:
       prop_name: Value
       prop_type: Color3
       values:
-        - - 0.0
+        - - 0
           - 0.3137255
           - 0.49803922
-        - - 1.0
+        - - 1
           - 0.7058824
           - 0.078431375
         - - 2.0078433

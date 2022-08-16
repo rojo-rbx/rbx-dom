@@ -1,7 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
-
 ---
 num_types: 1
 num_instances: 3
@@ -105,46 +104,46 @@ chunks:
       values:
         - position:
             - -5.5
-            - 4.0
+            - 4
             - -12.5
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
             - -11.5
             - -0.499993
             - -17.5
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
             - 5.5
             - 8.5
             - -25.5
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
   - Prop:
       type_id: 0
       prop_name: CanCollide
@@ -192,8 +191,8 @@ chunks:
         - density: 0.7
           friction: 0.3
           elasticity: 0.5
-          frictionWeight: 1.0
-          elasticityWeight: 1.0
+          frictionWeight: 1
+          elasticityWeight: 1
         - density: 90.66
           friction: 1.44
           elasticity: 0.65
@@ -300,9 +299,9 @@ chunks:
       prop_name: Reflectance
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: RightParamA
@@ -348,15 +347,15 @@ chunks:
       prop_name: RotVelocity
       prop_type: Vector3
       values:
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: SourceAssetId
@@ -410,23 +409,23 @@ chunks:
       prop_name: Transparency
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
-        - 0.0
+        - 0
+        - 0
+        - 0
   - Prop:
       type_id: 0
       prop_name: Velocity
       prop_type: Vector3
       values:
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
   - Prop:
       type_id: 0
       prop_name: formFactorRaw
@@ -448,15 +447,15 @@ chunks:
       prop_name: size
       prop_type: Vector3
       values:
-        - - 1.0
-          - 2.0
-          - 3.0
-        - - 4.0
-          - 5.0
-          - 6.0
-        - - 7.0
-          - 8.0
-          - 9.0
+        - - 1
+          - 2
+          - 3
+        - - 4
+          - 5
+          - 6
+        - - 7
+          - 8
+          - 9
   - Prnt:
       version: 0
       links:

@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -54,21 +53,21 @@ chunks:
       prop_name: BackgroundColor3
       prop_type: Color3
       values:
-        - - 1.0
+        - - 1
           - 0.49803922
-          - 0.0
-        - - 0.0
-          - 1.0
-          - 0.0
-        - - 1.0
-          - 0.0
-          - 1.0
+          - 0
+        - - 0
+          - 1
+          - 0
+        - - 1
+          - 0
+          - 1
   - Prop:
       type_id: 0
       prop_name: BackgroundTransparency
       prop_type: Float32
       values:
-        - 0.0
+        - 0
         - 0.1
         - 0.2
   - Prop:
@@ -76,15 +75,15 @@ chunks:
       prop_name: BorderColor3
       prop_type: Color3
       values:
-        - - 1.0
-          - 0.0
+        - - 1
+          - 0
           - 0.49803922
-        - - 0.0
-          - 0.0
-          - 1.0
-        - - 1.0
-          - 1.0
-          - 0.0
+        - - 0
+          - 0
+          - 1
+        - - 1
+          - 1
+          - 0
   - Prop:
       type_id: 0
       prop_name: BorderMode
@@ -195,9 +194,9 @@ chunks:
       prop_name: Rotation
       prop_type: Float32
       values:
-        - 0.0
-        - 1.0
-        - 2.0
+        - 0
+        - 1
+        - 2
   - Prop:
       type_id: 0
       prop_name: Selectable

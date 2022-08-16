@@ -1,7 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
-
 ---
 num_types: 1
 num_instances: 2
@@ -51,33 +50,33 @@ chunks:
       prop_type: CFrame
       values:
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - -1.0
-            - - 0.0
-              - 1.0
-              - 0.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 0
+              - -1
+            - - 0
+              - 1
+              - 0
         - position:
             - 0.15625
             - -0.15625
             - 0.1
           orientation:
             - - -0.1
-              - 0.0
-              - 0.0
-            - - 1337.0
-              - -1337.0
-              - .inf
-            - - -.inf
-              - .nan
-              - .nan
+              - 0
+              - 0
+            - - 1337
+              - -1337
+              - inf
+            - - -inf
+              - NaN
+              - NaN
   - Prnt:
       version: 0
       links:

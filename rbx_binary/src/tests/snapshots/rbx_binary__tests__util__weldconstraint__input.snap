@@ -1,7 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: text_decoded
-
 ---
 num_types: 3
 num_instances: 4
@@ -129,33 +128,33 @@ chunks:
       prop_type: CFrame
       values:
         - position:
-            - -6.0
+            - -6
             - 0.5000011
-            - -11.0
+            - -11
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
-            - -2.0
+            - -2
             - 1.5000011
-            - -15.0
+            - -15
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
   - Prop:
       type_id: 1
       prop_name: CanCollide
@@ -299,40 +298,40 @@ chunks:
       prop_type: CFrame
       values:
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
         - position:
-            - 0.0
-            - 0.0
-            - 0.0
+            - 0
+            - 0
+            - 0
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
   - Prop:
       type_id: 1
       prop_name: Reflectance
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
   - Prop:
       type_id: 1
       prop_name: RightParamA
@@ -373,12 +372,12 @@ chunks:
       prop_name: RotVelocity
       prop_type: Vector3
       values:
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
   - Prop:
       type_id: 1
       prop_name: SourceAssetId
@@ -426,19 +425,19 @@ chunks:
       prop_name: Transparency
       prop_type: Float32
       values:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
   - Prop:
       type_id: 1
       prop_name: Velocity
       prop_type: Vector3
       values:
-        - - 0.0
-          - 0.0
-          - 0.0
-        - - 0.0
-          - 0.0
-          - 0.0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
   - Prop:
       type_id: 1
       prop_name: formFactorRaw
@@ -458,12 +457,12 @@ chunks:
       prop_name: size
       prop_type: Vector3
       values:
-        - - 4.0
-          - 1.0
-          - 2.0
-        - - 4.0
-          - 1.0
-          - 2.0
+        - - 4
+          - 1
+          - 2
+        - - 4
+          - 1
+          - 2
   - Prop:
       type_id: 2
       prop_name: AttributesSerialize
@@ -476,19 +475,19 @@ chunks:
       prop_type: CFrame
       values:
         - position:
-            - 4.0
-            - 1.0
-            - -4.0
+            - 4
+            - 1
+            - -4
           orientation:
-            - - 1.0
-              - 0.0
-              - 0.0
-            - - 0.0
-              - 1.0
-              - 0.0
-            - - 0.0
-              - 0.0
-              - 1.0
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
   - Prop:
       type_id: 2
       prop_name: Name
