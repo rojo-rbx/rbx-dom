@@ -483,15 +483,12 @@ function EncodedValue.decode(encodedValue)
 end
 
 function EncodedValue.encode(rbxValue, propertyType)
-	if propertyType == nil then
-		local errorMessage = "Property type descriptor is required"
-		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
-	end
+	assert(type(propertyType) ~= nil,"Property type descriptor is required")
 
 	local typeImpl = types[propertyType]
 	if typeImpl == nil then
 		local errorMessage = ("Missing encoder for property type %q"):format(propertyType)
-		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
+		return false, Error.new(Error.Kind.MissingEncoder, errorMessage)
 	end
 
 	return true, {
