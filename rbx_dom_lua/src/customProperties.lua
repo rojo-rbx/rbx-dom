@@ -1,7 +1,4 @@
 local CollectionService = game:GetService("CollectionService")
-local HttpService = game:GetService("HttpService")
-
-local Error = require(script.Parent.Error)
 -- Defines how to read and write properties that aren't directly scriptable.
 --
 -- The reflection database refers to these as having scriptability = "Custom"
