@@ -110,7 +110,7 @@ This project has unveiled a handful of interesting bugs and quirks in Roblox!
 - `ColorSequence`'s XML serialization contains an extra value per keypoint that was intended to be used as an envelope value, but was never implemented.
 
 ## Minimum Rust Version
-rbx-dom supports Rust 1.57.0 and newer. Updating the minimum supported Rust version will only be done when necessary, but may happen as part of minor version bumps.
+rbx-dom supports Rust 1.59.0 and newer. Updating the minimum supported Rust version will only be done when necessary, but may happen as part of minor version bumps.
 
 ## License
 rbx-dom is available under the MIT license. See [LICENSE.txt](LICENSE.txt) for details.
