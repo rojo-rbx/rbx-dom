@@ -50,6 +50,17 @@ return {
 			end,
 		},
 	},
+	Model = {
+		WorldPivotData = {
+			read = function(instance, key)
+				return true, instance.WorldPivot
+			end,
+			write = function(instance, key, value)
+				instance.WorldPivot = value
+				return true
+			end,
+		},
+	},
 	LocalizationTable = {
 		Contents = {
 			read = function(instance, key)

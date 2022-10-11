@@ -21383,6 +21383,21 @@
               "Serialization": "DoesNotSerialize"
             }
           }
+        },
+        "WorldPivotData": {
+          "Name": "WorldPivotData",
+          "Scriptability": "Custom",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
