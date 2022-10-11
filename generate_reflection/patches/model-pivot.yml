@@ -1,0 +1,10 @@
+Add:
+  Model:
+    Properties:
+      WorldPivotData:
+        Serialization:
+          Type: Serializes
+        DataType:
+          Value: CFrame
+        Tags: NotReplicated
+        Scriptability: Custom
