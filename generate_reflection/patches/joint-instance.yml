@@ -1,4 +1,0 @@
-Change:
-  JointInstance:
-    part1:
-      AliasFor: Part1

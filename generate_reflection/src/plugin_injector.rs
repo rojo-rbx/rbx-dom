@@ -9,6 +9,7 @@ use rbx_dom_weak::{InstanceBuilder, WeakDom};
 use roblox_install::RobloxStudio;
 use serde::Deserialize;
 use tiny_http::Response;
+use fs_err;
 
 static PLUGIN_SOURCE: &str = include_str!("../plugin/main.lua");
 
@@ -64,6 +65,9 @@ fn install_plugin(roblox_studio: &RobloxStudio) {
     let plugin_path = roblox_studio
         .plugins_path()
         .join("RbxDomGenerateReflectionPlugin.rbxmx");
+
+    // trying to write to plugin_path fails if plugins_path() doesn't already exist
+    fs_err::create_dir_all(roblox_studio.plugins_path()).expect("Couldn't create plugins path");
 
     let output = BufWriter::new(File::create(plugin_path).unwrap());
     rbx_xml::to_writer_default(output, &plugin, &[plugin.root_ref()]).unwrap();

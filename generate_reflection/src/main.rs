@@ -16,6 +16,9 @@ use crate::property_patches::PropertyPatches;
 
 #[derive(Debug, StructOpt)]
 struct Options {
+    #[structopt(long = "patches")]
+    patches_path: Option<PathBuf>,
+
     #[structopt(long = "json")]
     json_path: Option<PathBuf>,
 
@@ -32,8 +35,10 @@ fn run(options: Options) -> anyhow::Result<()> {
     let dump = Dump::read()?;
     dump.apply(&mut database)?;
 
-    let property_patches = PropertyPatches::load()?;
-    property_patches.apply(&mut database)?;
+    if let Some(patches) = options.patches_path {
+        let property_patches = PropertyPatches::load(&patches)?;
+        property_patches.apply(&mut database)?;
+    }
 
     measure_default_properties(&mut database)?;
 

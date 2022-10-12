@@ -1,6 +1,0 @@
-Change:
-  Camera:
-    CoordinateFrame:
-      AliasFor: CFrame
-    focus:
-      AliasFor: Focus
