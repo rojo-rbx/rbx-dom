@@ -423,7 +423,7 @@
           "BinaryString": ""
         },
         "CancelAirMomentum": {
-          "Bool": false
+          "Bool": true
         },
         "MoveMaxForce": {
           "Float32": 10000.0
@@ -23198,7 +23198,7 @@
           "Name": "WorldPivot",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "CFrame"
+            "Value": "OptionalCFrame"
           },
           "Tags": [
             "NotReplicated"
@@ -23213,9 +23213,9 @@
         },
         "WorldPivotData": {
           "Name": "WorldPivotData",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "None",
           "DataType": {
-            "Value": "CFrame"
+            "Value": "OptionalCFrame"
           },
           "Tags": [],
           "Kind": {

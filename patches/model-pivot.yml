@@ -4,11 +4,14 @@ Add:
       AliasFor: WorldPivot
       DataType:
         Value: OptionalCFrame
-      Scriptability: ReadWrite
+      Scriptability: None
 
+# WorldPivot can also be found as a SERIALIZED property in some rbxms
 Change:
   Model:
     WorldPivot:
+      DataType:
+        Value: OptionalCFrame
       Serialization:
         Type: SerializesAs
         As: WorldPivotData

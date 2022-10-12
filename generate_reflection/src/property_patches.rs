@@ -26,6 +26,7 @@ pub struct PropertyPatches {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
 pub struct PropertyChange {
+    pub data_type: Option<DataType<'static>>,
     pub alias_for: Option<String>,
     pub serialization: Option<PropertySerialization>,
     pub scriptability: Option<Scriptability>,
@@ -149,6 +150,10 @@ impl PropertyPatches {
 
                 if let Some(scriptability) = &property_change.scriptability {
                     existing_property.scriptability = *scriptability;
+                }
+
+                if let Some(data_type) = &property_change.data_type {
+                    existing_property.data_type = data_type.clone();
                 }
             }
         }
