@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    547,
+    548,
     0,
-    5470549
+    5480523
   ],
   "Classes": {
     "Accessory": {
@@ -193,6 +193,9 @@
           "BinaryString": ""
         },
         "LevelOfDetail": {
+          "Enum": 0
+        },
+        "ModelStreamingMode": {
           "Enum": 0
         },
         "SourceAssetId": {
@@ -9476,7 +9479,24 @@
         "NotReplicated"
       ],
       "Superclass": "Pages",
-      "Properties": {},
+      "Properties": {
+        "Cursor": {
+          "Name": "Cursor",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "DataStoreListingPages": {
@@ -9486,7 +9506,24 @@
         "NotReplicated"
       ],
       "Superclass": "Pages",
-      "Properties": {},
+      "Properties": {
+        "Cursor": {
+          "Name": "Cursor",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "DataStoreObjectVersionInfo": {
@@ -17579,6 +17616,19 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "AlignmentOffset": {
+          "Name": "AlignmentOffset",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ChainRoot": {
           "Name": "ChainRoot",
           "Scriptability": "ReadWrite",
@@ -17623,6 +17673,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Pole": {
+          "Name": "Pole",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
           },
           "Tags": [],
           "Kind": {
@@ -17685,6 +17748,32 @@
         }
       },
       "DefaultProperties": {
+        "AlignmentOffset": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
         "Attributes": {
           "BinaryString": ""
         },
@@ -23047,6 +23136,19 @@
             }
           }
         },
+        "ModelStreamingMode": {
+          "Name": "ModelStreamingMode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ModelStreamingMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "PrimaryPart": {
           "Name": "PrimaryPart",
           "Scriptability": "ReadWrite",
@@ -23111,7 +23213,7 @@
         },
         "WorldPivotData": {
           "Name": "WorldPivotData",
-          "Scriptability": "None",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "CFrame"
           },
@@ -23128,6 +23230,9 @@
           "BinaryString": ""
         },
         "LevelOfDetail": {
+          "Enum": 0
+        },
+        "ModelStreamingMode": {
           "Enum": 0
         },
         "SourceAssetId": {
@@ -37764,6 +37869,19 @@
             }
           }
         },
+        "File > New creates a place with Team Create off": {
+          "Name": "File > New creates a place with Team Create off",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Find Selection Background Color": {
           "Name": "Find Selection Background Color",
           "Scriptability": "ReadWrite",
@@ -49598,21 +49716,6 @@
             }
           }
         },
-        "StreamingPauseMode": {
-          "Name": "StreamingPauseMode",
-          "Scriptability": "None",
-          "DataType": {
-            "Enum": "StreamingPauseMode"
-          },
-          "Tags": [
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "StreamingTargetRadius": {
           "Name": "StreamingTargetRadius",
           "Scriptability": "None",
@@ -49722,6 +49825,9 @@
         "MeshPartHeadsAndAccessories": {
           "Enum": 0
         },
+        "ModelStreamingMode": {
+          "Enum": 0
+        },
         "PhysicsSteppingMethod": {
           "Enum": 0
         },
@@ -49748,9 +49854,6 @@
         },
         "StreamingMinRadius": {
           "Int32": 64
-        },
-        "StreamingPauseMode": {
-          "Enum": 0
         },
         "StreamingTargetRadius": {
           "Int32": 1024
@@ -51050,7 +51153,8 @@
         "Chat": 3,
         "EmotesMenu": 5,
         "Health": 1,
-        "PlayerList": 0
+        "PlayerList": 0,
+        "SelfView": 6
       }
     },
     "CreateOutfitFailure": {
@@ -52285,6 +52389,13 @@
         "StreamingMesh": 1
       }
     },
+    "ModelStreamingMode": {
+      "name": "ModelStreamingMode",
+      "items": {
+        "Atomic": 1,
+        "Default": 0
+      }
+    },
     "ModifierKey": {
       "name": "ModifierKey",
       "items": {
@@ -52989,7 +53100,8 @@
       "items": {
         "Default": 0,
         "Disabled": 1,
-        "MinimumRadiusPause": 2
+        "MinimumRadiusPause": 2,
+        "PauseOutsideLoadedArea": 3
       }
     },
     "StreamingPauseMode": {

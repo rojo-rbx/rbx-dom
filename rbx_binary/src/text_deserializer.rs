@@ -668,7 +668,7 @@ impl DecodedValues {
                     })
                     .collect();
 
-                Some(DecodedValues::OptionalCFrame(values))
+                Some(DecodedValues::CFrame(values))
             }
         }
     }

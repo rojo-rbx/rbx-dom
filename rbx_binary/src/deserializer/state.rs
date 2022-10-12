@@ -1092,7 +1092,8 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                 }
             },
             Type::OptionalCFrame => match canonical_type {
-                VariantType::OptionalCFrame => {
+                // Model.WorldPivotData may be serialized as a CFrame. The easiest fix is to treat it like an OptionalCFrame
+                VariantType::OptionalCFrame | VariantType::CFrame => {
                     let referents = &type_info.referents;
                     let mut rotations = Vec::with_capacity(referents.len());
 
