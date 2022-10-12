@@ -3,7 +3,7 @@ Add:
     WorldPivotData:
       AliasFor: WorldPivot
       DataType:
-        Value: OptionalCFrame
+        Value: CFrame
       Scriptability: None
 
 Change:

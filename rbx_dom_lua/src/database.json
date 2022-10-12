@@ -23113,7 +23113,7 @@
           "Name": "WorldPivotData",
           "Scriptability": "None",
           "DataType": {
-            "Value": "OptionalCFrame"
+            "Value": "CFrame"
           },
           "Tags": [],
           "Kind": {
