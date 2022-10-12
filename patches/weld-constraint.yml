@@ -1,0 +1,23 @@
+Add:
+  WeldConstraint:
+    Part0Internal:
+      AliasFor: Part0
+      DataType:
+        Value: Ref
+      Scriptability: None
+    Part1Internal:
+      AliasFor: Part1
+      DataType:
+        Value: Ref
+      Scriptability: None
+
+Change:
+  WeldConstraint:
+    Part0:
+      Serialization:
+        Type: SerializesAs
+        As: Part0Internal
+    Part1:
+      Serialization:
+        Type: SerializesAs
+        As: Part1Internal

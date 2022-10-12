@@ -1,0 +1,8 @@
+Add:
+    Model:
+      WorldPivotData:
+        Serialization:
+          Type: Serializes
+        DataType:
+          Value: OptionalCFrame
+        Scriptability: Custom
