@@ -470,6 +470,8 @@ types = {
 	},
 }
 
+types.OptionalCFrame = types.CFrame;
+
 function EncodedValue.decode(encodedValue)
 	local ty, value = next(encodedValue)
 
