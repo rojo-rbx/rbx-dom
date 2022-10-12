@@ -1,8 +1,14 @@
 Add:
-    Model:
-      WorldPivotData:
-        Serialization:
-          Type: Serializes
-        DataType:
-          Value: OptionalCFrame
-        Scriptability: Custom
+  Model:
+    WorldPivotData:
+      AliasFor: WorldPivot
+      DataType:
+        Value: OptionalCFrame
+      Scriptability: None
+
+Change:
+  Model:
+    WorldPivot:
+      Serialization:
+        Type: SerializesAs
+        As: WorldPivotData

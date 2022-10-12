@@ -201,7 +201,7 @@
         "Tags": {
           "BinaryString": ""
         },
-        "WorldPivotData": {
+        "WorldPivot": {
           "OptionalCFrame": {
             "position": [
               0.0,
@@ -23103,20 +23103,22 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "WorldPivotData"
+              }
             }
           }
         },
         "WorldPivotData": {
           "Name": "WorldPivotData",
-          "Scriptability": "Custom",
+          "Scriptability": "None",
           "DataType": {
             "Value": "OptionalCFrame"
           },
           "Tags": [],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "WorldPivot"
             }
           }
         }
@@ -23134,7 +23136,7 @@
         "Tags": {
           "BinaryString": ""
         },
-        "WorldPivotData": {
+        "WorldPivot": {
           "OptionalCFrame": {
             "position": [
               0.0,
@@ -49762,7 +49764,7 @@
         "UnionsScaleNonuniformly": {
           "Enum": 0
         },
-        "WorldPivotData": {
+        "WorldPivot": {
           "OptionalCFrame": {
             "position": [
               0.0,
