@@ -5,6 +5,12 @@ Add:
       DataType:
         Value: OptionalCFrame
       Scriptability: None
+    NeedsPivotMigration:
+      Serialization:
+        Type: Serializes
+      DataType:
+        Value: Bool
+      Scriptability: None
 
 # WorldPivot can also be found as a SERIALIZED property in some rbxms
 Change:
