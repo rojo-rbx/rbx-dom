@@ -49,6 +49,7 @@ This document is based on:
 	- [Int64](#int64)
 	- [SharedString](#sharedstring)
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
+	- [UniqueId](#uniqueid)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
@@ -624,24 +625,17 @@ An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 
 ### UniqueId
 **Type ID `0x1f`**
 
-`UniqueId` is stored as a sequence of 16 bytes and represents a [GUID](https://en.wikipedia.org/wiki/Universally_unique_identifier).
+`UniqueId` is represented as a struct of three numbers in the following order:
 
-Special care must be taken when exchanging these values between the [XML](xml.md) format and the binary format. The XML format stores `UniqueId` as a hexadecimal string of 16 bytes, but some transformations are necessary to make its bit order match the order in the binary format. It is not believed that this transformation is significant.
+| Field Name | Format | Value                                                                                  |
+|:-----------|:-------|:---------------------------------------------------------------------------------------|
+| Index      | `u32`  | A sequential value that's incremented when a new `UniqueId` is generated               |
+| Time       | `u32`  | The number of seconds since 01-01-2021                                                 |
+| Random     | `i64`  | A psuedo-random number that's generated semiregularly when initializing a `UniqueId`   |
 
-To convert from the xml format to the binary format, the following steps must be taken:
+This struct is stored in the order as written above with no modifications in the binary format.
 
-1. Convert the hexadecimal string to binary
-2. Split the `UniqueId` into three fields: a `u64`, a first `u32`, and second `u32`.
-3. The `u64` must be circular shifted left by 1
-4. The three values must be packed back into a 16 byte string in the following order: the second `u32`, the first `u32`, and the shifted `u64`
-
-As an example:
-- `44b188dace632b4702e9c68d004815fc` becomes `44b188dace632b47`, `02e9c68d` and `004815fc`
-- `44b188dace632b47` becomes `896311b59cc6568e` after being shifted
-- The values must be put in order: `896311b59cc6568e 004815fc 02e9c68d`
-- The values must be packed: `896311b59cc6568e004815fc02e9c68d`
-
-To convert back to the XML format, this operation is reversed. For more information, view the documentation on the XML file format.
+When interacting with the XML format, care must be taken because `UniqueId` is stored in a different order and the `Random` field is modified slightly. For more information, see the relevant documentation in the [XML file spec](xml.md).
 
 When an array of `UniqueId` values is present, the bytes are subject to [byte interleaving](#byte-interleaving).
 
