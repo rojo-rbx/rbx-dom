@@ -621,6 +621,31 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 
 An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 0, 0, 1)` followed by an `OptionalCoordinateFrame` with no value looks like this: `10 0a 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f 00 00 00 00 00 00 00 02 01 00`. Note that the valueless `OptionalCoordinateFrame` is written as the identity `CFrame` with its corresponding boolean `00` codifying its valuelessness.
 
+### UniqueId
+**Type ID `0x1f`**
+
+`UniqueId` is stored as a sequence of 16 bytes and represents a [GUID](https://en.wikipedia.org/wiki/Universally_unique_identifier).
+
+Special care must be taken when exchanging these values between the [XML](xml.md) format and the binary format. The XML format stores `UniqueId` as a hexadecimal string of 16 bytes, but some transformations are necessary to make its bit order match the order in the binary format. It is not believed that this transformation is significant.
+
+To convert from the xml format to the binary format, the following steps must be taken:
+
+1. Convert the hexadecimal string to binary
+2. Split the `UniqueId` into three fields: a `u64`, a first `u32`, and second `u32`.
+3. The `u64` must be circular shifted left by 1
+4. The three values must be packed back into a 16 byte string in the following order: the second `u32`, the first `u32`, and the shifted `u64`
+
+As an example:
+- `44b188dace632b4702e9c68d004815fc` becomes `44b188dace632b47`, `02e9c68d` and `004815fc`
+- `44b188dace632b47` becomes `896311b59cc6568e` after being shifted
+- The values must be put in order: `896311b59cc6568e 004815fc 02e9c68d`
+- The values must be packed: `896311b59cc6568e004815fc02e9c68d`
+
+To convert back to the XML format, this operation is reversed. For more information, view the documentation on the XML file format.
+
+When an array of `UniqueId` values is present, the bytes are subject to [byte interleaving](#byte-interleaving).
+
+
 ## Data Storage Notes
 
 ### Integer Transformations
