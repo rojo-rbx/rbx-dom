@@ -483,7 +483,7 @@ function EncodedValue.decode(encodedValue)
 end
 
 function EncodedValue.encode(rbxValue, propertyType)
-	assert(propertyType ~= nil,"Property type descriptor is required")
+	assert(propertyType ~= nil, "Property type descriptor is required")
 
 	local typeImpl = types[propertyType]
 	if typeImpl == nil then
