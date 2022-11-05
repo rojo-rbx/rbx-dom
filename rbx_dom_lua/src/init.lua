@@ -84,10 +84,7 @@ local function findAllReadableProperties(className)
 end
 
 local function readAllReadableProperties(instance)
-	if typeof(instance) ~= "Instance" then 
-		local errorMessage = ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance))
-		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
-	end
+	assert(typeof(instance) == "Instance", ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance)))
 
 	local read_properties = {}
 	local properties = findAllReadableProperties(instance.ClassName)
@@ -139,10 +136,8 @@ local function deepTableEquals(t1, t2)
 end
 
 local function findAllNoneDefaultPropertiesEncoded(instance)
-	if typeof(instance) ~= "Instance" then 
-		local errorMessage = ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance))
-		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
-	end
+	assert(typeof(instance) == "Instance", ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance)))
+
 	local noneDefaultProperties = {}
 	local properties = readAllReadableProperties(instance)
 	local defaultProperties = findAllDefaultProperties(instance.ClassName)
@@ -169,10 +164,8 @@ local function findAllNoneDefaultPropertiesEncoded(instance)
 	return true, noneDefaultProperties
 end
 local function findAllNoneDefaultPropertiesDecoded(instance)
-	if typeof(instance) ~= "Instance" then 
-		local errorMessage = ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance))
-		return false, Error.new(Error.Kind.InvalidInput, errorMessage)
-	end
+	assert(typeof(instance) == "Instance", ("Parameter 1 instance expect an instance as input but got %s"):format(typeof(instance)))
+
 	local noneDefaultProperties = {}
 	local properties = readAllReadableProperties(instance)
 	local defaultProperties = findAllDefaultProperties(instance.ClassName)
