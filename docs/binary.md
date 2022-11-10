@@ -82,7 +82,7 @@ Every file starts with a 32 byte header.
 | Field Name     | Format  | Value                                                                     |
 |:---------------|:--------|:--------------------------------------------------------------------------|
 | Magic Number   | 8 bytes | Always `<roblox!`                                                         |
-| Signature      | 6 bytes | Always `89 ff 0a 1a 0a`                                                   |
+| Signature      | 6 bytes | Always `89 ff 0d 0a 1a 0a`                                                |
 | Version        | `u16`   | Always `0`                                                                |
 | Class Count    | `i32`   | Number of distinct classes in the file (i.e. the number of `INST` chunks) |
 | Instance Count | `i32`   | Number of instances in the file                                           |
