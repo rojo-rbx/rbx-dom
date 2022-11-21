@@ -248,6 +248,8 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             to_visit.extend(instance.children());
         }
 
+        self.finalize_shared_strings();
+
         log::debug!("Type info discovered: {:#?}", self.type_infos);
 
         Ok(())
@@ -264,12 +266,10 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
         type_info.instances.push(instance);
 
         for (prop_name, prop_value) in &instance.properties {
-            // Discover and track any shared strings we come across.
+            // Track any shared strings we come across, we'll sort them out later.
             if let Variant::SharedString(shared_string) = prop_value {
-                if !self.shared_string_ids.contains_key(shared_string) {
-                    let id = self.shared_strings.len() as u32;
-                    self.shared_string_ids.insert(shared_string.clone(), id);
-                    self.shared_strings.push(shared_string.clone())
+                if !self.shared_strings.contains(shared_string) {
+                    self.shared_strings.push(shared_string.clone());
                 }
             }
 
@@ -391,6 +391,21 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
         }
 
         Ok(())
+    }
+
+
+    /// Sort and finalize the shared string dictionary.
+    // The reason this is left until later is too allow for all
+    // shared strings to be discovered before writing the dictionary,
+    // allowing us to sort them for consistent behaviour.
+    pub fn finalize_shared_strings(&mut self) {
+        self.shared_strings.sort_by(|a, b| {
+            a.hash().cmp(&b.hash())
+        });
+        
+        for (i, shared_string) in self.shared_strings.iter().enumerate() {
+            self.shared_string_ids.insert(shared_string.clone(), i as u32);
+        }
     }
 
     /// Populate the map from rbx-dom's instance ID space to the IDs that we'll
