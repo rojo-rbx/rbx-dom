@@ -393,18 +393,16 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
         Ok(())
     }
 
-
     /// Sort and finalize the shared string dictionary.
     // The reason this is left until later is too allow for all
     // shared strings to be discovered before writing the dictionary,
     // allowing us to sort them for consistent behaviour.
     pub fn finalize_shared_strings(&mut self) {
-        self.shared_strings.sort_by(|a, b| {
-            a.hash().cmp(&b.hash())
-        });
-        
+        self.shared_strings.sort_by(|a, b| a.hash().cmp(&b.hash()));
+
         for (i, shared_string) in self.shared_strings.iter().enumerate() {
-            self.shared_string_ids.insert(shared_string.clone(), i as u32);
+            self.shared_string_ids
+                .insert(shared_string.clone(), i as u32);
         }
     }
 
