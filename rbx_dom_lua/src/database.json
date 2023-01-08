@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    547,
+    557,
     0,
-    5470549
+    5570255
   ],
   "Classes": {
     "Accessory": {
@@ -55,14 +55,8 @@
             ]
           }
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -78,6 +72,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -106,6 +101,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -121,6 +117,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -136,6 +133,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -172,14 +170,8 @@
             ]
           }
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -189,25 +181,20 @@
       "Superclass": "Model",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "LevelOfDetail": {
+          "Enum": 0
+        },
+        "ModelStreamingMode": {
           "Enum": 0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
     "AdGui": {
       "Name": "AdGui",
-      "Tags": [
-        "NotBrowsable"
-      ],
+      "Tags": [],
       "Superclass": "SurfaceGuiBase",
       "Properties": {
         "AdShape": {
@@ -228,9 +215,7 @@
     },
     "AdPortal": {
       "Name": "AdPortal",
-      "Tags": [
-        "NotBrowsable"
-      ],
+      "Tags": [],
       "Superclass": "Instance",
       "Properties": {
         "PortalInvalidReason": {
@@ -336,6 +321,32 @@
             }
           }
         },
+        "MaintainAngularMomentum": {
+          "Name": "MaintainAngularMomentum",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MaintainLinearMomentum": {
+          "Name": "MaintainLinearMomentum",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "MoveMaxForce": {
           "Name": "MoveMaxForce",
           "Scriptability": "ReadWrite",
@@ -390,14 +401,17 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CancelAirMomentum": {
           "Bool": true
         },
+        "MaintainAngularMomentum": {
+          "Bool": true
+        },
+        "MaintainLinearMomentum": {
+          "Bool": true
+        },
         "MoveMaxForce": {
-          "Float32": 10000.0
+          "Float32": 1000.0
         },
         "MoveSpeedFactor": {
           "Float32": 1.0
@@ -413,9 +427,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "VectorForce": {
           "Vector3": [
@@ -502,7 +513,9 @@
           "DataType": {
             "Value": "Vector3"
           },
-          "Tags": [],
+          "Tags": [
+            "NotReplicated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
@@ -567,7 +580,9 @@
           "DataType": {
             "Value": "Vector3"
           },
-          "Tags": [],
+          "Tags": [
+            "NotReplicated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
@@ -578,9 +593,6 @@
       "DefaultProperties": {
         "AlignType": {
           "Enum": 0
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "CFrame": {
           "CFrame": {
@@ -637,9 +649,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Visible": {
           "Bool": false
@@ -760,9 +769,6 @@
         "ApplyAtCenterOfMass": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 194
         },
@@ -797,9 +803,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Visible": {
           "Bool": false
         }
@@ -817,6 +820,7 @@
     "AnalyticsService": {
       "Name": "AnalyticsService",
       "Tags": [
+        "Deprecated",
         "Service"
       ],
       "Superclass": "Instance",
@@ -841,14 +845,8 @@
         "ApiKey": {
           "String": ""
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -918,9 +916,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 23
         },
@@ -938,9 +933,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Visible": {
           "Bool": false
@@ -970,14 +962,8 @@
         "AnimationId": {
           "Content": ""
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -1028,20 +1014,108 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "AnimationConstraint": {
+      "Name": "AnimationConstraint",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Constraint",
+      "Properties": {
+        "MaxForce": {
+          "Name": "MaxForce",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MaxTorque": {
+          "Name": "MaxTorque",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Transform": {
+          "Name": "Transform",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Color": {
+          "Int32": 23
+        },
+        "Enabled": {
+          "Bool": true
+        },
+        "MaxForce": {
+          "Float32": 10000.0
+        },
+        "MaxTorque": {
+          "Float32": 10000.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Transform": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "Visible": {
+          "Bool": false
+        }
+      }
+    },
     "AnimationController": {
       "Name": "AnimationController",
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -1054,14 +1128,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -1082,14 +1150,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -1355,17 +1417,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "PreferLodEnabled": {
           "Bool": true
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -1411,9 +1467,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Axes": {
           "Axes": [
             "X",
@@ -1430,9 +1483,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -1461,7 +1511,47 @@
         "Service"
       ],
       "Superclass": "Instance",
-      "Properties": {},
+      "Properties": {
+        "Interface": {
+          "Name": "Interface",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Port": {
+          "Name": "Port",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "StartServer": {
+          "Name": "StartServer",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "AssetImportService": {
@@ -1496,6 +1586,56 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "AssetPatchSettings": {
+      "Name": "AssetPatchSettings",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "ContentId": {
+          "Name": "ContentId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "OutputPath": {
+          "Name": "OutputPath",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PatchId": {
+          "Name": "PatchId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "AssetService": {
       "Name": "AssetService",
       "Tags": [
@@ -1505,14 +1645,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -1610,9 +1744,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Color3": [
             0.7843,
@@ -1641,9 +1772,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -1687,6 +1815,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -1702,6 +1831,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -1792,6 +1922,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -1807,6 +1938,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -1850,9 +1982,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CFrame": {
           "CFrame": {
             "position": [
@@ -1881,9 +2010,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Visible": {
           "Bool": false
@@ -1918,14 +2044,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -2073,9 +2193,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 1009
         },
@@ -2093,9 +2210,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TwistLimitsEnabled": {
           "Bool": false
@@ -2345,8 +2459,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Color"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -2461,19 +2575,6 @@
             }
           }
         },
-        "CollisionGroups": {
-          "Name": "CollisionGroups",
-          "Scriptability": "Custom",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "Color": {
           "Name": "Color",
           "Scriptability": "ReadWrite",
@@ -2485,22 +2586,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "Color3uint8"
-              }
-            }
-          }
-        },
-        "Color3uint8": {
-          "Name": "Color3uint8",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Color3uint8"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Color"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -2543,6 +2629,38 @@
             "Deprecated",
             "Hidden",
             "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ExtentsCFrame": {
+          "Name": "ExtentsCFrame",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ExtentsSize": {
+          "Name": "ExtentsSize",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
           ],
           "Kind": {
             "Canonical": {
@@ -2782,6 +2900,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -2810,6 +2929,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -2996,9 +3116,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "size"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -3120,21 +3238,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Color"
-            }
-          }
-        },
-        "size": {
-          "Name": "size",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Vector3"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Size"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
@@ -3564,9 +3669,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Brightness": {
           "Float32": 1.0
         },
@@ -3615,9 +3717,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Texture": {
           "Content": ""
@@ -3919,9 +4018,6 @@
         "AlwaysOnTop": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
           "Bool": true
         },
@@ -4016,9 +4112,6 @@
             0.0
           ]
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "ZIndexBehavior": {
           "Enum": 0
         }
@@ -4030,14 +4123,8 @@
       "Superclass": "ValueBase",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -4047,14 +4134,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -4064,14 +4145,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -4081,9 +4156,6 @@
       "Superclass": "BevelMesh",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Offset": {
           "Vector3": [
             0.0,
@@ -4100,9 +4172,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "VertexColor": {
           "Vector3": [
@@ -4159,9 +4228,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -4173,9 +4239,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Threshold": {
           "Float32": 0.95
@@ -4202,9 +4265,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -4213,9 +4273,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -4276,8 +4333,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "AngularVelocity"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -4292,8 +4349,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "MaxTorque"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
@@ -4305,9 +4362,6 @@
             2.0,
             0.0
           ]
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "MaxTorque": {
           "Vector3": [
@@ -4321,9 +4375,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -4490,9 +4541,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "HeadColor3": {
           "Color3": [
             0.9921569,
@@ -4530,9 +4578,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TorsoColor3": {
           "Color3": [
@@ -4574,16 +4619,13 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Force"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Force": {
           "Vector3": [
             0.0,
@@ -4593,9 +4635,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -4669,8 +4708,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "CFrame"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -4685,16 +4724,13 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "MaxTorque"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CFrame": {
           "CFrame": {
             "position": [
@@ -4736,9 +4772,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -4822,8 +4855,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "MaxForce"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -4838,16 +4871,13 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Position"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "D": {
           "Float32": 1250.0
         },
@@ -4870,9 +4900,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -4920,8 +4947,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Force"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -4936,16 +4963,13 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Location"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Force": {
           "Vector3": [
             0.0,
@@ -4962,9 +4986,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -5025,8 +5046,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "MaxForce"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -5041,16 +5062,13 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Velocity"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MaxForce": {
           "Vector3": [
             4000.0,
@@ -5063,9 +5081,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Velocity": {
           "Vector3": [
@@ -5081,23 +5096,6 @@
       "Tags": [],
       "Superclass": "Attachment",
       "Properties": {
-        "IsCFrameDriven": {
-          "Name": "IsCFrameDriven",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
         "Transform": {
           "Name": "Transform",
           "Scriptability": "ReadWrite",
@@ -5120,6 +5118,7 @@
             "Value": "CFrame"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated",
             "ReadOnly"
           ],
@@ -5147,9 +5146,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CFrame": {
           "CFrame": {
             "position": [
@@ -5179,9 +5175,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Visible": {
           "Bool": false
         }
@@ -5207,14 +5200,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "Bool": false
@@ -5246,9 +5233,6 @@
         },
         "AlwaysOnTop": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "CFrame": {
           "CFrame": {
@@ -5299,9 +5283,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -5510,14 +5491,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "Int32": 194
@@ -5560,6 +5535,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Color3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "BackgroundTransparency": {
+          "Name": "BackgroundTransparency",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float64"
           },
           "Tags": [],
           "Kind": {
@@ -5613,7 +5601,9 @@
           "DataType": {
             "Enum": "Font"
           },
-          "Tags": [],
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -5703,15 +5693,15 @@
         "AdorneeName": {
           "String": "HumanoidRootPart"
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BackgroundColor3": {
           "Color3": [
             0.98039216,
             0.98039216,
             0.98039216
           ]
+        },
+        "BackgroundTransparency": {
+          "Float64": 0.1
         },
         "BubbleDuration": {
           "Float32": 15.0
@@ -5740,9 +5730,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TextColor3": {
           "Color3": [
@@ -5790,14 +5777,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "CFrame": {
@@ -5835,14 +5816,8 @@
       "Superclass": "FlyweightService",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -5926,8 +5901,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "CFrame"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -6069,16 +6044,13 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Focus"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CFrame": {
           "CFrame": {
             "position": [
@@ -6148,9 +6120,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -6195,9 +6164,6 @@
             0.0,
             0.0
           ]
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "AutoLocalize": {
           "Bool": true
@@ -6301,9 +6267,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Visible": {
           "Bool": true
         },
@@ -6335,7 +6298,8 @@
     "ChannelSelectorSoundEffect": {
       "Name": "ChannelSelectorSoundEffect",
       "Tags": [
-        "NotBrowsable"
+        "NotBrowsable",
+        "NotCreatable"
       ],
       "Superclass": "CustomSoundEffect",
       "Properties": {
@@ -6354,9 +6318,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Channel": {
           "Int32": 1
         },
@@ -6368,9 +6329,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -6442,9 +6400,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BaseTextureId": {
           "Int64": 0
         },
@@ -6459,9 +6414,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -6502,9 +6454,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BubbleChatEnabled": {
           "Bool": false
         },
@@ -6513,9 +6462,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -6588,11 +6534,50 @@
             }
           }
         },
+        "BackgroundColor3": {
+          "Name": "BackgroundColor3",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "BackgroundTransparency": {
+          "Name": "BackgroundTransparency",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Enabled": {
           "Name": "Enabled",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PlaceholderColor3": {
+          "Name": "PlaceholderColor3",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
           },
           "Tags": [],
           "Kind": {
@@ -6613,20 +6598,103 @@
               "Serialization": "Serializes"
             }
           }
+        },
+        "TextColor3": {
+          "Name": "TextColor3",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TextSize": {
+          "Name": "TextSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TextStrokeColor3": {
+          "Name": "TextStrokeColor3",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TextStrokeTransparency": {
+          "Name": "TextStrokeTransparency",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
+        "BackgroundColor3": {
+          "Color3": [
+            0.09803922,
+            0.105882354,
+            0.11372549
+          ]
+        },
+        "BackgroundTransparency": {
+          "Float64": 0.2
         },
         "Enabled": {
           "Bool": true
         },
+        "PlaceholderColor3": {
+          "Color3": [
+            0.69803923,
+            0.69803923,
+            0.69803923
+          ]
+        },
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
+        "TextColor3": {
+          "Color3": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "TextSize": {
+          "Int64": 14
+        },
+        "TextStrokeColor3": {
+          "Color3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "TextStrokeTransparency": {
+          "Float64": 0.5
         }
       }
     },
@@ -6699,11 +6767,50 @@
             }
           }
         },
+        "BackgroundColor3": {
+          "Name": "BackgroundColor3",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "BackgroundTransparency": {
+          "Name": "BackgroundTransparency",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Enabled": {
           "Name": "Enabled",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "HeightScale": {
+          "Name": "HeightScale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
           },
           "Tags": [],
           "Kind": {
@@ -6718,12 +6825,62 @@
           "DataType": {
             "Enum": "HorizontalAlignment"
           },
-          "Tags": [
-            "NotReplicated"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TextColor3": {
+          "Name": "TextColor3",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TextSize": {
+          "Name": "TextSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TextStrokeColor3": {
+          "Name": "TextStrokeColor3",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TextStrokeTransparency": {
+          "Name": "TextStrokeTransparency",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -6733,28 +6890,75 @@
           "DataType": {
             "Enum": "VerticalAlignment"
           },
-          "Tags": [
-            "NotReplicated"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WidthScale": {
+          "Name": "WidthScale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
+        "BackgroundColor3": {
+          "Color3": [
+            0.09803922,
+            0.105882354,
+            0.11372549
+          ]
+        },
+        "BackgroundTransparency": {
+          "Float64": 0.3
         },
         "Enabled": {
           "Bool": true
         },
+        "HeightScale": {
+          "Float32": 1.0
+        },
+        "HorizontalAlignment": {
+          "Enum": 1
+        },
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
+        "TextColor3": {
+          "Color3": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "TextSize": {
+          "Int64": 14
+        },
+        "TextStrokeColor3": {
+          "Color3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "TextStrokeTransparency": {
+          "Float64": 0.5
+        },
+        "VerticalAlignment": {
+          "Enum": 1
+        },
+        "WidthScale": {
+          "Float32": 1.0
         }
       }
     },
@@ -6804,9 +7008,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Depth": {
           "Float32": 0.15
         },
@@ -6824,9 +7025,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -6863,9 +7061,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CursorIcon": {
           "Content": ""
         },
@@ -6874,9 +7069,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -6954,9 +7146,6 @@
         "AccelerationTime": {
           "Float32": 0.0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MoveMaxForce": {
           "Float32": null
         },
@@ -6974,9 +7163,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -7072,9 +7258,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Color3": [
             1.0,
@@ -7093,9 +7276,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -7119,14 +7299,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -7150,14 +7324,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "Color3": [
@@ -7227,9 +7395,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Brightness": {
           "Float32": 0.0
         },
@@ -7244,9 +7409,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TintColor": {
           "Color3": [
@@ -7506,9 +7668,6 @@
         "Attack": {
           "Float32": 0.1
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -7526,9 +7685,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Threshold": {
           "Float32": -40.0
@@ -7573,9 +7729,6 @@
         },
         "AlwaysOnTop": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "CFrame": {
           "CFrame": {
@@ -7626,9 +7779,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Transparency": {
           "Float32": 0.0
         },
@@ -7646,14 +7796,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -7811,14 +7955,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -7929,22 +8067,6 @@
             }
           }
         },
-        "HipHeight": {
-          "Name": "HipHeight",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
         "MovingDirection": {
           "Name": "MovingDirection",
           "Scriptability": "ReadWrite",
@@ -7960,9 +8082,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BaseMoveSpeed": {
           "Float32": 16.0
         },
@@ -7985,9 +8104,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -8011,14 +8127,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -8084,6 +8194,16 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "CoreScriptBuilder": {
+      "Name": "CoreScriptBuilder",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "ScriptBuilder",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "CoreScriptSyncService": {
       "Name": "CoreScriptSyncService",
       "Tags": [
@@ -8103,9 +8223,6 @@
       "DefaultProperties": {
         "Anchored": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "BackParamA": {
           "Float32": -0.5
@@ -8174,13 +8291,6 @@
         },
         "CollisionGroupId": {
           "Int32": 0
-        },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -8269,18 +8379,8 @@
             0.0
           ]
         },
-        "Size": {
-          "Vector3": [
-            2.0,
-            2.0,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopParamA": {
           "Float32": -0.5
@@ -8323,9 +8423,6 @@
       "Superclass": "AnimationClip",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Loop": {
           "Bool": true
         },
@@ -8334,9 +8431,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -8348,14 +8442,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -8381,14 +8469,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -8469,9 +8551,6 @@
         "Angle": {
           "Float32": 360.0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CFrame": {
           "CFrame": {
             "position": [
@@ -8524,9 +8603,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Transparency": {
           "Float32": 0.0
         },
@@ -8546,9 +8622,6 @@
       "Superclass": "BevelMesh",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Offset": {
           "Vector3": [
             0.0,
@@ -8565,9 +8638,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "VertexColor": {
           "Vector3": [
@@ -8820,9 +8890,6 @@
         "AngularVelocity": {
           "Float32": 0.0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 1009
         },
@@ -8876,9 +8943,6 @@
         },
         "Speed": {
           "Float32": 0.0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TargetAngle": {
           "Float32": 0.0
@@ -9450,7 +9514,24 @@
         "NotReplicated"
       ],
       "Superclass": "Pages",
-      "Properties": {},
+      "Properties": {
+        "Cursor": {
+          "Name": "Cursor",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "DataStoreListingPages": {
@@ -9460,7 +9541,24 @@
         "NotReplicated"
       ],
       "Superclass": "Pages",
-      "Properties": {},
+      "Properties": {
+        "Cursor": {
+          "Name": "Cursor",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {}
     },
     "DataStoreObjectVersionInfo": {
@@ -9597,9 +9695,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutomaticRetry": {
           "Bool": true
         },
@@ -9608,9 +9703,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -9658,17 +9750,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MaxItems": {
           "Int32": 1000
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -10388,9 +10474,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             1.0,
@@ -10403,9 +10486,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Texture": {
           "Content": ""
@@ -10477,9 +10557,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -10497,9 +10574,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -10651,9 +10725,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BehaviorType": {
           "Enum": 0
         },
@@ -10674,9 +10745,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Tone": {
           "Enum": 0
@@ -10752,9 +10820,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "GoodbyeChoiceActive": {
           "Bool": true
         },
@@ -10766,9 +10831,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "UserDialog": {
           "String": ""
@@ -10795,9 +10857,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -10809,9 +10868,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -10908,9 +10964,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MaxValue": {
           "Float64": 1.0
         },
@@ -10919,9 +10972,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -11250,6 +11300,40 @@
       },
       "DefaultProperties": {}
     },
+    "DynamicTextureAlpha": {
+      "Name": "DynamicTextureAlpha",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "DynamicTextureLayerAlpha": {
+      "Name": "DynamicTextureLayerAlpha",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "ZIndex": {
+          "Name": "ZIndex",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "EchoSoundEffect": {
       "Name": "EchoSoundEffect",
       "Tags": [],
@@ -11309,9 +11393,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Delay": {
           "Float32": 1.0
         },
@@ -11329,9 +11410,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "WetLevel": {
           "Float32": 0.0
@@ -11394,9 +11472,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -11414,9 +11489,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -11440,22 +11512,26 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "RotationOrder": {
           "Enum": 0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
     "EventIngestService": {
       "Name": "EventIngestService",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "ExperienceAuthService": {
+      "Name": "ExperienceAuthService",
       "Tags": [
         "NotCreatable",
         "Service"
@@ -11475,7 +11551,7 @@
           "Name": "InviteMessageId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Int32"
+            "Value": "String"
           },
           "Tags": [],
           "Kind": {
@@ -11488,7 +11564,7 @@
           "Name": "InviteUser",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Int32"
+            "Value": "Int64"
           },
           "Tags": [],
           "Kind": {
@@ -11624,9 +11700,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BlastPressure": {
           "Float32": 500000.0
         },
@@ -11648,9 +11721,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TimeScale": {
           "Float32": 1.0
@@ -12477,14 +12547,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -12580,14 +12644,41 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
+        "SourceAssetId": {
+          "Int64": -1
+        }
+      }
+    },
+    "FacialAnimationStreamingServiceV2": {
+      "Name": "FacialAnimationStreamingServiceV2",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "ServiceState": {
+          "Name": "ServiceState",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "ServiceState": {
+          "Int32": 0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -12714,9 +12805,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MeshId": {
           "Content": ""
         },
@@ -12736,9 +12824,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TextureId": {
           "Content": ""
@@ -12794,9 +12879,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "heat_xml"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -12824,9 +12907,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "size_xml"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -12843,19 +12924,6 @@
             }
           }
         },
-        "heat_xml": {
-          "Name": "heat_xml",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Heat"
-            }
-          }
-        },
         "size": {
           "Name": "size",
           "Scriptability": "ReadWrite",
@@ -12867,29 +12935,13 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Size"
-            }
-          }
-        },
-        "size_xml": {
-          "Name": "size_xml",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Size"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Color3": [
             0.92549026,
@@ -12900,9 +12952,6 @@
         "Enabled": {
           "Bool": true
         },
-        "Heat": {
-          "Float32": 9.0
-        },
         "SecondaryColor": {
           "Color3": [
             0.54509807,
@@ -12910,14 +12959,8 @@
             0.21568629
           ]
         },
-        "Size": {
-          "Float32": 5.0
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TimeScale": {
           "Float32": 1.0
@@ -12946,9 +12989,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CanBeDropped": {
           "Bool": true
         },
@@ -12990,9 +13030,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "TeamColor": {
           "Int32": 194
         },
@@ -13028,9 +13065,6 @@
       "DefaultProperties": {
         "Anchored": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "BackParamA": {
           "Float32": -0.5
@@ -13100,18 +13134,8 @@
         "CollisionGroupId": {
           "Int32": 0
         },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
-        },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
-        },
-        "FormFactor": {
-          "Enum": 1
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -13197,21 +13221,8 @@
             0.0
           ]
         },
-        "Shape": {
-          "Enum": 1
-        },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TeamColor": {
           "Int32": 194
@@ -13296,9 +13307,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Depth": {
           "Float32": 0.45
         },
@@ -13316,9 +13324,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -13345,14 +13350,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -13469,9 +13468,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             0.050980397,
@@ -13487,9 +13483,6 @@
         },
         "StudsBetweenTextures": {
           "Float32": 4.0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Texture": {
           "Content": ""
@@ -13522,14 +13515,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -13539,14 +13526,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -13570,14 +13551,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Visible": {
           "Bool": true
@@ -13603,9 +13578,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "formFactorRaw"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -13621,21 +13594,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "FormFactor"
-            }
-          }
-        },
-        "formFactorRaw": {
-          "Name": "formFactorRaw",
-          "Scriptability": "None",
-          "DataType": {
-            "Enum": "FormFactor"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "FormFactor"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
@@ -13670,9 +13630,6 @@
             0.0,
             0.0
           ]
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "AutoLocalize": {
           "Bool": true
@@ -13769,9 +13726,6 @@
         "Style": {
           "Enum": 0
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Visible": {
           "Bool": true
         },
@@ -13822,17 +13776,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Description": {
           "String": "?"
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -13845,14 +13793,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -13939,14 +13881,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -14080,9 +14016,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "C0": {
           "CFrame": {
             "position": [
@@ -14168,9 +14101,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -14295,22 +14225,6 @@
             }
           }
         },
-        "MaxSlopeAngle": {
-          "Name": "MaxSlopeAngle",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
         "StandForce": {
           "Name": "StandForce",
           "Scriptability": "ReadWrite",
@@ -14364,9 +14278,6 @@
         "AlignTorque": {
           "Float32": 10000.0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "DecelerationTime": {
           "Float32": 0.0
         },
@@ -14393,9 +14304,6 @@
         },
         "StandSpeed": {
           "Float32": 100.0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TurningFactor": {
           "Float32": 1.0
@@ -14803,10 +14711,10 @@
       "Superclass": "ScreenGui",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
+          "Bool": true
+        },
+        "ClipToDeviceSafeArea": {
           "Bool": true
         },
         "DisplayOrder": {
@@ -14815,11 +14723,14 @@
         "Enabled": {
           "Bool": true
         },
-        "IgnoreGuiInset": {
-          "Bool": false
-        },
         "ResetOnSpawn": {
           "Bool": true
+        },
+        "SafeAreaCompatibility": {
+          "Enum": 1
+        },
+        "ScreenInsets": {
+          "Enum": 2
         },
         "SelectionBehaviorDown": {
           "Enum": 0
@@ -14838,9 +14749,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "ZIndexBehavior": {
           "Enum": 0
@@ -15529,9 +15437,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             0.050980397,
@@ -15554,9 +15459,6 @@
         },
         "Style": {
           "Enum": 0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -15620,14 +15522,8 @@
             ]
           }
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -15647,14 +15543,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -15786,9 +15676,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "DepthMode": {
           "Enum": 0
         },
@@ -15817,9 +15704,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -16027,9 +15911,6 @@
         "AngularVelocity": {
           "Float32": 0.0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 1009
         },
@@ -16060,9 +15941,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "TargetAngle": {
           "Float32": 0.0
         },
@@ -16082,14 +15960,8 @@
       "Superclass": "Message",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Text": {
           "String": ""
@@ -16104,9 +15976,6 @@
       "Superclass": "Feature",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "FaceId": {
           "Enum": 0
         },
@@ -16118,9 +15987,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopBottom": {
           "Enum": 1
@@ -16176,17 +16042,11 @@
         "Active": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BinType": {
           "Enum": 0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TextureId": {
           "Content": ""
@@ -16235,17 +16095,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "HttpEnabled": {
           "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -16772,9 +16626,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoJumpEnabled": {
           "Bool": true
         },
@@ -16835,9 +16686,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "UseJumpPower": {
           "Bool": true
         },
@@ -16852,14 +16700,8 @@
       "Superclass": "Controller",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -17397,9 +17239,6 @@
         "AccessoryBlob": {
           "String": "[]"
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BackAccessory": {
           "String": ""
         },
@@ -17522,9 +17361,6 @@
         "SwimAnimation": {
           "Int64": 0
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Torso": {
           "Int64": 0
         },
@@ -17592,11 +17428,37 @@
             }
           }
         },
+        "EndEffectorOffset": {
+          "Name": "EndEffectorOffset",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Offset": {
           "Name": "Offset",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Pole": {
+          "Name": "Pole",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
           },
           "Tags": [],
           "Kind": {
@@ -17659,11 +17521,34 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
+        },
+        "EndEffectorOffset": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
         },
         "Offset": {
           "CFrame": {
@@ -17696,9 +17581,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Type": {
           "Enum": 0
@@ -17934,9 +17816,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoButtonColor": {
           "Bool": true
         },
@@ -18093,9 +17972,6 @@
         "Style": {
           "Enum": 0
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "TileSize": {
           "UDim2": [
             [
@@ -18155,9 +18031,6 @@
         "AlwaysOnTop": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CFrame": {
           "CFrame": {
             "position": [
@@ -18209,9 +18082,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -18403,9 +18273,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
           "Bool": true
         },
@@ -18543,9 +18410,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TileSize": {
           "UDim2": [
@@ -19085,6 +18949,19 @@
       ],
       "Superclass": "ImporterBaseSettings",
       "Properties": {
+        "AddModelToInventory": {
+          "Name": "AddModelToInventory",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Anchored": {
           "Name": "Anchored",
           "Scriptability": "ReadWrite",
@@ -19234,6 +19111,19 @@
             }
           }
         },
+        "UsesCages": {
+          "Name": "UsesCages",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "WorldForward": {
           "Name": "WorldForward",
           "Scriptability": "ReadWrite",
@@ -19272,6 +19162,19 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "AddPathsToBundle": {
+          "Name": "AddPathsToBundle",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "HighCompression": {
           "Name": "HighCompression",
           "Scriptability": "ReadWrite",
@@ -19424,14 +19327,8 @@
         "AllowInsertFreeModels": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -19452,37 +19349,7 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "archivable"
-              }
-            }
-          }
-        },
-        "Attributes": {
-          "Name": "Attributes",
-          "Scriptability": "Custom",
-          "DataType": {
-            "Value": "Attributes"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": {
-                "SerializesAs": "AttributesSerialize"
-              }
-            }
-          }
-        },
-        "AttributesSerialize": {
-          "Name": "AttributesSerialize",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "BinaryString"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Attributes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -19579,19 +19446,6 @@
             }
           }
         },
-        "Tags": {
-          "Name": "Tags",
-          "Scriptability": "Custom",
-          "DataType": {
-            "Value": "Tags"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "archivable": {
           "Name": "archivable",
           "Scriptability": "ReadWrite",
@@ -19604,8 +19458,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Archivable"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -19621,8 +19475,8 @@
             "ReadOnly"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "ClassName"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
@@ -19718,9 +19572,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MaxValue": {
           "Int64": 10
         },
@@ -19729,9 +19580,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -19755,14 +19603,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "Int64": 0
@@ -19879,8 +19721,8 @@
             "NotReplicated"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Part1"
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
@@ -19928,14 +19770,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Time": {
           "Float32": 0.0
@@ -19962,14 +19798,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "String": ""
@@ -19998,9 +19828,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AuthoredHipHeight": {
           "Float32": 2.0
         },
@@ -20012,9 +19839,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -20050,14 +19874,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -20473,9 +20291,6 @@
             0.5
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Brightness": {
           "Float32": 1.0
         },
@@ -20536,9 +20351,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Technology": {
           "Enum": 2
@@ -20623,9 +20435,6 @@
         "ApplyAtCenterOfMass": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 23
         },
@@ -20646,9 +20455,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Visible": {
           "Bool": false
@@ -20693,9 +20499,6 @@
         },
         "AlwaysOnTop": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "CFrame": {
           "CFrame": {
@@ -20742,9 +20545,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Thickness": {
           "Float32": 1.0
@@ -20884,9 +20684,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 26
         },
@@ -20932,9 +20729,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "VectorVelocity": {
           "Vector3": [
             0.0,
@@ -20966,9 +20760,6 @@
       "Superclass": "Script",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Disabled": {
           "Bool": false
         },
@@ -20983,9 +20774,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -21122,14 +20910,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -21138,19 +20920,6 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {
-        "Contents": {
-          "Name": "Contents",
-          "Scriptability": "Custom",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "DevelopmentLanguage": {
           "Name": "DevelopmentLanguage",
           "Scriptability": "ReadWrite",
@@ -21200,20 +20969,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
-        "Contents": {
-          "String": "[]"
-        },
         "SourceAssetId": {
           "Int64": -1
         },
         "SourceLocaleId": {
           "String": "en-us"
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -21253,14 +21013,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -21329,14 +21083,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -21359,9 +21107,6 @@
       "Superclass": "ManualSurfaceJointInstance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "C0": {
           "CFrame": {
             "position": [
@@ -21419,9 +21164,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -21443,9 +21185,6 @@
       "Superclass": "ManualSurfaceJointInstance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "C0": {
           "CFrame": {
             "position": [
@@ -21503,9 +21242,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -21532,14 +21268,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -22061,9 +21791,6 @@
         "AsphaltName": {
           "String": "Asphalt"
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BasaltName": {
           "String": "Basalt"
         },
@@ -22153,9 +21880,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "WoodName": {
           "String": "Wood"
@@ -22276,9 +22000,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BaseMaterial": {
           "Enum": 256
         },
@@ -22305,9 +22026,6 @@
         },
         "StudsPerTile": {
           "Float32": 10.0
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -22350,14 +22068,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -22491,9 +22203,6 @@
         "Anchored": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BackParamA": {
           "Float32": -0.5
         },
@@ -22561,13 +22270,6 @@
         },
         "CollisionGroupId": {
           "Int32": 0
-        },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -22678,18 +22380,8 @@
             0.0
           ]
         },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TextureID": {
           "Content": ""
@@ -22740,14 +22432,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Text": {
           "String": ""
@@ -22943,9 +22629,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Condition": {
           "String": ""
         },
@@ -22966,9 +22649,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -22981,14 +22661,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -23021,6 +22695,19 @@
             }
           }
         },
+        "ModelStreamingMode": {
+          "Name": "ModelStreamingMode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ModelStreamingMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "PrimaryPart": {
           "Name": "PrimaryPart",
           "Scriptability": "ReadWrite",
@@ -23031,38 +22718,6 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
-            }
-          }
-        },
-        "World Pivot Orientation": {
-          "Name": "World Pivot Orientation",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Vector3"
-          },
-          "Tags": [
-            "NotReplicated",
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "World Pivot Position": {
-          "Name": "World Pivot Position",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Vector3"
-          },
-          "Tags": [
-            "NotReplicated",
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -23083,17 +22738,14 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "LevelOfDetail": {
+          "Enum": 0
+        },
+        "ModelStreamingMode": {
           "Enum": 0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -23130,9 +22782,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "LinkedSource": {
           "Content": ""
         },
@@ -23141,9 +22790,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -23195,9 +22841,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "C0": {
           "CFrame": {
             "position": [
@@ -23261,9 +22904,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -23324,9 +22964,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "C0": {
           "CFrame": {
             "position": [
@@ -23390,9 +23027,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -23404,9 +23038,6 @@
       "Superclass": "Feature",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "FaceId": {
           "Enum": 0
         },
@@ -23418,9 +23049,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopBottom": {
           "Enum": 1
@@ -23690,12 +23318,6 @@
         "Anchored": {
           "Bool": true
         },
-        "AssetId": {
-          "Content": ""
-        },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BackParamA": {
           "Float32": -0.5
         },
@@ -23763,13 +23385,6 @@
         },
         "CollisionGroupId": {
           "Int32": 0
-        },
-        "Color": {
-          "Color3uint8": [
-            255,
-            255,
-            255
-          ]
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -23861,21 +23476,11 @@
             0.0
           ]
         },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SmoothingAngle": {
           "Float32": 0.0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopParamA": {
           "Float32": -0.5
@@ -24164,17 +23769,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -24186,14 +23785,8 @@
       "Superclass": "FlyweightService",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -24293,9 +23886,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "EasingDirection": {
           "Enum": 0
         },
@@ -24304,9 +23894,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "Float64": 0.0
@@ -24336,14 +23923,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "Float64": 0.0
@@ -24370,14 +23951,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -24432,11 +24007,11 @@
       ],
       "Superclass": "Instance",
       "Properties": {
-        "Origin Orientation": {
-          "Name": "Origin Orientation",
+        "Origin": {
+          "Name": "Origin",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Vector3"
+            "Value": "CFrame"
           },
           "Tags": [
             "NotReplicated",
@@ -24448,43 +24023,11 @@
             }
           }
         },
-        "Origin Position": {
-          "Name": "Origin Position",
+        "Pivot Offset": {
+          "Name": "Pivot Offset",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Vector3"
-          },
-          "Tags": [
-            "NotReplicated",
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "Pivot Offset Orientation": {
-          "Name": "Pivot Offset Orientation",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Vector3"
-          },
-          "Tags": [
-            "NotReplicated",
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "Pivot Offset Position": {
-          "Name": "Pivot Offset Position",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Vector3"
+            "Value": "CFrame"
           },
           "Tags": [
             "NotReplicated",
@@ -24568,22 +24111,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "PackageIdSerialize"
-              }
-            }
-          }
-        },
-        "PackageIdSerialize": {
-          "Name": "PackageIdSerialize",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Content"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "PackageId"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -24707,9 +24235,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             1.0,
@@ -24722,9 +24247,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -24810,9 +24332,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             0.9490197,
@@ -24822,9 +24341,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -24850,22 +24366,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "shape"
-              }
-            }
-          }
-        },
-        "shape": {
-          "Name": "shape",
-          "Scriptability": "None",
-          "DataType": {
-            "Enum": "PartType"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Shape"
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
@@ -24873,9 +24374,6 @@
       "DefaultProperties": {
         "Anchored": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "BackParamA": {
           "Float32": -0.5
@@ -24945,18 +24443,8 @@
         "CollisionGroupId": {
           "Int32": 0
         },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
-        },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
-        },
-        "FormFactor": {
-          "Enum": 1
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -25042,21 +24530,8 @@
             0.0
           ]
         },
-        "Shape": {
-          "Enum": 1
-        },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopParamA": {
           "Float32": -0.5
@@ -25110,19 +24585,6 @@
       "Tags": [],
       "Superclass": "TriangleMeshPart",
       "Properties": {
-        "AssetId": {
-          "Name": "AssetId",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Content"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "RenderFidelity": {
           "Name": "RenderFidelity",
           "Scriptability": "ReadWrite",
@@ -25182,12 +24644,6 @@
       "DefaultProperties": {
         "Anchored": {
           "Bool": false
-        },
-        "AssetId": {
-          "Content": ""
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "BackParamA": {
           "Float32": -0.5
@@ -25257,13 +24713,6 @@
         "CollisionGroupId": {
           "Int32": 0
         },
-        "Color": {
-          "Color3uint8": [
-            255,
-            255,
-            255
-          ]
-        },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
@@ -25354,21 +24803,11 @@
             0.0
           ]
         },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SmoothingAngle": {
           "Float32": 0.0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopParamA": {
           "Float32": -0.5
@@ -25403,14 +24842,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -25860,9 +25293,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Brightness": {
           "Float32": 1.0
         },
@@ -26007,9 +25437,6 @@
             ]
           }
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Texture": {
           "Content": "rbxasset://textures/particles/sparkles_main.dds"
         },
@@ -26039,56 +25466,6 @@
           "Float32": 0.0
         }
       }
-    },
-    "PatchMapping": {
-      "Name": "PatchMapping",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "Instance",
-      "Properties": {
-        "FlattenTree": {
-          "Name": "FlattenTree",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "PatchId": {
-          "Name": "PatchId",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "TargetPath": {
-          "Name": "TargetPath",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
     },
     "Path": {
       "Name": "Path",
@@ -26176,9 +25553,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "IsBidirectional": {
           "Bool": true
         },
@@ -26187,9 +25561,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -26226,9 +25597,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Label": {
           "String": ""
         },
@@ -26237,9 +25605,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -26398,14 +25763,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -26418,14 +25777,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -26801,9 +26154,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -26815,9 +26165,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -26829,9 +26176,6 @@
       "Superclass": "PlaneConstraint",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 194
         },
@@ -26840,9 +26184,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Visible": {
           "Bool": false
@@ -26855,9 +26196,6 @@
       "Superclass": "Constraint",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 194
         },
@@ -26866,9 +26204,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Visible": {
           "Bool": false
@@ -27237,6 +26572,19 @@
             }
           }
         },
+        "HasVerifiedBadge": {
+          "Name": "HasVerifiedBadge",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "HealthDisplayDistance": {
           "Name": "HealthDisplayDistance",
           "Scriptability": "ReadWrite",
@@ -27502,6 +26850,22 @@
             }
           }
         },
+        "VREnabled": {
+          "Name": "VREnabled",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "userId": {
           "Name": "userId",
           "Scriptability": "ReadWrite",
@@ -27611,9 +26975,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CustomPoliciesEnabled": {
           "Bool": false
         },
@@ -27631,9 +26992,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -27792,9 +27150,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "MaxPlayersInternal"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -27808,8 +27164,8 @@
             "Hidden"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "MaxPlayers"
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -27842,9 +27198,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "PreferredPlayersInternal"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -27858,8 +27212,8 @@
             "Hidden"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "PreferredPlayers"
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -27870,6 +27224,22 @@
             "Value": "Float32"
           },
           "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "UseStrafingAnimations": {
+          "Name": "UseStrafingAnimations",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "NotScriptable"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -27914,16 +27284,13 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CharacterAutoLoads": {
           "Bool": true
         },
-        "MaxPlayers": {
+        "MaxPlayersInternal": {
           "Int32": 12
         },
-        "PreferredPlayers": {
+        "PreferredPlayersInternal": {
           "Int32": 0
         },
         "RespawnTime": {
@@ -27932,8 +27299,8 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
+        "UseStrafingAnimations": {
+          "Bool": false
         }
       }
     },
@@ -28464,9 +27831,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Brightness": {
           "Float32": 1.0
         },
@@ -28488,9 +27852,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -28583,9 +27944,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CFrame": {
           "CFrame": {
             "position": [
@@ -28620,9 +27978,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Weight": {
           "Float32": 1.0
@@ -28710,9 +28065,6 @@
         "ActuatorType": {
           "Enum": 0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 1009
         },
@@ -28749,9 +28101,6 @@
         "Speed": {
           "Float32": 0.0
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "TargetPosition": {
           "Float32": 0.0
         },
@@ -28775,14 +28124,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -28978,9 +28321,6 @@
         "ActionText": {
           "String": "Interact"
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
           "Bool": true
         },
@@ -29016,9 +28356,6 @@
         },
         "Style": {
           "Enum": 0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "UIOffset": {
           "Vector2": [
@@ -29064,9 +28401,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -29075,9 +28409,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29122,14 +28453,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "Ray": {
@@ -29163,14 +28488,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29180,14 +28499,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29250,9 +28563,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Browsable": {
           "Bool": true
         },
@@ -29307,9 +28617,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "UIMaximum": {
           "Float64": 0.0
         },
@@ -29327,14 +28634,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29344,9 +28645,6 @@
       "Superclass": "ReflectionMetadataItem",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Browsable": {
           "Bool": true
         },
@@ -29388,9 +28686,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "UIMaximum": {
           "Float64": 0.0
@@ -29409,9 +28704,6 @@
       "Superclass": "ReflectionMetadataItem",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Browsable": {
           "Bool": true
         },
@@ -29454,9 +28746,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "UIMaximum": {
           "Float64": 0.0
         },
@@ -29474,14 +28763,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29491,14 +28774,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29508,14 +28785,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29743,9 +29014,6 @@
       "Superclass": "ReflectionMetadataItem",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Browsable": {
           "Bool": true
         },
@@ -29788,9 +29056,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "UIMaximum": {
           "Float64": 0.0
         },
@@ -29808,14 +29073,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29825,14 +29084,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29853,14 +29106,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -29870,14 +29117,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -30155,6 +29396,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -30170,6 +29412,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -30219,9 +29462,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CFrame": {
           "CFrame": {
             "position": [
@@ -30272,9 +29512,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Ticket": {
           "String": ""
         }
@@ -30289,14 +29526,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -30309,14 +29540,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -30392,9 +29617,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "DecayTime": {
           "Float32": 1.5
         },
@@ -30416,9 +29638,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "WetLevel": {
           "Float32": 0.0
         }
@@ -30430,9 +29649,6 @@
       "Superclass": "Constraint",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 194
         },
@@ -30441,9 +29657,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Visible": {
           "Bool": false
@@ -30624,9 +29837,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CartoonFactor": {
           "Float32": 0.7
         },
@@ -30645,9 +29855,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TargetOffset": {
           "Vector3": [
@@ -30761,9 +29968,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 26
         },
@@ -30784,9 +29988,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Thickness": {
           "Float32": 0.1
@@ -30923,9 +30124,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 25
         },
@@ -30940,9 +30138,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Thickness": {
           "Float32": 0.1
@@ -30975,9 +30170,6 @@
       "Superclass": "JointInstance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "C0": {
           "CFrame": {
             "position": [
@@ -31035,9 +30227,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -31049,9 +30238,6 @@
       "Superclass": "DynamicRotate",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BaseAngle": {
           "Float32": 0.0
         },
@@ -31112,9 +30298,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -31126,9 +30309,6 @@
       "Superclass": "DynamicRotate",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BaseAngle": {
           "Float32": 0.0
         },
@@ -31189,9 +30369,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -31218,14 +30395,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -31311,6 +30482,21 @@
       "Tags": [],
       "Superclass": "LayerCollector",
       "Properties": {
+        "ClipToDeviceSafeArea": {
+          "Name": "ClipToDeviceSafeArea",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotBrowsable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "DisplayOrder": {
           "Name": "DisplayOrder",
           "Scriptability": "ReadWrite",
@@ -31333,7 +30519,7 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -31351,13 +30537,43 @@
               "Serialization": "DoesNotSerialize"
             }
           }
+        },
+        "SafeAreaCompatibility": {
+          "Name": "SafeAreaCompatibility",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "SafeAreaCompatibility"
+          },
+          "Tags": [
+            "NotBrowsable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ScreenInsets": {
+          "Name": "ScreenInsets",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ScreenInsets"
+          },
+          "Tags": [
+            "NotBrowsable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
+          "Bool": true
+        },
+        "ClipToDeviceSafeArea": {
           "Bool": true
         },
         "DisplayOrder": {
@@ -31366,11 +30582,14 @@
         "Enabled": {
           "Bool": true
         },
-        "IgnoreGuiInset": {
-          "Bool": false
-        },
         "ResetOnSpawn": {
           "Bool": true
+        },
+        "SafeAreaCompatibility": {
+          "Enum": 1
+        },
+        "ScreenInsets": {
+          "Enum": 2
         },
         "SelectionBehaviorDown": {
           "Enum": 0
@@ -31389,9 +30608,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "ZIndexBehavior": {
           "Enum": 0
@@ -31533,9 +30749,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Disabled": {
           "Bool": false
         },
@@ -31550,11 +30763,18 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
+    },
+    "ScriptBuilder": {
+      "Name": "ScriptBuilder",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "ScriptChangeService": {
       "Name": "ScriptChangeService",
@@ -31731,14 +30951,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -32052,9 +31266,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
           "Bool": true
         },
@@ -32199,9 +31410,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "TopImage": {
           "Content": "rbxasset://textures/ui/Scroll/scroll-top.png"
         },
@@ -32257,9 +31465,6 @@
       "DefaultProperties": {
         "Anchored": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "BackParamA": {
           "Float32": -0.5
@@ -32329,21 +31534,11 @@
         "CollisionGroupId": {
           "Int32": 0
         },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
-        },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
         "Disabled": {
           "Bool": false
-        },
-        "FormFactor": {
-          "Enum": 1
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -32429,21 +31624,8 @@
             0.0
           ]
         },
-        "Shape": {
-          "Enum": 1
-        },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopParamA": {
           "Float32": -0.5
@@ -32529,14 +31711,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -32603,9 +31779,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             0.050980397,
@@ -32628,9 +31801,6 @@
         },
         "SurfaceTransparency": {
           "Float32": 1.0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -32685,9 +31855,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             0.050980397,
@@ -32697,9 +31864,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -32731,9 +31895,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             0.050980397,
@@ -32750,9 +31911,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -32812,9 +31970,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             0.050980397,
@@ -32834,9 +31989,6 @@
         },
         "SurfaceTransparency": {
           "Float32": 1.0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -32883,17 +32035,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "LoadStringEnabled": {
           "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -32907,14 +32053,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -32958,9 +32098,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             1.0,
@@ -32973,9 +32110,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -33012,9 +32146,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             1.0,
@@ -33027,11 +32158,19 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
+    },
+    "ShorelineUpgraderService": {
+      "Name": "ShorelineUpgraderService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "SkateboardController": {
       "Name": "SkateboardController",
@@ -33072,14 +32211,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -33166,9 +32299,6 @@
         "Anchored": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BackParamA": {
           "Float32": -0.5
         },
@@ -33237,18 +32367,8 @@
         "CollisionGroupId": {
           "Int32": 0
         },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
-        },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
-        },
-        "FormFactor": {
-          "Enum": 1
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -33334,16 +32454,6 @@
             0.0
           ]
         },
-        "Shape": {
-          "Enum": 1
-        },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -33352,9 +32462,6 @@
         },
         "StickyWheels": {
           "Bool": true
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Throttle": {
           "Int32": 0
@@ -33405,17 +32512,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SkinColor": {
           "Int32": 226
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -33582,9 +32683,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CelestialBodiesShown": {
           "Bool": true
         },
@@ -33623,9 +32721,6 @@
         },
         "SunTextureId": {
           "Content": "rbxasset://sky/sun.jpg"
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -33866,9 +32961,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "opacity_xml"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -33883,9 +32976,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "riseVelocity_xml"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -33900,9 +32991,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "size_xml"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -33918,51 +33007,9 @@
               "Serialization": "Serializes"
             }
           }
-        },
-        "opacity_xml": {
-          "Name": "opacity_xml",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Opacity"
-            }
-          }
-        },
-        "riseVelocity_xml": {
-          "Name": "riseVelocity_xml",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "RiseVelocity"
-            }
-          }
-        },
-        "size_xml": {
-          "Name": "size_xml",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Size"
-            }
-          }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Color3": [
             1.0,
@@ -33973,20 +33020,8 @@
         "Enabled": {
           "Bool": true
         },
-        "Opacity": {
-          "Float32": 0.5
-        },
-        "RiseVelocity": {
-          "Float32": 1.0
-        },
-        "Size": {
-          "Float32": 1.0
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TimeScale": {
           "Float32": 1.0
@@ -34001,9 +33036,6 @@
       "Superclass": "JointInstance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "C0": {
           "CFrame": {
             "position": [
@@ -34061,9 +33093,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -34160,6 +33189,7 @@
             "Value": "Bool"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated",
             "ReadOnly"
           ],
@@ -34176,12 +33206,26 @@
             "Value": "Bool"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated",
             "ReadOnly"
           ],
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "LoopRegion": {
+          "Name": "LoopRegion",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "NumberRange"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -34209,9 +33253,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "xmlRead_MaxDistance_3"
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -34271,6 +33313,34 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "PlaybackRegion": {
+          "Name": "PlaybackRegion",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "NumberRange"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PlaybackRegionsEnabled": {
+          "Name": "PlaybackRegionsEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotBrowsable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -34449,35 +33519,31 @@
               "Serialization": "DoesNotSerialize"
             }
           }
-        },
-        "xmlRead_MaxDistance_3": {
-          "Name": "xmlRead_MaxDistance_3",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "MaxDistance"
-            }
-          }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "EmitterSize": {
           "Float32": 10.0
+        },
+        "LoopRegion": {
+          "NumberRange": [
+            0.0,
+            60000.0
+          ]
         },
         "Looped": {
           "Bool": false
         },
-        "MaxDistance": {
-          "Float32": 10000.0
-        },
         "PlayOnRemove": {
+          "Bool": false
+        },
+        "PlaybackRegion": {
+          "NumberRange": [
+            0.0,
+            60000.0
+          ]
+        },
+        "PlaybackRegionsEnabled": {
           "Bool": false
         },
         "PlaybackSpeed": {
@@ -34494,9 +33560,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TimePosition": {
           "Float64": 0.0
@@ -34562,14 +33625,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Volume": {
           "Float32": 0.5
@@ -34669,9 +33726,6 @@
         "AmbientReverb": {
           "Enum": 0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "DistanceFactor": {
           "Float32": 3.33
         },
@@ -34686,9 +33740,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "VolumetricAudio": {
           "Enum": 1
@@ -34757,9 +33808,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -34772,9 +33820,6 @@
             0.098039225,
             1.0
           ]
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TimeScale": {
           "Float32": 1.0
@@ -34859,9 +33904,6 @@
         "Anchored": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BackParamA": {
           "Float32": -0.5
         },
@@ -34930,13 +33972,6 @@
         "CollisionGroupId": {
           "Int32": 0
         },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
-        },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
@@ -34945,9 +33980,6 @@
         },
         "Enabled": {
           "Bool": true
-        },
-        "FormFactor": {
-          "Enum": 1
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -35036,21 +34068,8 @@
             0.0
           ]
         },
-        "Shape": {
-          "Enum": 1
-        },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TeamColor": {
           "Int32": 194
@@ -35092,7 +34111,8 @@
     "Speaker": {
       "Name": "Speaker",
       "Tags": [
-        "Deprecated"
+        "Deprecated",
+        "NotCreatable"
       ],
       "Superclass": "Instance",
       "Properties": {
@@ -35213,17 +34233,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "RollOffMode": {
           "Enum": 0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Volume": {
           "Float32": 0.0
@@ -35250,9 +34264,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MeshId": {
           "Content": ""
         },
@@ -35275,9 +34286,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TextureId": {
           "Content": ""
@@ -35316,9 +34324,6 @@
         },
         "AlwaysOnTop": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "CFrame": {
           "CFrame": {
@@ -35365,9 +34370,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -35429,9 +34431,6 @@
         "Angle": {
           "Float32": 90.0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Brightness": {
           "Float32": 1.0
         },
@@ -35456,9 +34455,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -35615,9 +34611,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Coils": {
           "Float32": 3.0
         },
@@ -35653,9 +34646,6 @@
         },
         "Stiffness": {
           "Float32": 0.0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Thickness": {
           "Float32": 0.1
@@ -35835,14 +34825,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -35864,14 +34848,8 @@
       "Superclass": "StarterPlayerScripts",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -35881,14 +34859,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -35974,9 +34946,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "ResetPlayerGuiOnSpawn": {
           "Bool": true
         },
@@ -35988,9 +34957,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "VirtualCursorMode": {
           "Enum": 0
@@ -36006,14 +34972,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -36535,6 +35495,21 @@
             }
           }
         },
+        "HumanoidStateMachineMode": {
+          "Name": "HumanoidStateMachineMode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "HumanoidStateMachineMode"
+          },
+          "Tags": [
+            "NotBrowsable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "LoadCharacterAppearance": {
           "Name": "LoadCharacterAppearance",
           "Scriptability": "ReadWrite",
@@ -36594,9 +35569,6 @@
       "DefaultProperties": {
         "AllowCustomAnimations": {
           "Bool": true
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "AutoJumpEnabled": {
           "Bool": true
@@ -36715,6 +35687,9 @@
         "HealthDisplayDistance": {
           "Float32": 100.0
         },
+        "HumanoidStateMachineMode": {
+          "Enum": 0
+        },
         "LoadCharacterAppearance": {
           "Bool": true
         },
@@ -36723,9 +35698,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "UserEmotesEnabled": {
           "Bool": true
@@ -36740,14 +35712,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -36959,17 +35925,6 @@
       "Properties": {},
       "DefaultProperties": {}
     },
-    "StopWatchReporter": {
-      "Name": "StopWatchReporter",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated",
-        "Service"
-      ],
-      "Superclass": "Instance",
-      "Properties": {},
-      "DefaultProperties": {}
-    },
     "StringValue": {
       "Name": "StringValue",
       "Tags": [],
@@ -36990,14 +35945,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "String": ""
@@ -37210,6 +36159,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Automatically commit locked scripts when you save or publish to Roblox": {
+          "Name": "Automatically commit locked scripts when you save or publish to Roblox",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
           },
           "Tags": [],
           "Kind": {
@@ -37444,6 +36406,19 @@
         },
         "DeprecatedObjectsShown": {
           "Name": "DeprecatedObjectsShown",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Display Team Create toggle when creating a new experience": {
+          "Name": "Display Team Create toggle when creating a new experience",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -37694,6 +36669,19 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "File > New creates a place with Team Create off": {
+          "Name": "File > New creates a place with Team Create off",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -38834,58 +37822,14 @@
               "Serialization": "Serializes"
             }
           }
-        },
-        "SrcPlaceId": {
-          "Name": "SrcPlaceId",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Int64"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "SrcUniverseId": {
-          "Name": "SrcUniverseId",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Int64"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "EnableScriptCollabByDefaultOnLoad": {
           "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "SrcPlaceId": {
-          "Int64": 0
-        },
-        "SrcUniverseId": {
-          "Int64": 0
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -39266,9 +38210,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -39280,9 +38221,6 @@
         },
         "Spread": {
           "Float32": 1.0
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -39374,9 +38312,6 @@
         "AlphaMode": {
           "Enum": 0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "ColorMap": {
           "Content": ""
         },
@@ -39391,9 +38326,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TexturePack": {
           "Content": ""
@@ -39457,6 +38389,21 @@
             }
           }
         },
+        "HorizontalCurvature": {
+          "Name": "HorizontalCurvature",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "LightInfluence": {
           "Name": "LightInfluence",
           "Scriptability": "ReadWrite",
@@ -39480,6 +38427,21 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "Shape": {
+          "Name": "Shape",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "SurfaceGuiShape"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -39529,9 +38491,6 @@
         },
         "AlwaysOnTop": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "AutoLocalize": {
           "Bool": true
@@ -39583,9 +38542,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "ToolPunchThroughDistance": {
           "Float32": 0.0
@@ -39696,9 +38652,6 @@
         "Angle": {
           "Float32": 90.0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Brightness": {
           "Float32": 1.0
         },
@@ -39723,9 +38676,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -39749,9 +38699,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             0.050980397,
@@ -39761,9 +38708,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TargetSurface": {
           "Enum": 0
@@ -39853,9 +38797,6 @@
         "AccelerationTime": {
           "Float32": 0.0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MoveSpeedFactor": {
           "Float32": 1.0
         },
@@ -39876,9 +38817,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -40034,17 +38972,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoAssignable": {
           "Bool": true
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TeamColor": {
           "Int32": 1
@@ -40071,14 +39003,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -40170,9 +39096,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "ReservedServerAccessCode": {
           "String": ""
         },
@@ -40184,9 +39107,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -40216,14 +39136,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -40335,6 +39249,21 @@
             }
           }
         },
+        "ShorelinesUpgraded": {
+          "Name": "ShorelinesUpgraded",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "WaterColor": {
           "Name": "WaterColor",
           "Scriptability": "ReadWrite",
@@ -40405,9 +39334,6 @@
         "Anchored": {
           "Bool": true
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BackParamA": {
           "Float32": -0.5
         },
@@ -40475,13 +39401,6 @@
         },
         "CollisionGroupId": {
           "Int32": 0
-        },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -40576,18 +39495,11 @@
             0.0
           ]
         },
-        "Size": {
-          "Vector3": [
-            2044.0,
-            252.0,
-            2044.0
-          ]
+        "ShorelinesUpgraded": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopParamA": {
           "Float32": -0.5
@@ -40730,9 +39642,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "ColorMap": {
           "Content": ""
         },
@@ -40756,9 +39665,6 @@
         },
         "StudsPerTile": {
           "Float32": 10.0
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -40802,14 +39708,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -40987,9 +39887,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoRuns": {
           "Bool": true
         },
@@ -41016,9 +39913,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Timeout": {
           "Float64": 10.0
@@ -41078,7 +39972,9 @@
           "DataType": {
             "Enum": "Font"
           },
-          "Tags": [],
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -41501,9 +40397,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
           "Bool": true
         },
@@ -41627,9 +40520,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Text": {
           "String": "TextBox"
         },
@@ -41719,7 +40609,9 @@
           "DataType": {
             "Enum": "Font"
           },
-          "Tags": [],
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -42017,9 +40909,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoButtonColor": {
           "Bool": true
         },
@@ -42136,9 +41025,6 @@
         "Style": {
           "Enum": 0
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Text": {
           "String": "Button"
         },
@@ -42194,14 +41080,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -42251,9 +41131,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Enabled": {
           "Bool": true
         },
@@ -42265,9 +41142,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -42415,14 +41289,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -42475,9 +41343,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "ChatVersion": {
           "Enum": 0
         },
@@ -42489,9 +41354,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -42532,7 +41394,9 @@
           "DataType": {
             "Enum": "Font"
           },
-          "Tags": [],
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -42830,9 +41694,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
           "Bool": true
         },
@@ -42936,9 +41797,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Text": {
           "String": "Label"
@@ -43098,9 +41956,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color3": {
           "Color3": [
             1.0,
@@ -43125,9 +41980,6 @@
         },
         "StudsPerTileV": {
           "Float32": 2.0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Texture": {
           "Content": ""
@@ -43239,14 +42091,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -43312,6 +42158,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -43327,6 +42174,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -43342,6 +42190,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -43357,6 +42206,7 @@
             "Value": "Vector3"
           },
           "Tags": [
+            "Hidden",
             "NotReplicated"
           ],
           "Kind": {
@@ -43406,9 +42256,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CanBeDropped": {
           "Bool": true
         },
@@ -43449,9 +42296,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TextureId": {
           "Content": ""
@@ -43494,9 +42338,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 23
         },
@@ -43508,9 +42349,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Torque": {
           "Vector3": [
@@ -43667,9 +42505,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Coils": {
           "Float32": 8.0
         },
@@ -43706,9 +42541,6 @@
         "Stiffness": {
           "Float32": 100.0
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Visible": {
           "Bool": false
         }
@@ -43732,14 +42564,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -44051,9 +42877,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Brightness": {
           "Float32": 1.0
         },
@@ -44102,9 +42925,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Texture": {
           "Content": ""
@@ -44222,9 +43042,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Depth": {
           "Float32": 1.0
         },
@@ -44242,9 +43059,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -44314,9 +43128,6 @@
         "Anchored": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BackParamA": {
           "Float32": -0.5
         },
@@ -44384,13 +43195,6 @@
         },
         "CollisionGroupId": {
           "Int32": 0
-        },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -44479,18 +43283,8 @@
             0.0
           ]
         },
-        "Size": {
-          "Vector3": [
-            2.0,
-            2.0,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopParamA": {
           "Float32": -0.5
@@ -44539,14 +43333,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -44586,14 +43374,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -44660,17 +43442,11 @@
         "AspectType": {
           "Enum": 0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "DominantAxis": {
           "Enum": 0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -44721,9 +43497,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CornerRadius": {
           "UDim": [
             0.0,
@@ -44732,9 +43505,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -44810,9 +43580,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "ColorSequence": {
             "keypoints": [
@@ -44849,9 +43616,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "NumberSequence": {
@@ -44962,9 +43726,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CellPadding": {
           "UDim2": [
             [
@@ -45006,9 +43767,6 @@
         },
         "StartCorner": {
           "Enum": 0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "VerticalAlignment": {
           "Enum": 1
@@ -45123,9 +43881,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "FillDirection": {
           "Enum": 1
         },
@@ -45143,9 +43898,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "VerticalAlignment": {
           "Enum": 1
@@ -45211,9 +43963,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "PaddingBottom": {
           "UDim": [
             0.0,
@@ -45240,9 +43989,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -45389,9 +44135,6 @@
         "Animated": {
           "Bool": true
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Circular": {
           "Bool": false
         },
@@ -45425,9 +44168,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "TouchInputEnabled": {
           "Bool": true
         },
@@ -45459,17 +44199,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Scale": {
           "Float32": 1.0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -45506,9 +44240,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MaxSize": {
           "Vector2": [
             null,
@@ -45523,9 +44254,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -45617,9 +44345,6 @@
         "ApplyStrokeMode": {
           "Enum": 0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Color3": [
             0.0,
@@ -45635,9 +44360,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Thickness": {
           "Float32": 1.0
@@ -45706,9 +44428,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "FillDirection": {
           "Enum": 1
         },
@@ -45741,9 +44460,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "VerticalAlignment": {
           "Enum": 1
@@ -45783,9 +44499,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "MaxTextSize": {
           "Int32": 100
         },
@@ -45794,9 +44507,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -45808,12 +44518,6 @@
       "DefaultProperties": {
         "Anchored": {
           "Bool": false
-        },
-        "AssetId": {
-          "Content": ""
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "BackParamA": {
           "Float32": -0.5
@@ -45882,13 +44586,6 @@
         },
         "CollisionGroupId": {
           "Int32": 0
-        },
-        "Color": {
-          "Color3uint8": [
-            255,
-            255,
-            255
-          ]
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -45980,21 +44677,11 @@
             0.0
           ]
         },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SmoothingAngle": {
           "Float32": 0.0
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopParamA": {
           "Float32": -0.5
@@ -46082,9 +44769,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 1009
         },
@@ -46106,9 +44790,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Visible": {
           "Bool": false
         }
@@ -46123,14 +44804,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -47235,17 +45910,28 @@
               "Serialization": "DoesNotSerialize"
             }
           }
+        },
+        "VRSessionState": {
+          "Name": "VRSessionState",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "VRSessionState"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -47264,14 +45950,8 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -47295,14 +45975,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Value": {
           "Vector3": [
@@ -47362,9 +46036,6 @@
         "ApplyAtCenterOfMass": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "Color": {
           "Int32": 23
         },
@@ -47384,9 +46055,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Visible": {
           "Bool": false
         }
@@ -47398,14 +46066,8 @@
       "Superclass": "Controller",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -47568,9 +46230,6 @@
         "Anchored": {
           "Bool": false
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "BackParamA": {
           "Float32": -0.5
         },
@@ -47638,13 +46297,6 @@
         },
         "CollisionGroupId": {
           "Int32": 0
-        },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -47742,13 +46394,6 @@
             0.0
           ]
         },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -47757,9 +46402,6 @@
         },
         "SteerFloat": {
           "Float32": 0.0
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Throttle": {
           "Int32": 0
@@ -47856,9 +46498,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "C0": {
           "CFrame": {
             "position": [
@@ -47925,9 +46564,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -47999,14 +46635,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -48143,9 +46773,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
           "Bool": true
         },
@@ -48243,9 +46870,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TimePosition": {
           "Float64": 0.0
@@ -48383,9 +47007,6 @@
             0.0
           ]
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoLocalize": {
           "Bool": true
         },
@@ -48502,9 +47123,6 @@
         "SourceAssetId": {
           "Int64": -1
         },
-        "Tags": {
-          "BinaryString": ""
-        },
         "Visible": {
           "Bool": true
         },
@@ -48538,14 +47156,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -48554,6 +47166,16 @@
       "Tags": [
         "NotCreatable",
         "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "VisibilityCheckDispatcher": {
+      "Name": "VisibilityCheckDispatcher",
+      "Tags": [
+        "NotCreatable",
         "Service"
       ],
       "Superclass": "Instance",
@@ -48580,23 +47202,6 @@
       "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {}
-    },
-    "VoiceChannel": {
-      "Name": "VoiceChannel",
-      "Tags": [],
-      "Superclass": "Instance",
-      "Properties": {},
-      "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
-        "SourceAssetId": {
-          "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
-        }
-      }
     },
     "VoiceChatInternal": {
       "Name": "VoiceChatInternal",
@@ -48627,14 +47232,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -48691,17 +47290,11 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "EnableDefaultVoice": {
           "Bool": true
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -48731,14 +47324,8 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -48750,9 +47337,6 @@
       "DefaultProperties": {
         "Anchored": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "BackParamA": {
           "Float32": -0.5
@@ -48822,18 +47406,8 @@
         "CollisionGroupId": {
           "Int32": 0
         },
-        "Color": {
-          "Color3uint8": [
-            163,
-            162,
-            165
-          ]
-        },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
-        },
-        "FormFactor": {
-          "Enum": 1
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -48919,18 +47493,8 @@
             0.0
           ]
         },
-        "Size": {
-          "Vector3": [
-            4.0,
-            1.2,
-            2.0
-          ]
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TopParamA": {
           "Float32": -0.5
@@ -48962,9 +47526,6 @@
       "Superclass": "JointInstance",
       "Properties": {},
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "C0": {
           "CFrame": {
             "position": [
@@ -49022,9 +47583,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -49075,22 +47633,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "Part0Internal"
-              }
-            }
-          }
-        },
-        "Part0Internal": {
-          "Name": "Part0Internal",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Ref"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Part0"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -49105,35 +47648,14 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "SerializesAs": "Part1Internal"
-              }
-            }
-          }
-        },
-        "Part1Internal": {
-          "Name": "Part1Internal",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Ref"
-          },
-          "Tags": [],
-          "Kind": {
-            "Alias": {
-              "AliasFor": "Part1"
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -49148,9 +47670,6 @@
         },
         "AlwaysOnTop": {
           "Bool": false
-        },
-        "Attributes": {
-          "BinaryString": ""
         },
         "CFrame": {
           "CFrame": {
@@ -49194,9 +47713,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -49260,19 +47776,6 @@
             }
           }
         },
-        "CollisionGroups": {
-          "Name": "CollisionGroups",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "CurrentCamera": {
           "Name": "CurrentCamera",
           "Scriptability": "ReadWrite",
@@ -49297,19 +47800,6 @@
           "Tags": [
             "NotReplicated"
           ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "ExplicitAutoJoints": {
-          "Name": "ExplicitAutoJoints",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -49430,6 +47920,21 @@
             }
           }
         },
+        "RejectCharacterDeletions": {
+          "Name": "RejectCharacterDeletions",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "RejectCharacterDeletions"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ReplicateInstanceDestroySetting": {
           "Name": "ReplicateInstanceDestroySetting",
           "Scriptability": "None",
@@ -49531,21 +48036,6 @@
             }
           }
         },
-        "StreamingPauseMode": {
-          "Name": "StreamingPauseMode",
-          "Scriptability": "None",
-          "DataType": {
-            "Enum": "StreamingPauseMode"
-          },
-          "Tags": [
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "StreamingTargetRadius": {
           "Name": "StreamingTargetRadius",
           "Scriptability": "None",
@@ -49615,20 +48105,11 @@
         "AnimationWeightedBlendFix": {
           "Enum": 0
         },
-        "Attributes": {
-          "BinaryString": ""
-        },
         "ClientAnimatorThrottling": {
           "Enum": 0
         },
-        "CollisionGroups": {
-          "String": "Default^0^-1"
-        },
         "DistributedGameTime": {
           "Float64": 0.0
-        },
-        "ExplicitAutoJoints": {
-          "Bool": true
         },
         "FallenPartsDestroyHeight": {
           "Float32": -500.0
@@ -49655,7 +48136,13 @@
         "MeshPartHeadsAndAccessories": {
           "Enum": 0
         },
+        "ModelStreamingMode": {
+          "Enum": 0
+        },
         "PhysicsSteppingMethod": {
+          "Enum": 0
+        },
+        "RejectCharacterDeletions": {
           "Enum": 0
         },
         "ReplicateInstanceDestroySetting": {
@@ -49682,14 +48169,8 @@
         "StreamingMinRadius": {
           "Int32": 64
         },
-        "StreamingPauseMode": {
-          "Enum": 0
-        },
         "StreamingTargetRadius": {
           "Int32": 1024
-        },
-        "Tags": {
-          "BinaryString": ""
         },
         "TouchesUseCollisionGroups": {
           "Bool": false
@@ -49874,9 +48355,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "AutoSkin": {
           "Enum": 0
         },
@@ -50007,9 +48485,6 @@
         },
         "SourceAssetId": {
           "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     },
@@ -50065,9 +48540,6 @@
         }
       },
       "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
         "CageMeshId": {
           "Content": ""
         },
@@ -50131,9 +48603,6 @@
         },
         "Stiffness": {
           "Float32": 0.0
-        },
-        "Tags": {
-          "BinaryString": ""
         }
       }
     }
@@ -50360,6 +48829,7 @@
         "Face": 18,
         "FaceAccessory": 42,
         "FallAnimation": 50,
+        "FontFamily": 73,
         "FrontAccessory": 45,
         "GamePass": 34,
         "Gear": 19,
@@ -50909,6 +49379,9 @@
         "PlacelaunchRestricted": 523,
         "PlacelaunchUnauthorized": 524,
         "PlacelaunchUserLeft": 522,
+        "PlacelaunchUserPrivacyUnauthorized": 533,
+        "PlayerRemoved": 291,
+        "ReplicatorTimeout": 290,
         "TeleportErrors": 768,
         "TeleportFailure": 769,
         "TeleportFlooded": 774,
@@ -50957,7 +49430,8 @@
         "Chat": 3,
         "EmotesMenu": 5,
         "Health": 1,
-        "PlayerList": 0
+        "PlayerList": 0,
+        "SelfView": 6
       }
     },
     "CreateOutfitFailure": {
@@ -51236,6 +49710,10 @@
         "Skip8": 5
       }
     },
+    "ExperienceAuthScope": {
+      "name": "ExperienceAuthScope",
+      "items": {}
+    },
     "ExplosionType": {
       "name": "ExplosionType",
       "items": {
@@ -51250,6 +49728,16 @@
         "Place": 1,
         "PlaceServer": 3,
         "Server": 2
+      }
+    },
+    "FacialAnimationStreamingState": {
+      "name": "FacialAnimationStreamingState",
+      "items": {
+        "Audio": 1,
+        "None": 0,
+        "Place": 4,
+        "Server": 8,
+        "Video": 2
       }
     },
     "FieldOfViewMode": {
@@ -51477,7 +49965,7 @@
         "Automatic": 1,
         "Direct3D11": 2,
         "Metal": 5,
-        "NoGraphics": 7,
+        "NoGraphics": 9,
         "OpenGL": 4,
         "Vulkan": 6
       }
@@ -51609,6 +50097,15 @@
       "items": {
         "R15": 1,
         "R6": 0
+      }
+    },
+    "HumanoidStateMachineMode": {
+      "name": "HumanoidStateMachineMode",
+      "items": {
+        "Default": 0,
+        "Legacy": 1,
+        "LuaStateMachine": 3,
+        "NoStateMachine": 2
       }
     },
     "HumanoidStateType": {
@@ -52192,6 +50689,15 @@
         "StreamingMesh": 1
       }
     },
+    "ModelStreamingMode": {
+      "name": "ModelStreamingMode",
+      "items": {
+        "Atomic": 1,
+        "Default": 0,
+        "Persistent": 2,
+        "PersistentPerPlayer": 3
+      }
+    },
     "ModifierKey": {
       "name": "ModifierKey",
       "items": {
@@ -52338,10 +50844,10 @@
     "ParticleFlipbookLayout": {
       "name": "ParticleFlipbookLayout",
       "items": {
-        "EightByEight": 3,
-        "FourByFour": 2,
-        "None": 0,
-        "TwoByTwo": 1
+        "Grid2x2": 1,
+        "Grid4x4": 2,
+        "Grid8x8": 3,
+        "None": 0
       }
     },
     "ParticleFlipbookMode": {
@@ -52426,7 +50932,7 @@
         "IOS": 2,
         "Linux": 13,
         "NX": 9,
-        "None": 19,
+        "None": 20,
         "OSX": 1,
         "Ouya": 10,
         "PS3": 6,
@@ -52591,6 +51097,14 @@
         "Whitelist": 1
       }
     },
+    "RejectCharacterDeletions": {
+      "name": "RejectCharacterDeletions",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
+      }
+    },
     "RenderFidelity": {
       "name": "RenderFidelity",
       "items": {
@@ -52634,9 +51148,9 @@
     "ReservedHighlightId": {
       "name": "ReservedHighlightId",
       "items": {
-        "Active": 128,
-        "Hover": 64,
-        "Selection": 32,
+        "Active": 131072,
+        "Hover": 262144,
+        "Selection": 524288,
         "Standard": 0
       }
     },
@@ -52749,6 +51263,23 @@
         "Snapshot": 1
       }
     },
+    "SafeAreaCompatibility": {
+      "name": "SafeAreaCompatibility",
+      "items": {
+        "FullscreenExtension": 1,
+        "None": 0
+      }
+    },
+    "SaveAvatarThumbnailCustomizationFailure": {
+      "name": "SaveAvatarThumbnailCustomizationFailure",
+      "items": {
+        "BadDistanceScale": 4,
+        "BadFieldOfViewDeg": 3,
+        "BadThumbnailType": 1,
+        "BadYRotDeg": 2,
+        "Other": 5
+      }
+    },
     "SaveFilter": {
       "name": "SaveFilter",
       "items": {
@@ -52781,6 +51312,18 @@
         "Slice": 1,
         "Stretch": 0,
         "Tile": 2
+      }
+    },
+    "ScopeCheckResult": {
+      "name": "ScopeCheckResult",
+      "items": {}
+    },
+    "ScreenInsets": {
+      "name": "ScreenInsets",
+      "items": {
+        "CoreUISafeInsets": 2,
+        "DeviceSafeInsets": 1,
+        "None": 0
       }
     },
     "ScreenOrientation": {
@@ -52896,7 +51439,8 @@
       "items": {
         "Default": 0,
         "Disabled": 1,
-        "MinimumRadiusPause": 2
+        "MinimumRadiusPause": 2,
+        "PauseOutsideLoadedArea": 3
       }
     },
     "StreamingPauseMode": {
@@ -53126,6 +51670,13 @@
         "Motor": 3,
         "None": 0,
         "SteppingMotor": 2
+      }
+    },
+    "SurfaceGuiShape": {
+      "name": "SurfaceGuiShape",
+      "items": {
+        "CurvedHorizontally": 1,
+        "Flat": 0
       }
     },
     "SurfaceGuiSizingMode": {
@@ -53531,6 +52082,15 @@
         "None": 22,
         "TextInput": 20,
         "Touch": 7
+      }
+    },
+    "VRSessionState": {
+      "name": "VRSessionState",
+      "items": {
+        "Focused": 3,
+        "Idle": 1,
+        "Undefined": 0,
+        "Visible": 2
       }
     },
     "VRTouchpad": {
