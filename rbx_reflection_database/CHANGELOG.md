@@ -1,6 +1,9 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+* Updated to Roblox version 557. ([#245])
+
+[#245]: https://github.com/rojo-rbx/rbx-dom/pull/245
 
 ## 0.2.5+roblox-530
 * Updated to Roblox version 530.
