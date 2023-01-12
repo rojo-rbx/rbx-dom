@@ -8,7 +8,7 @@ use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
-    CustomPhysicalProperties, Enum, Faces, Matrix3, NumberRange, NumberSequence,
+    CustomPhysicalProperties, Enum, Faces, Font, Matrix3, NumberRange, NumberSequence,
     NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
     Vector3, Vector3int16,
 };
@@ -222,6 +222,7 @@ pub enum DecodedValues {
     Int64(Vec<i64>),
     SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
     OptionalCFrame(Vec<Option<CFrame>>),
+    Font(Vec<Font>),
 }
 
 impl DecodedValues {
@@ -309,6 +310,31 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::UDim2(values))
+            }
+            Type::Font => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    let family = reader.read_string().unwrap();
+                    let weight = reader.read_le_u16().unwrap().into();
+                    let style = reader.read_u8().unwrap().into();
+                    let cached_face_id = reader.read_string().unwrap();
+
+                    let cached_face_id = if cached_face_id.is_empty() {
+                        None
+                    } else {
+                        Some(cached_face_id)
+                    };
+
+                    values.push(Font {
+                        family,
+                        weight,
+                        style,
+                        cached_face_id,
+                    })
+                }
+
+                Some(DecodedValues::Font(values))
             }
             Type::Ray => {
                 let mut values = Vec::with_capacity(prop_count);

@@ -9,7 +9,7 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, Enum, Faces, Matrix3, NumberRange, NumberSequence,
+        ColorSequenceKeypoint, Content, Enum, Faces, Font, Matrix3, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim,
         UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
@@ -709,6 +709,21 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         chunk.write_interleaved_i32_array(offset_x.into_iter())?;
                         chunk.write_interleaved_i32_array(offset_y.into_iter())?;
                     }
+                    Type::Font => {
+                        for (i, rbx_value) in values {
+                            if let Variant::Font(value) = rbx_value.as_ref() {
+                                chunk.write_string(&value.family)?;
+                                chunk.write_le_u16(value.weight.clone().into())?;
+                                chunk.write_u8(value.style.clone().into())?;
+                                match &value.cached_face_id {
+                                    Some(id) => chunk.write_string(id)?,
+                                    None => chunk.write_string("")?,
+                                }
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Font");
+                            }
+                        }
+                    }
                     Type::Ray => {
                         for (i, rbx_value) in values {
                             if let Variant::Ray(value) = rbx_value.as_ref() {
@@ -1229,6 +1244,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             VariantType::Tags => Variant::Tags(Tags::new()),
             VariantType::Content => Variant::Content(Content::new()),
             VariantType::Attributes => Variant::Attributes(Attributes::new()),
+            VariantType::Font => Variant::Font(Font::default()),
             _ => return None,
         })
     }

@@ -7,7 +7,7 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Matrix3,
+        ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, Matrix3,
         NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
         SharedString, Tags, UDim, UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
@@ -859,6 +859,42 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Vector3int16",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::Font => match canonical_type {
+                VariantType::Font => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+
+                        let family = chunk.read_string()?;
+                        let weight = chunk.read_le_u16()?.into();
+                        let style = chunk.read_u8()?.into();
+                        let cached_face_id = chunk.read_string()?;
+
+                        let cached_face_id = if cached_face_id.is_empty() {
+                            None
+                        } else {
+                            Some(cached_face_id)
+                        };
+
+                        instance.builder.add_property(
+                            &canonical_name,
+                            Font {
+                                family,
+                                weight,
+                                style,
+                                cached_face_id,
+                            },
+                        );
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Font",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }
