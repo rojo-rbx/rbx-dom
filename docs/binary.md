@@ -267,7 +267,7 @@ When an array of `Int32` values is present, the bytes of the integers are subjec
 ### Float32
 **Type ID `0x04`**
 
-The `Float32` type is stored using the [Roblox float format](#roblox-float-format) and is little-endian. This datatype is also called `float` or `single`.
+The `Float32` type is stored using the [Roblox float format](#roblox-float-format) and is big-endian. This datatype is also called `float` or `single`.
 
 When an array of `Float32` values is present, the bytes of the floats are subject to [byte interleaving](#byte-interleaving).
 
