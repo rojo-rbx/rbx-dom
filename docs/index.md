@@ -11,4 +11,4 @@ We maintain high quality documentation for Roblox's formats. This documentation 
 * [Binary Model Format](binary.md)
 * [Attributes Format](attributes.md)
 * [DOM Data Model](dom.md) (stub)
-* [XML Model Format](xml.md) (stub)
+* [XML Model Format](xml.md)
