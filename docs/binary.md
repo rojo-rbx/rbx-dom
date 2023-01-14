@@ -49,6 +49,7 @@ This document is based on:
 	- [Int64](#int64)
 	- [SharedString](#sharedstring)
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
+	- [UniqueId](#uniqueid)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
@@ -620,6 +621,24 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 * At the end of the chunk there is an array of `Bool` values (preceded by the respective type ID, `02`) that indicates which `OptionalCoordinateFrame` values have a value.
 
 An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 0, 0, 1)` followed by an `OptionalCoordinateFrame` with no value looks like this: `10 0a 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f 00 00 00 00 00 00 00 02 01 00`. Note that the valueless `OptionalCoordinateFrame` is written as the identity `CFrame` with its corresponding boolean `00` codifying its valuelessness.
+
+### UniqueId
+**Type ID `0x1f`**
+
+`UniqueId` is represented as a struct of three numbers in the following order:
+
+| Field Name | Format | Value                                                                                  |
+|:-----------|:-------|:---------------------------------------------------------------------------------------|
+| Index      | `u32`  | A sequential value that's incremented when a new `UniqueId` is generated               |
+| Time       | `u32`  | The number of seconds since 01-01-2021                                                 |
+| Random     | `i64`  | A psuedo-random number that's generated semiregularly when initializing a `UniqueId`   |
+
+This struct is stored in the order as written above with no modifications in the binary format.
+
+When interacting with the XML format, care must be taken because `UniqueId` is stored in a different order and the `Random` field is modified slightly. For more information, see the relevant documentation in the [XML file spec](xml.md).
+
+When an array of `UniqueId` values is present, the bytes are subject to [byte interleaving](#byte-interleaving).
+
 
 ## Data Storage Notes
 
