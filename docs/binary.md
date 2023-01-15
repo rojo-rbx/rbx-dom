@@ -49,6 +49,7 @@ This document is based on:
 	- [Int64](#int64)
 	- [SharedString](#sharedstring)
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
+	- [Font](#font)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
@@ -620,6 +621,22 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 * At the end of the chunk there is an array of `Bool` values (preceded by the respective type ID, `02`) that indicates which `OptionalCoordinateFrame` values have a value.
 
 An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 0, 0, 1)` followed by an `OptionalCoordinateFrame` with no value looks like this: `10 0a 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f 00 00 00 00 00 00 00 02 01 00`. Note that the valueless `OptionalCoordinateFrame` is written as the identity `CFrame` with its corresponding boolean `00` codifying its valuelessness.
+
+### Font
+**Type ID `0x20`**
+
+The `Font` type is a struct composed of two `String` values, a `u8`, and a `u16`:
+
+| Field Name   | Format              | Value                           |
+| :----------- | :------------------ | :------------------------------ |
+| Family       | [`String`](#string) | The font family content url     |
+| Weight       | `u16`               | The weight of the font          |
+| Style        | `u8`                | The style of the font           |
+| CachedFaceId | [`String`](#string) | The cached content url of the ttf file |
+
+The `Weight` and `Style` fields are stored as little-endian unsigned integers. These are usually treated like enums, and to assign them in Roblox Studio an Enum is used. Interestingly, the `Weight` is _always_ stored as a number in binary and xml, but `Style` is stored as a number in binary and as text in xml.
+
+The `CachedFaceId` field is always present, but is allows to be an empty string (a string of length 0). When represented in xml, this property will be omitted if it is an empty string. This property is not visible via any user APIs in Roblox Studio.
 
 ## Data Storage Notes
 
