@@ -98,7 +98,7 @@ impl XmlType for Font {
         let style = match self.style {
             FontStyle::Normal => "Normal",
             FontStyle::Italic => "Italic",
-            _ => "Normal",
+            FontStyle::Other(_) => "Normal",
         };
         writer.write_tag_characters("Style", style)?;
 
