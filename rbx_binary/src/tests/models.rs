@@ -59,6 +59,5 @@ binary_tests! {
     two_terrainregions,
     weldconstraint,
     package_link,
-    text_label_font_property,
-    text_label_font_property_double,
+    text_label_with_font,
 }
