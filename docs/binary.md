@@ -645,16 +645,16 @@ When an array of `UniqueId` values is present, the bytes are subject to [byte in
 
 The `Font` type is a struct composed of two `String` values, a `u8`, and a `u16`:
 
-| Field Name   | Format              | Value                           |
-| :----------- | :------------------ | :------------------------------ |
-| Family       | [`String`](#string) | The font family content url     |
-| Weight       | `u16`               | The weight of the font          |
-| Style        | `u8`                | The style of the font           |
-| CachedFaceId | [`String`](#string) | The cached content url of the ttf file |
+| Field Name   | Format              | Value                                  |
+|:-------------|:--------------------|:---------------------------------------|
+| Family       | [`String`](#string) | The font family content URI            |
+| Weight       | `u16`               | The weight of the font                 |
+| Style        | `u8`                | The style of the font                  |
+| CachedFaceId | [`String`](#string) | The cached content URI of the TTF file |
 
-The `Weight` and `Style` fields are stored as little-endian unsigned integers. These are usually treated like enums, and to assign them in Roblox Studio an Enum is used. Interestingly, the `Weight` is _always_ stored as a number in binary and xml, but `Style` is stored as a number in binary and as text in xml.
+The `Weight` and `Style` fields are stored as little-endian unsigned integers. These are usually treated like enums, and to assign them in Roblox Studio an Enum is used. Interestingly, the `Weight` is *always* stored as a number in binary and XML, but `Style` is stored as a number in binary and as text in XML.
 
-The `CachedFaceId` field is always present, but is allows to be an empty string (a string of length 0). When represented in xml, this property will be omitted if it is an empty string. This property is not visible via any user APIs in Roblox Studio.
+The `CachedFaceId` field is always present, but is allows to be an empty string (a string of length `0`). When represented in XML, this property will be omitted if it is an empty string. This property is not visible via any user APIs in Roblox Studio.
 
 ## Data Storage Notes
 
