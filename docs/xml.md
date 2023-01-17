@@ -143,9 +143,12 @@ The value of this element MUST be the SharedString value encoded with Base64.
 
 ## Type Elements
 
-All elements below this point represent a single property on a single `Instance`. They all MUST be under a [`Properties`](#properties) element. There MAY be zero or more of each of these elements under each `Properties` element.
+All properties are encoded as a single element parented under a `Properties` element. Each element represents exactly one property for one `Instance`.
 
-The following attributes are required for all type elements:
+The contents of the element vary depending upon the type of the property it represents. The name of the element SHOULD be the name of the datatype, but Roblox does not require it to be.
+
+The following attributes are required for all property elements, regardless of their type or name:
+
 
 | Name   | Contents                                              |
 |:-------|:------------------------------------------------------|
@@ -153,13 +156,52 @@ The following attributes are required for all type elements:
 
 The `name` of a property does not necessarily reflect its in-engine name, and some properties serialize with unexpected names. Additionally, not every property is deserialized by Roblox.
 
+The format for each data type is listed below.
+
 ### Axes
+
+The `Axes` data type is represented with a single `axes` element that contains a single integer between `0` and `7`. This integer represents a bitfield of the `Z`, `Y`, and `X` axes packed into the lower 3 bits of it, in that order.
+
+An `Axes` property with only the `X` axis enabled would appear as follows:
+
+```xml
+<Axes name="Example"><axes>1</axes></Axes>
+```
 
 ### BinaryString
 
+The `BinaryString` data type is represented by the contents of the property encoded with Base64.
+
+
+A `BinaryString` property with the contents `Rojo is cool!` would appear as follows:
+
+```xml
+<BinaryString name="Example">Um9qbyBpcyBjb29sIQ==</BinaryString>
+```
+
 ### BrickColor
 
+The `BrickColor` data type is represented by a single 32-bit integer that represents the `Number` of the value.
+
+Roblox encodes this type with the element name `int` but by convention, the element SHOULD be named `BrickColor`.
+
+A `BrickColor` with the value `Medium Stone Grey` (whose number is `194`) would appear as follows:
+
+```xml
+<BrickColor name="Example">194</BrickColor>
+```
+
 ### bool
+
+The `bool` data type is represented by a literal string reading either `true` or `false` depending upon the state of the value.
+
+Although Roblox accepts variations such as `fAlSe` and `TRUE`, by convention values SHOULD be written in all lowercase.
+
+A `bool` with the value `false` would appear as follows:
+
+```xml
+<bool name="Example">false</bool>
+```
 
 ### Color3
 
