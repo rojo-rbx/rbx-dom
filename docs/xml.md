@@ -205,7 +205,29 @@ A `bool` with the value `false` would appear as follows:
 
 ### Color3
 
+The `Color3` data type is represented by three child elements named `R`, `G`, and `B`. These elements contain the value of that component as 32-bit floating point numbers. See [`float`](#float) for more information on the format of floating point numbers.
+
+A `Color3` with the value `INF, 1337, 3.141592653` would appear as follows:
+
+```xml
+<Color3 name="Example">
+	<R>INF</R>
+	<G>1337</G>
+	<B>3.141592653</B>
+</Color3>
+```
+
 ### Color3uint8
+
+The `Color3uint8` data type is represented by a single unsigned 32-bit integer that is the `R`, `G`, and `B` components of the color (as integers in the range 0 to 255) packed into the lower 24 bits of the number. This integer is little-endian and written in the order `G`, `B`, `R`.
+
+Roblox encodes this type with the upper 8 bits filled with `FF` (in hexadecimal). This SHOULD be done by encoders to avoid compatibility issues.
+
+A `Color3uint8` with the value `96, 64, 32` would appear as follows:
+
+```xml
+<Color3uint8 name="Example">4284497952</Color3uint8>
+```
 
 ### ColorSequence
 
