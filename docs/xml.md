@@ -241,6 +241,18 @@ A `Color3uint8` with the value `96, 64, 32` would appear as follows:
 
 ### float
 
+The `float` data type (also known as `Float32` or `single`) is represented as a standard 32-bit floating-point number would be. Specifically, it is compatibile with the [XSD precision decimal](https://www.w3.org/TR/xsd-precisionDecimal/) type. For full details, view the XSD specification, but strings such as `1.0`, `1`, `-0`, and `13e37` are all valid representations of `float` values.
+
+Of note, positive infinity is represented as `INF` or `+INF`, negative infinity is represented by `-INF`, and NaN is represented as `NAN`. Encoders MUST use these representations.
+
+Encoders SHOULD encode `float` values with at least 9 digits of precision but they MAY elect to use less depending upon the property and their own needs.
+
+A `float` with the value `0.15625` would appear as follows:
+
+```xml
+<float name="Example">0.15625</float>
+```
+
 ### Font
 
 ### int
