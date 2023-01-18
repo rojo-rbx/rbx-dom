@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
@@ -23,8 +23,8 @@ impl Default for FontWeight {
     }
 }
 
-impl From<u16> for FontWeight {
-    fn from(weight: u16) -> Self {
+impl FontWeight {
+    pub fn from_u16(weight: u16) -> Self {
         match weight {
             100 => FontWeight::Thin,
             200 => FontWeight::ExtraLight,
@@ -38,11 +38,8 @@ impl From<u16> for FontWeight {
             other => FontWeight::Other(other),
         }
     }
-}
-
-impl From<FontWeight> for u16 {
-    fn from(weight: FontWeight) -> Self {
-        match weight {
+    pub fn to_u16(self) -> u16 {
+        match self {
             FontWeight::Thin => 100,
             FontWeight::ExtraLight => 200,
             FontWeight::Light => 300,
@@ -57,7 +54,7 @@ impl From<FontWeight> for u16 {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
@@ -75,19 +72,16 @@ impl Default for FontStyle {
     }
 }
 
-impl From<u8> for FontStyle {
-    fn from(style: u8) -> Self {
+impl FontStyle {
+    pub fn from_u8(style: u8) -> Self {
         match style {
             0 => FontStyle::Normal,
             1 => FontStyle::Italic,
             other => FontStyle::Other(other),
         }
     }
-}
-
-impl From<FontStyle> for u8 {
-    fn from(style: FontStyle) -> Self {
-        match style {
+    pub fn to_u8(self) -> u8 {
+        match self {
             FontStyle::Normal => 0,
             FontStyle::Italic => 1,
             FontStyle::Other(other) => other,

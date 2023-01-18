@@ -8,9 +8,9 @@ use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
-    CustomPhysicalProperties, Enum, Faces, Font, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
-    Vector3, Vector3int16,
+    CustomPhysicalProperties, Enum, Faces, Font, FontStyle, FontWeight, Matrix3, NumberRange,
+    NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim,
+    UDim2, Vector2, Vector3, Vector3int16,
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
@@ -316,8 +316,8 @@ impl DecodedValues {
 
                 for _ in 0..prop_count {
                     let family = reader.read_string().unwrap();
-                    let weight = reader.read_le_u16().unwrap().into();
-                    let style = reader.read_u8().unwrap().into();
+                    let weight = FontWeight::from_u16(reader.read_le_u16().unwrap());
+                    let style = FontStyle::from_u8(reader.read_u8().unwrap());
                     let cached_face_id = reader.read_string().unwrap();
 
                     let cached_face_id = if cached_face_id.is_empty() {

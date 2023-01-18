@@ -713,12 +713,11 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         for (i, rbx_value) in values {
                             if let Variant::Font(value) = rbx_value.as_ref() {
                                 chunk.write_string(&value.family)?;
-                                chunk.write_le_u16(value.weight.clone().into())?;
-                                chunk.write_u8(value.style.clone().into())?;
-                                match &value.cached_face_id {
-                                    Some(id) => chunk.write_string(id)?,
-                                    None => chunk.write_string("")?,
-                                }
+                                chunk.write_le_u16(value.weight.to_u16())?;
+                                chunk.write_u8(value.style.to_u8())?;
+                                chunk.write_string(
+                                    &value.cached_face_id.clone().unwrap_or_default(),
+                                )?;
                             } else {
                                 return type_mismatch(i, &rbx_value, "Font");
                             }

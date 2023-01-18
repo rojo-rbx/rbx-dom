@@ -91,8 +91,7 @@ impl XmlType for Font {
     fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         write_content(writer, &self.family, "Family")?;
 
-        let weight: u16 = self.weight.clone().into();
-        let weight: i32 = weight.into();
+        let weight = i32::from(self.weight.to_u16());
         writer.write_value_in_tag(&weight, "Weight")?;
 
         let style = match self.style {
@@ -117,7 +116,7 @@ impl XmlType for Font {
             .clamp(u16::MIN as i32, u16::MAX as i32)
             .try_into()
             .unwrap();
-        let weight = FontWeight::from(weight);
+        let weight = FontWeight::from_u16(weight);
 
         let style = match reader.read_tag_contents("Style")?.as_str() {
             "Normal" => FontStyle::Normal,
