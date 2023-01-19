@@ -1,8 +1,9 @@
+mod defaults_place;
 mod dump;
 
 use clap::Parser;
 
-use self::dump::DumpSubcommand;
+use self::{defaults_place::DefaultsPlaceSubcommand, dump::DumpSubcommand};
 
 #[derive(Debug, Parser)]
 #[clap(author, version, about)]
@@ -15,7 +16,7 @@ pub struct Args {
 pub enum Subcommand {
     Dump(DumpSubcommand),
     Patch,
-    DefaultsPlace,
+    DefaultsPlace(DefaultsPlaceSubcommand),
     ComputeDefaults,
     Generate,
 }
@@ -25,7 +26,7 @@ impl Args {
         match &self.subcommand {
             Subcommand::Dump(sub) => sub.run(),
             Subcommand::Patch => todo!(),
-            Subcommand::DefaultsPlace => todo!(),
+            Subcommand::DefaultsPlace(sub) => sub.run(),
             Subcommand::ComputeDefaults => todo!(),
             Subcommand::Generate => todo!(),
         }
