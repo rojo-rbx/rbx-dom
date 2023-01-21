@@ -1,53 +1,30 @@
-use std::io::{BufWriter, Write};
 use std::path::PathBuf;
+use std::process::Command;
 
 use anyhow::{bail, Context};
 use clap::Parser;
-use fs_err::File;
+use roblox_install::RobloxStudio;
 
-use crate::api_dump::{database_from_dump, Dump};
-
-/// Generate a reflection database from the system's Roblox Studio installation
-/// and write it to disk.
+/// Generate an API dump from the system's Roblox Studio installation.
 #[derive(Debug, Parser)]
 pub struct DumpSubcommand {
-    /// Where to output the reflection database. The output format is inferred
-    /// from the file path and supports JSON (.json) and MessagePack (.msgpack).
-    pub output: Vec<PathBuf>,
+    /// Where to output the API dump. The extension must be JSON (.json)
+    pub output: PathBuf,
 }
 
 impl DumpSubcommand {
     pub fn run(&self) -> anyhow::Result<()> {
-        let dump = Dump::read().context("Could not read API dump from Roblox Studio")?;
-        let database = database_from_dump(&dump);
-
-        for path in &self.output {
-            let extension = path.extension().with_context(|| {
-                format!("Could not infer output type for path {}", path.display())
-            })?;
-
-            let mut file = BufWriter::new(File::create(path)?);
-
-            match extension.to_str() {
-                Some("json") => {
-                    serde_json::to_writer_pretty(&mut file, &database)
-                        .context("Could not serialize reflection database as JSON")?;
-                }
-                Some("msgpack") => {
-                    let buf = rmp_serde::to_vec(&database)
-                        .context("Could not serialize reflection database as MessagePack")?;
-
-                    file.write_all(&buf)?;
-                }
-                _ => bail!(
-                    "Unknown output format for path {} -- \
-                    Supported formats are JSON (.json) and MessagePack (.msgpack)",
-                    path.display()
-                ),
-            }
-
-            file.flush()?;
+        if self.output.extension().unwrap_or_default() != "json" {
+            bail!("The output path must have a .json extension")
         }
+
+        let studio_install =
+            RobloxStudio::locate().context("Could not locate Roblox Studio install")?;
+
+        Command::new(studio_install.application_path())
+            .arg("-API")
+            .arg(&self.output)
+            .status()?;
 
         Ok(())
     }

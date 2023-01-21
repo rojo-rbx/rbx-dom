@@ -16,6 +16,8 @@ use crate::api_dump::Dump;
 /// Generate a place file with all classes and their default properties.
 #[derive(Debug, Parser)]
 pub struct DefaultsPlaceSubcommand {
+    /// The path of an API dump that came from the dump command.
+    pub api_dump: PathBuf,
     /// Where to output the place. The extension must be .rbxlx
     pub output: PathBuf,
 }
@@ -26,7 +28,10 @@ impl DefaultsPlaceSubcommand {
             bail!("The output path must have a .rbxlx extension")
         }
 
-        generate_place_with_all_classes(&self.output)?;
+        let contents = fs::read_to_string(&self.api_dump).context("Could not read API dump")?;
+        let dump = serde_json::from_str(&contents).context("Invalid API dump")?;
+
+        generate_place_with_all_classes(&self.output, &dump)?;
         save_place_in_studio(&self.output)?;
 
         Ok(())
@@ -63,14 +68,12 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn generate_place_with_all_classes(path: &PathBuf) -> anyhow::Result<()> {
-    let dump = Dump::read().context("Could not read API dump from Roblox Studio")?;
-
+fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Result<()> {
     let mut place_contents = String::new();
 
     writeln!(place_contents, "<roblox version=\"4\">").unwrap();
 
-    for class in dump.classes {
+    for class in &dump.classes {
         let mut instance = Instance::new(&class.name);
 
         match &*class.name {
