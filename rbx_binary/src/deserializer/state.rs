@@ -6,14 +6,14 @@ use std::{
 
 use rbx_dom_weak::{
     types::{
-        Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+        Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Matrix3,
         NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
         SharedString, Tags, UDim, UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::DataType;
+use rbx_reflection::{DataType, PropertyKind, PropertySerialization};
 
 use crate::{
     cframe,
@@ -113,6 +113,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(Chunk::decode(&mut self.input)?)
     }
 
+    #[profiling::function]
     pub(super) fn decode_meta_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let len = chunk.read_le_u32()?;
         self.metadata.reserve(len as usize);
@@ -127,6 +128,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_sstr_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_le_u32()?;
 
@@ -148,6 +150,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let type_name = chunk.read_string()?;
@@ -189,6 +192,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
@@ -260,6 +264,33 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             &prop_name,
         ) {
             Some(descriptors) => {
+                // If this descriptor is known but wasn't supposed to be
+                // serialized, we should skip it.
+                //
+                // On 2021-09-07 (v494), BasePart.MaterialVariant was added as a
+                // serializable Referent property. It was removed soon after, on
+                // 2021-10-12 (v499). Any models saved during that period have
+                // BasePart.MaterialVariant present.
+                //
+                // On 2022-03-08 (v517), BasePart.MaterialVariant was
+                // reintroduced as a string property that does not serialize. It
+                // serializes as MaterialVariantSerialized.
+                //
+                // In case we run into a model serialized during that period, or
+                // this happens again, we need to make sure that the name we
+                // found is the one that's supposed to serialize.
+                if let PropertyKind::Canonical { serialization } = &descriptors.canonical.kind {
+                    if matches!(serialization, PropertySerialization::DoesNotSerialize) {
+                        log::debug!(
+                            "Skipping property {} as it is canonical and should not serialize.",
+                            descriptors.canonical.name
+                        );
+                        return Ok(());
+                    }
+                }
+
+                // TODO: Do we need an additional fix here?
+
                 canonical_name = descriptors.canonical.name.clone().into_owned();
                 canonical_type = match &descriptors.canonical.data_type {
                     DataType::Value(ty) => *ty,
@@ -332,11 +363,34 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         instance.builder.add_property(&canonical_name, value);
                     }
                 }
+                VariantType::Attributes => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let buffer = chunk.read_binary_string()?;
+
+                        match Attributes::from_reader(buffer.as_slice()) {
+                            Ok(value) => {
+                                instance.builder.add_property(&canonical_name, value);
+                            }
+                            Err(err) => {
+                                log::warn!(
+                                    "Failed to deserialize attributes on {}: {:?}",
+                                    type_info.type_name,
+                                    err
+                                );
+
+                                instance
+                                    .builder
+                                    .add_property(&canonical_name, BinaryString::from(buffer));
+                            }
+                        }
+                    }
+                }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.clone(),
                         prop_name,
-                        valid_type_names: "String, Content, Tags, or BinaryString",
+                        valid_type_names: "String, Content, Tags, Attributes, or BinaryString",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }
@@ -1138,6 +1192,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_prnt_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_u8()?;
 
@@ -1170,6 +1225,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         Ok(())
     }
 
+    #[profiling::function]
     pub(super) fn decode_end_chunk(&mut self, _chunk: &[u8]) -> Result<(), InnerError> {
         log::trace!("END chunk");
 
@@ -1182,6 +1238,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
+    #[profiling::function]
     pub(super) fn finish(mut self) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
 

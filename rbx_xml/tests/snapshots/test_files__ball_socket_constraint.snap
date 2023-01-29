@@ -1,7 +1,6 @@
 ---
 source: rbx_xml/tests/test-files.rs
 expression: viewer.view_children(&dom)
-
 ---
 - referent: referent-0
   name: BallSocketConstraint
@@ -9,8 +8,8 @@ expression: viewer.view_children(&dom)
   properties:
     Attachment0: "null"
     Attachment1: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color:
       BrickColor: 1009
     Enabled:
@@ -20,7 +19,7 @@ expression: viewer.view_children(&dom)
     Radius:
       Float32: 0.15
     Restitution:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -28,11 +27,11 @@ expression: viewer.view_children(&dom)
     TwistLimitsEnabled:
       Bool: false
     TwistLowerAngle:
-      Float32: -45.0
+      Float32: -45
     TwistUpperAngle:
-      Float32: 45.0
+      Float32: 45
     UpperAngle:
-      Float32: 45.0
+      Float32: 45
     Visible:
       Bool: false
   children: []

@@ -14,16 +14,15 @@ Add:
     # refer to them with a different name.
     Attributes:
       DataType:
-        Value: BinaryString
+        Value: Attributes
       Serialization:
         Type: SerializesAs
         As: AttributesSerialize
-      Scriptability: None
+      Scriptability: Custom
     AttributesSerialize:
+      AliasFor: Attributes
       DataType:
         Value: BinaryString
-      Serialization:
-        Type: Serializes
       Scriptability: None
 
 Change:

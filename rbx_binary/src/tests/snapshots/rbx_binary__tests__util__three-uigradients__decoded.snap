@@ -1,35 +1,34 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: UIGradient
   class: UIGradient
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color:
       ColorSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             color:
-              - 1.0
-              - 1.0
-              - 1.0
-          - time: 1.0
+              - 1
+              - 1
+              - 1
+          - time: 1
             color:
-              - 1.0
-              - 1.0
-              - 1.0
+              - 1
+              - 1
+              - 1
     Enabled:
       Bool: true
     Offset:
       Vector2:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
     Rotation:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -37,49 +36,49 @@ expression: decoded_viewed
     Transparency:
       NumberSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             value: 0.5
-            envelope: 0.0
+            envelope: 0
           - time: 0.2
             value: 0.75
-            envelope: 0.0
+            envelope: 0
           - time: 0.5
-            value: 0.0
-            envelope: 0.0
+            value: 0
+            envelope: 0
           - time: 0.6
             value: 0.8
-            envelope: 0.0
-          - time: 1.0
-            value: 1.0
-            envelope: 0.0
+            envelope: 0
+          - time: 1
+            value: 1
+            envelope: 0
   children: []
 - referent: referent-1
   name: UIGradient
   class: UIGradient
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color:
       ColorSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             color:
-              - 1.0
-              - 1.0
-              - 1.0
-          - time: 1.0
+              - 1
+              - 1
+              - 1
+          - time: 1
             color:
-              - 1.0
-              - 1.0
-              - 1.0
+              - 1
+              - 1
+              - 1
     Enabled:
       Bool: true
     Offset:
       Vector2:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
     Rotation:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -87,43 +86,43 @@ expression: decoded_viewed
     Transparency:
       NumberSequence:
         keypoints:
-          - time: 0.0
-            value: 0.0
-            envelope: 0.0
+          - time: 0
+            value: 0
+            envelope: 0
           - time: 0.5
-            value: 1.0
-            envelope: 0.0
-          - time: 1.0
-            value: 0.0
-            envelope: 0.0
+            value: 1
+            envelope: 0
+          - time: 1
+            value: 0
+            envelope: 0
   children: []
 - referent: referent-2
   name: UIGradient
   class: UIGradient
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Color:
       ColorSequence:
         keypoints:
-          - time: 0.0
+          - time: 0
             color:
-              - 1.0
-              - 1.0
-              - 1.0
-          - time: 1.0
+              - 1
+              - 1
+              - 1
+          - time: 1
             color:
-              - 1.0
-              - 1.0
-              - 1.0
+              - 1
+              - 1
+              - 1
     Enabled:
       Bool: true
     Offset:
       Vector2:
-        - 0.0
-        - 0.0
+        - 0
+        - 0
     Rotation:
-      Float32: 0.0
+      Float32: 0
     SourceAssetId:
       Int64: -1
     Tags:
@@ -131,11 +130,11 @@ expression: decoded_viewed
     Transparency:
       NumberSequence:
         keypoints:
-          - time: 0.0
-            value: 0.0
-            envelope: 0.0
-          - time: 1.0
-            value: 0.0
-            envelope: 0.0
+          - time: 0
+            value: 0
+            envelope: 0
+          - time: 1
+            value: 0
+            envelope: 0
   children: []
 

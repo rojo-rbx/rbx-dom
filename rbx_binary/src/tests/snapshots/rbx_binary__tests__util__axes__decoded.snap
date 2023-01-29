@@ -1,15 +1,14 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: ""
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes: []
     Color3:
@@ -20,7 +19,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Visible:
       Bool: true
   children: []
@@ -29,8 +28,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - X
@@ -42,7 +41,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Visible:
       Bool: true
   children: []
@@ -51,8 +50,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - X
@@ -65,7 +64,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Visible:
       Bool: true
   children: []
@@ -74,8 +73,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - X
@@ -89,7 +88,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Visible:
       Bool: true
   children: []
@@ -98,8 +97,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - X
@@ -112,7 +111,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Visible:
       Bool: true
   children: []
@@ -121,8 +120,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - Y
@@ -134,7 +133,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Visible:
       Bool: true
   children: []
@@ -143,8 +142,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - Y
@@ -157,7 +156,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Visible:
       Bool: true
   children: []
@@ -166,8 +165,8 @@ expression: decoded_viewed
   class: ArcHandles
   properties:
     Adornee: "null"
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Axes:
       Axes:
         - Z
@@ -179,7 +178,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Transparency:
-      Float32: 0.0
+      Float32: 0
     Visible:
       Bool: true
   children: []

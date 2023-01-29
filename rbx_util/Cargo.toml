@@ -20,9 +20,9 @@ path = "src/main.rs"
 name = "rbx-util"
 
 [dependencies]
-anyhow = "1.0.44"
-fs-err = "2.6.0"
+anyhow = "1.0.57"
+fs-err = "2.7.0"
 rbx_binary = { path = "../rbx_binary", features = ["unstable_text_format"] }
 rbx_xml = { path = "../rbx_xml" }
-serde_yaml = "0.8.21"
-structopt = "0.3.23"
+serde_yaml = "0.8.24"
+structopt = "0.3.26"

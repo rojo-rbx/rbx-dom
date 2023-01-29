@@ -1,17 +1,16 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: UIGridLayout
   class: UIGridLayout
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     CellPadding:
       UDim2:
-        - - 0.0
+        - - 0
           - 0
         - - -0.1
           - 100
@@ -40,8 +39,8 @@ expression: decoded_viewed
   name: UIGridLayout
   class: UIGridLayout
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     CellPadding:
       UDim2:
         - - 0.4
@@ -73,8 +72,8 @@ expression: decoded_viewed
   name: UIGridLayout
   class: UIGridLayout
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     CellPadding:
       UDim2:
         - - 0.8
@@ -83,7 +82,7 @@ expression: decoded_viewed
           - 250
     CellSize:
       UDim2:
-        - - 1.0
+        - - 1
           - -300
         - - -1.1
           - 1200

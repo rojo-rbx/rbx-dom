@@ -1,14 +1,13 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: "{1, 2, 3}, {-4, -5, -6}"
   class: RayValue
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     SourceAssetId:
       Int64: -1
     Tags:
@@ -16,20 +15,20 @@ expression: decoded_viewed
     Value:
       Ray:
         origin:
-          - 1.0
-          - 2.0
-          - 3.0
+          - 1
+          - 2
+          - 3
         direction:
-          - -4.0
-          - -5.0
-          - -6.0
+          - -4
+          - -5
+          - -6
   children: []
 - referent: referent-1
   name: "{inf, -inf, nan}, {0.5, 0.15625, 0.1}"
   class: RayValue
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     SourceAssetId:
       Int64: -1
     Tags:
@@ -37,9 +36,9 @@ expression: decoded_viewed
     Value:
       Ray:
         origin:
-          - .inf
-          - -.inf
-          - .nan
+          - inf
+          - -inf
+          - NaN
         direction:
           - 0.5
           - 0.15625

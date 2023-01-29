@@ -16,6 +16,10 @@ pub(crate) fn write_attributes<W: Write>(
     map: &BTreeMap<String, Variant>,
     mut writer: W,
 ) -> Result<(), AttributeError> {
+    if map.is_empty() {
+        return Ok(());
+    }
+
     writer.write_all(&(map.len() as u32).to_le_bytes())?;
 
     for (name, variant) in map {
@@ -60,6 +64,7 @@ pub(crate) fn write_attributes<W: Write>(
                 write_vector2(&mut writer, rect.max)?
             }
             Variant::BinaryString(string) => write_string(&mut writer, string)?,
+            Variant::String(string) => write_string(&mut writer, string)?,
             Variant::UDim(udim) => write_udim(&mut writer, *udim)?,
             Variant::UDim2(udim2) => {
                 write_udim(&mut writer, udim2.x)?;

@@ -15,8 +15,13 @@ use super::{type_id, AttributeError};
 pub(crate) fn read_attributes<R: Read>(
     mut value: R,
 ) -> Result<BTreeMap<String, Variant>, AttributeError> {
-    let len = read_u32(&mut value).map_err(|_| AttributeError::InvalidLength)?;
     let mut attributes = BTreeMap::new();
+
+    let len = match read_option_u32(&mut value) {
+        Ok(Some(len)) => len,
+        Ok(None) => return Ok(attributes),
+        Err(_) => return Err(AttributeError::InvalidLength),
+    };
 
     for _ in 0..len {
         let key_buf = read_string(&mut value).map_err(|_| AttributeError::NoKey)?;
@@ -159,6 +164,15 @@ fn read_i32<R: Read>(mut reader: R) -> io::Result<i32> {
     Ok(i32::from_le_bytes(bytes))
 }
 
+fn read_option_u32<R: Read>(reader: R) -> io::Result<Option<u32>> {
+    let mut bytes = [0u8; 4];
+    if read_exact_or_none(reader, &mut bytes)? {
+        Ok(Some(u32::from_le_bytes(bytes)))
+    } else {
+        Ok(None)
+    }
+}
+
 fn read_u32<R: Read>(mut reader: R) -> io::Result<u32> {
     let mut bytes = [0u8; 4];
     reader.read_exact(&mut bytes)?;
@@ -198,4 +212,64 @@ fn read_udim<R: Read>(mut reader: R) -> io::Result<UDim> {
 
 fn read_vector2<R: Read>(mut reader: R) -> io::Result<Vector2> {
     Ok(Vector2::new(read_f32(&mut reader)?, read_f32(&mut reader)?))
+}
+
+/// Implementation taken from read_exact, but allowing an empty buffer by
+/// returning `Ok(false)` instead of an EOF error.
+fn read_exact_or_none<R: Read>(mut reader: R, mut buf: &mut [u8]) -> io::Result<bool> {
+    let initial_len = buf.len();
+
+    while !buf.is_empty() {
+        match reader.read(buf) {
+            Ok(0) => break,
+            Ok(n) => {
+                let tmp = buf;
+                buf = &mut tmp[n..];
+            }
+            Err(e) if e.kind() == io::ErrorKind::Interrupted => {}
+            Err(e) => return Err(e),
+        }
+    }
+
+    if buf.len() == initial_len {
+        Ok(false)
+    } else if !buf.is_empty() {
+        Err(io::Error::new(
+            io::ErrorKind::UnexpectedEof,
+            "failed to fill whole buffer",
+        ))
+    } else {
+        Ok(true)
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    #[allow(clippy::bool_assert_comparison)]
+    fn exact_or_none() {
+        let mut buf = [0u8; 4];
+
+        // Nothing in the buffer
+        assert_eq!(read_exact_or_none(&[][..], &mut buf).unwrap(), false);
+
+        // Something in the buffer: error!
+        assert!(read_exact_or_none(&[0][..], &mut buf).is_err());
+        assert!(read_exact_or_none(&[0, 1][..], &mut buf).is_err());
+        assert!(read_exact_or_none(&[0, 1, 2][..], &mut buf).is_err());
+
+        // Success!
+        assert_eq!(
+            read_exact_or_none(&[0, 1, 2, 3][..], &mut buf).unwrap(),
+            true
+        );
+
+        // Extra stuff, also success!
+        assert_eq!(
+            read_exact_or_none(&[0, 1, 2, 3, 4][..], &mut buf).unwrap(),
+            true
+        );
+    }
 }

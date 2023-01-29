@@ -5,28 +5,13 @@
 
 use std::borrow::Cow;
 use std::collections::HashMap;
+use std::path::Path;
 
 use anyhow::{anyhow, bail, Context};
 use rbx_reflection::{
     DataType, PropertyDescriptor, PropertyKind, ReflectionDatabase, Scriptability,
 };
 use serde::Deserialize;
-
-const PATCHES: &[&str] = &[
-    include_str!("../patches/body-movers.yml"),
-    include_str!("../patches/camera.yml"),
-    include_str!("../patches/csg.yml"),
-    include_str!("../patches/fire-and-smoke.yml"),
-    include_str!("../patches/instance.yml"),
-    include_str!("../patches/joint-instance.yml"),
-    include_str!("../patches/localization-table.yml"),
-    include_str!("../patches/package-link.yml"),
-    include_str!("../patches/parts.yml"),
-    include_str!("../patches/players.yml"),
-    include_str!("../patches/sound.yml"),
-    include_str!("../patches/weld-constraint.yml"),
-    include_str!("../patches/workspace.yml"),
-];
 
 #[derive(Debug, Default, Deserialize)]
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
@@ -116,12 +101,14 @@ impl From<PropertySerialization> for rbx_reflection::PropertySerialization<'_> {
 }
 
 impl PropertyPatches {
-    pub fn load() -> anyhow::Result<Self> {
+    pub fn load(dir: &Path) -> anyhow::Result<Self> {
         let mut all_patches = PropertyPatches::default();
 
-        for patch_source in PATCHES {
-            let parsed: PropertyPatches =
-                serde_yaml::from_str(patch_source).context("Couldn't parse property patch file")?;
+        for entry in fs_err::read_dir(dir)? {
+            let entry = entry?;
+            let contents = fs_err::read_to_string(entry.path())?;
+            let parsed: PropertyPatches = serde_yaml::from_str(&contents)
+                .with_context(|| format!("Error parsing patch file {}", entry.path().display()))?;
 
             all_patches.change.extend(parsed.change);
             all_patches.add.extend(parsed.add);

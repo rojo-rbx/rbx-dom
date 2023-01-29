@@ -1,19 +1,18 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
   name: Value
   class: Color3Value
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Tags:
       Tags: []
     Value:
       Color3:
-        - 0.0
+        - 0
         - 0.3137255
         - 0.49803922
   children: []
@@ -21,13 +20,13 @@ expression: decoded_viewed
   name: Value
   class: Color3Value
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Tags:
       Tags: []
     Value:
       Color3:
-        - 1.0
+        - 1
         - 0.7058824
         - 0.078431375
   children: []
@@ -35,8 +34,8 @@ expression: decoded_viewed
   name: Value
   class: Color3Value
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     Tags:
       Tags: []
     Value:

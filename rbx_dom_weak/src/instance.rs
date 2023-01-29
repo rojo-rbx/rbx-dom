@@ -56,6 +56,17 @@ impl InstanceBuilder {
         }
     }
 
+    /// Create a new `InstanceBuilder` with all values set to empty.
+    pub fn empty() -> Self {
+        InstanceBuilder {
+            referent: Ref::new(),
+            name: String::new(),
+            class: String::new(),
+            properties: HashMap::new(),
+            children: Vec::new(),
+        }
+    }
+
     /// Return the referent of the instance that the `InstanceBuilder` refers to.
     pub fn referent(&self) -> Ref {
         self.referent
@@ -72,6 +83,19 @@ impl InstanceBuilder {
     /// Change the name of the `InstanceBuilder`.
     pub fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
+    }
+
+    /// Change the class of the `InstanceBuilder`.
+    pub fn with_class<S: Into<String>>(self, class: S) -> Self {
+        Self {
+            class: class.into(),
+            ..self
+        }
+    }
+
+    /// Change the class of the `InstanceBuilder`.
+    pub fn set_class<S: Into<String>>(&mut self, class: S) {
+        self.class = class.into();
     }
 
     /// Add a new property to the `InstanceBuilder`.
@@ -92,9 +116,8 @@ impl InstanceBuilder {
         V: Into<Variant>,
         I: IntoIterator<Item = (K, V)>,
     {
-        for (key, value) in props {
-            self.properties.insert(key.into(), value.into());
-        }
+        let props = props.into_iter().map(|(k, v)| (k.into(), v.into()));
+        self.properties.extend(props);
 
         self
     }
@@ -106,9 +129,8 @@ impl InstanceBuilder {
         V: Into<Variant>,
         I: IntoIterator<Item = (K, V)>,
     {
-        for (key, value) in props {
-            self.properties.insert(key.into(), value.into());
-        }
+        let props = props.into_iter().map(|(k, v)| (k.into(), v.into()));
+        self.properties.extend(props);
     }
 
     /// Add a new child to the `InstanceBuilder`.

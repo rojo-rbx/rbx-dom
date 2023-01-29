@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        rust_version: ["1.53.0"]
+        rust_version: ["1.64.0"]
 
     steps:
     - uses: actions/checkout@v1

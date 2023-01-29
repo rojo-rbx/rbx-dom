@@ -1,0 +1,49 @@
+---
+source: rbx_binary/src/tests/util.rs
+assertion_line: 27
+expression: text_decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - 0f 00 00 00 03 00 00 00 4e 61 4e 06 00 00 00 00 00 00 f8 ff 08 00 00 00 49 6e 66 69 6e 69 74 79 06 00 00 00 00 00 00 f0 7f 0d 00 00 00 43 6f 6c 6f 72 53 65 71 75 65 6e 63 65 19 03 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 80 3f 07 00 00 00 56 65 63 74 6f 72 33 11 00 00 80 3f 00 00 00 40 00 00 40 40 07 00 00 00 56 65 63 74 6f 72 32 10 00 00 20 41 00 00 48 42 0e 00 00 00 4e 75 6d 62 65 72 53 65 71 75 65 6e 63 65 17 03 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 3f 00 00 00 00 00 00 00 00 00 00 80 3f 00 00 80 3f 06 00 00 00 43 6f 6c 6f 72 33 0f a3 a2 22 3f 00 00 00 00 00 00 80 3f 0a 00 00 00 42 72 69 63 6b 43 6f 6c 6f 72 0e ec 03 00 00 04 00 00 00 52 65 63 74 1c 00 00 80 3f 00 00 00 40 00 00 40 40 00 00 80 40 05 00 00 00 55 44 69 6d 32 0a 00 00 00 3f 0a 00 00 00 33 33 33 3f 1e 00 00 00 04 00 00 00 55 44 69 6d 09 00 00 00 3f 64 00 00 00 0b 00 00 00 4e 75 6d 62 65 72 52 61 6e 67 65 1b 00 00 a0 40 00 00 20 41 06 00 00 00 4e 75 6d 62 65 72 06 00 00 00 00 80 1c c8 40 07 00 00 00 42 6f 6f 6c 65 61 6e 03 01 06 00 00 00 53 74 72 69 6e 67 02 0d 00 00 00 48 65 6c 6c 6f 2c 20 77 6f 72 6c 64 21
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Folder
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End
+

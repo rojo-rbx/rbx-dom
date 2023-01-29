@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 0.6.6 (2022-06-29)
+* Fixed unserialized properties getting deserialized, like `BasePart.MaterialVariant`. ([#230])
+
+[#230]: https://github.com/rojo-rbx/rbx-dom/pull/230
+
+## 0.6.5 (2022-06-12)
+* Implemented serialization and deserialization of `Attributes`. ([#220])
+
+[#220]: https://github.com/rojo-rbx/rbx-dom/pull/220
+
 ## 0.6.4 (2021-10-11)
 * Fixed writing models where some instances have `Tags` properties and others do not.
 

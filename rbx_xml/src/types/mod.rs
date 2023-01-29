@@ -7,6 +7,7 @@
 //! 2. Add a 'mod' statement immediately below this comment
 //! 3. Add the type(s) to the declare_rbx_types! macro invocation
 
+mod attributes;
 mod axes;
 mod binary_string;
 mod bool;
@@ -48,6 +49,7 @@ use crate::{
 };
 
 use self::{
+    attributes::write_attributes,
     referent::{read_ref, write_ref},
     shared_string::{read_shared_string, write_shared_string},
     tags::write_tags,
@@ -108,6 +110,7 @@ macro_rules! declare_rbx_types {
                 Variant::Ref(value) => write_ref(writer, xml_property_name, *value, state),
                 Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
                 Variant::Tags(value) => write_tags(writer, xml_property_name, value),
+                Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
 
                 unknown => {
                     Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.ty())))

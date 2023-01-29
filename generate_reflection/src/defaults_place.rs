@@ -309,6 +309,14 @@ fn generate_fixture_place(database: &ReflectionDatabase) -> String {
             | "WrapLayer"
             | "WrapTarget" => continue,
 
+            // Ad and AdGui instances cause Studio to crash immediately on
+            // launch.
+            "Ad" | "AdGui" => continue,
+
+            // AdPortal instances cause an angry message about a product feature
+            // not being enabled yet.
+            "AdPortal" => continue,
+
             // WorldModel is not yet enabled.
             "WorldModel" => continue,
 

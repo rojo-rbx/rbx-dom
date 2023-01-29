@@ -1,5 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -55,3 +56,4 @@ chunks:
         - - 2
           - -1
   - End
+

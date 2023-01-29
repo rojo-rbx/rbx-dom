@@ -1,14 +1,13 @@
 ---
 source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
-
 ---
 - referent: referent-0
   name: "0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0"
   class: CFrameValue
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     SourceAssetId:
       Int64: -1
     Tags:
@@ -16,26 +15,26 @@ expression: decoded_viewed
     Value:
       CFrame:
         position:
-          - 0.0
-          - 0.0
-          - 0.0
+          - 0
+          - 0
+          - 0
         orientation:
-          - - 1.0
-            - 0.0
-            - 0.0
-          - - 0.0
-            - 0.0
-            - -1.0
-          - - 0.0
-            - 1.0
-            - 0.0
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 0
+            - -1
+          - - 0
+            - 1
+            - 0
   children: []
 - referent: referent-1
   name: "0.15625, -0.15625, 0.1, -0.1, 0, 0, 1337, -1337, inf, -inf, nan, nan"
   class: CFrameValue
   properties:
-    AttributesSerialize:
-      BinaryString: ""
+    Attributes:
+      Attributes: {}
     SourceAssetId:
       Int64: -1
     Tags:
@@ -48,13 +47,13 @@ expression: decoded_viewed
           - 0.1
         orientation:
           - - -0.1
-            - 0.0
-            - 0.0
-          - - 1337.0
-            - -1337.0
-            - .inf
-          - - -.inf
-            - .nan
-            - .nan
+            - 0
+            - 0
+          - - 1337
+            - -1337
+            - inf
+          - - -inf
+            - NaN
+            - NaN
   children: []
 

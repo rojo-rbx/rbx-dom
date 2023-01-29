@@ -222,6 +222,7 @@ impl std::error::Error for EncodeError {
 pub(crate) enum EncodeErrorKind {
     Io(io::Error),
     Xml(xml::writer::Error),
+    Type(rbx_dom_weak::types::Error),
 
     UnknownProperty {
         class_name: String,
@@ -244,6 +245,7 @@ impl fmt::Display for EncodeErrorKind {
         match self {
             Io(err) => write!(output, "{}", err),
             Xml(err) => write!(output, "{}", err),
+            Type(err) => write!(output, "{}", err),
 
             UnknownProperty {
                 class_name,
@@ -279,6 +281,7 @@ impl std::error::Error for EncodeErrorKind {
         match self {
             Io(err) => Some(err),
             Xml(err) => Some(err),
+            Type(err) => Some(err),
 
             UnknownProperty { .. }
             | UnsupportedPropertyType(_)
@@ -296,5 +299,11 @@ impl From<xml::writer::Error> for EncodeErrorKind {
 impl From<io::Error> for EncodeErrorKind {
     fn from(error: io::Error) -> EncodeErrorKind {
         EncodeErrorKind::Io(error)
+    }
+}
+
+impl From<rbx_dom_weak::types::Error> for EncodeErrorKind {
+    fn from(error: rbx_dom_weak::types::Error) -> EncodeErrorKind {
+        EncodeErrorKind::Type(error)
     }
 }

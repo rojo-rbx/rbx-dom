@@ -1,7 +1,7 @@
 # Roblox Binary Model Format, Version 0
 This is unofficial documentation for Roblox's binary model format. The binary model format is used for places (`.rbxl` files), models (`.rbxm` files), and many objects uploaded to Roblox's asset storage.
 
-The binary model format intended to supersede Roblox's older [XML model format](/xml).
+The binary model format intended to supersede Roblox's older [XML model format](xml.md).
 
 This document is based on:
 - [*ROBLOX File Format* by Gregory Comer](http://www.classy-studios.com/Downloads/RobloxFileSpec.pdf)
@@ -49,6 +49,7 @@ This document is based on:
 	- [Int64](#int64)
 	- [SharedString](#sharedstring)
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
+	- [UniqueId](#uniqueid)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
@@ -82,7 +83,7 @@ Every file starts with a 32 byte header.
 | Field Name     | Format  | Value                                                                     |
 |:---------------|:--------|:--------------------------------------------------------------------------|
 | Magic Number   | 8 bytes | Always `<roblox!`                                                         |
-| Signature      | 6 bytes | Always `89 ff 0a 1a 0a`                                                   |
+| Signature      | 6 bytes | Always `89 ff 0d 0a 1a 0a`                                                |
 | Version        | `u16`   | Always `0`                                                                |
 | Class Count    | `i32`   | Number of distinct classes in the file (i.e. the number of `INST` chunks) |
 | Instance Count | `i32`   | Number of instances in the file                                           |
@@ -266,7 +267,7 @@ When an array of `Int32` values is present, the bytes of the integers are subjec
 ### Float32
 **Type ID `0x04`**
 
-The `Float32` type is stored using the [Roblox float format](#roblox-float-format) and is little-endian. This datatype is also called `float` or `single`.
+The `Float32` type is stored using the [Roblox float format](#roblox-float-format) and is big-endian. This datatype is also called `float` or `single`.
 
 When an array of `Float32` values is present, the bytes of the floats are subject to [byte interleaving](#byte-interleaving).
 
@@ -620,6 +621,24 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 * At the end of the chunk there is an array of `Bool` values (preceded by the respective type ID, `02`) that indicates which `OptionalCoordinateFrame` values have a value.
 
 An `OptionalCoordinateFrame` with value `CFrame.new(0, 0, 1, 0, -1, 0, 1, 0, 0, 0, 0, 1)` followed by an `OptionalCoordinateFrame` with no value looks like this: `10 0a 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7f 00 00 00 00 00 00 00 02 01 00`. Note that the valueless `OptionalCoordinateFrame` is written as the identity `CFrame` with its corresponding boolean `00` codifying its valuelessness.
+
+### UniqueId
+**Type ID `0x1f`**
+
+`UniqueId` is represented as a struct of three numbers in the following order:
+
+| Field Name | Format | Value                                                                                  |
+|:-----------|:-------|:---------------------------------------------------------------------------------------|
+| Index      | `u32`  | A sequential value that's incremented when a new `UniqueId` is generated               |
+| Time       | `u32`  | The number of seconds since 01-01-2021                                                 |
+| Random     | `i64`  | A psuedo-random number that's generated semiregularly when initializing a `UniqueId`   |
+
+This struct is stored in the order as written above with no modifications in the binary format.
+
+When interacting with the XML format, care must be taken because `UniqueId` is stored in a different order and the `Random` field is modified slightly. For more information, see the relevant documentation in the [XML file spec](xml.md).
+
+When an array of `UniqueId` values is present, the bytes are subject to [byte interleaving](#byte-interleaving).
+
 
 ## Data Storage Notes
 
