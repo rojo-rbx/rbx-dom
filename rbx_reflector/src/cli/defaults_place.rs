@@ -45,14 +45,14 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
     println!("Starting Roblox Studio...");
 
     let mut studio_process = Command::new(studio_install.application_path())
-        .arg(&path)
+        .arg(path)
         .spawn()?;
 
     println!("Please save the opened place in Roblox Studio (ctrl+s).");
 
     let (tx, rx) = mpsc::channel();
     let mut watcher = RecommendedWatcher::new(tx, Config::default())?;
-    watcher.watch(&path, RecursiveMode::NonRecursive)?;
+    watcher.watch(path, RecursiveMode::NonRecursive)?;
 
     loop {
         if rx.recv()??.kind.is_create() {
