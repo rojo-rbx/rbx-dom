@@ -33,8 +33,11 @@ This documentation is incomplete. Contributions are welcome.
 	- [NumberRange](#numberrange)
 	- [NumberSequence](#numbersequence)
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
-	- [Ref](#ref) (Referent)
+	- [PhysicalProperties](#physicalproperties)
+	- [ProtectedString](#protectedstring)
+	- [Ray](#ray)
 	- [Rect2D](#rect2d)
+	- [Ref](#ref) (Referent)
 	- [SharedString][SharedString-use] (property type)
 	- [string](#string)
 	- [token](#token) (Enum)
@@ -45,7 +48,6 @@ This documentation is incomplete. Contributions are welcome.
 	- [Vector2int16](#vector2int16)
 	- [Vector3](#vector3)
 	- [Vector3int16](#vector3int16)
-
 
 ## File Structure
 Roblox XML files consist of a single `<roblox>` element, which contain a sequence of other elements. The basic layout of the file structure is as follows:
@@ -172,7 +174,6 @@ An `Axes` property with only the `X` axis enabled would appear as follows:
 
 The `BinaryString` data type is represented by the contents of the property encoded with Base64.
 
-
 A `BinaryString` property with the contents `Rojo is cool!` would appear as follows:
 
 ```xml
@@ -231,19 +232,73 @@ A `Color3uint8` with the value `96, 64, 32` would appear as follows:
 
 ### ColorSequence
 
+The `ColorSequence` data type is represented by a series of floating-point numbers seperated by a single space. Every 5 elements in this series represents a single keypoint of the `ColorSequence`. The elements are written in the order `Time`, `Value.R`, `Value.G`, `Value.B`, and `Envelope`.
+
+At this moment, the `Envelope` section of this sequence is unused and SHOULD always be `0`. It MUST be included.
+
+`ColorSequence` values MUST have one keypoint with the `Time` field set to `0` and MUST have one keypoint with the `Time` field set to `1`.
+
+A `ColorSequence` with the value `[0, 96, 64, 32] [1, 5, 10, 15]` would appear as follows:
+
+```xml
+<!--TODO ColorSequence -->
+```
+
 ### Content
+
+The `Content` data type is represented by a single element with one of several child elements. Currently, the name of this child element may be `url` or `null`. Historically, it could be `binary` or `hash`. This child element is not nillable and MUST include an opening and closing tag.
+
+If the child element is `url`, then the value of it is the `Content`'s URI. If the element is `null`, it indicates the `Content` is empty. When the child element is `null`, it MUST be empty. 
+
+If the child element is either `binary` or `hash`, the contents SHOULD be disregarded and the `Content` should be viewed as empty. These tags MUST NOT be written by encoders.
+
+A `Content` with the value `rbxasset://textures/SpawnLocation.png` would appear as follows:
+
+```xml
+<!--TODO Content-->
+```
 
 ### CoordinateFrame
 
+The `CFrame` data type is represented by a single element named `CoordinateFrame` with 12 child elements representing each of the components of the value. In order, these components are: `X`, `Y`, `Z`, `R00`, `R01`, `R02`, `R10`, `R11`, `R12`, `R20`, `R21`, `R22`. Each of these child elements is a [`float`](#float) value.
+
+Despite the canonical name of the data type being `CFrame`, elements of this type MUST be named `CoordinateFrame` to maintain compatibility.
+
+A `CFrame` with the components `INSERT CFRAME` would appear as follows:
+
+```xml
+<!--TODO CFrame>
+```
+
 ### double
+
+The `double` data type (also known as `Float64`) is represented as a standard 64-bit floating point number would be. Specifically, it is represented by the [XSD precision decimal](https://www.w3.org/TR/xsd-precisionDecimal/) type. For full details, view the XSD specification but strings such as `1.0`, `1`, `-0`, and `13e37` are all valid representations of `double` values.
+
+Positive infinity is represented as `INF` or `+INF`, negative infinity is represented as `-INF`, and NaN is represented as `NAN`. To be compatible, encoders MUST use these representations, including the all upper casing.
+
+Encoders SHOULD encode `double` values with at least 17 digits of precision but they MAY elect to use less depending upon the property and their own needs.
+
+A `double` with the value `0.15625` would appear as follows:
+
+```xml
+<!--TODO double>
+```
 
 ### Faces
 
+The `Faces` data type is represented with a single `faces` element that contains a single integer between `0` and `63`, inclusive. This integer represents a bitfield of the `Right`, `Top`, `Back`, `Left`, `Bottom`, and `Front` faces packed into the lower 6 bits of it, in that order.
+
+A `Faces` property with the `Front`, `Left`, and `Top` faces enabled would appear as follows:
+
+```xml
+<!--TODO Faces>
+```
+
 ### float
 
-The `float` data type (also known as `Float32` or `single`) is represented as a standard 32-bit floating-point number would be. Specifically, it is compatibile with the [XSD precision decimal](https://www.w3.org/TR/xsd-precisionDecimal/) type. For full details, view the XSD specification, but strings such as `1.0`, `1`, `-0`, and `13e37` are all valid representations of `float` values.
+The `float` data type (also known as `Float32` or `single`) is represented as a standard 32-bit floating-point number would be. Specifically, it is represented by the [XSD precision decimal](https://www.w3.org/TR/xsd-precisionDecimal/) type. For full details, view the XSD specification, but strings such as `1.0`, `1`, `-0`, and `13e37` are all valid representations of `float` values.
 
-Of note, positive infinity is represented as `INF` or `+INF`, negative infinity is represented by `-INF`, and NaN is represented as `NAN`. Encoders MUST use these representations.
+Positive infinity is represented as `INF` or `+INF`, negative infinity is represented as `-INF`, and NaN is represented as `NAN`. To be compatible, encoders MUST use these representations, including the all upper casing.
 
 Encoders SHOULD encode `float` values with at least 9 digits of precision but they MAY elect to use less depending upon the property and their own needs.
 
@@ -255,24 +310,155 @@ A `float` with the value `0.15625` would appear as follows:
 
 ### Font
 
+The `Font` data type is represented with 4 child elements. These elements and their type is listed as follows:
+
+- `Family` - `Content`
+- `Weight` - `int`
+- `Style` - `String`
+- `CachedFaceId` - `Content`
+
+The `Family` element is a URI to the family definition of the value. This will likely be a local file.
+
+The `Weight` element is a value of an item from the Roblox `FontWeight` enum. This will be a value in between `100` and `900` (inclusive) that is a multiple of `100`.
+
+The `Style` element is the name of an item from the Roblox `FontStyle` enum. At this time, the only values are `Normal` and `Italic`.
+
+The `CachedFaceId` element will point to a locally cached copy of the `Font`'s source file if it is present. <!--TODO determine if optional>
+
+A `Font` with the value `Arial, Italic, Bold` would appear as follows:
+
+```xml
+<!--TODO Font>
+```
+
 ### int
+
+The `int` data type (also known as `Int32`) is represented as a number in the range `-2147483648` to `2147483647`, inclusive. This is the range of a signed 32-bit integer.
+
+Positive numbers MUST NOT be prefixed with `+`.
+
+An `int` value of `1337` would appear as follows:
+
+```xml
+<int name="Example">1337</int>
+```
 
 ### int64
 
+The `int64` data type (also known as `Int64` or `long`) is represented as a number in the range `-9223372036854775808` to `9223372036854775807`, inclusive. This is the range of a 64-bit integer.
+
+Positive numbers MUST NOT be prefixed with `+`.
+
+An `int64` value of `-559038737` would appear as follows:
+
+```xml
+<int64 name="Example">-559038737</int64>
+```
+
 ### NumberRange
+
+The `NumberRange` data type is represented as sequence of two floating-point numbers seperated by a space. These numbers represent the `Min` and `Max` components of the value in that order.
+
+Both numbers are formatted as [`float`](#float) values.
+
+A `NumberRange` value of `0.15625, 1337` would appear as follows:
+
+```xml
+<NumberRange name="Example">0.15625 1337 </NumberRange>
+```
 
 ### NumberSequence
 
+The `NumberSequence` data type is represented by a series of floating-point numbers seperated by a single space. Every 3 elements in this series represents a single keypoint of the `NumberSequence`. The elements are written in the order `Time`, `Value`, and `Envelope`.
+
+`NumberSequence` values MUST have one keypoint with the `Time` field set to `0` and MUST have one keypoint with the `Time` field set to `1`.
+
+A `NumberSequence` with the value `[0, 96, 64] [1, 5, 10]` would appear as follows:
+
+```xml
+<!--TODO NumberSequence -->
+```
+
 ### OptionalCoordinateFrame
+
+### PhysicalProperties
+
+The `PhysicalProperties` data type is represented as a sequence of either one or six child elements. The first child element is named `CustomPhysics` and is a [`bool`](#bool) value indicating whether the data type is custom or not.
+
+If `CustomPhysics` is `true`, then there will be an additional `5` child elements. They are named `Density`, `Friction`, `Elasticity`, `FrictionWeight`, and `ElasticityWeight` and represent the respective components of the value. Each of these child elements is a [`float`](#float) value.
+
+If `CustomPhysics` is `false`, then it will be the only child element present.
+
+A custom `PhysicalProperties` created with this constructor:
+
+```lua
+PhysicalProperties.new(0, 1, -1, 0.15625, 1337)
+```
+
+Would appear as follows:
+
+```xml
+<!--TODO PhysicalProperties-->
+```
+
+### ProtectedString
+
+The `ProtectedString` data type is represented as a string. This data type MUST have its contents maintained exactly. Whitespace MUST be preserved for this type.
+
+To ease use, `ProtectedString` values SHOULD have their contents written as surrounded by `CDATA`. If this is not possible, then care must be taken to escape characters when necessary.
+
+A `ProtectedString` with the contents `print("Hello, world!")` message would appear as follows:
+
+```
+<!--TODO ProtectedString-->
+```
+
+### Ray
+
+The `Ray` data type is represented as a sequence of two child elements representing the `Origin` and `Direction` components of the value. These child elements are named `origin` and `direction` and are both [`Vector3`](#vector3) values.
+
+A `Ray` with the value `[<1, 2, 3>, <-1, -2, -3>]` would appear as follows:
+
+```xml
+<!--TODO Ray -->
+```
+
+### Rect2D
+
+The `Rect2D` data type is represented as a sequence of two child elements representing the `Min` nad `Max` components of the value. These child elements are named `min` and `max` and are both [`Vector2`](#vector2) values.
+
+A `Rect2D` with the value `[<1, 2>, <3, 4>)` would appear as follows:
+
+```xml
+<!--TODO Rect2D>
+```
 
 ### Ref
 
-### Rect2D
+The `Ref` data type (also known as `Referent`) is represented by a literal string that corresponds to the `referent` attribute of an [`Item`](#item) element. The `Item` element that this `referent` belongs to represents the `Instance` pointed to by.
+
+Roblox encodes empty `Ref` values as `null`. Encoders SHOULD also use `null` to refer to an empty `Ref` value when necessary.
+
+Although the canonical name of this data type is `Referent`, elements of this type MUST be named `Ref` to ensure compatibility.
+
+A `Ref` value pointing to a random `Item` may appear as follows:
+
+```xml
+<Ref name="Example">RBX466F72207262782D646F6D21203A2D29</Ref>
+```
 
 ### SharedString
 [SharedString-use]: #sharedstring-1
 
 This element shares a name with a SharedString definition element. That element is documented [here][SharedString-def].
+
+The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. Specifically, the contents of elements of this type should be equal to the `md5` attribute of a [`SharedString` definition][#SharedString-def].
+
+A `SharedString` value may look like this:
+
+```xml
+<!--TODO SharedString>
+```
 
 ### string
 
