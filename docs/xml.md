@@ -45,7 +45,6 @@ This documentation is incomplete. Contributions are welcome.
 	- [UDim2](#udim2)
 	- [UniqueId](#uniqueid)
 	- [Vector2](#vector2)
-	- [Vector2int16](#vector2int16)
 	- [Vector3](#vector3)
 	- [Vector3int16](#vector3int16)
 
@@ -597,17 +596,6 @@ A `Vector2` with the value `<Infinity, 1337>` would appear as follows:
 	<X>INF</X>
 	<Y>1337</Y>
 </Vector2>
-```
-
-### Vector2int16
-
-The `Vector2int16` data type is represented as a sequence of two child elements. These child elements are named `X` and `Y` and represent the respective components of the value.
-
-Both child elements MUST be in the range `-32768` to `32767`, inclusive.
-
-A `Vector2int16` with the value `<-1337, 1337>` would appear as follows:
-
-```xml
 ```
 
 ### Vector3
