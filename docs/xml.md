@@ -17,8 +17,8 @@ This documentation is incomplete. Contributions are welcome.
 - [Type Elements](#type-elements)
 	- [Axes](#axes)
 	- [BinaryString](#binarystring)
-	- [BrickColor](#brickcolor)
 	- [bool](#bool)
+	- [BrickColor](#brickcolor)
 	- [Color3](#color3)
 	- [Color3uint8](#color3uint8)
 	- [ColorSequence](#colorsequence)
@@ -167,7 +167,9 @@ The `Axes` data type is represented with a single `axes` element that contains a
 An `Axes` property with only the `X` axis enabled would appear as follows:
 
 ```xml
-<Axes name="Example"><axes>1</axes></Axes>
+<Axes name="AxesExample">
+	<axes>1</axes>
+</Axes>
 ```
 
 ### BinaryString
@@ -177,19 +179,7 @@ The `BinaryString` data type is represented by the contents of the property enco
 A `BinaryString` property with the contents `Rojo is cool!` would appear as follows:
 
 ```xml
-<BinaryString name="Example">Um9qbyBpcyBjb29sIQ==</BinaryString>
-```
-
-### BrickColor
-
-The `BrickColor` data type is represented by a single 32-bit integer that represents the `Number` of the value.
-
-Roblox encodes this type with the element name `int` but by convention, the element SHOULD be named `BrickColor`.
-
-A `BrickColor` with the value `Medium Stone Grey` (whose number is `194`) would appear as follows:
-
-```xml
-<BrickColor name="Example">194</BrickColor>
+<BinaryString name="BinaryStringExample">Um9qbyBpcyBjb29sIQ==</BinaryString>
 ```
 
 ### bool
@@ -201,20 +191,32 @@ Although Roblox accepts variations such as `fAlSe` and `TRUE`, by convention val
 A `bool` with the value `false` would appear as follows:
 
 ```xml
-<bool name="Example">false</bool>
+<bool name="BoolExample">false</bool>
+```
+
+### BrickColor
+
+The `BrickColor` data type is represented by a single 32-bit integer that represents the `Number` of the value.
+
+Roblox encodes this type with the element name `int` but by convention, the element SHOULD be named `BrickColor`. Either is accepted.
+
+A `BrickColor` with the value `Medium Stone Grey` (whose number is `194`) should appear as follows:
+
+```xml
+<BrickColor name="BrickColorExample">194</BrickColor>
 ```
 
 ### Color3
 
 The `Color3` data type is represented by three child elements named `R`, `G`, and `B`. These elements contain the value of that component as 32-bit floating point numbers. See [`float`](#float) for more information on the format of floating point numbers.
 
-A `Color3` with the value `INF, 1337, 3.141592653` would appear as follows:
+A `Color3` with the value `INF, 1337, 0.15625` would appear as follows:
 
 ```xml
-<Color3 name="Example">
+<Color3 name="Color3Example">
 	<R>INF</R>
 	<G>1337</G>
-	<B>3.141592653</B>
+	<B>0.15625</B>
 </Color3>
 ```
 
@@ -227,7 +229,7 @@ Roblox encodes this type with the upper 8 bits filled with `FF` (in hexadecimal)
 A `Color3uint8` with the value `96, 64, 32` would appear as follows:
 
 ```xml
-<Color3uint8 name="Example">4284497952</Color3uint8>
+<Color3uint8 name="Color3uint8Example">4284497952</Color3uint8>
 ```
 
 ### ColorSequence
@@ -241,7 +243,7 @@ At this moment, the `Envelope` section of this sequence is unused and SHOULD alw
 A `ColorSequence` with the value `[0, 96, 64, 32] [1, 5, 10, 15]` would appear as follows:
 
 ```xml
-<!--TODO ColorSequence -->
+<ColorSequence name="ColorSequenceExample">0 0.376471 0.25098 0.12549 0 1 0.0196078 0.0392157 0.0588235 0 </ColorSequence>
 ```
 
 ### Content
@@ -252,10 +254,16 @@ If the child element is `url`, then the value of it is the `Content`'s URI. If t
 
 If the child element is either `binary` or `hash`, the contents SHOULD be disregarded and the `Content` should be viewed as empty. These tags MUST NOT be written by encoders.
 
-A `Content` with the value `rbxasset://textures/SpawnLocation.png` would appear as follows:
+A `Content` with the value `rbxasset://textures/face.png` would appear as follows:
 
 ```xml
-<!--TODO Content-->
+<Content name="ContentExample"><url>rbxasset://textures/face.png</url></Content>
+```
+
+Additionally, a `Content` with no value would appear as follows:
+
+```xml
+<Content name="ContentExample"><null></null></Content>
 ```
 
 ### CoordinateFrame
@@ -264,10 +272,23 @@ The `CFrame` data type is represented by a single element named `CoordinateFrame
 
 Despite the canonical name of the data type being `CFrame`, elements of this type MUST be named `CoordinateFrame` to maintain compatibility.
 
-A `CFrame` with the components `INSERT CFRAME` would appear as follows:
+A `CFrame` with the components `0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1` would appear as follows:
 
 ```xml
-<!--TODO CFrame>
+<CoordinateFrame name="CoordinateFrameExample">
+	<X>0</X>
+	<Y>0</Y>
+	<Z>0</Z>
+	<R00>1</R00>
+	<R01>0</R01>
+	<R02>0</R02>
+	<R10>0</R10>
+	<R11>1</R11>
+	<R12>0</R12>
+	<R20>0</R20>
+	<R21>0</R21>
+	<R22>1</R22>
+</CoordinateFrame>
 ```
 
 ### double
@@ -281,7 +302,7 @@ Encoders SHOULD encode `double` values with at least 17 digits of precision but 
 A `double` with the value `0.15625` would appear as follows:
 
 ```xml
-<!--TODO double>
+<double name="DoubleExample">0.15625</double>
 ```
 
 ### Faces
@@ -291,7 +312,9 @@ The `Faces` data type is represented with a single `faces` element that contains
 A `Faces` property with the `Front`, `Left`, and `Top` faces enabled would appear as follows:
 
 ```xml
-<!--TODO Faces>
+<Faces name="FacesExample">
+	<faces>42</faces>
+</Faces>
 ```
 
 ### float
@@ -305,7 +328,7 @@ Encoders SHOULD encode `float` values with at least 9 digits of precision but th
 A `float` with the value `0.15625` would appear as follows:
 
 ```xml
-<float name="Example">0.15625</float>
+<float name="FloatExample">0.15625</float>
 ```
 
 ### Font
@@ -323,12 +346,16 @@ The `Weight` element is a value of an item from the Roblox `FontWeight` enum. Th
 
 The `Style` element is the name of an item from the Roblox `FontStyle` enum. At this time, the only values are `Normal` and `Italic`.
 
-The `CachedFaceId` element will point to a locally cached copy of the `Font`'s source file if it is present. <!--TODO determine if optional>
+The `CachedFaceId` element will point to a locally cached copy of the `Font`'s source file if it is present.
 
 A `Font` with the value `Arial, Italic, Bold` would appear as follows:
 
 ```xml
-<!--TODO Font>
+<Font name="FontExample">
+	<Family><url>rbxasset://fonts/families/Arial.json</url></Family>
+	<Weight>700</Weight>
+	<Style>Italic</Style>
+</Font>
 ```
 
 ### int
@@ -340,7 +367,7 @@ Positive numbers MUST NOT be prefixed with `+`.
 An `int` value of `1337` would appear as follows:
 
 ```xml
-<int name="Example">1337</int>
+<int name="IntExample">1337</int>
 ```
 
 ### int64
@@ -352,7 +379,7 @@ Positive numbers MUST NOT be prefixed with `+`.
 An `int64` value of `-559038737` would appear as follows:
 
 ```xml
-<int64 name="Example">-559038737</int64>
+<int64 name="Int64Example">-559038737</int64>
 ```
 
 ### NumberRange
@@ -364,7 +391,7 @@ Both numbers are formatted as [`float`](#float) values.
 A `NumberRange` value of `0.15625, 1337` would appear as follows:
 
 ```xml
-<NumberRange name="Example">0.15625 1337 </NumberRange>
+<NumberRange name="NumberRangeExample">0.15625 1337 </NumberRange>
 ```
 
 ### NumberSequence
@@ -373,10 +400,10 @@ The `NumberSequence` data type is represented by a series of floating-point numb
 
 `NumberSequence` values MUST have one keypoint with the `Time` field set to `0` and MUST have one keypoint with the `Time` field set to `1`.
 
-A `NumberSequence` with the value `[0, 96, 64] [1, 5, 10]` would appear as follows:
+A `NumberSequence` with the value `[0, 6, 3] [1, 4, 2]` would appear as follows:
 
 ```xml
-<!--TODO NumberSequence -->
+<NumberSequence name="NumberSequenceExample">0 6 3 1 4 2 </NumberSequence>
 ```
 
 ### OptionalCoordinateFrame
@@ -392,13 +419,20 @@ If `CustomPhysics` is `false`, then it will be the only child element present.
 A custom `PhysicalProperties` created with this constructor:
 
 ```lua
-PhysicalProperties.new(0, 1, -1, 0.15625, 1337)
+PhysicalProperties.new(1, 2, 3, 0.15625, 1.25)
 ```
 
 Would appear as follows:
 
 ```xml
-<!--TODO PhysicalProperties-->
+<PhysicalProperties name="PhysicalPropertiesExample">
+	<CustomPhysics>true</CustomPhysics>
+	<Density>1</Density>
+	<Friction>2</Friction>
+	<Elasticity>1</Elasticity>
+	<FrictionWeight>0.15625</FrictionWeight>
+	<ElasticityWeight>1.25</ElasticityWeight>
+</PhysicalProperties>
 ```
 
 ### ProtectedString
@@ -409,8 +443,8 @@ To ease use, `ProtectedString` values SHOULD have their contents written as surr
 
 A `ProtectedString` with the contents `print("Hello, world!")` message would appear as follows:
 
-```
-<!--TODO ProtectedString-->
+```xml
+<ProtectedString name="ProtectedStringExample"><![CDATA[print("Hello world!")]]></ProtectedString>
 ```
 
 ### Ray
@@ -420,17 +454,39 @@ The `Ray` data type is represented as a sequence of two child elements represent
 A `Ray` with the value `[<1, 2, 3>, <-1, -2, -3>]` would appear as follows:
 
 ```xml
-<!--TODO Ray -->
+<Ray name="RayExample">
+	<origin>
+		<X>1</X>
+		<Y>2</Y>
+		<Z>3</Z>
+	</origin>
+	<direction>
+		<X>-1</X>
+		<Y>-2</Y>
+		<Z>-3</Z>
+	</direction>
+</Ray>
 ```
 
 ### Rect2D
 
-The `Rect2D` data type is represented as a sequence of two child elements representing the `Min` nad `Max` components of the value. These child elements are named `min` and `max` and are both [`Vector2`](#vector2) values.
+The `Rect2D` data type (also known as `Rect`) is represented as a sequence of two child elements representing the `Min` nad `Max` components of the value. These child elements are named `min` and `max` and are both [`Vector2`](#vector2) values.
+
+Despite the canonical name of the data type being `Rect`, elements of this type SHOULD be named `Rect` to maintain compatibility.
 
 A `Rect2D` with the value `[<1, 2>, <3, 4>)` would appear as follows:
 
 ```xml
-<!--TODO Rect2D>
+<Rect2D name="Rect2DExample">
+	<min>
+		<X>1</X>
+		<Y>2</Y>
+	</min>
+	<max>
+		<X>3</X>
+		<Y>4</Y>
+	</max>
+</Rect2D>
 ```
 
 ### Ref
@@ -457,19 +513,19 @@ The `SharedString` data type is represented by a string that points to a `Shared
 A `SharedString` value may appear as follows:
 
 ```xml
-<!--TODO SharedString>
+<SharedString name="SharedStringExample">ZGVra29ub3Rfd2FzX2hlcmU=</SharedString>
 ```
 
 ### string
 
-The `string` data type is represented as a literal sequence of characters inside an element. Any leading or trailing whitespace is trimmed from values with this type.
+The `string` data type is represented as a literal sequence of characters inside an element.
 
 Proper care must be taken to escape characters when necessary.
 
 A `string` value `Hello, world!` would appear as follows:
 
 ```xml
-<string name="Example">Hello, world!</string>
+<string name="StringExample">Hello, world!</string>
 ```
 
 ### token
@@ -481,7 +537,7 @@ Despite the canonical name of the data type being `Enum`, elements of this type 
 A `token` representing `Enum.NormalId.Left` would appear as follows:
 
 ```xml
-<token name="Example">3</token>
+<token name="TokenExample">3</token>
 ```
 
 ### UDim
@@ -491,7 +547,7 @@ The `UDim` data type is represented as a sequence of two child elements indicati
 A `UDim` with the value `{0.15625, 1337}` would appear as follows:
 
 ```xml
-<UDim name="Example">
+<UDim name="UDimExample">
 	<S>0.15625</S>
 	<O>1337</O>
 </UDim>
@@ -503,8 +559,13 @@ The `UDim2` data type is represented as a sequence of four child elements indica
 
 A `UDim2` with the value `{0.15625, 1337}, {-123, 456}` would appear as follows:
 
-```
-<!--TODO UDim2-->
+```xml
+<UDim2 name="UDim2Example">
+	<XS>0.15625</XS>
+	<XO>1337</XO>
+	<YS>-123</YS>
+	<YO>456</YO>
+</UDim2>
 ```
 
 ### UniqueId
@@ -522,7 +583,7 @@ The `UniqueId` data type is represented as hexadecimal-encoded sequence of `16` 
 A `UniqueId` may appear as follows:
 
 ```xml
-<!--TODO UniqueId-->
+<UniqueId name="UniqueIdExample">686f6c792062696e676c6521203a33</UniqueId>
 ```
 
 ### Vector2
@@ -532,7 +593,10 @@ The `Vector2` data type is represented as a sequence of two child elements. Thes
 A `Vector2` with the value `<Infinity, 1337>` would appear as follows:
 
 ```xml
-<!--TODO Vector2>
+<Vector2 name="Vector2Example">
+	<X>INF</X>
+	<Y>1337</Y>
+</Vector2>
 ```
 
 ### Vector2int16
@@ -553,7 +617,11 @@ The `Vector3` data type is represented as a sequence of three child elements. Th
 A `Vector3` with the value `<-Infinity, 0.15625, -1337>` would appear as follows:
 
 ```xml
-
+<Vector3 name="Vector3Example">
+	<X>-INF</X>
+	<Y>0.15625</Y>
+	<Z>-1337</Z>
+</Vector3>
 ```
 
 ### Vector3int16
@@ -565,5 +633,9 @@ All three child elements MUST be in the range `-32768` to `32767`, inclusive.
 A `Vector3int16` with the value `<1337, 0, -1337>` would appear as follows:
 
 ```xml
-
+<Vector3int16 name="Vector3int16Example">
+	<X>1337</X>
+	<Y>0</Y>
+	<Z>-1337</Z>
+</Vector3int16>
 ```
