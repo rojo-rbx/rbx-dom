@@ -1,5 +1,6 @@
 mod api_dump;
 mod cli;
+mod patches;
 
 use clap::Parser;
 

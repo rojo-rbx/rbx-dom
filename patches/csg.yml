@@ -1,6 +1,6 @@
 Add:
   PartOperation:
-    # Solid model data is silently uploaded to Roblox.com and a refernce is
+    # Solid model data is silently uploaded to Roblox.com and a reference is
     # stored here, in AssetId.
     AssetId:
       DataType:
