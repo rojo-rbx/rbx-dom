@@ -454,7 +454,7 @@ This element shares a name with a SharedString definition element. That element 
 
 The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. Specifically, the contents of elements of this type should be equal to the `md5` attribute of a [`SharedString` definition][#SharedString-def].
 
-A `SharedString` value may look like this:
+A `SharedString` value may appear as follows:
 
 ```xml
 <!--TODO SharedString>
@@ -462,18 +462,108 @@ A `SharedString` value may look like this:
 
 ### string
 
+The `string` data type is represented as a literal sequence of characters inside an element. Any leading or trailing whitespace is trimmed from values with this type.
+
+Proper care must be taken to escape characters when necessary.
+
+A `string` value `Hello, world!` would appear as follows:
+
+```xml
+<string name="Example">Hello, world!</string>
+```
+
 ### token
+
+The `token` data type (also known as `Enum`) is represented as a sequence of numbers indicating the underlying `Value` of the enum.
+
+Despite the canonical name of the data type being `Enum`, elements of this type MUST be named `token` to maintain compatibility.
+
+A `token` representing `Enum.NormalId.Left` would appear as follows:
+
+```xml
+<token name="Example">3</token>
+```
 
 ### UDim
 
+The `UDim` data type is represented as a sequence of two child elements indicating the `Scale` and `Offset` components of the value. These child elements are named `S` and `O`. The `S` element is a [`float`](#float) and the `O` element is a [`int`](#int).
+
+A `UDim` with the value `{0.15625, 1337}` would appear as follows:
+
+```xml
+<UDim name="Example">
+	<S>0.15625</S>
+	<O>1337</O>
+</UDim>
+```
+
 ### UDim2
+
+The `UDim2` data type is represented as a sequence of four child elements indicating the `X.Scale`, `X.Offset`, `Y.Scale`, `Y.Offset` components of the value. These elements are named `XS`, `XO`, `YS`, and `YO`. The `XS` and `YS` elements are [`float`](#float) values and the `XO` and `YO` elements are [`int`](#int) values.
+
+A `UDim2` with the value `{0.15625, 1337}, {-123, 456}` would appear as follows:
+
+```
+<!--TODO UDim2-->
+```
 
 ### UniqueId
 
+The `UniqueId` data type is represented as hexadecimal-encoded sequence of `16` bytes. These bytes may be split in three distinct groups, representing components of the `UniqueId`:
+
+| Range   | Component Name | Format                  |
+|:--------|:---------------|:------------------------|
+|  0 -  7 | Random         | Unsigned 64-bit integer |
+|  8 - 11 | Time           | Unsigned 32-bit integer |
+| 12 - 15 | Index          | Unsigned 32-bit integer |
+
+**NOTE**: The `Random` component is serialized differently between the XML and [binary](binary.md) format. Specifically, in the XML format it is left-circular rotated by `1` bit. Care MUST be taken to ensure equivalent values are modified to be correctly equivalent when reading and writing between formats.
+
+A `UniqueId` may appear as follows:
+
+```xml
+<!--TODO UniqueId-->
+```
+
 ### Vector2
+
+The `Vector2` data type is represented as a sequence of two child elements. These child elements are named `X` and `Y` and represent the respective components of the value. Both of these elements are [`float`](#float) values.
+
+A `Vector2` with the value `<Infinity, 1337>` would appear as follows:
+
+```xml
+<!--TODO Vector2>
+```
 
 ### Vector2int16
 
+The `Vector2int16` data type is represented as a sequence of two child elements. These child elements are named `X` and `Y` and represent the respective components of the value.
+
+Both child elements MUST be in the range `-32768` to `32767`, inclusive.
+
+A `Vector2int16` with the value `<-1337, 1337>` would appear as follows:
+
+```xml
+```
+
 ### Vector3
 
+The `Vector3` data type is represented as a sequence of three child elements. These child elements are named `X`, `Y`, and `Z` and represent the respective components of the value. All three elements are [`float`](#float) values.
+
+A `Vector3` with the value `<-Infinity, 0.15625, -1337>` would appear as follows:
+
+```xml
+
+```
+
 ### Vector3int16
+
+The `Vector3int16` data type is represented as a sequence of three child elements. These child elements are named `X`, `Y`, and `Z` and represent the respective components of the value.
+
+All three child elements MUST be in the range `-32768` to `32767`, inclusive.
+
+A `Vector3int16` with the value `<1337, 0, -1337>` would appear as follows:
+
+```xml
+
+```
