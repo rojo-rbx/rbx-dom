@@ -32,7 +32,7 @@ This documentation is incomplete. Contributions are welcome.
 	- [int64](#int64)
 	- [NumberRange](#numberrange)
 	- [NumberSequence](#numbersequence)
-	- [OptionalCoordinateFrame](#optionalcoordinateframe)
+	- [Optional](#optional)
 	- [PhysicalProperties](#physicalproperties)
 	- [ProtectedString](#protectedstring)
 	- [Ray](#ray)
@@ -405,7 +405,39 @@ A `NumberSequence` with the value `[0, 6, 3] [1, 4, 2]` would appear as follows:
 <NumberSequence name="NumberSequenceExample">0 6 3 1 4 2 </NumberSequence>
 ```
 
-### OptionalCoordinateFrame
+### Optional
+
+The `Optional<T>` data type represents an optional value of type `T` and is represented by an element with either one or zero child elements. If the value is present, there will be a child element of type `T`. Otherwise, there is no child element.
+
+Elements of this type should be named `Optional` followed by the name of the type. As an example, for `Optional<CoordinateFrame>`, the element should be named `OptionalCoordinateFrame`.
+
+The name of the child element varies depending upon the type `T` is. The following is a list ofcurrently valid types for `T`, along with the name of the child element:
+
+| Type                                  | Child Element Name |
+|:--------------------------------------|:-------------------|
+| [`CoordinateFrame`](#coordinateframe) | `CFrame`           |
+
+An `Optional<CoordinateFrame>` where the value was `0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1` would appear as follows:
+
+```xml
+<OptionalCoordinateFrame name="OptionalExample">
+	<CFrame>
+		<X>0</X>
+		<Y>0</Y>
+		<Z>0</Z>
+		<R00>1</R00>
+		<R01>0</R01>
+		<R02>0</R02>
+		<R10>0</R10>
+		<R11>1</R11>
+		<R12>0</R12>
+		<R20>0</R20>
+		<R21>0</R21>
+		<R22>1</R22>
+	</CFrame>
+</OptionalCoordinateFrame>
+```
+
 
 ### PhysicalProperties
 
