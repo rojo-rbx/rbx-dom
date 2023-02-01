@@ -3,8 +3,6 @@ This is unofficial documentation for Roblox's XML model format. The XML model fo
 
 The XML model format has generally been replaced by the newer, more efficient [binary model format](binary.md). Some use cases for the XML format still exist, owing to its human readability.
 
-This documentation is incomplete. Contributions are welcome.
-
 ## Contents
 - [File Structure](#file-structure)
 - [roblox](#roblox)
