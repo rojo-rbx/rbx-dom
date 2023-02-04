@@ -50,19 +50,23 @@ The XML model format has generally been replaced by the newer, more efficient [b
 	- [Vector3int16](#vector3int16)
 
 ## File Structure
-Roblox XML files consist of a single `<roblox>` element, which contain a sequence of other elements. The basic layout of the file structure is as follows:
 
-- Exactly one `<roblox>` element
-	- Zero or more `<Meta>` elements
-	- Zero or more `<External>` elements
-	- One or more `<Item>` elements
-	- One `<Properties>` element
-		- Zero or more type elements
-	- Zero or more `<Item>` elements (this may nest infinitely)
-	- Zero or one `<SharedStrings>` elements
-		- Zero or more `<SharedString>` elements
+Roblox XML files consist of a single `roblox` element, which contain a sequence of other elements.
 
-**To be accepted by Roblox, files MUST start with `<roblox` and end with `</roblox>`, with no whitespace.**
+Underneath the `roblox` element, there can be the following elements:
+- Zero or more `Meta` elements
+- Zero or more `External` elements
+- Zero or more `Item` elements
+- Zero or one `SharedStrings` elements
+
+Underneath each `Item` element, there can be the following elements:
+- One `Properties` element
+- Zero or more `Item` elements
+
+Underneath the `SharedStrings` element, there can be the following elements:
+- Zero or more [`SharedString` definitions][SharedString-def]
+
+Any trailing or leading whitespace in XML files are ignored by Roblox.
 
 ## roblox
 
