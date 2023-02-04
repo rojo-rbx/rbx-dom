@@ -1,4 +1,5 @@
 # Roblox XML Model Format, Version 4
+
 This is unofficial documentation for Roblox's XML model format. The XML model format is used for places (`.rbxlx` files), models (`.rbxmx` files), Roblox Studio settings, and many objects uploaded to Roblox's asset storage.
 
 The XML model format has generally been replaced by the newer, more efficient [binary model format](binary.md). Some use cases for the XML format still exist, owing to its human readability.
@@ -80,8 +81,6 @@ The following attributes are REQUIRED for this element:
 
 All other attributes are OPTIONAL. This includes those produced by Roblox Studio.
 
-As stated under [File Structure](#file-structure), this element MUST be the beginning and end of the file.
-
 ## Meta
 
 This element represents a single key-value pair of metadata for the file. There MAY be any number of `Meta` elements in a document but they MUST all be under the `roblox` element.
@@ -100,7 +99,7 @@ This element is a legacy feature and currently does nothing. Roblox Studio encod
 
 There are no attributes required for this element.
 
-The contents of this element represent an unknown purpose, as the element does not do anything.
+The contents of this element represent an unknown purpose.
 
 ## Item
 
@@ -115,7 +114,7 @@ The following attributes are REQUIRED for this element:
 
 The value of `referent` MUST be unique for the file. The value of `referent` MUST NOT be `null`. Roblox utilizes the value `null` when serializing [`Ref`](#ref) properties with no value, so it should be considered a reserved value.
 
-Roblox generates referents by prefixing a UUID with `RBX`, but this is not a requirement .
+Roblox generates referents by prefixing a UUID with `RBX`, but this is not a requirement.
 
 ## Properties
 
@@ -172,7 +171,7 @@ The format for each data type is listed below.
 
 The `Axes` data type is represented with a single `axes` element that contains a single integer between `0` and `7`. This integer represents a bitfield of the `Z`, `Y`, and `X` axes packed into the lower 3 bits of it, in that order.
 
-An `Axes` property with only the `X` axis enabled would appear as follows:
+An `Axes` property with only the `X` axis enabled appears as follows:
 
 ```xml
 <Axes name="AxesExample">
@@ -184,7 +183,7 @@ An `Axes` property with only the `X` axis enabled would appear as follows:
 
 The `BinaryString` data type is represented by the contents of the property encoded with Base64.
 
-A `BinaryString` property with the contents `Rojo is cool!` would appear as follows:
+A `BinaryString` property with the contents `Rojo is cool!` appears as follows:
 
 ```xml
 <BinaryString name="BinaryStringExample">Um9qbyBpcyBjb29sIQ==</BinaryString>
@@ -196,7 +195,7 @@ The `bool` data type is represented by a literal string reading either `true` or
 
 Although Roblox accepts variations such as `fAlSe` and `TRUE`, by convention values SHOULD be written in all lowercase.
 
-A `bool` with the value `false` would appear as follows:
+A `bool` with the value `false` appears as follows:
 
 ```xml
 <bool name="BoolExample">false</bool>
@@ -218,7 +217,7 @@ A `BrickColor` with the value `Medium Stone Grey` (whose number is `194`) should
 
 The `Color3` data type is represented by three child elements named `R`, `G`, and `B`. These elements contain the value of that component as written as a [`float`](#float).
 
-A `Color3` with the value `INF, 1337, 0.15625` would appear as follows:
+A `Color3` with the value `INF, 1337, 0.15625` appears as follows:
 
 ```xml
 <Color3 name="Color3Example">
@@ -234,7 +233,7 @@ The `Color3uint8` data type is represented by a single unsigned 32-bit integer t
 
 The upper 8 bits of the value SHOULD be filled with `FF` (in hexadecimal). This is to maintain compatibility with Roblox.
 
-A `Color3uint8` with the value `96, 64, 32` would appear as follows:
+A `Color3uint8` with the value `96, 64, 32` appears as follows:
 
 ```xml
 <Color3uint8 name="Color3uint8Example">4284497952</Color3uint8>
@@ -248,7 +247,7 @@ At this moment, the `Envelope` section of this sequence is unused and should alw
 
 `ColorSequence` values MUST have one keypoint with the `Time` field set to `0` and MUST have one keypoint with the `Time` field set to `1`.
 
-A `ColorSequence` with the value `[0, 96, 64, 32] [1, 5, 10, 15]` would appear as follows:
+A `ColorSequence` with the value `[0, 96, 64, 32] [1, 5, 10, 15]` appears as follows:
 
 ```xml
 <ColorSequence name="ColorSequenceExample">0 0.376471 0.25098 0.12549 0 1 0.0196078 0.0392157 0.0588235 0 </ColorSequence>
@@ -262,7 +261,7 @@ If the child element is `url`, then the value of it is the `Content`'s URI. If t
 
 If the child element is either `binary` or `hash`, the contents SHOULD be disregarded and the `Content` should be viewed as empty. These tags MUST NOT be written by encoders.
 
-A `Content` with the value `rbxasset://textures/face.png` would appear as follows:
+A `Content` with the value `rbxasset://textures/face.png` appears as follows:
 
 ```xml
 <Content name="ContentExample"><url>rbxasset://textures/face.png</url></Content>
@@ -280,7 +279,7 @@ The `CFrame` data type is represented by a single element named `CoordinateFrame
 
 Despite the canonical name of the data type being `CFrame`, elements of this type MUST be named `CoordinateFrame` to maintain compatibility.
 
-A `CFrame` with the components `0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1` would appear as follows:
+A `CFrame` with the components `0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1` appears as follows:
 
 ```xml
 <CoordinateFrame name="CoordinateFrameExample">
@@ -305,9 +304,9 @@ The `double` data type (also known as `Float64`) is represented as a standard 64
 
 Positive infinity is represented as `INF` or `+INF`, negative infinity is represented as `-INF`, and NaN is represented as `NAN`. To be compatible, encoders MUST use these representations, including the all upper casing.
 
-Encoders should encode `double` values with at least 17 significant figures but they may elect to use less depending upon the property and their own needs.
+Encoders should encode `double` values with at least 16 significant figures but they may elect to use less depending upon the property and their own needs.
 
-A `double` with the value `0.15625` would appear as follows:
+A `double` with the value `0.15625` appears as follows:
 
 ```xml
 <double name="DoubleExample">0.15625</double>
@@ -317,7 +316,7 @@ A `double` with the value `0.15625` would appear as follows:
 
 The `Faces` data type is represented with a single `faces` element that contains a single integer between `0` and `63`, inclusive. This integer represents a bitfield of the `Right`, `Top`, `Back`, `Left`, `Bottom`, and `Front` faces packed into the lower 6 bits of it, in that order.
 
-A `Faces` property with the `Front`, `Left`, and `Top` faces enabled would appear as follows:
+A `Faces` property with the `Front`, `Left`, and `Top` faces enabled appears as follows:
 
 ```xml
 <Faces name="FacesExample">
@@ -331,9 +330,9 @@ The `float` data type (also known as `Float32` or `single`) is represented as a 
 
 Positive infinity is represented as `INF` or `+INF`, negative infinity is represented as `-INF`, and NaN is represented as `NAN`. To be compatible, encoders MUST use these representations, including the all upper casing.
 
-Encoders should encode `double` values with at least 9 significant figures but they may elect to use less depending upon the property and their own needs.
+Encoders should encode `float` values with at least 7 significant figures but they may elect to use less depending upon the property and their own needs.
 
-A `float` with the value `0.15625` would appear as follows:
+A `float` with the value `0.15625` appears as follows:
 
 ```xml
 <float name="FloatExample">0.15625</float>
@@ -356,7 +355,7 @@ The `Style` element is the name of an item from the Roblox `FontStyle` enum. At 
 
 The `CachedFaceId` element will point to a locally cached copy of the `Font`'s source file if it is present. This element is OPTIONAL.
 
-A `Font` with the value `Arial, Italic, Bold` would appear as follows:
+A `Font` with the value `Arial, Italic, Bold` appears as follows:
 
 ```xml
 <Font name="FontExample">
@@ -372,7 +371,7 @@ The `int` data type (also known as `Int32`) is represented as a number in the ra
 
 Positive numbers MUST NOT be prefixed with `+`.
 
-An `int` value of `1337` would appear as follows:
+An `int` value of `1337` appears as follows:
 
 ```xml
 <int name="IntExample">1337</int>
@@ -384,7 +383,7 @@ The `int64` data type (also known as `Int64` or `long`) is represented as a numb
 
 Positive numbers MUST NOT be prefixed with `+`.
 
-An `int64` value of `-559038737` would appear as follows:
+An `int64` value of `-559038737` appears as follows:
 
 ```xml
 <int64 name="Int64Example">-559038737</int64>
@@ -396,7 +395,7 @@ The `NumberRange` data type is represented as sequence of two floating-point num
 
 Both numbers are formatted as [`float`](#float) values.
 
-A `NumberRange` value of `0.15625, 1337` would appear as follows:
+A `NumberRange` value of `0.15625, 1337` appears as follows:
 
 ```xml
 <NumberRange name="NumberRangeExample">0.15625 1337 </NumberRange>
@@ -408,7 +407,7 @@ The `NumberSequence` data type is represented by a series of floating-point numb
 
 `NumberSequence` values MUST have one keypoint with the `Time` field set to `0` and MUST have one keypoint with the `Time` field set to `1`.
 
-A `NumberSequence` with the value `[0, 6, 3] [1, 4, 2]` would appear as follows:
+A `NumberSequence` with the value `[0, 6, 3] [1, 4, 2]` appears as follows:
 
 ```xml
 <NumberSequence name="NumberSequenceExample">0 6 3 1 4 2 </NumberSequence>
@@ -426,7 +425,7 @@ The name of the child element varies depending upon the type `T` is. The followi
 |:--------------------------------------|:-------------------|
 | [`CoordinateFrame`](#coordinateframe) | `CFrame`           |
 
-An `Optional<CoordinateFrame>` where the value was `0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1` would appear as follows:
+An `Optional<CoordinateFrame>` where the value was `0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1` appears as follows:
 
 ```xml
 <OptionalCoordinateFrame name="OptionalExample">
@@ -462,7 +461,7 @@ A custom `PhysicalProperties` created with this constructor:
 PhysicalProperties.new(1, 2, 3, 0.15625, 1.25)
 ```
 
-Would appear as follows:
+Appears as follows:
 
 ```xml
 <PhysicalProperties name="PhysicalPropertiesExample">
@@ -481,7 +480,7 @@ The `ProtectedString` data type is represented as a string. This data type MUST 
 
 To ease use, `ProtectedString` values should have their contents written as surrounded by `CDATA`. If this is not possible, then care must be taken to escape characters when necessary.
 
-A `ProtectedString` with the contents `print("Hello, world!")` message would appear as follows:
+A `ProtectedString` with the contents `print("Hello, world!")` message appears as follows:
 
 ```xml
 <ProtectedString name="ProtectedStringExample"><![CDATA[print("Hello world!")]]></ProtectedString>
@@ -491,7 +490,7 @@ A `ProtectedString` with the contents `print("Hello, world!")` message would app
 
 The `Ray` data type is represented as a sequence of two child elements representing the `Origin` and `Direction` components of the value. These child elements are named `origin` and `direction` and are both [`Vector3`](#vector3) values.
 
-A `Ray` with the value `[<1, 2, 3>, <-1, -2, -3>]` would appear as follows:
+A `Ray` with the value `[<1, 2, 3>, <-1, -2, -3>]` appears as follows:
 
 ```xml
 <Ray name="RayExample">
@@ -514,7 +513,7 @@ The `Rect2D` data type (also known as `Rect`) is represented as a sequence of tw
 
 Despite the canonical name of the data type being `Rect`, elements of this type SHOULD be named `Rect2D` to maintain compatibility.
 
-A `Rect2D` with the value `[<1, 2>, <3, 4>)` would appear as follows:
+A `Rect2D` with the value `[<1, 2>, <3, 4>)` appears as follows:
 
 ```xml
 <Rect2D name="Rect2DExample">
@@ -537,7 +536,7 @@ Roblox encodes empty `Ref` values as `null`. Encoders SHOULD also use `null` to 
 
 Although the canonical name of this data type is `Referent`, elements of this type MUST be named `Ref` to ensure compatibility.
 
-A `Ref` value pointing to a random `Item` may appear as follows:
+A `Ref` value pointing to an `Item` with a `referent` of `RBX466F72207262782D646F6D21203A2D29` appears as follows:
 
 ```xml
 <Ref name="Example">RBX466F72207262782D646F6D21203A2D29</Ref>
@@ -552,7 +551,7 @@ The `SharedString` data type is represented by a string that points to a `Shared
 
 The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. Specifically, the contents of elements of this type MUST be equal to the `md5` attribute of a [`SharedString` definition][SharedString-def].
 
-A `SharedString` value may appear as follows:
+A `SharedString` value pointing to the `SharedString` with its `md5` attribute equal to `ZGVra29ub3Rfd2FzX2hlcmU=` appears as follows:
 
 ```xml
 <SharedString name="SharedStringExample">ZGVra29ub3Rfd2FzX2hlcmU=</SharedString>
@@ -564,7 +563,7 @@ The `string` data type is represented as a literal sequence of characters inside
 
 Proper care must be taken to escape characters when necessary.
 
-A `string` value `Hello, world!` would appear as follows:
+A `string` value `Hello, world!` appears as follows:
 
 ```xml
 <string name="StringExample">Hello, world!</string>
@@ -576,7 +575,7 @@ The `token` data type (also known as `Enum`) is represented as a sequence of num
 
 Despite the canonical name of the data type being `Enum`, elements of this type MUST be named `token` to maintain compatibility.
 
-A `token` representing `Enum.NormalId.Left` would appear as follows:
+A `token` representing `Enum.NormalId.Left` (whose value is `3`) appears as follows:
 
 ```xml
 <token name="TokenExample">3</token>
@@ -586,7 +585,7 @@ A `token` representing `Enum.NormalId.Left` would appear as follows:
 
 The `UDim` data type is represented as a sequence of two child elements indicating the `Scale` and `Offset` components of the value. These child elements are named `S` and `O`. The `S` element is a [`float`](#float) and the `O` element is a [`int`](#int).
 
-A `UDim` with the value `{0.15625, 1337}` would appear as follows:
+A `UDim` with the value `{0.15625, 1337}` appears as follows:
 
 ```xml
 <UDim name="UDimExample">
@@ -599,7 +598,7 @@ A `UDim` with the value `{0.15625, 1337}` would appear as follows:
 
 The `UDim2` data type is represented as a sequence of four child elements indicating the `X.Scale`, `X.Offset`, `Y.Scale`, `Y.Offset` components of the value. These elements are named `XS`, `XO`, `YS`, and `YO`. The `XS` and `YS` elements are [`float`](#float) values and the `XO` and `YO` elements are [`int`](#int) values.
 
-A `UDim2` with the value `{0.15625, 1337}, {-123, 456}` would appear as follows:
+A `UDim2` with the value `{0.15625, 1337}, {-123, 456}` appears as follows:
 
 ```xml
 <UDim2 name="UDim2Example">
@@ -622,7 +621,7 @@ The `UniqueId` data type is represented as hexadecimal-encoded sequence of `16` 
 
 **NOTE**: The `Random` component is serialized differently between the XML and [binary](binary.md) format. Specifically, in the XML format it is left-circular rotated by `1` bit. If working with both file formats, care MUST be taken to ensure the `Random` component is the same between formats.
 
-A `UniqueId` may appear as follows:
+A `UniqueId` with random components may appear as follows:
 
 ```xml
 <UniqueId name="UniqueIdExample">686f6c792062696e676c6521203a33</UniqueId>
@@ -632,7 +631,7 @@ A `UniqueId` may appear as follows:
 
 The `Vector2` data type is represented as a sequence of two child elements. These child elements are named `X` and `Y` and represent the respective components of the value. Both of these elements are [`float`](#float) values.
 
-A `Vector2` with the value `<Infinity, 1337>` would appear as follows:
+A `Vector2` with the value `<Infinity, 1337>` appears as follows:
 
 ```xml
 <Vector2 name="Vector2Example">
@@ -645,7 +644,7 @@ A `Vector2` with the value `<Infinity, 1337>` would appear as follows:
 
 The `Vector3` data type is represented as a sequence of three child elements. These child elements are named `X`, `Y`, and `Z` and represent the respective components of the value. All three elements are [`float`](#float) values.
 
-A `Vector3` with the value `<-Infinity, 0.15625, -1337>` would appear as follows:
+A `Vector3` with the value `<-Infinity, 0.15625, -1337>` appears as follows:
 
 ```xml
 <Vector3 name="Vector3Example">
@@ -661,7 +660,7 @@ The `Vector3int16` data type is represented as a sequence of three child element
 
 All three child elements MUST be in the range `-32768` to `32767`, inclusive.
 
-A `Vector3int16` with the value `<1337, 0, -1337>` would appear as follows:
+A `Vector3int16` with the value `<1337, 0, -1337>` appears as follows:
 
 ```xml
 <Vector3int16 name="Vector3int16Example">
