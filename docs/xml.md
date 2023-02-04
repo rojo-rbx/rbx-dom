@@ -83,7 +83,7 @@ All other attributes are OPTIONAL. This includes those produced by Roblox Studio
 
 ## Meta
 
-This element represents a single key-value pair of metadata for the file. There MAY be any number of `Meta` elements in a document but they MUST all be under the `roblox` element.
+This element represents a single key-value pair of metadata for the file. There MAY be any number of `Meta` elements in a file but they MUST all be under the `roblox` element.
 
 The following attributes are REQUIRED for this element:
 
@@ -92,6 +92,14 @@ The following attributes are REQUIRED for this element:
 | `name` | The key part of the metadata key-value pair. |
 
 The contents of this element represent the value of the metadata key-value pair.
+
+Currently, Roblox encodes the following `Meta` elements:
+
+| Name                 | Value  |
+|:---------------------|:-------|
+| `ExplicitAutoJoints` | `true` | <!--TODO: Validate that this is always `true`-->
+
+It is RECOMMENDED that every key-value pair from the above table be encoded to maintain compatibility with Roblox Studio.
 
 ## External
 
@@ -103,7 +111,7 @@ The contents of this element represent an unknown purpose.
 
 ## Item
 
-This element describes one `Instance` value. There should be at least one of these in all files, as otherwise they serve no purpose, but Roblox accepts files with no `Item` elements. All `Item` elements MUST be under either the `roblox` element or other `Item` elements.
+This element describes one `Instance` value. All `Item` elements MUST be under either the `roblox` element or other `Item` elements.
 
 The following attributes are REQUIRED for this element:
 
@@ -115,6 +123,8 @@ The following attributes are REQUIRED for this element:
 The value of `referent` MUST be unique for the file. The value of `referent` MUST NOT be `null`. Roblox utilizes the value `null` when serializing [`Ref`](#ref) properties with no value, so it should be considered a reserved value.
 
 Roblox generates referents by prefixing a UUID with `RBX`, but this is not a requirement.
+
+It is suggested that every file have at least `Item` value as otherwise there is no purpose to the file.
 
 ## Properties
 
