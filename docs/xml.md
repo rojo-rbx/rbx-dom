@@ -118,14 +118,14 @@ Every child of this element is a [Type Element](#type-elements) and represents e
 
 ## SharedStrings
 
-This element acts as a repository for `SharedString` definitions. There MAY be zero or one `SharedStrings` element per file. `SharedString` elements must be under the `roblox` element.
+This element acts as a repository for `SharedString` definitions. There MAY be zero or one `SharedStrings` element per file. All `SharedStrings` elements must be under the `roblox` element.
 
 There are no attributes required for this element.
 
 ## SharedString
 [SharedString-def]: #sharedstring
 
-This element defines a single `SharedString` value for reference by [Type Elements](#type-elements). There MAY be zero or more `SharedString` elements per file. `SharedStrings` elements must be under the `SharedStrings` element.
+This element defines a single `SharedString` value for reference by [Type Elements](#type-elements). There MAY be zero or more `SharedString` elements per file. `SharedString` elements must be under the `SharedStrings` element.
 
 This element shares a name with a type element. That element is documented [here][SharedString-use].
 
@@ -135,9 +135,9 @@ The following attributes are required for this element:
 |:------|:-----------------------------------------------------------------------|
 | `md5` | A unique identifier for this element, for reference by a type element. |
 
-Despite its name, the contents of `md5` do not have to be the MD5 hash of the SharedString and instead simply MUST be a unique identifier for this SharedString.
+Despite its name, the contents of `md5` do not have to be the MD5 hash of the `SharedString` and instead simply MUST be a unique identifier for this `SharedString`.
 
-The value of this element MUST be the SharedString value encoded with Base64.
+The value of this element MUST be the `SharedString` value encoded with Base64.
 <!-- TODO: Verify what form of Base64 and put it here-->
 
 ## Type Elements
@@ -151,7 +151,7 @@ The following attributes are required for all property elements, regardless of t
 
 | Name   | Contents                                              |
 |:-------|:------------------------------------------------------|
-| `name` | The nane of the property represented by this element. |
+| `name` | The name of the property represented by this element. |
 
 The `name` of a property does not necessarily reflect its in-engine name, and some properties serialize with unexpected names. Additionally, not every property is deserialized by Roblox.
 
@@ -290,7 +290,7 @@ A `CFrame` with the components `0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1` would appear
 
 ### double
 
-The `double` data type (also known as `Float64`) is represented as a standard 64-bit floating point number would be. Specifically, it is represented by the [XSD precision decimal](https://www.w3.org/TR/xsd-precisionDecimal/) type. For full details, view the XSD specification but strings such as `1.0`, `1`, `-0`, and `13e37` are all valid representations of `double` values.
+The `double` data type (also known as `Float64`) is represented as a standard 64-bit floating point number in [XSD precision decimal](https://www.w3.org/TR/xsd-precisionDecimal/) format. For full details, view the XSD specification but strings such as `1.0`, `1`, `-0`, and `13e37` are all valid representations of `double` values.
 
 Positive infinity is represented as `INF` or `+INF`, negative infinity is represented as `-INF`, and NaN is represented as `NAN`. To be compatible, encoders MUST use these representations, including the all upper casing.
 
@@ -316,7 +316,7 @@ A `Faces` property with the `Front`, `Left`, and `Top` faces enabled would appea
 
 ### float
 
-The `float` data type (also known as `Float32` or `single`) is represented as a standard 32-bit floating-point number would be. Specifically, it is represented by the [XSD precision decimal](https://www.w3.org/TR/xsd-precisionDecimal/) type. For full details, view the XSD specification, but strings such as `1.0`, `1`, `-0`, and `13e37` are all valid representations of `float` values.
+The `float` data type (also known as `Float32` or `single`) is represented as a standard 32-bit floating-point number in [XSD precision decimal](https://www.w3.org/TR/xsd-precisionDecimal/) format. For full details, view the XSD specification, but strings such as `1.0`, `1`, `-0`, and `13e37` are all valid representations of `float` values.
 
 Positive infinity is represented as `INF` or `+INF`, negative infinity is represented as `-INF`, and NaN is represented as `NAN`. To be compatible, encoders MUST use these representations, including the all upper casing.
 
@@ -409,7 +409,7 @@ The `Optional<T>` data type represents an optional value of type `T` and is repr
 
 Elements of this type should be named `Optional` followed by the name of the type. As an example, for `Optional<CoordinateFrame>`, the element should be named `OptionalCoordinateFrame`.
 
-The name of the child element varies depending upon the type `T` is. The following is a list ofcurrently valid types for `T`, along with the name of the child element:
+The name of the child element varies depending upon the type `T` is. The following is a list of currently valid types for `T`, along with the name of the child element:
 
 | Type                                  | Child Element Name |
 |:--------------------------------------|:-------------------|
@@ -501,7 +501,7 @@ A `Ray` with the value `[<1, 2, 3>, <-1, -2, -3>]` would appear as follows:
 
 The `Rect2D` data type (also known as `Rect`) is represented as a sequence of two child elements representing the `Min` nad `Max` components of the value. These child elements are named `min` and `max` and are both [`Vector2`](#vector2) values.
 
-Despite the canonical name of the data type being `Rect`, elements of this type SHOULD be named `Rect` to maintain compatibility.
+Despite the canonical name of the data type being `Rect`, elements of this type SHOULD be named `Rect2D` to maintain compatibility.
 
 A `Rect2D` with the value `[<1, 2>, <3, 4>)` would appear as follows:
 
@@ -537,7 +537,7 @@ A `Ref` value pointing to a random `Item` may appear as follows:
 
 This element shares a name with a SharedString definition element. That element is documented [here][SharedString-def].
 
-The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. Specifically, the contents of elements of this type should be equal to the `md5` attribute of a [`SharedString` definition][#SharedString-def].
+The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. Specifically, the contents of elements of this type should be equal to the `md5` attribute of a [`SharedString` definition][SharedString-def].
 
 A `SharedString` value may appear as follows:
 
@@ -599,7 +599,7 @@ A `UDim2` with the value `{0.15625, 1337}, {-123, 456}` would appear as follows:
 
 ### UniqueId
 
-The `UniqueId` data type is represented as hexadecimal-encoded sequence of `16` bytes. These bytes may be split in three distinct groups, representing components of the `UniqueId`:
+The `UniqueId` data type is represented as hexadecimal-encoded sequence of `16` bytes. These bytes are split into three distinct groups, representing components of the `UniqueId`:
 
 | Range   | Component Name | Format                  |
 |:--------|:---------------|:------------------------|
