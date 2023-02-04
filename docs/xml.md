@@ -3,6 +3,9 @@ This is unofficial documentation for Roblox's XML model format. The XML model fo
 
 The XML model format has generally been replaced by the newer, more efficient [binary model format](binary.md). Some use cases for the XML format still exist, owing to its human readability.
 
+> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
+
+
 ## Contents
 - [File Structure](#file-structure)
 - [roblox](#roblox)
@@ -65,13 +68,13 @@ Roblox XML files consist of a single `<roblox>` element, which contain a sequenc
 
 This element is the root of the file. There MUST be one `roblox` element in the file.
 
-The following attributes are required for this element:
+The following attributes are REQUIRED for this element:
 
 | Name      | Contents                                                                         |
 |:----------|:---------------------------------------------------------------------------------|
 | `version` | The version of the format this document contains. This MUST be `4` at this time. |
 
-All other attributes are ignored by Roblox, including those defined by Roblox Studio when exporting files.
+All other attributes are OPTIONAL. This includes those produced by Roblox Studio.
 
 As stated under [File Structure](#file-structure), this element MUST be the beginning and end of the file.
 
@@ -79,7 +82,7 @@ As stated under [File Structure](#file-structure), this element MUST be the begi
 
 This element represents a single key-value pair of metadata for the file. There MAY be any number of `Meta` elements in a document but they MUST all be under the `roblox` element.
 
-The following attributes are required for this element:
+The following attributes are REQUIRED for this element:
 
 | Name   | Contents                                     |
 |:-------|:---------------------------------------------|
@@ -89,7 +92,7 @@ The contents of this element represent the value of the metadata key-value pair.
 
 ## External
 
-This element is a legacy feature and currently does nothing. Roblox Studio encodes two of these tags when producing files, but they are optional and unused. When present, they MUST be under the `roblox` element.
+This element is a legacy feature and currently does nothing. Roblox Studio encodes two of these elements when writing files, but their presence is OPTIONAL. When present, they MUST be under the `roblox` element.
 
 There are no attributes required for this element.
 
@@ -97,20 +100,22 @@ The contents of this element represent an unknown purpose, as the element does n
 
 ## Item
 
-This element describes one `Instance` value. There SHOULD be at least one of these in all files, as otherwise they serve no purpose, but Roblox accepts files with no `Item` elements. All `Item` elements must be under either the `roblox` element or other `Item` elements.
+This element describes one `Instance` value. There should be at least one of these in all files, as otherwise they serve no purpose, but Roblox accepts files with no `Item` elements. All `Item` elements MUST be under either the `roblox` element or other `Item` elements.
 
-The following attributes are required for this element:
+The following attributes are REQUIRED for this element:
 
 | Name       | Contents                                                              |
 |:-----------|:----------------------------------------------------------------------|
 | `class`    | The class of the `Instance` this element represents.                  |
 | `referent` | A unique string used to reference this element elsewhere in the file. |
 
-The value of `referent` does not need to follow any pattern, it simply must be unique for the file. Roblox generates referents by prefixing a UUID with `RBX`, but this is not a requirement.
+The value of `referent` MUST be unique for the file. The value of `referent` MUST NOT be `null`. Roblox utilizes the value `null` when serializing [`Ref`](#ref) properties with no value, so it should be considered a reserved value.
+
+Roblox generates referents by prefixing a UUID with `RBX`, but this is not a requirement .
 
 ## Properties
 
-This element contains all properties for a given `Instance`. There MUST be one per `Item` element, and each `Properties` element must be under an `Item` element.
+This element contains all properties for a given `Instance`. There MUST be one `Properties` element per `Item`. All `Properties` elements MUST be under an `Item` element.
 
 There are no attributes required for this element.
 
@@ -118,35 +123,37 @@ Every child of this element is a [Type Element](#type-elements) and represents e
 
 ## SharedStrings
 
-This element acts as a repository for `SharedString` definitions. There MAY be zero or one `SharedStrings` element per file. All `SharedStrings` elements must be under the `roblox` element.
+This element acts as a repository for [`SharedString` definitions][SharedString-def]. There MAY be zero or one `SharedStrings` elements per file. When present, the `SharedStrings` element MUST be under the `roblox` element.
 
 There are no attributes required for this element.
 
 ## SharedString
 [SharedString-def]: #sharedstring
 
-This element defines a single `SharedString` value for reference by [Type Elements](#type-elements). There MAY be zero or more `SharedString` elements per file. `SharedString` elements must be under the `SharedStrings` element.
+This element defines a single `SharedString` value for reference by [Type Elements](#type-elements). There MAY be zero or more `SharedString` elements per file. `SharedString` elements MUST be under the `SharedStrings` element.
 
 This element shares a name with a type element. That element is documented [here][SharedString-use].
 
-The following attributes are required for this element:
+The following attributes are REQUIRED for this element:
 
 | Name  | Contents                                                               |
 |:------|:-----------------------------------------------------------------------|
 | `md5` | A unique identifier for this element, for reference by a type element. |
 
-Despite its name, the contents of `md5` do not have to be the MD5 hash of the `SharedString` and instead simply MUST be a unique identifier for this `SharedString`.
+The value of `md5` MUST be unique across all `SharedString` definitions. Despite the name, the value does not have to be the MD5 hash of the `SharedString` contents.
 
-The value of this element MUST be the `SharedString` value encoded with Base64.
+The content of `SharedString` elements MUST be Base64 encoded.
 <!-- TODO: Verify what form of Base64 and put it here-->
 
 ## Type Elements
 
 All properties are encoded as a single element parented under a `Properties` element. Each element represents exactly one property for one `Instance`.
 
-The contents of the element vary depending upon the type of the property it represents. The name of the element SHOULD be the name of the datatype, but Roblox does not require it to be.
+The contents of type elements vary depending upon the type of the property they represent. 
 
-The following attributes are required for all property elements, regardless of their type or name:
+It is RECOMMENDED that the name of type elements correspond to the type that they represent. This ensures that Roblox does not attempt to deserialize them incorrectly and maintains human readability. 
+
+The following attributes are REQUIRED for all property elements, regardless of their type or name:
 
 
 | Name   | Contents                                              |
@@ -195,7 +202,7 @@ A `bool` with the value `false` would appear as follows:
 
 The `BrickColor` data type is represented by a single 32-bit integer that represents the `Number` of the value.
 
-Roblox encodes this type with the element name `int` but by convention, the element SHOULD be named `BrickColor`. Either is accepted.
+Roblox encodes this type with the element name `int` but also accepts `BrickColor`. It is preferred that `BrickColor` be used.
 
 A `BrickColor` with the value `Medium Stone Grey` (whose number is `194`) should appear as follows:
 
@@ -205,7 +212,7 @@ A `BrickColor` with the value `Medium Stone Grey` (whose number is `194`) should
 
 ### Color3
 
-The `Color3` data type is represented by three child elements named `R`, `G`, and `B`. These elements contain the value of that component as 32-bit floating point numbers. See [`float`](#float) for more information on the format of floating point numbers.
+The `Color3` data type is represented by three child elements named `R`, `G`, and `B`. These elements contain the value of that component as written as a [`float`](#float).
 
 A `Color3` with the value `INF, 1337, 0.15625` would appear as follows:
 
@@ -221,7 +228,7 @@ A `Color3` with the value `INF, 1337, 0.15625` would appear as follows:
 
 The `Color3uint8` data type is represented by a single unsigned 32-bit integer that is the `R`, `G`, and `B` components of the color (as integers in the range 0 to 255) packed into the lower 24 bits of the number. This integer is little-endian and written in the order `G`, `B`, `R`.
 
-Roblox encodes this type with the upper 8 bits filled with `FF` (in hexadecimal). This SHOULD be done by encoders to avoid compatibility issues.
+The upper 8 bits of the value SHOULD be filled with `FF` (in hexadecimal). This is to maintain compatibility with Roblox.
 
 A `Color3uint8` with the value `96, 64, 32` would appear as follows:
 
@@ -233,7 +240,7 @@ A `Color3uint8` with the value `96, 64, 32` would appear as follows:
 
 The `ColorSequence` data type is represented by a series of floating-point numbers seperated by a single space. Every 5 elements in this series represents a single keypoint of the `ColorSequence`. The elements are written in the order `Time`, `Value.R`, `Value.G`, `Value.B`, and `Envelope`.
 
-At this moment, the `Envelope` section of this sequence is unused and SHOULD always be `0`. It MUST be included.
+At this moment, the `Envelope` section of this sequence is unused and should always be `0`. It MUST be included.
 
 `ColorSequence` values MUST have one keypoint with the `Time` field set to `0` and MUST have one keypoint with the `Time` field set to `1`.
 
@@ -245,7 +252,7 @@ A `ColorSequence` with the value `[0, 96, 64, 32] [1, 5, 10, 15]` would appear a
 
 ### Content
 
-The `Content` data type is represented by a single element with one of several child elements. Currently, the name of this child element may be `url` or `null`. Historically, it could be `binary` or `hash`. This child element is not nillable and MUST include an opening and closing tag.
+The `Content` data type is represented by a single element with one of several child elements. Currently, the name of this child element MUST be either `url` or `null`. Historically, it could also be named `binary` or `hash`. This child element is not nillable and MUST include an opening and closing tag.
 
 If the child element is `url`, then the value of it is the `Content`'s URI. If the element is `null`, it indicates the `Content` is empty. When the child element is `null`, it MUST be empty. 
 
@@ -294,7 +301,7 @@ The `double` data type (also known as `Float64`) is represented as a standard 64
 
 Positive infinity is represented as `INF` or `+INF`, negative infinity is represented as `-INF`, and NaN is represented as `NAN`. To be compatible, encoders MUST use these representations, including the all upper casing.
 
-Encoders SHOULD encode `double` values with at least 17 digits of precision but they MAY elect to use less depending upon the property and their own needs.
+Encoders should encode `double` values with at least 17 significant figures but they may elect to use less depending upon the property and their own needs.
 
 A `double` with the value `0.15625` would appear as follows:
 
@@ -320,7 +327,7 @@ The `float` data type (also known as `Float32` or `single`) is represented as a 
 
 Positive infinity is represented as `INF` or `+INF`, negative infinity is represented as `-INF`, and NaN is represented as `NAN`. To be compatible, encoders MUST use these representations, including the all upper casing.
 
-Encoders SHOULD encode `float` values with at least 9 digits of precision but they MAY elect to use less depending upon the property and their own needs.
+Encoders should encode `double` values with at least 9 significant figures but they may elect to use less depending upon the property and their own needs.
 
 A `float` with the value `0.15625` would appear as follows:
 
@@ -330,7 +337,7 @@ A `float` with the value `0.15625` would appear as follows:
 
 ### Font
 
-The `Font` data type is represented with 4 child elements. These elements and their type is listed as follows:
+The `Font` data type is represented with three or four child elements. These elements and their type is listed as follows:
 
 - `Family` - `Content`
 - `Weight` - `int`
@@ -343,7 +350,7 @@ The `Weight` element is a value of an item from the Roblox `FontWeight` enum. Th
 
 The `Style` element is the name of an item from the Roblox `FontStyle` enum. At this time, the only values are `Normal` and `Italic`.
 
-The `CachedFaceId` element will point to a locally cached copy of the `Font`'s source file if it is present.
+The `CachedFaceId` element will point to a locally cached copy of the `Font`'s source file if it is present. This element is OPTIONAL.
 
 A `Font` with the value `Arial, Italic, Bold` would appear as follows:
 
@@ -407,7 +414,7 @@ A `NumberSequence` with the value `[0, 6, 3] [1, 4, 2]` would appear as follows:
 
 The `Optional<T>` data type represents an optional value of type `T` and is represented by an element with either one or zero child elements. If the value is present, there will be a child element of type `T`. Otherwise, there is no child element.
 
-Elements of this type should be named `Optional` followed by the name of the type. As an example, for `Optional<CoordinateFrame>`, the element should be named `OptionalCoordinateFrame`.
+Elements of this type SHOULD be named `Optional` followed by the name of the type. As an example, for `Optional<CoordinateFrame>`, the element should be named `OptionalCoordinateFrame`.
 
 The name of the child element varies depending upon the type `T` is. The following is a list of currently valid types for `T`, along with the name of the child element:
 
@@ -468,7 +475,7 @@ Would appear as follows:
 
 The `ProtectedString` data type is represented as a string. This data type MUST have its contents maintained exactly. Whitespace MUST be preserved for this type.
 
-To ease use, `ProtectedString` values SHOULD have their contents written as surrounded by `CDATA`. If this is not possible, then care must be taken to escape characters when necessary.
+To ease use, `ProtectedString` values should have their contents written as surrounded by `CDATA`. If this is not possible, then care must be taken to escape characters when necessary.
 
 A `ProtectedString` with the contents `print("Hello, world!")` message would appear as follows:
 
@@ -537,7 +544,9 @@ A `Ref` value pointing to a random `Item` may appear as follows:
 
 This element shares a name with a SharedString definition element. That element is documented [here][SharedString-def].
 
-The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. Specifically, the contents of elements of this type should be equal to the `md5` attribute of a [`SharedString` definition][SharedString-def].
+The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. The contents of `SharedString` elements MUST be equal to the `md5` attribute of a [`SharedString` definition][SharedString-def].
+
+The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. Specifically, the contents of elements of this type MUST be equal to the `md5` attribute of a [`SharedString` definition][SharedString-def].
 
 A `SharedString` value may appear as follows:
 
@@ -607,7 +616,7 @@ The `UniqueId` data type is represented as hexadecimal-encoded sequence of `16` 
 |  8 - 11 | Time           | Unsigned 32-bit integer |
 | 12 - 15 | Index          | Unsigned 32-bit integer |
 
-**NOTE**: The `Random` component is serialized differently between the XML and [binary](binary.md) format. Specifically, in the XML format it is left-circular rotated by `1` bit. Care MUST be taken to ensure equivalent values are modified to be correctly equivalent when reading and writing between formats.
+**NOTE**: The `Random` component is serialized differently between the XML and [binary](binary.md) format. Specifically, in the XML format it is left-circular rotated by `1` bit. If working with both file formats, care MUST be taken to ensure the `Random` component is the same between formats.
 
 A `UniqueId` may appear as follows:
 
