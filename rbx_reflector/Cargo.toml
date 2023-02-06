@@ -6,8 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rbx_types = { version = "1.3.0", path = "../rbx_types", features = ["serde"] }
-rbx_reflection = { version = "4.2.0", path = "../rbx_reflection" }
+rbx_dom_weak = { path = "../rbx_dom_weak" }
+rbx_reflection = { path = "../rbx_reflection" }
+rbx_types = { path = "../rbx_types", features = ["serde"] }
+rbx_xml = { path = "../rbx_xml" }
 
 anyhow = "1.0.57"
 clap = { version = "4.1.4", features = ["derive"] }

@@ -16,6 +16,7 @@ use rbx_types::VariantType;
 
 use crate::{
     api_dump::{Dump, DumpClassMember, Security, ValueCategory},
+    defaults::apply_defaults,
     patches::Patches,
 };
 
@@ -27,6 +28,8 @@ pub struct GenerateSubcommand {
     pub api_dump: PathBuf,
     /// The directory containing patch files.
     pub patches: PathBuf,
+    /// The path of the defaults place. It must be an .rbxlx
+    pub defaults_place: PathBuf,
     /// Where to output the reflection database. The output format is inferred
     /// from the file path and supports JSON (.json) and MessagePack (.msgpack).
     pub output: Vec<PathBuf>,
@@ -43,6 +46,8 @@ impl GenerateSubcommand {
 
         let patches = Patches::load(&self.patches)?;
         patches.apply(&mut database)?;
+
+        apply_defaults(&mut database, &self.defaults_place)?;
 
         for path in &self.output {
             let extension = path.extension().unwrap_or_default().to_str();
