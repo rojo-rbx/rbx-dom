@@ -20,7 +20,6 @@ pub enum Subcommand {
     Dump(DumpSubcommand),
     Patch,
     DefaultsPlace(DefaultsPlaceSubcommand),
-    ComputeDefaults,
     Generate(GenerateSubcommand),
 }
 
@@ -30,7 +29,6 @@ impl Args {
             Subcommand::Dump(sub) => sub.run(),
             Subcommand::Patch => todo!(),
             Subcommand::DefaultsPlace(sub) => sub.run(),
-            Subcommand::ComputeDefaults => todo!(),
             Subcommand::Generate(sub) => sub.run(),
         }
     }
