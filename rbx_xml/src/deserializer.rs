@@ -8,7 +8,7 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::DataType;
+use rbx_reflection::{DataType, ReflectionDatabase};
 
 use crate::{
     conversion::ConvertVariant,
@@ -19,7 +19,11 @@ use crate::{
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
-pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
+pub fn decode_internal<R: Read>(
+    source: R,
+    database: &ReflectionDatabase,
+    options: DecodeOptions,
+) -> Result<WeakDom, DecodeError> {
     let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
     let root_id = tree.root_ref();
@@ -27,7 +31,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Wea
     let mut iterator = XmlEventReader::from_source(source);
     let mut state = ParseState::new(&mut tree, options);
 
-    deserialize_root(&mut iterator, &mut state, root_id)?;
+    deserialize_root(&mut iterator, &mut state, root_id, database)?;
     apply_referent_rewrites(&mut state);
     apply_shared_string_rewrites(&mut state);
 
@@ -248,10 +252,11 @@ fn apply_shared_string_rewrites(state: &mut ParseState) {
     }
 }
 
-fn deserialize_root<R: Read>(
+fn deserialize_root<'a, R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: Ref,
+    database: &'a ReflectionDatabase,
 ) -> Result<(), DecodeError> {
     match reader.expect_next()? {
         XmlReadEvent::StartDocument { .. } => {}
@@ -280,7 +285,7 @@ fn deserialize_root<R: Read>(
             XmlReadEvent::StartElement { name, .. } => {
                 match name.local_name.as_str() {
                     "Item" => {
-                        deserialize_instance(reader, state, parent_id)?;
+                        deserialize_instance(reader, state, parent_id, database)?;
                     }
                     "External" => {
                         // This tag is always meaningless, there's nothing to do
@@ -406,10 +411,11 @@ fn deserialize_shared_string<R: Read>(
     Ok(())
 }
 
-fn deserialize_instance<R: Read>(
+fn deserialize_instance<'a, R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     parent_id: Ref,
+    database: &'a ReflectionDatabase,
 ) -> Result<(), DecodeError> {
     let (class_name, referent) = {
         let attributes = reader.expect_start_with_name("Item")?;
@@ -446,10 +452,10 @@ fn deserialize_instance<R: Read>(
         match reader.expect_peek()? {
             XmlReadEvent::StartElement { name, .. } => match name.local_name.as_str() {
                 "Properties" => {
-                    deserialize_properties(reader, state, instance_id, &mut properties)?;
+                    deserialize_properties(reader, state, instance_id, &mut properties, database)?;
                 }
                 "Item" => {
-                    deserialize_instance(reader, state, instance_id)?;
+                    deserialize_instance(reader, state, instance_id, database)?;
                 }
                 _ => {
                     let event = reader.expect_next().unwrap();
@@ -492,11 +498,12 @@ fn deserialize_instance<R: Read>(
     Ok(())
 }
 
-fn deserialize_properties<R: Read>(
+fn deserialize_properties<'a, R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     instance_id: Ref,
     props: &mut HashMap<String, Variant>,
+    database: &'a ReflectionDatabase,
 ) -> Result<(), DecodeError> {
     reader.expect_start_with_name("Properties")?;
 
@@ -559,7 +566,7 @@ fn deserialize_properties<R: Read>(
         );
 
         let maybe_descriptor = if state.options.use_reflection() {
-            find_canonical_property_descriptor(&class_name, &xml_property_name)
+            find_canonical_property_descriptor(&class_name, &xml_property_name, database)
         } else {
             None
         };
