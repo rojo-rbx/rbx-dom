@@ -26,10 +26,13 @@ use crate::{
 #[derive(Debug, Parser)]
 pub struct GenerateSubcommand {
     /// The path of an API dump that came from the dump command.
+    #[clap(long = "api_dump")]
     pub api_dump: PathBuf,
     /// The directory containing patch files.
-    pub patches: PathBuf,
+    #[clap(long = "patches")]
+    pub patches: Option<PathBuf>,
     /// The path of the defaults place. It must be an .rbxlx
+    #[clap(long = "defaults_place")]
     pub defaults_place: PathBuf,
     /// Where to output the reflection database. The output format is inferred
     /// from the file path and supports JSON (.json) and MessagePack (.msgpack).
@@ -45,8 +48,10 @@ impl GenerateSubcommand {
 
         apply_dump(&mut database, &dump)?;
 
-        let patches = Patches::load(&self.patches)?;
-        patches.apply(&mut database)?;
+        if let Some(patches_path) = &self.patches {
+            let patches = Patches::load(patches_path)?;
+            patches.apply(&mut database)?;
+        }
 
         apply_defaults(&mut database, &self.defaults_place)?;
 
