@@ -162,7 +162,7 @@ pub fn from_str<S: AsRef<str>>(
 /// options.
 pub fn from_str_default<S: AsRef<str>>(
     reader: S,
-    database: &'static ReflectionDatabase,
+    database: &ReflectionDatabase,
 ) -> Result<WeakDom, DecodeError> {
     decode_internal(
         reader.as_ref().as_bytes(),
