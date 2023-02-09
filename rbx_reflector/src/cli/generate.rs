@@ -18,6 +18,7 @@ use crate::{
     api_dump::{Dump, DumpClassMember, Security, ValueCategory},
     defaults::apply_defaults,
     patches::Patches,
+    plugin_injector::PluginInjector,
 };
 
 /// Generate a reflection database from the system's Roblox Studio installation
@@ -48,6 +49,9 @@ impl GenerateSubcommand {
         patches.apply(&mut database)?;
 
         apply_defaults(&mut database, &self.defaults_place)?;
+
+        database.version =
+            PluginInjector::start(&database, &self.defaults_place)?.receive_version()?;
 
         for path in &self.output {
             let extension = path.extension().unwrap_or_default().to_str();
