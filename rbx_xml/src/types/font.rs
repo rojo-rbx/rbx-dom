@@ -1,7 +1,4 @@
-use std::{
-    convert::TryInto,
-    io::{Read, Write},
-};
+use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{Font, FontStyle, FontWeight};
 
@@ -91,8 +88,7 @@ impl XmlType for Font {
     fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         write_content(writer, &self.family, "Family")?;
 
-        let weight = i32::from(self.weight.to_u16());
-        writer.write_value_in_tag(&weight, "Weight")?;
+        writer.write_value_in_tag(&self.weight.to_u16(), "Weight")?;
 
         let style = match self.style {
             FontStyle::Normal => "Normal",
@@ -111,11 +107,7 @@ impl XmlType for Font {
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
         let family = read_content(reader, "Family")?;
 
-        let weight: i32 = reader.read_value_in_tag("Weight")?;
-        let weight: u16 = weight
-            .clamp(u16::MIN as i32, u16::MAX as i32)
-            .try_into()
-            .unwrap();
+        let weight: u16 = reader.read_value_in_tag("Weight")?;
         let weight = FontWeight::from_u16(weight);
 
         let style = match reader.read_tag_contents("Style")?.as_str() {
