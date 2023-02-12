@@ -109,20 +109,3 @@ impl Default for Font {
         }
     }
 }
-
-impl Font {
-    #[inline]
-    pub fn new(
-        family: String,
-        weight: FontWeight,
-        style: FontStyle,
-        cached_face_id: Option<String>,
-    ) -> Self {
-        Font {
-            family,
-            weight,
-            style,
-            cached_face_id,
-        }
-    }
-}
