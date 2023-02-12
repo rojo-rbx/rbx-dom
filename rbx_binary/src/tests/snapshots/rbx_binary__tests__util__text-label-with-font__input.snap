@@ -99,7 +99,7 @@ chunks:
       prop_type: Font
       values:
         - family: "rbxasset://fonts/families/RobotoMono.json"
-          weight: bold
+          weight: Bold
           style: italic
           cachedFaceId: ~
   - Prop:
