@@ -10,7 +10,6 @@ pub enum FontWeight {
     Bold,
     ExtraBold,
     Heavy,
-    Other(u16),
 }
 
 impl Default for FontWeight {
@@ -31,7 +30,7 @@ impl FontWeight {
             700 => FontWeight::Bold,
             800 => FontWeight::ExtraBold,
             900 => FontWeight::Heavy,
-            other => FontWeight::Other(other),
+            _ => FontWeight::Regular,
         }
     }
     pub fn to_u16(self) -> u16 {
@@ -45,7 +44,6 @@ impl FontWeight {
             FontWeight::Bold => 700,
             FontWeight::ExtraBold => 800,
             FontWeight::Heavy => 900,
-            FontWeight::Other(other) => other,
         }
     }
 }
@@ -59,7 +57,6 @@ impl FontWeight {
 pub enum FontStyle {
     Normal,
     Italic,
-    Other(u8),
 }
 
 impl Default for FontStyle {
@@ -73,14 +70,13 @@ impl FontStyle {
         match style {
             0 => FontStyle::Normal,
             1 => FontStyle::Italic,
-            other => FontStyle::Other(other),
+            _ => FontStyle::Normal,
         }
     }
     pub fn to_u8(self) -> u8 {
         match self {
             FontStyle::Normal => 0,
             FontStyle::Italic => 1,
-            FontStyle::Other(other) => other,
         }
     }
 }
