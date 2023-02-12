@@ -654,7 +654,7 @@ The `Font` type is a struct composed of two `String` values, a `u8`, and a `u16`
 
 The `Weight` and `Style` fields are stored as little-endian unsigned integers. These are usually treated like enums, and to assign them in Roblox Studio an Enum is used. Interestingly, the `Weight` is *always* stored as a number in binary and XML, but `Style` is stored as a number in binary and as text in XML.
 
-The `CachedFaceId` field is always present, but is allows to be an empty string (a string of length `0`). When represented in XML, this property will be omitted if it is an empty string. This property is not visible via any user APIs in Roblox Studio.
+The `CachedFaceId` field is always present, but is allowed to be an empty string (a string of length `0`). When represented in XML, this property will be omitted if it is an empty string. This property is not visible via any user APIs in Roblox Studio.
 
 ## Data Storage Notes
 
