@@ -43,7 +43,7 @@ expression: decoded_viewed
       Font:
         family: "rbxasset://fonts/families/RobotoMono.json"
         weight: Bold
-        style: italic
+        style: Italic
         cachedFaceId: ~
     LayoutOrder:
       Int32: 0
