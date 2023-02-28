@@ -240,7 +240,11 @@ types = {
 
 	Font = {
 		fromPod = function(pod)
-			return Font.new(pod.family, pod.weight and Enum.FontWeight[pod.weight] :: any or nil, pod.style and Enum.FontStyle[pod.style] :: any or nil)
+			return Font.new(
+				pod.family,
+				if pod.weight ~= nil then Enum.FontWeight[pod.weight] else nil,
+				if pod.style ~= nil then Enum.FontStyle[pod.style] else nil
+			)
 		end,
 		toPod = function(roblox)
 			return {
