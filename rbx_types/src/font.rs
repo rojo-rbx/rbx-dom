@@ -33,7 +33,7 @@ impl FontWeight {
             _ => FontWeight::Regular,
         }
     }
-    pub fn to_u16(self) -> u16 {
+    pub fn as_u16(self) -> u16 {
         match self {
             FontWeight::Thin => 100,
             FontWeight::ExtraLight => 200,
@@ -70,7 +70,7 @@ impl FontStyle {
         }
     }
 
-    pub fn to_u8(self) -> u8 {
+    pub fn as_u8(self) -> u8 {
         match self {
             FontStyle::Normal => 0,
             FontStyle::Italic => 1,
