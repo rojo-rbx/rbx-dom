@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    558,
+    564,
     1,
-    5580230
+    5640444
   ],
   "Classes": {
     "Accessory": {
@@ -326,19 +326,6 @@
       ],
       "Superclass": "ControllerBase",
       "Properties": {
-        "CancelAirMomentum": {
-          "Name": "CancelAirMomentum",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "MaintainAngularMomentum": {
           "Name": "MaintainAngularMomentum",
           "Scriptability": "ReadWrite",
@@ -421,9 +408,6 @@
       "DefaultProperties": {
         "Attributes": {
           "BinaryString": ""
-        },
-        "CancelAirMomentum": {
-          "Bool": true
         },
         "MaintainAngularMomentum": {
           "Bool": true
@@ -1751,7 +1735,7 @@
       "Tags": [
         "NotCreatable"
       ],
-      "Superclass": "SoundEffect",
+      "Superclass": "CustomSoundEffect",
       "Properties": {},
       "DefaultProperties": {}
     },
@@ -2168,7 +2152,7 @@
       "Tags": [
         "NotCreatable"
       ],
-      "Superclass": "Instance",
+      "Superclass": "Model",
       "Properties": {
         "TextureId": {
           "Name": "TextureId",
@@ -5887,6 +5871,19 @@
             }
           }
         },
+        "FontFace": {
+          "Name": "FontFace",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Font"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "LocalPlayerStudsOffset": {
           "Name": "LocalPlayerStudsOffset",
           "Scriptability": "ReadWrite",
@@ -5994,6 +5991,14 @@
         },
         "Font": {
           "Enum": 18
+        },
+        "FontFace": {
+          "Font": {
+            "family": "rbxasset://fonts/families/GothamSSm.json",
+            "weight": "Medium",
+            "style": "Normal",
+            "cachedFaceId": "rbxasset://fonts/GothamSSm-Medium.otf"
+          }
         },
         "LocalPlayerStudsOffset": {
           "Vector3": [
@@ -6898,6 +6903,19 @@
             }
           }
         },
+        "FontFace": {
+          "Name": "FontFace",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Font"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "PlaceholderColor3": {
           "Name": "PlaceholderColor3",
           "Scriptability": "ReadWrite",
@@ -6921,6 +6939,19 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "TextBox": {
+          "Name": "TextBox",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -6993,6 +7024,14 @@
         },
         "Enabled": {
           "Bool": true
+        },
+        "FontFace": {
+          "Font": {
+            "family": "rbxasset://fonts/families/GothamSSm.json",
+            "weight": "Medium",
+            "style": "Normal",
+            "cachedFaceId": "rbxasset://fonts/GothamSSm-Medium.otf"
+          }
         },
         "PlaceholderColor3": {
           "Color3": [
@@ -7137,6 +7176,19 @@
             }
           }
         },
+        "FontFace": {
+          "Name": "FontFace",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Font"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "HeightScale": {
           "Name": "HeightScale",
           "Scriptability": "ReadWrite",
@@ -7258,6 +7310,14 @@
         },
         "Enabled": {
           "Bool": true
+        },
+        "FontFace": {
+          "Font": {
+            "family": "rbxasset://fonts/families/GothamSSm.json",
+            "weight": "Medium",
+            "style": "Normal",
+            "cachedFaceId": "rbxasset://fonts/GothamSSm-Medium.otf"
+          }
         },
         "HeightScale": {
           "Float32": 1.0
@@ -8616,6 +8676,16 @@
         "NotReplicated"
       ],
       "Superclass": "ScriptBuilder",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "CoreScriptDebuggingManagerHelper": {
+      "Name": "CoreScriptDebuggingManagerHelper",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {}
     },
@@ -11819,40 +11889,6 @@
       },
       "DefaultProperties": {}
     },
-    "DynamicTextureAlpha": {
-      "Name": "DynamicTextureAlpha",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "Instance",
-      "Properties": {},
-      "DefaultProperties": {}
-    },
-    "DynamicTextureLayerAlpha": {
-      "Name": "DynamicTextureLayerAlpha",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "Instance",
-      "Properties": {
-        "ZIndex": {
-          "Name": "ZIndex",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Int32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
     "EchoSoundEffect": {
       "Name": "EchoSoundEffect",
       "Tags": [],
@@ -13633,8 +13669,14 @@
             ]
           }
         },
+        "LevelOfDetail": {
+          "Enum": 0
+        },
         "ManualActivationOnly": {
           "Bool": false
+        },
+        "ModelStreamingMode": {
+          "Enum": 0
         },
         "RequiresHandle": {
           "Bool": true
@@ -14609,6 +14651,19 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "Font": {
+          "Name": "Font",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Font"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Size": {
           "Name": "Size",
           "Scriptability": "ReadWrite",
@@ -16824,6 +16879,12 @@
         "BinType": {
           "Enum": 0
         },
+        "LevelOfDetail": {
+          "Enum": 0
+        },
+        "ModelStreamingMode": {
+          "Enum": 0
+        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -18190,9 +18251,7 @@
     },
     "IKControl": {
       "Name": "IKControl",
-      "Tags": [
-        "NotBrowsable"
-      ],
+      "Tags": [],
       "Superclass": "Instance",
       "Properties": {
         "ChainRoot": {
@@ -18278,6 +18337,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "SmoothTime": {
+          "Name": "SmoothTime",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
           },
           "Tags": [],
           "Kind": {
@@ -18387,6 +18459,9 @@
         },
         "Priority": {
           "Int32": 0
+        },
+        "SmoothTime": {
+          "Float32": 0.05
         },
         "SourceAssetId": {
           "Int64": -1
@@ -18809,6 +18884,45 @@
           "Int32": 1
         }
       }
+    },
+    "ImageDataExperimental": {
+      "Name": "ImageDataExperimental",
+      "Tags": [
+        "NotCreatable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Size": {
+          "Name": "Size",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector2"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TemporaryId": {
+          "Name": "TemporaryId",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
     },
     "ImageHandleAdornment": {
       "Name": "ImageHandleAdornment",
@@ -19902,6 +20016,19 @@
             }
           }
         },
+        "RigScale": {
+          "Name": "RigScale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "RigScale"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "RigType": {
           "Name": "RigType",
           "Scriptability": "ReadWrite",
@@ -19920,6 +20047,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Enum": "MeshScaleUnit"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "UseSceneOriginAsCFrame": {
+          "Name": "UseSceneOriginAsCFrame",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
           },
           "Tags": [],
           "Kind": {
@@ -20499,6 +20639,229 @@
         },
         "Value": {
           "Int64": 0
+        }
+      }
+    },
+    "IntersectOperation": {
+      "Name": "IntersectOperation",
+      "Tags": [],
+      "Superclass": "PartOperation",
+      "Properties": {},
+      "DefaultProperties": {
+        "Anchored": {
+          "Bool": false
+        },
+        "AssetId": {
+          "Content": ""
+        },
+        "Attributes": {
+          "BinaryString": ""
+        },
+        "BackParamA": {
+          "Float32": -0.5
+        },
+        "BackParamB": {
+          "Float32": 0.5
+        },
+        "BackSurface": {
+          "Enum": 0
+        },
+        "BackSurfaceInput": {
+          "Enum": 0
+        },
+        "BottomParamA": {
+          "Float32": -0.5
+        },
+        "BottomParamB": {
+          "Float32": 0.5
+        },
+        "BottomSurface": {
+          "Enum": 0
+        },
+        "BottomSurfaceInput": {
+          "Enum": 0
+        },
+        "CFrame": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "CanCollide": {
+          "Bool": true
+        },
+        "CanQuery": {
+          "Bool": true
+        },
+        "CanTouch": {
+          "Bool": true
+        },
+        "CastShadow": {
+          "Bool": true
+        },
+        "CollisionGroup": {
+          "String": "Default"
+        },
+        "CollisionGroupId": {
+          "Int32": 0
+        },
+        "Color": {
+          "Color3uint8": [
+            255,
+            255,
+            255
+          ]
+        },
+        "CustomPhysicalProperties": {
+          "PhysicalProperties": "Default"
+        },
+        "FrontParamA": {
+          "Float32": -0.5
+        },
+        "FrontParamB": {
+          "Float32": 0.5
+        },
+        "FrontSurface": {
+          "Enum": 0
+        },
+        "FrontSurfaceInput": {
+          "Enum": 0
+        },
+        "LeftParamA": {
+          "Float32": -0.5
+        },
+        "LeftParamB": {
+          "Float32": 0.5
+        },
+        "LeftSurface": {
+          "Enum": 0
+        },
+        "LeftSurfaceInput": {
+          "Enum": 0
+        },
+        "Locked": {
+          "Bool": false
+        },
+        "Massless": {
+          "Bool": false
+        },
+        "Material": {
+          "Enum": 256
+        },
+        "PivotOffset": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "Reflectance": {
+          "Float32": 0.0
+        },
+        "RenderFidelity": {
+          "Enum": 1
+        },
+        "RightParamA": {
+          "Float32": -0.5
+        },
+        "RightParamB": {
+          "Float32": 0.5
+        },
+        "RightSurface": {
+          "Enum": 0
+        },
+        "RightSurfaceInput": {
+          "Enum": 0
+        },
+        "RootPriority": {
+          "Int32": 0
+        },
+        "RotVelocity": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Size": {
+          "Vector3": [
+            4.0,
+            1.2,
+            2.0
+          ]
+        },
+        "SmoothingAngle": {
+          "Float32": 0.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
+        },
+        "TopParamA": {
+          "Float32": -0.5
+        },
+        "TopParamB": {
+          "Float32": 0.5
+        },
+        "TopSurface": {
+          "Enum": 0
+        },
+        "TopSurfaceInput": {
+          "Enum": 0
+        },
+        "Transparency": {
+          "Float32": 0.0
+        },
+        "UsePartColor": {
+          "Bool": false
+        },
+        "Velocity": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
         }
       }
     },
@@ -21682,6 +22045,16 @@
           "Bool": false
         }
       }
+    },
+    "LiveScriptingService": {
+      "Name": "LiveScriptingService",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "LocalDebuggerConnection": {
       "Name": "LocalDebuggerConnection",
@@ -23777,6 +24150,22 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "Scale": {
+          "Name": "Scale",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -26724,6 +27113,67 @@
           "Float32": 0.0
         }
       }
+    },
+    "PatchBundlerFileWatch": {
+      "Name": "PatchBundlerFileWatch",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "PatchMapping": {
+      "Name": "PatchMapping",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "FlattenTree": {
+          "Name": "FlattenTree",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PatchId": {
+          "Name": "PatchId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TargetPath": {
+          "Name": "TargetPath",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
     },
     "Path": {
       "Name": "Path",
@@ -29930,6 +30380,22 @@
               "Serialization": "Serializes"
             }
           }
+        },
+        "ServiceVisibility": {
+          "Name": "ServiceVisibility",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "ServiceVisibility"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
@@ -29983,6 +30449,9 @@
         },
         "ServerOnly": {
           "Bool": false
+        },
+        "ServiceVisibility": {
+          "Enum": 0
         },
         "SliderScaling": {
           "String": ""
@@ -31991,6 +32460,16 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "SafetyService": {
+      "Name": "SafetyService",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "ScreenGui": {
       "Name": "ScreenGui",
       "Tags": [],
@@ -33386,6 +33865,16 @@
         }
       }
     },
+    "SelectionHighlightManager": {
+      "Name": "SelectionHighlightManager",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "SelectionLasso": {
       "Name": "SelectionLasso",
       "Tags": [
@@ -33678,6 +34167,17 @@
       "Name": "SessionService",
       "Tags": [
         "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "SharedTableRegistry": {
+      "Name": "SharedTableRegistry",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
         "Service"
       ],
       "Superclass": "Instance",
@@ -34750,6 +35250,17 @@
         }
       }
     },
+    "SmoothVoxelsUpgraderService": {
+      "Name": "SmoothVoxelsUpgraderService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "Snap": {
       "Name": "Snap",
       "Tags": [
@@ -34944,6 +35455,23 @@
             }
           }
         },
+        "IsSpatial": {
+          "Name": "IsSpatial",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "LoopRegion": {
           "Name": "LoopRegion",
           "Scriptability": "ReadWrite",
@@ -35101,6 +35629,23 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "RollOffGain": {
+          "Name": "RollOffGain",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -36747,6 +37292,21 @@
             }
           }
         },
+        "RtlTextSupport": {
+          "Name": "RtlTextSupport",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "RtlTextSupport"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ScreenOrientation": {
           "Name": "ScreenOrientation",
           "Scriptability": "ReadWrite",
@@ -36795,6 +37355,9 @@
         },
         "ResetPlayerGuiOnSpawn": {
           "Bool": true
+        },
+        "RtlTextSupport": {
+          "Enum": 0
         },
         "ScreenOrientation": {
           "Enum": 2
@@ -37991,6 +38554,19 @@
         },
         "Auto Closing Quotes": {
           "Name": "Auto Closing Quotes",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Auto Delete Closing Brackets and Quotes": {
+          "Name": "Auto Delete Closing Brackets and Quotes",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -39825,6 +40401,17 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "StudioSdkService": {
+      "Name": "StudioSdkService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "StudioService": {
       "Name": "StudioService",
       "Tags": [
@@ -40736,6 +41323,69 @@
         }
       }
     },
+    "SyncScriptBuilder": {
+      "Name": "SyncScriptBuilder",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "ScriptBuilder",
+      "Properties": {
+        "CoverageInfo": {
+          "Name": "CoverageInfo",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "DebugInfo": {
+          "Name": "DebugInfo",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PackAsSource": {
+          "Name": "PackAsSource",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RawBytecode": {
+          "Name": "RawBytecode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "TaskScheduler": {
       "Name": "TaskScheduler",
       "Tags": [
@@ -40904,6 +41554,26 @@
           "Int32": 1
         }
       }
+    },
+    "TeamCreateData": {
+      "Name": "TeamCreateData",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "TeamCreatePublishService": {
+      "Name": "TeamCreatePublishService",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "TeamCreateService": {
       "Name": "TeamCreateService",
@@ -41204,6 +41874,21 @@
             }
           }
         },
+        "SmoothVoxelsUpgraded": {
+          "Name": "SmoothVoxelsUpgraded",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "WaterColor": {
           "Name": "WaterColor",
           "Scriptability": "ReadWrite",
@@ -41454,6 +42139,9 @@
             252.0,
             2044.0
           ]
+        },
+        "SmoothVoxelsUpgraded": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -41960,6 +42648,19 @@
             }
           }
         },
+        "FontFace": {
+          "Name": "FontFace",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Font"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "FontSize": {
           "Name": "FontSize",
           "Scriptability": "ReadWrite",
@@ -42417,6 +43118,14 @@
         "Draggable": {
           "Bool": false
         },
+        "FontFace": {
+          "Font": {
+            "family": "rbxasset://fonts/families/LegacyArial.json",
+            "weight": "Regular",
+            "style": "Normal",
+            "cachedFaceId": "rbxasset://fonts/arial.ttf"
+          }
+        },
         "LayoutOrder": {
           "Int32": 0
         },
@@ -42598,6 +43307,19 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "FontFace": {
+          "Name": "FontFace",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Font"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -42932,6 +43654,14 @@
         },
         "Draggable": {
           "Bool": false
+        },
+        "FontFace": {
+          "Font": {
+            "family": "rbxasset://fonts/families/LegacyArial.json",
+            "weight": "Regular",
+            "style": "Normal",
+            "cachedFaceId": "rbxasset://fonts/arial.ttf"
+          }
         },
         "LayoutOrder": {
           "Int32": 0
@@ -43414,6 +44144,19 @@
             }
           }
         },
+        "FontFace": {
+          "Name": "FontFace",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Font"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "FontSize": {
           "Name": "FontSize",
           "Scriptability": "ReadWrite",
@@ -43743,6 +44486,14 @@
         "Draggable": {
           "Bool": false
         },
+        "FontFace": {
+          "Font": {
+            "family": "rbxasset://fonts/families/LegacyArial.json",
+            "weight": "Regular",
+            "style": "Normal",
+            "cachedFaceId": "rbxasset://fonts/arial.ttf"
+          }
+        },
         "LayoutOrder": {
           "Int32": 0
         },
@@ -44011,6 +44762,45 @@
           "Int32": 1
         }
       }
+    },
+    "TextureGuiExperimental": {
+      "Name": "TextureGuiExperimental",
+      "Tags": [
+        "NotCreatable"
+      ],
+      "Superclass": "LayerCollector",
+      "Properties": {
+        "Size": {
+          "Name": "Size",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector2"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TemporaryId": {
+          "Name": "TemporaryId",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
     },
     "ThirdPartyUserService": {
       "Name": "ThirdPartyUserService",
@@ -44317,8 +45107,14 @@
             ]
           }
         },
+        "LevelOfDetail": {
+          "Enum": 0
+        },
         "ManualActivationOnly": {
           "Bool": false
+        },
+        "ModelStreamingMode": {
+          "Enum": 0
         },
         "RequiresHandle": {
           "Bool": true
@@ -47764,6 +48560,19 @@
             }
           }
         },
+        "MouseIcon": {
+          "Name": "MouseIcon",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "MouseIconEnabled": {
           "Name": "MouseIconEnabled",
           "Scriptability": "ReadWrite",
@@ -48009,6 +48818,19 @@
             "NotReplicated",
             "ReadOnly"
           ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "FadeOutViewOnCollision": {
+          "Name": "FadeOutViewOnCollision",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
@@ -50477,21 +51299,6 @@
               "Serialization": "Serializes"
             }
           }
-        },
-        "UnionsScaleNonuniformly": {
-          "Name": "UnionsScaleNonuniformly",
-          "Scriptability": "None",
-          "DataType": {
-            "Enum": "UnionsScaleNonuniformly"
-          },
-          "Tags": [
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
         }
       },
       "DefaultProperties": {
@@ -50579,9 +51386,6 @@
         },
         "TouchesUseCollisionGroups": {
           "Bool": false
-        },
-        "UnionsScaleNonuniformly": {
-          "Enum": 0
         }
       }
     },
@@ -51223,7 +52027,10 @@
       "name": "AssetFetchStatus",
       "items": {
         "Failure": 1,
-        "Success": 0
+        "Loading": 3,
+        "None": 2,
+        "Success": 0,
+        "TimedOut": 4
       }
     },
     "AssetType": {
@@ -51384,6 +52191,13 @@
         "Success": 1
       }
     },
+    "AvatarThumbnailCustomizationType": {
+      "name": "AvatarThumbnailCustomizationType",
+      "items": {
+        "Closeup": 1,
+        "FullBody": 2
+      }
+    },
     "Axis": {
       "name": "Axis",
       "items": {
@@ -51540,13 +52354,25 @@
         "Recommended": 6
       }
     },
+    "CatalogSortAggregation": {
+      "name": "CatalogSortAggregation",
+      "items": {
+        "AllTime": 6,
+        "Past12Hours": 1,
+        "Past3Days": 3,
+        "PastDay": 2,
+        "PastMonth": 5,
+        "PastWeek": 4
+      }
+    },
     "CatalogSortType": {
       "name": "CatalogSortType",
       "items": {
+        "Bestselling": 7,
         "MostFavorited": 5,
         "PriceHighToLow": 2,
         "PriceLowToHigh": 3,
-        "RecentlyUpdated": 4,
+        "RecentlyCreated": 6,
         "Relevance": 1
       }
     },
@@ -51769,6 +52595,7 @@
         "DisconnectOutOfMemory": 286,
         "DisconnectOutOfMemoryExitContinue": 288,
         "DisconnectOutOfMemoryKeepPlayingExit": 289,
+        "DisconnectOutOfMemoryKeepPlayingLeave": 292,
         "DisconnectPlayerless": 271,
         "DisconnectProtocolMismatch": 259,
         "DisconnectRaknetErrors": 279,
@@ -52129,7 +52956,10 @@
     },
     "ExperienceAuthScope": {
       "name": "ExperienceAuthScope",
-      "items": {}
+      "items": {
+        "CreatorAssetsCreate": 1,
+        "DefaultScope": 0
+      }
     },
     "ExplosionType": {
       "name": "ExplosionType",
@@ -53111,6 +53941,7 @@
       "items": {
         "Atomic": 1,
         "Default": 0,
+        "Nonatomic": 4,
         "Persistent": 2,
         "PersistentPerPlayer": 3
       }
@@ -53510,8 +54341,8 @@
     "RaycastFilterType": {
       "name": "RaycastFilterType",
       "items": {
-        "Blacklist": 0,
-        "Whitelist": 1
+        "Exclude": 0,
+        "Include": 1
       }
     },
     "RejectCharacterDeletions": {
@@ -53626,6 +54457,14 @@
         "Ungroup": 8
       }
     },
+    "RigScale": {
+      "name": "RigScale",
+      "items": {
+        "Default": 0,
+        "Rthro": 1,
+        "RthroNarrow": 2
+      }
+    },
     "RigType": {
       "name": "RigType",
       "items": {
@@ -53663,6 +54502,14 @@
         "MovementRelative": 0
       }
     },
+    "RtlTextSupport": {
+      "name": "RtlTextSupport",
+      "items": {
+        "Default": 0,
+        "Disabled": 1,
+        "Enabled": 2
+      }
+    },
     "RunContext": {
       "name": "RunContext",
       "items": {
@@ -53685,6 +54532,14 @@
       "items": {
         "FullscreenExtension": 1,
         "None": 0
+      }
+    },
+    "SalesTypeFilter": {
+      "name": "SalesTypeFilter",
+      "items": {
+        "All": 1,
+        "Collectibles": 2,
+        "Premium": 3
       }
     },
     "SaveAvatarThumbnailCustomizationFailure": {
@@ -53733,7 +54588,15 @@
     },
     "ScopeCheckResult": {
       "name": "ScopeCheckResult",
-      "items": {}
+      "items": {
+        "BackendError": 4,
+        "ConsentAccepted": 0,
+        "InvalidArgument": 6,
+        "InvalidScopes": 1,
+        "NoUserInput": 3,
+        "Timeout": 2,
+        "UnexpectedError": 5
+      }
     },
     "ScreenInsets": {
       "name": "ScreenInsets",
@@ -53782,6 +54645,14 @@
         "Enabled": 0,
         "Muted": 1,
         "OnlineGame": 2
+      }
+    },
+    "ServiceVisibility": {
+      "name": "ServiceVisibility",
+      "items": {
+        "Always": 0,
+        "Off": 1,
+        "WithChildren": 2
       }
     },
     "SignalBehavior": {
@@ -54440,14 +55311,6 @@
       "items": {
         "UiMessageError": 0,
         "UiMessageInfo": 1
-      }
-    },
-    "UnionsScaleNonuniformly": {
-      "name": "UnionsScaleNonuniformly",
-      "items": {
-        "Default": 0,
-        "Disabled": 1,
-        "Enabled": 2
       }
     },
     "UsageContext": {

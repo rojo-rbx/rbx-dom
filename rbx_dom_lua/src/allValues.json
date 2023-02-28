@@ -211,8 +211,8 @@
     "value": {
       "Font": {
         "family": "rbxasset://fonts/families/SourceSansPro.json",
-        "weight": "regular",
-        "style": "normal",
+        "weight": "Regular",
+        "style": "Normal",
         "cachedFaceId": null
       }
     },
