@@ -69,6 +69,7 @@ impl FontStyle {
             _ => FontStyle::Normal,
         }
     }
+
     pub fn to_u8(self) -> u8 {
         match self {
             FontStyle::Normal => 0,
