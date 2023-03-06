@@ -1,21 +1,16 @@
 use std::{borrow::Cow, collections::HashMap, fs, path::Path};
 
 use anyhow::{anyhow, bail, Context};
-use rbx_reflection::{
-    DataType, PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase,
-    Scriptability,
-};
+use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase, Scriptability};
 use serde::Deserialize;
 
 pub struct Patches {
     change: HashMap<String, HashMap<String, PropertyChange>>,
-    add: HashMap<String, HashMap<String, PropertyAdd>>,
 }
 
 impl Patches {
     pub fn load(dir: &Path) -> anyhow::Result<Self> {
         let mut change = HashMap::new();
-        let mut add = HashMap::new();
 
         for entry in fs::read_dir(dir)? {
             let entry = entry?;
@@ -24,10 +19,9 @@ impl Patches {
                 .with_context(|| format!("Error parsing patch file {}", entry.path().display()))?;
 
             change.extend(patch.change);
-            add.extend(patch.add);
         }
 
-        Ok(Self { change, add })
+        Ok(Self { change })
     }
 
     pub fn apply(self, database: &mut ReflectionDatabase) -> anyhow::Result<()> {
@@ -87,40 +81,6 @@ impl Patches {
             }
         }
 
-        for (class_name, class_adds) in &self.add {
-            let class = database
-                .classes
-                .get_mut(class_name.as_str())
-                .ok_or_else(|| {
-                    anyhow!(
-                        "Class {} modified in patch file does not exist in database",
-                        class_name
-                    )
-                })?;
-
-            for (property_name, property_add) in class_adds {
-                if class.properties.contains_key(property_name.as_str()) {
-                    bail!(
-                        "Property {}.{} added in patch file was already present",
-                        class_name,
-                        property_name
-                    );
-                }
-
-                let name = Cow::Owned(property_name.clone());
-                let data_type = property_add.data_type.clone();
-
-                let mut property = PropertyDescriptor::new(name, data_type);
-
-                property.kind = property_add.kind();
-                property.scriptability = property_add.scriptability;
-
-                class
-                    .properties
-                    .insert(Cow::Owned(property_name.clone()), property);
-            }
-        }
-
         Ok(())
     }
 }
@@ -130,9 +90,6 @@ impl Patches {
 struct Patch {
     #[serde(default)]
     change: HashMap<String, HashMap<String, PropertyChange>>,
-
-    #[serde(default)]
-    add: HashMap<String, HashMap<String, PropertyAdd>>,
 }
 
 #[derive(Deserialize)]
@@ -157,31 +114,6 @@ impl PropertyChange {
             (None, None) => None,
 
             _ => panic!("property changes cannot specify AliasFor and Serialization"),
-        }
-    }
-}
-
-#[derive(Deserialize)]
-#[serde(rename_all = "PascalCase", deny_unknown_fields)]
-struct PropertyAdd {
-    data_type: DataType<'static>,
-    alias_for: Option<String>,
-    serialization: Option<Serialization>,
-    scriptability: Scriptability,
-}
-
-impl PropertyAdd {
-    fn kind(&self) -> PropertyKind<'static> {
-        match (&self.alias_for, &self.serialization) {
-            (Some(alias), None) => PropertyKind::Alias {
-                alias_for: Cow::Owned(alias.clone()),
-            },
-
-            (None, Some(serialization)) => PropertyKind::Canonical {
-                serialization: serialization.clone().into(),
-            },
-
-            _ => panic!("property additions must specify AliasFor xor Serialization"),
         }
     }
 }
