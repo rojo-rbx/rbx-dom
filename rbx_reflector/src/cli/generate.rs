@@ -15,7 +15,7 @@ use rbx_reflection::{
 use rbx_types::VariantType;
 
 use crate::{
-    api_dump::{Dump, DumpClassMember, Security, ValueCategory},
+    api_dump::{Dump, DumpClassMember, Security, Tag, ValueCategory},
     defaults::apply_defaults,
     patches::Patches,
     plugin_injector::PluginInjector,
@@ -98,7 +98,9 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
 
         let mut tags = HashSet::new();
         for dump_tag in &dump_class.tags {
-            tags.insert(dump_tag.parse().unwrap());
+            if let Tag::Regular(tag) = dump_tag {
+                tags.insert(tag.parse().unwrap());
+            }
         }
 
         let mut properties = HashMap::new();
@@ -107,7 +109,9 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
             if let DumpClassMember::Property(dump_property) = member {
                 let mut tags = HashSet::new();
                 for dump_tag in &dump_property.tags {
-                    tags.insert(dump_tag.parse().unwrap());
+                    if let Tag::Regular(tag) = dump_tag {
+                        tags.insert(tag.parse().unwrap());
+                    }
                 }
 
                 let read_scriptability = match dump_property.security.read {
@@ -204,6 +208,7 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "BrickColor" => VariantType::BrickColor,
         "CFrame" => VariantType::CFrame,
         "Color3" => VariantType::Color3,
+        "Color3uint8" => VariantType::Color3uint8,
         "ColorSequence" => VariantType::ColorSequence,
         "Content" => VariantType::Content,
         "Faces" => VariantType::Faces,
@@ -215,12 +220,14 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "Rect" => VariantType::Rect,
         "Region3" => VariantType::Region3,
         "Region3int16" => VariantType::Region3int16,
+        "SharedString" => VariantType::SharedString,
         "UDim" => VariantType::UDim,
         "UDim2" => VariantType::UDim2,
         "Vector2" => VariantType::Vector2,
         "Vector2int16" => VariantType::Vector2int16,
         "Vector3" => VariantType::Vector3,
         "Vector3int16" => VariantType::Vector3int16,
+        "OptionalCoordinateFrame" => VariantType::OptionalCFrame,
         "bool" => VariantType::Bool,
         "double" => VariantType::Float64,
         "float" => VariantType::Float32,
@@ -243,7 +250,7 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "DateTime" => return Ok(None),
 
         // These types are not generally implemented right now.
-        "QDir" | "QFont" => return Ok(None),
+        "QDir" | "QFont" | "UniqueId" | "SystemAddress" | "CSGPropertyData" => return Ok(None),
 
         _ => bail!("Unknown type {}", value),
     }))

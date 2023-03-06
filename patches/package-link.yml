@@ -1,14 +1,8 @@
-Add:
-  PackageLink:
-    PackageIdSerialize:
-      DataType:
-        Value: Content
-      Scriptability: None
-      AliasFor: PackageId
-
 Change:
   PackageLink:
     PackageId:
       Serialization:
         Type: SerializesAs
         As: PackageIdSerialize
+    PackageIdSerialize:
+      AliasFor: PackageId

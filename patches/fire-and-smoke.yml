@@ -1,36 +1,3 @@
-Add:
-  Fire:
-    heat_xml:
-      DataType:
-        Value: Float32
-      AliasFor: Heat
-      Scriptability: None
-
-    size_xml:
-      DataType:
-        Value: Float32
-      AliasFor: Size
-      Scriptability: None
-
-  Smoke:
-    opacity_xml:
-      DataType:
-        Value: Float32
-      AliasFor: Opacity
-      Scriptability: None
-
-    size_xml:
-      DataType:
-        Value: Float32
-      AliasFor: Size
-      Scriptability: None
-
-    riseVelocity_xml:
-      DataType:
-        Value: Float32
-      AliasFor: RiseVelocity
-      Scriptability: None
-
 Change:
   Fire:
     Size:
@@ -39,24 +6,34 @@ Change:
         As: size_xml
     size:
       AliasFor: Size
+    size_xml:
+      AliasFor: Size
 
     Heat:
       Serialization:
         Type: SerializesAs
         As: heat_xml
+    heat_xml:
+      AliasFor: Heat
 
   Smoke:
     Opacity:
       Serialization:
         Type: SerializesAs
         As: opacity_xml
+    opacity_xml:
+      AliasFor: Opacity
 
     Size:
       Serialization:
         Type: SerializesAs
         As: size_xml
+    size_xml:
+      AliasFor: Size
 
     RiseVelocity:
       Serialization:
         Type: SerializesAs
         As: riseVelocity_xml
+    riseVelocity_xml:
+      AliasFor: RiseVelocity

@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -14,7 +16,7 @@ pub struct DumpClass {
     pub superclass: String,
 
     #[serde(default)]
-    pub tags: Vec<String>,
+    pub tags: Vec<Tag>,
     pub members: Vec<DumpClassMember>,
 }
 
@@ -33,8 +35,10 @@ pub enum DumpClassMember {
         name: String,
     },
 
-    #[serde(other)]
-    Unknown,
+    #[serde(rename_all = "PascalCase")]
+    Callback {
+        name: String,
+    },
 }
 
 #[derive(Debug, Deserialize)]
@@ -46,7 +50,7 @@ pub struct DumpClassProperty {
     pub security: PropertySecurity,
 
     #[serde(default)]
-    pub tags: Vec<String>,
+    pub tags: Vec<Tag>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -108,4 +112,11 @@ pub struct DumpEnum {
 pub struct DumpEnumItem {
     pub name: String,
     pub value: u32,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+pub enum Tag {
+    Regular(String),
+    Named(HashMap<String, String>),
 }

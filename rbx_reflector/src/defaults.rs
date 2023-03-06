@@ -15,7 +15,7 @@ pub fn apply_defaults(
     database: &mut ReflectionDatabase,
     defaults_place: &PathBuf,
 ) -> anyhow::Result<()> {
-    let file = BufReader::new(File::open(defaults_place)?);
+    let file = BufReader::new(File::open(defaults_place).context("Could not find defaults place")?);
 
     let decode_options = rbx_xml::DecodeOptions::new()
         .property_behavior(rbx_xml::DecodePropertyBehavior::IgnoreUnknown);

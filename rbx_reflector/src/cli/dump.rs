@@ -22,7 +22,7 @@ impl DumpSubcommand {
             RobloxStudio::locate().context("Could not locate Roblox Studio install")?;
 
         Command::new(studio_install.application_path())
-            .arg("-API")
+            .arg("-FullAPI")
             .arg(&self.output)
             .status()?;
 
