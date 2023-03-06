@@ -10,6 +10,8 @@ Change:
     # Attributes serialize as a BinaryString with a strange name, but we want to
     # refer to them with a different name.
     Attributes:
+      DataType:
+        Value: "Attributes"
       Serialization:
         Type: SerializesAs
         As: AttributesSerialize
@@ -21,4 +23,6 @@ Change:
       AliasFor: ClassName
 
     Tags:
+      DataType:
+        Value: "Tags"
       Scriptability: Custom

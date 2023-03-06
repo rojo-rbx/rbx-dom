@@ -1,7 +1,9 @@
 use std::{borrow::Cow, collections::HashMap, fs, path::Path};
 
 use anyhow::{anyhow, bail, Context};
-use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase, Scriptability};
+use rbx_reflection::{
+    DataType, PropertyKind, PropertySerialization, ReflectionDatabase, Scriptability,
+};
 use serde::Deserialize;
 
 pub struct Patches {
@@ -47,6 +49,10 @@ impl Patches {
                             property_name
                         )
                     })?;
+
+                if let Some(data_type) = &property_change.data_type {
+                    existing_property.data_type = data_type.clone();
+                }
 
                 if let Some(kind) = property_change.kind() {
                     if let (
@@ -95,6 +101,7 @@ struct Patch {
 #[derive(Deserialize)]
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
 struct PropertyChange {
+    data_type: Option<DataType<'static>>,
     alias_for: Option<String>,
     serialization: Option<Serialization>,
     scriptability: Option<Scriptability>,
