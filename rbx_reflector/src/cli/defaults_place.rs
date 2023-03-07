@@ -4,14 +4,19 @@ use std::{
     path::PathBuf,
     process::Command,
     sync::mpsc,
+    time::Duration,
 };
 
 use anyhow::{bail, Context};
 use clap::Parser;
+use innerput::{Innerput, Key, Keyboard};
 use notify::{Config, RecommendedWatcher, RecursiveMode, Watcher};
 use roblox_install::RobloxStudio;
+use tiny_http::Response;
 
 use crate::api_dump::Dump;
+
+static PLUGIN_SOURCE: &str = include_str!("../../plugin.lua");
 
 /// Generate a place file with all classes and their default properties.
 #[derive(Debug, Parser)]
@@ -45,15 +50,36 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
 
     println!("Starting Roblox Studio...");
 
+    let plugin_injector = PluginInjector::start(&studio_install)?;
+
     let mut studio_process = Command::new(studio_install.application_path())
         .arg(path)
         .spawn()?;
 
-    println!("Please save the opened place in Roblox Studio (ctrl+s).");
+    println!("Waiting for Roblox Studio to re-save place...");
+
+    plugin_injector.wait_for_response()?;
 
     let (tx, rx) = mpsc::channel();
     let mut watcher = RecommendedWatcher::new(tx, Config::default())?;
     watcher.watch(path, RecursiveMode::NonRecursive)?;
+
+    #[cfg(target_os = "windows")]
+    {
+        let did_send_chord =
+            Innerput::new().send_chord(&[Key::Control, Key::Char('s')], &studio_process);
+
+        match did_send_chord {
+            Ok(()) => (),
+            Err(err) => {
+                println!("{err}");
+                println!("Failed to send key chord to Roblox Studio. Please save the opened place manually (ctrl+s).")
+            }
+        }
+    }
+
+    #[cfg(not(target_os = "windows"))]
+    println!("Please save the opened place in Roblox Studio (ctrl+s).");
 
     loop {
         if rx.recv()??.kind.is_create() {
@@ -80,7 +106,8 @@ fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Resul
         match &*class.name {
             // These classes can't be put into place files by default.
             "DebuggerWatch" | "DebuggerBreakpoint" | "AdvancedDragger" | "Dragger"
-            | "ScriptDebugger" | "PackageLink" | "Ad" | "AdPortal" | "AdGui" => continue,
+            | "ScriptDebugger" | "PackageLink" | "Ad" | "AdPortal" | "AdGui"
+            | "InternalSyncItem" => continue,
 
             // This class will cause studio to crash on close.
             "VoiceSource" => continue,
@@ -163,5 +190,49 @@ impl fmt::Display for Instance<'_> {
         writeln!(f, "</Item>")?;
 
         Ok(())
+    }
+}
+
+pub struct PluginInjector<'a> {
+    http_server: tiny_http::Server,
+    studio_install: &'a RobloxStudio,
+}
+
+impl<'a> PluginInjector<'a> {
+    pub fn start(studio_install: &'a RobloxStudio) -> anyhow::Result<Self> {
+        let http_server = tiny_http::Server::http("0.0.0.0:22073").unwrap();
+
+        let plugin_path = studio_install
+            .plugins_path()
+            .join("RbxDomDefaultsPlacePlugin.lua");
+
+        fs::write(plugin_path, PLUGIN_SOURCE)?;
+
+        Ok(Self {
+            http_server,
+            studio_install,
+        })
+    }
+
+    pub fn wait_for_response(self) -> anyhow::Result<()> {
+        let request = match self.http_server.recv_timeout(Duration::from_secs(30))? {
+            Some(request) => request,
+            None => bail!("Plugin did not send a response within 30 seconds"),
+        };
+
+        request.respond(Response::empty(200))?;
+
+        Ok(())
+    }
+}
+
+impl<'a> Drop for PluginInjector<'a> {
+    fn drop(&mut self) {
+        let plugin_path = self
+            .studio_install
+            .plugins_path()
+            .join("RbxDomDefaultsPlacePlugin.lua");
+
+        fs::remove_file(plugin_path).unwrap();
     }
 }
