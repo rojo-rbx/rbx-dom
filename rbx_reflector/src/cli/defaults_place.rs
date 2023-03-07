@@ -48,15 +48,15 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
     let studio_install =
         RobloxStudio::locate().context("Could not locate Roblox Studio install")?;
 
-    println!("Starting Roblox Studio...");
-
     let plugin_injector = PluginInjector::start(&studio_install)?;
+
+    log::info!("Starting Roblox Studio...");
 
     let mut studio_process = Command::new(studio_install.application_path())
         .arg(path)
         .spawn()?;
 
-    println!("Waiting for Roblox Studio to re-save place...");
+    log::info!("Waiting for Roblox Studio to re-save place...");
 
     plugin_injector.wait_for_response()?;
 
@@ -66,15 +66,12 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
 
     #[cfg(target_os = "windows")]
     {
-        let did_send_chord =
-            Innerput::new().send_chord(&[Key::Control, Key::Char('s')], &studio_process);
+        let result = Innerput::new().send_chord(&[Key::Control, Key::Char('s')], &studio_process);
 
-        match did_send_chord {
-            Ok(()) => (),
-            Err(err) => {
-                println!("{err}");
-                println!("Failed to send key chord to Roblox Studio. Please save the opened place manually (ctrl+s).")
-            }
+        if let Err(err) = result {
+            log::error!("{err}");
+
+            println!("Failed to send key chord to Roblox Studio. Please save the opened place manually (ctrl+s).")
         }
     }
 
@@ -87,7 +84,7 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
         }
     }
 
-    println!("Place saved, killing Studio...");
+    log::info!("Place saved, killing Studio...");
 
     // TODO: This will cause studio to leave behind a .rbxlx.lock file.
     studio_process.kill()?;
@@ -202,6 +199,8 @@ impl<'a> PluginInjector<'a> {
     pub fn start(studio_install: &'a RobloxStudio) -> anyhow::Result<Self> {
         let http_server = tiny_http::Server::http("0.0.0.0:22073").unwrap();
 
+        log::info!("Installing Studio plugin");
+
         let plugin_path = studio_install
             .plugins_path()
             .join("RbxDomDefaultsPlacePlugin.lua");
@@ -228,6 +227,8 @@ impl<'a> PluginInjector<'a> {
 
 impl<'a> Drop for PluginInjector<'a> {
     fn drop(&mut self) {
+        log::info!("Uninstalling Studio plugin");
+
         let plugin_path = self
             .studio_install
             .plugins_path()

@@ -10,7 +10,13 @@ use crate::cli::Args;
 
 fn main() {
     let args = Args::parse();
-    println!("{args:?}");
+
+    let log_env = env_logger::Env::default().default_filter_or("info");
+
+    env_logger::Builder::from_env(log_env)
+        .format_module_path(false)
+        .format_timestamp(None)
+        .init();
 
     if let Err(err) = args.run() {
         eprintln!("Error: {:?}", err);

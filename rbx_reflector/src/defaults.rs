@@ -48,7 +48,7 @@ fn apply_instance_defaults(database: &mut ReflectionDatabase, instance: &Instanc
     let class = match database.classes.get_mut(instance.class.as_str()) {
         Some(class_descriptor) => class_descriptor,
         None => {
-            println!(
+            log::warn!(
                 "Class {} found in default place but not reflection database",
                 instance.class
             );
