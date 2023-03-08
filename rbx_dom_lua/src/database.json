@@ -24321,7 +24321,7 @@
         },
         "Scale": {
           "Name": "Scale",
-          "Scriptability": "None",
+          "Scriptability": "Custom",
           "DataType": {
             "Value": "Float32"
           },

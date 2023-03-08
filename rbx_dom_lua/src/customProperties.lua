@@ -63,9 +63,8 @@ return {
 	},
 	Model = {
 		Scale = {
-			read = function()
-				-- There is no way to return the scale at the moment
-				return false
+			read = function(instance, _, _)
+				return true, instance:GetScale()
 			end,
 			write = function(instance, _, value)
 				return true, instance:ScaleTo(value)
