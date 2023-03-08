@@ -20,8 +20,8 @@ pub fn apply_defaults(
     let decode_options = rbx_xml::DecodeOptions::new()
         .property_behavior(rbx_xml::DecodePropertyBehavior::IgnoreUnknown);
 
-    let tree = rbx_xml::from_reader(file, database, decode_options)
-        .context("Could not decode defaults place")?;
+    let tree =
+        rbx_xml::from_reader(file, decode_options).context("Could not decode defaults place")?;
 
     let mut found_classes = HashSet::new();
     let mut to_visit = VecDeque::from_iter(tree.root().children());

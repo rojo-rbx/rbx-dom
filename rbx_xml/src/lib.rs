@@ -120,7 +120,6 @@ mod test_util;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::{types::Ref, WeakDom};
-use rbx_reflection::ReflectionDatabase;
 
 use crate::{deserializer::decode_internal, serializer::encode_internal};
 
@@ -132,43 +131,25 @@ pub use crate::{
 
 /// Decodes an XML-format model or place from something that implements the
 /// `std::io::Read` trait.
-pub fn from_reader<R: Read>(
-    reader: R,
-    database: &ReflectionDatabase,
-    options: DecodeOptions,
-) -> Result<WeakDom, DecodeError> {
-    decode_internal(reader, database, options)
+pub fn from_reader<R: Read>(reader: R, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
+    decode_internal(reader, options)
 }
 
 /// Decodes an XML-format model or place from something that implements the
 /// `std::io::Read` trait using the default decoder options.
-pub fn from_reader_default<R: Read>(
-    reader: R,
-    database: &ReflectionDatabase,
-) -> Result<WeakDom, DecodeError> {
-    decode_internal(reader, database, DecodeOptions::default())
+pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
+    decode_internal(reader, DecodeOptions::default())
 }
 
 /// Decodes an XML-format model or place from a string.
-pub fn from_str<S: AsRef<str>>(
-    reader: S,
-    database: &ReflectionDatabase,
-    options: DecodeOptions,
-) -> Result<WeakDom, DecodeError> {
-    decode_internal(reader.as_ref().as_bytes(), database, options)
+pub fn from_str<S: AsRef<str>>(reader: S, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
+    decode_internal(reader.as_ref().as_bytes(), options)
 }
 
 /// Decodes an XML-format model or place from a string using the default decoder
 /// options.
-pub fn from_str_default<S: AsRef<str>>(
-    reader: S,
-    database: &ReflectionDatabase,
-) -> Result<WeakDom, DecodeError> {
-    decode_internal(
-        reader.as_ref().as_bytes(),
-        database,
-        DecodeOptions::default(),
-    )
+pub fn from_str_default<S: AsRef<str>>(reader: S) -> Result<WeakDom, DecodeError> {
+    decode_internal(reader.as_ref().as_bytes(), DecodeOptions::default())
 }
 
 /// Serializes a subset of the given tree to an XML format model or place,
@@ -177,10 +158,9 @@ pub fn to_writer<W: Write>(
     writer: W,
     tree: &WeakDom,
     ids: &[Ref],
-    database: &ReflectionDatabase,
     options: EncodeOptions,
 ) -> Result<(), EncodeError> {
-    encode_internal(writer, tree, ids, database, options)
+    encode_internal(writer, tree, ids, options)
 }
 
 /// Serializes a subset of the given tree to an XML format model or place,
@@ -190,7 +170,6 @@ pub fn to_writer_default<W: Write>(
     writer: W,
     tree: &WeakDom,
     ids: &[Ref],
-    database: &ReflectionDatabase,
 ) -> Result<(), EncodeError> {
-    encode_internal(writer, tree, ids, database, EncodeOptions::default())
+    encode_internal(writer, tree, ids, EncodeOptions::default())
 }

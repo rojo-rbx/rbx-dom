@@ -7,7 +7,7 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
     WeakDom,
 };
-use rbx_reflection::{DataType, ReflectionDatabase};
+use rbx_reflection::DataType;
 
 use crate::{
     conversion::ConvertVariant,
@@ -22,7 +22,6 @@ pub fn encode_internal<W: Write>(
     output: W,
     tree: &WeakDom,
     ids: &[Ref],
-    database: &ReflectionDatabase,
     options: EncodeOptions,
 ) -> Result<(), NewEncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
@@ -32,14 +31,7 @@ pub fn encode_internal<W: Write>(
 
     let mut property_buffer = Vec::new();
     for id in ids {
-        serialize_instance(
-            &mut writer,
-            &mut state,
-            tree,
-            *id,
-            &mut property_buffer,
-            database,
-        )?;
+        serialize_instance(&mut writer, &mut state, tree, *id, &mut property_buffer)?;
     }
 
     serialize_shared_strings(&mut writer, &mut state)?;
@@ -164,7 +156,6 @@ fn serialize_instance<'a, W: Write>(
     tree: &'a WeakDom,
     id: Ref,
     property_buffer: &mut Vec<(&'a String, &'a Variant)>,
-    database: &ReflectionDatabase,
 ) -> Result<(), NewEncodeError> {
     let instance = tree.get_by_ref(id).unwrap();
     let mapped_id = state.map_id(id);
@@ -191,7 +182,7 @@ fn serialize_instance<'a, W: Write>(
 
     for (property_name, value) in property_buffer.drain(..) {
         let maybe_serialized_descriptor = if state.options.use_reflection() {
-            find_serialized_property_descriptor(&instance.class, property_name, database)
+            find_serialized_property_descriptor(&instance.class, property_name)
         } else {
             None
         };
@@ -241,7 +232,7 @@ fn serialize_instance<'a, W: Write>(
     writer.write(XmlWriteEvent::end_element())?;
 
     for child_id in instance.children() {
-        serialize_instance(writer, state, tree, *child_id, property_buffer, database)?;
+        serialize_instance(writer, state, tree, *child_id, property_buffer)?;
     }
 
     writer.write(XmlWriteEvent::end_element())?;
