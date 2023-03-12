@@ -870,8 +870,8 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
                         let family = chunk.read_string()?;
-                        let weight = FontWeight::from_u16(chunk.read_le_u16()?);
-                        let style = FontStyle::from_u8(chunk.read_u8()?);
+                        let weight = FontWeight::from_u16(chunk.read_le_u16()?).unwrap_or_default();
+                        let style = FontStyle::from_u8(chunk.read_u8()?).unwrap_or_default();
                         let cached_face_id = chunk.read_string()?;
 
                         let cached_face_id = if cached_face_id.is_empty() {

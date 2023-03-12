@@ -107,7 +107,7 @@ impl XmlType for Font {
         let family = read_content(reader, "Family")?;
 
         let weight: u16 = reader.read_value_in_tag("Weight")?;
-        let weight = FontWeight::from_u16(weight);
+        let weight = FontWeight::from_u16(weight).unwrap_or_default();
 
         let style = match reader.read_tag_contents("Style")?.as_str() {
             "Normal" => FontStyle::Normal,
