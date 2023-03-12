@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    564,
-    1,
-    5640444
+    566,
+    0,
+    5660545
   ],
   "Classes": {
     "Accessory": {
@@ -1012,6 +1012,22 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "Guid": {
+          "Name": "Guid",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "Loop": {
           "Name": "Loop",
           "Scriptability": "ReadWrite",
@@ -1464,6 +1480,23 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {
+        "EvaluationThrottled": {
+          "Name": "EvaluationThrottled",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotBrowsable",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "PreferLodEnabled": {
           "Name": "PreferLodEnabled",
           "Scriptability": "ReadWrite",
@@ -6045,6 +6078,61 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "BuoyancySensor": {
+      "Name": "BuoyancySensor",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "SensorBase",
+      "Properties": {
+        "FullySubmerged": {
+          "Name": "FullySubmerged",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TouchingSurface": {
+          "Name": "TouchingSurface",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "BinaryString": ""
+        },
+        "FullySubmerged": {
+          "Bool": false
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
+        },
+        "TouchingSurface": {
+          "Bool": false
+        },
+        "UpdateType": {
+          "Enum": 0
+        }
+      }
+    },
     "CFrameValue": {
       "Name": "CFrameValue",
       "Tags": [],
@@ -8517,11 +8605,37 @@
             }
           }
         },
+        "ClimbSensor": {
+          "Name": "ClimbSensor",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "FacingDirection": {
           "Name": "FacingDirection",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "GroundSensor": {
+          "Name": "GroundSensor",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
           },
           "Tags": [],
           "Kind": {
@@ -8575,6 +8689,142 @@
           "BinaryString": ""
         }
       }
+    },
+    "ControllerPartSensor": {
+      "Name": "ControllerPartSensor",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "ControllerSensor",
+      "Properties": {
+        "HitFrame": {
+          "Name": "HitFrame",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "HitNormal": {
+          "Name": "HitNormal",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "SearchDistance": {
+          "Name": "SearchDistance",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "SensedPart": {
+          "Name": "SensedPart",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "SensorMode": {
+          "Name": "SensorMode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "SensorMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "BinaryString": ""
+        },
+        "HitFrame": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "HitNormal": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "SearchDistance": {
+          "Float32": 0.0
+        },
+        "SensorMode": {
+          "Enum": 0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
+        },
+        "UpdateType": {
+          "Enum": 0
+        }
+      }
+    },
+    "ControllerSensor": {
+      "Name": "ControllerSensor",
+      "Tags": [
+        "NotCreatable"
+      ],
+      "Superclass": "SensorBase",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "ControllerService": {
       "Name": "ControllerService",
@@ -13240,6 +13490,16 @@
         }
       }
     },
+    "FacialAnimationStreamingServiceStats": {
+      "Name": "FacialAnimationStreamingServiceStats",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "FacialAnimationStreamingServiceV2": {
       "Name": "FacialAnimationStreamingServiceV2",
       "Tags": [
@@ -13264,20 +13524,7 @@
           }
         }
       },
-      "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
-        "ServiceState": {
-          "Int32": 0
-        },
-        "SourceAssetId": {
-          "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
-        }
-      }
+      "DefaultProperties": {}
     },
     "Feature": {
       "Name": "Feature",
@@ -19919,6 +20166,19 @@
             }
           }
         },
+        "ExistingPackageId": {
+          "Name": "ExistingPackageId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "FileDimensions": {
           "Name": "FileDimensions",
           "Scriptability": "Read",
@@ -19937,6 +20197,19 @@
         },
         "ImportAsModelAsset": {
           "Name": "ImportAsModelAsset",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ImportAsPackage": {
+          "Name": "ImportAsPackage",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -22654,6 +22927,27 @@
       "Tags": [
         "NotCreatable",
         "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "MaterialGenerationService": {
+      "Name": "MaterialGenerationService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "MaterialGenerationSession": {
+      "Name": "MaterialGenerationSession",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
       ],
       "Superclass": "Instance",
       "Properties": {},
@@ -33751,6 +34045,21 @@
               "Serialization": "DoesNotSerialize"
             }
           }
+        },
+        "ShowBoundingBox": {
+          "Name": "ShowBoundingBox",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
         }
       },
       "DefaultProperties": {
@@ -34080,6 +34389,29 @@
           "Bool": true
         }
       }
+    },
+    "SensorBase": {
+      "Name": "SensorBase",
+      "Tags": [
+        "NotCreatable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "UpdateType": {
+          "Name": "UpdateType",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "SensorUpdateType"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
     },
     "ServerReplicator": {
       "Name": "ServerReplicator",
@@ -48338,6 +48670,22 @@
             }
           }
         },
+        "VRPlayMode": {
+          "Name": "VRPlayMode",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "VRPlayMode"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "VRRotationIntensity": {
           "Name": "VRRotationIntensity",
           "Scriptability": "None",
@@ -50849,7 +51197,21 @@
       "Name": "WireframeHandleAdornment",
       "Tags": [],
       "Superclass": "HandleAdornment",
-      "Properties": {},
+      "Properties": {
+        "Scale": {
+          "Name": "Scale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
       "DefaultProperties": {
         "AdornCullingMode": {
           "Enum": 0
@@ -50893,6 +51255,13 @@
             0.6745098
           ]
         },
+        "Scale": {
+          "Vector3": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
         "SizeRelativeOffset": {
           "Vector3": [
             0.0,
@@ -50933,21 +51302,6 @@
           },
           "Tags": [
             "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "AnimationWeightedBlendFix": {
-          "Name": "AnimationWeightedBlendFix",
-          "Scriptability": "None",
-          "DataType": {
-            "Enum": "NewAnimationRuntimeSetting"
-          },
-          "Tags": [
-            "NotScriptable"
           ],
           "Kind": {
             "Canonical": {
@@ -51304,9 +51658,6 @@
       "DefaultProperties": {
         "AllowThirdPartySales": {
           "Bool": false
-        },
-        "AnimationWeightedBlendFix": {
-          "Enum": 0
         },
         "Attributes": {
           "BinaryString": ""
@@ -51899,6 +52250,16 @@
       "name": "AdShape",
       "items": {
         "HorizontalRectangle": 1
+      }
+    },
+    "AdTeleportMethod": {
+      "name": "AdTeleportMethod",
+      "items": {
+        "InGameMenuBackButton": 3,
+        "PortalForward": 1,
+        "PortalReturn": 2,
+        "UIBackButton": 4,
+        "Undefined": 0
       }
     },
     "AdornCullingMode": {
@@ -52689,6 +53050,14 @@
     "CreatorType": {
       "name": "CreatorType",
       "items": {
+        "Group": 1,
+        "User": 0
+      }
+    },
+    "CreatorTypeFilter": {
+      "name": "CreatorTypeFilter",
+      "items": {
+        "All": 2,
         "Group": 1,
         "User": 0
       }
@@ -53746,14 +54115,6 @@
         "Right": 2
       }
     },
-    "LevelOfDetailSetting": {
-      "name": "LevelOfDetailSetting",
-      "items": {
-        "High": 2,
-        "Low": 0,
-        "Medium": 1
-      }
-    },
     "Limb": {
       "name": "Limb",
       "items": {
@@ -53973,6 +54334,13 @@
         "Stopping": 3
       }
     },
+    "MuteState": {
+      "name": "MuteState",
+      "items": {
+        "Muted": 1,
+        "Unmuted": 0
+      }
+    },
     "NameOcclusion": {
       "name": "NameOcclusion",
       "items": {
@@ -53987,14 +54355,6 @@
         "Automatic": 0,
         "Manual": 1,
         "OnContact": 2
-      }
-    },
-    "NewAnimationRuntimeSetting": {
-      "name": "NewAnimationRuntimeSetting",
-      "items": {
-        "Default": 0,
-        "Disabled": 1,
-        "Enabled": 2
       }
     },
     "NormalId": {
@@ -54591,6 +54951,7 @@
       "items": {
         "BackendError": 4,
         "ConsentAccepted": 0,
+        "ConsentDenied": 7,
         "InvalidArgument": 6,
         "InvalidScopes": 1,
         "NoUserInput": 3,
@@ -54637,6 +54998,20 @@
       "items": {
         "Escape": 0,
         "Stop": 1
+      }
+    },
+    "SensorMode": {
+      "name": "SensorMode",
+      "items": {
+        "Floor": 0,
+        "Ladder": 1
+      }
+    },
+    "SensorUpdateType": {
+      "name": "SensorUpdateType",
+      "items": {
+        "Manual": 1,
+        "OnRead": 0
       }
     },
     "ServerAudioBehavior": {
@@ -55284,6 +55659,12 @@
         "Video": 2
       }
     },
+    "TrackerPromptEvent": {
+      "name": "TrackerPromptEvent",
+      "items": {
+        "LODCameraRecommendDisable": 0
+      }
+    },
     "TriStateBoolean": {
       "name": "TriStateBoolean",
       "items": {
@@ -55323,6 +55704,7 @@
     "UserCFrame": {
       "name": "UserCFrame",
       "items": {
+        "Floor": 3,
         "Head": 0,
         "LeftHand": 1,
         "RightHand": 2
@@ -55362,6 +55744,13 @@
         "None": 22,
         "TextInput": 20,
         "Touch": 7
+      }
+    },
+    "VRPlayMode": {
+      "name": "VRPlayMode",
+      "items": {
+        "Seated": 0,
+        "Standing": 1
       }
     },
     "VRSessionState": {
