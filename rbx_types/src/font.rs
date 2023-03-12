@@ -102,3 +102,20 @@ impl Default for Font {
         }
     }
 }
+
+impl Font {
+    pub fn new(family: &str, weight: FontWeight, style: FontStyle) -> Self {
+        Self {
+            family: family.to_owned(),
+            weight,
+            style,
+            cached_face_id: None,
+        }
+    }
+    pub fn regular(family: &str) -> Self {
+        Self {
+            family: family.to_owned(),
+            ..Default::default()
+        }
+    }
+}

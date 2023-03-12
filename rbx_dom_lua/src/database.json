@@ -32806,7 +32806,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "Migrate": {
+                  "Property": "ScreenInsets",
+                  "Migration": "IgnoreGuiInsetToScreenInsets"
+                }
+              }
             }
           }
         },
@@ -42976,7 +42981,12 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "Migrate": {
+                  "Property": "FontFace",
+                  "Migration": "FontToFontFace"
+                }
+              }
             }
           }
         },
@@ -43638,7 +43648,12 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "Migrate": {
+                  "Property": "FontFace",
+                  "Migration": "FontToFontFace"
+                }
+              }
             }
           }
         },
@@ -44472,7 +44487,12 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "Migrate": {
+                  "Property": "FontFace",
+                  "Migration": "FontToFontFace"
+                }
+              }
             }
           }
         },

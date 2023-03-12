@@ -10,7 +10,7 @@ use std::{
 use rbx_types::{Variant, VariantType};
 use serde::{Deserialize, Serialize};
 
-use crate::{ClassTag, PropertyTag};
+use crate::{ClassTag, PropertyMigration, PropertyTag};
 
 /// Contains information extracted from Roblox to describe all known Instances
 /// and enums.
@@ -145,6 +145,15 @@ pub enum PropertySerialization<'a> {
     /// The property aliases a property with the given name and should serialize
     /// from that property descriptor instead.
     SerializesAs(Cow<'a, str>),
+
+    /// The property was originally serialized as itself, but should be migrated
+    /// to a new property on deserialization. If the new property already
+    /// exists, this property should be ignored.
+    #[serde(rename_all = "PascalCase")]
+    Migrate {
+        property: Cow<'a, str>,
+        migration: PropertyMigration,
+    },
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
