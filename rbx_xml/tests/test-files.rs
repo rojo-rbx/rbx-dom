@@ -28,6 +28,7 @@ test_models! {
     ball_socket_constraint: "models/ball-socket-constraint",
     default_inserted_folder: "models/default-inserted-folder",
     default_inserted_part: "models/default-inserted-part",
+    gui_inset_and_font_migration: "models/gui-inset-and-font-migration",
     ref_adjacent: "models/ref-adjacent",
     ref_child: "models/ref-child",
     ref_parent: "models/ref-parent",

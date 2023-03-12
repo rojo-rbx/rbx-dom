@@ -60,4 +60,5 @@ binary_tests! {
     weldconstraint,
     package_link,
     text_label_with_font,
+    gui_inset_and_font_migration,
 }
