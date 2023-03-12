@@ -15,8 +15,6 @@ expression: decoded_viewed
       Int32: 0
     Enabled:
       Bool: true
-    IgnoreGuiInset:
-      Bool: false
     ResetOnSpawn:
       Bool: true
     RootLocalizationTable: "null"
@@ -37,8 +35,6 @@ expression: decoded_viewed
       Int32: 1
     Enabled:
       Bool: true
-    IgnoreGuiInset:
-      Bool: false
     ResetOnSpawn:
       Bool: true
     RootLocalizationTable: "null"
@@ -59,8 +55,6 @@ expression: decoded_viewed
       Int32: 2
     Enabled:
       Bool: true
-    IgnoreGuiInset:
-      Bool: false
     ResetOnSpawn:
       Bool: true
     RootLocalizationTable: "null"

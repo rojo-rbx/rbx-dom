@@ -1,6 +1,9 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Implemented `Font`. ([#248])
+
+[#248]: https://github.com/rojo-rbx/rbx-dom/pull/248
 
 ## 1.4.2 (2022-06-12)
 * `Variant::String` now encodes correctly inside of `Attributes`.

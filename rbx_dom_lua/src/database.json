@@ -5998,6 +5998,14 @@
         "Font": {
           "Enum": 18
         },
+        "FontFace": {
+          "Font": {
+            "family": "rbxasset://fonts/families/GothamSSm.json",
+            "weight": "Medium",
+            "style": "Normal",
+            "cachedFaceId": "rbxasset://fonts/GothamSSm-Medium.otf"
+          }
+        },
         "LocalPlayerStudsOffset": {
           "Vector3": [
             0.0,
@@ -14827,6 +14835,19 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "Font": {
+          "Name": "Font",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Font"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Size": {
           "Name": "Size",
           "Scriptability": "ReadWrite",

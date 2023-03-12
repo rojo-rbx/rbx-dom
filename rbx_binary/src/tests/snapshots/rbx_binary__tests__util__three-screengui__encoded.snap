@@ -48,14 +48,6 @@ chunks:
         - true
   - Prop:
       type_id: 0
-      prop_name: IgnoreGuiInset
-      prop_type: Bool
-      values:
-        - false
-        - false
-        - false
-  - Prop:
-      type_id: 0
       prop_name: Name
       prop_type: String
       values:

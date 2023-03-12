@@ -269,6 +269,7 @@ fn variant_type_from_str(value: &str) -> Option<VariantType> {
         "ColorSequence" => VariantType::ColorSequence,
         "Content" => VariantType::Content,
         "Faces" => VariantType::Faces,
+        "Font" => VariantType::Font,
         "Instance" => VariantType::Ref,
         "NumberRange" => VariantType::NumberRange,
         "NumberSequence" => VariantType::NumberSequence,
@@ -295,9 +296,6 @@ fn variant_type_from_str(value: &str) -> Option<VariantType> {
 
         // TweenInfo is not supported by rbx_types yet
         "TweenInfo" => return None,
-
-        // Font is not supported by rbx_types yet
-        "Font" => return None,
 
         // While DateTime is possible to Serialize, the only use it has as a
         // DataType is for the TextChatMessage class, which cannot be serialized

@@ -1,6 +1,9 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Added support for `Font` values. ([#248])
+
+[#248]: https://github.com/rojo-rbx/rbx-dom/pull/248
 
 ## 0.6.6 (2022-06-29)
 * Fixed unserialized properties getting deserialized, like `BasePart.MaterialVariant`. ([#230])
