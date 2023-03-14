@@ -248,6 +248,13 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             to_visit.extend(instance.children());
         }
 
+        // Sort shared_strings by their hash, to ensure they are deterministically added
+        // into the SSTR chunk, then assign them corresponding ids
+        self.shared_strings.sort_by_key(SharedString::hash);
+        for (id, shared_string) in self.shared_strings.iter().cloned().enumerate() {
+            self.shared_string_ids.insert(shared_string, id as u32);
+        }
+
         log::debug!("Type info discovered: {:#?}", self.type_infos);
 
         Ok(())
@@ -267,8 +274,9 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             // Discover and track any shared strings we come across.
             if let Variant::SharedString(shared_string) = prop_value {
                 if !self.shared_string_ids.contains_key(shared_string) {
-                    let id = self.shared_strings.len() as u32;
-                    self.shared_string_ids.insert(shared_string.clone(), id);
+                    // We insert it with a dummy id of 0 so that we can check for contains_key.
+                    // The actual id is set in `add_instances`
+                    self.shared_string_ids.insert(shared_string.clone(), 0);
                     self.shared_strings.push(shared_string.clone())
                 }
             }
