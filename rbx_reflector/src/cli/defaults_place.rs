@@ -9,6 +9,7 @@ use std::{
 
 use anyhow::{bail, Context};
 use clap::Parser;
+#[cfg(target_os = "windows")]
 use innerput::{Innerput, Key, Keyboard};
 use notify::{Config, RecommendedWatcher, RecursiveMode, Watcher};
 use roblox_install::RobloxStudio;
