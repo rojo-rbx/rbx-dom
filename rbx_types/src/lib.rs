@@ -16,6 +16,7 @@ mod physical_properties;
 mod referent;
 mod shared_string;
 mod tags;
+mod unique_id;
 mod variant;
 
 pub use attributes::*;
@@ -31,4 +32,5 @@ pub use physical_properties::*;
 pub use referent::*;
 pub use shared_string::*;
 pub use tags::*;
+pub use unique_id::*;
 pub use variant::*;
