@@ -2,8 +2,10 @@
 
 ## Unreleased
 * Added support for `Font` values. ([#248])
+* Added support for `UniqueId` values. ([#256])
 
 [#248]: https://github.com/rojo-rbx/rbx-dom/pull/248
+[#256]: https://github.com/rojo-rbx/rbx-dom/pull/256
 
 ## 0.12.4 (2022-06-12)
 * Implemented serialization and deserialization for `Attributes`. ([#219])
