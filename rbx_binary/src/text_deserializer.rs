@@ -222,6 +222,7 @@ pub enum DecodedValues {
     Int64(Vec<i64>),
     SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
     OptionalCFrame(Vec<Option<CFrame>>),
+    UniqueId(Vec<String>),
     Font(Vec<Font>),
 }
 
@@ -696,6 +697,30 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::OptionalCFrame(values))
+            }
+            Type::UniqueId => {
+                // This is technically inefficient but memory is cheap
+                // and we can optimize it later.
+                let mut values = Vec::with_capacity(prop_count);
+                let mut value = Vec::with_capacity(16);
+                let mut blob = vec![0; 16 * prop_count];
+
+                reader.read_exact(&mut blob).unwrap();
+                for x in 0..prop_count {
+                    for y in 0..16 {
+                        value.push(blob[x + y * prop_count]);
+                    }
+                    let mut value_ref = value.as_slice();
+                    values.push(format!(
+                        "{:08x}{:08x}{:016x}",
+                        value_ref.read_be_u32().unwrap(),
+                        value_ref.read_be_u32().unwrap(),
+                        value_ref.read_be_i64().unwrap().rotate_right(1),
+                    ));
+                    value.clear();
+                }
+
+                Some(DecodedValues::UniqueId(values))
             }
         }
     }

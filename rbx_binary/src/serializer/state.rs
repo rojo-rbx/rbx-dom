@@ -11,7 +11,7 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, Enum, Faces, Font, Matrix3, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim,
-        UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, WeakDom,
 };
@@ -1112,6 +1112,27 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         chunk.write_u8(Type::Bool as u8)?;
                         chunk.write_all(bools.as_slice())?;
                     }
+                    Type::UniqueId => {
+                        let mut blob = vec![0; values.len() * 16];
+                        let mut bytes = Vec::with_capacity(16);
+
+                        for (i, rbx_value) in values {
+                            if let Variant::UniqueId(value) = rbx_value.as_ref() {
+                                bytes.extend_from_slice(&value.index().to_be_bytes());
+                                bytes.extend_from_slice(&value.time().to_be_bytes());
+                                bytes.extend_from_slice(
+                                    &value.random().rotate_left(1).to_be_bytes(),
+                                );
+                                for (y, byte) in (0..16).zip(&bytes) {
+                                    blob[y + i * 16] = *byte;
+                                }
+                            } else {
+                                return type_mismatch(i, &rbx_value, "UniqueId");
+                            }
+                        }
+
+                        chunk.write_all(&blob)?;
+                    }
                 }
 
                 chunk.dump(&mut self.output)?;
@@ -1251,6 +1272,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             VariantType::Tags => Variant::Tags(Tags::new()),
             VariantType::Content => Variant::Content(Content::new()),
             VariantType::Attributes => Variant::Attributes(Attributes::new()),
+            VariantType::UniqueId => Variant::UniqueId(UniqueId::now().unwrap()),
             VariantType::Font => Variant::Font(Font::default()),
             _ => return None,
         })
