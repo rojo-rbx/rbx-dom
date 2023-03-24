@@ -29,7 +29,7 @@ pub enum UniqueIdError {
 }
 
 /// Represents a UUID with a custom epoch of midnight January 1st 2021.
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct UniqueId {
     index: u32,
