@@ -64,6 +64,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | BinaryString            | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ✔ |
 | Bool                    | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
 | BrickColor              | `Part.BrickColor`               | ✔ | ✔ | ✔ | ✔ |
+| Bytecode                | N/A                             | ❌ | ⛔ | ❌ | ❌ |
 | CFrame                  | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ✔ |
 | Color3                  | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ✔ |
 | Color3uint8             | `Part.BrickColor`               | ✔ | ✔ | ✔ | ✔ |
