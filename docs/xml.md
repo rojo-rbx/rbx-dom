@@ -93,13 +93,15 @@ The following attributes are REQUIRED for this element:
 
 The contents of this element represent the value of the metadata key-value pair.
 
-Currently, Roblox encodes the following `Meta` elements:
+Currently, Roblox encodes the following `Meta` elements for **model** files:
 
 | Name                 | Value  |
 |:---------------------|:-------|
-| `ExplicitAutoJoints` | `true` | <!--TODO: Validate that this is always `true`-->
+| `ExplicitAutoJoints` | `true` |
 
 It is RECOMMENDED that every key-value pair from the above table be encoded to maintain compatibility with Roblox Studio.
+
+Roblox does not currently generate any `Meta` elements for **place** files.
 
 ## External
 
