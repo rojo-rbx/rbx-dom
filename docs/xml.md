@@ -240,7 +240,7 @@ A `Color3` with the value `INF, 1337, 0.15625` appears as follows:
 
 ### Color3uint8
 
-The `Color3uint8` data type is represented by a single unsigned 32-bit integer that is the `R`, `G`, and `B` components of the color (as integers in the range 0 to 255) packed into the lower 24 bits of the number. This integer is little-endian and written in the order `G`, `B`, `R`.
+The `Color3uint8` data type is represented by a single unsigned 32-bit integer that is the `R`, `G`, and `B` components of the color (as integers in the range 0 to 255) packed into the lower 24 bits of the number. This integer is written in the order `R`, `G`, and then `B`.
 
 The upper 8 bits of the value SHOULD be filled with `FF` (in hexadecimal). This is to maintain compatibility with Roblox.
 
@@ -249,6 +249,8 @@ A `Color3uint8` with the value `96, 64, 32` appears as follows:
 ```xml
 <Color3uint8 name="Color3uint8Example">4284497952</Color3uint8>
 ```
+
+In hexadecimal, this value's components may be represented as `60`, `40`, and `20` respectively. The number they are encoded by is represented as `FF604020`. Seperated by byte, this is `FF 60 40 20`. The individual components of the value may be extracted from the integer using basic bitwise operations.
 
 ### ColorSequence
 
