@@ -47,6 +47,7 @@ This document is based on:
 	- [PhysicalProperties](#physicalproperties)
 	- [Color3uint8](#color3uint8)
 	- [Int64](#int64)
+	- [Bytecode](#bytecode)
 	- [SharedString](#sharedstring)
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
 	- [UniqueId](#uniqueid)
