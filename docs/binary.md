@@ -112,7 +112,7 @@ Which of the compression algorithms is used is indicated by the first several by
 - If the first 4 bytes of the block are the literal sequence `28 b5 2f fd`, the block is compressed using the ZSTD algorithm.
 - Otherwise, the block is compressed using the LZ4 algorithm.
 
-When a chunk is compressed using ZSTD, there is also a ZSTD "frame" present following the magic number that must be read by a decompressor. When it is compressed using LZ4, there is no frame and the compressed data begins immediately after the header.
+When a chunk is compressed using ZSTD, there is also a ZSTD frame present following the magic number that must be read by a decompressor. When it is compressed using LZ4, there is no frame and the compressed data begins immediately after the header.
 
 The data contained in **Chunk Data** varies in formatting based on the value of **Chunk Name**. Chunks used by Roblox are documented below:
 
