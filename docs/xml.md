@@ -71,7 +71,7 @@ Any trailing or leading whitespace in XML files are ignored by Roblox.
 
 ## roblox
 
-This element is the root of the file. There MUST be one `roblox` element in the file.
+There MUST be one `roblox` element at the root of the file.
 
 The following attributes are REQUIRED for this element:
 
