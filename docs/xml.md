@@ -157,8 +157,7 @@ The following attributes are REQUIRED for this element:
 
 The value of `md5` MUST be unique across all `SharedString` definitions. Despite the name, the value does not have to be the MD5 hash of the `SharedString` contents.
 
-The content of `SharedString` elements MUST be Base64 encoded.
-<!-- TODO: Verify what form of Base64 and put it here-->
+The content of `SharedString` elements MUST be Base64 encoded as per [RFC 2045](https://www.rfc-editor.org/rfc/rfc2045).
 
 ## Type Elements
 
@@ -193,7 +192,7 @@ An `Axes` property with only the `X` axis enabled appears as follows:
 
 ### BinaryString
 
-The `BinaryString` data type is represented by the contents of the property encoded with Base64.
+The `BinaryString` data type is represented by the contents of the property encoded with Base64 as per [RFC 2045](https://www.rfc-editor.org/rfc/rfc2045).
 
 A `BinaryString` property with the contents `Rojo is cool!` appears as follows:
 
