@@ -93,20 +93,30 @@ Every file starts with a 32 byte header.
 ## Chunks
 Every chunk starts with a 16 byte header followed by the chunk's data.
 
-| Field Name          | Format  | Value                                             |
-|:--------------------|:--------|:--------------------------------------------------|
-| Chunk Name          | 4 bytes | The chunk's name, like `META` or `INST`           |
-| Compressed Length   | `u32`   | Length of the chunk in bytes, if it is compressed |
-| Uncompressed Length | `u32`   | Length of the chunk's data after decompression    |
-| Reserved            | 4 bytes | Always `0`                                        |
+| Field Name          | Format   | Value                                             |
+|:--------------------|:---------|:--------------------------------------------------|
+| Chunk Name          | 4 bytes  | The chunk's name, like `META` or `INST`           |
+| Compressed Length   | `u32`    | Length of the chunk in bytes, if it is compressed |
+| Uncompressed Length | `u32`    | Length of the chunk's data after decompression    |
+| Reserved            | 4 bytes  | Always `0`                                        |
+| Chunk Data          | Variable | The data contained in the chunk                   |
 
 If **Chunk Name** is less than four bytes, the remainder is filled with zeros.
 
 If **Compressed Length** is zero, **Chunk Data** contains **Uncompressed Length** bytes of data for the chunk.
 
-If **Compressed Length** is nonzero, **Chunk Data** contains an LZ4 compressed block. It is **Compressed Length** bytes long and will expand to **Uncompressed Length** bytes when decompressed.
+If **Compressed Length** is nonzero, **Chunk Data** will either contain an [LZ4][LZ4] or [ZSTD][ZSTD] compressed block. This compressed body is **Compressed Length** bytes long and will expand to **Uncompressed Length** bytes when decompressed.
 
-When the **chunk data** is compressed, it is done so using the [LZ4](https://github.com/lz4/lz4) compression algorithm.
+Which of the compression algorithms is used is indicated by the first several bytes of the compressed chunk body.
+- If the first 4 bytes of the block are the literal sequence `28 b5 2f fd`, the block is compressed using the ZSTD algorithm.
+- Otherwise, the block is compressed using the LZ4 algorithm.
+
+When a chunk is compressed using ZSTD, there is also a ZSTD "frame" present following the magic number that must be read by a decompressor. When it is compressed using LZ4, there is no frame and the compressed data begins immediately after the header.
+
+The data contained in **Chunk Data** varies in formatting based on the value of **Chunk Name**. Chunks used by Roblox are documented below:
+
+[ZSTD]: https://github.com/facebook/zstd/
+[LZ4]: https://github.com/lz4/lz4
 
 ### `META` Chunk
 The `META` chunk has this layout:
