@@ -175,7 +175,7 @@ The following attributes are REQUIRED for all property elements, regardless of t
 |:-------|:------------------------------------------------------|
 | `name` | The name of the property represented by this element. |
 
-The `name` of a property does not necessarily reflect its in-engine name, and some properties serialize with unexpected names. Additionally, not every property is deserialized by Roblox.
+The `name` of a property does not necessarily reflect its in-engine name, and some properties serialize with unexpected names. Additionally, not every property is both serialized and deserialized by Roblox. A property may be deserialized without being serialized, vice versa, or not be read or written by Roblox.
 
 The format for each data type is listed below.
 
