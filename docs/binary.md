@@ -624,6 +624,19 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 
 `SharedString` values are stored as an [Interleaved Array](#byte-interleaving) of `u32` values that represent indices in the [`SSTR`](#sstr-chunk) string array.
 
+### Bytecode
+**Type ID `0x1d`**
+
+`Bytecode` values are stored identically to [`String`](#string) properties but contain precompiled [Luau][Luau] bytecode instructions rather than string data.
+
+This data type is disregarded by Roblox Studio and is only loaded by Roblox clients when cryptographically signed. Given that by design it is impossible to generate these signatures, the signing method is not documented in this spec file. For posterity however, the chunk used by Roblox is named `SIGN`. It is disregarded when loaded by Roblox Studio.
+
+It is highly recommended that implementations do not modify or interpret `Bytecode` data they encounter and instead simply read and write the data as-is.
+
+Implementors should be aware that running unsigned `Bytecode` is **incredibly unsafe** and should not be done unless the source can be validated somehow. Doing so is the equivalent to giving the author of the `Bytecode` unrestricted access to the system it is ran on.
+
+[Luau]: https://github.com/Roblox/luau
+
 ### OptionalCoordinateFrame
 **Type ID `0x1e`**
 
