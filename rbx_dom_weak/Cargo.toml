@@ -2,13 +2,14 @@
 name = "rbx_dom_weak"
 description = "Weakly-typed Roblox DOM implementation for Rust"
 version = "2.4.0"
-license = "MIT"
-documentation = "https://docs.rs/rbx_dom_weak"
-homepage = "https://github.com/rojo-rbx/rbx-dom"
-repository = "https://github.com/rojo-rbx/rbx-dom.git"
-readme = "README.md"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
+
+readme = "README.md"
+license = "MIT"
+
+homepage = "https://github.com/rojo-rbx/rbx-dom"
+repository = "https://github.com/rojo-rbx/rbx-dom"
 
 [dependencies]
 rbx_types = { version = "1.4.0", path = "../rbx_types", features = ["serde"] }

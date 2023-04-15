@@ -2,13 +2,14 @@
 name = "rbx_binary"
 description = "Implementation of Roblox's binary model (rbxm) and place (rbxl) file formats"
 version = "0.6.6"
-license = "MIT"
-documentation = "https://docs.rs/rbx_binary"
-homepage = "https://github.com/rojo-rbx/rbx-dom"
-repository = "https://github.com/rojo-rbx/rbx-dom.git"
-readme = "README.md"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
+
+readme = "README.md"
+license = "MIT"
+
+homepage = "https://github.com/rojo-rbx/rbx-dom"
+repository = "https://github.com/rojo-rbx/rbx-dom"
 
 [features]
 unstable_text_format = ["serde"]

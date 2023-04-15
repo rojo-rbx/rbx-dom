@@ -4,11 +4,12 @@ description = "Types used to represent Roblox values"
 version = "1.4.2"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
-license = "MIT"
-readme = "README.md"
-homepage = "https://github.com/rojo-rbx/rbx-dom"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+readme = "README.md"
+license = "MIT"
+
+homepage = "https://github.com/rojo-rbx/rbx-dom"
+repository = "https://github.com/rojo-rbx/rbx-dom"
 
 [dependencies]
 base64 = "0.13.0"

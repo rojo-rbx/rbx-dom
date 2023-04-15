@@ -2,18 +2,17 @@
 name = "rbx_util"
 version = "0.1.0"
 description = "Utilities for working with Roblox model and place files"
-license = "MIT"
-documentation = "https://docs.rs/rbx_util"
-homepage = "https://github.com/rojo-rbx/rbx-dom"
-repository = "https://github.com/rojo-rbx/rbx-dom.git"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
+
 readme = "README.md"
+license = "MIT"
+
+homepage = "https://github.com/rojo-rbx/rbx-dom"
+repository = "https://github.com/rojo-rbx/rbx-dom"
 
 # This tool is not even close to ready for primetime!
 publish = false
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [[bin]]
 path = "src/main.rs"

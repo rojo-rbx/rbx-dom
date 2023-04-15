@@ -2,13 +2,14 @@
 name = "rbx_xml"
 description = "Implementation of Roblox's XML file formats, rbxlx and rbxmx"
 version = "0.12.4"
-license = "MIT"
-documentation = "https://docs.rs/rbx_xml"
-homepage = "https://github.com/rojo-rbx/rbx-dom"
-repository = "https://github.com/rojo-rbx/rbx-dom.git"
-readme = "README.md"
 authors = ["Lucien Greathouse <me@lpghatguy.com>"]
 edition = "2018"
+
+readme = "README.md"
+license = "MIT"
+
+homepage = "https://github.com/rojo-rbx/rbx-dom"
+repository = "https://github.com/rojo-rbx/rbx-dom"
 
 [dependencies]
 rbx_dom_weak = { version = "2.2.0", path = "../rbx_dom_weak" }
