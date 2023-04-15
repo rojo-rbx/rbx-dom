@@ -852,7 +852,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                 chunk.read_le_i16()?,
                                 chunk.read_le_i16()?,
                             ),
-                        )
+                        );
                     }
                 }
                 invalid_type => {
@@ -912,12 +912,12 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                 chunk.read_le_f32()?,
                                 chunk.read_le_f32()?,
                                 chunk.read_le_f32()?,
-                            ))
+                            ));
                         }
 
                         instance
                             .builder
-                            .add_property(&canonical_name, NumberSequence { keypoints })
+                            .add_property(&canonical_name, NumberSequence { keypoints });
                     }
                 }
                 invalid_type => {
@@ -952,7 +952,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                         instance
                             .builder
-                            .add_property(&canonical_name, ColorSequence { keypoints })
+                            .add_property(&canonical_name, ColorSequence { keypoints });
                     }
                 }
                 invalid_type => {
@@ -971,7 +971,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         instance.builder.add_property(
                             &canonical_name,
                             NumberRange::new(chunk.read_le_f32()?, chunk.read_le_f32()?),
-                        )
+                        );
                     }
                 }
                 invalid_type => {
@@ -1004,7 +1004,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, value)
+                        instance.builder.add_property(&canonical_name, value);
                     }
                 }
                 invalid_type => {
@@ -1125,7 +1125,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         prop_name,
                         valid_type_names: "SharedString",
                         actual_type_name: format!("{:?}", invalid_type),
-                    })
+                    });
                 }
             },
             Type::OptionalCFrame => match canonical_type {

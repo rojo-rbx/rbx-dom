@@ -277,7 +277,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                     // We insert it with a dummy id of 0 so that we can check for contains_key.
                     // The actual id is set in `add_instances`
                     self.shared_string_ids.insert(shared_string.clone(), 0);
-                    self.shared_strings.push(shared_string.clone())
+                    self.shared_strings.push(shared_string.clone());
                 }
             }
 
@@ -804,7 +804,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         for (i, rbx_value) in values {
                             if let Variant::Vector2(value) = rbx_value.as_ref() {
                                 x.push(value.x);
-                                y.push(value.y)
+                                y.push(value.y);
                             } else {
                                 return type_mismatch(i, &rbx_value, "Vector2");
                             }
@@ -822,7 +822,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                             if let Variant::Vector3(value) = rbx_value.as_ref() {
                                 x.push(value.x);
                                 y.push(value.y);
-                                z.push(value.z)
+                                z.push(value.z);
                             } else {
                                 return type_mismatch(i, &rbx_value, "Vector3");
                             }

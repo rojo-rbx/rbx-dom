@@ -332,7 +332,7 @@ impl DecodedValues {
                         weight,
                         style,
                         cached_face_id,
-                    })
+                    });
                 }
 
                 Some(DecodedValues::Font(values))
@@ -351,7 +351,7 @@ impl DecodedValues {
                     values.push(Ray::new(
                         Vector3::new(origin_x, origin_y, origin_z),
                         Vector3::new(direction_x, direction_y, direction_z),
-                    ))
+                    ));
                 }
 
                 Some(DecodedValues::Ray(values))
@@ -360,7 +360,7 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    values.push(Faces::from_bits(reader.read_u8().unwrap())?)
+                    values.push(Faces::from_bits(reader.read_u8().unwrap())?);
                 }
 
                 Some(DecodedValues::Faces(values))
@@ -369,7 +369,7 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    values.push(Axes::from_bits(reader.read_u8().unwrap())?)
+                    values.push(Axes::from_bits(reader.read_u8().unwrap())?);
                 }
 
                 Some(DecodedValues::Axes(values))
@@ -517,7 +517,7 @@ impl DecodedValues {
                         reader.read_le_f32().unwrap();
                     }
 
-                    values.push(ColorSequence { keypoints })
+                    values.push(ColorSequence { keypoints });
                 }
 
                 Some(DecodedValues::ColorSequence(values))
@@ -559,10 +559,10 @@ impl DecodedValues {
                             reader.read_le_f32().unwrap(),
                             reader.read_le_f32().unwrap(),
                             reader.read_le_f32().unwrap(),
-                        ))
+                        ));
                     }
 
-                    values.push(NumberSequence { keypoints })
+                    values.push(NumberSequence { keypoints });
                 }
 
                 Some(DecodedValues::NumberSequence(values))
@@ -601,9 +601,9 @@ impl DecodedValues {
                             elasticity: reader.read_le_f32().unwrap(),
                             friction_weight: reader.read_le_f32().unwrap(),
                             elasticity_weight: reader.read_le_f32().unwrap(),
-                        }))
+                        }));
                     } else {
-                        values.push(PhysicalProperties::Default)
+                        values.push(PhysicalProperties::Default);
                     }
                 }
 
@@ -806,7 +806,7 @@ where
             hash: hash.as_str(),
         })?;
 
-        hash.clear()
+        hash.clear();
     }
 
     state.end()

@@ -61,20 +61,20 @@ pub(crate) fn write_attributes<W: Write>(
             }
             Variant::Rect(rect) => {
                 write_vector2(&mut writer, rect.min)?;
-                write_vector2(&mut writer, rect.max)?
+                write_vector2(&mut writer, rect.max)?;
             }
             Variant::BinaryString(string) => write_string(&mut writer, string)?,
             Variant::String(string) => write_string(&mut writer, string)?,
             Variant::UDim(udim) => write_udim(&mut writer, *udim)?,
             Variant::UDim2(udim2) => {
                 write_udim(&mut writer, udim2.x)?;
-                write_udim(&mut writer, udim2.y)?
+                write_udim(&mut writer, udim2.y)?;
             }
             Variant::Vector2(vector2) => write_vector2(&mut writer, *vector2)?,
             Variant::Vector3(vector3) => {
                 write_f32(&mut writer, vector3.x)?;
                 write_f32(&mut writer, vector3.y)?;
-                write_f32(&mut writer, vector3.z)?
+                write_f32(&mut writer, vector3.z)?;
             }
 
             other_variant => unreachable!("variant {:?} was not implemented", other_variant),
