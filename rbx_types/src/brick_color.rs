@@ -9,11 +9,11 @@ macro_rules! make_brick_color {
             ($color3_r: expr, $color3_g: expr, $color3_b: expr)
         ],)+
     }) => {
-        /// BrickColor values were the old, palette-based system of defining
+        /// `BrickColor` values were the old, palette-based system of defining
         /// colors in Roblox. As of the time of writing, they're still used for
-        /// some old systems like SpawnLocation and Team objects.
+        /// some old systems like `SpawnLocation` and `Team` objects.
         ///
-        /// Parts no longer use BrickColor, but we have conversions here to
+        /// Parts no longer use `BrickColor`, but we have conversions here to
         /// support older models.
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         #[repr(u16)]
@@ -23,9 +23,9 @@ macro_rules! make_brick_color {
         }
 
         impl BrickColor {
-            /// Find the first BrickColor with the given name, if it exists.
+            /// Find the first `BrickColor` with the given name, if it exists.
             ///
-            /// Note that some colors (Lilac, Rust, Gold, and Deep orange) have
+            /// Note that some colors (`Lilac`, `Rust`, `Gold`, and `Deep orange`) have
             /// name collisions and can only have one of their variants
             /// constructed from this function.
             ///
@@ -46,8 +46,8 @@ macro_rules! make_brick_color {
                 }
             }
 
-            /// Finds the BrickColor from its associated value. This is
-            /// different from a BrickColor's _palette_ number, which not all
+            /// Finds the `BrickColor` from its associated value. This is
+            /// different from a `BrickColor`'s _palette_ number, which not all
             /// colors have.
             ///
             /// This is roughly equivalent to `BrickColor.new(number)` from

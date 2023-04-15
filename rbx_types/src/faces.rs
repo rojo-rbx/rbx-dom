@@ -15,8 +15,9 @@ bitflags::bitflags! {
 
 /// Represents a set of zero or more faces of a cube.
 ///
-/// ## See Also
-/// * [Faces on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Faces)
+/// ## See also
+///
+/// * [`Faces` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Faces)
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub struct Faces {
     flags: FaceFlags,

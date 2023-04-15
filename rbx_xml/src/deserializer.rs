@@ -34,7 +34,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Wea
     Ok(tree)
 }
 
-/// Describes the strategy that rbx_xml should use when deserializing
+/// Describes the strategy that `rbx_xml` should use when deserializing
 /// properties.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 #[non_exhaustive]
@@ -42,23 +42,23 @@ pub enum DecodePropertyBehavior {
     /// Ignores properties that aren't known by rbx_xml.
     ///
     /// The default and safest option. With this set, properties that are newer
-    /// than the reflection database rbx_xml uses won't show up when
+    /// than the reflection database `rbx_xml` uses won't show up when
     /// deserializing files.
     IgnoreUnknown,
 
-    /// Read properties that aren't known by rbx_xml.
+    /// Read properties that aren't known by `rbx_xml`.
     ///
-    /// With this option set, properties that are newer than rbx_xml's
+    /// With this option set, properties that are newer than `rbx_xml`'s
     /// reflection database will show up. It may be problematic to depend on
-    /// these properties, since rbx_xml may start supporting them with
+    /// these properties, since `rbx_xml` may start supporting them with
     /// non-reflection specific names at a future date.
     ReadUnknown,
 
     /// Returns an error if any properties are found that aren't known by
-    /// rbx_xml.
+    /// `rbx_xml`.
     ErrorOnUnknown,
 
-    /// Completely turns off rbx_xml's reflection database. Property names and
+    /// Completely turns off `rbx_xml`'s reflection database. Property names and
     /// types will appear exactly as they are in XML.
     ///
     /// This setting is useful for debugging the model format. It leaves the
@@ -82,7 +82,7 @@ impl DecodeOptions {
         }
     }
 
-    /// Determines how rbx_xml will deserialize properties, especially unknown
+    /// Determines how `rbx_xml` will deserialize properties, especially unknown
     /// ones.
     #[inline]
     pub fn property_behavior(self, property_behavior: DecodePropertyBehavior) -> Self {
@@ -102,33 +102,34 @@ impl Default for DecodeOptions {
     }
 }
 
-/// The state needed to deserialize an XML model into an `WeakDom`.
+/// The state needed to deserialize an XML model into an [`WeakDom`].
 pub struct ParseState<'a> {
     tree: &'a mut WeakDom,
     options: DecodeOptions,
 
     /// Metadata deserialized from 'Meta' fields in the file.
+    //
     /// Known fields are:
-    /// - ExplicitAutoJoints
+    /// - `ExplicitAutoJoints`
     metadata: HashMap<String, String>,
 
     /// A map referent strings to IDs. This map is filled up as instances are
-    /// deserialized, and referred to when filling out Ref properties.
+    /// deserialized, and referred to when filling out [`Ref`] properties.
     ///
     /// We need to do that step in two passes because it's possible for
     /// instances to refer to instances that are later in the file.
     referents_to_ids: HashMap<String, Ref>,
 
-    /// A list of Ref property rewrites to apply. After the first
+    /// A list of [`Ref`] property rewrites to apply. After the first
     /// deserialization pass, we enumerate over this list and fill in the
-    /// correct Ref value by using the referents map.
+    /// correct [`Ref`] value by using the referents map.
     referent_rewrites: Vec<ReferentRewrite>,
 
     /// A map from shared string hashes (currently MD5, decided by Roblox) to
-    /// the actual SharedString type.
+    /// the actual [`SharedString`] type.
     known_shared_strings: HashMap<String, SharedString>,
 
-    /// A list of SharedString properties to set in the tree as a secondary
+    /// A list of [`SharedString`] properties to set in the tree as a secondary
     /// pass. This works just like referent rewriting since the shared string
     /// dictionary is usually at the end of the XML file.
     shared_string_rewrites: Vec<SharedStringRewrite>,
@@ -183,9 +184,9 @@ impl<'a> ParseState<'a> {
     }
 
     /// Marks that a property on this instance needs to be rewritten once we
-    /// have a complete view of how referents map to Ref values.
+    /// have a complete view of how referents map to [`Ref`] values.
     ///
-    /// This is used to deserialize non-null Ref values correctly.
+    /// This is used to deserialize non-null [`Ref`] values correctly.
     pub fn add_referent_rewrite(&mut self, id: Ref, property_name: String, referent_value: String) {
         self.referent_rewrites.push(ReferentRewrite {
             id,
@@ -195,9 +196,9 @@ impl<'a> ParseState<'a> {
     }
 
     /// Marks that a property on this instance needs to be rewritten once we
-    /// have a complete view of how referents map to Ref values.
+    /// have a complete view of how referents map to [`Ref`] values.
     ///
-    /// This is used to deserialize non-null Ref values correctly.
+    /// This is used to deserialize non-null [`Ref`] values correctly.
     pub fn add_shared_string_rewrite(
         &mut self,
         id: Ref,

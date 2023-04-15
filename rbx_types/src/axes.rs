@@ -12,8 +12,9 @@ bitflags::bitflags! {
 
 /// Represents a set of zero or more 3D axes.
 ///
-/// ## See Also
-/// * [Axes on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Axes)
+/// ## See also
+///
+/// * [`Axes` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Axes)
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub struct Axes {
     flags: AxisFlags,

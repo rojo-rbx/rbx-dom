@@ -15,7 +15,8 @@ pub use self::error::Error;
 
 /// A configurable deserializer for Roblox binary models and places.
 ///
-/// ## Example
+/// # Examples
+///
 /// ```no_run
 /// use std::fs::File;
 /// use std::io::BufReader;
@@ -27,7 +28,7 @@ pub use self::error::Error;
 /// let deserializer = Deserializer::new();
 /// let dom = deserializer.deserialize(input)?;
 ///
-/// // rbx_binary always returns a DOM with a DataModel at the top level.
+/// // `rbx_binary` always returns a DOM with a `DataModel` at the top level.
 /// // To get to the instances from our file, we need to go one level deeper.
 ///
 /// println!("Root instances in file:");

@@ -1,6 +1,6 @@
 //! Attributes reading and writing is based on the spec that Anaminus put
 //! together:
-//! https://github.com/RobloxAPI/rbxattr/blob/06116439a68931d9d591d11ffff77ff982c9947d/spec.md
+//! <https://github.com/RobloxAPI/rbxattr/blob/06116439a68931d9d591d11ffff77ff982c9947d/spec.md>
 
 mod error;
 mod reader;
@@ -38,7 +38,8 @@ impl Attributes {
         Self::default()
     }
 
-    /// Reads from a serialized attributes string, and produces a new `Attributes` from it.
+    /// Reads from a serialized attributes string, and produces a new
+    /// `Attributes` from it.
     pub fn from_reader<R: Read>(reader: R) -> Result<Self, Error> {
         Ok(Attributes {
             data: read_attributes(reader)?,
@@ -99,7 +100,7 @@ impl FromIterator<(String, Variant)> for Attributes {
     }
 }
 
-/// An owning iterator over the entries of an `Attributes`.
+/// An owning iterator over the entries of [`Attributes`].
 /// This is created by [`Attributes::into_iter`].
 pub struct AttributesIntoIter {
     iter: btree_map::IntoIter<String, Variant>,

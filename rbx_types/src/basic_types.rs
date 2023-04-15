@@ -3,8 +3,9 @@
 /// Roblox enums are not strongly typed, so the meaning of a value depends on
 /// where they're assigned.
 ///
-/// A list of all enums and their values are available [on the Roblox Developer
-/// Hub](https://developer.roblox.com/en-us/api-reference/enum).
+/// ## See also
+///
+/// A list of all enums and their values are available [in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Enum).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(
     feature = "serde",
@@ -27,9 +28,10 @@ impl Enum {
 
 /// The standard 2D vector type used in Roblox.
 ///
-/// ## See Also
-/// * [`Vector2int16`][struct.Vector2int16.html]
-/// * [Vector2 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector2)
+/// ## See also
+///
+/// * [`Vector2int16`]
+/// * [`Vector2` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Vector2)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Vector2 {
     pub x: f32,
@@ -42,14 +44,13 @@ impl Vector2 {
     }
 }
 
-/// A version of [`Vector2`][Vector2] whose coordinates are signed 16-bit
+/// A version of [`Vector2`] whose coordinates are signed 16-bit
 /// integers.
 ///
-/// ## See Also
-/// * [`Vector2`][Vector2], which is used for most values.
-/// * [Vector2int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector2int16)
+/// ## See also
 ///
-/// [Vector2]: struct.Vector2.html
+/// * [`Vector2`], which is used for most values.
+/// * [`Vector2int16` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Vector2int16)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Vector2int16 {
     pub x: i16,
@@ -64,9 +65,10 @@ impl Vector2int16 {
 
 /// The standard 3D vector type used in Roblox.
 ///
-/// ## See Also
-/// * [`Vector3int16`][struct.Vector3int16.html]
-/// * [Vector3 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector3)
+/// ## See also
+///
+/// * [`Vector3int16`]
+/// * [`Vector3` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Vector3)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Vector3 {
     pub x: f32,
@@ -123,14 +125,13 @@ impl Vector3 {
     }
 }
 
-/// A version of [`Vector3`][Vector3] whose coordinates are signed 16-bit
+/// A version of [`Vector3`] whose coordinates are signed 16-bit
 /// integers. `Vector3int16` is often used when working with Terrain.
 ///
-/// ## See Also
-/// * [`Vector3`][Vector3], which is used for most values.
-/// * [Vector3int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector3int16)
+/// ## See also
 ///
-/// [Vector3]: struct.Vector3.html
+/// * [`Vector3`], which is used for most values
+/// * [`Vector3int16` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Vector3int16)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Vector3int16 {
     pub x: i16,
@@ -146,8 +147,9 @@ impl Vector3int16 {
 
 /// Represents a position and orientation in 3D space.
 ///
-/// ## See Also
-/// * [CFrame on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/CFrame)
+/// ## See also
+///
+/// * [`CFrame` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/CFrame)
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(
     feature = "serde",
@@ -168,8 +170,8 @@ impl CFrame {
     }
 }
 
-/// Used to represent the `orientation` field of `CFrame` and not a standalone
-/// type in Roblox.
+/// Used to represent the [`orientation`](CFrame::orientation) field of
+/// [`CFrame`] and is not a standalone type in Roblox.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Matrix3 {
     pub x: Vector3,
@@ -201,10 +203,11 @@ impl Matrix3 {
 
 /// Represents any color, including HDR colors.
 ///
-/// ## See Also
-/// * [`Color3uint8`](struct.Color3uint8.html), which is used instead of
-///   `Color3` on some types and does not represent HDR colors.
-/// * [Color3 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Color3)
+/// ## See also
+///
+/// * [`Color3uint8`], which is used instead of `Color3` on some types and does
+///   not represent HDR colors
+/// * [`Color3` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Color3)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Color3 {
     pub r: f32,
@@ -230,14 +233,14 @@ impl From<Color3uint8> for Color3 {
 
 /// Represents non-HDR colors, i.e. those whose individual color channels do not
 /// exceed 1. This type is used for serializing properties like
-/// [`BasePart.Color`][BasePart.Color], but is not exposed as a distinct type to
+/// [`BasePart.Color`], but is not exposed as a distinct type to
 /// Lua code.
 ///
-/// ## See Also
-/// * [`Color3`](struct.Color3.html), which is more common and can represent HDR
-///   colors.
+/// ## See also
 ///
-/// [BasePart.Color]: https://developer.roblox.com/en-us/api-reference/property/BasePart/Color
+/// * [`Color3`], which is more common and can represent HDR colors
+///
+/// [`BasePart.Color`]: https://create.roblox.com/docs/reference/engine/classes/BasePart#Color
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Color3uint8 {
     pub r: u8,
@@ -262,13 +265,13 @@ impl From<Color3> for Color3uint8 {
 }
 
 /// Represents a ray in 3D space. Direction does not have to be a unit vector,
-/// and is used by APIs like [`Workspace:FindPartOnRay`][FindPartOnRay] to set a
-/// max distance.
+/// and is used by APIs like [`Workspace:Raycast`] to set a max distance.
 ///
-/// ## See Also
-/// * [Ray on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Ray)
+/// ## See also
 ///
-/// [FindPartOnRay]: https://developer.roblox.com/en-us/api-reference/function/WorldRoot/FindPartOnRay
+/// * [`Ray` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Ray)
+///
+/// [`Workspace:Raycast`]: https://create.roblox.com/docs/reference/engine/classes/Workspace#Raycast
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(
     feature = "serde",
@@ -288,9 +291,10 @@ impl Ray {
 
 /// Represents a bounding box in 3D space.
 ///
-/// ## See Also
-/// * [`Region3int16`](struct.Region3int16.html)
-/// * [Region3 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Region3)
+/// ## See also
+///
+/// * [`Region3int16`]
+/// * [`Region3` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Region3)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Region3 {
     pub min: Vector3,
@@ -303,14 +307,13 @@ impl Region3 {
     }
 }
 
-/// A version of [`Region3`][Region3] that uses signed 16-bit integers instead
+/// A version of [`Region3`] that uses signed 16-bit integers instead
 /// of floats. `Region3int16` is generally used in Terrain APIs.
 ///
-/// ## See Also
-/// * [`Region`][Region3]
-/// * [Region3int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Region3int16)
+/// ## See also
 ///
-/// [Region3]: struct.Region3.html
+/// * [`Region3`]
+/// * [`Region3int16` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Region3int16)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Region3int16 {
     pub min: Vector3int16,
@@ -325,8 +328,9 @@ impl Region3int16 {
 
 /// Represents a bounding rectangle in 2D space.
 ///
-/// ## See Also
-/// * [Rect on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Rect)
+/// ## See also
+///
+/// * [`Rect` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/Rect)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Rect {
     pub min: Vector2,
@@ -340,10 +344,11 @@ impl Rect {
 }
 
 /// Standard unit for measuring UI given as `scale`, a fraction of the
-/// container's size and `offset`, display-indepdendent pixels.
+/// container's size and `offset`, display-independent pixels.
 ///
-/// ## See Also
-/// * [UDim on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/UDim)
+/// ## See also
+///
+/// * [`UDim` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/UDim)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct UDim {
     pub scale: f32,
@@ -357,10 +362,11 @@ impl UDim {
 }
 
 /// Standard 2D unit for measuring UI given as `scale`, a fraction of the
-/// container's size and `offset`, display-indepdendent pixels.
+/// container's size and `offset`, display-independent pixels.
 ///
-/// ## See Also
-/// * [UDim2 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/UDim2)
+/// ## See also
+///
+/// * [`UDim2` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/UDim2)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct UDim2 {
     pub x: UDim,
@@ -375,8 +381,9 @@ impl UDim2 {
 
 /// A range between two numbers.
 ///
-/// ## See Also
-/// * [NumberRange on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/NumberRange)
+/// ## See also
+///
+/// * [`NumberRange` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/NumberRange)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct NumberRange {
     pub min: f32,
@@ -391,8 +398,9 @@ impl NumberRange {
 
 /// A series of colors that can be tweened through.
 ///
-/// ## See Also
-/// * [ColorSequence on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/ColorSequence)
+/// ## See also
+///
+/// * [`ColorSequence` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/ColorSequence)
 #[derive(Debug, Clone, PartialEq)]
 #[cfg_attr(
     feature = "serde",
@@ -403,12 +411,11 @@ pub struct ColorSequence {
     pub keypoints: Vec<ColorSequenceKeypoint>,
 }
 
-/// A single color and point in time of a [`ColorSequence`][ColorSequence]
+/// A single color and point in time of a [`ColorSequence`]
 ///
-/// ## See Also
-/// * [ColorSequenceKeypoint on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/ColorSequenceKeypoint)
+/// ## See also
 ///
-/// [ColorSequence]: struct.ColorSequence.html
+/// * [`ColorSequenceKeypoint` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/ColorSequenceKeypoint)
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(
     feature = "serde",
@@ -429,8 +436,9 @@ impl ColorSequenceKeypoint {
 /// A sequence of numbers on a timeline. Each point contains a timestamp, a
 /// value, and a range that allows for randomized values.
 ///
-/// ## See Also
-/// * [NumberSequence on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/NumberSequence)
+/// ## See also
+///
+/// * [`NumberSequence` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/NumberSequence)
 #[derive(Debug, Clone, PartialEq)]
 #[cfg_attr(
     feature = "serde",
@@ -441,13 +449,12 @@ pub struct NumberSequence {
     pub keypoints: Vec<NumberSequenceKeypoint>,
 }
 
-/// A single value, envelope, and point in time of a [`NumberSequence`][NumberSequence]
+/// A single value, envelope, and point in time of a [`NumberSequence`]
 ///
-/// ## See Also
-/// * [`NumberSequence`][NumberSequence]
-/// * [NumberSequenceKeypoint on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/NumberSequenceKeypoint)
+/// ## See also
 ///
-/// [NumberSequence]: struct.NumberSequence.html
+/// * [`NumberSequence`]
+/// * [`NumberSequenceKeypoint` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/NumberSequenceKeypoint)
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(
     feature = "serde",

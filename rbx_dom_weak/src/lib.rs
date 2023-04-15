@@ -1,4 +1,4 @@
-//! rbx_dom_weak is a common representation of the Roblox DOM for Rust. It's
+//! `rbx_dom_weak` is a common representation of the Roblox DOM for Rust. It's
 //! designed to play nicely with the borrow checker and allows accessing
 //! instances by ID in constant time.
 //!
@@ -25,7 +25,7 @@
 //! let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
 //!
 //! // We can define properties using any type that can be converted to an
-//! // rbx_dom_weak::types::Variant.
+//! // `rbx_dom_weak::types::Variant`.
 //! let http_service = InstanceBuilder::new("HttpService")
 //!     .with_property("HttpEnabled", true);
 //!

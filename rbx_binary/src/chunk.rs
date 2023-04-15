@@ -54,7 +54,7 @@ pub enum ChunkCompression {
 
 /// Holds a chunk that is currently being written.
 ///
-/// This type intended to be written into via io::Write and then dumped into the
+/// This type intended to be written into via [`Write`] and then dumped into the
 /// output stream all at once. It handles compression and chunk header output
 /// automatically.
 #[must_use]
@@ -114,7 +114,7 @@ impl Write for ChunkBuilder {
 
 #[derive(Debug)]
 struct ChunkHeader {
-    /// 4-byte short name for the chunk, like "INST" or "PRNT"
+    /// 4-byte short name for the chunk, like `INST` or `PRNT`
     name: [u8; 4],
 
     /// The length of the chunk's compressed data. For uncompressed chunks, this

@@ -1,17 +1,17 @@
-//! Configurable Roblox XML place/model format (rbxmx and rbxlx) serializer and
-//! deserializer.
+//! Configurable Roblox XML place/model format (`rbxmx` and `rbxlx`) serializer
+//! and deserializer.
 //!
-//! rbx_xml uses the [rbx_dom_weak][rbx_dom_weak] crate as its DOM.
+//! `rbx_xml` uses the [`rbx_dom_weak`] crate as its DOM.
 //!
 //! This crate implements most of the format and is driven by an up-to-date
 //! reflection database.
 //!
 //! ## Deserialization
-//! To decode a place or model, use a method like
-//! [`from_reader_default`][from_reader_default] if you're reading from a file,
-//! or [`from_str_default`][from_str_default] if you already have a string.
-//! These methods also have variants like [`from_str`][from_str] that let you
-//! pass in custom options.
+//!
+//! To decode a place or model, use a method like [`from_reader_default`] if
+//! you're reading from a file, or [`from_str_default`] if you already have a
+//! string. These methods also have variants like [`from_str`] that let you pass
+//! in custom options.
 //!
 //! ```
 //! use rbx_dom_weak::types::Variant;
@@ -41,7 +41,7 @@
 //! ```
 //!
 //! If you're decoding from a file, you'll want to do your own I/O buffering,
-//! like with [`BufReader`][BufReader]:
+//! like with [`BufReader`](std::io::BufReader):
 //!
 //! ```no_run
 //! use std::{
@@ -54,18 +54,19 @@
 //! # Ok::<(), Box<dyn std::error::Error>>(())
 //! ```
 //!
-//! Note that the `WeakDom` instance returned by the rbx_xml decode methods will
-//! have a root instance with the class name `DataModel`. This is great for
-//! deserializing a place, but kind of strange for deserializing a model.
+//! Note that the [`WeakDom`] instance returned by the `rbx_xml` decode methods
+//! will have a root instance with the class name `DataModel`. This is great
+//! for deserializing a place, but kind of strange for deserializing a model.
 //!
-//! Because models can have multiple instances at the top level, rbx_xml can't
-//! just return an `WeakDom` with your single instance at the top. Instead, the
-//! crate instead always creates a top-level `DataModel` instance which is
-//! pretty close to free.
+//! Because models can have multiple instances at the top level, `rbx_xml`
+//! can't just return an [`WeakDom`] with your single instance at the top.
+//! Instead, the crate instead always creates a top-level `DataModel` instance
+//! which is pretty close to free.
 //!
 //! ## Serialization
-//! To serialize an existing `WeakDom` instance, use methods like
-//! [`to_writer_default`][to_writer_default] or [`to_writer`][to_writer].
+//!
+//! To serialize an existing [`WeakDom`] instance, use methods like
+//! [`to_writer_default`] or [`to_writer`].
 //!
 //! For example, to re-save the place file we loaded above:
 //!
@@ -89,19 +90,10 @@
 //! ```
 //!
 //! ## Configuration
-//! rbx_xml exposes no useful configuration yet, but there are methods that
-//! accept [`DecodeOptions`][DecodeOptions] and
-//! [`EncodeOptions`][EncodeOptions] that will be useful when it does.
 //!
-//! [DecodeOptions]: struct.DecodeOptions.html
-//! [EncodeOptions]: struct.EncodeOptions.html
-//! [from_str]: fn.from_str.html
-//! [from_reader_default]: fn.from_reader_default.html
-//! [from_str_default]: fn.from_str_default.html
-//! [to_writer]: fn.to_writer.html
-//! [to_writer_default]: fn.to_writer_default.html
-//! [rbx_dom_weak]: https://crates.io/crates/rbx_dom_weak
-//! [BufReader]: https://doc.rust-lang.org/std/io/struct.BufReader.html
+//! `rbx_xml` exposes no useful configuration yet, but there are methods that
+//! accept [`DecodeOptions`] and [`EncodeOptions`] that will be useful when it
+//! does.
 
 #![deny(missing_docs)]
 
@@ -130,13 +122,13 @@ pub use crate::{
 };
 
 /// Decodes an XML-format model or place from something that implements the
-/// `std::io::Read` trait.
+/// [`Read`] trait.
 pub fn from_reader<R: Read>(reader: R, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
     decode_internal(reader, options)
 }
 
 /// Decodes an XML-format model or place from something that implements the
-/// `std::io::Read` trait using the default decoder options.
+/// [`Read`] trait using the default decoder options.
 pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
     decode_internal(reader, DecodeOptions::default())
 }
@@ -153,7 +145,7 @@ pub fn from_str_default<S: AsRef<str>>(reader: S) -> Result<WeakDom, DecodeError
 }
 
 /// Serializes a subset of the given tree to an XML format model or place,
-/// writing to something that implements the `std::io::Write` trait.
+/// writing to something that implements the [`Write`] trait.
 pub fn to_writer<W: Write>(
     writer: W,
     tree: &WeakDom,
@@ -164,7 +156,7 @@ pub fn to_writer<W: Write>(
 }
 
 /// Serializes a subset of the given tree to an XML format model or place,
-/// writing to something that implements the `std::io::Write` trait using the
+/// writing to something that implements the [`Write`] trait using the
 /// default encoder options.
 pub fn to_writer_default<W: Write>(
     writer: W,

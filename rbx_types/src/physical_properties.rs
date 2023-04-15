@@ -3,11 +3,13 @@ use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 /// Represents the physical properties that parts can have.
 ///
-/// Equivalent to Roblox's [`PhysicalProperties`][PhysicalProperties] type, with
+/// Equivalent to Roblox's `PhysicalProperties` type, with
 /// the difference that `Default` is a variant here, instead of a hidden state
 /// that `PhysicalProperties` can have.
 ///
-/// [PhysicalProperties]: https://developer.roblox.com/en-us/api-reference/datatype/PhysicalProperties
+/// ## See also
+///
+/// * [`PhysicalProperties` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/PhysicalProperties)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum PhysicalProperties {
     Default,
@@ -22,10 +24,9 @@ impl From<CustomPhysicalProperties> for PhysicalProperties {
 
 /// Custom physics properties that can be given to parts.
 ///
-/// Documentation for what these do can be found on the
-/// [`PhysicalProperties`][PhysicalProperties] DevHub documentation.
+/// ## See also
 ///
-/// [PhysicalProperties]: https://developer.roblox.com/en-us/api-reference/datatype/PhysicalProperties
+/// * [`PhysicalProperties` in the Roblox Creator Documentation](https://create.roblox.com/docs/reference/engine/datatypes/PhysicalProperties)
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "serde", serde(rename_all = "camelCase"))]

@@ -2,35 +2,35 @@ use std::collections::HashMap;
 
 use rbx_types::{Ref, Variant};
 
-/**
-Represents an instance that can be turned into a new
-[`WeakDom`][crate::WeakDom], or inserted into an existing one.
-
-## Examples
-Instances have the given ClassName and Name and no properties by default.
-
-```
-use rbx_dom_weak::{InstanceBuilder, WeakDom};
-
-let data_model = InstanceBuilder::new("DataModel");
-let dom = WeakDom::new(data_model);
-```
-
-Properties and children can be added to the builder.
-
-```
-use rbx_dom_weak::{InstanceBuilder, WeakDom};
-use rbx_dom_weak::types::Color3;
-
-let data_model = InstanceBuilder::new("DataModel")
-    .with_child(InstanceBuilder::new("Workspace")
-        .with_property("FilteringEnabled", true))
-    .with_child(InstanceBuilder::new("Lighting")
-        .with_property("Ambient", Color3::new(1.0, 0.0, 0.0)));
-
-let dom = WeakDom::new(data_model);
-```
-*/
+/// Represents an instance that can be turned into a new
+/// [`WeakDom`][crate::WeakDom], or inserted into an existing one.
+///
+/// # Examples
+///
+/// Instances have the given `ClassName` and `Name` and no properties by
+/// default.
+///
+/// ```
+/// use rbx_dom_weak::{InstanceBuilder, WeakDom};
+///
+/// let data_model = InstanceBuilder::new("DataModel");
+/// let dom = WeakDom::new(data_model);
+/// ```
+///
+/// Properties and children can be added to the builder.
+///
+/// ```
+/// use rbx_dom_weak::{InstanceBuilder, WeakDom};
+/// use rbx_dom_weak::types::Color3;
+///
+/// let data_model = InstanceBuilder::new("DataModel")
+///     .with_child(InstanceBuilder::new("Workspace")
+///         .with_property("FilteringEnabled", true))
+///     .with_child(InstanceBuilder::new("Lighting")
+///         .with_property("Ambient", Color3::new(1.0, 0.0, 0.0)));
+///
+/// let dom = WeakDom::new(data_model);
+/// ```
 #[derive(Debug)]
 pub struct InstanceBuilder {
     pub(crate) referent: Ref,
@@ -41,8 +41,8 @@ pub struct InstanceBuilder {
 }
 
 impl InstanceBuilder {
-    /// Create a new `InstanceBuilder` with the given ClassName. This is also
-    /// used as the instance's Name, unless overwritten later.
+    /// Create a new `InstanceBuilder` with the given `ClassName`. This is also
+    /// used as the instance's `Name`, unless overwritten later.
     pub fn new<S: Into<String>>(class: S) -> Self {
         let class = class.into();
         let name = class.clone();
@@ -67,7 +67,8 @@ impl InstanceBuilder {
         }
     }
 
-    /// Return the referent of the instance that the `InstanceBuilder` refers to.
+    /// Return the referent of the instance that the `InstanceBuilder` refers
+    /// to.
     pub fn referent(&self) -> Ref {
         self.referent
     }

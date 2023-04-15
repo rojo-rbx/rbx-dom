@@ -9,8 +9,8 @@ use crate::{
     error::{EncodeError as NewEncodeError, EncodeErrorKind},
 };
 
-/// A wrapper around an xml-rs `EventWriter` as well as other state kept around
-/// for performantly emitting XML.
+/// A wrapper around an `xml-rs` `EventWriter` as well as other state kept
+/// around for performantly emitting XML.
 pub struct XmlEventWriter<W> {
     inner: EventWriter<W>,
     character_buffer: String,

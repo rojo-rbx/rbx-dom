@@ -32,10 +32,10 @@ use super::error::InnerError;
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
 /// Represents all of the state during a single serialization session. A new
-/// `BinarySerializer` object should be created every time we want to serialize
-/// a binary model file.
+/// `BinarySerializer` object should be created every time we want to
+/// serialize a binary model file.
 pub(super) struct SerializerState<'dom, W> {
-    /// The dom containing all of the instances that we're serializing.
+    /// The DOM containing all of the instances that we're serializing.
     dom: &'dom WeakDom,
 
     /// Where the binary output should be written.
@@ -45,25 +45,25 @@ pub(super) struct SerializerState<'dom, W> {
     /// serializing.
     relevant_instances: Vec<Ref>,
 
-    /// A map from rbx-dom's unique instance ID (Ref) to the ID space used in
-    /// the binary model format, signed integers.
+    /// A map from `rbx_dom`'s unique instance ID ([`Ref`]) to the ID space used
+    /// in the binary model format, signed integers.
     id_to_referent: HashMap<Ref, i32>,
 
     /// All of the types of instance discovered by our serializer that we'll be
     /// writing into the output.
     type_infos: TypeInfos<'dom>,
 
-    /// All of the SharedStrings in the DOM, in the order they'll be written
+    /// All of the [`SharedString`]s in the DOM, in the order they'll be written
     // in.
     shared_strings: Vec<SharedString>,
 
-    /// A map of SharedStrings to where it is in the SSTR chunk. This is used
-    /// for writing PROP chunks.
+    /// A map of [`SharedString`]s to where it is in the `SSTR` chunk. This is
+    /// used for writing `PROP` chunks.
     shared_string_ids: HashMap<SharedString, u32>,
 }
 
 /// An instance class that our serializer knows about. We should have one struct
-/// per unique ClassName.
+/// per unique `ClassName`.
 #[derive(Debug)]
 struct TypeInfo<'dom> {
     /// The ID that this serializer will use to refer to this type of instance.
@@ -137,13 +137,13 @@ struct PropInfo {
     default_value: Cow<'static, Variant>,
 }
 
-/// Contains all of the `TypeInfo` objects known to the serializer so far. This
-/// struct was broken out to help encapsulate the behavior here and to ease
-/// self-borrowing issues from BinarySerializer getting too large.
+/// Contains all of the [`TypeInfo`] objects known to the serializer so far.
+/// This struct was broken out to help encapsulate the behavior here and to ease
+/// self-borrowing issues from `BinarySerializer` getting too large.
 #[derive(Debug)]
 struct TypeInfos<'dom> {
-    /// A map containing one entry for each unique ClassName discovered in the
-    /// DOM.
+    /// A map containing one entry for each unique `ClassName` discovered in
+    /// the DOM.
     ///
     /// These are stored sorted so that we naturally iterate over them in order
     /// and improve our chances of being deterministic.
@@ -162,7 +162,7 @@ impl<'dom> TypeInfos<'dom> {
         }
     }
 
-    /// Finds the type info from the given ClassName if it exists, or creates
+    /// Finds the type info from the given `ClassName` if it exists, or creates
     /// one and returns a reference to it if not.
     fn get_or_create(&mut self, class: &str) -> &mut TypeInfo<'dom> {
         if !self.values.contains_key(class) {
@@ -353,8 +353,8 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                     })
                     .or_else(|| Self::fallback_default_value(serialized_ty).map(Cow::Owned))
                     .ok_or_else(|| {
-                        // Since we don't know how to generate the default value
-                        // for this property, we consider it unsupported.
+                        // Since we don't know how to generate the default
+                        // value for this property, we consider it unsupported.
                         InnerError::UnsupportedPropType {
                             type_name: instance.class.clone(),
                             prop_name: canonical_name.to_string(),
@@ -399,8 +399,8 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
         Ok(())
     }
 
-    /// Populate the map from rbx-dom's instance ID space to the IDs that we'll
-    /// be serializing to the model.
+    /// Populate the map from `rbx_dom`'s instance ID space to the IDs that
+    /// we'll be serializing to the model.
     #[profiling::function]
     pub fn generate_referents(&mut self) {
         self.id_to_referent.reserve(self.relevant_instances.len());
@@ -413,6 +413,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
         log::trace!("Referents constructed: {:#?}", self.id_to_referent);
     }
 
+    /// Write out the header of the file.
     pub fn write_header(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing header");
 
@@ -429,15 +430,15 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
         Ok(())
     }
 
-    /// Write out any metadata about this file, stored in a chunk named META.
+    /// Write out any metadata about this file, stored in a chunk named `META`.
     pub fn serialize_metadata(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing metadata (currently no-op)");
-        // TODO: There is no concept of metadata in a dom yet.
+        // TODO: There is no concept of metadata in the DOM yet.
         Ok(())
     }
 
-    /// Write out all of the SharedStrings in this file, if any exist,
-    /// stored in a chunk named SSTR.
+    /// Write out all of the [`SharedString`]s in this file, if any exist,
+    /// stored in a chunk named `SSTR`.
     #[profiling::function]
     pub fn serialize_shared_strings(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing shared string chunk");
@@ -463,7 +464,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
     }
 
     /// Write out the declarations of all instances, stored in a series of
-    /// chunks named INST.
+    /// chunks named `INST`.
     #[profiling::function]
     pub fn serialize_instances(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing instance chunks");
@@ -517,8 +518,8 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
     }
 
     /// Write out batch declarations of property values for the instances
-    /// previously defined in the INST chunks. Property data is contained in
-    /// chunks named PROP.
+    /// previously defined in the `INST` chunks. Property data is contained in
+    /// chunks named `PROP`.
     #[profiling::function]
     pub fn serialize_properties(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing properties");
@@ -938,7 +939,8 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                                     chunk.write_le_f32(keypoint.color.g)?;
                                     chunk.write_le_f32(keypoint.color.b)?;
 
-                                    // write out a dummy value for envelope, which is serialized but doesn't do anything
+                                    // write out a dummy value for envelope, which is serialized but
+                                    // doesn't do anything
                                     chunk.write_le_f32(0.0)?;
                                 }
                             } else {
@@ -1120,7 +1122,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
     }
 
     /// Write out the hierarchical relations between instances, stored in a
-    /// chunk named PRNT.
+    /// chunk named `PRNT`.
     #[profiling::function]
     pub fn serialize_parents(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing parent relationships");
@@ -1160,8 +1162,8 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
     }
 
     /// Write the fixed, uncompressed end chunk used to verify that the file
-    /// hasn't been truncated mistakenly. This chunk is named END\0, with a zero
-    /// byte at the end.
+    /// hasn't been truncated mistakenly. This chunk is named `END\0`, with a
+    /// zero byte at the end.
     #[profiling::function]
     pub fn serialize_end(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing file end");
@@ -1173,7 +1175,9 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
         Ok(())
     }
 
-    /// Equivalent to Instance:GetFullName() from Roblox.
+    /// Equivalent to [`Instance:GetFullName`] from Roblox.
+    ///
+    /// [`Instance:GetFullName`]: https://create.roblox.com/docs/reference/engine/classes/Instance#GetFullName
     fn full_name_for(&self, subject_ref: Ref) -> String {
         let mut components = Vec::new();
         let mut current_id = subject_ref;

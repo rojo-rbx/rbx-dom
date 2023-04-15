@@ -13,9 +13,9 @@ lazy_static::lazy_static! {
     };
 }
 
-/// A version of `BinaryString` used for data that's commonly repeated.
-/// `rbx_types` automatically deduplicates data as it's loaded into
-/// `SharedString` values.
+/// A version of [`BinaryString`](crate::BinaryString) used for data that's
+/// commonly repeated. `rbx_types` automatically deduplicates data as it's
+/// loaded into `SharedString` values.
 #[derive(Debug, Clone)]
 pub struct SharedString {
     data: Option<Arc<Vec<u8>>>,
@@ -23,7 +23,7 @@ pub struct SharedString {
 }
 
 impl SharedString {
-    /// Construct a SharedString from an owned buffer of data.
+    /// Construct a `SharedString` from an owned buffer of data.
     pub fn new(data: Vec<u8>) -> SharedString {
         let hash = blake3::hash(&data);
 
@@ -101,7 +101,7 @@ impl Drop for SharedString {
     fn drop(&mut self) {
         // If the reference we're about to drop is the very last reference to
         // the buffer, we'll be able to unwrap it and remove it from the
-        // SharedString cache.
+        // `SharedString` cache.
         if Arc::try_unwrap(self.data.take().unwrap()).is_ok() {
             let mut cache = if let Ok(v) = STRING_CACHE.lock() {
                 v

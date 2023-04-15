@@ -219,7 +219,8 @@ pub enum DecodedValues {
     PhysicalProperties(Vec<PhysicalProperties>),
     Color3uint8(Vec<Color3uint8>),
     Int64(Vec<i64>),
-    SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
+    // For the text deserializer, we only show the index in the shared string array.
+    SharedString(Vec<u32>),
     OptionalCFrame(Vec<Option<CFrame>>),
     Font(Vec<Font>),
 }

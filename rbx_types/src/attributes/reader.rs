@@ -11,7 +11,8 @@ use crate::{
 
 use super::{type_id, AttributeError};
 
-/// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
+/// Reads through an attribute property (`AttributesSerialize`) and returns a
+/// map of attribute names -> values.
 pub(crate) fn read_attributes<R: Read>(
     mut value: R,
 ) -> Result<BTreeMap<String, Variant>, AttributeError> {
@@ -214,7 +215,7 @@ fn read_vector2<R: Read>(mut reader: R) -> io::Result<Vector2> {
     Ok(Vector2::new(read_f32(&mut reader)?, read_f32(&mut reader)?))
 }
 
-/// Implementation taken from read_exact, but allowing an empty buffer by
+/// Implementation taken from `read_exact`, but allowing an empty buffer by
 /// returning `Ok(false)` instead of an EOF error.
 fn read_exact_or_none<R: Read>(mut reader: R, mut buf: &mut [u8]) -> io::Result<bool> {
     let initial_len = buf.len();

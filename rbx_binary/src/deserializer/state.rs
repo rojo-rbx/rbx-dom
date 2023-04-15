@@ -40,8 +40,8 @@ pub(super) struct DeserializerState<'a, R> {
     /// are interpreted by Roblox.
     metadata: HashMap<String, String>,
 
-    /// The SharedStrings contained in the file, if any, in the order that they
-    /// appear in the file.
+    /// The [`SharedString`]s contained in the file, if any, in the order that
+    /// they appear in the file.
     shared_strings: Vec<SharedString>,
 
     /// All of the instance types described by the file so far.
@@ -61,7 +61,7 @@ pub(super) struct DeserializerState<'a, R> {
 }
 
 /// Represents a unique instance class. Binary models define all their instance
-/// types up front and give them a short u32 identifier.
+/// types up front and give them a short `u32` identifier.
 struct TypeInfo {
     /// The ID given to this type by the current file we're deserializing. This
     /// ID can be different for different files.
@@ -934,7 +934,8 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                 ),
                             ));
 
-                            // envelope is serialized but doesn't do anything; don't do anything with it
+                            // envelope is serialized but doesn't do anything; don't do anything
+                            // with it
                             chunk.read_le_f32()?;
                         }
 

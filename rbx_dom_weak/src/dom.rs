@@ -47,7 +47,7 @@ impl WeakDom {
         dom
     }
 
-    /// Consumes the WeakDom, returning its underlying root ref and backing
+    /// Consumes the `WeakDom`, returning its underlying root ref and backing
     /// storage. This method is useful when tree-preserving operations are too
     /// slow.
     pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance>) {
@@ -83,7 +83,8 @@ impl WeakDom {
 
     /// Insert a new instance into the DOM with the given parent.
     ///
-    /// ## Panics
+    /// # Panics
+    ///
     /// Panics if `parent_ref` does not refer to an instance in the DOM.
     pub fn insert(&mut self, parent_ref: Ref, builder: InstanceBuilder) -> Ref {
         let referent = builder.referent;
@@ -116,7 +117,8 @@ impl WeakDom {
 
     /// Destroy the instance with the given referent.
     ///
-    /// ## Panics
+    /// # Panics
+    ///
     /// Panics if `referent` does not refer to an instance in the DOM.
     ///
     /// Will also panic if `referent` refers to the root instance in this
@@ -146,13 +148,14 @@ impl WeakDom {
 
     /// Move the instance with the given referent to a new `WeakDom`, parenting
     /// it to the given ref. To move to within the same DOM, use
-    /// [`WeakDom::transfer_within`].
+    /// [`transfer_within`](Self::transfer_within).
     ///
     /// This function would be called `move`, but that's a Rust keyword!
     ///
-    /// ## Panics
+    /// # Panics
+    ///
     /// Panics if `referent` does not refer to an instance in `self` or if
-    /// `dest_parent_ref` does not refer to an instance in `other_dom`.
+    /// `dest_parent_ref` does not refer to an instance in `dest`.
     ///
     /// Will also panic if `referent` refers to the root instance in this
     /// `WeakDom`.
@@ -199,12 +202,14 @@ impl WeakDom {
     }
 
     /// Move the instance with the given referent to a new parent within the
-    /// same `WeakDom`. To move to another DOM, use [`WeakDom::transfer`].
+    /// same `WeakDom`. To move to another DOM, use
+    /// [`transfer`](Self::transfer).
     ///
     /// This function would be called `move_within`, but `move` is a Rust
-    /// keyword and consistency with `transfer` is valuable.
+    /// keyword and consistency with [`transfer`](Self::transfer) is valuable.
     ///
-    /// ## Panics
+    /// # Panics
+    ///
     /// Panics if `referent` or `dest_parent_ref` do not refer to instances in
     /// `self`.
     ///

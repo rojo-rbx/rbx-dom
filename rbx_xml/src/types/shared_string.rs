@@ -1,4 +1,4 @@
-//! SharedString values need extra state, similar to Refs.
+//! [`SharedString`] values need extra state, similar to [`Ref`]s.
 
 use std::io::{Read, Write};
 

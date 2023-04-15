@@ -5,7 +5,7 @@ use std::fmt;
 use std::num::NonZeroU128;
 use std::str::FromStr;
 
-/// An universally unique, optional reference to a Roblox instance.
+/// A universally unique, optional reference to a Roblox instance.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Ref(Option<NonZeroU128>);
 

@@ -10,7 +10,7 @@ use crate::{
 use serde::{Deserialize, Serialize};
 
 /// Contains state for viewing and redacting nondeterministic portions of
-/// WeakDom objects, making them suitable for usage in snapshot tests.
+/// [`WeakDom`] objects, making them suitable for usage in snapshot tests.
 ///
 /// `DomViewer` can be held onto and used with a DOM multiple times. IDs will
 /// persist when viewing the same instance multiple times, and should stay the
@@ -131,8 +131,8 @@ impl Default for DomViewer {
     }
 }
 
-/// A transformed view into a `WeakDom` or `Instance` that has been redacted and
-/// transformed to be more readable.
+/// A transformed view into a [`WeakDom`] or [`Instance`](crate::Instance) that
+/// has been redacted and transformed to be more readable.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ViewedInstance {
     referent: String,

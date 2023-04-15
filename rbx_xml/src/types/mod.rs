@@ -1,11 +1,11 @@
-//! This file packs up all of the type implementations in rbx_xml and exposes
-//! them through two methods, `read_value_xml` and `write_value_xml`.
+//! This file packs up all of the type implementations in `rbx_xml` and exposes
+//! them through two methods, [`read_value_xml`] and [`write_value_xml`].
 //!
-//! To support a new type in rbx_xml:
+//! To support a new type in `rbx_xml`:
 //!
 //! 1. Implement the type in a submodule (with tests!)
-//! 2. Add a 'mod' statement immediately below this comment
-//! 3. Add the type(s) to the declare_rbx_types! macro invocation
+//! 2. Add a `mod` statement immediately below this comment
+//! 3. Add the type(s) to the `declare_rbx_types!` macro invocation
 
 mod attributes;
 mod axes;
@@ -56,12 +56,10 @@ use self::{
     tags::write_tags,
 };
 
-/// The `declare_rbx_types` macro generates the two big match statements that
-/// rbx_xml uses to read/write values inside of `read_value_xml` and
-/// `write_value_xml`.
+/// Generates the two big match statements that `rbx_xml` uses to read/write
+/// values inside of [`read_value_xml`] and [`write_value_xml`].
 macro_rules! declare_rbx_types {
     { $($variant_name: ident : $inner_type: ty,)* } => {
-
         /// Reads a Roblox property value with the given type from the XML event
         /// stream.
         pub fn read_value_xml<R: Read>(

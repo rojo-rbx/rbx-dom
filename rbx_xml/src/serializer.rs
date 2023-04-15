@@ -41,28 +41,29 @@ pub fn encode_internal<W: Write>(
     Ok(())
 }
 
-/// Describes the strategy that rbx_xml should use when serializing properties.
+/// Describes the strategy that `rbx_xml` should use when serializing
+/// properties.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 #[non_exhaustive]
 pub enum EncodePropertyBehavior {
-    /// Ignores properties that aren't known by rbx_xml.
+    /// Ignores properties that aren't known by `rbx_xml`.
     ///
     /// This is the default.
     IgnoreUnknown,
 
     /// Write unrecognized properties.
     ///
-    /// With this option set, properties that are newer than rbx_xml's
+    /// With this option set, properties that are newer than `rbx_xml`'s
     /// reflection database will show up. It may be problematic to depend on
-    /// these properties, since rbx_xml may start supporting them with
+    /// these properties, since `rbx_xml` may start supporting them with
     /// non-reflection specific names at a future date.
     WriteUnknown,
 
     /// Returns an error if any properties are found that aren't known by
-    /// rbx_xml.
+    /// `rbx_xml`.
     ErrorOnUnknown,
 
-    /// Completely turns off rbx_xml's reflection database. Property names and
+    /// Completely turns off `rbx_xml`'s reflection database. Property names and
     /// types will appear exactly as they are in the tree.
     ///
     /// This setting is useful for debugging the model format. It leaves the
@@ -86,7 +87,7 @@ impl EncodeOptions {
         }
     }
 
-    /// Determines how rbx_xml will serialize properties, especially unknown
+    /// Determines how `rbx_xml` will serialize properties, especially unknown
     /// ones.
     #[inline]
     pub fn property_behavior(self, property_behavior: EncodePropertyBehavior) -> Self {
@@ -108,14 +109,14 @@ pub struct EmitState {
     options: EncodeOptions,
 
     /// A map of IDs written so far to the generated referent that they use.
-    /// This map is used to correctly emit Ref properties.
+    /// This map is used to correctly emit [`Ref`] properties.
     referent_map: HashMap<Ref, u32>,
 
     /// The referent value that will be used for emitting the next instance.
     next_referent: u32,
 
     /// A map of all shared strings referenced so far while generating XML. This
-    /// map will be written as the file's SharedString dictionary.
+    /// map will be written as the file's [`SharedString`] dictionary.
     shared_strings_to_emit: BTreeMap<SharedStringHash, SharedString>,
 }
 
@@ -148,7 +149,7 @@ impl EmitState {
 /// Serialize a single instance.
 ///
 /// `property_buffer` is a Vec that can be reused between calls to
-/// serialize_instance to make sorting properties more efficient.
+/// `serialize_instance` to make sorting properties more efficient.
 fn serialize_instance<'a, W: Write>(
     writer: &mut XmlEventWriter<W>,
     state: &mut EmitState,

@@ -12,7 +12,7 @@ pub use xml::reader::Error as XmlReadError;
 pub use xml::reader::XmlEvent as XmlReadEvent;
 pub type XmlReadResult = Result<XmlReadEvent, XmlReadError>;
 
-/// A wrapper around an XML event iterator created by xml-rs.
+/// A wrapper around an XML event iterator created by `xml-rs`.
 pub struct XmlEventReader<R: Read> {
     reader: xml::EventReader<R>,
     peeked: Option<Result<XmlReadEvent, xml::reader::Error>>,
@@ -51,7 +51,8 @@ impl<R: Read> Iterator for XmlEventReader<R> {
 }
 
 impl<R: Read> XmlEventReader<R> {
-    /// Constructs a new `XmlEventReader` from a source that implements `Read`.
+    /// Constructs a new `XmlEventReader` from a source that implements
+    /// [`Read`].
     pub fn from_source(source: R) -> XmlEventReader<R> {
         let reader = ParserConfig::new()
             .ignore_comments(true)
@@ -159,8 +160,8 @@ impl<R: Read> XmlEventReader<R> {
     /// If the next event in the stream is not a character event, this function
     /// will return `Ok(None)` and leave the stream untouched.
     ///
-    /// This is the inner kernel of `read_characters`, which is the public
-    /// version of a similar idea.
+    /// This is the inner kernel of [`read_characters`](Self::read_characters),
+    /// which is the public version of a similar idea.
     fn read_one_characters_event(&mut self) -> Result<Option<String>, NewDecodeError> {
         // This pattern (peek + next) is pretty gnarly but is useful for looking
         // ahead without touching the stream.
@@ -194,7 +195,7 @@ impl<R: Read> XmlEventReader<R> {
     /// Reads a contiguous sequence of zero or more `Characters` and `CData`
     /// events from the event stream.
     ///
-    /// Normally, consumers of xml-rs shouldn't need to do this since the
+    /// Normally, consumers of `xml-rs` shouldn't need to do this since the
     /// combination of `cdata_to_characters` and `coalesce_characters` does
     /// something very similar. Because we want to support CDATA sequences that
     /// contain only whitespace, we have two options:
@@ -221,10 +222,10 @@ impl<R: Read> XmlEventReader<R> {
         Ok(buffer)
     }
 
-    /// Reads characters from the head of the deserializer and attempts to parse
-    /// them as base64 and turn them into a buffer of bytes.
+    /// Reads characters from the head of the deserializer and attempts to
+    /// parse them as Base64 and turn them into a buffer of bytes.
     ///
-    /// In Roblox XML model files, binary data is base64 encoded and
+    /// In Roblox XML model files, binary data is Base64 encoded and
     /// line-wrapped, meaning we have to be careful to ignore whitespace.
     pub fn read_base64_characters(&mut self) -> Result<Vec<u8>, NewDecodeError> {
         let contents: String = self
@@ -238,8 +239,8 @@ impl<R: Read> XmlEventReader<R> {
 
     /// Reads a tag completely and returns its text content. This is intended
     /// for parsing simple tags where we don't care about the attributes or
-    /// children, only the text value, for Vector3s and such, which are encoded
-    /// like:
+    /// children, only the text value, for `Vector3`s and such, which are
+    /// encoded like so:
     ///
     /// ```text
     /// <Vector3>
@@ -256,13 +257,13 @@ impl<R: Read> XmlEventReader<R> {
         Ok(contents)
     }
 
-    /// Read a value that implements XmlType.
+    /// Read a value that implements [`XmlType`].
     pub(crate) fn read_value<T: XmlType>(&mut self) -> Result<T, NewDecodeError> {
         T::read_xml(self)
     }
 
-    /// Read a value that implements XmlType, expecting it to be enclosed in an
-    /// outer tag.
+    /// Read a value that implements [`XmlType`], expecting it to be enclosed
+    /// in an outer tag.
     pub(crate) fn read_value_in_tag<T: XmlType>(
         &mut self,
         tag_name: &str,
@@ -274,7 +275,8 @@ impl<R: Read> XmlEventReader<R> {
         Ok(value)
     }
 
-    /// Consume events from the iterator until we reach the end of the next tag.
+    /// Consume events from the iterator until we reach the end of the next
+    /// tag.
     pub fn eat_unknown_tag(&mut self) -> Result<(), NewDecodeError> {
         let mut depth = 0;
 

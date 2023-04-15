@@ -1,4 +1,4 @@
-//! Serializes every kind of value into a file for debugging rbx_dom_lua.
+//! Serializes every kind of value into a file for debugging `rbx_dom_lua`.
 
 use std::collections::BTreeMap;
 

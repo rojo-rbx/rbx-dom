@@ -11,7 +11,8 @@ pub use self::error::Error;
 
 /// A configurable serializer for Roblox binary models and places.
 ///
-/// ## Example
+/// # Examples
+///
 /// ```no_run
 /// use std::fs::File;
 /// use std::io::BufWriter;

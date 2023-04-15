@@ -11,7 +11,8 @@ use crate::{
     variant::Variant,
 };
 
-/// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
+/// Writes the attribute property (`AttributesSerialize`) from a map of
+/// attribute names -> values.
 pub(crate) fn write_attributes<W: Write>(
     map: &BTreeMap<String, Variant>,
     mut writer: W,

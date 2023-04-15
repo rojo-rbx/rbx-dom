@@ -12,8 +12,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::{ClassTag, PropertyTag};
 
-/// Contains information extracted from Roblox to describe all known Instances
-/// and enums.
+/// Contains information extracted from Roblox to describe all known
+/// `Instance`s and enums.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 #[non_exhaustive]
@@ -41,13 +41,13 @@ impl<'a> ReflectionDatabase<'a> {
     }
 }
 
-/// Describes a class of Instance, its properties, and its relation to other
-/// classes of Instance.
+/// Describes a class of `Instance`, its properties, and its relation to other
+/// classes of `Instance`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 #[non_exhaustive]
 pub struct ClassDescriptor<'a> {
-    /// The name of the class, like "Folder" or "FlagStand".
+    /// The name of the class, like `Folder` or `FlagStand`.
     pub name: Cow<'a, str>,
 
     /// A set of all of the tags attached to this class.
@@ -82,12 +82,12 @@ impl<'a> ClassDescriptor<'a> {
     }
 }
 
-/// Describes a property on an Instance.
+/// Describes a property on an `Instance`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 #[non_exhaustive]
 pub struct PropertyDescriptor<'a> {
-    /// The name of the property, like "Position" or "heat_xml".
+    /// The name of the property, like `Position` or `heat_xml`.
     pub name: Cow<'a, str>,
 
     /// The maximum access to this property available to Lua.
@@ -184,7 +184,7 @@ pub enum Scriptability {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[non_exhaustive]
 pub struct EnumDescriptor<'a> {
-    /// The name of the enum, like "FormFactor" or "Material".
+    /// The name of the enum, like `FormFactor` or `Material`.
     pub name: Cow<'a, str>,
 
     /// All of the members of this enum, stored as a map from names to values.

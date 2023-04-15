@@ -56,10 +56,11 @@ pub trait RbxReadExt: Read {
 
     /// Read a binary "string" in the format that Roblox's model files use.
     ///
-    /// This function is safer than read_string because Roblox generally makes
-    /// no guarantees about encoding of things it calls strings. rbx_binary
-    /// makes a semantic differentiation between strings and binary buffers,
-    /// which makes it more strict than Roblox but more likely to be correct.
+    /// This function is safer than [`read_string`](Self::read_string) because
+    /// Roblox generally makes no guarantees about encoding of things it
+    /// calls strings. `rbx_binary` makes a semantic differentiation between
+    /// strings and binary buffers, which makes it more strict than Roblox
+    /// but more likely to be correct.
     fn read_binary_string(&mut self) -> io::Result<Vec<u8>> {
         let length = self.read_le_u32()?;
 

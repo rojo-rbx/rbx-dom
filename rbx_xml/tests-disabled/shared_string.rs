@@ -37,7 +37,7 @@ fn shared_string_round_trip() {
     assert!(first_value.data() == second_value.data());
 }
 
-/// Pulls out the PhysicalConfigData property of our target instance so we can
+/// Pulls out the `PhysicalConfigData` property of our target instance so we can
 /// make assertions about it.
 fn get_config_data(tree: &RbxTree) -> SharedString {
     let root_id = tree.get_root_id();

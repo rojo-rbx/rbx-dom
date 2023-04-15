@@ -3,7 +3,9 @@ use std::str::FromStr;
 use serde::{Deserialize, Serialize};
 
 // Tags found via:
+// ```text
 // jq '[.Classes | .[] | .Members | .[] | select(.MemberType == "Property") | .Tags // empty] | add | unique' api-dump.json
+// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 #[non_exhaustive]
 pub enum PropertyTag {

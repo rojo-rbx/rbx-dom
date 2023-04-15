@@ -5,8 +5,8 @@ use crate::{
     Vector3int16,
 };
 
-/// Reduces boilerplate from listing different values of Variant by wrapping
-/// them into a macro.
+/// Reduces boilerplate from listing different values of [`Variant`] by
+/// wrapping them into a macro.
 macro_rules! make_variant {
     (
         $(
@@ -54,7 +54,7 @@ macro_rules! make_variant {
             }
         )*
 
-        /// Represents any type that can be held in a `Variant`.
+        /// Represents any type that can be held in a [`Variant`].
         #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
         #[non_exhaustive]
         #[cfg_attr(
@@ -74,7 +74,7 @@ macro_rules! make_variant {
             /// This test makes sure that every type represented in `Variant`
             /// can be converted via `Into` into Variant.
             ///
-            /// If we forget to impl From when new types are added to Variant,
+            /// If we forget to impl `From` when new types are added to `Variant`,
             /// this test will start failing.
             #[allow(dead_code)]
             fn conversions_are_exhaustive() {
@@ -88,8 +88,8 @@ macro_rules! make_variant {
 }
 
 // IMPORTANT! The order of this enum is very important in order to preserve the
-// discriminant values that Rust assigns for both Variant and VariantType. Any
-// newly-added variants MUST be added to the end!
+// discriminant values that Rust assigns for both `Variant` and `VariantType`.
+// Any newly-added variants MUST be added to the end!
 make_variant! {
     Axes(Axes),
     BinaryString(BinaryString),
