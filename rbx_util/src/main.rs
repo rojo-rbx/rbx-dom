@@ -1,3 +1,4 @@
+use std::ffi::OsStr;
 use std::io::{self, BufReader, BufWriter};
 use std::path::{Path, PathBuf};
 use std::process;
@@ -29,7 +30,7 @@ enum ModelKind {
 
 impl ModelKind {
     fn from_path(path: &Path) -> anyhow::Result<ModelKind> {
-        match path.extension().and_then(|ext| ext.to_str()) {
+        match path.extension().and_then(OsStr::to_str) {
             Some("rbxm") | Some("rbxl") => Ok(ModelKind::Binary),
             Some("rbxmx") | Some("rbxlx") => Ok(ModelKind::Xml),
 

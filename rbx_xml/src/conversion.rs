@@ -8,7 +8,7 @@ use rbx_dom_weak::types::{Attributes, BrickColor, Color3uint8, Tags, Variant, Va
 
 pub trait ConvertVariant: Clone + Sized {
     fn try_convert(self, target_type: VariantType) -> Result<Self, String> {
-        Self::try_convert_cow(Cow::Owned(self), target_type).map(|value| value.into_owned())
+        Self::try_convert_cow(Cow::Owned(self), target_type).map(Cow::into_owned)
     }
 
     fn try_convert_ref(&self, target_type: VariantType) -> Result<Cow<'_, Self>, String> {

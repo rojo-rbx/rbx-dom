@@ -67,7 +67,7 @@ impl<'a> Iterator for TagsIter<'a> {
     type Item = &'a str;
 
     fn next(&mut self) -> Option<Self::Item> {
-        self.internal.next().map(|v| v.as_str())
+        self.internal.next().map(String::as_str)
     }
 }
 
