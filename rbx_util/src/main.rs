@@ -31,8 +31,8 @@ enum ModelKind {
 impl ModelKind {
     fn from_path(path: &Path) -> anyhow::Result<ModelKind> {
         match path.extension().and_then(OsStr::to_str) {
-            Some("rbxm") | Some("rbxl") => Ok(ModelKind::Binary),
-            Some("rbxmx") | Some("rbxlx") => Ok(ModelKind::Xml),
+            Some("rbxm" | "rbxl") => Ok(ModelKind::Binary),
+            Some("rbxmx" | "rbxlx") => Ok(ModelKind::Xml),
 
             _ => Err(anyhow!(
                 "not a Roblox model or place file: {}",

@@ -46,10 +46,10 @@ impl Type {
     pub fn from_rbx_type(rbx_type: VariantType) -> Option<Type> {
         Some(match rbx_type {
             // These types all serialize the same way in the binary format.
-            VariantType::String => Type::String,
-            VariantType::BinaryString => Type::String,
-            VariantType::Content => Type::String,
-            VariantType::Tags => Type::String,
+            VariantType::String
+            | VariantType::BinaryString
+            | VariantType::Content
+            | VariantType::Tags => Type::String,
 
             VariantType::Bool => Type::Bool,
             VariantType::Int32 => Type::Int32,
