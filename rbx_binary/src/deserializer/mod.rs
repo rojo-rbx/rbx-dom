@@ -72,7 +72,7 @@ impl<'a> Deserializer<'a> {
                 }
                 _ => {
                     if let Ok(name) = str::from_utf8(&chunk.name) {
-                        log::info!("Unknown binary chunk name {}", name);
+                        log::info!("Unknown binary chunk name {name}");
                     } else {
                         log::info!("Unknown binary chunk name {:?}", chunk.name);
                     }

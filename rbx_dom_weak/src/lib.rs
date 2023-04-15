@@ -31,7 +31,7 @@
 //!
 //! let http_service_id = dom.insert(dom.root_ref(), http_service);
 //!
-//! println!("HttpService has ID {:?}", http_service_id);
+//! println!("HttpService has ID {http_service_id:?}");
 //! ```
 //!
 //! To change properties on an instance that's already present in the tree, use

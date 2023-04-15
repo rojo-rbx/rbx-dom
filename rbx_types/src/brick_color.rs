@@ -100,7 +100,7 @@ macro_rules! make_brick_color {
                     let value = u16::deserialize(deserializer)?;
 
                     BrickColor::from_number(value).ok_or_else(|| {
-                        D::Error::custom(format!("{} is not a valid BrickColor number", value))
+                        D::Error::custom(format!("{value} is not a valid BrickColor number"))
                     })
                 }
             }

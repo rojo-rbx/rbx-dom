@@ -431,7 +431,7 @@ fn deserialize_instance<R: Read>(
         (class, referent)
     };
 
-    trace!("Class {} with referent {:?}", class_name, referent);
+    trace!("Class {class_name} with referent {referent:?}");
 
     let builder = InstanceBuilder::new(class_name);
     let instance_id = state.tree.insert(parent_id, builder);
@@ -508,9 +508,7 @@ fn deserialize_properties<R: Read>(
         .clone();
 
     log::trace!(
-        "Deserializing properties for instance {:?}, whose ClassName is {}",
-        instance_id,
-        class_name
+        "Deserializing properties for instance {instance_id:?}, whose ClassName is {class_name}"
     );
 
     loop {
@@ -552,10 +550,7 @@ fn deserialize_properties<R: Read>(
         };
 
         log::trace!(
-            "Deserializing property {}.{}, of type {}",
-            class_name,
-            xml_property_name,
-            xml_type_name
+            "Deserializing property {class_name}.{xml_property_name}, of type {xml_type_name}"
         );
 
         let maybe_descriptor = if state.options.use_reflection() {

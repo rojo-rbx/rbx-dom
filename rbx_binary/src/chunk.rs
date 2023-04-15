@@ -18,7 +18,7 @@ impl Chunk {
     pub fn decode<R: Read>(mut reader: R) -> io::Result<Chunk> {
         let header = decode_chunk_header(&mut reader)?;
 
-        log::trace!("{}", header);
+        log::trace!("{header}");
 
         let data = if header.compressed_len == 0 {
             let mut data = Vec::with_capacity(header.len as usize);

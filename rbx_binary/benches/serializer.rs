@@ -9,7 +9,7 @@ pub fn ser_folders_100(c: &mut Criterion) {
     for i in 0..99 {
         tree.insert(
             root_ref,
-            InstanceBuilder::new("Folder").with_name(format!("Folder {}", i)),
+            InstanceBuilder::new("Folder").with_name(format!("Folder {i}")),
         );
     }
 

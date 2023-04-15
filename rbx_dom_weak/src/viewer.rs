@@ -56,7 +56,7 @@ impl DomViewer {
     fn populate_referent_map(&mut self, dom: &WeakDom, referent: Ref) {
         let next_id = &mut self.next_id;
         self.referent_to_id.entry(referent).or_insert_with(|| {
-            let name = format!("referent-{}", next_id);
+            let name = format!("referent-{next_id}");
             *next_id += 1;
             name
         });
@@ -101,7 +101,7 @@ impl DomViewer {
                         let mut hash_hex = String::with_capacity(hash.as_bytes().len() * 2);
 
                         for byte in hash.as_bytes() {
-                            write!(hash_hex, "{:02x}", byte).unwrap();
+                            write!(hash_hex, "{byte:02x}").unwrap();
                         }
                         ViewedValue::SharedString {
                             len: shared_string.data().len(),
@@ -172,8 +172,7 @@ mod test {
             InstanceBuilder::new("Folder")
                 .with_name("Root")
                 .with_children(
-                    (0..4)
-                        .map(|i| InstanceBuilder::new("Folder").with_name(format!("Child {}", i))),
+                    (0..4).map(|i| InstanceBuilder::new("Folder").with_name(format!("Child {i}"))),
                 ),
         );
 

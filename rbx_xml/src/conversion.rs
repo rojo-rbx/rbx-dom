@@ -29,11 +29,11 @@ impl ConvertVariant for Variant {
         match (value.borrow(), target_type) {
             (Variant::Int32(value), VariantType::BrickColor) => {
                 let narrowed: u16 = (*value).try_into().map_err(|_| {
-                    format!("Value {} is not in the range of a valid BrickColor", value)
+                    format!("Value {value} is not in the range of a valid BrickColor")
                 })?;
 
                 BrickColor::from_number(narrowed)
-                    .ok_or_else(|| format!("{} is not a valid BrickColor number", value))
+                    .ok_or_else(|| format!("{value} is not a valid BrickColor number"))
                     .map(Into::into)
                     .map(Cow::Owned)
             }

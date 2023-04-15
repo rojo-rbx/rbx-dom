@@ -123,10 +123,7 @@ impl PropertyPatches {
                 .classes
                 .get_mut(class_name.as_str())
                 .ok_or_else(|| {
-                    anyhow!(
-                        "Class {} modified in patch file did not exist in database",
-                        class_name
-                    )
+                    anyhow!("Class {class_name} modified in patch file did not exist in database")
                 })?;
 
             for (property_name, property_change) in class_changes {
@@ -135,13 +132,11 @@ impl PropertyPatches {
                     .get_mut(property_name.as_str())
                     .ok_or_else(|| {
                         anyhow!(
-                            "Property {}.{} modified in patch file did not exist in database",
-                            class_name,
-                            property_name
+                            "Property {class_name}.{property_name} modified in patch file did not exist in database"
                         )
                     })?;
 
-                log::debug!("Property {}.{} changed", class_name, property_name);
+                log::debug!("Property {class_name}.{property_name} changed");
 
                 if let Some(kind) = property_change.kind() {
                     existing_property.kind = kind;
@@ -158,19 +153,17 @@ impl PropertyPatches {
                 .classes
                 .get_mut(class_name.as_str())
                 .ok_or_else(|| {
-                    anyhow!("Class {} modified in patch file wasn't present", class_name)
+                    anyhow!("Class {class_name} modified in patch file wasn't present")
                 })?;
 
             for (property_name, property_add) in class_adds {
                 if class.properties.contains_key(property_name.as_str()) {
                     bail!(
-                        "Property {}.{} added in patch file was already present",
-                        class_name,
-                        property_name
+                        "Property {class_name}.{property_name} added in patch file was already present"
                     );
                 }
 
-                log::debug!("Property {}.{} added", class_name, property_name);
+                log::debug!("Property {class_name}.{property_name} added");
 
                 let name = Cow::Owned(property_name.clone());
                 let data_type = property_add.data_type.clone();

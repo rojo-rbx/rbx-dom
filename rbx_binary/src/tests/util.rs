@@ -24,13 +24,13 @@ pub fn run_model_base_suite(model_path: impl AsRef<Path>) {
     // the actual test file is and also guards us against the test file
     // changing.
     let text_decoded = DecodedModel::from_reader(contents.as_slice());
-    insta::assert_yaml_snapshot!(format!("{}__input", model_stem), text_decoded);
+    insta::assert_yaml_snapshot!(format!("{model_stem}__input"), text_decoded);
 
     // Decode the test file and snapshot a stable version of the resulting tree.
     // This should properly test the deserializer.
     let decoded = from_reader(contents.as_slice()).unwrap();
     let decoded_viewed = DomViewer::new().view_children(&decoded);
-    insta::assert_yaml_snapshot!(format!("{}__decoded", model_stem), decoded_viewed);
+    insta::assert_yaml_snapshot!(format!("{model_stem}__decoded"), decoded_viewed);
 
     // Re-encode the model that we decoded. We can't snapshot this directly...
     let decoded_root = decoded.root();
@@ -43,7 +43,7 @@ pub fn run_model_base_suite(model_path: impl AsRef<Path>) {
     // representation of the original test file. In practice, we'll differ
     // slightly in chunk ordering, compression, etc.
     let text_roundtrip = DecodedModel::from_reader(encoded.as_slice());
-    insta::assert_yaml_snapshot!(format!("{}__encoded", model_stem), text_roundtrip);
+    insta::assert_yaml_snapshot!(format!("{model_stem}__encoded"), text_roundtrip);
 
     // As a sanity check, make sure we can decode the re-encoded version of the
     // file.

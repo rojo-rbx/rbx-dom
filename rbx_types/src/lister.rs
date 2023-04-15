@@ -15,6 +15,6 @@ impl Lister {
             write!(out, ", ")?;
         }
 
-        write!(out, "{}", label)
+        write!(out, "{label}")
     }
 }

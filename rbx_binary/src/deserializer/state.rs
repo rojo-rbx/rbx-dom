@@ -159,11 +159,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         let number_instances = chunk.read_le_u32()?;
 
         log::trace!(
-            "INST chunk (type ID {}, type name {}, format {}, {} instances)",
-            type_id,
-            type_name,
-            object_format,
-            number_instances,
+            "INST chunk (type ID {type_id}, type name {type_name}, format {object_format}, {number_instances} instances)"
         );
 
         let mut referents = vec![0; number_instances as usize];
@@ -301,23 +297,19 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                 }
             };
 
-            log::trace!(
-                "Known prop, canonical name {} and type {:?}",
-                canonical_name,
-                canonical_type
-            );
+            log::trace!("Known prop, canonical name {canonical_name} and type {canonical_type:?}");
         } else {
             canonical_name = prop_name.clone();
 
             if let Some(rbx_type) = binary_type.to_default_rbx_type() {
                 canonical_type = rbx_type;
             } else {
-                log::warn!("Unsupported prop type {:?}, skipping property", binary_type);
+                log::warn!("Unsupported prop type {binary_type:?}, skipping property");
 
                 return Ok(());
             }
 
-            log::trace!("Unknown prop, using type {:?}", canonical_type);
+            log::trace!("Unknown prop, using type {canonical_type:?}");
         }
 
         match binary_type {
@@ -388,7 +380,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "String, Content, Tags, Attributes, or BinaryString",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -405,7 +397,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Bool",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -424,7 +416,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Int32",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -443,7 +435,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Float32",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -460,7 +452,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Float64",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -487,7 +479,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "UDim",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -526,7 +518,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "UDim2",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -556,7 +548,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Ray",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -581,7 +573,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Faces",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -607,7 +599,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Axes",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -637,7 +629,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "BrickColor",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -667,7 +659,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Color3",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -691,7 +683,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Vector2",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -721,7 +713,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Vector3",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -787,7 +779,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "CFrame",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -808,7 +800,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Enum",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -833,7 +825,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Ref",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -856,7 +848,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Vector3int16",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -892,7 +884,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Font",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -921,7 +913,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "NumberSequence",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -956,7 +948,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "ColorSequence",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -975,7 +967,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "NumberRange",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -1008,7 +1000,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Rect",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -1038,7 +1030,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "PhysicalProperties",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -1069,7 +1061,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Color3",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -1088,7 +1080,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Int64",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -1104,7 +1096,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                     type_name: type_info.type_name.clone(),
                                     prop_name: prop_name.clone(),
                                     valid_value: "a valid SharedString",
-                                    actual_value: format!("{:?}", value),
+                                    actual_value: format!("{value:?}"),
                                 }
                             })?;
 
@@ -1120,7 +1112,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "SharedString",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -1216,7 +1208,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "OptionalCFrame",
-                        actual_type_name: format!("{:?}", invalid_type),
+                        actual_type_name: format!("{invalid_type:?}"),
                     });
                 }
             },
@@ -1238,7 +1230,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
         let number_objects = chunk.read_le_u32()?;
 
-        log::trace!("PRNT chunk ({} instances)", number_objects);
+        log::trace!("PRNT chunk ({number_objects} instances)");
 
         let mut subjects = vec![0; number_objects as usize];
         let mut parents = vec![0; number_objects as usize];
