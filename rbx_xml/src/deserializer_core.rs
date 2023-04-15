@@ -241,11 +241,13 @@ impl<R: Read> XmlEventReader<R> {
     /// children, only the text value, for Vector3s and such, which are encoded
     /// like:
     ///
+    /// ```text
     /// <Vector3>
     ///     <X>0</X>
     ///     <Y>0</Y>
     ///     <Z>0</Z>
     /// </Vector3>
+    /// ```
     pub fn read_tag_contents(&mut self, expected_name: &str) -> Result<String, NewDecodeError> {
         self.expect_start_with_name(expected_name)?;
         let contents = self.read_characters()?;
