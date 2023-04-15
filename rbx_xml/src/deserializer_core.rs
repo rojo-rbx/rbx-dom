@@ -173,7 +173,7 @@ impl<R: Read> XmlEventReader<R> {
             // We could also clone the borrowed data obtained from peek, but
             // some of the character events can contain several megabytes of
             // data, so a copy is really expensive.
-            Some(Ok(XmlReadEvent::Characters(_))) | Some(Ok(XmlReadEvent::CData(_))) => {
+            Some(Ok(XmlReadEvent::Characters(_) | XmlReadEvent::CData(_))) => {
                 match self.next().unwrap().unwrap() {
                     XmlReadEvent::Characters(value) | XmlReadEvent::CData(value) => Ok(Some(value)),
                     _ => unreachable!(),
