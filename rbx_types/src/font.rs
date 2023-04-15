@@ -1,21 +1,16 @@
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Default, Copy, Clone, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FontWeight {
     Thin,
     ExtraLight,
     Light,
+    #[default]
     Regular,
     Medium,
     SemiBold,
     Bold,
     ExtraBold,
     Heavy,
-}
-
-impl Default for FontWeight {
-    fn default() -> Self {
-        FontWeight::Regular
-    }
 }
 
 impl FontWeight {
@@ -48,17 +43,12 @@ impl FontWeight {
     }
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Default, Copy, Clone, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FontStyle {
+    #[default]
     Normal,
     Italic,
-}
-
-impl Default for FontStyle {
-    fn default() -> Self {
-        FontStyle::Normal
-    }
 }
 
 impl FontStyle {
