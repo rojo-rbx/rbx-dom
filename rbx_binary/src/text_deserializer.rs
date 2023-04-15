@@ -387,7 +387,7 @@ impl DecodedValues {
             Type::CFrame => {
                 let mut rotations = vec![Matrix3::identity(); prop_count];
 
-                for rotation in rotations.iter_mut() {
+                for rotation in &mut rotations {
                     let id = reader.read_u8().unwrap();
                     if id == 0 {
                         *rotation = Matrix3::new(
@@ -645,7 +645,7 @@ impl DecodedValues {
 
                 reader.read_u8().unwrap();
 
-                for rotation in rotations.iter_mut() {
+                for rotation in &mut rotations {
                     let id = reader.read_u8().unwrap();
                     if id == 0 {
                         *rotation = Matrix3::new(

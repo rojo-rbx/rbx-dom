@@ -262,7 +262,7 @@ fn deserialize_root<R: Read>(
 
     let mut doc_version = None;
 
-    for attribute in doc_attributes.into_iter() {
+    for attribute in doc_attributes {
         if attribute.name.local_name.as_str() == "version" {
             doc_version = Some(attribute.value);
         }
@@ -328,7 +328,7 @@ fn deserialize_metadata<R: Read>(
 
         let mut name = None;
 
-        for attribute in attributes.into_iter() {
+        for attribute in attributes {
             if attribute.name.local_name.as_str() == "name" {
                 name = Some(attribute.value);
             }
@@ -386,7 +386,7 @@ fn deserialize_shared_string<R: Read>(
     let attributes = reader.expect_start_with_name("SharedString")?;
 
     let mut md5_hash = None;
-    for attribute in attributes.into_iter() {
+    for attribute in attributes {
         if attribute.name.local_name == "md5" {
             md5_hash = Some(attribute.value);
             break;
@@ -417,7 +417,7 @@ fn deserialize_instance<R: Read>(
         let mut class = None;
         let mut referent = None;
 
-        for attribute in attributes.into_iter() {
+        for attribute in attributes {
             match attribute.name.local_name.as_str() {
                 "class" => class = Some(attribute.value),
                 "referent" => referent = Some(attribute.value),
