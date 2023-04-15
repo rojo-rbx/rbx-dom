@@ -1146,7 +1146,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             if instance.parent().is_some() {
                 self.id_to_referent
                     .get(&instance.parent())
-                    .cloned()
+                    .copied()
                     .unwrap_or(-1)
             } else {
                 -1

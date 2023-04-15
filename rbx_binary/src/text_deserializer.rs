@@ -146,8 +146,7 @@ fn decode_prop_chunk<R: Read>(
             // has no members and thus has no values of this property.
             let values = count_by_type_id
                 .get(&type_id)
-                .map(|&prop_count| DecodedValues::decode(&mut reader, prop_count, prop_type))
-                .unwrap_or(None);
+                .and_then(|&prop_count| DecodedValues::decode(&mut reader, prop_count, prop_type));
 
             (DecodedPropType::Known(prop_type), values)
         }
