@@ -300,39 +300,37 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             let serialized_ty;
 
             let database = rbx_reflection_database::get();
-            match find_property_descriptors(database, &instance.class, prop_name) {
-                Some(descriptors) => {
-                    // For any properties that do not serialize, we can skip
-                    // adding them to the set of type_infos.
-                    let serialized = match descriptors.serialized {
-                        Some(descriptor) => descriptor,
-                        None => continue,
-                    };
+            if let Some(descriptors) =
+                find_property_descriptors(database, &instance.class, prop_name)
+            {
+                // For any properties that do not serialize, we can skip
+                // adding them to the set of type_infos.
+                let serialized = match descriptors.serialized {
+                    Some(descriptor) => descriptor,
+                    None => continue,
+                };
 
-                    canonical_name = descriptors.canonical.name.clone();
-                    serialized_name = serialized.name.clone();
+                canonical_name = descriptors.canonical.name.clone();
+                serialized_name = serialized.name.clone();
 
-                    serialized_ty = match &serialized.data_type {
-                        DataType::Value(ty) => *ty,
-                        DataType::Enum(_) => VariantType::Enum,
+                serialized_ty = match &serialized.data_type {
+                    DataType::Value(ty) => *ty,
+                    DataType::Enum(_) => VariantType::Enum,
 
-                        unknown_ty => {
-                            // rbx_binary is not new enough to handle this kind
-                            // of property, whatever it is.
-                            return Err(InnerError::UnsupportedPropType {
-                                type_name: instance.class.clone(),
-                                prop_name: prop_name.clone(),
-                                prop_type: format!("{:?}", unknown_ty),
-                            });
-                        }
-                    };
-                }
-
-                None => {
-                    canonical_name = Cow::Owned(prop_name.clone());
-                    serialized_name = Cow::Owned(prop_name.clone());
-                    serialized_ty = prop_value.ty();
-                }
+                    unknown_ty => {
+                        // rbx_binary is not new enough to handle this kind
+                        // of property, whatever it is.
+                        return Err(InnerError::UnsupportedPropType {
+                            type_name: instance.class.clone(),
+                            prop_name: prop_name.clone(),
+                            prop_type: format!("{:?}", unknown_ty),
+                        });
+                    }
+                };
+            } else {
+                canonical_name = Cow::Owned(prop_name.clone());
+                serialized_name = Cow::Owned(prop_name.clone());
+                serialized_ty = prop_value.ty();
             }
 
             // In order to prevent cloning canonical_name in a rare branch,

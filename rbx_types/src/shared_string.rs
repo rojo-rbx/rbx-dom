@@ -31,14 +31,13 @@ impl SharedString {
             let mut cache = STRING_CACHE.lock().unwrap();
 
             match cache.entry(hash) {
-                Entry::Occupied(mut occupied) => match occupied.get().upgrade() {
-                    Some(handle) => {
+                Entry::Occupied(mut occupied) => {
+                    if let Some(handle) = occupied.get().upgrade() {
                         // An existing entry that we can reference
                         handle
-                    }
-                    None => {
+                    } else {
                         // An existing entry that's starting to be evicted from
-                        // the Drop of another SharedString instance.
+                        // the Drop of another `SharedString` instance.
                         //
                         // We can replace this handle with our copy of the data,
                         // but re-use this spot in the map.
@@ -47,7 +46,7 @@ impl SharedString {
                         occupied.insert(Arc::downgrade(&handle));
                         handle
                     }
-                },
+                }
                 Entry::Vacant(vacant) => {
                     // This string didn't exist before, so we'll populate it.
 
@@ -104,13 +103,12 @@ impl Drop for SharedString {
         // the buffer, we'll be able to unwrap it and remove it from the
         // SharedString cache.
         if Arc::try_unwrap(self.data.take().unwrap()).is_ok() {
-            let mut cache = match STRING_CACHE.lock() {
-                Ok(v) => v,
-                Err(_) => {
-                    // If the lock is poisoned, we should just leave it
-                    // alone so that we don't accidentally double-panic.
-                    return;
-                }
+            let mut cache = if let Ok(v) = STRING_CACHE.lock() {
+                v
+            } else {
+                // If the lock is poisoned, we should just leave it
+                // alone so that we don't accidentally double-panic.
+                return;
             };
 
             cache.remove(&self.hash);

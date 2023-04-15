@@ -130,14 +130,13 @@ impl EmitState {
     }
 
     pub fn map_id(&mut self, id: Ref) -> u32 {
-        match self.referent_map.get(&id) {
-            Some(&value) => value,
-            None => {
-                let referent = self.next_referent;
-                self.referent_map.insert(id, referent);
-                self.next_referent += 1;
-                referent
-            }
+        if let Some(&value) = self.referent_map.get(&id) {
+            value
+        } else {
+            let referent = self.next_referent;
+            self.referent_map.insert(id, referent);
+            self.next_referent += 1;
+            referent
         }
     }
 

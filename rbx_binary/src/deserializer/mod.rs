@@ -70,10 +70,13 @@ impl<'a> Deserializer<'a> {
                     deserializer.decode_end_chunk(&chunk.data)?;
                     break;
                 }
-                _ => match str::from_utf8(&chunk.name) {
-                    Ok(name) => log::info!("Unknown binary chunk name {}", name),
-                    Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
-                },
+                _ => {
+                    if let Ok(name) = str::from_utf8(&chunk.name) {
+                        log::info!("Unknown binary chunk name {}", name);
+                    } else {
+                        log::info!("Unknown binary chunk name {:?}", chunk.name);
+                    }
+                }
             }
         }
 

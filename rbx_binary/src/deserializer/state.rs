@@ -210,26 +210,26 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         // serialized format was just a type ID followed by the prop name. This
         // leads us to believe that Roblox will silently ignore any PROP chunks
         // that end immediately after the prop name, so we do the same.
-        let binary_type_byte = match chunk.read_u8() {
-            Ok(byte) => byte,
-            Err(_) => return Ok(()),
+        let binary_type_byte = if let Ok(byte) = chunk.read_u8() {
+            byte
+        } else {
+            return Ok(());
         };
 
-        let binary_type: Type = match binary_type_byte.try_into() {
-            Ok(ty) => ty,
-            Err(_) => {
-                if self.unknown_type_ids.insert(binary_type_byte) {
-                    log::warn!(
-                        "Unknown value type ID {byte:#04x} ({byte}) in Roblox \
-                         binary model file. Found in property {class}.{prop}.",
-                        byte = binary_type_byte,
-                        class = type_info.type_name,
-                        prop = prop_name,
-                    );
-                }
-
-                return Ok(());
+        let binary_type: Type = if let Ok(ty) = binary_type_byte.try_into() {
+            ty
+        } else {
+            if self.unknown_type_ids.insert(binary_type_byte) {
+                log::warn!(
+                    "Unknown value type ID {byte:#04x} ({byte}) in Roblox \
+                        binary model file. Found in property {class}.{prop}.",
+                    byte = binary_type_byte,
+                    class = type_info.type_name,
+                    prop = prop_name,
+                );
             }
+
+            return Ok(());
         };
 
         log::trace!(
@@ -259,69 +259,65 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         let canonical_name;
         let canonical_type;
 
-        match find_property_descriptors(
+        if let Some(descriptors) = find_property_descriptors(
             self.deserializer.database.unwrap(),
             &type_info.type_name,
             &prop_name,
         ) {
-            Some(descriptors) => {
-                // If this descriptor is known but wasn't supposed to be
-                // serialized, we should skip it.
-                //
-                // On 2021-09-07 (v494), BasePart.MaterialVariant was added as a
-                // serializable Referent property. It was removed soon after, on
-                // 2021-10-12 (v499). Any models saved during that period have
-                // BasePart.MaterialVariant present.
-                //
-                // On 2022-03-08 (v517), BasePart.MaterialVariant was
-                // reintroduced as a string property that does not serialize. It
-                // serializes as MaterialVariantSerialized.
-                //
-                // In case we run into a model serialized during that period, or
-                // this happens again, we need to make sure that the name we
-                // found is the one that's supposed to serialize.
-                if let PropertyKind::Canonical { serialization } = &descriptors.canonical.kind {
-                    if matches!(serialization, PropertySerialization::DoesNotSerialize) {
-                        log::debug!(
-                            "Skipping property {} as it is canonical and should not serialize.",
-                            descriptors.canonical.name
-                        );
-                        return Ok(());
-                    }
+            // If this descriptor is known but wasn't supposed to be
+            // serialized, we should skip it.
+            //
+            // On 2021-09-07 (v494), BasePart.MaterialVariant was added as a
+            // serializable Referent property. It was removed soon after, on
+            // 2021-10-12 (v499). Any models saved during that period have
+            // BasePart.MaterialVariant present.
+            //
+            // On 2022-03-08 (v517), BasePart.MaterialVariant was
+            // reintroduced as a string property that does not serialize. It
+            // serializes as MaterialVariantSerialized.
+            //
+            // In case we run into a model serialized during that period, or
+            // this happens again, we need to make sure that the name we
+            // found is the one that's supposed to serialize.
+            if let PropertyKind::Canonical { serialization } = &descriptors.canonical.kind {
+                if matches!(serialization, PropertySerialization::DoesNotSerialize) {
+                    log::debug!(
+                        "Skipping property {} as it is canonical and should not serialize.",
+                        descriptors.canonical.name
+                    );
+                    return Ok(());
                 }
-
-                // TODO: Do we need an additional fix here?
-
-                canonical_name = descriptors.canonical.name.clone().into_owned();
-                canonical_type = match &descriptors.canonical.data_type {
-                    DataType::Value(ty) => *ty,
-                    DataType::Enum(_) => VariantType::Enum,
-                    _ => {
-                        // TODO: Configurable handling of unknown types?
-                        return Ok(());
-                    }
-                };
-
-                log::trace!(
-                    "Known prop, canonical name {} and type {:?}",
-                    canonical_name,
-                    canonical_type
-                );
             }
-            None => {
-                canonical_name = prop_name.clone();
 
-                match binary_type.to_default_rbx_type() {
-                    Some(rbx_type) => canonical_type = rbx_type,
-                    None => {
-                        log::warn!("Unsupported prop type {:?}, skipping property", binary_type);
+            // TODO: Do we need an additional fix here?
 
-                        return Ok(());
-                    }
+            canonical_name = descriptors.canonical.name.clone().into_owned();
+            canonical_type = match &descriptors.canonical.data_type {
+                DataType::Value(ty) => *ty,
+                DataType::Enum(_) => VariantType::Enum,
+                _ => {
+                    // TODO: Configurable handling of unknown types?
+                    return Ok(());
                 }
+            };
 
-                log::trace!("Unknown prop, using type {:?}", canonical_type);
+            log::trace!(
+                "Known prop, canonical name {} and type {:?}",
+                canonical_name,
+                canonical_type
+            );
+        } else {
+            canonical_name = prop_name.clone();
+
+            if let Some(rbx_type) = binary_type.to_default_rbx_type() {
+                canonical_type = rbx_type;
+            } else {
+                log::warn!("Unsupported prop type {:?}, skipping property", binary_type);
+
+                return Ok(());
             }
+
+            log::trace!("Unknown prop, using type {:?}", canonical_type);
         }
 
         match binary_type {

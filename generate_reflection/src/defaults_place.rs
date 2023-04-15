@@ -60,9 +60,10 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &W
         found_classes.insert(instance.class.clone());
 
         for (prop_name, prop_value) in &instance.properties {
-            let descriptors = match find_descriptors(database, &instance.class, prop_name) {
-                Some(descriptor) => descriptor,
-                None => {
+            let descriptors =
+                if let Some(descriptors) = find_descriptors(database, &instance.class, prop_name) {
+                    descriptors
+                } else {
                     log::warn!(
                         "Found unknown property {}.{}, which is of type {:?}",
                         instance.class,
@@ -70,8 +71,7 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &W
                         prop_value.ty(),
                     );
                     continue;
-                }
-            };
+                };
 
             match &descriptors.canonical.kind {
                 PropertyKind::Canonical { serialization } => match serialization {
@@ -126,15 +126,16 @@ fn apply_defaults_from_fixture_place(database: &mut ReflectionDatabase, tree: &W
                 VariantType::Ref | VariantType::SharedString => {}
 
                 _ => {
-                    let class_descriptor = match database.classes.get_mut(instance.class.as_str()) {
-                        Some(descriptor) => descriptor,
-                        None => {
-                            log::warn!(
-                                "Class {} found in default place but not API dump",
-                                instance.class
-                            );
-                            continue;
-                        }
+                    let class_descriptor = if let Some(descriptor) =
+                        database.classes.get_mut(instance.class.as_str())
+                    {
+                        descriptor
+                    } else {
+                        log::warn!(
+                            "Class {} found in default place but not API dump",
+                            instance.class
+                        );
+                        continue;
                     };
 
                     class_descriptor
