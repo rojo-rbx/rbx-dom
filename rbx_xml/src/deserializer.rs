@@ -523,7 +523,7 @@ fn deserialize_properties<R: Read>(
 
                     for attribute in attributes {
                         if attribute.name.local_name.as_str() == "name" {
-                            xml_property_name = Some(attribute.value.to_owned());
+                            xml_property_name = Some(attribute.value.clone());
                             break;
                         }
                     }
@@ -533,7 +533,7 @@ fn deserialize_properties<R: Read>(
                         None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name"))),
                     };
 
-                    (name.local_name.to_owned(), xml_property_name)
+                    (name.local_name.clone(), xml_property_name)
                 }
                 XmlReadEvent::EndElement { name } => {
                     if name.local_name == "Properties" {
