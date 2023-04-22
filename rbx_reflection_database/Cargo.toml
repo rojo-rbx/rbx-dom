@@ -1,7 +1,7 @@
 [package]
 name = "rbx_reflection_database"
 description = "Bundled reflection database for Roblox projects"
-version = "0.2.5+roblox-530"
+version = "0.2.6+roblox-572"
 license = "MIT"
 documentation = "https://docs.rs/rbx_reflection_database"
 homepage = "https://github.com/rojo-rbx/rbx-dom"
