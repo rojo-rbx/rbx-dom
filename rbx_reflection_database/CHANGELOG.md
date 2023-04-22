@@ -1,7 +1,9 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
-* Updated to Roblox version 558.
+
+## 0.2.6+roblox-572
+* Updated to Roblox version 572.
 
 ## 0.2.5+roblox-530
 * Updated to Roblox version 530.
