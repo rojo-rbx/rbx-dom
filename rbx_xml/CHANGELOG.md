@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.13.0 (2023-04-22)
 * Added support for `Font` values. ([#248])
 * Added support for `UniqueId` values. ([#256])
 
