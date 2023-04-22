@@ -1,6 +1,8 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+
+## 1.5.0 (2023-04-22)
 * Implemented `Font`. ([#248])
 * Implemented `UniqueId` ([#256])
 
