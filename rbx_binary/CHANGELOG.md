@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.7.0 (2023-04-22)
 * Added support for `Font` values. ([#248])
 * Fixed the nondeterministic output of SSTR chunk when multiple shared strings are present. ([#254])
 
