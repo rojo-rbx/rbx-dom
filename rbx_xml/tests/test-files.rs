@@ -35,6 +35,8 @@ test_models! {
     body_movers: "models/body-movers",
     union: "models/unions",
     sharedstring: "models/sharedstring",
+    font: "models/font",
 
     unknown_type: "edge-cases/xml-unknown-type",
+    empty_font: "edge-cases/empty-font",
 }

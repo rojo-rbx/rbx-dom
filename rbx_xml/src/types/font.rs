@@ -104,6 +104,12 @@ impl XmlType for Font {
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
+        // Patchwork fix for older Roblox files that were written with invalid
+        // `Font` tags
+        if let XmlReadEvent::EndElement { .. } = reader.expect_peek()? {
+            return Ok(Font::default());
+        }
+
         let family = read_content(reader, "Family")?;
 
         let weight: u16 = reader.read_value_in_tag("Weight")?;
