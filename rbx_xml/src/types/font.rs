@@ -106,7 +106,7 @@ impl XmlType for Font {
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
         // Patchwork fix for older Roblox files that were written with invalid
         // `Font` tags
-        if let XmlReadEvent::EndElement { name: _ } = reader.expect_peek()? {
+        if let XmlReadEvent::EndElement { .. } = reader.expect_peek()? {
             return Ok(Font::default());
         }
 
