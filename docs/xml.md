@@ -165,7 +165,13 @@ All properties are encoded as a single element parented under a `Properties` ele
 
 The contents of type elements vary depending upon the type of the property they represent. 
 
-It is RECOMMENDED that the name of type elements correspond to the type that they represent. This ensures that Roblox does not attempt to deserialize them incorrectly and maintains human readability. 
+In some cases, the name of a type element does not accurately correspond to the type that it represents. At the time of writing, these types are:
+
+- `BrickColor` properties are serialized as `int`
+- `CFrame` properties are serialized as `CoordinateFrame`
+- `Enum` properties are serilaized as `token`
+
+If necessary or desired, encoders MAY serialize type elements using any other name, as Roblox does not utilize the actual element name. However, for the compatibility it is RECOMMENDED that Roblox's own names for type elements be used. As a result, decoders SHOULD utilize a reflection system to map type elements to their actual type rather than relying upon the name of the element.
 
 The following attributes are REQUIRED for all property elements, regardless of their type or name:
 
@@ -216,12 +222,12 @@ A `bool` with the value `false` appears as follows:
 
 The `BrickColor` data type is represented by a single 32-bit integer that represents the `Number` of the value.
 
-Roblox encodes this type with the element name `int` but also accepts `BrickColor`. It is preferred that `BrickColor` be used.
+Roblox encodes this type with the element name `int` but as noted previously, using this name for a tag is not a requirement. It may be desirable for encoders to name elements of this type `BrickColor` if the file is intended to be read by humans.
 
-A `BrickColor` with the value `Medium Stone Grey` (whose number is `194`) should appear as follows:
+A `BrickColor` with the value `Medium Stone Grey` (whose number is `194`) MAY appear as follows:
 
 ```xml
-<BrickColor name="BrickColorExample">194</BrickColor>
+<int name="BrickColorExample">194</int>
 ```
 
 ### Color3
