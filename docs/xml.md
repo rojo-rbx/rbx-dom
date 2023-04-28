@@ -560,8 +560,6 @@ A `Ref` value pointing to an `Item` with a `referent` of `RBX466F72207262782D646
 
 This element shares a name with a SharedString definition element. That element is documented [here][SharedString-def].
 
-The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. The contents of `SharedString` elements MUST be equal to the `md5` attribute of a [`SharedString` definition][SharedString-def].
-
 The `SharedString` data type is represented by a string that points to a `SharedString` defined elsewhere in the file. Specifically, the contents of elements of this type MUST be equal to the `md5` attribute of a [`SharedString` definition][SharedString-def].
 
 A `SharedString` value pointing to the `SharedString` with its `md5` attribute equal to `ZGVra29ub3Rfd2FzX2hlcmU=` appears as follows:
