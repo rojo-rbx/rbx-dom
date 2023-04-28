@@ -60,6 +60,14 @@ If the default for a data type is used, it may be not be the correct default for
 
 The easiest way to fix and avoid this issue is to update the reflection database and patch it where appropriate. Some attention should also be paid to beta features, to ensure they don't add anything that will need to be patched later.
 
+### INST Chunk Format
+
+The binary format has two distinct formats for `INST` chunks. Internally we refer to these as the `normal` and `service` formats. When the format is set to `service`, we simply write an array of `1` values to the end of the chunk to ensure compatibility (see [issue #11](https://github.com/rojo-rbx/rbx-dom/issues/11)).
+
+This is technically wrong. The 'proper' way to do this is to write `1` if the respective Instance is parented to the file's root and `0` if it is not. However, this nuance has proven unnecessary because we simply don't generate `INST` chunks with this format unless the class is a service, in which case there is only one per file.
+
+This is not expected to cause any compatibility issues in the future, but it is documented for posterity.
+
 ### Malformed Property Chunks
 
 Roblox has serialized invalid `PROP` chunks in the past when introducing new property values. Most notably, this occured when the `Optional` type was first introduced in the form of `OptionalCoordinateFrame`.
