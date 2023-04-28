@@ -68,7 +68,7 @@ This is technically wrong. The 'proper' way to do this is to write `1` if the re
 
 This is not expected to cause any compatibility issues in the future, but it is documented for posterity.
 
-### Malformed Property Chunks
+### Malformed PROP Chunks
 
 Roblox has serialized invalid `PROP` chunks in the past when introducing new property values. Most notably, this occured when the `Optional` type was first introduced in the form of `OptionalCoordinateFrame`.
 
