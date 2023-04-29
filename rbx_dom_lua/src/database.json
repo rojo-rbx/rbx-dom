@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    572,
+    573,
     0,
-    5720484
+    5730507
   ],
   "Classes": {
     "Accessory": {
@@ -388,6 +388,19 @@
             }
           }
         },
+        "LinearImpulse": {
+          "Name": "LinearImpulse",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "MaintainAngularMomentum": {
           "Name": "MaintainAngularMomentum",
           "Scriptability": "ReadWrite",
@@ -485,10 +498,14 @@
           "DataType": {
             "Value": "Vector3"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated",
+            "Hidden",
+            "NotReplicated"
+          ],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
@@ -505,6 +522,13 @@
         },
         "BalanceSpeed": {
           "Float32": 100.0
+        },
+        "LinearImpulse": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
         },
         "MaintainAngularMomentum": {
           "Bool": true
@@ -538,13 +562,6 @@
         },
         "TurningSpeedFactor": {
           "Float32": 1.0
-        },
-        "VectorForce": {
-          "Vector3": [
-            0.0,
-            0.0,
-            0.0
-          ]
         }
       }
     },
@@ -1332,6 +1349,16 @@
         "Service"
       ],
       "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "AnimationImportData": {
+      "Name": "AnimationImportData",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "BaseImportData",
       "Properties": {},
       "DefaultProperties": {}
     },
@@ -2623,6 +2650,59 @@
           "Bool": false
         }
       }
+    },
+    "BaseImportData": {
+      "Name": "BaseImportData",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Id": {
+          "Name": "Id",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ImportName": {
+          "Name": "ImportName",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ShouldImport": {
+          "Name": "ShouldImport",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
     },
     "BasePart": {
       "Name": "BasePart",
@@ -6455,6 +6535,23 @@
         "Service"
       ],
       "Superclass": "FlyweightService",
+      "Properties": {},
+      "DefaultProperties": {
+        "Attributes": {
+          "BinaryString": ""
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
+        }
+      }
+    },
+    "CSGOptions": {
+      "Name": "CSGOptions",
+      "Tags": [],
+      "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
         "Attributes": {
@@ -13820,6 +13917,16 @@
       },
       "DefaultProperties": {}
     },
+    "FacsImportData": {
+      "Name": "FacsImportData",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "BaseImportData",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "Feature": {
       "Name": "Feature",
       "Tags": [
@@ -15611,6 +15718,19 @@
             }
           }
         },
+        "TurnSpeedFactor": {
+          "Name": "TurnSpeedFactor",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "TurningFactor": {
           "Name": "TurningFactor",
           "Scriptability": "ReadWrite",
@@ -15680,10 +15800,63 @@
         "Tags": {
           "BinaryString": ""
         },
+        "TurnSpeedFactor": {
+          "Float32": 1.0
+        },
         "TurningFactor": {
           "Float32": 1.0
         }
       }
+    },
+    "GroupImportData": {
+      "Name": "GroupImportData",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "BaseImportData",
+      "Properties": {
+        "Anchored": {
+          "Name": "Anchored",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ImportAsModelAsset": {
+          "Name": "ImportAsModelAsset",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "InsertInWorkspace": {
+          "Name": "InsertInWorkspace",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
     },
     "GroupService": {
       "Name": "GroupService",
@@ -19970,780 +20143,6 @@
         }
       }
     },
-    "ImporterAnimationSettings": {
-      "Name": "ImporterAnimationSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "ImporterBaseSettings",
-      "Properties": {},
-      "DefaultProperties": {}
-    },
-    "ImporterBaseSettings": {
-      "Name": "ImporterBaseSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "Instance",
-      "Properties": {
-        "Id": {
-          "Name": "Id",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "ImportName": {
-          "Name": "ImportName",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "ShouldImport": {
-          "Name": "ShouldImport",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
-    "ImporterFacsSettings": {
-      "Name": "ImporterFacsSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "ImporterBaseSettings",
-      "Properties": {},
-      "DefaultProperties": {}
-    },
-    "ImporterGroupSettings": {
-      "Name": "ImporterGroupSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "ImporterBaseSettings",
-      "Properties": {
-        "Anchored": {
-          "Name": "Anchored",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "ImportAsModelAsset": {
-          "Name": "ImportAsModelAsset",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "InsertInWorkspace": {
-          "Name": "InsertInWorkspace",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
-    "ImporterJointSettings": {
-      "Name": "ImporterJointSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "ImporterBaseSettings",
-      "Properties": {},
-      "DefaultProperties": {}
-    },
-    "ImporterMaterialSettings": {
-      "Name": "ImporterMaterialSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "ImporterBaseSettings",
-      "Properties": {
-        "DiffuseFilePath": {
-          "Name": "DiffuseFilePath",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "IsPbr": {
-          "Name": "IsPbr",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "MetalnessFilePath": {
-          "Name": "MetalnessFilePath",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "NormalFilePath": {
-          "Name": "NormalFilePath",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "RoughnessFilePath": {
-          "Name": "RoughnessFilePath",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
-    "ImporterMeshSettings": {
-      "Name": "ImporterMeshSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "ImporterBaseSettings",
-      "Properties": {
-        "Anchored": {
-          "Name": "Anchored",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "CageManifold": {
-          "Name": "CageManifold",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "CageMeshIntersectedPreview": {
-          "Name": "CageMeshIntersectedPreview",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "CageMeshNotIntersected": {
-          "Name": "CageMeshNotIntersected",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "CageNoOverlappingVertices": {
-          "Name": "CageNoOverlappingVertices",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "CageNonManifoldPreview": {
-          "Name": "CageNonManifoldPreview",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "CageOverlappingVerticesPreview": {
-          "Name": "CageOverlappingVerticesPreview",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "CageUVMatched": {
-          "Name": "CageUVMatched",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "CageUVMisMatchedPreview": {
-          "Name": "CageUVMisMatchedPreview",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "Dimensions": {
-          "Name": "Dimensions",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Vector3"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "DoubleSided": {
-          "Name": "DoubleSided",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "IgnoreVertexColors": {
-          "Name": "IgnoreVertexColors",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "IrrelevantCageModifiedPreview": {
-          "Name": "IrrelevantCageModifiedPreview",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "MeshHoleDetectedPreview": {
-          "Name": "MeshHoleDetectedPreview",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "MeshNoHoleDetected": {
-          "Name": "MeshNoHoleDetected",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "NoIrrelevantCageModified": {
-          "Name": "NoIrrelevantCageModified",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "NoOuterCageFarExtendedFromMesh": {
-          "Name": "NoOuterCageFarExtendedFromMesh",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "OuterCageFarExtendedFromMeshPreview": {
-          "Name": "OuterCageFarExtendedFromMeshPreview",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "PolygonCount": {
-          "Name": "PolygonCount",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "UseImportedPivot": {
-          "Name": "UseImportedPivot",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
-    "ImporterRootSettings": {
-      "Name": "ImporterRootSettings",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "ImporterBaseSettings",
-      "Properties": {
-        "AddModelToInventory": {
-          "Name": "AddModelToInventory",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "Anchored": {
-          "Name": "Anchored",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "ExistingPackageId": {
-          "Name": "ExistingPackageId",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "String"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "FileDimensions": {
-          "Name": "FileDimensions",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Vector3"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "ImportAsModelAsset": {
-          "Name": "ImportAsModelAsset",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "ImportAsPackage": {
-          "Name": "ImportAsPackage",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "InsertInWorkspace": {
-          "Name": "InsertInWorkspace",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "InsertWithScenePosition": {
-          "Name": "InsertWithScenePosition",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "InvertNegativeFaces": {
-          "Name": "InvertNegativeFaces",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "MergeMeshes": {
-          "Name": "MergeMeshes",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "PolygonCount": {
-          "Name": "PolygonCount",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "RigScale": {
-          "Name": "RigScale",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Enum": "RigScale"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "RigType": {
-          "Name": "RigType",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Enum": "RigType"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "ScaleUnit": {
-          "Name": "ScaleUnit",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Enum": "MeshScaleUnit"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "UseSceneOriginAsCFrame": {
-          "Name": "UseSceneOriginAsCFrame",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "UseSceneOriginAsPivot": {
-          "Name": "UseSceneOriginAsPivot",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "UsesCages": {
-          "Name": "UsesCages",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "WorldForward": {
-          "Name": "WorldForward",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Enum": "NormalId"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "WorldUp": {
-          "Name": "WorldUp",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Enum": "NormalId"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
     "IncrementalPatchBuilder": {
       "Name": "IncrementalPatchBuilder",
       "Tags": [
@@ -21519,6 +20918,16 @@
         "NotReplicated"
       ],
       "Superclass": "Pages",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "JointImportData": {
+      "Name": "JointImportData",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "BaseImportData",
       "Properties": {},
       "DefaultProperties": {}
     },
@@ -23342,6 +22751,85 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "MaterialImportData": {
+      "Name": "MaterialImportData",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "BaseImportData",
+      "Properties": {
+        "DiffuseFilePath": {
+          "Name": "DiffuseFilePath",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "IsPbr": {
+          "Name": "IsPbr",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "MetalnessFilePath": {
+          "Name": "MetalnessFilePath",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "NormalFilePath": {
+          "Name": "NormalFilePath",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RoughnessFilePath": {
+          "Name": "RoughnessFilePath",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "MaterialService": {
       "Name": "MaterialService",
       "Tags": [
@@ -23811,7 +23299,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "Use2022MaterialsXml"
+              }
             }
           }
         },
@@ -24191,6 +23681,304 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
+    "MeshImportData": {
+      "Name": "MeshImportData",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "BaseImportData",
+      "Properties": {
+        "Anchored": {
+          "Name": "Anchored",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CageManifold": {
+          "Name": "CageManifold",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "CageMeshIntersectedPreview": {
+          "Name": "CageMeshIntersectedPreview",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CageMeshNotIntersected": {
+          "Name": "CageMeshNotIntersected",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "CageNoOverlappingVertices": {
+          "Name": "CageNoOverlappingVertices",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "CageNonManifoldPreview": {
+          "Name": "CageNonManifoldPreview",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CageOverlappingVerticesPreview": {
+          "Name": "CageOverlappingVerticesPreview",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CageUVMatched": {
+          "Name": "CageUVMatched",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "CageUVMisMatchedPreview": {
+          "Name": "CageUVMisMatchedPreview",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Dimensions": {
+          "Name": "Dimensions",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "DoubleSided": {
+          "Name": "DoubleSided",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "IgnoreVertexColors": {
+          "Name": "IgnoreVertexColors",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "IrrelevantCageModifiedPreview": {
+          "Name": "IrrelevantCageModifiedPreview",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MeshHoleDetectedPreview": {
+          "Name": "MeshHoleDetectedPreview",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MeshNoHoleDetected": {
+          "Name": "MeshNoHoleDetected",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "NoIrrelevantCageModified": {
+          "Name": "NoIrrelevantCageModified",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "NoOuterCageFarExtendedFromMesh": {
+          "Name": "NoOuterCageFarExtendedFromMesh",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "OuterCageFarExtendedFromMeshPreview": {
+          "Name": "OuterCageFarExtendedFromMeshPreview",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PolygonCount": {
+          "Name": "PolygonCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "UseImportedPivot": {
+          "Name": "UseImportedPivot",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         }
@@ -32778,6 +32566,296 @@
         }
       }
     },
+    "RootImportData": {
+      "Name": "RootImportData",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "BaseImportData",
+      "Properties": {
+        "AddModelToInventory": {
+          "Name": "AddModelToInventory",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Anchored": {
+          "Name": "Anchored",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "AnimationIdForRestPose": {
+          "Name": "AnimationIdForRestPose",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ExistingPackageId": {
+          "Name": "ExistingPackageId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "FileDimensions": {
+          "Name": "FileDimensions",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ImportAsModelAsset": {
+          "Name": "ImportAsModelAsset",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ImportAsPackage": {
+          "Name": "ImportAsPackage",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "InsertInWorkspace": {
+          "Name": "InsertInWorkspace",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "InsertWithScenePosition": {
+          "Name": "InsertWithScenePosition",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "InvertNegativeFaces": {
+          "Name": "InvertNegativeFaces",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MergeMeshes": {
+          "Name": "MergeMeshes",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PolygonCount": {
+          "Name": "PolygonCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "RestPose": {
+          "Name": "RestPose",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "RestPose"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RigScale": {
+          "Name": "RigScale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "RigScale"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RigType": {
+          "Name": "RigType",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "RigType"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ScaleUnit": {
+          "Name": "ScaleUnit",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "MeshScaleUnit"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "UseSceneOriginAsCFrame": {
+          "Name": "UseSceneOriginAsCFrame",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "UseSceneOriginAsPivot": {
+          "Name": "UseSceneOriginAsPivot",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "UsesCages": {
+          "Name": "UsesCages",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WorldForward": {
+          "Name": "WorldForward",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "NormalId"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WorldUp": {
+          "Name": "WorldUp",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "NormalId"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "RopeConstraint": {
       "Name": "RopeConstraint",
       "Tags": [],
@@ -40165,6 +40243,21 @@
             }
           }
         },
+        "HintColor": {
+          "Name": "HintColor",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "Hover Animate Speed": {
           "Name": "Hover Animate Speed",
           "Scriptability": "ReadWrite",
@@ -40227,6 +40320,21 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "InformationColor": {
+          "Name": "InformationColor",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Color3"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -51400,43 +51508,6 @@
         }
       }
     },
-    "VoiceSource": {
-      "Name": "VoiceSource",
-      "Tags": [
-        "Deprecated",
-        "NotCreatable"
-      ],
-      "Superclass": "Instance",
-      "Properties": {
-        "UserId": {
-          "Name": "UserId",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Int64"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {
-        "Attributes": {
-          "BinaryString": ""
-        },
-        "SourceAssetId": {
-          "Int64": -1
-        },
-        "Tags": {
-          "BinaryString": ""
-        }
-      }
-    },
     "WedgePart": {
       "Name": "WedgePart",
       "Tags": [],
@@ -55449,6 +55520,14 @@
         "Standard": 0
       }
     },
+    "RestPose": {
+      "name": "RestPose",
+      "items": {
+        "Custom": 2,
+        "Default": 0,
+        "RotationsReset": 1
+      }
+    },
     "ReturnKeyType": {
       "name": "ReturnKeyType",
       "items": {
@@ -55515,11 +55594,9 @@
     "RigType": {
       "name": "RigType",
       "items": {
-        "Custom": 3,
-        "None": 4,
-        "R15": 0,
-        "Rthro": 1,
-        "RthroNarrow": 2
+        "Custom": 1,
+        "None": 2,
+        "R15": 0
       }
     },
     "RollOffMode": {
@@ -55721,6 +55798,8 @@
       "name": "Severity",
       "items": {
         "Error": 1,
+        "Hint": 4,
+        "Information": 3,
         "Warning": 2
       }
     },
@@ -55837,45 +55916,47 @@
     "StudioScriptEditorColorCategories": {
       "name": "StudioScriptEditorColorCategories",
       "items": {
-        "ActiveLine": 25,
+        "ActiveLine": 27,
         "Background": 17,
         "Bool": 10,
-        "Bracket": 29,
+        "Bracket": 31,
         "Builtin": 6,
         "Comment": 4,
-        "DebuggerCurrentLine": 26,
-        "DebuggerErrorLine": 27,
+        "DebuggerCurrentLine": 28,
+        "DebuggerErrorLine": 29,
         "Default": 0,
-        "DocViewCodeBackground": 38,
+        "DocViewCodeBackground": 40,
         "Error": 23,
         "FindSelectionBackground": 20,
         "Function": 11,
         "FunctionName": 15,
+        "Hint": 25,
+        "Info": 24,
         "Keyword": 5,
         "Local": 12,
         "LuauKeyword": 14,
         "MatchingWordBackground": 21,
-        "MenuBackground": 33,
-        "MenuBorder": 37,
-        "MenuPrimaryText": 30,
-        "MenuScrollbarBackground": 35,
-        "MenuScrollbarHandle": 36,
-        "MenuSecondaryText": 31,
-        "MenuSelectedBackground": 34,
-        "MenuSelectedText": 32,
+        "MenuBackground": 35,
+        "MenuBorder": 39,
+        "MenuPrimaryText": 32,
+        "MenuScrollbarBackground": 37,
+        "MenuScrollbarHandle": 38,
+        "MenuSecondaryText": 33,
+        "MenuSelectedBackground": 36,
+        "MenuSelectedText": 34,
         "Method": 7,
         "Nil": 9,
         "Number": 2,
         "Operator": 1,
         "Property": 8,
-        "Ruler": 28,
+        "Ruler": 30,
         "SelectionBackground": 19,
         "SelectionText": 18,
         "Self": 13,
         "String": 3,
         "TODO": 16,
         "Warning": 22,
-        "Whitespace": 24
+        "Whitespace": 26
       }
     },
     "StudioScriptEditorColorPresets": {
@@ -55890,49 +55971,49 @@
     "StudioStyleGuideColor": {
       "name": "StudioStyleGuideColor",
       "items": {
-        "AttributeCog": 117,
+        "AttributeCog": 119,
         "Border": 31,
         "BrightText": 40,
         "Button": 17,
-        "ButtonBorder": 89,
-        "ButtonText": 90,
+        "ButtonBorder": 91,
+        "ButtonText": 92,
         "CategoryItem": 24,
-        "ChatIncomingBgColor": 83,
-        "ChatIncomingTextColor": 84,
-        "ChatModeratedMessageColor": 87,
-        "ChatOutgoingBgColor": 85,
-        "ChatOutgoingTextColor": 86,
-        "CheckedFieldBackground": 92,
-        "CheckedFieldBorder": 93,
-        "CheckedFieldIndicator": 94,
+        "ChatIncomingBgColor": 85,
+        "ChatIncomingTextColor": 86,
+        "ChatModeratedMessageColor": 89,
+        "ChatOutgoingBgColor": 87,
+        "ChatOutgoingTextColor": 88,
+        "CheckedFieldBackground": 94,
+        "CheckedFieldBorder": 95,
+        "CheckedFieldIndicator": 96,
         "ColorPickerFrame": 29,
         "CurrentMarker": 30,
         "Dark": 35,
-        "DebuggerCurrentLine": 65,
-        "DebuggerErrorLine": 66,
-        "DialogButton": 98,
-        "DialogButtonBorder": 100,
-        "DialogButtonText": 99,
-        "DialogMainButton": 101,
-        "DialogMainButtonText": 102,
-        "DiffFilePathBackground": 81,
-        "DiffFilePathBorder": 82,
-        "DiffFilePathText": 67,
-        "DiffLineNum": 76,
-        "DiffLineNumAdditionBackground": 79,
-        "DiffLineNumDeletionBackground": 80,
-        "DiffLineNumNoChangeBackground": 78,
-        "DiffLineNumSeparatorBackground": 77,
-        "DiffTextAddition": 70,
-        "DiffTextAdditionBackground": 74,
-        "DiffTextDeletion": 71,
-        "DiffTextDeletionBackground": 75,
-        "DiffTextHunkInfo": 68,
-        "DiffTextNoChange": 69,
-        "DiffTextNoChangeBackground": 73,
-        "DiffTextSeparatorBackground": 72,
+        "DebuggerCurrentLine": 67,
+        "DebuggerErrorLine": 68,
+        "DialogButton": 100,
+        "DialogButtonBorder": 102,
+        "DialogButtonText": 101,
+        "DialogMainButton": 103,
+        "DialogMainButtonText": 104,
+        "DiffFilePathBackground": 83,
+        "DiffFilePathBorder": 84,
+        "DiffFilePathText": 69,
+        "DiffLineNum": 78,
+        "DiffLineNumAdditionBackground": 81,
+        "DiffLineNumDeletionBackground": 82,
+        "DiffLineNumNoChangeBackground": 80,
+        "DiffLineNumSeparatorBackground": 79,
+        "DiffTextAddition": 72,
+        "DiffTextAdditionBackground": 76,
+        "DiffTextDeletion": 73,
+        "DiffTextDeletionBackground": 77,
+        "DiffTextHunkInfo": 70,
+        "DiffTextNoChange": 71,
+        "DiffTextNoChangeBackground": 75,
+        "DiffTextSeparatorBackground": 74,
         "DimmedText": 41,
-        "DocViewCodeBackground": 64,
+        "DocViewCodeBackground": 66,
         "DropShadow": 32,
         "Dropdown": 2,
         "EmulatorBar": 27,
@@ -55946,12 +56027,12 @@
         "FilterButtonHover": 10,
         "GameSettingsTableItem": 25,
         "GameSettingsTooltip": 26,
-        "HeaderSection": 95,
-        "InfoBarWarningBackground": 103,
-        "InfoBarWarningText": 104,
+        "HeaderSection": 97,
+        "InfoBarWarningBackground": 105,
+        "InfoBarWarningText": 106,
         "InfoText": 45,
         "InputFieldBackground": 21,
-        "InputFieldBorder": 91,
+        "InputFieldBorder": 93,
         "Item": 22,
         "Light": 34,
         "LinkText": 42,
@@ -55959,46 +56040,48 @@
         "MainButton": 18,
         "MainText": 37,
         "Mid": 36,
-        "Midlight": 96,
+        "Midlight": 98,
         "Notification": 4,
         "RibbonButton": 19,
         "RibbonTab": 15,
         "RibbonTabTopBar": 16,
         "ScriptBackground": 48,
-        "ScriptBool": 109,
-        "ScriptBracket": 116,
+        "ScriptBool": 111,
+        "ScriptBracket": 118,
         "ScriptBuiltInFunction": 59,
         "ScriptComment": 57,
-        "ScriptEditorCurrentLine": 105,
+        "ScriptEditorCurrentLine": 107,
         "ScriptError": 61,
         "ScriptFindSelectionBackground": 52,
-        "ScriptFunction": 110,
-        "ScriptFunctionName": 114,
+        "ScriptFunction": 112,
+        "ScriptFunctionName": 116,
+        "ScriptHint": 63,
+        "ScriptInformation": 62,
         "ScriptKeyword": 58,
-        "ScriptLocal": 111,
-        "ScriptLuauKeyword": 113,
+        "ScriptLocal": 113,
+        "ScriptLuauKeyword": 115,
         "ScriptMatchingWordSelectionBackground": 53,
-        "ScriptMethod": 106,
-        "ScriptNil": 108,
+        "ScriptMethod": 108,
+        "ScriptNil": 110,
         "ScriptNumber": 55,
         "ScriptOperator": 54,
-        "ScriptProperty": 107,
-        "ScriptRuler": 63,
+        "ScriptProperty": 109,
+        "ScriptRuler": 65,
         "ScriptSelectionBackground": 51,
         "ScriptSelectionText": 50,
-        "ScriptSelf": 112,
+        "ScriptSelf": 114,
         "ScriptSideWidget": 47,
         "ScriptString": 56,
         "ScriptText": 49,
-        "ScriptTodo": 115,
+        "ScriptTodo": 117,
         "ScriptWarning": 60,
-        "ScriptWhitespace": 62,
+        "ScriptWhitespace": 64,
         "ScrollBar": 5,
         "ScrollBarBackground": 6,
         "SensitiveText": 46,
-        "Separator": 88,
+        "Separator": 90,
         "Shadow": 33,
-        "StatusBar": 97,
+        "StatusBar": 99,
         "SubText": 38,
         "Tab": 8,
         "TabBar": 7,
