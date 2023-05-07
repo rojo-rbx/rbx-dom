@@ -20,6 +20,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [ColorSequence](#colorsequence)
     - [NumberRange](#numberrange)
     - [Rect](#rect)
+	- [Font](#font)
 
 ## Document Conventions
 
