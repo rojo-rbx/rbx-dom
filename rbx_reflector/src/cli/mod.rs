@@ -18,7 +18,6 @@ pub struct Args {
 #[derive(Debug, Parser)]
 pub enum Subcommand {
     Dump(DumpSubcommand),
-    Patch,
     DefaultsPlace(DefaultsPlaceSubcommand),
     Generate(GenerateSubcommand),
 }
@@ -27,7 +26,6 @@ impl Args {
     pub fn run(&self) -> anyhow::Result<()> {
         match &self.subcommand {
             Subcommand::Dump(sub) => sub.run(),
-            Subcommand::Patch => todo!(),
             Subcommand::DefaultsPlace(sub) => sub.run(),
             Subcommand::Generate(sub) => sub.run(),
         }
