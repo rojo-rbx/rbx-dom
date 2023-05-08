@@ -13,6 +13,7 @@ use rbx_reflection::{
     PropertySerialization, PropertyTag, ReflectionDatabase, Scriptability,
 };
 use rbx_types::VariantType;
+use tempfile::tempdir;
 
 use crate::{
     api_dump::{Dump, DumpClassMember, Security, Tag, ValueCategory},
@@ -21,19 +22,14 @@ use crate::{
     studio_version,
 };
 
+use super::{defaults_place::DefaultsPlaceSubcommand, dump::DumpSubcommand};
+
 /// Generate a reflection database from the system's Roblox Studio installation
 /// and write it to disk.
 #[derive(Debug, Parser)]
 pub struct GenerateSubcommand {
-    /// The path of an API dump that came from the dump command.
-    #[clap(long = "api_dump")]
-    pub api_dump: PathBuf,
-    /// The directory containing patch files.
     #[clap(long = "patches")]
     pub patches: Option<PathBuf>,
-    /// The path of the defaults place. It must be an .rbxlx
-    #[clap(long = "defaults_place")]
-    pub defaults_place: PathBuf,
     /// Where to output the reflection database. The output format is inferred
     /// from the file path and supports JSON (.json) and MessagePack (.msgpack).
     pub output: Vec<PathBuf>,
@@ -41,8 +37,23 @@ pub struct GenerateSubcommand {
 
 impl GenerateSubcommand {
     pub fn run(&self) -> anyhow::Result<()> {
-        let contents = fs::read_to_string(&self.api_dump).context("Could not read API dump")?;
+        let temp_dir = tempdir()?;
+        let api_dump_path = temp_dir.path().join("api-dump.json");
+        let defaults_place_path = temp_dir.path().join("defaults-place.rbxlx");
+
+        DumpSubcommand {
+            output: api_dump_path.clone(),
+        }
+        .run()?;
+
+        let contents = fs::read_to_string(&api_dump_path).context("Could not read API dump")?;
         let dump = serde_json::from_str(&contents).context("Invalid API dump")?;
+
+        DefaultsPlaceSubcommand {
+            api_dump: api_dump_path,
+            output: defaults_place_path.clone(),
+        }
+        .run()?;
 
         let mut database = ReflectionDatabase::new();
 
@@ -53,7 +64,7 @@ impl GenerateSubcommand {
             patches.apply(&mut database)?;
         }
 
-        apply_defaults(&mut database, &self.defaults_place)?;
+        apply_defaults(&mut database, &defaults_place_path)?;
 
         database.version = studio_version::get_studio_version()?;
 
