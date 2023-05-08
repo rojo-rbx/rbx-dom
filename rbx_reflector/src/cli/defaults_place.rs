@@ -1,6 +1,6 @@
 use std::{
     fmt::{self, Write},
-    fs::{self},
+    fs,
     path::PathBuf,
     process::Command,
     sync::mpsc,
@@ -13,6 +13,7 @@ use clap::Parser;
 use innerput::{Innerput, Key, Keyboard};
 use notify::{Config, RecommendedWatcher, RecursiveMode, Watcher};
 use roblox_install::RobloxStudio;
+use tempfile::tempdir;
 use tiny_http::Response;
 
 use crate::api_dump::Dump;
@@ -38,8 +39,15 @@ impl DefaultsPlaceSubcommand {
         let contents = fs::read_to_string(&self.api_dump).context("Could not read API dump")?;
         let dump = serde_json::from_str(&contents).context("Invalid API dump")?;
 
-        generate_place_with_all_classes(&self.output, &dump)?;
-        save_place_in_studio(&self.output)?;
+        // Studio leaves a .lock file behind because the defaults place crashes on close. This uses a temporary
+        // directory to ignore the lock file.
+        let temp_dir = tempdir()?;
+        let temp_place_path = temp_dir.path().join("defaults-place.rbxlx");
+
+        generate_place_with_all_classes(&temp_place_path, &dump)?;
+        save_place_in_studio(&temp_place_path)?;
+
+        fs::copy(temp_place_path, &self.output)?;
 
         Ok(())
     }
@@ -87,7 +95,6 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
 
     log::info!("Place saved, killing Studio...");
 
-    // TODO: This will cause studio to leave behind a .rbxlx.lock file.
     studio_process.kill()?;
 
     Ok(())
