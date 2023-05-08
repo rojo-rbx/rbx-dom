@@ -1113,25 +1113,23 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         chunk.write_all(bools.as_slice())?;
                     }
                     Type::UniqueId => {
-                        let mut blob = vec![0; values.len() * 16];
-                        let mut bytes = Vec::with_capacity(16);
-
+                        let mut blobs = Vec::with_capacity(values.len());
                         for (i, rbx_value) in values {
                             if let Variant::UniqueId(value) = rbx_value.as_ref() {
-                                bytes.extend_from_slice(&value.index().to_be_bytes());
-                                bytes.extend_from_slice(&value.time().to_be_bytes());
-                                bytes.extend_from_slice(
-                                    &value.random().rotate_left(1).to_be_bytes(),
-                                );
-                                for (y, byte) in (0..16).zip(&bytes) {
-                                    blob[y + i * 16] = *byte;
-                                }
+                                let mut blob = [0; 16];
+                                // This is maybe not the best solution to this
+                                // but we can always change it.
+                                blob[0..4].copy_from_slice(&value.index().to_be_bytes());
+                                blob[4..8].copy_from_slice(&value.time().to_be_bytes());
+                                blob[8..]
+                                    .copy_from_slice(&value.random().rotate_left(1).to_be_bytes());
+                                blobs.push(blob);
                             } else {
                                 return type_mismatch(i, &rbx_value, "UniqueId");
                             }
                         }
 
-                        chunk.write_all(&blob)?;
+                        chunk.write_interleaved_bytes::<16>(&blobs)?;
                     }
                 }
 

@@ -1226,28 +1226,21 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             },
             Type::UniqueId => match canonical_type {
                 VariantType::UniqueId => {
-                    // This is technically inefficient but memory is cheap
-                    // and we can optimize it later.
                     let n = type_info.referents.len();
-                    let mut value = Vec::with_capacity(16);
-                    let mut blob = vec![0; 16 * n];
+                    let mut values = vec![[0; 16]; n];
+                    chunk.read_interleaved_bytes::<16>(&mut values)?;
 
-                    chunk.read_exact(&mut blob)?;
-                    for (x, referent) in (0..n).zip(&type_info.referents) {
-                        for y in 0..16 {
-                            value.push(blob[x + y * n]);
-                        }
-                        let mut value_ref = value.as_slice();
+                    for (i, referent) in type_info.referents.iter().enumerate() {
+                        let mut value = values[i].as_slice();
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         instance.builder.add_property(
                             &canonical_name,
                             UniqueId::new(
-                                value_ref.read_be_u32()?,
-                                value_ref.read_be_u32()?,
-                                value_ref.read_be_i64()?.rotate_right(1),
+                                value.read_be_u32()?,
+                                value.read_be_u32()?,
+                                value.read_be_i64()?.rotate_right(1),
                             ),
-                        );
-                        value.clear();
+                        )
                     }
                 }
                 invalid_type => {
