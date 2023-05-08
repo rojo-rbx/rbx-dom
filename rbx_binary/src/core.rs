@@ -98,6 +98,24 @@ pub trait RbxReadExt: Read {
         Ok(self.read_u8()? != 0)
     }
 
+    /// Fills `output` with blocks of `N` bytes from the buffer,
+    /// deinterleaving them in the process.
+    ///
+    /// This function allocates `N * output.len()` bytes before reading.
+    fn read_interleaved_bytes<const N: usize>(&mut self, output: &mut [[u8; N]]) -> io::Result<()> {
+        let len = output.len();
+        let mut buffer = vec![0; len * N];
+        self.read_exact(&mut buffer)?;
+
+        for (i, array) in output.into_iter().enumerate() {
+            for (j, byte) in array.iter_mut().enumerate() {
+                *byte = buffer[i + len * j];
+            }
+        }
+
+        Ok(())
+    }
+
     fn read_interleaved_i32_array(&mut self, output: &mut [i32]) -> io::Result<()> {
         let mut buffer = vec![0; output.len() * mem::size_of::<i32>()];
         self.read_exact(&mut buffer)?;
@@ -242,6 +260,23 @@ pub trait RbxWriteExt: Write {
 
     fn write_bool(&mut self, value: bool) -> io::Result<()> {
         self.write_u8(value as u8)
+    }
+
+    /// Takes `values` and writes it as a blob of data with each value
+    /// interleaved by `N` bytes.
+    ///
+    /// This function allocates `N * values.len()` bytes before writing.
+    fn write_interleaved_bytes<const N: usize>(&mut self, values: &[[u8; N]]) -> io::Result<()> {
+        let len = values.len();
+        let mut blob = vec![0; len * N];
+        for (x, bytes) in values.iter().enumerate() {
+            for (y, byte) in bytes.iter().enumerate() {
+                blob[y + x * N] = *byte;
+            }
+        }
+        self.write_all(&blob)?;
+
+        Ok(())
     }
 
     fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
