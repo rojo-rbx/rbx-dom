@@ -242,6 +242,8 @@ impl<'a> Drop for PluginInjector<'a> {
             .plugins_path()
             .join("RbxDomDefaultsPlacePlugin.lua");
 
-        fs::remove_file(plugin_path).unwrap();
+        if let Err(err) = fs::remove_file(plugin_path) {
+            log::error!("Could not remove plugin: {err}");
+        }
     }
 }
