@@ -61,7 +61,7 @@ fn apply_instance_defaults(database: &mut ReflectionDatabase, instance: &Instanc
         let property_name = Cow::Owned(property_name.clone());
 
         match property_value.ty() {
-            // We don't support usefully emitting these types yet.
+            // We skip these types because their defaults aren't useful.
             VariantType::Ref | VariantType::SharedString => continue,
 
             _ => class
