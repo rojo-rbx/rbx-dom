@@ -75,10 +75,8 @@ expression: decoded_viewed
       Enum: 0
     Retargeting:
       Enum: 0
-    ScaleFactor:
+    Scale:
       Float32: 1
-    SignalBehavior:
-      Enum: 0
     SourceAssetId:
       Int64: -1
     StreamOutBehavior:
