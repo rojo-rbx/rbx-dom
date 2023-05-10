@@ -222,9 +222,11 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "ColorSequence" => VariantType::ColorSequence,
         "Content" => VariantType::Content,
         "Faces" => VariantType::Faces,
+        "Font" => VariantType::Font,
         "Instance" => VariantType::Ref,
         "NumberRange" => VariantType::NumberRange,
         "NumberSequence" => VariantType::NumberSequence,
+        "OptionalCoordinateFrame" => VariantType::OptionalCFrame,
         "PhysicalProperties" => VariantType::PhysicalProperties,
         "Ray" => VariantType::Ray,
         "Rect" => VariantType::Rect,
@@ -237,7 +239,6 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "Vector2int16" => VariantType::Vector2int16,
         "Vector3" => VariantType::Vector3,
         "Vector3int16" => VariantType::Vector3int16,
-        "OptionalCoordinateFrame" => VariantType::OptionalCFrame,
         "bool" => VariantType::Bool,
         "double" => VariantType::Float64,
         "float" => VariantType::Float32,
@@ -250,9 +251,6 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
 
         // TweenInfo is not supported by rbx_types yet
         "TweenInfo" => return Ok(None),
-
-        // Font is not supported by rbx_types yet
-        "Font" => return Ok(None),
 
         // While DateTime is possible to Serialize, the only use it has as a
         // DataType is for the TextChatMessage class, which cannot be serialized
