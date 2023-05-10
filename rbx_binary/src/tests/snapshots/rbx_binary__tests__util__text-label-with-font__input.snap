@@ -1,0 +1,343 @@
+---
+source: rbx_binary/src/tests/util.rs
+assertion_line: 27
+expression: text_decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: TextLabel
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Active
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: AnchorPoint
+      prop_type: Vector2
+      values:
+        - - 0
+          - 0
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: AutoLocalize
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: AutomaticSize
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: BackgroundColor3
+      prop_type: Color3
+      values:
+        - - 1
+          - 1
+          - 1
+  - Prop:
+      type_id: 0
+      prop_name: BackgroundTransparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: BorderColor3
+      prop_type: Color3
+      values:
+        - - 0.10588236
+          - 0.16470589
+          - 0.20784315
+  - Prop:
+      type_id: 0
+      prop_name: BorderMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: BorderSizePixel
+      prop_type: Int32
+      values:
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: ClipsDescendants
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: Draggable
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: FontFace
+      prop_type: Font
+      values:
+        - family: "rbxasset://fonts/families/RobotoMono.json"
+          weight: Bold
+          style: Italic
+          cachedFaceId: ~
+  - Prop:
+      type_id: 0
+      prop_name: LayoutOrder
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: LineHeight
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: MaxVisibleGraphemes
+      prop_type: Int32
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - TextLabel
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionDown
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionLeft
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionRight
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: NextSelectionUp
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Position
+      prop_type: UDim2
+      values:
+        - - - 0
+            - 0
+          - - 0
+            - 0
+  - Prop:
+      type_id: 0
+      prop_name: RichText
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: RootLocalizationTable
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Rotation
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Selectable
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: SelectionBehaviorDown
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: SelectionBehaviorLeft
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: SelectionBehaviorRight
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: SelectionBehaviorUp
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: SelectionGroup
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: SelectionImageObject
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: SelectionOrder
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Size
+      prop_type: UDim2
+      values:
+        - - - 0
+            - 200
+          - - 0
+            - 50
+  - Prop:
+      type_id: 0
+      prop_name: SizeConstraint
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Text
+      prop_type: String
+      values:
+        - My Text
+  - Prop:
+      type_id: 0
+      prop_name: TextColor3
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 0
+      prop_name: TextScaled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: TextSize
+      prop_type: Float32
+      values:
+        - 14
+  - Prop:
+      type_id: 0
+      prop_name: TextStrokeColor3
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 0
+      prop_name: TextStrokeTransparency
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: TextTransparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: TextTruncate
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: TextWrapped
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: TextXAlignment
+      prop_type: Enum
+      values:
+        - 2
+  - Prop:
+      type_id: 0
+      prop_name: TextYAlignment
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: Visible
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: ZIndex
+      prop_type: Int32
+      values:
+        - 1
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End
+

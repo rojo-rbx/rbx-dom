@@ -40,6 +40,7 @@ binary_tests! {
     ref_adjacent,
     ref_child,
     ref_parent,
+    sharedstring,
     tags,
     three_brickcolorvalues,
     three_color3values,
@@ -59,4 +60,5 @@ binary_tests! {
     two_terrainregions,
     weldconstraint,
     package_link,
+    text_label_with_font,
 }

@@ -8,9 +8,9 @@ use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
-    CustomPhysicalProperties, Enum, Faces, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
-    Vector3, Vector3int16,
+    CustomPhysicalProperties, Enum, Faces, Font, FontStyle, FontWeight, Matrix3, NumberRange,
+    NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim,
+    UDim2, Vector2, Vector3, Vector3int16,
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
@@ -222,6 +222,7 @@ pub enum DecodedValues {
     Int64(Vec<i64>),
     SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
     OptionalCFrame(Vec<Option<CFrame>>),
+    Font(Vec<Font>),
 }
 
 impl DecodedValues {
@@ -309,6 +310,32 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::UDim2(values))
+            }
+            Type::Font => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    let family = reader.read_string().unwrap();
+                    let weight =
+                        FontWeight::from_u16(reader.read_le_u16().unwrap()).unwrap_or_default();
+                    let style = FontStyle::from_u8(reader.read_u8().unwrap()).unwrap_or_default();
+                    let cached_face_id = reader.read_string().unwrap();
+
+                    let cached_face_id = if cached_face_id.is_empty() {
+                        None
+                    } else {
+                        Some(cached_face_id)
+                    };
+
+                    values.push(Font {
+                        family,
+                        weight,
+                        style,
+                        cached_face_id,
+                    })
+                }
+
+                Some(DecodedValues::Font(values))
             }
             Type::Ray => {
                 let mut values = Vec::with_capacity(prop_count);

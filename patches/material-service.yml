@@ -1,0 +1,6 @@
+Change:
+  MaterialService:
+    Use2022Materials:
+      Serialization:
+        Type: SerializesAs
+        As: Use2022MaterialsXml

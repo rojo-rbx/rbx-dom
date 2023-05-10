@@ -47,9 +47,11 @@ This document is based on:
 	- [PhysicalProperties](#physicalproperties)
 	- [Color3uint8](#color3uint8)
 	- [Int64](#int64)
+	- [Bytecode](#bytecode)
 	- [SharedString](#sharedstring)
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
 	- [UniqueId](#uniqueid)
+	- [Font](#font)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
@@ -92,20 +94,30 @@ Every file starts with a 32 byte header.
 ## Chunks
 Every chunk starts with a 16 byte header followed by the chunk's data.
 
-| Field Name          | Format  | Value                                             |
-|:--------------------|:--------|:--------------------------------------------------|
-| Chunk Name          | 4 bytes | The chunk's name, like `META` or `INST`           |
-| Compressed Length   | `u32`   | Length of the chunk in bytes, if it is compressed |
-| Uncompressed Length | `u32`   | Length of the chunk's data after decompression    |
-| Reserved            | 4 bytes | Always `0`                                        |
+| Field Name          | Format   | Value                                             |
+|:--------------------|:---------|:--------------------------------------------------|
+| Chunk Name          | 4 bytes  | The chunk's name, like `META` or `INST`           |
+| Compressed Length   | `u32`    | Length of the chunk in bytes, if it is compressed |
+| Uncompressed Length | `u32`    | Length of the chunk's data after decompression    |
+| Reserved            | 4 bytes  | Always `0`                                        |
+| Chunk Data          | Variable | The data contained in the chunk                   |
 
 If **Chunk Name** is less than four bytes, the remainder is filled with zeros.
 
 If **Compressed Length** is zero, **Chunk Data** contains **Uncompressed Length** bytes of data for the chunk.
 
-If **Compressed Length** is nonzero, **Chunk Data** contains an LZ4 compressed block. It is **Compressed Length** bytes long and will expand to **Uncompressed Length** bytes when decompressed.
+If **Compressed Length** is nonzero, **Chunk Data** will either contain an [LZ4][LZ4] or [ZSTD][ZSTD] compressed block. This compressed body is **Compressed Length** bytes long and will expand to **Uncompressed Length** bytes when decompressed.
 
-When the **chunk data** is compressed, it is done so using the [LZ4](https://github.com/lz4/lz4) compression algorithm.
+Which of the compression algorithms is used is indicated by the first several bytes of the compressed chunk body.
+- If the first 4 bytes of the block are the literal sequence `28 b5 2f fd`, the block is compressed using the ZSTD algorithm.
+- Otherwise, the block is compressed using the LZ4 algorithm.
+
+When a chunk is compressed using ZSTD, there is also a ZSTD frame present following the magic number that must be read by a decompressor. When it is compressed using LZ4, there is no frame and the compressed data begins immediately after the header.
+
+The data contained in **Chunk Data** varies in formatting based on the value of **Chunk Name**. Chunks used by Roblox are documented below:
+
+[ZSTD]: https://github.com/facebook/zstd/
+[LZ4]: https://github.com/lz4/lz4
 
 ### `META` Chunk
 The `META` chunk has this layout:
@@ -613,6 +625,19 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 
 `SharedString` values are stored as an [Interleaved Array](#byte-interleaving) of `u32` values that represent indices in the [`SSTR`](#sstr-chunk) string array.
 
+### Bytecode
+**Type ID `0x1d`**
+
+`Bytecode` values are stored identically to [`String`](#string) properties but contain precompiled [Luau][Luau] bytecode instructions rather than string data.
+
+This data type is disregarded by Roblox Studio and is only loaded by Roblox clients when cryptographically signed. Given that by design it is impossible to generate these signatures, the signing method is not documented in this spec file. For posterity however, the chunk used by Roblox is named `SIGN`. It is disregarded when loaded by Roblox Studio.
+
+It is highly recommended that implementations do not modify or interpret `Bytecode` data they encounter and instead simply read and write the data as-is.
+
+Implementors should be aware that running unsigned `Bytecode` is **incredibly unsafe** and should not be done unless the source can be validated somehow. Doing so is the equivalent to giving the author of the `Bytecode` unrestricted access to the system it is ran on.
+
+[Luau]: https://github.com/Roblox/luau
+
 ### OptionalCoordinateFrame
 **Type ID `0x1e`**
 
@@ -639,6 +664,21 @@ When interacting with the XML format, care must be taken because `UniqueId` is s
 
 When an array of `UniqueId` values is present, the bytes are subject to [byte interleaving](#byte-interleaving).
 
+### Font
+**Type ID `0x20`**
+
+The `Font` type is a struct composed of two `String` values, a `u8`, and a `u16`:
+
+| Field Name   | Format              | Value                                  |
+|:-------------|:--------------------|:---------------------------------------|
+| Family       | [`String`](#string) | The font family content URI            |
+| Weight       | `u16`               | The weight of the font                 |
+| Style        | `u8`                | The style of the font                  |
+| CachedFaceId | [`String`](#string) | The cached content URI of the TTF file |
+
+The `Weight` and `Style` fields are stored as little-endian unsigned integers. These are usually treated like enums, and to assign them in Roblox Studio an Enum is used. Interestingly, the `Weight` is *always* stored as a number in binary and XML, but `Style` is stored as a number in binary and as text in XML.
+
+The `CachedFaceId` field is always present, but is allowed to be an empty string (a string of length `0`). When represented in XML, this property will be omitted if it is an empty string. This property is not visible via any user APIs in Roblox Studio.
 
 ## Data Storage Notes
 

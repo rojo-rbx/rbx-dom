@@ -4,9 +4,10 @@ use std::collections::BTreeMap;
 
 use rbx_dom_weak::types::{
     Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-    ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Matrix3, NumberRange,
-    NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Region3int16, Tags,
-    UDim, UDim2, Variant, VariantType, Vector2, Vector2int16, Vector3, Vector3int16,
+    ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, Matrix3,
+    NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect,
+    Region3int16, Tags, UDim, UDim2, Variant, VariantType, Vector2, Vector2int16, Vector3,
+    Vector3int16,
 };
 use serde::Serialize;
 
@@ -77,6 +78,7 @@ pub fn encode() -> anyhow::Result<String> {
     values.insert("Faces", Faces::all().into());
     values.insert("Float32", 15.0f32.into());
     values.insert("Float64", 15123.0f64.into());
+    values.insert("Font", Font::default().into());
     values.insert("Int32", 6014i32.into());
     values.insert("Int64", 23491023i64.into());
     values.insert("NumberRange", NumberRange::new(-36.0, 94.0).into());

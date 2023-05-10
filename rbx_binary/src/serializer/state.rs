@@ -9,7 +9,7 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, Enum, Faces, Matrix3, NumberRange, NumberSequence,
+        ColorSequenceKeypoint, Content, Enum, Faces, Font, Matrix3, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim,
         UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
@@ -248,6 +248,13 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             to_visit.extend(instance.children());
         }
 
+        // Sort shared_strings by their hash, to ensure they are deterministically added
+        // into the SSTR chunk, then assign them corresponding ids
+        self.shared_strings.sort_by_key(SharedString::hash);
+        for (id, shared_string) in self.shared_strings.iter().cloned().enumerate() {
+            self.shared_string_ids.insert(shared_string, id as u32);
+        }
+
         log::debug!("Type info discovered: {:#?}", self.type_infos);
 
         Ok(())
@@ -267,8 +274,9 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             // Discover and track any shared strings we come across.
             if let Variant::SharedString(shared_string) = prop_value {
                 if !self.shared_string_ids.contains_key(shared_string) {
-                    let id = self.shared_strings.len() as u32;
-                    self.shared_string_ids.insert(shared_string.clone(), id);
+                    // We insert it with a dummy id of 0 so that we can check for contains_key.
+                    // The actual id is set in `add_instances`
+                    self.shared_string_ids.insert(shared_string.clone(), 0);
                     self.shared_strings.push(shared_string.clone())
                 }
             }
@@ -708,6 +716,20 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         chunk.write_interleaved_f32_array(scale_y.into_iter())?;
                         chunk.write_interleaved_i32_array(offset_x.into_iter())?;
                         chunk.write_interleaved_i32_array(offset_y.into_iter())?;
+                    }
+                    Type::Font => {
+                        for (i, rbx_value) in values {
+                            if let Variant::Font(value) = rbx_value.as_ref() {
+                                chunk.write_string(&value.family)?;
+                                chunk.write_le_u16(value.weight.as_u16())?;
+                                chunk.write_u8(value.style.as_u8())?;
+                                chunk.write_string(
+                                    &value.cached_face_id.clone().unwrap_or_default(),
+                                )?;
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Font");
+                            }
+                        }
                     }
                     Type::Ray => {
                         for (i, rbx_value) in values {
@@ -1229,6 +1251,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             VariantType::Tags => Variant::Tags(Tags::new()),
             VariantType::Content => Variant::Content(Content::new()),
             VariantType::Attributes => Variant::Attributes(Attributes::new()),
+            VariantType::Font => Variant::Font(Font::default()),
             _ => return None,
         })
     }

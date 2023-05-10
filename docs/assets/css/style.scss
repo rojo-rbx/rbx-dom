@@ -39,3 +39,9 @@ code {
     padding: 2px;
     background: none;
 }
+
+// Make blockquotes a bit more reasonably sized
+// (previously: 1.6em, now the same size as H3)
+blockquote {
+  font-size: 18px
+}

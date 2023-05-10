@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 0.13.0 (2023-04-22)
+* Added support for `Font` values. ([#248])
+
+[#248]: https://github.com/rojo-rbx/rbx-dom/pull/248
+
 ## 0.12.4 (2022-06-12)
 * Implemented serialization and deserialization for `Attributes`. ([#219])
 

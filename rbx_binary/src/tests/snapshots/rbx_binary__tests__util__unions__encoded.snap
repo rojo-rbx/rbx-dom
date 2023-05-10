@@ -8,10 +8,10 @@ chunks:
   - Sstr:
       version: 0
       entries:
-        - len: 1803
-          hash: db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3
         - len: 1367
           hash: cc62d7045ec238081b7ebbd97ce5ce7dc15166e688168c307247089135718bdb
+        - len: 1803
+          hash: db0e2bce2a871addfc49da3894a9b0c8ef97b3b83c962717ece20aa97635fee3
   - Inst:
       type_id: 0
       type_name: UnionOperation
@@ -348,9 +348,9 @@ chunks:
       prop_name: PhysicalConfigData
       prop_type: SharedString
       values:
-        - 0
-        - 0
         - 1
+        - 1
+        - 0
   - Prop:
       type_id: 0
       prop_name: PhysicsData
