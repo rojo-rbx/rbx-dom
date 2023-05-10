@@ -1,13 +1,7 @@
-Add:
+Change:
   Model:
     ScaleFactor:
       AliasFor: Scale
-      DataType:
-        Value: Float32
-      Scriptability: None
-
-Change:
-  Model:
     Scale:
       Serialization:
         Type: SerializesAs
