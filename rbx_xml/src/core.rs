@@ -77,7 +77,7 @@ fn find_property_descriptors(
         if let Some(property_descriptor) = current_class_descriptor.properties.get(property_name) {
             match &property_descriptor.kind {
                 PropertyKind::Canonical { serialization } => match serialization {
-                    PropertySerialization::Serializes => {
+                    PropertySerialization::Serializes | PropertySerialization::Migrate { .. } => {
                         return Some((property_descriptor, property_descriptor))
                     }
                     PropertySerialization::DoesNotSerialize => {
@@ -103,7 +103,8 @@ fn find_property_descriptors(
                     // FIXME: This code is duplicated with above.
                     match &canonical_descriptor.kind {
                         PropertyKind::Canonical { serialization } => match serialization {
-                            PropertySerialization::Serializes => {
+                            PropertySerialization::Serializes
+                            | PropertySerialization::Migrate { .. } => {
                                 return Some((canonical_descriptor, canonical_descriptor))
                             }
                             PropertySerialization::DoesNotSerialize => {

@@ -483,7 +483,9 @@ fn find_serialized_from_canonical<'a>(
     match serialization {
         // This property serializes as-is. This is the happiest path: both the
         // canonical and serialized descriptors are the same!
-        PropertySerialization::Serializes => Some(canonical),
+        PropertySerialization::Serializes | PropertySerialization::Migrate { .. } => {
+            Some(canonical)
+        }
 
         // This property serializes under an alias. That property should have a
         // corresponding property descriptor within the same class descriptor.

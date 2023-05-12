@@ -1,0 +1,19 @@
+Change:
+  TextLabel:
+    Font:
+      Serialization:
+        Type: Migrate
+        Property: FontFace
+        Migration: FontToFontFace
+  TextButton:
+    Font:
+      Serialization:
+        Type: Migrate
+        Property: FontFace
+        Migration: FontToFontFace
+  TextBox:
+    Font:
+      Serialization:
+        Type: Migrate
+        Property: FontFace
+        Migration: FontToFontFace
