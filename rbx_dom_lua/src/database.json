@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    566,
+    565,
     0,
-    5660545
+    5650363
   ],
   "Classes": {
     "Accessory": {
@@ -201,6 +201,9 @@
         },
         "ModelStreamingMode": {
           "Enum": 0
+        },
+        "Scale": {
+          "Float32": 1.0
         },
         "SourceAssetId": {
           "Int64": -1
@@ -5904,19 +5907,6 @@
             }
           }
         },
-        "FontFace": {
-          "Name": "FontFace",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Font"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "LocalPlayerStudsOffset": {
           "Name": "LocalPlayerStudsOffset",
           "Scriptability": "ReadWrite",
@@ -6991,19 +6981,6 @@
             }
           }
         },
-        "FontFace": {
-          "Name": "FontFace",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Font"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "PlaceholderColor3": {
           "Name": "PlaceholderColor3",
           "Scriptability": "ReadWrite",
@@ -7112,14 +7089,6 @@
         },
         "Enabled": {
           "Bool": true
-        },
-        "FontFace": {
-          "Font": {
-            "family": "rbxasset://fonts/families/GothamSSm.json",
-            "weight": "Medium",
-            "style": "Normal",
-            "cachedFaceId": "rbxasset://fonts/GothamSSm-Medium.otf"
-          }
         },
         "PlaceholderColor3": {
           "Color3": [
@@ -7264,19 +7233,6 @@
             }
           }
         },
-        "FontFace": {
-          "Name": "FontFace",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Font"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "HeightScale": {
           "Name": "HeightScale",
           "Scriptability": "ReadWrite",
@@ -7398,14 +7354,6 @@
         },
         "Enabled": {
           "Bool": true
-        },
-        "FontFace": {
-          "Font": {
-            "family": "rbxasset://fonts/families/GothamSSm.json",
-            "weight": "Medium",
-            "style": "Normal",
-            "cachedFaceId": "rbxasset://fonts/GothamSSm-Medium.otf"
-          }
         },
         "HeightScale": {
           "Float32": 1.0
@@ -13490,16 +13438,6 @@
         }
       }
     },
-    "FacialAnimationStreamingServiceStats": {
-      "Name": "FacialAnimationStreamingServiceStats",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated"
-      ],
-      "Superclass": "Instance",
-      "Properties": {},
-      "DefaultProperties": {}
-    },
     "FacialAnimationStreamingServiceV2": {
       "Name": "FacialAnimationStreamingServiceV2",
       "Tags": [
@@ -13524,7 +13462,20 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "BinaryString": ""
+        },
+        "ServiceState": {
+          "Int32": 0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "BinaryString": ""
+        }
+      }
     },
     "Feature": {
       "Name": "Feature",
@@ -13927,6 +13878,9 @@
         },
         "RequiresHandle": {
           "Bool": true
+        },
+        "Scale": {
+          "Float32": 1.0
         },
         "SourceAssetId": {
           "Int64": -1
@@ -17131,6 +17085,9 @@
         },
         "ModelStreamingMode": {
           "Enum": 0
+        },
+        "Scale": {
+          "Float32": 1.0
         },
         "SourceAssetId": {
           "Int64": -1
@@ -24449,7 +24406,7 @@
         },
         "Scale": {
           "Name": "Scale",
-          "Scriptability": "None",
+          "Scriptability": "Custom",
           "DataType": {
             "Value": "Float32"
           },
@@ -24459,7 +24416,22 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "ScaleFactor"
+              }
+            }
+          }
+        },
+        "ScaleFactor": {
+          "Name": "ScaleFactor",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Alias": {
+              "AliasFor": "Scale"
             }
           }
         },
@@ -24488,6 +24460,9 @@
         },
         "ModelStreamingMode": {
           "Enum": 0
+        },
+        "Scale": {
+          "Float32": 1.0
         },
         "SourceAssetId": {
           "Int64": -1
@@ -32806,12 +32781,7 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "Migrate": {
-                  "Property": "ScreenInsets",
-                  "Migration": "IgnoreGuiInsetToScreenInsets"
-                }
-              }
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -42981,25 +42951,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "Migrate": {
-                  "Property": "FontFace",
-                  "Migration": "FontToFontFace"
-                }
-              }
-            }
-          }
-        },
-        "FontFace": {
-          "Name": "FontFace",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Font"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -43460,14 +43412,6 @@
         "Draggable": {
           "Bool": false
         },
-        "FontFace": {
-          "Font": {
-            "family": "rbxasset://fonts/families/LegacyArial.json",
-            "weight": "Regular",
-            "style": "Normal",
-            "cachedFaceId": "rbxasset://fonts/arial.ttf"
-          }
-        },
         "LayoutOrder": {
           "Int32": 0
         },
@@ -43648,25 +43592,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "Migrate": {
-                  "Property": "FontFace",
-                  "Migration": "FontToFontFace"
-                }
-              }
-            }
-          }
-        },
-        "FontFace": {
-          "Name": "FontFace",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Font"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -44001,14 +43927,6 @@
         },
         "Draggable": {
           "Bool": false
-        },
-        "FontFace": {
-          "Font": {
-            "family": "rbxasset://fonts/families/LegacyArial.json",
-            "weight": "Regular",
-            "style": "Normal",
-            "cachedFaceId": "rbxasset://fonts/arial.ttf"
-          }
         },
         "LayoutOrder": {
           "Int32": 0
@@ -44487,25 +44405,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": {
-                "Migrate": {
-                  "Property": "FontFace",
-                  "Migration": "FontToFontFace"
-                }
-              }
-            }
-          }
-        },
-        "FontFace": {
-          "Name": "FontFace",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Font"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -44837,14 +44737,6 @@
         },
         "Draggable": {
           "Bool": false
-        },
-        "FontFace": {
-          "Font": {
-            "family": "rbxasset://fonts/families/LegacyArial.json",
-            "weight": "Regular",
-            "style": "Normal",
-            "cachedFaceId": "rbxasset://fonts/arial.ttf"
-          }
         },
         "LayoutOrder": {
           "Int32": 0
@@ -45470,6 +45362,9 @@
         },
         "RequiresHandle": {
           "Bool": true
+        },
+        "Scale": {
+          "Float32": 1.0
         },
         "SourceAssetId": {
           "Int64": -1
@@ -51731,6 +51626,9 @@
         "Retargeting": {
           "Enum": 0
         },
+        "Scale": {
+          "Float32": 1.0
+        },
         "SignalBehavior": {
           "Enum": 0
         },
@@ -54971,7 +54869,6 @@
       "items": {
         "BackendError": 4,
         "ConsentAccepted": 0,
-        "ConsentDenied": 7,
         "InvalidArgument": 6,
         "InvalidScopes": 1,
         "NoUserInput": 3,

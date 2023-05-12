@@ -35,6 +35,7 @@ test_models! {
     tags: "models/tags",
     body_movers: "models/body-movers",
     union: "models/unions",
+    sharedstring: "models/sharedstring",
 
     unknown_type: "edge-cases/xml-unknown-type",
 }

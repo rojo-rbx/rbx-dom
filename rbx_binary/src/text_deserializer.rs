@@ -316,8 +316,9 @@ impl DecodedValues {
 
                 for _ in 0..prop_count {
                     let family = reader.read_string().unwrap();
-                    let weight = FontWeight::from_u16(reader.read_le_u16().unwrap());
-                    let style = FontStyle::from_u8(reader.read_u8().unwrap());
+                    let weight =
+                        FontWeight::from_u16(reader.read_le_u16().unwrap()).unwrap_or_default();
+                    let style = FontStyle::from_u8(reader.read_u8().unwrap()).unwrap_or_default();
                     let cached_face_id = reader.read_string().unwrap();
 
                     let cached_face_id = if cached_face_id.is_empty() {

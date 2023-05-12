@@ -19,8 +19,8 @@ impl Default for FontWeight {
 }
 
 impl FontWeight {
-    pub fn from_u16(weight: u16) -> Self {
-        match weight {
+    pub fn from_u16(weight: u16) -> Option<Self> {
+        Some(match weight {
             100 => FontWeight::Thin,
             200 => FontWeight::ExtraLight,
             300 => FontWeight::Light,
@@ -30,8 +30,8 @@ impl FontWeight {
             700 => FontWeight::Bold,
             800 => FontWeight::ExtraBold,
             900 => FontWeight::Heavy,
-            _ => FontWeight::Regular,
-        }
+            _ => return None,
+        })
     }
     pub fn as_u16(self) -> u16 {
         match self {
@@ -62,12 +62,12 @@ impl Default for FontStyle {
 }
 
 impl FontStyle {
-    pub fn from_u8(style: u8) -> Self {
-        match style {
+    pub fn from_u8(style: u8) -> Option<Self> {
+        Some(match style {
             0 => FontStyle::Normal,
             1 => FontStyle::Italic,
-            _ => FontStyle::Normal,
-        }
+            _ => return None,
+        })
     }
 
     pub fn as_u8(self) -> u8 {
