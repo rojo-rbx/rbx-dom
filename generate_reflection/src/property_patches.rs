@@ -9,7 +9,8 @@ use std::path::Path;
 
 use anyhow::{anyhow, bail, Context};
 use rbx_reflection::{
-    DataType, PropertyDescriptor, PropertyKind, ReflectionDatabase, Scriptability,
+    DataType, PropertyDescriptor, PropertyKind, PropertyMigration, ReflectionDatabase,
+    Scriptability,
 };
 use serde::Deserialize;
 
@@ -84,6 +85,11 @@ pub enum PropertySerialization {
         #[serde(rename = "As")]
         serializes_as: String,
     },
+    #[serde(rename_all = "PascalCase")]
+    Migrate {
+        property: String,
+        migration: PropertyMigration,
+    },
 }
 
 impl From<PropertySerialization> for rbx_reflection::PropertySerialization<'_> {
@@ -96,6 +102,13 @@ impl From<PropertySerialization> for rbx_reflection::PropertySerialization<'_> {
             PropertySerialization::SerializesAs { serializes_as } => {
                 rbx_reflection::PropertySerialization::SerializesAs(Cow::Owned(serializes_as))
             }
+            PropertySerialization::Migrate {
+                property,
+                migration,
+            } => rbx_reflection::PropertySerialization::Migrate {
+                property: Cow::Owned(property),
+                migration,
+            },
         }
     }
 }

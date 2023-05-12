@@ -73,6 +73,7 @@ pub(crate) enum DecodeErrorKind {
     ParseFloat(std::num::ParseFloatError),
     ParseInt(std::num::ParseIntError),
     DecodeBase64(base64::DecodeError),
+    MigrationError(rbx_reflection::MigrationError),
 
     // Errors specific to rbx_xml
     WrongDocVersion(String),
@@ -103,6 +104,7 @@ impl fmt::Display for DecodeErrorKind {
             ParseFloat(err) => write!(output, "{}", err),
             ParseInt(err) => write!(output, "{}", err),
             DecodeBase64(err) => write!(output, "{}", err),
+            MigrationError(err) => write!(output, "{}", err),
 
             WrongDocVersion(version) => {
                 write!(output, "Invalid version '{}', expected version 4", version)
@@ -151,6 +153,7 @@ impl std::error::Error for DecodeErrorKind {
             ParseFloat(err) => Some(err),
             ParseInt(err) => Some(err),
             DecodeBase64(err) => Some(err),
+            MigrationError(err) => Some(err),
 
             WrongDocVersion(_)
             | UnexpectedEof
