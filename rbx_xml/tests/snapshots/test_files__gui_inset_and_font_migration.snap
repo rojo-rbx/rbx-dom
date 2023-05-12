@@ -32,8 +32,6 @@ expression: viewer.view_children(&dom)
         RootLocalizationTable: "null"
         SafeAreaCompatibility:
           Enum: 1
-        ScreenInsets:
-          Enum: 1
         SelectionBehaviorDown:
           Enum: 0
         SelectionBehaviorLeft:
@@ -70,8 +68,6 @@ expression: viewer.view_children(&dom)
         RootLocalizationTable: "null"
         SafeAreaCompatibility:
           Enum: 1
-        ScreenInsets:
-          Enum: 2
         SelectionBehaviorDown:
           Enum: 0
         SelectionBehaviorLeft:
@@ -125,12 +121,6 @@ expression: viewer.view_children(&dom)
               Bool: false
             Draggable:
               Bool: false
-            FontFace:
-              Font:
-                family: "rbxasset://fonts/families/Inconsolata.json"
-                weight: Regular
-                style: Normal
-                cachedFaceId: ~
             LayoutOrder:
               Int32: 0
             LineHeight:
@@ -250,12 +240,6 @@ expression: viewer.view_children(&dom)
               Bool: false
             Draggable:
               Bool: false
-            FontFace:
-              Font:
-                family: "rbxasset://fonts/families/SourceSansPro.json"
-                weight: Bold
-                style: Normal
-                cachedFaceId: ~
             LayoutOrder:
               Int32: 0
             LineHeight:
@@ -381,12 +365,6 @@ expression: viewer.view_children(&dom)
               Bool: false
             Draggable:
               Bool: false
-            FontFace:
-              Font:
-                family: "rbxasset://fonts/families/SourceSansPro.json"
-                weight: Regular
-                style: Italic
-                cachedFaceId: ~
             LayoutOrder:
               Int32: 0
             LineHeight:

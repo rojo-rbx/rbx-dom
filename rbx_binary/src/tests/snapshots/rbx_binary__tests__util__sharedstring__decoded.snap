@@ -39,7 +39,7 @@ expression: decoded_viewed
     NeedsPivotMigration:
       Bool: false
     PrimaryPart: "null"
-    ScaleFactor:
+    Scale:
       Float32: 1
     SourceAssetId:
       Int64: -1

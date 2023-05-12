@@ -125,13 +125,6 @@ chunks:
         - 1
   - Prop:
       type_id: 1
-      prop_name: ScreenInsets
-      prop_type: Enum
-      values:
-        - 1
-        - 2
-  - Prop:
-      type_id: 1
       prop_name: SelectionBehaviorDown
       prop_type: Enum
       values:
@@ -269,15 +262,6 @@ chunks:
       prop_type: Bool
       values:
         - false
-  - Prop:
-      type_id: 4
-      prop_name: FontFace
-      prop_type: Font
-      values:
-        - family: "rbxasset://fonts/families/SourceSansPro.json"
-          weight: Regular
-          style: Italic
-          cachedFaceId: ~
   - Prop:
       type_id: 4
       prop_name: LayoutOrder
@@ -627,15 +611,6 @@ chunks:
         - false
   - Prop:
       type_id: 3
-      prop_name: FontFace
-      prop_type: Font
-      values:
-        - family: "rbxasset://fonts/families/SourceSansPro.json"
-          weight: Bold
-          style: Normal
-          cachedFaceId: ~
-  - Prop:
-      type_id: 3
       prop_name: LayoutOrder
       prop_type: Int32
       values:
@@ -961,15 +936,6 @@ chunks:
       prop_type: Bool
       values:
         - false
-  - Prop:
-      type_id: 2
-      prop_name: FontFace
-      prop_type: Font
-      values:
-        - family: "rbxasset://fonts/families/Inconsolata.json"
-          weight: Regular
-          style: Normal
-          cachedFaceId: ~
   - Prop:
       type_id: 2
       prop_name: LayoutOrder
