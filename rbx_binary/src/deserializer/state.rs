@@ -338,9 +338,9 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             }
         }
 
-        let add_property: Box<dyn Fn(&mut Instance, Variant) -> ()> = match &migrated_to {
-            Some(_) => Box::new(|instance: &mut Instance, value| {
-                let (migration, property) = migrated_to.clone().unwrap();
+        let add_property = |instance: &mut Instance, value| match &migrated_to {
+            Some(_) => {
+                let (migration, property) = migrated_to.unwrap();
                 if !instance.builder.has_property(property.as_ref()) {
                     match perform_migration(*migration, &value) {
                         Ok(value) => {
@@ -356,10 +356,8 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         }
                     };
                 }
-            }),
-            None => Box::new(|instance: &mut Instance, value| {
-                instance.builder.add_property(&canonical_name, value);
-            }),
+            }
+            None => instance.builder.add_property(&canonical_name, value),
         };
 
         match binary_type {
@@ -1067,7 +1065,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                             Variant::PhysicalProperties(PhysicalProperties::Default)
                         };
 
-                        add_property(instance, value.into());
+                        add_property(instance, value);
                     }
                 }
                 invalid_type => {
