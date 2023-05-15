@@ -25,7 +25,7 @@ pub(crate) fn write_attributes<W: Write>(
     for (name, variant) in map {
         let variant = variant.borrow();
 
-        write_string(&mut writer, &name)?;
+        write_string(&mut writer, name)?;
 
         let type_id = type_id::from_variant_type(variant.ty())
             .ok_or_else(|| AttributeError::UnsupportedVariantType(variant.ty()))?;

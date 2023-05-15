@@ -17,7 +17,7 @@ pub fn write_tags<W: Write>(
     let encoded = value.encode();
 
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
-    writer.write_string(&base64::encode(&encoded))?;
+    writer.write_string(&base64::encode(encoded))?;
     writer.write(XmlWriteEvent::end_element())?;
 
     Ok(())
