@@ -20,6 +20,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [ColorSequence](#colorsequence)
     - [NumberRange](#numberrange)
     - [Rect](#rect)
+    - [Font](#font)
 
 ## Document Conventions
 
@@ -210,3 +211,21 @@ The `Rect` type is a struct composed of two `Vector2`s:
 | Max        | [`Vector2`](#vector2) | The `Max` component of the `Rect` |
 
 A Rect with the value `10, 20, 30, 40` would look like this: `00 00 20 41 00 00 a0 41 00 00 f0 41 00 00 20 42`.
+
+### Font
+**Type ID `0x21`**
+
+The `Font` type is a struct composed of a `u16`, `u8` and two `String`s
+
+| Field Name   | Format                | Value                                  |
+|:-------------|:----------------------|:---------------------------------------|
+| Weight       | `u16`                 | The weight of the font                 |
+| Style        | `u8`                  | The style of the font                  |
+| Family       | [String](#string)     | The font family content URI            |
+| CachedFaceId | [String](#string)     | The cached content URI of the TTF file |
+
+The `Weight` and `Style` values refer to the `FontWeight` and `FontStyle` enums respectively. They are stored as unsigned little-endian
+
+The `CachedFaceId` field will always be present, but may be an empty string.
+
+A regular `Source Sans Pro` font will be stored as `90 01 00 2C 00 00 00 72 62 78 61 73 73 65 74 3A 2F 2F 66 6F 6E 74 73 2F 66 61 6D 69 6C 69 65 73 2F 53 6F 75 72 63 65 53 61 6E 73 50 72 6F 2E 6A 73 6F 6E 2A 00 00 00 72 62 78 61 73 73 65 74 3A 2F 2F 66 6F 6E 74 73 2F 53 6F 75 72 63 65 53 61 6E 73 50 72 6F 2D 52 65 67 75 6C 61 72 2E 74 74 66`
