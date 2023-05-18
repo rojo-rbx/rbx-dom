@@ -4913,12 +4913,6 @@ chunks:
         - 1
   - Prop:
       type_id: 0
-      prop_name: SignalBehavior
-      prop_type: Enum
-      values:
-        - 0
-  - Prop:
-      type_id: 0
       prop_name: SourceAssetId
       prop_type: Int64
       values:
