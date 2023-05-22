@@ -5,6 +5,8 @@ use thiserror::Error;
 use std::{
     convert::TryFrom,
     fmt,
+    num::ParseIntError,
+    str::FromStr,
     sync::atomic::{AtomicU32, Ordering},
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
@@ -24,6 +26,13 @@ pub enum UniqueIdError {
     SystemPastTime,
     #[error("UniqueId timestamp is more than 2^32 - 1 seconds past epoch")]
     Overflow,
+    #[error("expected string to contain 32 characters, got one that contained {0}")]
+    FromStrBadLen(usize),
+    #[error("string passed to UniqueId::from_str could not be read because: {err}")]
+    FromStrParseError {
+        #[from]
+        err: ParseIntError,
+    },
 }
 
 /// Represents a UUID with a custom epoch of midnight January 1st 2021.
@@ -78,11 +87,27 @@ impl fmt::Display for UniqueId {
     }
 }
 
+impl FromStr for UniqueId {
+    type Err = UniqueIdError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if s.len() == 32 {
+            Ok(UniqueId {
+                random: i64::from_str_radix(&s[0..16], 16)?,
+                time: u32::from_str_radix(&s[16..24], 16)?,
+                index: u32::from_str_radix(&s[24..32], 16)?,
+            })
+        } else {
+            Err(UniqueIdError::FromStrBadLen(s.len()))
+        }
+    }
+}
+
 #[cfg(feature = "serde")]
 mod serde_impl {
     use super::UniqueId;
     use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
-    use std::{convert::TryInto, fmt};
+    use std::{convert::TryInto, fmt, str::FromStr};
 
     impl Serialize for UniqueId {
         fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -130,18 +155,7 @@ mod serde_impl {
         where
             E: de::Error,
         {
-            if v.len() == 32 {
-                Ok(UniqueId {
-                    random: i64::from_str_radix(&v[0..16], 16).map_err(E::custom)?,
-                    time: u32::from_str_radix(&v[16..24], 16).map_err(E::custom)?,
-                    index: u32::from_str_radix(&v[24..32], 16).map_err(E::custom)?,
-                })
-            } else {
-                Err(E::custom(format!(
-                    "invalid length of hex string: {}",
-                    v.len()
-                )))
-            }
+            Ok(UniqueId::from_str(v).map_err(E::custom)?)
         }
     }
 
@@ -174,12 +188,24 @@ mod serde_impl {
 
 #[cfg(test)]
 mod test {
+    use std::str::FromStr;
+
     use super::UniqueId;
 
     #[test]
     fn display() {
         let uid = UniqueId::new(0xdead_beef, 0x0013_3700, 0x0badf00dc0ffee42);
         assert_eq!(uid.to_string(), "0badf00dc0ffee4200133700deadbeef");
+    }
+
+    #[test]
+    fn from_str() {
+        let str = "0badf00dc0ffee4200133700deadbeef";
+        let uid = UniqueId::from_str(str).unwrap();
+        assert_eq!(
+            uid,
+            UniqueId::new(0xdead_beef, 0x0013_3700, 0x0badf00dc0ffee42)
+        )
     }
 
     #[cfg(feature = "serde")]
