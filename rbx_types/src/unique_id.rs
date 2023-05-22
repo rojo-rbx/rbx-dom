@@ -92,10 +92,11 @@ mod serde_impl {
             if serializer.is_human_readable() {
                 serializer.serialize_str(&self.to_string())
             } else {
-                let mut bytes = Vec::with_capacity(16);
-                bytes.extend_from_slice(&self.random.to_be_bytes());
-                bytes.extend_from_slice(&self.time.to_be_bytes());
-                bytes.extend_from_slice(&self.index.to_be_bytes());
+                let mut bytes = [0; 16];
+
+                bytes[0..8].copy_from_slice(&self.random.to_be_bytes());
+                bytes[8..12].copy_from_slice(&self.time.to_be_bytes());
+                bytes[12..16].copy_from_slice(&self.index.to_be_bytes());
 
                 serializer.serialize_bytes(&bytes)
             }
