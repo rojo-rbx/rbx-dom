@@ -13,6 +13,8 @@ rbx-dom is a collection of cross-platform libraries that enables any software to
 
 Documentation about the project is hosted at [dom.rojo.space](https://dom.rojo.space).
 
+At this moment, we do not specify a MSRV for any project in rbx-dom. If you need to build one of these libraries with an outdated version of Rust, please open an issue explaining what blockers there are to you updating Cargo, what version you would need us to support, and why.
+
 ## [rbx_dom_weak](rbx_dom_weak)
 [![rbx_dom_weak on crates.io](https://img.shields.io/crates/v/rbx_dom_weak.svg)](https://crates.io/crates/rbx_dom_weak)
 [![rbx_dom_weak docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_dom_weak)
