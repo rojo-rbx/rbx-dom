@@ -233,7 +233,7 @@ impl<R: Read> XmlEventReader<R> {
             .filter(|c| !c.is_whitespace())
             .collect();
 
-        base64::decode(&contents).map_err(|e| self.error(e))
+        base64::decode(contents).map_err(|e| self.error(e))
     }
 
     /// Reads a tag completely and returns its text content. This is intended
