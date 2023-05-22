@@ -23,11 +23,6 @@ impl XmlType for UniqueId {
     }
 
     fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
-        writer.write_value(&format!(
-            "{:016x}{:08x}{:08x}",
-            &self.random(),
-            &self.time(),
-            &self.index()
-        ))
+        writer.write_value(&self.to_string())
     }
 }
