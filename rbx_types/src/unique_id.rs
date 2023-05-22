@@ -155,7 +155,7 @@ mod serde_impl {
         where
             E: de::Error,
         {
-            Ok(UniqueId::from_str(v).map_err(E::custom)?)
+            UniqueId::from_str(v).map_err(E::custom)
         }
     }
 
