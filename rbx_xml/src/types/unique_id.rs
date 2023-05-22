@@ -18,7 +18,7 @@ impl XmlType for UniqueId {
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
         let content = reader.read_characters()?;
 
-        Ok(UniqueId::from_str(&content).map_err(|e| reader.error(e))?)
+        UniqueId::from_str(&content).map_err(|e| reader.error(e))
     }
 
     fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
