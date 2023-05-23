@@ -107,7 +107,7 @@ impl FromStr for UniqueId {
 mod serde_impl {
     use super::UniqueId;
     use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
-    use std::{convert::TryInto, fmt, str::FromStr};
+    use std::{convert::TryInto, fmt};
 
     impl Serialize for UniqueId {
         fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -155,7 +155,7 @@ mod serde_impl {
         where
             E: de::Error,
         {
-            UniqueId::from_str(v).map_err(E::custom)
+            v.parse().map_err(E::custom)
         }
     }
 
