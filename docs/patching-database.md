@@ -84,7 +84,7 @@ return {
 				return true, instance:GetScale()
 			end,
 			write = function(instance, key, value)
-        instance:ScaleTo(value)
+        		instance:ScaleTo(value)
 				return true
 			end,
 		},
