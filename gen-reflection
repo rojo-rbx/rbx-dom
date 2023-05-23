@@ -11,4 +11,6 @@ else
 		rbx_reflection_database/database.msgpack \
 		rbx_dom_lua/src/database.json \
 		--patches patches
+
+	cargo run --bin rbx_reflector values rbx_dom_lua/src/allValues.json
 fi
