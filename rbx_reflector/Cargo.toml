@@ -1,7 +1,12 @@
 [package]
 name = "rbx_reflector"
+description = "Generates the rbx-dom reflection database"
 version = "0.1.0"
+authors = ["Micah Hinckley (@nezuo)"]
+repository = "https://github.com/rojo-rbx/rbx-dom/"
+license = "MIT"
 edition = "2021"
+publish = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
