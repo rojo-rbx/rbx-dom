@@ -107,7 +107,7 @@ pub trait RbxReadExt: Read {
         let mut buffer = vec![0; len * N];
         self.read_exact(&mut buffer)?;
 
-        for (i, array) in output.into_iter().enumerate() {
+        for (i, array) in output.iter_mut().enumerate() {
             for (j, byte) in array.iter_mut().enumerate() {
                 *byte = buffer[i + len * j];
             }
