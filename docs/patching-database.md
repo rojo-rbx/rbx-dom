@@ -1,5 +1,5 @@
 # How to Fix a New Property Added by Roblox
-When Roblox introduces new properties, usually tools like Rojo can use them without any additional changes. Sometimes, however, properties are added that have a different serialized name or that need to be modified with a special API in Lua.
+When Roblox introduces new properties, usually tools like Rojo can use them without any additional changes. Sometimes however, properties are added that have a different serialized name or that need to be modified with a special API in Lua.
 
 This document describes some common scenarios and the necessary steps to fix them.
 
