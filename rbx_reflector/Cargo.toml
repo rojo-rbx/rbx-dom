@@ -1,0 +1,34 @@
+[package]
+name = "rbx_reflector"
+description = "Generates the rbx-dom reflection database"
+version = "0.1.0"
+authors = ["Micah Hinckley (@nezuo)"]
+repository = "https://github.com/rojo-rbx/rbx-dom/"
+license = "MIT"
+edition = "2021"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rbx_dom_weak = { path = "../rbx_dom_weak" }
+rbx_reflection = { path = "../rbx_reflection" }
+rbx_types = { path = "../rbx_types", features = ["serde"] }
+rbx_xml = { path = "../rbx_xml" }
+
+anyhow = "1.0.57"
+clap = { version = "4.1.4", features = ["derive"] }
+env_logger = "0.10.0"
+log = "0.4.17"
+notify = "5.0.0"
+reqwest = { version = "0.11.14", features = ["blocking", "json"] }
+rmp-serde = "1.1.0"
+roblox_install = "1.0.0"
+serde = { version = "1.0.136", features = ["derive"] }
+serde_json = "1.0.79"
+serde_yaml = "0.8.26"
+tempfile = "3.4.0"
+tiny_http = "0.12.0"
+
+[target.'cfg(windows)'.dependencies]
+innerput = "0.0.2"

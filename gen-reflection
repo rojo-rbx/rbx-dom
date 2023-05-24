@@ -4,12 +4,13 @@ set -e
 
 if [ "$1" = "--dry-run" ]; then
 	# If run with --dry-run, don't emit the reflection database anywhere.
-	cargo run --bin generate_reflection \
+	cargo run --bin rbx_reflector generate \
 		--patches patches
 else
-	cargo run --bin generate_reflection -- \
-		--patches patches \
-		--msgpack rbx_reflection_database/database.msgpack \
-		--json rbx_dom_lua/src/database.json \
-		--values rbx_dom_lua/src/allValues.json
+	cargo run --bin rbx_reflector generate \
+		rbx_reflection_database/database.msgpack \
+		rbx_dom_lua/src/database.json \
+		--patches patches
+
+	cargo run --bin rbx_reflector values rbx_dom_lua/src/allValues.json
 fi

@@ -13,6 +13,7 @@ pub enum PropertyTag {
     NotReplicated,
     NotScriptable,
     ReadOnly,
+    WriteOnly,
 }
 
 #[derive(Debug)]
@@ -29,6 +30,7 @@ impl FromStr for PropertyTag {
             "NotReplicated" => Self::NotReplicated,
             "NotScriptable" => Self::NotScriptable,
             "ReadOnly" => Self::ReadOnly,
+            "WriteOnly" => Self::WriteOnly,
             _ => return Err(PropertyTagFromStrError(value.to_owned())),
         })
     }

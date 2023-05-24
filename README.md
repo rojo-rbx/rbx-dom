@@ -51,7 +51,12 @@ Roblox reflection types for working with Instances in external tooling.
 
 Bundled reflection database using types from rbx_reflection. Intended for users migrating from rbx_reflection 4.x and users who need reflection information statically.
 
+## [rbx_reflector](rbx_reflector)
+
+Command line utility to generate a reflection database for rbx_dom_lua and rbx_reflection_database.
+
 ## [rbx_util](rbx_util)
+
 Command line utility to convert and debug Roblox model files.
 
 ## [rbx_dom_lua](rbx_dom_lua)
