@@ -4,8 +4,10 @@
 
 ## 1.5.0 (2023-04-22)
 * Implemented `Font`. ([#248])
+* Implemented `UniqueId` ([#256])
 
 [#248]: https://github.com/rojo-rbx/rbx-dom/pull/248
+[#256]: https://github.com/rojo-rbx/rbx-dom/pull/256
 
 ## 1.4.2 (2022-06-12)
 * `Variant::String` now encodes correctly inside of `Attributes`.

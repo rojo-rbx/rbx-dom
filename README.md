@@ -93,6 +93,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | String                  | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
 | UDim                    | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ✔ |
 | UDim2                   | `Frame.Size`                    | ✔ | ✔ | ✔ | ✔ |
+| UniqueId                | `Instance.UniqueId              | ✔ | ❌ | ✔ | ✔ |
 | Vector2                 | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ✔ | ✔ |
 | Vector2int16            | N/A                             | ✔ | ✔ | ✔ | ❌ |
 | Vector3                 | `Part.Size`                     | ✔ | ✔ | ✔ | ✔ |

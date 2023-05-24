@@ -10,7 +10,7 @@ use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, Enum, Faces, Font, FontStyle, FontWeight, Matrix3, NumberRange,
     NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim,
-    UDim2, Vector2, Vector3, Vector3int16,
+    UDim2, UniqueId, Vector2, Vector3, Vector3int16,
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
@@ -222,6 +222,7 @@ pub enum DecodedValues {
     Int64(Vec<i64>),
     SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
     OptionalCFrame(Vec<Option<CFrame>>),
+    UniqueId(Vec<UniqueId>),
     Font(Vec<Font>),
 }
 
@@ -696,6 +697,20 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::OptionalCFrame(values))
+            }
+            Type::UniqueId => {
+                let mut values = Vec::with_capacity(prop_count);
+                let mut blobs = vec![[0; 16]; prop_count];
+                reader.read_interleaved_bytes::<16>(&mut blobs).unwrap();
+
+                for mut value in blobs.iter().map(|v| v.as_slice()) {
+                    let index = value.read_be_u32().unwrap();
+                    let time = value.read_be_u32().unwrap();
+                    let random = value.read_be_i64().unwrap().rotate_right(1);
+                    values.push(UniqueId::new(index, time, random));
+                }
+
+                Some(DecodedValues::UniqueId(values))
             }
         }
     }

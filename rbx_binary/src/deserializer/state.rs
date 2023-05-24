@@ -9,8 +9,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, FontStyle,
         FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim, UDim2, Variant, VariantType,
-        Vector2, Vector3, Vector3int16,
+        PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim, UDim2, UniqueId, Variant,
+        VariantType, Vector2, Vector3, Vector3int16,
     },
     InstanceBuilder, WeakDom,
 };
@@ -1220,6 +1220,34 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "OptionalCFrame",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::UniqueId => match canonical_type {
+                VariantType::UniqueId => {
+                    let n = type_info.referents.len();
+                    let mut values = vec![[0; 16]; n];
+                    chunk.read_interleaved_bytes::<16>(&mut values)?;
+
+                    for (i, referent) in type_info.referents.iter().enumerate() {
+                        let mut value = values[i].as_slice();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        instance.builder.add_property(
+                            &canonical_name,
+                            UniqueId::new(
+                                value.read_be_u32()?,
+                                value.read_be_u32()?,
+                                value.read_be_i64()?.rotate_right(1),
+                            ),
+                        )
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "UniqueId",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }

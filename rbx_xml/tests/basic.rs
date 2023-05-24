@@ -2,8 +2,8 @@
 
 use rbx_dom_weak::types::{
     Attributes, BinaryString, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint,
-    NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, Tags, UDim, UDim2, Variant, Vector2,
-    Vector3,
+    NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, Tags, UDim, UDim2, UniqueId,
+    Variant, Vector2, Vector3,
 };
 use rbx_dom_weak::{InstanceBuilder, WeakDom};
 
@@ -187,4 +187,46 @@ fn read_attributes() {
     for (key, value) in attributes {
         assert_eq!(folder_attributes.get(key), Some(&value));
     }
+}
+
+#[test]
+fn read_unique_id() {
+    let _ = env_logger::try_init();
+
+    let document = r#"
+        <roblox version="4">
+            <Item class="Workspace" referent="RBX10E3276249364E44B1EBE3BF36E14C1D">
+                <Properties>
+                    <UniqueId name="UniqueId">44b188dace632b4702e9c68d004815fc</UniqueId>
+                    <bool name="Archivable">true</bool>
+                    <string name="Name">Workspace</string>
+                </Properties>
+            </Item>
+        </roblox>
+    "#;
+
+    let tree = rbx_xml::from_str(
+        document,
+        rbx_xml::DecodeOptions::new()
+            // This is necessary at the moment because we do not actually
+            // have UniqueId properties in our reflection database. This may
+            // change, but it should in general be safe.
+            .property_behavior(rbx_xml::DecodePropertyBehavior::ReadUnknown),
+    )
+    .unwrap();
+
+    let root = tree.root();
+    let child = tree.get_by_ref(root.children()[0]).unwrap();
+
+    assert_eq!(child.name, "Workspace");
+    assert_eq!(child.class, "Workspace");
+
+    assert_eq!(
+        child.properties.get("UniqueId"),
+        Some(&Variant::UniqueId(UniqueId::new(
+            0x0048_15fc,
+            0x02e9_c68d,
+            0x44b1_88da_ce63_2b47,
+        )))
+    );
 }

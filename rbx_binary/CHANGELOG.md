@@ -5,9 +5,11 @@
 ## 0.7.0 (2023-04-22)
 * Added support for `Font` values. ([#248])
 * Fixed the nondeterministic output of SSTR chunk when multiple shared strings are present. ([#254])
+* Added support for `UniqueId` values. ([#256])
 
 [#248]: https://github.com/rojo-rbx/rbx-dom/pull/248
 [#254]: https://github.com/rojo-rbx/rbx-dom/pull/254
+[#256]: https://github.com/rojo-rbx/rbx-dom/pull/256
 
 ## 0.6.6 (2022-06-29)
 * Fixed unserialized properties getting deserialized, like `BasePart.MaterialVariant`. ([#230])
