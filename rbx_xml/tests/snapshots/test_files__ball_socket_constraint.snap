@@ -16,6 +16,8 @@ expression: viewer.view_children(&dom)
       Bool: true
     LimitsEnabled:
       Bool: false
+    MaxFrictionTorqueXml:
+      Float32: 0
     Radius:
       Float32: 0.15
     Restitution:
