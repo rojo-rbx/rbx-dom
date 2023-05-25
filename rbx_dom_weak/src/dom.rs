@@ -47,6 +47,20 @@ impl WeakDom {
         dom
     }
 
+    /// Crates a `WeakDom` from a root referent and a map of Instances. This
+    /// is intended for use with `into_raw`.
+    ///
+    /// It is up to the caller to ensure that the values passed do not crate an
+    /// invalid Dom. This means that all values in `instances` must be
+    /// descendants of the root *and* that the `Instance` pointed to by `root`
+    /// must be inside `instances`.
+    pub fn from_raw(root: Ref, instances: HashMap<Ref, Instance>) -> WeakDom {
+        Self {
+            root_ref: root,
+            instances,
+        }
+    }
+
     /// Consumes the WeakDom, returning its underlying root ref and backing
     /// storage. This method is useful when tree-preserving operations are too
     /// slow.
