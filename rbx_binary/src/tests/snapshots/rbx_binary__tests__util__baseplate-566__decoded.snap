@@ -258,7 +258,7 @@ expression: decoded_viewed
         Material:
           Enum: 256
         MaterialVariantSerialized:
-          BinaryString: ""
+          String: ""
         PivotOffset:
           CFrame:
             position:
@@ -447,7 +447,7 @@ expression: decoded_viewed
         MaterialColors:
           BinaryString: AAAAAAAAb34+WFlWmJiYimFJz8unrJRsY2Rm3eTl6/3/lHxfeXBiS0pKjIJo/xhDUFRUhoZ2zNLfaoZA///+//PAj5CH
         MaterialVariantSerialized:
-          BinaryString: ""
+          String: ""
         PhysicsGrid:
           BinaryString: AgMAAAAAAAAAAAAAAAA=
         PivotOffset:
@@ -621,7 +621,7 @@ expression: decoded_viewed
         Material:
           Enum: 256
         MaterialVariantSerialized:
-          BinaryString: ""
+          String: ""
         Neutral:
           Bool: true
         PivotOffset:
