@@ -77,7 +77,10 @@ mod serde_impl {
 
                 serializer.serialize_str(&encoded)
             } else {
-                serializer.serialize_bytes(&self.buffer)
+                // We need to be opaque here because we're deserializing
+                // using `Vec<u8>`'s serde implementation and we cannot trust
+                // that it'll be implemented the same across versions
+                self.buffer.serialize(serializer)
             }
         }
     }
