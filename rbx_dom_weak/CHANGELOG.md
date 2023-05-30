@@ -1,6 +1,7 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+* Fix potential stack overflow when creating or inserting into a `WeakDom`
 
 ## 2.4.0 (2022-06-05)
 * Added `WeakDom::into_raw` for enabling fast, non-tree-preserving transformations.
