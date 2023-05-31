@@ -1,3 +1,7 @@
+mod core;
+mod error;
+mod reader;
+
 use std::{
     collections::{HashMap, HashSet},
     io::Read,
