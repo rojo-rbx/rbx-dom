@@ -85,33 +85,39 @@ impl WeakDom {
     ///
     /// ## Panics
     /// Panics if `parent_ref` does not refer to an instance in the DOM.
-    pub fn insert(&mut self, parent_ref: Ref, builder: InstanceBuilder) -> Ref {
-        let referent = builder.referent;
+    pub fn insert(&mut self, parent_ref: Ref, root_builder: InstanceBuilder) -> Ref {
+        let root_referent = root_builder.referent;
 
-        self.instances.insert(
-            referent,
-            Instance {
-                referent,
-                children: Vec::with_capacity(builder.children.len()),
-                parent: parent_ref,
-                name: builder.name,
-                class: builder.class,
-                properties: builder.properties,
-            },
-        );
+        // Rather than performing this movement recursively, we instead use a
+        // queue that we load the children of each `InstanceBuilder` into.
+        // Then we can just iter through that.
+        let mut queue = VecDeque::with_capacity(1);
+        queue.push_back((parent_ref, root_builder));
 
-        let parent = self
-            .instances
-            .get_mut(&parent_ref)
-            .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"));
+        while let Some((parent, builder)) = queue.pop_front() {
+            self.instances.insert(
+                builder.referent,
+                Instance {
+                    referent: builder.referent,
+                    children: Vec::with_capacity(builder.children.len()),
+                    parent,
+                    name: builder.name,
+                    class: builder.class,
+                    properties: builder.properties,
+                },
+            );
+            self.instances
+                .get_mut(&parent)
+                .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"))
+                .children
+                .push(builder.referent);
 
-        parent.children.push(referent);
-
-        for child in builder.children {
-            self.insert(referent, child);
+            for child in builder.children {
+                queue.push_back((builder.referent, child));
+            }
         }
 
-        referent
+        root_referent
     }
 
     /// Destroy the instance with the given referent.
@@ -298,5 +304,22 @@ mod test {
 
         // This snapshot should have Root and SpawnLocation contained in Dest.
         insta::assert_yaml_snapshot!(viewer.view_children(&dom));
+    }
+
+    #[test]
+    fn large_depth_tree() {
+        // We've had issues with stack overflows when creating WeakDoms with
+        // particularly deep trees, so this test is simply to ensure that does
+        // not happen. `i16::MAX` is arbitrary but very large for recursion.
+        const N: usize = i16::MAX as usize;
+
+        let mut refs = Vec::with_capacity(N + 1);
+        let mut base = InstanceBuilder::new("Folder");
+        refs.push(base.referent());
+        for _ in 0..N {
+            base = InstanceBuilder::new("Folder").with_child(base);
+            refs.push(base.referent());
+        }
+        let _ = WeakDom::new(base);
     }
 }
