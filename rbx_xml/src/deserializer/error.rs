@@ -1,5 +1,3 @@
-use std::fmt::Display;
-
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -14,6 +12,17 @@ pub(crate) enum ErrorKind {
     UnexpectedToken,
     #[error("unexpectedly got element '{got}' when expecting '{expected}'")]
     UnexpectedElement { expected: String, got: String },
+    #[error("unknown element {0}")]
+    UnknownElement(String),
+    #[error("property of type {0} without 'name' attribute")]
+    UnnamedProperty(String),
+
+    #[error("not a valid Roblox file because: {0}")]
+    InvalidFile(&'static str),
+    #[error("missing attribute {name} on element {element}")]
+    MissingAttribute { name: String, element: String },
+    #[error("invalid Roblox file version {0}, expected 4")]
+    InvalidVersion(String),
 
     #[error("could not convert text to utf8: {0}")]
     NonUtf8Text(#[from] std::string::FromUtf8Error),
@@ -21,9 +30,11 @@ pub(crate) enum ErrorKind {
     XmlParsing(#[from] quick_xml::Error),
     #[error("XML attribute parsing error: {0}")]
     XmlAttribute(#[from] quick_xml::events::attributes::AttrError),
+    #[error("invalid base64 string: {0}")]
+    InvalidBase64(#[from] base64::DecodeError),
 
-    #[error("{0}")]
-    Custom(String),
+    #[error("error when reading property at character {offset}: {message}")]
+    InvalidData { offset: usize, message: String },
 }
 
 impl ErrorKind {
@@ -33,8 +44,8 @@ impl ErrorKind {
 }
 
 impl DecodeError {
-    fn custom<M: Display + Send + Sync + 'static>(message: M) -> Self {
-        Self(Box::from(ErrorKind::Custom(message.to_string())))
+    pub(crate) fn new(kind: ErrorKind) -> Self {
+        Self(Box::from(kind))
     }
 }
 
