@@ -191,11 +191,6 @@ fn deserialize_properties<R: BufRead>(
 ) -> Result<(), DecodeError> {
     log::trace!("decoding Properties");
     reader.expect_start_with_name("Properties")?;
-    let start = if log::log_enabled!(log::Level::Debug) {
-        Some(std::time::Instant::now())
-    } else {
-        None
-    };
     loop {
         match reader.peek() {
             Some(Ok(event)) => match event {
@@ -233,14 +228,6 @@ fn deserialize_properties<R: BufRead>(
                 XmlData::ElementEnd { name } if name == "Properties" => {
                     log::trace!("finished decoding properties");
                     reader.next();
-                    if log::log_enabled!(log::Level::Debug) {
-                        log::debug!(
-                            "deserializing properties took {:02}s",
-                            std::time::Instant::now()
-                                .duration_since(start.unwrap())
-                                .as_secs_f32()
-                        )
-                    }
                     return Ok(());
                 }
                 event => {
