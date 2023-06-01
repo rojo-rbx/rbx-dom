@@ -435,7 +435,10 @@ fn decode_test() {
     </roblox>
 "#;
 
-    let _ = deserialize_file(XmlReader::from_str(document), Default::default()).unwrap();
+    match deserialize_file(XmlReader::from_str(document), Default::default()) {
+        Err(err) => panic!("{}", err),
+        _ => {}
+    }
 }
 
 #[test]
@@ -444,6 +447,8 @@ fn crossroads_decode() {
     let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
 
     let reader = XmlReader::from_reader(std::io::BufReader::new(file));
-
-    let _ = deserialize_file(reader, Default::default()).unwrap();
+    match deserialize_file(reader, Default::default()) {
+        Err(err) => panic!("{}", err),
+        _ => {}
+    }
 }
