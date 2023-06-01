@@ -405,7 +405,6 @@ fn decode_test() {
         <Item class="TestClass" referent="TestReferent">
             <Properties>
                 <SharedString name="TestSharedString">Test Shared String Key</SharedString>
-                <UniqueId name="UniqueId">44b188dace632b4702e9c68d004815fc</UniqueId>
                 <bool name="TestBool1">true</bool>
                 <bool name="TestBool2">false</bool>
                 <string name="TestString">Test Value</string>
@@ -418,6 +417,17 @@ fn decode_test() {
                 <double name="TestDouble3">-INF</double>
                 <double name="TestDouble4">NAN</double>
             </Properties>
+            <Item class="TestClass2" referent="TestReferent2">
+                <Properties>
+                    <Ref name = "RefTest">TestReferent</Ref>
+                    <SharedString name="TestSharedString">Test Shared String Key</SharedString>
+                    <int name = "TestInt1">10</int>
+                    <int name = "TestInt2">-10</int>
+                    <int64 name = "TestInt641">20</int64>
+                    <int64 name = "TestInt642">-20</int64>
+                    <ProtectedString name = "Test"><![CDATA[   Protected String   ]]></ProtectedString>
+                </Properties>
+            </Item>
         </Item>
         <SharedStrings>
 		    <SharedString md5="Test Shared String Key">Q1NHSzg1MTYxZjdlOWNmZjMyNTlhNmU1NmE2NGJjZmNjMzJh</SharedString>
