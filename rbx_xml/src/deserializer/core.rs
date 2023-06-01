@@ -262,9 +262,10 @@ fn deserialize_property<R: BufRead>(
     Ok(match prop_type {
         // We rewrite these later in the deserialization
         "Ref" | "SharedString" => Variant::String(data_types::string_deserializer(reader)?),
+        "BinaryString" => Variant::BinaryString(data_types::binary_string_deserializer(reader)?),
 
         "bool" => Variant::Bool(data_types::bool_deserializer(reader)?),
-        "string" => Variant::String(data_types::string_deserializer(reader)?),
+        "string" | "ProtectedString" => Variant::String(data_types::string_deserializer(reader)?),
         "float" => Variant::Float32(data_types::f32_deserializer(reader)?),
         "double" => Variant::Float64(data_types::f64_deserializer(reader)?),
         "int" => Variant::Int32(data_types::i32_deserializer(reader)?),

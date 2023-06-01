@@ -2,10 +2,25 @@
 //! Namely:
 //! - `bool`
 //! - `i32`, `i64`, `f32`, `f64`
-//! - `String`
+//! - `String`, `ProtectedString`, `BinaryString`
+//!
+//! Does not handle parsing particular `BinaryString` subtypes and instead
+//! provides for parsing the raw base64 into a `rbx_types::BinaryString`.
 use std::io::BufRead;
 
+use rbx_dom_weak::types::BinaryString;
+
 use crate::deserializer::{error::DecodeError, reader::XmlReader};
+
+pub fn string_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<String, DecodeError> {
+    reader.eat_text()
+}
+
+pub fn binary_string_deserializer<R: BufRead>(
+    reader: &mut XmlReader<R>,
+) -> Result<BinaryString, DecodeError> {
+    Ok(BinaryString::from(base64::decode(reader.eat_text()?)?))
+}
 
 pub fn bool_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<bool, DecodeError> {
     let content = reader.eat_text()?;
@@ -16,10 +31,6 @@ pub fn bool_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<bool, 
         "false" => Ok(false),
         _ => reader.error("invalid bool '{content}', should be either 'true' or 'false'"),
     }
-}
-
-pub fn string_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<String, DecodeError> {
-    reader.eat_text()
 }
 
 pub fn f32_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<f32, DecodeError> {
