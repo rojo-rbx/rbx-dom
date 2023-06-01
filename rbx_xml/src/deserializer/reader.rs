@@ -40,12 +40,12 @@ impl ElementStart {
         &self.1
     }
 
-    pub fn get_attribute(mut self, name: &str) -> Result<String, DecodeError> {
+    pub fn get_attribute(&mut self, name: &str) -> Result<String, DecodeError> {
         match self.1.get(name) {
-            Some(value) => Ok(self.1.remove(name).unwrap()),
+            Some(_) => Ok(self.1.remove(name).unwrap()),
             None => Err(ErrorKind::MissingAttribute {
                 name: name.into(),
-                element: self.0,
+                element: self.0.clone(),
             }
             .err()),
         }
@@ -158,6 +158,13 @@ impl<R: io::BufRead> XmlReader<R> {
             }
         }
     }
+
+    pub fn error<T, M: Into<String>>(&self, message: M) -> Result<T, DecodeError> {
+        Err(DecodeError::new(ErrorKind::InvalidData {
+            offset: self.reader.buffer_position(),
+            message: message.into(),
+        }))
+    }
 }
 
 impl<R: io::BufRead> Iterator for XmlReader<R> {
@@ -253,7 +260,7 @@ mod test {
         <bool name = "Test">true</bool>
         "#;
         let mut reader = XmlReader::from_str(document);
-        let start = reader.expect_start_with_name("bool").unwrap();
+        let mut start = reader.expect_start_with_name("bool").unwrap();
         let content = reader.eat_text().unwrap();
         let end = reader.expect_end_with_name("bool").unwrap();
 
