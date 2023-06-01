@@ -22,7 +22,6 @@ pub enum XmlData {
     Text(String),
     ElementStart {
         name: String,
-        // We really don't need to use a hashmap for this but I'm feeling lazy
         attributes: HashMap<String, String>,
     },
     ElementEnd {
@@ -41,10 +40,14 @@ impl ElementStart {
         &self.1
     }
 
-    pub fn get_attribute(&self, name: &str) -> Option<&str> {
+    pub fn get_attribute(mut self, name: &str) -> Result<String, DecodeError> {
         match self.1.get(name) {
-            Some(value) => Some(&value),
-            None => None,
+            Some(value) => Ok(self.1.remove(name).unwrap()),
+            None => Err(ErrorKind::MissingAttribute {
+                name: name.into(),
+                element: self.0,
+            }
+            .err()),
         }
     }
 }
@@ -97,14 +100,6 @@ impl<R: io::BufRead> XmlReader<R> {
         }
     }
 
-    // pub fn expect_peek(&mut self) -> Result<&XmlData, DecodeError> {
-    //     match self.peek() {
-    //         None => Err(ErrorKind::UnexpectedEof.err()),
-    //         Some(Err(error)) => Err(error.clone()),
-    //         Some(Ok(data)) => Ok(data),
-    //     }
-    // }
-
     pub fn expect_start_with_name(
         &mut self,
         expected_name: &str,
@@ -143,29 +138,22 @@ impl<R: io::BufRead> XmlReader<R> {
                     // We want this to panic if we're wrong anyway
                     self.next().unwrap().unwrap();
                 }
-                Some(Ok(_)) => return Ok(buffer),
-                // `peek` returns `&Result` so we have to use `next`
-                Some(Err(_)) => return Err(self.next().unwrap().unwrap_err()),
-                None => return Ok(buffer),
+                _ => return Ok(buffer),
             }
         }
     }
 
-    pub fn eat_unknown_element(&mut self) -> Result<(), DecodeError> {
+    pub fn skip_element(&mut self) -> Result<(), DecodeError> {
         let mut depth = 0;
-        log::debug!("eating unknown element");
-
         loop {
             match self.expect_next()? {
-                XmlData::ElementStart { .. } => {
-                    depth += 1;
-                }
                 XmlData::ElementEnd { .. } => {
                     depth -= 1;
                     if depth == 0 {
                         return Ok(());
                     }
                 }
+                XmlData::ElementStart { .. } => depth += 1,
                 _ => {}
             }
         }
@@ -270,7 +258,7 @@ mod test {
         let end = reader.expect_end_with_name("bool").unwrap();
 
         assert_eq!(start.name(), "bool");
-        assert!(matches!(start.get_attribute("name"), Some("Test")));
+        assert_eq!(start.get_attribute("name").unwrap(), "Test".to_owned());
         assert_eq!(content, "true");
         assert_eq!(end.name(), "bool");
     }
