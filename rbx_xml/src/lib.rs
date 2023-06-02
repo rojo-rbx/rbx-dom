@@ -110,6 +110,7 @@ mod core;
 mod deserializer;
 mod deserializer_core;
 mod error;
+mod property_descriptor;
 mod serializer;
 mod serializer_core;
 mod types;
