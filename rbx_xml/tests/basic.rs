@@ -1,9 +1,12 @@
 //! Temporary tests while re-bootstrapping rbx_xml
 
-use rbx_dom_weak::types::{
-    Attributes, BinaryString, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint,
-    NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, Tags, UDim, UDim2, UniqueId,
-    Variant, Vector2, Vector3,
+use rbx_dom_weak::{
+    types::{
+        Attributes, BinaryString, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint,
+        NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, Tags, UDim, UDim2, UniqueId,
+        Variant, Vector2, Vector3,
+    },
+    DomViewer,
 };
 use rbx_dom_weak::{InstanceBuilder, WeakDom};
 
@@ -205,15 +208,7 @@ fn read_unique_id() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(
-        document,
-        rbx_xml::DecodeOptions::new()
-            // This is necessary at the moment because we do not actually
-            // have UniqueId properties in our reflection database. This may
-            // change, but it should in general be safe.
-            .property_behavior(rbx_xml::DecodePropertyBehavior::ReadUnknown),
-    )
-    .unwrap();
+    let tree = rbx_xml::from_str(document, rbx_xml::DecodeConfig::new()).unwrap();
 
     let root = tree.root();
     let child = tree.get_by_ref(root.children()[0]).unwrap();
