@@ -1,4 +1,10 @@
-use std::{collections::HashMap, io::BufRead};
+use std::{
+    collections::{
+        hash_map::{Entry, OccupiedEntry},
+        HashMap,
+    },
+    io::BufRead,
+};
 
 use quick_xml::{events::Event, Reader};
 
@@ -17,7 +23,7 @@ use super::{
 pub(crate) fn deserialize_file<R: BufRead>(
     mut reader: XmlReader<R>,
     config: DecodeConfig,
-) -> Result<(), DecodeError> {
+) -> Result<WeakDom, DecodeError> {
     log::trace!("beginning file deserialization");
     let mut roblox = reader
         .expect_start_with_name("roblox")
@@ -29,9 +35,9 @@ pub(crate) fn deserialize_file<R: BufRead>(
         return Err(ErrorKind::InvalidVersion(version.into()).err());
     }
 
-    let mut state = XmlState::new();
     let root = InstanceBuilder::new("DataModel");
     let root_ref = root.referent();
+    let mut state = XmlState::new(root);
 
     loop {
         match reader.peek() {
@@ -39,7 +45,7 @@ pub(crate) fn deserialize_file<R: BufRead>(
                 XmlData::ElementStart { name, .. } => match name.as_str() {
                     "Meta" => deserialize_metadata(&mut reader, &mut state)?,
                     "SharedStrings" => deserialize_sstr(&mut reader, &mut state)?,
-                    "Item" => deserialize_item(&mut reader, &mut state)?,
+                    "Item" => deserialize_item(&mut reader, &mut state, root_ref)?,
                     // `MetaBreakpoints` and `DebuggerManager` also exist in
                     // some XML files but we don't support those in any
                     // capacity right now.
@@ -74,10 +80,52 @@ pub(crate) fn deserialize_file<R: BufRead>(
             None => return Err(ErrorKind::UnexpectedEof.err()),
         }
     }
+    log::debug!("Deserialized {} Instances", state.read_refs.len());
 
-    log::debug!("Deserialized {} Instances", state.items.len());
+    log::debug!("Rewriting Referent properties");
+    for (inst_referent, prop_name) in state.ref_properties {
+        log::trace!("rewriting {inst_referent}.{prop_name}");
+        let inst = state.dom.get_by_ref_mut(inst_referent).unwrap();
+        // This is rather dense, so to give a TL;DR:
+        // - Get entry for the property we're rewriting from `inst.properties`
+        // - Get value we're meant to be rewriting it to from `state.read_refs`
+        // - If it exists, replace the entry. Otherwise, remove it.
 
-    Ok(())
+        if let Entry::Occupied(mut entry) = inst.properties.entry(prop_name) {
+            let value = entry.get_mut();
+            let replacement = state.read_refs.get(match value {
+                Variant::String(value) => value,
+                _ => unreachable!(),
+            });
+            if let Some(referent) = replacement {
+                *value = Variant::Ref(*referent)
+            } else {
+                entry.remove_entry();
+            }
+        }
+    }
+
+    log::debug!("Rewriting SharedString properties");
+    for (inst_referent, prop_name) in state.sstr_properties {
+        log::trace!("rewriting {inst_referent}.{prop_name}");
+        let inst = state.dom.get_by_ref_mut(inst_referent).unwrap();
+        // See referent rewrites for a quick explanation; this is very similiar
+
+        if let Entry::Occupied(mut entry) = inst.properties.entry(prop_name) {
+            let value = entry.get_mut();
+            let replacement = state.shared_strings.get(match value {
+                Variant::String(value) => value,
+                _ => unreachable!(),
+            });
+            if let Some(sstr) = replacement {
+                *value = Variant::SharedString(sstr.clone())
+            } else {
+                entry.remove_entry();
+            }
+        }
+    }
+
+    Ok(state.dom)
 }
 
 fn deserialize_metadata<R: BufRead>(
@@ -134,6 +182,7 @@ fn deserialize_sstr<R: BufRead>(
 fn deserialize_item<R: BufRead>(
     reader: &mut XmlReader<R>,
     state: &mut XmlState,
+    parent: Ref,
 ) -> Result<(), DecodeError> {
     let mut item = reader.expect_start_with_name("Item")?;
     let class = item.get_attribute("class")?;
@@ -141,8 +190,8 @@ fn deserialize_item<R: BufRead>(
     // Previously, `referent` wasn't required, it now is
     let read_ref = item.get_attribute("referent")?;
     log::trace!("decoding Instance {read_ref} of class {class}");
-    let mut inst = InstanceBuilder::new(class);
-    let real_ref = inst.referent();
+
+    let real_ref = state.dom.insert(parent, InstanceBuilder::new(class));
     let mut properties = HashMap::new();
 
     loop {
@@ -153,7 +202,7 @@ fn deserialize_item<R: BufRead>(
                         deserialize_properties(reader, state, real_ref, &mut properties)?
                     }
 
-                    "Item" => deserialize_item(reader, state)?,
+                    "Item" => deserialize_item(reader, state, real_ref)?,
                     _ => {
                         log::trace!("unexpected element {name}");
                         let name_clone = name.clone();
@@ -177,8 +226,10 @@ fn deserialize_item<R: BufRead>(
         }
     }
     log::trace!("found {} properties", properties.len());
-    inst.add_properties(properties);
-    state.items.insert(read_ref, inst);
+    let inst = state.dom.get_by_ref_mut(real_ref).unwrap();
+    inst.properties = properties;
+
+    state.read_refs.insert(read_ref, real_ref);
 
     Ok(())
 }
@@ -262,14 +313,15 @@ fn deserialize_property<R: BufRead>(
     })
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug)]
 struct XmlState {
+    dom: WeakDom,
     /// A map of metadata values deserialized from `Meta` elements
     metadata: HashMap<String, String>,
     /// A map of SharedString values deserialized from the file
     shared_strings: HashMap<String, SharedString>,
-    /// A map of all Instances contained in the file to their read referents
-    items: HashMap<String, InstanceBuilder>,
+    /// A map of all read Instance referents to their real referents
+    read_refs: HashMap<String, Ref>,
     /// A list of properties that point to other Instances in the file.
     /// They need to be revisited after we're done deserializing so they can be
     /// rewritten to use our actual referents.
@@ -285,8 +337,15 @@ struct XmlState {
 }
 
 impl XmlState {
-    fn new() -> Self {
-        XmlState::default()
+    fn new(root: InstanceBuilder) -> Self {
+        Self {
+            dom: WeakDom::new(root),
+            metadata: HashMap::new(),
+            shared_strings: HashMap::new(),
+            read_refs: HashMap::new(),
+            ref_properties: Vec::new(),
+            sstr_properties: Vec::new(),
+        }
     }
 }
 
@@ -386,41 +445,42 @@ impl<'db> DecodeConfig<'db> {
 fn decode_test() {
     env_logger::try_init().unwrap();
     let document = r#"
-    <roblox version="4">
-        <External>TestExternal</External>
-        <Meta name="TestMetadata">TestValue</Meta>
-        <Item class="TestClass" referent="TestReferent">
-            <Properties>
-                <SharedString name="TestSharedString">Test Shared String Key</SharedString>
-                <bool name="TestBool1">true</bool>
-                <bool name="TestBool2">false</bool>
-                <string name="TestString">Test Value</string>
-                <float name="TestFloat1">-0.15625</float>
-                <float name="TestFloat2">INF</float>
-                <float name="TestFloat3">-INF</float>
-                <float name="TestFloat4">NAN</float>
-                <double name="TestDouble1">-0.15625</double>
-                <double name="TestDouble2">INF</double>
-                <double name="TestDouble3">-INF</double>
-                <double name="TestDouble4">NAN</double>
-            </Properties>
-            <Item class="TestClass2" referent="TestReferent2">
+        <roblox version="4">
+            <External>TestExternal</External>
+            <Meta name="TestMetadata">TestValue</Meta>
+            <Item class="TestClass" referent="TestReferent">
                 <Properties>
-                    <Ref name = "RefTest">TestReferent</Ref>
+                    <Ref name = "RefTest">null</Ref>
                     <SharedString name="TestSharedString">Test Shared String Key</SharedString>
-                    <int name = "TestInt1">10</int>
-                    <int name = "TestInt2">-10</int>
-                    <int64 name = "TestInt641">20</int64>
-                    <int64 name = "TestInt642">-20</int64>
-                    <ProtectedString name = "Test"><![CDATA[   Protected String   ]]></ProtectedString>
+                    <bool name="TestBool1">true</bool>
+                    <bool name="TestBool2">false</bool>
+                    <string name="TestString">Test Value</string>
+                    <float name="TestFloat1">-0.15625</float>
+                    <float name="TestFloat2">INF</float>
+                    <float name="TestFloat3">-INF</float>
+                    <float name="TestFloat4">NAN</float>
+                    <double name="TestDouble1">-0.15625</double>
+                    <double name="TestDouble2">INF</double>
+                    <double name="TestDouble3">-INF</double>
+                    <double name="TestDouble4">NAN</double>
                 </Properties>
+                <Item class="TestClass2" referent="TestReferent2">
+                    <Properties>
+                        <Ref name = "RefTest">TestReferent</Ref>
+                        <SharedString name="TestSharedString">Test Shared String Key</SharedString>
+                        <int name = "TestInt1">10</int>
+                        <int name = "TestInt2">-10</int>
+                        <int64 name = "TestInt64_1">20</int64>
+                        <int64 name = "TestInt64_2">-20</int64>
+                        <ProtectedString name = "Test"><![CDATA[   Protected String   ]]></ProtectedString>
+                    </Properties>
+                </Item>
             </Item>
-        </Item>
-        <SharedStrings>
-		    <SharedString md5="Test Shared String Key">Q1NHSzg1MTYxZjdlOWNmZjMyNTlhNmU1NmE2NGJjZmNjMzJh</SharedString>
-        </SharedStrings>
-    </roblox>
-"#;
+            <SharedStrings>
+                <SharedString md5="Test Shared String Key">Q1NHSzg1MTYxZjdlOWNmZjMyNTlhNmU1NmE2NGJjZmNjMzJh</SharedString>
+            </SharedStrings>
+        </roblox>
+    "#;
 
     match deserialize_file(XmlReader::from_str(document), Default::default()) {
         Err(err) => panic!("{}", err),
