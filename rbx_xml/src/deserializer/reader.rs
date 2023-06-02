@@ -71,10 +71,10 @@ impl<'a> XmlReader<io::BufReader<&'a [u8]>> {
     }
 }
 
-impl<R: io::BufRead> XmlReader<R> {
+impl<R: io::Read> XmlReader<io::BufReader<R>> {
     /// Creates a new `XmlReader` from the provided argument.
     pub(crate) fn from_reader(reader: R) -> Self {
-        let mut inner = Reader::from_reader(reader);
+        let mut inner = Reader::from_reader(io::BufReader::new(reader));
         inner.trim_text(true);
         Self {
             reader: inner,
@@ -83,7 +83,9 @@ impl<R: io::BufRead> XmlReader<R> {
             finished: false,
         }
     }
+}
 
+impl<R: io::BufRead> XmlReader<R> {
     pub fn peek(&mut self) -> Option<&XmlReadResult> {
         if self.peeked.is_some() {
             return self.peeked.as_ref();
