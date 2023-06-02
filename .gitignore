@@ -21,3 +21,6 @@ Cargo.lock
 
 # Selene-generated Roblox standard library
 /roblox.toml
+
+# Editor-specific configuration
+/.vscode
