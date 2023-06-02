@@ -441,61 +441,68 @@ impl<'db> DecodeConfig<'db> {
     }
 }
 
-#[test]
-fn decode_test() {
-    env_logger::try_init().unwrap();
-    let document = r#"
-        <roblox version="4">
-            <External>TestExternal</External>
-            <Meta name="TestMetadata">TestValue</Meta>
-            <Item class="TestClass" referent="TestReferent">
-                <Properties>
-                    <Ref name = "RefTest">null</Ref>
-                    <SharedString name="TestSharedString">Test Shared String Key</SharedString>
-                    <bool name="TestBool1">true</bool>
-                    <bool name="TestBool2">false</bool>
-                    <string name="TestString">Test Value</string>
-                    <float name="TestFloat1">-0.15625</float>
-                    <float name="TestFloat2">INF</float>
-                    <float name="TestFloat3">-INF</float>
-                    <float name="TestFloat4">NAN</float>
-                    <double name="TestDouble1">-0.15625</double>
-                    <double name="TestDouble2">INF</double>
-                    <double name="TestDouble3">-INF</double>
-                    <double name="TestDouble4">NAN</double>
-                </Properties>
-                <Item class="TestClass2" referent="TestReferent2">
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn decode_test() {
+        #![allow(unused_must_use)]
+        env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <External>TestExternal</External>
+                <Meta name="TestMetadata">TestValue</Meta>
+                <Item class="TestClass" referent="TestReferent">
                     <Properties>
-                        <Ref name = "RefTest">TestReferent</Ref>
+                        <Ref name = "RefTest">null</Ref>
                         <SharedString name="TestSharedString">Test Shared String Key</SharedString>
-                        <int name = "TestInt1">10</int>
-                        <int name = "TestInt2">-10</int>
-                        <int64 name = "TestInt64_1">20</int64>
-                        <int64 name = "TestInt64_2">-20</int64>
-                        <ProtectedString name = "Test"><![CDATA[   Protected String   ]]></ProtectedString>
+                        <bool name="TestBool1">true</bool>
+                        <bool name="TestBool2">false</bool>
+                        <string name="TestString">Test Value</string>
+                        <float name="TestFloat1">-0.15625</float>
+                        <float name="TestFloat2">INF</float>
+                        <float name="TestFloat3">-INF</float>
+                        <float name="TestFloat4">NAN</float>
+                        <double name="TestDouble1">-0.15625</double>
+                        <double name="TestDouble2">INF</double>
+                        <double name="TestDouble3">-INF</double>
+                        <double name="TestDouble4">NAN</double>
                     </Properties>
+                    <Item class="TestClass2" referent="TestReferent2">
+                        <Properties>
+                            <Ref name = "RefTest">TestReferent</Ref>
+                            <SharedString name="TestSharedString">Test Shared String Key</SharedString>
+                            <int name = "TestInt1">10</int>
+                            <int name = "TestInt2">-10</int>
+                            <int64 name = "TestInt64_1">20</int64>
+                            <int64 name = "TestInt64_2">-20</int64>
+                            <ProtectedString name = "Test"><![CDATA[   Protected String   ]]></ProtectedString>
+                        </Properties>
+                    </Item>
                 </Item>
-            </Item>
-            <SharedStrings>
-                <SharedString md5="Test Shared String Key">Q1NHSzg1MTYxZjdlOWNmZjMyNTlhNmU1NmE2NGJjZmNjMzJh</SharedString>
-            </SharedStrings>
-        </roblox>
-    "#;
+                <SharedStrings>
+                    <SharedString md5="Test Shared String Key">Q1NHSzg1MTYxZjdlOWNmZjMyNTlhNmU1NmE2NGJjZmNjMzJh</SharedString>
+                </SharedStrings>
+            </roblox>
+        "#;
 
-    match deserialize_file(XmlReader::from_str(document), Default::default()) {
-        Err(err) => panic!("{}", err),
-        _ => {}
+        match deserialize_file(XmlReader::from_str(document), Default::default()) {
+            Err(err) => panic!("{}", err),
+            _ => {}
+        }
     }
-}
 
-#[test]
-fn crossroads_decode() {
-    env_logger::try_init().unwrap();
-    let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
+    #[test]
+    fn crossroads_decode() {
+        #![allow(unused_must_use)]
+        env_logger::try_init();
+        let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
 
-    let reader = XmlReader::from_reader(std::io::BufReader::new(file));
-    match deserialize_file(reader, Default::default()) {
-        Err(err) => panic!("{}", err),
-        _ => {}
+        let reader = XmlReader::from_reader(std::io::BufReader::new(file));
+        match deserialize_file(reader, Default::default()) {
+            Err(err) => panic!("{}", err),
+            _ => {}
+        }
     }
 }
