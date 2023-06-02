@@ -113,6 +113,8 @@ pub(crate) fn deserialize_file<R: BufRead>(
         }
     }
 
+    // TODO: Validate property data
+
     Ok(state.dom)
 }
 
@@ -288,9 +290,12 @@ fn deserialize_properties<R: BufRead>(
                                         _ => unreachable!(),
                                     },
                                 ));
-                            } else {
+                            } else if properties.get(&prop_name).is_none() {
                                 properties.insert(prop_name, variant);
+                            } else {
+                                return Err(ErrorKind::DuplicateProperty(prop_name).err());
                             }
+
                             reader.expect_end_with_name(&prop_type)?;
                         }
                         _ => {

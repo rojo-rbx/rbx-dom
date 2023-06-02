@@ -25,6 +25,8 @@ pub(crate) enum ErrorKind {
 
     #[error("property of type {0} without 'name' attribute")]
     UnnamedProperty(String),
+    #[error("duplicate property {0} on Instance")]
+    DuplicateProperty(String),
     #[error("unknown property {0}.{1}")]
     UnknownProperty(String, String),
     #[error("could not deserialize property of type '{0}'")]
