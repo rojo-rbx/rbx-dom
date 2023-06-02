@@ -443,6 +443,8 @@ impl<'db> DecodeConfig<'db> {
 
 #[cfg(test)]
 mod tests {
+    use rbx_dom_weak::DomViewer;
+
     use super::*;
 
     #[test]
@@ -489,7 +491,12 @@ mod tests {
 
         match deserialize_file(XmlReader::from_str(document), Default::default()) {
             Err(err) => panic!("{}", err),
-            _ => {}
+            Ok(dom) => {
+                insta::assert_yaml_snapshot!(
+                    "deserializer feature list",
+                    DomViewer::new().view(&dom)
+                )
+            }
         }
     }
 

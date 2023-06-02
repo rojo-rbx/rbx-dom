@@ -1,0 +1,57 @@
+---
+source: rbx_xml/src/deserializer/core.rs
+expression: "DomViewer::new().view(&dom)"
+---
+referent: referent-0
+name: DataModel
+class: DataModel
+properties: {}
+children:
+  - referent: referent-1
+    name: TestClass
+    class: TestClass
+    properties:
+      TestBool1:
+        Bool: true
+      TestBool2:
+        Bool: false
+      TestDouble1:
+        Float64: -0.15625
+      TestDouble2:
+        Float64: inf
+      TestDouble3:
+        Float64: -inf
+      TestDouble4:
+        Float64: NaN
+      TestFloat1:
+        Float32: -0.15625
+      TestFloat2:
+        Float32: inf
+      TestFloat3:
+        Float32: -inf
+      TestFloat4:
+        Float32: NaN
+      TestSharedString:
+        len: 36
+        hash: a8e881ce93449542139935bd0ec3f0a77725c368b5a699b2b87077d9fd842a64
+      TestString:
+        String: Test Value
+    children:
+      - referent: referent-2
+        name: TestClass2
+        class: TestClass2
+        properties:
+          RefTest: referent-1
+          TestInt1:
+            Int32: 10
+          TestInt2:
+            Int32: -10
+          TestInt64_1:
+            Int64: 20
+          TestInt64_2:
+            Int64: -20
+          TestSharedString:
+            len: 36
+            hash: a8e881ce93449542139935bd0ec3f0a77725c368b5a699b2b87077d9fd842a64
+        children: []
+
