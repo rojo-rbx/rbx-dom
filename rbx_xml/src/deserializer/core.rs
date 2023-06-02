@@ -1,12 +1,7 @@
 use std::{
-    collections::{
-        hash_map::{Entry, OccupiedEntry},
-        HashMap,
-    },
+    collections::{hash_map::Entry, HashMap},
     io::BufRead,
 };
-
-use quick_xml::{events::Event, Reader};
 
 use rbx_dom_weak::{
     types::{Ref, SharedString, Variant},
@@ -32,7 +27,7 @@ pub(crate) fn deserialize_file<R: BufRead>(
     if version != "4" {
         // The error must return an owned string because we don't want to attach
         // a lifetime to errors
-        return Err(ErrorKind::InvalidVersion(version.into()).err());
+        return Err(ErrorKind::InvalidVersion(version).err());
     }
 
     let root = InstanceBuilder::new("DataModel");
@@ -507,9 +502,8 @@ mod tests {
         let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
 
         let reader = XmlReader::from_reader(std::io::BufReader::new(file));
-        match deserialize_file(reader, Default::default()) {
-            Err(err) => panic!("{}", err),
-            _ => {}
+        if let Err(err) = deserialize_file(reader, Default::default()) {
+            panic!("{}", err)
         }
     }
 }

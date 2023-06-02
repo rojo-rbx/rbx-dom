@@ -14,7 +14,7 @@ pub fn de_crossroads(c: &mut Criterion) {
 fn ser_crossroads(c: &mut Criterion) {
     let (referents, dom) = {
         let (root, instances) = rbx_xml::from_reader_default(BUFFER).unwrap().into_raw();
-        let referents: Vec<Ref> = instances.keys().map(|r| r.clone()).collect();
+        let referents: Vec<Ref> = instances.keys().copied().collect();
         (referents, WeakDom::from_raw(root, instances))
     };
     let mut buffer = Vec::new();
