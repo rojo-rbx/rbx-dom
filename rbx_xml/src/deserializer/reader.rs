@@ -180,7 +180,7 @@ impl<R: io::BufRead> Iterator for XmlReader<R> {
 
         let xml_event = self.reader.read_event_into(&mut self.event_buffer);
         let ret = match xml_event {
-            Ok(event) => match event.into_owned() {
+            Ok(event) => match event {
                 // We need to eventually own this data but right now we don't have to
                 Event::CData(data) => parse_text(&data),
                 Event::Text(data) => parse_text(&data),
