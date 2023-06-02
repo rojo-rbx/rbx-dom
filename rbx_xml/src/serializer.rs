@@ -9,14 +9,23 @@ use rbx_dom_weak::{
 };
 use rbx_reflection::DataType;
 
+use super::property_descriptor::find_serialized_property_descriptor;
+
 use crate::{
     conversion::ConvertVariant,
-    core::find_serialized_property_descriptor,
     error::{EncodeError as NewEncodeError, EncodeErrorKind},
-    types::write_value_xml,
 };
 
 use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
+
+fn write_value_xml<W: Write>(
+    writer: &mut XmlEventWriter<W>,
+    state: &mut EmitState,
+    name: &str,
+    data: &Variant,
+) -> Result<(), NewEncodeError> {
+    unimplemented!()
+}
 
 pub fn encode_internal<W: Write>(
     output: W,
@@ -182,7 +191,11 @@ fn serialize_instance<'a, W: Write>(
 
     for (property_name, value) in property_buffer.drain(..) {
         let maybe_serialized_descriptor = if state.options.use_reflection() {
-            find_serialized_property_descriptor(&instance.class, property_name)
+            find_serialized_property_descriptor(
+                rbx_reflection_database::get(),
+                &instance.class,
+                property_name,
+            )
         } else {
             None
         };

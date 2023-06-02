@@ -4,10 +4,7 @@ use xml::writer::{EmitterConfig, EventWriter};
 
 pub use xml::writer::XmlEvent as XmlWriteEvent;
 
-use crate::{
-    core::XmlType,
-    error::{EncodeError as NewEncodeError, EncodeErrorKind},
-};
+use crate::error::{EncodeError as NewEncodeError, EncodeErrorKind};
 
 /// A wrapper around an xml-rs `EventWriter` as well as other state kept around
 /// for performantly emitting XML.
@@ -67,19 +64,19 @@ impl<W: Write> XmlEventWriter<W> {
         Ok(())
     }
 
-    pub fn write_value<T: XmlType>(&mut self, value: &T) -> Result<(), NewEncodeError> {
-        value.write_xml(self)
-    }
+    // pub fn write_value<T: XmlType>(&mut self, value: &T) -> Result<(), NewEncodeError> {
+    //     value.write_xml(self)
+    // }
 
-    pub fn write_value_in_tag<T: XmlType>(
-        &mut self,
-        value: &T,
-        tag: &str,
-    ) -> Result<(), NewEncodeError> {
-        self.write(XmlWriteEvent::start_element(tag))?;
-        self.write_value(value)?;
-        self.write(XmlWriteEvent::end_element())
-    }
+    // pub fn write_value_in_tag<T: XmlType>(
+    //     &mut self,
+    //     value: &T,
+    //     tag: &str,
+    // ) -> Result<(), NewEncodeError> {
+    //     self.write(XmlWriteEvent::start_element(tag))?;
+    //     self.write_value(value)?;
+    //     self.write(XmlWriteEvent::end_element())
+    // }
 
     /// The same as `write_characters`, but wraps the characters in a tag with
     /// the given name and no attributes.
