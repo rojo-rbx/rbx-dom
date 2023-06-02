@@ -85,45 +85,31 @@ pub(crate) fn deserialize_file<R: BufRead>(
     log::debug!("Deserialized {} Instances", state.read_refs.len());
 
     log::debug!("Rewriting Referent properties");
-    for (inst_referent, prop_name) in state.ref_properties {
+    for (inst_referent, prop_name, prop_value) in state.ref_properties {
         log::trace!("rewriting {inst_referent}.{prop_name}");
         let inst = state.dom.get_by_ref_mut(inst_referent).unwrap();
-        // This is rather dense, so to give a TL;DR:
-        // - Get entry for the property we're rewriting from `inst.properties`
-        // - Get value we're meant to be rewriting it to from `state.read_refs`
-        // - If it exists, replace the entry. Otherwise, remove it.
 
-        if let Entry::Occupied(mut entry) = inst.properties.entry(prop_name) {
-            let value = entry.get_mut();
-            let replacement = state.read_refs.get(match value {
-                Variant::String(value) => value,
-                _ => unreachable!(),
-            });
-            if let Some(referent) = replacement {
-                *value = Variant::Ref(*referent)
-            } else {
-                entry.remove_entry();
+        if inst.properties.get(&prop_name).is_none() {
+            if let Some(value) = state.read_refs.get(&prop_value) {
+                inst.properties.insert(prop_name, Variant::Ref(*value));
             }
+        } else {
+            return Err(ErrorKind::DuplicateProperty(prop_name).err());
         }
     }
 
     log::debug!("Rewriting SharedString properties");
-    for (inst_referent, prop_name) in state.sstr_properties {
+    for (inst_referent, prop_name, prop_value) in state.sstr_properties {
         log::trace!("rewriting {inst_referent}.{prop_name}");
         let inst = state.dom.get_by_ref_mut(inst_referent).unwrap();
-        // See referent rewrites for a quick explanation; this is very similiar
 
-        if let Entry::Occupied(mut entry) = inst.properties.entry(prop_name) {
-            let value = entry.get_mut();
-            let replacement = state.shared_strings.get(match value {
-                Variant::String(value) => value,
-                _ => unreachable!(),
-            });
-            if let Some(sstr) = replacement {
-                *value = Variant::SharedString(sstr.clone())
-            } else {
-                entry.remove_entry();
+        if inst.properties.get(&prop_name).is_none() {
+            if let Some(value) = state.shared_strings.get(&prop_value) {
+                inst.properties
+                    .insert(prop_name, Variant::SharedString(value.clone()));
             }
+        } else {
+            return Err(ErrorKind::DuplicateProperty(prop_name).err());
         }
     }
 
@@ -284,12 +270,27 @@ fn deserialize_properties<R: BufRead>(
 
                             if prop_type == "Ref" {
                                 log::trace!("referent property {prop_name} = {variant:?}");
-                                state.ref_properties.push((referent, prop_name.clone()));
+                                state.ref_properties.push((
+                                    referent,
+                                    prop_name.clone(),
+                                    match variant {
+                                        Variant::String(str) => str,
+                                        _ => unreachable!(),
+                                    },
+                                ));
                             } else if prop_type == "SharedString" {
                                 log::trace!("SharedString property {prop_name} = {variant:?}");
-                                state.sstr_properties.push((referent, prop_name.clone()));
+                                state.sstr_properties.push((
+                                    referent,
+                                    prop_name.clone(),
+                                    match variant {
+                                        Variant::String(str) => str,
+                                        _ => unreachable!(),
+                                    },
+                                ));
+                            } else {
+                                properties.insert(prop_name, variant);
                             }
-                            properties.insert(prop_name, variant);
                             reader.expect_end_with_name(&prop_type)?;
                         }
                         _ => {
@@ -353,14 +354,14 @@ struct XmlState {
     /// They need to be revisited after we're done deserializing so they can be
     /// rewritten to use our actual referents.
     ///
-    /// The tuple is `(InstanceBuilder Referent, Property Name)`
-    ref_properties: Vec<(Ref, String)>,
+    /// The tuple is `(InstanceBuilder Referent, Property Name, Read Value)`
+    ref_properties: Vec<(Ref, String, String)>,
     /// A list of properties that point to a SharedString. They need to be
     /// revisited after we're done deserializing so we can actually point to
     /// them.
     ///
-    /// The tuple is `(Instance Referent, Property Name)`
-    sstr_properties: Vec<(Ref, String)>,
+    /// The tuple is `(Instance Referent, Property Name, Read Value)`
+    sstr_properties: Vec<(Ref, String, String)>,
 }
 
 /// A struct configuring the behavior of the deserializer.
