@@ -32,7 +32,14 @@ pub(crate) fn deserialize_file<R: BufRead>(
 
     let root = InstanceBuilder::new("DataModel");
     let root_ref = root.referent();
-    let mut state = XmlState::new(root);
+    let mut state = XmlState {
+        dom: WeakDom::new(root),
+        metadata: HashMap::new(),
+        shared_strings: HashMap::new(),
+        read_refs: HashMap::new(),
+        ref_properties: Vec::new(),
+        sstr_properties: Vec::new(),
+    };
 
     loop {
         match reader.peek() {
@@ -40,7 +47,7 @@ pub(crate) fn deserialize_file<R: BufRead>(
                 XmlData::ElementStart { name, .. } => match name.as_str() {
                     "Meta" => deserialize_metadata(&mut reader, &mut state)?,
                     "SharedStrings" => deserialize_sstr(&mut reader, &mut state)?,
-                    "Item" => deserialize_item(&mut reader, &mut state, root_ref)?,
+                    "Item" => deserialize_item(&mut reader, &config, &mut state, root_ref)?,
                     // `MetaBreakpoints` and `DebuggerManager` also exist in
                     // some XML files but we don't support those in any
                     // capacity right now.
@@ -176,11 +183,22 @@ fn deserialize_sstr<R: BufRead>(
 
 fn deserialize_item<R: BufRead>(
     reader: &mut XmlReader<R>,
+    config: &DecodeConfig,
     state: &mut XmlState,
     parent: Ref,
 ) -> Result<(), DecodeError> {
     let mut item = reader.expect_start_with_name("Item")?;
     let class = item.get_attribute("class")?;
+    if config.strict_class_names {
+        if let Some(database) = config.database {
+            if !database.classes.contains_key(class.as_str()) {
+                return Err(ErrorKind::UnknownClass(class).err());
+            }
+        } else {
+            return Err(ErrorKind::StrictWithoutDatabase("class names").err());
+        }
+    }
+
     // !!Change in behavior!!
     // Previously, `referent` wasn't required, it now is
     let read_ref = item.get_attribute("referent")?;
@@ -194,10 +212,10 @@ fn deserialize_item<R: BufRead>(
             Some(Ok(event)) => match event {
                 XmlData::ElementStart { name, .. } => match name.as_str() {
                     "Properties" => {
-                        deserialize_properties(reader, state, real_ref, &mut properties)?
+                        deserialize_properties(reader, config, state, real_ref, &mut properties)?
                     }
 
-                    "Item" => deserialize_item(reader, state, real_ref)?,
+                    "Item" => deserialize_item(reader, config, state, real_ref)?,
                     _ => {
                         log::trace!("unexpected element {name}");
                         let name_clone = name.clone();
@@ -222,6 +240,15 @@ fn deserialize_item<R: BufRead>(
     }
     log::trace!("found {} properties", properties.len());
     let inst = state.dom.get_by_ref_mut(real_ref).unwrap();
+
+    if let Some(value) = properties.remove("Name") {
+        if let Variant::String(name) = value {
+            inst.name = name
+        } else {
+            return Err(ErrorKind::NameNotString(value.ty()).err());
+        }
+    }
+
     inst.properties = properties;
 
     state.read_refs.insert(read_ref, real_ref);
@@ -231,12 +258,14 @@ fn deserialize_item<R: BufRead>(
 
 fn deserialize_properties<R: BufRead>(
     reader: &mut XmlReader<R>,
+    config: &DecodeConfig,
     state: &mut XmlState,
     referent: Ref,
     properties: &mut HashMap<String, Variant>,
 ) -> Result<(), DecodeError> {
     log::trace!("decoding Properties");
     reader.expect_start_with_name("Properties")?;
+
     loop {
         match reader.peek() {
             Some(Ok(event)) => match event {
@@ -250,10 +279,9 @@ fn deserialize_properties<R: BufRead>(
                         | "int64" => {
                             let mut element = reader.expect_start_with_name(&prop_type)?;
                             let prop_name = element.get_attribute("name")?;
-                            // TODO filter parsing based on whether we care about unknown properties
                             log::trace!("decoding Property {prop_name} of type {prop_type}");
-
                             let variant = deserialize_property(reader, &prop_type)?;
+
                             if prop_type == "Ref" {
                                 log::trace!("referent property {prop_name} = {variant:?}");
                                 state.ref_properties.push((referent, prop_name.clone()));
@@ -265,9 +293,12 @@ fn deserialize_properties<R: BufRead>(
                             reader.expect_end_with_name(&prop_type)?;
                         }
                         _ => {
-                            // TODO bail if we care about unknown types
-                            log::trace!("unknown property type {prop_type}");
-                            reader.skip_element()?;
+                            log::warn!("Unknown property type {prop_type}");
+                            if config.ignore_new_types {
+                                reader.skip_element()?;
+                            } else {
+                                return Err(ErrorKind::UnknownType(prop_type).err());
+                            }
                         }
                     };
                 }
@@ -310,6 +341,7 @@ fn deserialize_property<R: BufRead>(
 
 #[derive(Debug)]
 struct XmlState {
+    /// The internal WeakDom used by the decoder
     dom: WeakDom,
     /// A map of metadata values deserialized from `Meta` elements
     metadata: HashMap<String, String>,
@@ -331,24 +363,12 @@ struct XmlState {
     sstr_properties: Vec<(Ref, String)>,
 }
 
-impl XmlState {
-    fn new(root: InstanceBuilder) -> Self {
-        Self {
-            dom: WeakDom::new(root),
-            metadata: HashMap::new(),
-            shared_strings: HashMap::new(),
-            read_refs: HashMap::new(),
-            ref_properties: Vec::new(),
-            sstr_properties: Vec::new(),
-        }
-    }
-}
-
 /// A struct configuring the behavior of the deserializer.
 /// By default, this uses no database. To add one, use `set_database`.
+#[derive(Debug)]
 pub struct DecodeConfig<'db> {
     /// What database if any to use for decoding properties and classes.
-    pub(crate) database: Option<ReflectionDatabase<'db>>,
+    pub(crate) database: Option<&'db ReflectionDatabase<'db>>,
     /// When `true`, class names be checked against the database and
     /// an error will be raised when an unknown class is encountered.
     pub(crate) strict_class_names: bool,
@@ -387,18 +407,18 @@ impl<'db> DecodeConfig<'db> {
     /// Creates a new `DecodeConfig` with the given database. By default,
     /// class names, property names, and property types are checked.
     /// Additionally, new data types are ignored.
-    pub fn with_database(database: ReflectionDatabase<'db>) -> Self {
+    pub fn with_database(database: &'db ReflectionDatabase<'db>) -> Self {
         Self {
             database: Some(database),
             strict_class_names: true,
             strict_data_types: true,
-            strict_property_names: true,
+            strict_property_names: false,
             ignore_new_types: true,
         }
     }
 
     /// Sets the deserializer to use the given `ReflectionDatabase`.
-    pub fn database(mut self, database: ReflectionDatabase<'db>) -> Self {
+    pub fn database(mut self, database: &'db ReflectionDatabase<'db>) -> Self {
         self.database = Some(database);
         self
     }
@@ -421,7 +441,7 @@ impl<'db> DecodeConfig<'db> {
 
     /// Sets whether property names are checked against the database.
     /// If `true`, an error will be raised during deserialization if a
-    /// property's type does not match in the database.
+    /// property is not known by name to the database.
     pub fn strict_property_names(mut self, ignore: bool) -> Self {
         self.strict_property_names = ignore;
         self
@@ -452,6 +472,7 @@ mod tests {
                 <Meta name="TestMetadata">TestValue</Meta>
                 <Item class="TestClass" referent="TestReferent">
                     <Properties>
+                        <string name = "Name">"Test Name"</string>
                         <Ref name = "RefTest">null</Ref>
                         <SharedString name="TestSharedString">Test Shared String Key</SharedString>
                         <bool name="TestBool1">true</bool>
@@ -504,6 +525,55 @@ mod tests {
         let reader = XmlReader::from_reader(std::io::BufReader::new(file));
         if let Err(err) = deserialize_file(reader, Default::default()) {
             panic!("{}", err)
+        }
+    }
+
+    #[test]
+    fn crossroads_strict() {
+        #![allow(unused_must_use)]
+        env_logger::try_init();
+        let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
+
+        let reader = XmlReader::from_reader(std::io::BufReader::new(file));
+        if let Err(err) = deserialize_file(
+            reader,
+            DecodeConfig::with_database(rbx_reflection_database::get()),
+        ) {
+            panic!("{}", err)
+        }
+    }
+
+    #[test]
+    fn decode_strict() {
+        #![allow(unused_must_use)]
+        env_logger::try_init();
+        let document = r#"
+            <roblox version="4">
+                <Item class="Workspace" referent="TestReferent">
+                    <Properties>
+                        <string name = "Name">Test Workspace</string>
+                    </Properties>
+                    <Item class="Part" referent="TestReferent2">
+                        <Properties>
+                            <string name = "Name">Test Part</string>
+                            <int name = "BrickColor">137</int>
+                        </Properties>
+                    </Item>
+                </Item>
+            </roblox>
+        "#;
+
+        match deserialize_file(
+            XmlReader::from_str(document),
+            DecodeConfig::with_database(rbx_reflection_database::get()),
+        ) {
+            Err(err) => panic!("{}", err),
+            Ok(dom) => {
+                insta::assert_yaml_snapshot!(
+                    "deserialize with database",
+                    DomViewer::new().view(&dom)
+                )
+            }
         }
     }
 }
