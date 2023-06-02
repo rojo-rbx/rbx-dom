@@ -1,3 +1,4 @@
+use rbx_dom_weak::types::VariantType;
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -14,8 +15,23 @@ pub(crate) enum ErrorKind {
     UnexpectedElement { expected: String, got: String },
     #[error("unknown element {0}")]
     UnknownElement(String),
+    #[error("cannot be strict with {0} without a database")]
+    StrictWithoutDatabase(&'static str),
+
+    #[error("property 'Name' must be a string")]
+    NameNotString(VariantType),
+    #[error("unknown class name '{0}'")]
+    UnknownClass(String),
+
     #[error("property of type {0} without 'name' attribute")]
     UnnamedProperty(String),
+    #[error("unknown property {0}.{1}")]
+    UnknownProperty(String, String),
+    #[error("could not deserialize property of type '{0}'")]
+    UnknownType(String),
+
+    #[error("property could not be converted: {0}")]
+    BadConversion(#[from] super::conversions::ConversionError),
 
     #[error("not a valid Roblox file because: {0}")]
     InvalidFile(&'static str),
