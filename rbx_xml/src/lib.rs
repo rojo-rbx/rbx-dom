@@ -106,51 +106,52 @@
 #![deny(missing_docs)]
 
 mod conversion;
-mod core;
+// mod core;
 mod deserializer;
-mod deserializer_core;
 mod error;
 mod property_descriptor;
 mod serializer;
 mod serializer_core;
-mod types;
+// mod types;
 
 #[cfg(test)]
 mod test_util;
 
-use std::io::{Read, Write};
+use std::io::{BufReader, Read, Write};
 
 use rbx_dom_weak::{types::Ref, WeakDom};
 
-use crate::{deserializer::decode_internal, serializer::encode_internal};
+use crate::serializer::encode_internal;
 
 pub use crate::{
-    deserializer::{DecodeOptions, DecodePropertyBehavior},
-    error::{DecodeError, EncodeError},
+    error::EncodeError,
     serializer::{EncodeOptions, EncodePropertyBehavior},
 };
 
+use deserializer::decode_internal;
+pub use deserializer::{DecodeConfig, DecodeError};
+
 /// Decodes an XML-format model or place from something that implements the
 /// `std::io::Read` trait.
-pub fn from_reader<R: Read>(reader: R, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
-    decode_internal(reader, options)
+pub fn from_reader<R: Read>(reader: R, options: DecodeConfig) -> Result<WeakDom, DecodeError> {
+    decode_internal(BufReader::new(reader), options)
 }
 
 /// Decodes an XML-format model or place from something that implements the
 /// `std::io::Read` trait using the default decoder options.
 pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
-    decode_internal(reader, DecodeOptions::default())
+    decode_internal(reader, DecodeConfig::default())
 }
 
 /// Decodes an XML-format model or place from a string.
-pub fn from_str<S: AsRef<str>>(reader: S, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
+pub fn from_str<S: AsRef<str>>(reader: S, options: DecodeConfig) -> Result<WeakDom, DecodeError> {
     decode_internal(reader.as_ref().as_bytes(), options)
 }
 
 /// Decodes an XML-format model or place from a string using the default decoder
 /// options.
 pub fn from_str_default<S: AsRef<str>>(reader: S) -> Result<WeakDom, DecodeError> {
-    decode_internal(reader.as_ref().as_bytes(), DecodeOptions::default())
+    decode_internal(reader.as_ref().as_bytes(), DecodeConfig::default())
 }
 
 /// Serializes a subset of the given tree to an XML format model or place,
