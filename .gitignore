@@ -18,6 +18,3 @@ Cargo.lock
 /*.rbxm
 /*.rbxmx
 /rbx_dom_lua/*.rbxlx
-
-# Selene-generated Roblox standard library
-/roblox.toml
