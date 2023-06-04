@@ -29,8 +29,8 @@ pub(crate) enum ErrorKind {
     NameNotString(VariantType),
     /// A class of an unknown name was encountered. This will only be raised
     /// when the corresponding configuration option is set.
-    #[error("unknown class name '{0}'")]
-    UnknownClass(String),
+    #[error("unknown class name '{0}' (referent: ({1})")]
+    UnknownClass(String, String),
 
     /// The 'name' attribute of a property was not present
     #[error("property of type {0} without 'name' attribute")]
@@ -53,8 +53,16 @@ pub(crate) enum ErrorKind {
     /// a property's type does not match the type it is meant to be
     /// and it cannot be converted to the correct one. As such, this will only
     /// be raised when a database is used.
-    #[error("property could not be converted: {0}")]
-    BadConversion(#[from] super::conversions::ConversionError),
+    #[error(
+        "property {class}.{name} could not be converted from {from:?} to {to:?} because: {error}"
+    )]
+    ConversionFail {
+        class: String,
+        name: String,
+        from: VariantType,
+        to: VariantType,
+        error: super::conversions::ConversionError,
+    },
 
     /// A specific attribute should be present on an element but was not.
     #[error("missing attribute {name} on element {element}")]
