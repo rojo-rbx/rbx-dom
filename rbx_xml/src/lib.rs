@@ -133,8 +133,8 @@ pub use deserializer::{DecodeConfig, DecodeError};
 
 /// Decodes an XML-format model or place from something that implements the
 /// `std::io::Read` trait.
-pub fn from_reader<R: Read>(reader: R, options: DecodeConfig) -> Result<WeakDom, DecodeError> {
-    decode_internal(BufReader::new(reader), options)
+pub fn from_reader<R: Read>(reader: R, config: DecodeConfig) -> Result<WeakDom, DecodeError> {
+    decode_internal(BufReader::new(reader), config)
 }
 
 /// Decodes an XML-format model or place from something that implements the
@@ -144,8 +144,8 @@ pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
 }
 
 /// Decodes an XML-format model or place from a string.
-pub fn from_str<S: AsRef<str>>(reader: S, options: DecodeConfig) -> Result<WeakDom, DecodeError> {
-    decode_internal(reader.as_ref().as_bytes(), options)
+pub fn from_str<S: AsRef<str>>(reader: S, config: DecodeConfig) -> Result<WeakDom, DecodeError> {
+    decode_internal(reader.as_ref().as_bytes(), config)
 }
 
 /// Decodes an XML-format model or place from a string using the default decoder
