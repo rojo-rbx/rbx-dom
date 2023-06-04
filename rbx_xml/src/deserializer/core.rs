@@ -1,4 +1,7 @@
-use std::{collections::HashMap, io::BufRead};
+use std::{
+    collections::{HashMap, HashSet},
+    io::BufRead,
+};
 
 use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
@@ -36,6 +39,7 @@ pub(crate) fn deserialize_file<R: BufRead>(
         read_refs: HashMap::new(),
         ref_properties: Vec::new(),
         sstr_properties: Vec::new(),
+        unknown_types: HashSet::new(),
     };
 
     loop {
@@ -110,7 +114,9 @@ pub(crate) fn deserialize_file<R: BufRead>(
         }
     }
 
-    // TODO: Validate property data
+    for unknown_type in state.unknown_types {
+        log::error!("Unknown property type {unknown_type}");
+    }
 
     Ok(state.dom)
 }
@@ -341,13 +347,12 @@ fn deserialize_properties<R: BufRead>(
                         }
 
                         reader.expect_end_with_name(&prop_type)?;
+                    } else if config.ignore_new_types {
+                        state.unknown_types.insert(prop_type);
+                        reader.skip_element()?;
                     } else {
-                        log::warn!("Unknown property type {prop_type}");
-                        if config.ignore_new_types {
-                            reader.skip_element()?;
-                        } else {
-                            return Err(ErrorKind::UnknownType(prop_type).err());
-                        }
+                        log::error!("Unknown property type {prop_type}");
+                        return Err(ErrorKind::UnknownType(prop_type).err());
                     }
                 }
                 XmlData::ElementEnd { name } if name == "Properties" => {
@@ -389,6 +394,10 @@ struct XmlState {
     ///
     /// The tuple is `(Instance Referent, Property Name, Read Value)`
     sstr_properties: Vec<(Ref, String, String)>,
+    /// A set of unknown data types encountered while deserializing the file.
+    /// This is utilized to ensure an error isn't emitted more than one time
+    /// per unknown type.
+    unknown_types: HashSet<String>,
 }
 
 /// A struct configuring the behavior of the deserializer.
