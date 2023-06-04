@@ -256,52 +256,47 @@ fn deserialize_properties<R: BufRead>(
                     // We may be able to get around this later but for now
                     // we have to take ownership of the element name.
                     let prop_type = name.clone();
+                    if data_types::is_known_type(&prop_type) {
+                        let mut element = reader.expect_start_with_name(&prop_type)?;
+                        let prop_name = element.get_attribute("name")?;
+                        log::trace!("decoding Property {prop_name} of type {prop_type}");
+                        let variant = data_types::attempt_deserialization(reader, &prop_type)?;
 
-                    match prop_type.as_str() {
-                        "bool" | "string" | "Ref" | "SharedString" | "float" | "double" | "int"
-                        | "int64" | "Vector3" | "Ray" | "ProtectedString" => {
-                            let mut element = reader.expect_start_with_name(&prop_type)?;
-                            let prop_name = element.get_attribute("name")?;
-                            log::trace!("decoding Property {prop_name} of type {prop_type}");
-                            let variant = deserialize_property(reader, &prop_type)?;
-
-                            if prop_type == "Ref" {
-                                log::trace!("referent property {prop_name} = {variant:?}");
-                                state.ref_properties.push((
-                                    referent,
-                                    prop_name,
-                                    match variant {
-                                        Variant::String(str) => str,
-                                        _ => unreachable!(),
-                                    },
-                                ));
-                            } else if prop_type == "SharedString" {
-                                log::trace!("SharedString property {prop_name} = {variant:?}");
-                                state.sstr_properties.push((
-                                    referent,
-                                    prop_name,
-                                    match variant {
-                                        Variant::String(str) => str,
-                                        _ => unreachable!(),
-                                    },
-                                ));
-                            } else if properties.get(&prop_name).is_none() {
-                                properties.insert(prop_name, variant);
-                            } else {
-                                return Err(ErrorKind::DuplicateProperty(prop_name).err());
-                            }
-
-                            reader.expect_end_with_name(&prop_type)?;
+                        if prop_type == "Ref" {
+                            log::trace!("referent property {prop_name} = {variant:?}");
+                            state.ref_properties.push((
+                                referent,
+                                prop_name,
+                                match variant {
+                                    Variant::String(str) => str,
+                                    _ => unreachable!(),
+                                },
+                            ));
+                        } else if prop_type == "SharedString" {
+                            log::trace!("SharedString property {prop_name} = {variant:?}");
+                            state.sstr_properties.push((
+                                referent,
+                                prop_name,
+                                match variant {
+                                    Variant::String(str) => str,
+                                    _ => unreachable!(),
+                                },
+                            ));
+                        } else if properties.get(&prop_name).is_none() {
+                            properties.insert(prop_name, variant);
+                        } else {
+                            return Err(ErrorKind::DuplicateProperty(prop_name).err());
                         }
-                        _ => {
-                            log::warn!("Unknown property type {prop_type}");
-                            if config.ignore_new_types {
-                                reader.skip_element()?;
-                            } else {
-                                return Err(ErrorKind::UnknownType(prop_type).err());
-                            }
+
+                        reader.expect_end_with_name(&prop_type)?;
+                    } else {
+                        log::warn!("Unknown property type {prop_type}");
+                        if config.ignore_new_types {
+                            reader.skip_element()?;
+                        } else {
+                            return Err(ErrorKind::UnknownType(prop_type).err());
                         }
-                    };
+                    }
                 }
                 XmlData::ElementEnd { name } if name == "Properties" => {
                     log::trace!("finished decoding properties");
@@ -318,28 +313,6 @@ fn deserialize_properties<R: BufRead>(
             None => return Err(ErrorKind::UnexpectedEof.err()),
         }
     }
-}
-
-fn deserialize_property<R: BufRead>(
-    reader: &mut XmlReader<R>,
-    prop_type: &str,
-) -> Result<Variant, DecodeError> {
-    Ok(match prop_type {
-        // We rewrite these later in the deserialization
-        "Ref" | "SharedString" => Variant::String(data_types::string_deserializer(reader)?),
-        "BinaryString" => Variant::BinaryString(data_types::binary_string_deserializer(reader)?),
-
-        "bool" => Variant::Bool(data_types::bool_deserializer(reader)?),
-        "string" | "ProtectedString" => Variant::String(data_types::string_deserializer(reader)?),
-        "float" => Variant::Float32(data_types::f32_deserializer(reader)?),
-        "double" => Variant::Float64(data_types::f64_deserializer(reader)?),
-        "int" => Variant::Int32(data_types::i32_deserializer(reader)?),
-        "int64" => Variant::Int64(data_types::i64_deserializer(reader)?),
-        "Vector3" => Variant::Vector3(data_types::vector3_deserializer(reader)?),
-        "Ray" => Variant::Ray(data_types::ray_deserializer(reader)?),
-        // we're checking this in the match for Properties
-        _ => unreachable!(),
-    })
 }
 
 #[derive(Debug)]
