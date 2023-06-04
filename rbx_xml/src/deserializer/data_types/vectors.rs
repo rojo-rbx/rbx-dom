@@ -37,21 +37,21 @@ pub fn vector3int16_deserializer<R: BufRead>(
     reader.expect_start_with_name("X")?;
     let x = match reader.eat_text()?.parse() {
         Ok(val) => val,
-        Err(_) => return reader.error(format!("invalid i16 value for Vector3int16.X")),
+        Err(_) => return reader.error("invalid i16 value for Vector3int16.X"),
     };
     reader.expect_end_with_name("X")?;
 
     reader.expect_start_with_name("Y")?;
     let y = match reader.eat_text()?.parse() {
         Ok(val) => val,
-        Err(_) => return reader.error(format!("invalid i16 value for Vector3int16.Y")),
+        Err(_) => return reader.error("invalid i16 value for Vector3int16.Y"),
     };
     reader.expect_end_with_name("Y")?;
 
     reader.expect_start_with_name("Z")?;
     let z = match reader.eat_text()?.parse() {
         Ok(val) => val,
-        Err(_) => return reader.error(format!("invalid i16 value for Vector3int16.Z")),
+        Err(_) => return reader.error("invalid i16 value for Vector3int16.Z"),
     };
     reader.expect_end_with_name("Z")?;
 
