@@ -1,7 +1,7 @@
 //! Convenience functions for finding the canonical and serialized names
 //! for properties.
 
-// Large portions of thise code are ripped straight from the old implementation
+// Large portions of this code are ripped straight from the old implementation
 // of rbx_xml as the underlying implementation works just fine and doesn't need
 // to be changed too much. Some cleanup has been done and the database is
 // passed as a parameter rather than hardcoding `rbx_reflection_database` but
@@ -57,7 +57,7 @@ fn find_property_descriptors<'db>(
         // If this class descriptor knows about this property name,
         // we're pretty much done!
         if let Some(property_descriptor) = current_class_descriptor.properties.get(property_name) {
-            return discriptor_from_kind(property_descriptor, current_class_descriptor);
+            return descriptor_from_kind(property_descriptor, current_class_descriptor);
         }
 
         if let Some(superclass_name) = &current_class_descriptor.superclass {
@@ -80,7 +80,7 @@ fn find_property_descriptors<'db>(
 /// Utilized by `find_property_descriptors` to find the canonical descriptor
 /// if given a serialized one. This is in its own function because aliases
 /// cause a rerun of the search and may do so theoretically infinitely.
-fn discriptor_from_kind<'db>(
+fn descriptor_from_kind<'db>(
     property_descriptor: &'db PropertyDescriptor<'db>,
     class_descriptor: &'db ClassDescriptor<'db>,
 ) -> Option<(&'db PropertyDescriptor<'db>, &'db PropertyDescriptor<'db>)> {
@@ -99,14 +99,14 @@ fn discriptor_from_kind<'db>(
 
                 Some((property_descriptor, serialized_descriptor))
             }
-            // The lifetime on 'PropertyKind' makes us do this.
-            // I don't know if we can fix it.
+            // `PropertySerialization` is marked as non-exhaustive,
+            // so we have to have a catch-all.
             _ => unimplemented!(),
         },
         PropertyKind::Alias { alias_for } => {
             let canonical_descriptor = class_descriptor.properties.get(alias_for.as_ref()).unwrap();
             // This *could* recurse infinitely but I don't imagine that's a realistic scenario
-            return discriptor_from_kind(canonical_descriptor, class_descriptor);
+            return descriptor_from_kind(canonical_descriptor, class_descriptor);
         }
         _ => unimplemented!(),
     }
