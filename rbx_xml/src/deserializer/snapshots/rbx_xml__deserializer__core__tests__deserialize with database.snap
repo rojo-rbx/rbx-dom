@@ -1,0 +1,22 @@
+---
+source: rbx_xml/src/deserializer/core.rs
+expression: "DomViewer::new().view(&dom)"
+---
+referent: referent-0
+name: DataModel
+class: DataModel
+properties: {}
+children:
+  - referent: referent-1
+    name: Test Workspace
+    class: Workspace
+    properties: {}
+    children:
+      - referent: referent-2
+        name: Test Part
+        class: Part
+        properties:
+          BrickColor:
+            Int32: 137
+        children: []
+

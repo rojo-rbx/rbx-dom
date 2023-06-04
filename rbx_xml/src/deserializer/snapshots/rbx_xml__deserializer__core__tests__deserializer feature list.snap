@@ -8,7 +8,7 @@ class: DataModel
 properties: {}
 children:
   - referent: referent-1
-    name: TestClass
+    name: "\"Test Name\""
     class: TestClass
     properties:
       TestBool1:
@@ -36,12 +36,19 @@ children:
         hash: a8e881ce93449542139935bd0ec3f0a77725c368b5a699b2b87077d9fd842a64
       TestString:
         String: Test Value
+      TestVector3:
+        Vector3:
+          - 1337
+          - 123456790
+          - -4276993800
     children:
       - referent: referent-2
         name: TestClass2
         class: TestClass2
         properties:
           RefTest: referent-1
+          Test:
+            String: "   Protected String   "
           TestInt1:
             Int32: 10
           TestInt2:
@@ -50,6 +57,16 @@ children:
             Int64: 20
           TestInt64_2:
             Int64: -20
+          TestRay:
+            Ray:
+              origin:
+                - 1
+                - 2
+                - 3
+              direction:
+                - -4
+                - -5
+                - -6
           TestSharedString:
             len: 36
             hash: a8e881ce93449542139935bd0ec3f0a77725c368b5a699b2b87077d9fd842a64
