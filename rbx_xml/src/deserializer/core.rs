@@ -1,7 +1,4 @@
-use std::{
-    collections::{hash_map::Entry, HashMap},
-    io::BufRead,
-};
+use std::{collections::HashMap, io::BufRead};
 
 use rbx_dom_weak::{
     types::{Ref, SharedString, Variant},
@@ -20,9 +17,7 @@ pub(crate) fn deserialize_file<R: BufRead>(
     config: DecodeConfig,
 ) -> Result<WeakDom, DecodeError> {
     log::trace!("beginning file deserialization");
-    let mut roblox = reader
-        .expect_start_with_name("roblox")
-        .map_err(|_| ErrorKind::InvalidFile("did not open with Roblox element").err())?;
+    let mut roblox = reader.expect_start_with_name("roblox")?;
     let version = roblox.get_attribute("version")?;
     if version != "4" {
         // The error must return an owned string because we don't want to attach

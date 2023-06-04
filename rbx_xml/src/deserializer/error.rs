@@ -68,8 +68,6 @@ pub(crate) enum ErrorKind {
     #[error("property could not be converted: {0}")]
     BadConversion(#[from] super::conversions::ConversionError),
 
-    #[error("not a valid Roblox file because: {0}")]
-    InvalidFile(&'static str),
     /// A specific attribute should be present on an element but was not.
     #[error("missing attribute {name} on element {element}")]
     MissingAttribute { name: String, element: String },
