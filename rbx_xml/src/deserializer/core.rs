@@ -259,7 +259,7 @@ fn deserialize_properties<R: BufRead>(
 
                     match prop_type.as_str() {
                         "bool" | "string" | "Ref" | "SharedString" | "float" | "double" | "int"
-                        | "int64" | "Vector3" | "Ray" => {
+                        | "int64" | "Vector3" | "Ray" | "ProtectedString" => {
                             let mut element = reader.expect_start_with_name(&prop_type)?;
                             let prop_name = element.get_attribute("name")?;
                             log::trace!("decoding Property {prop_name} of type {prop_type}");
