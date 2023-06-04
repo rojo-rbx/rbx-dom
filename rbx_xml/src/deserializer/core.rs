@@ -259,7 +259,7 @@ fn deserialize_properties<R: BufRead>(
 
                     match prop_type.as_str() {
                         "bool" | "string" | "Ref" | "SharedString" | "float" | "double" | "int"
-                        | "int64" => {
+                        | "int64" | "Vector3" | "Ray" => {
                             let mut element = reader.expect_start_with_name(&prop_type)?;
                             let prop_name = element.get_attribute("name")?;
                             log::trace!("decoding Property {prop_name} of type {prop_type}");
@@ -335,6 +335,8 @@ fn deserialize_property<R: BufRead>(
         "double" => Variant::Float64(data_types::f64_deserializer(reader)?),
         "int" => Variant::Int32(data_types::i32_deserializer(reader)?),
         "int64" => Variant::Int64(data_types::i64_deserializer(reader)?),
+        "Vector3" => Variant::Vector3(data_types::vector3_deserializer(reader)?),
+        "Ray" => Variant::Ray(data_types::ray_deserializer(reader)?),
         // we're checking this in the match for Properties
         _ => unreachable!(),
     })
@@ -487,6 +489,11 @@ mod tests {
                         <double name="TestDouble2">INF</double>
                         <double name="TestDouble3">-INF</double>
                         <double name="TestDouble4">NAN</double>
+                        <Vector3 name="TestVector3">
+                            <X>1337</X>
+                            <Y>123456789.10</Y>
+                            <Z>-4276993775</Z>
+                        </Vector3>
                     </Properties>
                     <Item class="TestClass2" referent="TestReferent2">
                         <Properties>
@@ -497,6 +504,18 @@ mod tests {
                             <int64 name = "TestInt64_1">20</int64>
                             <int64 name = "TestInt64_2">-20</int64>
                             <ProtectedString name = "Test"><![CDATA[   Protected String   ]]></ProtectedString>
+                            <Ray name="TestRay">
+                                <origin>
+                                    <X>1</X>
+                                    <Y>2</Y>
+                                    <Z>3</Z>
+                                </origin>
+                                <direction>
+                                    <X>-4</X>
+                                    <Y>-5</Y>
+                                    <Z>-6</Z>
+                                </direction>
+                            </Ray>
                         </Properties>
                     </Item>
                 </Item>
