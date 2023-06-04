@@ -7,12 +7,12 @@ use std::io::BufRead;
 use rbx_dom_weak::types::Variant;
 
 pub use simple_types::{
-    binary_string_deserializer, bool_deserializer, f32_deserializer, f64_deserializer,
-    i32_deserializer, i64_deserializer, string_deserializer,
+    binary_string_deserializer, bool_deserializer, enum_deserializer, f32_deserializer,
+    f64_deserializer, i32_deserializer, i64_deserializer, string_deserializer,
 };
 
 pub use ray::ray_deserializer;
-pub use vectors::vector3_deserializer;
+pub use vectors::{vector2_deserializer, vector3_deserializer, vector3int16_deserializer};
 
 use super::{
     error::{DecodeError, ErrorKind},
@@ -77,5 +77,8 @@ deserializers! {
     "bool" => Variant::Bool; use bool_deserializer,
     "BinaryString" => Variant::BinaryString; use binary_string_deserializer,
     "Vector3" => Variant::Vector3; use vector3_deserializer,
+    "Vector2" => Variant::Vector2; use vector2_deserializer,
+    "Vector3int16" => Variant::Vector3int16; use vector3int16_deserializer,
     "Ray" => Variant::Ray; use ray_deserializer,
+    "token" => Variant::Enum; use enum_deserializer,
 }

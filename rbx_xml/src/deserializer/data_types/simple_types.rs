@@ -1,14 +1,14 @@
 //! Implements deserialization for simple to parse types.
 //! Namely:
 //! - `bool`
-//! - `i32`, `i64`, `f32`, `f64`
+//! - `i32`, `i64`, `f32`, `f64`, `Enum`
 //! - `String`, `ProtectedString`, `BinaryString`
 //!
 //! Does not handle parsing particular `BinaryString` subtypes and instead
 //! provides for parsing the raw base64 into a `rbx_types::BinaryString`.
 use std::io::BufRead;
 
-use rbx_dom_weak::types::BinaryString;
+use rbx_dom_weak::types::{BinaryString, Enum};
 
 use crate::deserializer::{error::DecodeError, reader::XmlReader};
 
@@ -62,5 +62,13 @@ pub fn i64_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<i64, De
     match content.as_str().parse() {
         Ok(val) => Ok(val),
         Err(_) => reader.error(format!("invalid i64 (int64) value '{content}'")),
+    }
+}
+
+pub fn enum_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<Enum, DecodeError> {
+    let content = reader.eat_text()?;
+    match content.as_str().parse() {
+        Ok(val) => Ok(Enum::from_u32(val)),
+        Err(_) => reader.error(format!("invalid i32 (int) value '{content}'")),
     }
 }
