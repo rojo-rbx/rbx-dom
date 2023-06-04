@@ -274,7 +274,7 @@ fn deserialize_properties<R: BufRead>(
                                 log::trace!("referent property {prop_name} = {variant:?}");
                                 state.ref_properties.push((
                                     referent,
-                                    prop_name.clone(),
+                                    prop_name,
                                     match variant {
                                         Variant::String(str) => str,
                                         _ => unreachable!(),
@@ -284,7 +284,7 @@ fn deserialize_properties<R: BufRead>(
                                 log::trace!("SharedString property {prop_name} = {variant:?}");
                                 state.sstr_properties.push((
                                     referent,
-                                    prop_name.clone(),
+                                    prop_name,
                                     match variant {
                                         Variant::String(str) => str,
                                         _ => unreachable!(),
