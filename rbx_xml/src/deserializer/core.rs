@@ -143,7 +143,7 @@ fn deserialize_sstr<R: BufRead>(
                 XmlData::ElementStart { .. } => {
                     let mut sstr = reader.expect_start_with_name("SharedString")?;
                     let hash = sstr.get_attribute("md5")?;
-                    let value = base64::decode(reader.eat_text()?)?;
+                    let value = reader.eat_base64()?;
                     reader.expect_end_with_name("SharedString")?;
 
                     log::debug!("Found SharedString {hash} ({} bytes)", value.len());
@@ -310,7 +310,7 @@ fn deserialize_properties<R: BufRead>(
                         let prop_name = element.get_attribute("name")?;
                         if log::log_enabled!(log::Level::Debug) {
                             let class_name = &state.dom.get_by_ref(referent).unwrap().class;
-                            log::debug!("Attempting to deserialize property {prop_name} of type {prop_type}");
+                            log::debug!("Attempting to deserialize property {class_name}.{prop_name} of type {prop_type}");
                         }
                         let variant = data_types::attempt_deserialization(reader, &prop_type)?;
 

@@ -19,7 +19,7 @@ pub fn string_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<Stri
 pub fn binary_string_deserializer<R: BufRead>(
     reader: &mut XmlReader<R>,
 ) -> Result<BinaryString, DecodeError> {
-    Ok(BinaryString::from(base64::decode(reader.eat_text()?)?))
+    Ok(BinaryString::from(reader.eat_base64()?))
 }
 
 pub fn bool_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<bool, DecodeError> {

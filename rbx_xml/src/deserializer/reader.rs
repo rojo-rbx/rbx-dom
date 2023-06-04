@@ -5,6 +5,8 @@ use quick_xml::{
     Reader,
 };
 
+use base64::Engine;
+
 use super::error::{DecodeError, ErrorKind};
 
 pub type XmlReadResult = Result<XmlData, DecodeError>;
@@ -153,6 +155,18 @@ impl<R: io::BufRead> XmlReader<R> {
                 _ => return Ok(buffer),
             }
         }
+    }
+
+    pub fn eat_base64(&mut self) -> Result<Vec<u8>, DecodeError> {
+        log::trace!("converting string from base64");
+        let mut buffer = self.eat_text()?;
+        // The maintainer of the base64 library is adamantly opposed to adding
+        // any support for whitespace, so we simply have to filter it out using
+        // `retain`.
+        buffer.retain(|b| !b.is_ascii_whitespace());
+        base64::prelude::BASE64_STANDARD
+            .decode(&mut buffer)
+            .map_err(DecodeError::from)
     }
 
     pub fn skip_element(&mut self) -> Result<(), DecodeError> {
