@@ -16,18 +16,6 @@ pub struct DecodeError(Box<ErrorKind>);
 /// The type of error that a DecodeError is. This includes parsing errors,
 /// logic errors, and database failures.
 pub(crate) enum ErrorKind {
-    /// The end of the file was unexpectedly reached
-    #[error("unexpected end of file")]
-    UnexpectedEof,
-    /// The next token that was read when parsing the file did not line up with
-    /// what was expected.
-    /// Examples include reading a tag when text was expected.
-    #[error("unexpected token type in file")]
-    UnexpectedToken,
-    /// A particular element name was expected but the next one was named
-    /// something else.
-    #[error("unexpectedly got element '{got}' when expecting '{expected}'")]
-    UnexpectedElement { expected: String, got: String },
     /// An element that the parser doesn't know how to read was encountered.
     #[error("unknown element {0}")]
     UnknownElement(String),
@@ -74,6 +62,28 @@ pub(crate) enum ErrorKind {
     /// The wrong version was specified in the opening tag of a file.
     #[error("invalid Roblox file version {0}, expected 4")]
     InvalidVersion(String),
+
+    /// The end of the file was unexpectedly reached
+    #[error("unexpected end of file")]
+    UnexpectedEof,
+    /// The next token that was read when parsing the file did not line up with
+    /// what was expected.
+    /// Examples include reading a tag when text was expected.
+    #[error("unexpected token type at offset {0}")]
+    UnexpectedToken(usize),
+    /// A particular element name was expected but the next one was named
+    /// something else.
+    #[error("got element '{got}' when expecting '{expected}'")]
+    UnexpectedElement { expected: String, got: String },
+    /// When expecting the start of an element, an ending was encountered
+    /// instead.
+    #[error("got end of element '{got}' when expecting start of element '{expected}'")]
+    ExpectingStartGotEnd { expected: String, got: String },
+    /// When expecting the end of an element, a start was encountered instead.
+    #[error("got start of element '{got}' when expecting end of element '{expected}'")]
+    ExpectingEndGotStart { expected: String, got: String },
+    #[error("got text when expecting an element start or end at offset {0}")]
+    UnexpectedText(usize),
 
     /// When reading an attribute, element name, or text file, it could not be
     /// converted to valid UTF-8.

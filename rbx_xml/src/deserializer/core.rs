@@ -68,7 +68,7 @@ pub(crate) fn deserialize_file<R: BufRead>(
                 event => {
                     log::trace!("unexpected event {event:?}");
                     reader.expect_next()?;
-                    return Err(ErrorKind::UnexpectedToken.err());
+                    return Err(ErrorKind::UnexpectedToken(reader.offset()).err());
                 }
             },
             // This is safe to unwrap because `peek` guarantees we know
@@ -155,7 +155,7 @@ fn deserialize_sstr<R: BufRead>(
                 event => {
                     log::trace!("unexpected event {event:?}");
                     reader.expect_next()?;
-                    return Err(ErrorKind::UnexpectedToken.err());
+                    return Err(ErrorKind::UnexpectedToken(reader.offset()).err());
                 }
             },
             Some(Err(_)) => return Err(reader.next().unwrap().unwrap_err()),
@@ -214,7 +214,7 @@ fn deserialize_item<R: BufRead>(
                 event => {
                     log::trace!("unexpected event {event:?}");
                     reader.expect_next()?;
-                    return Err(ErrorKind::UnexpectedToken.err());
+                    return Err(ErrorKind::UnexpectedToken(reader.offset()).err());
                 }
             },
             Some(Err(_)) => return Err(reader.next().unwrap().unwrap_err()),
@@ -311,7 +311,7 @@ fn deserialize_properties<R: BufRead>(
                 event => {
                     log::trace!("unexpected event {event:?}");
                     reader.expect_next()?;
-                    return Err(ErrorKind::UnexpectedToken.err());
+                    return Err(ErrorKind::UnexpectedToken(reader.offset()).err());
                 }
             },
             Some(Err(_)) => return Err(reader.next().unwrap().unwrap_err()),

@@ -115,7 +115,12 @@ impl<R: io::BufRead> XmlReader<R> {
                 got: name,
             }
             .err()),
-            _ => Err(ErrorKind::UnexpectedToken.err()),
+            XmlData::ElementEnd { name } => Err(ErrorKind::ExpectingStartGotEnd {
+                expected: expected_name.into(),
+                got: name,
+            }
+            .err()),
+            XmlData::Text(_) => Err(ErrorKind::UnexpectedText(self.offset()).err()),
         }
     }
 
@@ -127,7 +132,12 @@ impl<R: io::BufRead> XmlReader<R> {
                 got: name,
             }
             .err()),
-            _ => Err(ErrorKind::UnexpectedToken.err()),
+            XmlData::ElementStart { name, .. } => Err(ErrorKind::ExpectingEndGotStart {
+                expected: expected_name.into(),
+                got: name,
+            }
+            .err()),
+            XmlData::Text(_) => Err(ErrorKind::UnexpectedText(self.offset()).err()),
         }
     }
 
@@ -162,10 +172,15 @@ impl<R: io::BufRead> XmlReader<R> {
     }
 
     pub fn error<T, M: Into<String>>(&self, message: M) -> Result<T, DecodeError> {
-        Err(DecodeError::new(ErrorKind::InvalidData {
-            offset: self.reader.buffer_position(),
+        Err(ErrorKind::InvalidData {
+            offset: self.offset(),
             message: message.into(),
-        }))
+        }
+        .err())
+    }
+
+    pub fn offset(&self) -> usize {
+        self.reader.buffer_position()
     }
 }
 
@@ -194,7 +209,7 @@ impl<R: io::BufRead> Iterator for XmlReader<R> {
                     self.finished = true;
                     return None;
                 }
-                _ => Err(ErrorKind::UnexpectedToken.into()),
+                _ => Err(ErrorKind::UnexpectedToken(self.reader.buffer_position()).err()),
             },
             Err(error) => Err(error.into()),
         };
