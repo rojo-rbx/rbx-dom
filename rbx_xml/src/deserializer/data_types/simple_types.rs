@@ -25,8 +25,8 @@ pub fn binary_string_deserializer<R: BufRead>(
 pub fn bool_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<bool, DecodeError> {
     let content = reader.eat_text()?;
     match content.as_str() {
-        //TODO check if Roblox follows XSD for bool parsing
-        //(XSD allows `1` and `0` for bools)
+        // Roblox appears to not follow XSD for bools, which means only
+        // these strings are allowed.
         "true" => Ok(true),
         "false" => Ok(false),
         _ => reader.error("invalid bool '{content}', should be either 'true' or 'false'"),
