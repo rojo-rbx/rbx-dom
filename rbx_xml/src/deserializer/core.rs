@@ -115,7 +115,7 @@ pub(crate) fn deserialize_file<R: BufRead>(
     }
 
     for unknown_type in state.unknown_types {
-        log::error!("Unknown property type {unknown_type}");
+        log::warn!("Unknown property type {unknown_type}");
     }
 
     Ok(state.dom)
