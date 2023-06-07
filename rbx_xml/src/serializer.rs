@@ -1,3 +1,8 @@
+mod core;
+mod data_types;
+mod error;
+mod writer;
+
 use std::{
     collections::{BTreeMap, HashMap},
     io::Write,
