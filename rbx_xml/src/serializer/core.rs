@@ -10,13 +10,17 @@ use rbx_dom_weak::{
     WeakDom,
 };
 
-use crate::serializer::error::ErrorKind;
+use crate::{serializer::error::ErrorKind, Config};
 
 use super::{data_types, error::EncodeError};
 
 use super::writer::XmlWriter;
 
-pub fn serialize_dom<W: io::Write>(output: W, dom: &WeakDom) -> Result<W, EncodeError> {
+pub fn serialize_dom<'a, W: io::Write>(
+    output: W,
+    dom: &WeakDom,
+    config: &'a Config<'a>,
+) -> Result<W, EncodeError> {
     let mut writer = XmlWriter::new(output, Some((b' ', 2)));
 
     writer
@@ -25,7 +29,13 @@ pub fn serialize_dom<W: io::Write>(output: W, dom: &WeakDom) -> Result<W, Encode
         .finalize()?;
 
     // TODO add a way to preallocate this for the number of Instances in a file
-    let mut state = EncodeState::new();
+    let mut state = EncodeState {
+        shared_strings: HashSet::new(),
+        ref_map: HashMap::new(),
+        ref_strings: Vec::new(),
+        next_ref: 0,
+        config,
+    };
     let mut prop_list = Vec::new();
 
     serialize_meta(&mut writer, "ExplicitAutoJoints", "true")?;
@@ -149,19 +159,15 @@ fn serialize_item<'a, W: io::Write>(
     Ok(())
 }
 
-#[derive(Default)]
-struct EncodeState {
+struct EncodeState<'db> {
     shared_strings: HashSet<SharedString>,
     ref_map: HashMap<Ref, usize>,
     ref_strings: Vec<String>,
     next_ref: usize,
+    config: &'db Config<'db>,
 }
 
-impl EncodeState {
-    fn new() -> Self {
-        Self::default()
-    }
-
+impl<'db> EncodeState<'db> {
     fn map_or_set_ref(&mut self, referent: &Ref) -> &str {
         match self.ref_map.get(referent) {
             Some(index) => &self.ref_strings[*index],
@@ -247,7 +253,7 @@ mod tests {
     "#;
         let dom = crate::from_str_default(document).unwrap();
         let mut out = Vec::new();
-        if let Err(error) = serialize_dom(&mut out, &dom) {
+        if let Err(error) = serialize_dom(&mut out, &dom, &Config::new()) {
             panic!("{}", error);
         }
 
@@ -262,7 +268,7 @@ mod tests {
 
         let dom = crate::from_reader_default(file).unwrap();
         let out: Vec<u8> = Vec::new();
-        match serialize_dom(out, &dom) {
+        match serialize_dom(out, &dom, &Config::default()) {
             Err(err) => panic!("{}", err),
             Ok(out) => {
                 let dom2 = crate::from_reader_default(out.as_slice()).unwrap();

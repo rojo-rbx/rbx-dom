@@ -8,10 +8,11 @@ use std::io::Read;
 
 use rbx_dom_weak::WeakDom;
 
-pub use self::core::DecodeConfig;
+use crate::Config;
+
 pub use error::DecodeError;
 pub use reader::XmlReader;
 
-pub fn decode_internal<R: Read>(reader: R, config: DecodeConfig) -> Result<WeakDom, DecodeError> {
-    core::deserialize_file(XmlReader::from_reader(reader), config)
+pub(crate) fn decode_internal<R: Read>(reader: R, config: Config) -> Result<WeakDom, DecodeError> {
+    core::deserialize_file(XmlReader::from_reader(reader), &config)
 }

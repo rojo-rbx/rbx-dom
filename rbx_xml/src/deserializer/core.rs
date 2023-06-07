@@ -7,9 +7,11 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::{DataType, ReflectionDatabase};
+use rbx_reflection::DataType;
 
-use crate::{deserializer::conversions, property_descriptor::find_canonical_property_descriptor};
+use crate::{
+    deserializer::conversions, property_descriptor::find_canonical_property_descriptor, Config,
+};
 
 use super::{
     data_types,
@@ -17,9 +19,9 @@ use super::{
     reader::{XmlData, XmlReader},
 };
 
-pub(crate) fn deserialize_file<R: BufRead>(
+pub(crate) fn deserialize_file<'a, R: BufRead>(
     mut reader: XmlReader<R>,
-    config: DecodeConfig,
+    config: &'a Config<'a>,
 ) -> Result<WeakDom, DecodeError> {
     log::trace!("beginning file deserialization");
     let mut roblox = reader.expect_start_with_name("roblox")?;
@@ -40,6 +42,7 @@ pub(crate) fn deserialize_file<R: BufRead>(
         ref_properties: Vec::new(),
         sstr_properties: Vec::new(),
         unknown_types: HashSet::new(),
+        config,
     };
 
     loop {
@@ -48,7 +51,7 @@ pub(crate) fn deserialize_file<R: BufRead>(
                 XmlData::ElementStart { name, .. } => match name.as_str() {
                     "Meta" => deserialize_metadata(&mut reader, &mut state)?,
                     "SharedStrings" => deserialize_sstr(&mut reader, &mut state)?,
-                    "Item" => deserialize_item(&mut reader, &config, &mut state, root_ref)?,
+                    "Item" => deserialize_item(&mut reader, &mut state, root_ref)?,
                     // `MetaBreakpoints` and `DebuggerManager` also exist in
                     // some XML files but we don't support those in any
                     // capacity right now.
@@ -174,7 +177,6 @@ fn deserialize_sstr<R: BufRead>(
 
 fn deserialize_item<R: BufRead>(
     reader: &mut XmlReader<R>,
-    config: &DecodeConfig,
     state: &mut XmlState,
     parent: Ref,
 ) -> Result<(), DecodeError> {
@@ -184,8 +186,8 @@ fn deserialize_item<R: BufRead>(
     // Previously, `referent` wasn't required, it now is
     let read_ref = item.get_attribute("referent")?;
 
-    if config.strict_class_names {
-        if let Some(database) = config.database {
+    if state.config.strict_class_names {
+        if let Some(database) = state.config.database {
             if !database.classes.contains_key(class.as_str()) {
                 return Err(ErrorKind::UnknownClass(class, read_ref).err());
             }
@@ -203,10 +205,10 @@ fn deserialize_item<R: BufRead>(
             Some(Ok(event)) => match event {
                 XmlData::ElementStart { name, .. } => match name.as_str() {
                     "Properties" => {
-                        deserialize_properties(reader, config, state, real_ref, &mut properties)?
+                        deserialize_properties(reader, state, real_ref, &mut properties)?
                     }
 
-                    "Item" => deserialize_item(reader, config, state, real_ref)?,
+                    "Item" => deserialize_item(reader, state, real_ref)?,
                     _ => {
                         log::trace!("unexpected element {name}");
                         let name_clone = name.clone();
@@ -244,8 +246,8 @@ fn deserialize_item<R: BufRead>(
     // This fails on impossible conversions, which is actually more restrictive
     // than what the old rbx_xml did. We'll have to either establish more
     // migrations or simply ignore any that can't happen.
-    if config.strict_data_types || config.strict_property_names {
-        if let Some(database) = config.database {
+    if state.config.strict_data_types || state.config.strict_property_names {
+        if let Some(database) = state.config.database {
             for (prop_name, value) in properties.iter_mut() {
                 let class_name = &inst.class;
                 let canonical = find_canonical_property_descriptor(database, class_name, prop_name);
@@ -272,7 +274,7 @@ fn deserialize_item<R: BufRead>(
                         }
                     }
                     None => {
-                        if config.strict_property_names {
+                        if state.config.strict_property_names {
                             return Err(ErrorKind::UnknownProperty(
                                 class_name.to_owned(),
                                 prop_name.to_owned(),
@@ -296,7 +298,6 @@ fn deserialize_item<R: BufRead>(
 
 fn deserialize_properties<R: BufRead>(
     reader: &mut XmlReader<R>,
-    config: &DecodeConfig,
     state: &mut XmlState,
     referent: Ref,
     properties: &mut HashMap<String, Variant>,
@@ -347,7 +348,7 @@ fn deserialize_properties<R: BufRead>(
                         }
 
                         reader.expect_end_with_name(&prop_type)?;
-                    } else if config.ignore_new_types {
+                    } else if state.config.ignore_new_types {
                         state.unknown_types.insert(prop_type);
                         reader.skip_element()?;
                     } else {
@@ -373,7 +374,7 @@ fn deserialize_properties<R: BufRead>(
 }
 
 #[derive(Debug)]
-struct XmlState {
+struct XmlState<'db> {
     /// The internal WeakDom used by the decoder
     dom: WeakDom,
     /// A map of metadata values deserialized from `Meta` elements
@@ -398,99 +399,7 @@ struct XmlState {
     /// This is utilized to ensure an error isn't emitted more than one time
     /// per unknown type.
     unknown_types: HashSet<String>,
-}
-
-/// A struct configuring the behavior of the deserializer.
-/// By default, this uses no database. To add one, use `set_database`.
-#[derive(Debug)]
-pub struct DecodeConfig<'db> {
-    /// What database if any to use for decoding properties and classes.
-    pub(crate) database: Option<&'db ReflectionDatabase<'db>>,
-    /// When `true`, class names be checked against the database and
-    /// an error will be raised when an unknown class is encountered.
-    pub(crate) strict_class_names: bool,
-    /// When `true`, property types will be checked against the database and
-    /// an error will be raised when a type mismatch is encountered.
-    pub(crate) strict_data_types: bool,
-    /// When `true`, property names will be checked against the database and
-    /// an error will be raised when unknown properties are encountered.
-    pub(crate) strict_property_names: bool,
-    /// When `true`, any new property data types will be skipped.
-    /// Otherwise, an error will be raised when a new data type is encountered.
-    pub(crate) ignore_new_types: bool,
-}
-
-impl<'db> Default for DecodeConfig<'db> {
-    fn default() -> Self {
-        Self {
-            database: None,
-            strict_class_names: false,
-            strict_data_types: false,
-            strict_property_names: false,
-            // This is why we manually implement `Default`!
-            ignore_new_types: true,
-        }
-    }
-}
-
-impl<'db> DecodeConfig<'db> {
-    /// Creates a new `DecodeConfig` with the default options. This means
-    /// no database is used and unknown data types are skipped during
-    /// deserialization.
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    /// Creates a new `DecodeConfig` with the given database. By default,
-    /// class names, property names, and property types are checked.
-    /// Additionally, new data types are ignored.
-    pub fn with_database(database: &'db ReflectionDatabase<'db>) -> Self {
-        Self {
-            database: Some(database),
-            strict_class_names: true,
-            strict_data_types: true,
-            strict_property_names: false,
-            ignore_new_types: true,
-        }
-    }
-
-    /// Sets the deserializer to use the given `ReflectionDatabase`.
-    pub fn database(mut self, database: &'db ReflectionDatabase<'db>) -> Self {
-        self.database = Some(database);
-        self
-    }
-
-    /// Sets whether class names are checked against the database. If `true`,
-    /// an error will be raised during deserialization if an unknown class
-    /// is encountered.
-    pub fn strict_class_names(mut self, ignore: bool) -> Self {
-        self.strict_class_names = ignore;
-        self
-    }
-
-    /// Sets whether property data types are checked against the database.
-    /// If `true`, an error will be raised during deserialization if a
-    /// property's type does not match in the database.
-    pub fn strict_data_types(mut self, ignore: bool) -> Self {
-        self.strict_data_types = ignore;
-        self
-    }
-
-    /// Sets whether property names are checked against the database.
-    /// If `true`, an error will be raised during deserialization if a
-    /// property is not known by name to the database.
-    pub fn strict_property_names(mut self, ignore: bool) -> Self {
-        self.strict_property_names = ignore;
-        self
-    }
-
-    /// Sets whether unknown property data types are ignored during
-    /// deserialization. If `true`, any property of an unknown type will be
-    /// skipped.
-    pub fn ignore_new_types(mut self, ignore: bool) -> Self {
-        self.ignore_new_types = ignore;
-        self
-    }
+    config: &'db Config<'db>,
 }
 
 #[cfg(test)]
@@ -559,7 +468,7 @@ mod tests {
             </roblox>
         "#;
 
-        match deserialize_file(XmlReader::from_str(document), Default::default()) {
+        match deserialize_file(XmlReader::from_str(document), &Default::default()) {
             Err(err) => panic!("{}", err),
             Ok(dom) => {
                 insta::assert_yaml_snapshot!(
@@ -577,7 +486,7 @@ mod tests {
         let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
 
         let reader = XmlReader::from_reader(std::io::BufReader::new(file));
-        if let Err(err) = deserialize_file(reader, Default::default()) {
+        if let Err(err) = deserialize_file(reader, &Default::default()) {
             panic!("{}", err)
         }
     }
@@ -591,7 +500,7 @@ mod tests {
         let reader = XmlReader::from_reader(std::io::BufReader::new(file));
         if let Err(err) = deserialize_file(
             reader,
-            DecodeConfig::with_database(rbx_reflection_database::get()),
+            &Config::with_database(rbx_reflection_database::get()),
         ) {
             panic!("{}", err)
         }
@@ -619,7 +528,7 @@ mod tests {
 
         match deserialize_file(
             XmlReader::from_str(document),
-            DecodeConfig::with_database(rbx_reflection_database::get()),
+            &Config::with_database(rbx_reflection_database::get()),
         ) {
             Err(err) => panic!("{}", err),
             Ok(dom) => {
