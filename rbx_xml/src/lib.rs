@@ -106,13 +106,11 @@
 #![deny(missing_docs)]
 
 mod conversion;
-// mod core;
 mod deserializer;
 mod error;
 mod property_descriptor;
 mod serializer;
 mod serializer_core;
-// mod types;
 
 #[cfg(test)]
 mod test_util;
