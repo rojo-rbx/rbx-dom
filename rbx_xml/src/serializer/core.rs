@@ -1,16 +1,22 @@
 use std::{
-    collections::{HashMap, HashSet},
+    borrow::Cow,
+    collections::{BTreeMap, HashMap, HashSet},
     io,
 };
 
 use base64::Engine;
 
 use rbx_dom_weak::{
-    types::{Ref, SharedString, Variant},
+    types::{Ref, SharedString, Variant, VariantType},
     WeakDom,
 };
+use rbx_reflection::DataType;
 
-use crate::{serializer::error::ErrorKind, Config};
+use crate::{
+    property_descriptor::find_serialized_property_descriptor,
+    serializer::{conversions, error::ErrorKind},
+    Config,
+};
 
 use super::{data_types, error::EncodeError};
 
@@ -85,19 +91,85 @@ pub fn serialize_meta<W: io::Write>(
     Ok(())
 }
 
-fn serialize_item<'a, W: io::Write>(
+fn serialize_item<'db, W: io::Write>(
     writer: &mut XmlWriter<W>,
-    state: &mut EncodeState,
-    dom: &'a WeakDom,
+    state: &mut EncodeState<'db>,
+    dom: &'db WeakDom,
     referent: Ref,
-    prop_list: &mut Vec<(&'a String, &'a Variant)>,
+    prop_list: &mut Vec<(Cow<'db, str>, Cow<'db, Variant>)>,
 ) -> Result<(), EncodeError> {
     let instance = dom
         .get_by_ref(referent)
-        .ok_or_else(|| ErrorKind::InstNotInDom(referent).err())?;
+        .ok_or_else(|| ErrorKind::RefNotInDom(referent).err())?;
+    let class_name = instance.class.as_str();
+
+    if state.config.strict_class_names {
+        if let Some(database) = state.config.database {
+            if !database.classes.contains_key(class_name) {
+                log::error!("Unknown class: {}", class_name);
+                return Err(ErrorKind::UnknownClass(class_name.to_owned()).err());
+            }
+        } else {
+            return Err(ErrorKind::StrictWithoutDatabase("class names").err());
+        }
+    }
     log::debug!("Attempting to serialize Instance {}", referent);
-    prop_list.extend(&instance.properties);
-    prop_list.sort_unstable_by_key(|(name, _)| *name);
+
+    if state.config.strict_data_types || state.config.strict_property_names {
+        if let Some(database) = state.config.database {
+            for (canon_name, canon_value) in &instance.properties {
+                if let Some(descriptor) =
+                    find_serialized_property_descriptor(database, class_name, canon_name)
+                {
+                    if state.config.strict_data_types {
+                        let serial_type = match descriptor.data_type {
+                            DataType::Value(ty) => ty,
+                            DataType::Enum(_) => VariantType::Enum,
+                            _ => unimplemented!(),
+                        };
+                        if serial_type == canon_value.ty() {
+                            log::debug!(
+                                "Translated {class_name}.{canon_name} to {}",
+                                descriptor.name
+                            );
+                            prop_list.push((descriptor.name.clone(), Cow::Borrowed(canon_value)))
+                        } else {
+                            log::debug!(
+                                "Converting {class_name}.{canon_name} from {:?} to {serial_type:?}",
+                                canon_value.ty()
+                            );
+                            match conversions::convert(canon_value, serial_type) {
+                                Ok(serial_value) => prop_list
+                                    .push((descriptor.name.clone(), Cow::Owned(serial_value))),
+                                Err(error) => {
+                                    log::error!("Could not convert {canon_value:?} to {serial_type:?} because {error}");
+                                    // return Err(ErrorKind::ConversionFail {
+                                    //     class: instance.class.clone(),
+                                    //     name: canon_name.clone(),
+                                    //     from: canon_value.ty(),
+                                    //     to: serial_type,
+                                    //     error,
+                                    // }
+                                    // .err())
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    // this could indicate there's no rewrite needed
+                    // or that we don't know about it so unfortunately
+                    // we can't assume anything :(
+                    prop_list.push((Cow::Borrowed(canon_name), Cow::Borrowed(canon_value)))
+                }
+            }
+        }
+    } else {
+        for (canon_name, canon_value) in &instance.properties {
+            prop_list.push((Cow::Borrowed(canon_name), Cow::Borrowed(canon_value)))
+        }
+    }
+
+    prop_list.sort_unstable_by_key(|(name, _)| name.clone());
 
     writer
         .start_element("Item")
@@ -115,7 +187,7 @@ fn serialize_item<'a, W: io::Write>(
     for (prop_name, prop_value) in prop_list.iter() {
         log::trace!("trying to serialize {prop_name}");
         match prop_value {
-            Variant::Ref(referent) => {
+            Cow::Borrowed(Variant::Ref(referent)) => {
                 if referent.is_some() {
                     if log::log_enabled!(log::Level::Trace) {
                         log::trace!(
@@ -129,7 +201,7 @@ fn serialize_item<'a, W: io::Write>(
                     data_types::serialize_ref(writer, prop_name, "null")?
                 }
             }
-            Variant::SharedString(sstr) => {
+            Cow::Borrowed(Variant::SharedString(sstr)) => {
                 log::trace!(
                     "sstr property {prop_name} {:?} ({} bytes)",
                     sstr.hash(),
@@ -193,6 +265,44 @@ impl<'db> EncodeState<'db> {
 mod tests {
     use super::*;
     use rbx_dom_weak::DomViewer;
+
+    #[test]
+    fn dom_migration() {
+        let _ = env_logger::try_init();
+        let document = r#"
+        <roblox version="4">
+            <External>TestExternal</External>
+            <Meta name="TestMetadata">TestValue</Meta>
+            <Item class="Part" referent="foo">
+                <Properties>
+                    <string name="Name">Hello, world!</string>
+                    <int name = "Color">197</int>
+                    <Vector3 name="Position">
+                        <X>10</X>
+                        <Y>20</Y>
+                        <Z>30</Z>
+                    </Vector3>
+                </Properties>
+            </Item>
+        </roblox>
+    "#;
+        let dom = crate::from_str(
+            document,
+            Config::with_database(rbx_reflection_database::get()),
+        )
+        .map_err(|e| panic!("could not decode: {}", e))
+        .unwrap();
+        let mut out = Vec::new();
+        if let Err(error) = serialize_dom(
+            &mut out,
+            &dom,
+            &Config::with_database(rbx_reflection_database::get()),
+        ) {
+            panic!("{}", error);
+        }
+
+        println!("{}", String::from_utf8(out).unwrap());
+    }
 
     #[test]
     fn dom_test() {

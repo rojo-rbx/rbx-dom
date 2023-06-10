@@ -12,11 +12,31 @@ pub(crate) enum ErrorKind {
     UnknownType(VariantType),
     #[error("type {0:?} cannot be serialized without a state")]
     TypeNeedsState(VariantType),
+    #[error("cannot be strict with {0} without a database")]
+    StrictWithoutDatabase(&'static str),
 
-    #[error("Instance {0} was not in the Dom")]
-    InstNotInDom(Ref),
+    /// A Ref was not located inside of the provided WeakDom
+    #[error("Ref {0} was not in the Dom")]
+    RefNotInDom(Ref),
+    /// A class was not known to the reflection database
+    #[error("unknown class name '{0}'")]
+    UnknownClass(String),
+    /// A property was not known by name to the reflection database
+    #[error("unknown property '{0}.{1}'")]
+    UnknownProperty(String, String),
 
-    /// A general serializer error happened while serializing a file.
+    #[error(
+        "property {class}.{name} could not be converted from {from:?} to {to:?} because: {error}"
+    )]
+    ConversionFail {
+        class: String,
+        name: String,
+        from: VariantType,
+        to: VariantType,
+        error: super::conversions::ConversionError,
+    },
+
+    /// An error with `quick_xml` happened while serializing a file.
     #[error("Could not serialize: {0}")]
     XmlSerializing(#[from] quick_xml::Error),
     /// An IO error occured while serializing a file.
