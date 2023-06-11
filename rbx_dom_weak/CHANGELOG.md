@@ -2,6 +2,7 @@
 
 ## Unreleased Changes
 * Added `WeakDom::from_raw` as a constructor for the result of `WeakDom::into_raw`
+* Fix potential stack overflow when creating or inserting into a `WeakDom`
 
 ## 2.4.0 (2022-06-05)
 * Added `WeakDom::into_raw` for enabling fast, non-tree-preserving transformations.
