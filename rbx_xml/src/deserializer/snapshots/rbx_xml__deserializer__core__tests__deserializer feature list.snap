@@ -47,8 +47,6 @@ children:
         class: TestClass2
         properties:
           RefTest: referent-1
-          Test:
-            String: "   Protected String   "
           TestInt1:
             Int32: 10
           TestInt2:
@@ -57,6 +55,8 @@ children:
             Int64: 20
           TestInt64_2:
             Int64: -20
+          TestProtectedString:
+            String: "   Protected String   "
           TestRay:
             Ray:
               origin:

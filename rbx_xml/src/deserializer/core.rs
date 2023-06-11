@@ -446,7 +446,7 @@ mod tests {
                             <int name = "TestInt2">-10</int>
                             <int64 name = "TestInt64_1">20</int64>
                             <int64 name = "TestInt64_2">-20</int64>
-                            <ProtectedString name = "Test"><![CDATA[   Protected String   ]]></ProtectedString>
+                            <ProtectedString name = "TestProtectedString"><![CDATA[   Protected String   ]]></ProtectedString>
                             <Ray name="TestRay">
                                 <origin>
                                     <X>1</X>
