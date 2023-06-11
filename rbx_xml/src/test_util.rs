@@ -1,80 +1,121 @@
-// use std::fmt::Debug;
+//! Contains macros `deserialize_test`, `serialize_test`, and `roundtrip_test` for testing
+//! implementations of data types. More detailed documentation is available
+//! on each macro specifically on how they are used.
 
-// use crate::{core::XmlType, deserializer_core::XmlEventReader, serializer_core::XmlEventWriter};
+#[macro_export]
+/// Tests a deserializer function by attempting to deserialize a provided
+/// value and then comparing it to the expected result.
+///
+/// Takes three arguments. In order:
+/// - The path to a deserializer function
+/// - The value expected from deserializing
+/// - The input to be passed to the deserializer
+///
+/// The third argument should be the contents of the property element
+/// not including the boilerplate `<ElementName name = "Example">` or
+/// `</ElementName>`. This reflects how deserializers are implemented.
+macro_rules! deserialize_test {
+    ($deserializer:path, $expected:expr, $input:expr) => {{
+        let _ = env_logger::try_init();
+        // We do this to have a nicer panic message :-)
+        let value = match $deserializer(&mut $crate::deserializer::XmlReader::from_str($input)) {
+            Ok(v) => v,
+            Err(err) => panic!("{}", err),
+        };
+        assert_eq!(
+            $expected, value,
+            concat!(
+                "deserializer ",
+                stringify!($deserializer),
+                " failed to produce '",
+                stringify!($expected),
+                "' from ",
+                stringify!($input)
+            )
+        )
+    }};
+}
 
-// pub fn test_xml_round_trip<T>(test_value: &T)
-// where
-//     T: XmlType + PartialEq + Debug,
-// {
-//     let _ = env_logger::try_init();
+/// Tests a serializer function by attempting to serialize a provided
+/// value and then comparing it to the provided expected result.
+///
+/// Takes three arguments. In order:
+/// - The path to a serializer function
+/// - The value to be serialized
+/// - The expected output of the serializer
+///
+/// The third argument should be the contents of the property element
+/// not including the boilerplate `<ElementName name = "Example">` or
+/// `</ElementName>`. Whitespace will be included, so indentation should be
+/// considered. The serializer uses two spaces for indents.
+#[macro_export]
+macro_rules! serialize_test {
+    ($serializer:path, $value:expr, $expected:expr) => {{
+        let _ = env_logger::try_init();
+        let mut writer = $crate::serializer::XmlWriter::new(Vec::new(), Some((b' ', 2)));
+        $serializer(&mut writer, &$value).unwrap();
+        assert_eq!(
+            $expected,
+            String::from_utf8(writer.into_inner()).unwrap(),
+            concat!(
+                "serializer '",
+                stringify!($serializer),
+                "' failed to serialize {:?} as expected"
+            ),
+            $value
+        )
+    }};
+}
 
-//     let mut buffer = Vec::new();
-//     let mut writer = XmlEventWriter::from_output(&mut buffer);
+/// Tests a deserializer and serializer function by running the result of the
+/// serializer through the deserializer. To be specific, the result of the
+/// serializer is ran directly through the deserializer and then the result
+/// of the deserializer is compared using `==` to the original value.
+///
+/// Takes three arguments. In order:
+/// - The path to a serializer function
+/// - The path to a deserializer function
+/// - The value to test the roundtrip of
+///
+/// This test is not useful on its own because it does not confirm the
+/// values produced by the serializer and deserializer are valid. It simply
+/// confirms that they together result in the original value. Tests should also
+/// be ran on the functions seperately.
+#[macro_export]
+macro_rules! roundtrip_test {
+    ($serializer:path, $deserializer:path, $value:expr) => {{
+        let _ = env_logger::try_init();
+        let mut buff = Vec::new();
+        let mut writer = $crate::serializer::XmlWriter::new(&mut buff, Some((b' ', 2)));
 
-//     test_value.write_outer_xml("foo", &mut writer).unwrap();
+        log::debug!(
+            concat!(
+                "Attempting to serialize {:?} using ",
+                stringify!($serializer)
+            ),
+            $value
+        );
+        $serializer(&mut writer, &$value).unwrap();
 
-//     println!("{}", std::str::from_utf8(&buffer).unwrap());
+        log::debug!(concat!(
+            "Attempting to deserialize using ",
+            stringify!($deserializer)
+        ));
 
-//     let mut reader = XmlEventReader::from_source(buffer.as_slice());
-//     reader.next().unwrap().unwrap(); // Eat StartDocument event
+        let new_value = $deserializer(&mut $crate::deserializer::XmlReader::from_reader(
+            buff.as_slice(),
+        ))
+        .unwrap();
 
-//     let value = T::read_outer_xml(&mut reader).unwrap();
-
-//     assert_eq!(&value, test_value);
-// }
-
-// pub fn test_xml_serialize<T>(expected_source: &str, test_value: &T)
-// where
-//     T: XmlType + PartialEq + Debug,
-// {
-//     let _ = env_logger::try_init();
-
-//     let mut buffer = Vec::new();
-//     let mut writer = XmlEventWriter::from_output(&mut buffer);
-
-//     test_value.write_outer_xml("foo", &mut writer).unwrap();
-
-//     let mut expected_events = XmlEventReader::from_source(expected_source.as_bytes());
-//     let mut actual_events = XmlEventReader::from_source(buffer.as_slice());
-
-//     let fail = || {
-//         panic!(
-//             "Expected XML:\n{}\n\nActual XML:\n{}",
-//             expected_source,
-//             std::str::from_utf8(&buffer).unwrap(),
-//         )
-//     };
-
-//     loop {
-//         let (expected, actual) = (expected_events.next(), actual_events.next());
-
-//         match (expected.is_some(), actual.is_some()) {
-//             (true, true) => {
-//                 if expected != actual {
-//                     println!("Expected event: {:#?}", expected);
-//                     println!("Actual event: {:#?}", actual);
-
-//                     fail();
-//                 }
-//             }
-//             (true, false) | (false, true) => {
-//                 println!("Event streams were different lengths!");
-//                 fail()
-//             }
-//             (false, false) => break,
-//         }
-//     }
-// }
-
-// pub fn test_xml_deserialize<T>(source: &str, expected_value: &T)
-// where
-//     T: XmlType + PartialEq + Debug,
-// {
-//     let _ = env_logger::try_init();
-
-//     let mut reader = XmlEventReader::from_source(source.as_bytes());
-//     reader.next().unwrap().unwrap(); // Eat StartDocument event
-//     let value = T::read_outer_xml(&mut reader).unwrap();
-
-//     assert_eq!(&value, expected_value);
-// }
+        assert_eq!(
+            $value, new_value,
+            concat!(
+                "round trip with ",
+                stringify!($serializer),
+                " and ",
+                stringify!($deserializer),
+                " did not produce the same value"
+            )
+        )
+    }};
+}
