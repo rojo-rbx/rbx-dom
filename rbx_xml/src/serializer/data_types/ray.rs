@@ -4,7 +4,7 @@ use rbx_dom_weak::types::Ray;
 
 use super::vector3_serializer;
 use super::XmlWriter;
-use crate::serializer::error::EncodeError;
+use crate::EncodeError;
 
 pub fn ray_serializer<W: io::Write>(
     writer: &mut XmlWriter<W>,

@@ -4,7 +4,7 @@ use rbx_dom_weak::types::{Vector2, Vector3, Vector3int16};
 
 use super::f32_serializer;
 use super::XmlWriter;
-use crate::serializer::error::EncodeError;
+use crate::EncodeError;
 
 pub fn vector3_serializer<W: io::Write>(
     writer: &mut XmlWriter<W>,

@@ -103,6 +103,7 @@
 //! [rbx_dom_weak]: https://crates.io/crates/rbx_dom_weak
 //! [BufReader]: https://doc.rust-lang.org/std/io/struct.BufReader.html
 
+// TODO redo documentation
 #![deny(missing_docs)]
 
 mod conversion;
@@ -110,7 +111,6 @@ mod deserializer;
 mod error;
 mod property_descriptor;
 mod serializer;
-mod serializer_core;
 
 #[cfg(test)]
 mod test_util;
@@ -120,12 +120,8 @@ use std::io::{BufReader, Read, Write};
 use rbx_dom_weak::{types::Ref, WeakDom};
 use rbx_reflection::ReflectionDatabase;
 
-use crate::serializer::encode_internal;
-
-pub use crate::{
-    error::EncodeError,
-    serializer::{EncodeOptions, EncodePropertyBehavior},
-};
+use serializer::encode_internal;
+pub use serializer::EncodeError;
 
 use deserializer::decode_internal;
 pub use deserializer::DecodeError;
@@ -156,23 +152,23 @@ pub fn from_str_default<S: AsRef<str>>(reader: S) -> Result<WeakDom, DecodeError
 /// Serializes a subset of the given tree to an XML format model or place,
 /// writing to something that implements the `std::io::Write` trait.
 pub fn to_writer<W: Write>(
-    writer: W,
+    writer: &mut W,
     tree: &WeakDom,
     ids: &[Ref],
-    options: EncodeOptions,
+    config: Config,
 ) -> Result<(), EncodeError> {
-    encode_internal(writer, tree, ids, options)
+    encode_internal(writer, tree, ids, config)
 }
 
 /// Serializes a subset of the given tree to an XML format model or place,
 /// writing to something that implements the `std::io::Write` trait using the
 /// default encoder options.
 pub fn to_writer_default<W: Write>(
-    writer: W,
+    writer: &mut W,
     tree: &WeakDom,
     ids: &[Ref],
 ) -> Result<(), EncodeError> {
-    encode_internal(writer, tree, ids, EncodeOptions::default())
+    encode_internal(writer, tree, ids, Config::default())
 }
 
 /// Represents a configuration for deserializing and serializing an XML file.

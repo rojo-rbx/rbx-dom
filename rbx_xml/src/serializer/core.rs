@@ -12,21 +12,29 @@ use rbx_dom_weak::{
 };
 use rbx_reflection::DataType;
 
-use crate::{
-    property_descriptor::find_serialized_property_descriptor,
-    serializer::{conversions, error::ErrorKind},
-    Config,
-};
+use crate::{property_descriptor::find_serialized_property_descriptor, Config};
 
-use super::{data_types, error::EncodeError};
+use super::{
+    conversions, data_types,
+    error::{EncodeError, ErrorKind},
+};
 
 use super::writer::XmlWriter;
 
 pub fn serialize_dom<'a, W: io::Write>(
-    output: W,
+    output: &mut W,
     dom: &WeakDom,
+    config: &'a Config,
+) -> Result<(), EncodeError> {
+    serialize_refs(output, dom, dom.root().children(), config)
+}
+
+pub fn serialize_refs<'a, W: io::Write>(
+    output: &mut W,
+    dom: &WeakDom,
+    refs: &[Ref],
     config: &'a Config<'a>,
-) -> Result<W, EncodeError> {
+) -> Result<(), EncodeError> {
     let mut writer = XmlWriter::new(output, Some((b' ', 2)));
 
     writer
@@ -46,8 +54,8 @@ pub fn serialize_dom<'a, W: io::Write>(
 
     serialize_meta(&mut writer, "ExplicitAutoJoints", "true")?;
 
-    for child_ref in dom.root().children() {
-        serialize_item(&mut writer, &mut state, dom, *child_ref, &mut prop_list)?;
+    for referent in refs {
+        serialize_item(&mut writer, &mut state, dom, *referent, &mut prop_list)?;
     }
 
     log::trace!("serializing {} sharedstrings", state.shared_strings.len());
@@ -72,7 +80,7 @@ pub fn serialize_dom<'a, W: io::Write>(
 
     writer.end_element("roblox")?;
 
-    Ok(writer.into_inner())
+    Ok(())
 }
 
 pub fn serialize_meta<W: io::Write>(
@@ -377,10 +385,10 @@ mod tests {
         let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
 
         let dom = crate::from_reader_default(file).unwrap();
-        let out: Vec<u8> = Vec::new();
-        match serialize_dom(out, &dom, &Config::default()) {
+        let mut out: Vec<u8> = Vec::new();
+        match serialize_dom(&mut out, &dom, &Config::default()) {
             Err(err) => panic!("{}", err),
-            Ok(out) => {
+            Ok(_) => {
                 let dom2 = crate::from_reader_default(out.as_slice()).unwrap();
                 // insta::assert_yaml_snapshot!("serialize crossroads", DomViewer::new().view(&dom2))
             }
