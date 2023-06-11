@@ -1,5 +1,15 @@
+mod bitfields;
+mod cframe;
+mod colors;
+// mod faces;
+// mod font;
+// mod number_range;
+// mod number_sequence;
 mod ray;
+// mod rect;
 mod simple_types;
+// mod udims;
+// mod unique_id;
 mod vectors;
 
 use std::io::BufRead;
@@ -11,8 +21,12 @@ pub use simple_types::{
     f64_deserializer, i32_deserializer, i64_deserializer, string_deserializer,
 };
 
+pub use cframe::cframe_deserializer;
+pub use colors::{color3_deserializer, color3uint8_deserializer};
 pub use ray::ray_deserializer;
 pub use vectors::{vector2_deserializer, vector3_deserializer, vector3int16_deserializer};
+
+use self::bitfields::{axes_deserializer, faces_deserializer};
 
 use super::{
     error::{DecodeError, ErrorKind},
@@ -81,4 +95,9 @@ deserializers! {
     "Vector3int16" => Variant::Vector3int16; use vector3int16_deserializer,
     "Ray" => Variant::Ray; use ray_deserializer,
     "token" => Variant::Enum; use enum_deserializer,
+    "CoordinateFrame" => Variant::CFrame; use cframe_deserializer,
+    "Color3" => Variant::Color3; use color3_deserializer,
+    "Color3uint8" => Variant::Color3uint8; use color3uint8_deserializer,
+    "Faces" => Variant::Faces; use faces_deserializer,
+    "Axes" => Variant::Axes; use axes_deserializer,
 }

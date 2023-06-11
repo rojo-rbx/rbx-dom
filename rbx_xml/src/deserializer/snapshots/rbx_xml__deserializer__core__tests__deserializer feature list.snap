@@ -11,6 +11,16 @@ children:
     name: "\"Test Name\""
     class: TestClass
     properties:
+      TestAxes1:
+        Axes: []
+      TestAxes2:
+        Axes:
+          - Z
+      TestAxes3:
+        Axes:
+          - X
+          - Y
+          - Z
       TestBool1:
         Bool: true
       TestBool2:
@@ -47,6 +57,48 @@ children:
         class: TestClass2
         properties:
           RefTest: referent-1
+          TestCFrame:
+            CFrame:
+              position:
+                - 1
+                - 2
+                - 3
+              orientation:
+                - - inf
+                  - NaN
+                  - -inf
+                - - -1
+                  - -2
+                  - -3
+                - - 0.15625
+                  - -0.5
+                  - 0
+          TestColor3:
+            Color3:
+              - 1
+              - 0.7058824
+              - 0.078431375
+          TestColor3uint8:
+            Color3uint8:
+              - 163
+              - 162
+              - 165
+          TestFaces1:
+            Faces: []
+          TestFaces2:
+            Faces:
+              - Right
+              - Top
+              - Back
+              - Left
+              - Bottom
+          TestFaces3:
+            Faces:
+              - Right
+              - Top
+              - Back
+              - Bottom
+              - Front
           TestInt1:
             Int32: 10
           TestInt2:

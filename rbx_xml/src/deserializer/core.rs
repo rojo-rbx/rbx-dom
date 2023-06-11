@@ -437,6 +437,15 @@ mod tests {
                             <Y>123456789.10</Y>
                             <Z>-4276993775</Z>
                         </Vector3>
+                        <Axes name="TestAxes1">
+                            <axes>0</axes>
+                        </Axes>
+                        <Axes name="TestAxes2">
+                            <axes>4</axes>
+                        </Axes>
+                        <Axes name="TestAxes3">
+                            <axes>7</axes>
+                        </Axes>
                     </Properties>
                     <Item class="TestClass2" referent="TestReferent2">
                         <Properties>
@@ -459,6 +468,35 @@ mod tests {
                                     <Z>-6</Z>
                                 </direction>
                             </Ray>
+                            <CoordinateFrame name="TestCFrame">
+                                <X>1</X>
+                                <Y>2</Y>
+                                <Z>3</Z>
+                                <R00>INF</R00>
+                                <R01>NAN</R01>
+                                <R02>-INF</R02>
+                                <R10>-1</R10>
+                                <R11>-2</R11>
+                                <R12>-3</R12>
+                                <R20>0.15625</R20>
+                                <R21>-0.5</R21>
+                                <R22>0</R22>
+                            </CoordinateFrame>
+                            <Color3 name="TestColor3">
+                                <R>1</R>
+                                <G>0.70588237</G>
+                                <B>0.0784313753</B>
+                            </Color3>
+                            <Color3uint8 name="TestColor3uint8">4288914085</Color3uint8>
+                            <Faces name="TestFaces1">
+                                <faces>0</faces>
+                            </Faces>
+                            <Faces name="TestFaces2">
+                                <faces>31</faces>
+                            </Faces>
+                            <Faces name="TestFaces3">
+                                <faces>55</faces>
+                            </Faces>
                         </Properties>
                     </Item>
                 </Item>
