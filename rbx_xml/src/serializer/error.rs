@@ -1,8 +1,13 @@
 use rbx_dom_weak::types::{Ref, VariantType};
 use thiserror::Error;
 
+// The redirection used here is so that the size `EncodeError` occupies on
+// the stack is kept small. This is important because the type is included
+// as part of the return type of almost every function in the serializer.
+
 #[derive(Debug, Error)]
 #[error(transparent)]
+/// An error that may be raised when serializing a file.
 pub struct EncodeError(Box<ErrorKind>);
 
 #[derive(Debug, Error)]
@@ -15,7 +20,7 @@ pub(crate) enum ErrorKind {
     #[error("cannot be strict with {0} without a database")]
     StrictWithoutDatabase(&'static str),
 
-    /// A Ref was not located inside of the provided WeakDom
+    /// A `Ref` was not located inside of the provided `WeakDom`
     #[error("Ref {0} was not in the Dom")]
     RefNotInDom(Ref),
     /// A class was not known to the reflection database
@@ -25,6 +30,10 @@ pub(crate) enum ErrorKind {
     #[error("unknown property '{0}.{1}'")]
     UnknownProperty(String, String),
 
+    /// A conversion between two data types wasn't possible. This occurs when
+    /// a property's type does not match the type it is meant to be
+    /// and it cannot be converted to the correct one. As such, this will only
+    /// be raised when a database is used.
     #[error(
         "property {class}.{name} could not be converted from {from:?} to {to:?} because: {error}"
     )]
@@ -37,7 +46,7 @@ pub(crate) enum ErrorKind {
     },
 
     /// An error with `quick_xml` happened while serializing a file.
-    #[error("Could not serialize: {0}")]
+    #[error("could not serialize: {0}")]
     XmlSerializing(#[from] quick_xml::Error),
     /// An IO error occured while serializing a file.
     #[error("IO error was encountered: {0}")]
