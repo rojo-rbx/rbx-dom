@@ -223,7 +223,10 @@ impl<R: io::BufRead> Iterator for XmlReader<R> {
             Ok(event) => match event {
                 // We need to eventually own this data but right now we don't have to
                 Event::CData(data) => parse_text(&data),
-                Event::Text(data) => parse_text(&data),
+                Event::Text(data) => match data.unescape() {
+                    Ok(data) => parse_text(data.as_bytes()),
+                    Err(err) => Err(err.into()),
+                },
                 Event::Start(data) => parse_start(data),
                 // AFAIK we don't have any of these right now, so we should probably just error when we encounter them.
                 // Event::Empty(data) => parse_start(data),
