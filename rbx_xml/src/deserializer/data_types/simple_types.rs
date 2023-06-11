@@ -24,51 +24,51 @@ pub fn binary_string_deserializer<R: BufRead>(
 
 pub fn bool_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<bool, DecodeError> {
     let content = reader.eat_text()?;
-    match content.as_str() {
-        // Roblox appears to not follow XSD for bools, which means only
-        // these strings are allowed.
-        "true" => Ok(true),
-        "false" => Ok(false),
-        _ => reader.error("invalid bool '{content}', should be either 'true' or 'false'"),
-    }
+    content
+        .parse()
+        .map_err(|_| reader.error(format!("value '{content}' is not a valid bool")))
 }
 
 pub fn f32_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<f32, DecodeError> {
     let content = reader.eat_text()?;
-    match content.as_str().parse() {
-        Ok(val) => Ok(val),
-        Err(_) => reader.error(format!("invalid f32 (float) value '{content}'")),
-    }
+    content.parse().map_err(|err| {
+        reader.error(format!(
+            "could not get 32-bit float from `{content}` because {err}"
+        ))
+    })
 }
 
 pub fn f64_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<f64, DecodeError> {
     let content = reader.eat_text()?;
-    match content.as_str().parse() {
-        Ok(val) => Ok(val),
-        Err(_) => reader.error(format!("invalid f64 (double) value '{content}'")),
-    }
+    content.parse().map_err(|err| {
+        reader.error(format!(
+            "could not get 64-bit float from `{content}` because {err}"
+        ))
+    })
 }
 
 pub fn i32_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<i32, DecodeError> {
     let content = reader.eat_text()?;
-    match content.as_str().parse() {
-        Ok(val) => Ok(val),
-        Err(_) => reader.error(format!("invalid i32 (int) value '{content}'")),
-    }
+    content.parse().map_err(|err| {
+        reader.error(format!(
+            "could not get 32-bit int from `{content}` because {err}"
+        ))
+    })
 }
 
 pub fn i64_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<i64, DecodeError> {
     let content = reader.eat_text()?;
-    match content.as_str().parse() {
-        Ok(val) => Ok(val),
-        Err(_) => reader.error(format!("invalid i64 (int64) value '{content}'")),
-    }
+    content.parse().map_err(|err| {
+        reader.error(format!(
+            "could not get 64-bit int from `{content}` because {err}"
+        ))
+    })
 }
 
 pub fn enum_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<Enum, DecodeError> {
     let content = reader.eat_text()?;
-    match content.as_str().parse() {
-        Ok(val) => Ok(Enum::from_u32(val)),
-        Err(_) => reader.error(format!("invalid i32 (int) value '{content}'")),
-    }
+    content
+        .parse()
+        .map(Enum::from_u32)
+        .map_err(|err| reader.error(format!("could not get Enum from `{content}` because {err}")))
 }

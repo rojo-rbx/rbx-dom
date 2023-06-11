@@ -143,6 +143,19 @@ impl<R: io::BufRead> XmlReader<R> {
         }
     }
 
+    /// Deserializes a `T` using the provided function, expecting it to be
+    /// contained inside of an element with the provided `name`.
+    pub fn read_named_with<T, F>(&mut self, name: &str, mut with: F) -> Result<T, DecodeError>
+    where
+        F: Fn(&mut Self) -> Result<T, DecodeError>,
+    {
+        self.expect_start_with_name(name)?;
+        let value = with(self)
+            .map_err(|err| self.error(format!("error reading value for element {name}: {err}")))?;
+        self.expect_end_with_name(name)?;
+        Ok(value)
+    }
+
     pub fn eat_text(&mut self) -> Result<String, DecodeError> {
         let mut buffer = String::new();
         loop {
@@ -185,12 +198,12 @@ impl<R: io::BufRead> XmlReader<R> {
         }
     }
 
-    pub fn error<T, M: Into<String>>(&self, message: M) -> Result<T, DecodeError> {
-        Err(ErrorKind::InvalidData {
+    pub fn error<M: Into<String>>(&self, message: M) -> DecodeError {
+        ErrorKind::InvalidData {
             offset: self.offset(),
             message: message.into(),
         }
-        .err())
+        .err()
     }
 
     pub fn offset(&self) -> usize {
