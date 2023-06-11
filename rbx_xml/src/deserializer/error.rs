@@ -108,8 +108,14 @@ pub(crate) enum ErrorKind {
     InvalidBase64(#[from] base64::DecodeError),
 
     /// A property could not be read because of invalid data inside it.
-    #[error("error when reading property at character {offset}: {message}")]
-    InvalidData { offset: usize, message: String },
+    #[error("{0}")]
+    InvalidData(String),
+    #[error("property {name} at offset {offset} could not be read: {message}")]
+    PropertyNotReadable {
+        offset: usize,
+        name: String,
+        message: String,
+    },
 }
 
 impl ErrorKind {
@@ -123,6 +129,10 @@ impl DecodeError {
     /// Returns a new `DecodeError` from the given `ErrorKind`.
     pub(crate) fn new(kind: ErrorKind) -> Self {
         Self(Box::from(kind))
+    }
+
+    pub(crate) fn kind(&self) -> &ErrorKind {
+        &self.0
     }
 }
 

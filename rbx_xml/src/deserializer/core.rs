@@ -319,7 +319,20 @@ fn deserialize_properties<R: BufRead>(
                             let class_name = &state.dom.get_by_ref(referent).unwrap().class;
                             log::debug!("Attempting to deserialize property {class_name}.{prop_name} of type {prop_type}");
                         }
-                        let variant = data_types::attempt_deserialization(reader, &prop_type)?;
+
+                        let data_offset = reader.offset();
+                        let variant = match data_types::attempt_deserialization(reader, &prop_type)
+                        {
+                            Ok(v) => v,
+                            Err(error) => {
+                                return Err(ErrorKind::PropertyNotReadable {
+                                    name: prop_name,
+                                    offset: data_offset,
+                                    message: error.to_string(),
+                                }
+                                .err())
+                            }
+                        };
 
                         if prop_type == "Ref" {
                             log::trace!("referent property {prop_name} = {variant:?}");

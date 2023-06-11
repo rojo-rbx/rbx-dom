@@ -199,11 +199,7 @@ impl<R: io::BufRead> XmlReader<R> {
     }
 
     pub fn error<M: Into<String>>(&self, message: M) -> DecodeError {
-        ErrorKind::InvalidData {
-            offset: self.offset(),
-            message: message.into(),
-        }
-        .err()
+        ErrorKind::InvalidData(message.into()).err()
     }
 
     pub fn offset(&self) -> usize {
