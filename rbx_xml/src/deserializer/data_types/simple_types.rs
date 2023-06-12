@@ -8,9 +8,12 @@
 //! provides for parsing the raw base64 into a `rbx_types::BinaryString`.
 use std::io::BufRead;
 
-use rbx_dom_weak::types::{BinaryString, Enum};
+use rbx_dom_weak::types::{BinaryString, Content, Enum};
 
-use crate::deserializer::{error::DecodeError, reader::XmlReader};
+use crate::deserializer::{
+    error::DecodeError,
+    reader::{XmlData, XmlReader},
+};
 
 pub fn string_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<String, DecodeError> {
     reader.eat_text()
@@ -71,6 +74,25 @@ pub fn enum_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<Enum, 
         .parse()
         .map(Enum::from_u32)
         .map_err(|err| reader.error(format!("could not get Enum from `{content}` because {err}")))
+}
+
+pub fn content_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<Content, DecodeError> {
+    match reader.expect_next() {
+        Ok(XmlData::ElementStart { name, .. }) => match name.as_str() {
+            "null" => {
+                reader.expect_end_with_name("null")?;
+                Ok(Content::new())
+            }
+            "url" => {
+                let url = reader.eat_text()?;
+                reader.expect_end_with_name("url")?;
+                Ok(Content::from(url))
+            }
+            name => Err(reader.error(format!("unexpected Content type '{name}'"))),
+        },
+        Ok(_) => Err(reader.error("expected start of url or null element")),
+        Err(err) => Err(err),
+    }
 }
 
 #[cfg(test)]
@@ -297,5 +319,34 @@ mod tests {
     fn enum_too_small() {
         // -1 is too small for an enum
         deserialize_test!(enum_deserializer, Enum::from_u32(0), "-1");
+    }
+
+    #[test]
+    fn content_url() {
+        deserialize_test!(
+            content_deserializer,
+            Content::from("TEST"),
+            "<url>TEST</url>"
+        );
+        deserialize_test!(
+            content_deserializer,
+            Content::from("http://www.example.com"),
+            "<url>http://www.example.com</url>"
+        );
+    }
+
+    #[test]
+    fn content_null() {
+        deserialize_test!(content_deserializer, Content::from(""), "<null></null>");
+    }
+
+    #[test]
+    #[should_panic = "got text when expecting an element start or end"]
+    fn content_null_not_empty() {
+        deserialize_test!(
+            content_deserializer,
+            Content::from(""),
+            "<null>uh oh</null>"
+        );
     }
 }

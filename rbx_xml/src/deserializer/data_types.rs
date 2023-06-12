@@ -1,32 +1,40 @@
 mod bitfields;
 mod cframe;
 mod colors;
-// mod faces;
-// mod font;
-// mod number_range;
-// mod number_sequence;
+mod font;
+mod physical_properties;
 mod ray;
-// mod rect;
+mod rect;
+mod sequences;
 mod simple_types;
-// mod udims;
-// mod unique_id;
+mod udims;
+mod unique_id;
 mod vectors;
 
 use std::io::BufRead;
 
 use rbx_dom_weak::types::Variant;
 
-pub use simple_types::{
-    binary_string_deserializer, bool_deserializer, enum_deserializer, f32_deserializer,
-    f64_deserializer, i32_deserializer, i64_deserializer, string_deserializer,
+pub use self::{
+    bitfields::{axes_deserializer, faces_deserializer},
+    cframe::cframe_deserializer,
+    colors::{color3_deserializer, color3uint8_deserializer},
+    font::font_deserializer,
+    physical_properties::physical_properties_deserializer,
+    ray::ray_deserializer,
+    rect::rect_deserializer,
+    sequences::{
+        color_sequence_deserializer, number_range_deserializer, number_sequence_deserializer,
+    },
+    simple_types::{
+        binary_string_deserializer, bool_deserializer, content_deserializer, enum_deserializer,
+        f32_deserializer, f64_deserializer, i32_deserializer, i64_deserializer,
+        string_deserializer,
+    },
+    udims::{udim2_deserializer, udim_deserializer},
+    unique_id::unique_id_deserializer,
+    vectors::{vector2_deserializer, vector3_deserializer, vector3int16_deserializer},
 };
-
-pub use cframe::cframe_deserializer;
-pub use colors::{color3_deserializer, color3uint8_deserializer};
-pub use ray::ray_deserializer;
-pub use vectors::{vector2_deserializer, vector3_deserializer, vector3int16_deserializer};
-
-use self::bitfields::{axes_deserializer, faces_deserializer};
 
 use super::{
     error::{DecodeError, ErrorKind},
@@ -100,4 +108,14 @@ deserializers! {
     "Color3uint8" => Variant::Color3uint8; use color3uint8_deserializer,
     "Faces" => Variant::Faces; use faces_deserializer,
     "Axes" => Variant::Axes; use axes_deserializer,
+    "NumberSequence" => Variant::NumberSequence; use number_sequence_deserializer,
+    "ColorSequence" => Variant::ColorSequence; use color_sequence_deserializer,
+    "NumberRange" => Variant::NumberRange; use number_range_deserializer,
+    "UDim" => Variant::UDim; use udim_deserializer,
+    "UDim2" => Variant::UDim2; use udim2_deserializer,
+    "Font" => Variant::Font; use font_deserializer,
+    "Rect2D" => Variant::Rect; use rect_deserializer,
+    "PhysicalProperties" => Variant::PhysicalProperties; use physical_properties_deserializer,
+    "Content" => Variant::Content; use content_deserializer,
+    "UniqueId" => Variant::UniqueId; use unique_id_deserializer,
 }
