@@ -85,6 +85,12 @@ struct Instance {
     children: Vec<i32>,
 }
 
+/// Properties may be serialized under different names or types than
+/// they ultimately should have in the DOM. CanonicalProperty
+/// represents the "proper" name and type of a property, and possibly
+/// contains a migration for some properties Roblox has replaced with
+/// others (like Font, which has been superceded by FontFace).
+#[derive(Debug)]
 struct CanonicalProperty<'a> {
     name: &'a str,
     ty: VariantType,
