@@ -17,6 +17,8 @@ expression: decoded_viewed
     ResetOnSpawn:
       Bool: true
     RootLocalizationTable: "null"
+    ScreenInsets:
+      Enum: 2
     Tags:
       Tags: []
     ZIndexBehavior:
@@ -37,6 +39,8 @@ expression: decoded_viewed
     ResetOnSpawn:
       Bool: true
     RootLocalizationTable: "null"
+    ScreenInsets:
+      Enum: 2
     Tags:
       Tags: []
     ZIndexBehavior:
@@ -57,6 +61,8 @@ expression: decoded_viewed
     ResetOnSpawn:
       Bool: true
     RootLocalizationTable: "null"
+    ScreenInsets:
+      Enum: 2
     Tags:
       Tags: []
     ZIndexBehavior:
