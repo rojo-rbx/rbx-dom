@@ -4,8 +4,8 @@
 * Added support for `UniqueId` values. ([#271])
 * Added migrations for properties like `ScreenGui.IgnoreGuiInset` and `TextLabel.Font` to their new counterparts (`ScreenGui.GuiInsets` and `TextLabel.FontFace`, respectively). ([#283])
 
-* [#271]: https://github.com/rojo-rbx/rbx-dom/pull/271
-* [#283]: https://github.com/rojo-rbx/rbx-dom/pull/283
+[#271]: https://github.com/rojo-rbx/rbx-dom/pull/271
+[#283]: https://github.com/rojo-rbx/rbx-dom/pull/283
 
 ## 0.7.0 (2023-04-22)
 * Added support for `Font` values. ([#248])
