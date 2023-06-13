@@ -70,9 +70,9 @@ Without special handling, this can cause problems for binary files because when 
 
 To fix this, we need to write a migration (in Rust) and apply it is as a patch (using database patch files).
 
-First, add your migration to the PropertyMigration enum in [`rbx_reflection/src/migrations`][migrations]. The migration should be named after the properties it's migrating. For example, migrating from `Font` to `FontFace` would be named `FontToFontFace`.
+First, add your migration to the `MigrationOperation` enum in [`rbx_reflection/src/migrations`][migrations]. The migration should be named after the properties it's migrating. For example, migrating from `Font` to `FontFace` would be named `FontToFontFace`.
 
-Next, add code to convert from the old property's type to the new property's type. This code should be a new match arm in the `perform_migration` function in [`rbx_reflection/src/migrations`][migrations].
+Next, add code to convert from the old property's type to the new property's type. This code should be a new match arm in the `PropertyMigration::perform` function in [`rbx_reflection/src/migrations`][migrations].
 
 Finally, add a patch in the [patches](patches) folder. This patch should change the old property's serialization type to `Migrate`, specifying the new property name and the migration name.
 
@@ -83,8 +83,8 @@ Change:
     Font: # Property we're migrating *from*
       Serialization:
         Type: Migrate
-        Property: FontFace # Property we're migrating *to*
-        Migration: FontToFontFace # Migration we're using
+        MigratesTo: FontFace # Name of the property we're migrating *to*
+        Migration: FontToFontFace # Name of the migration operation we're using
 ```
 
 If this property is present on multiple classes, you may need to specify the Serialization change for multiple properties on multiple classes. For example, the `Font` property is present on `TextLabel`, `TextButton`, `TextBox` without being derived from a superclass, so the real patch is approximately 3 times as long since it needs to be applied to each class.
