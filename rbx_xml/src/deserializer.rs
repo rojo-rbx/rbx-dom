@@ -612,11 +612,18 @@ fn deserialize_properties<R: Read>(
                     serialization: PropertySerialization::Migrate(migration),
                 } => {
                     let new_property_name = &migration.new_property_name;
+                    let old_property_name = &descriptor.name;
 
                     if !props.contains_key(new_property_name) {
+                        log::trace!(
+                            "Attempting to migrate property {old_property_name} to {new_property_name}"
+                        );
                         match migration.perform(&value) {
                             Ok(migrated_value) => {
                                 props.insert(new_property_name.to_string(), migrated_value);
+                                log::trace!(
+                                    "Successfully migrated property {old_property_name} to {new_property_name}"
+                                );
                             }
                             Err(error) => {
                                 return Err(reader.error(DecodeErrorKind::MigrationError(error)));
