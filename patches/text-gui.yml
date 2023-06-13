@@ -3,17 +3,17 @@ Change:
     Font:
       Serialization:
         Type: Migrate
-        Property: FontFace
+        MigratesTo: FontFace
         Migration: FontToFontFace
   TextButton:
     Font:
       Serialization:
         Type: Migrate
-        Property: FontFace
+        MigratesTo: FontFace
         Migration: FontToFontFace
   TextBox:
     Font:
       Serialization:
         Type: Migrate
-        Property: FontFace
+        MigratesTo: FontFace
         Migration: FontToFontFace

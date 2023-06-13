@@ -14,9 +14,7 @@ use rbx_dom_weak::{
     },
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::{
-    perform_migration, DataType, PropertyKind, PropertySerialization, ReflectionDatabase,
-};
+use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     cframe,
@@ -138,7 +136,7 @@ fn find_canonical_property<'de>(
             };
             let migration = match &descriptors.canonical.kind {
                 PropertyKind::Canonical {
-                    serialization: migration @ PropertySerialization::Migrate { .. },
+                    serialization: migration @ PropertySerialization::Migrate(_),
                 } => Some(migration),
                 _ => None,
             };
@@ -177,21 +175,19 @@ fn find_canonical_property<'de>(
 }
 
 fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty, value: Variant) {
-    if let Some(PropertySerialization::Migrate {
-        property,
-        migration,
-    }) = canonical_property.migration
-    {
-        if !instance.builder.has_property(property.as_ref()) {
-            match perform_migration(*migration, &value) {
-                Ok(value) => {
-                    instance.builder.add_property(property.as_ref(), value);
+    if let Some(PropertySerialization::Migrate(migration)) = canonical_property.migration {
+        let new_property_name = &migration.migrates_to;
+
+        if !instance.builder.has_property(new_property_name) {
+            match migration.perform(&value) {
+                Ok(new_value) => {
+                    instance.builder.add_property(new_property_name, new_value);
                 }
                 Err(e) => {
                     log::warn!(
                         "Failed to migrate property {} to {} because: {}",
                         canonical_property.name,
-                        property,
+                        new_property_name,
                         e.to_string()
                     );
                 }

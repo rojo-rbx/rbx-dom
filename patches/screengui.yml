@@ -3,5 +3,5 @@ Change:
     IgnoreGuiInset:
       Serialization:
         Type: Migrate
-        Property: ScreenInsets
+        MigratesTo: ScreenInsets
         Migration: IgnoreGuiInsetToScreenInsets

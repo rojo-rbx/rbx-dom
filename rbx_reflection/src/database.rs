@@ -149,11 +149,7 @@ pub enum PropertySerialization<'a> {
     /// The property was originally serialized as itself, but should be migrated
     /// to a new property on deserialization. If the new property already
     /// exists, this property should be ignored.
-    #[serde(rename_all = "PascalCase")]
-    Migrate {
-        property: Cow<'a, str>,
-        migration: PropertyMigration,
-    },
+    Migrate(PropertyMigration),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

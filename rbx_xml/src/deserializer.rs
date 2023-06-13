@@ -8,7 +8,7 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::{perform_migration, DataType, PropertyKind, PropertySerialization};
+use rbx_reflection::{DataType, PropertyKind, PropertySerialization};
 
 use crate::{
     conversion::ConvertVariant,
@@ -609,16 +609,14 @@ fn deserialize_properties<R: Read>(
 
             match &descriptor.kind {
                 PropertyKind::Canonical {
-                    serialization:
-                        PropertySerialization::Migrate {
-                            property,
-                            migration,
-                        },
+                    serialization: PropertySerialization::Migrate(migration),
                 } => {
-                    if !props.contains_key(property.as_ref()) {
-                        match perform_migration(*migration, &value) {
+                    let new_property_name = &migration.migrates_to;
+
+                    if !props.contains_key(new_property_name) {
+                        match migration.perform(&value) {
                             Ok(migrated_value) => {
-                                props.insert(property.to_string(), migrated_value);
+                                props.insert(new_property_name.to_string(), migrated_value);
                             }
                             Err(error) => {
                                 return Err(reader.error(DecodeErrorKind::MigrationError(error)));

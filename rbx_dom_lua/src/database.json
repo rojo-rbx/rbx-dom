@@ -1044,6 +1044,19 @@
         "Enabled": {
           "Bool": true
         },
+        "ForceLimitMode": {
+          "Enum": 0
+        },
+        "ForceRelativeTo": {
+          "Enum": 2
+        },
+        "MaxAxesForce": {
+          "Vector3": [
+            10000.0,
+            10000.0,
+            10000.0
+          ]
+        },
         "MaxForce": {
           "Float32": 10000.0
         },
@@ -24746,7 +24759,7 @@
           "Enum": 0
         },
         "ScriptGuid": {
-          "String": "{B5B8443D-27F2-494D-A0AC-431DABE442B7}"
+          "String": "{0CF5FBD2-C47E-4AB8-A39A-45445FACF89E}"
         },
         "Source": {
           "String": ""
@@ -28034,7 +28047,7 @@
           "Content": ""
         },
         "ScriptGuid": {
-          "String": "{C7227743-14AA-4048-BE0F-FF7AD8D709F1}"
+          "String": "{5BB8C217-FE02-4C1C-8A2C-D3EF05D2E101}"
         },
         "Source": {
           "String": ""
@@ -37349,7 +37362,7 @@
             "Canonical": {
               "Serialization": {
                 "Migrate": {
-                  "Property": "ScreenInsets",
+                  "MigratesTo": "ScreenInsets",
                   "Migration": "IgnoreGuiInsetToScreenInsets"
                 }
               }
@@ -37601,7 +37614,7 @@
           "Enum": 0
         },
         "ScriptGuid": {
-          "String": "{D74F2185-3F42-42B9-9B35-07429EDE469C}"
+          "String": "{23EED725-E930-4F9B-9731-E8DB97BC26AB}"
         },
         "Source": {
           "String": ""
@@ -48129,7 +48142,7 @@
             "Canonical": {
               "Serialization": {
                 "Migrate": {
-                  "Property": "FontFace",
+                  "MigratesTo": "FontFace",
                   "Migration": "FontToFontFace"
                 }
               }
@@ -48813,7 +48826,7 @@
             "Canonical": {
               "Serialization": {
                 "Migrate": {
-                  "Property": "FontFace",
+                  "MigratesTo": "FontFace",
                   "Migration": "FontToFontFace"
                 }
               }
@@ -49712,7 +49725,7 @@
             "Canonical": {
               "Serialization": {
                 "Migrate": {
-                  "Property": "FontFace",
+                  "MigratesTo": "FontFace",
                   "Migration": "FontToFontFace"
                 }
               }
@@ -57582,7 +57595,7 @@
         "Scale": {
           "Float32": 1.0
         },
-        "SignalBehavior2": {
+        "SignalBehavior": {
           "Enum": 0
         },
         "SourceAssetId": {
