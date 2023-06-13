@@ -22,7 +22,6 @@ pub enum MigrationError {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
-#[non_exhaustive]
 pub struct PropertyMigration {
     #[serde(rename = "To")]
     pub new_property_name: String,
@@ -30,6 +29,7 @@ pub struct PropertyMigration {
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
+#[non_exhaustive]
 pub enum MigrationOperation {
     IgnoreGuiInsetToScreenInsets,
     FontToFontFace,
