@@ -176,7 +176,7 @@ fn find_canonical_property<'de>(
 
 fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty, value: Variant) {
     if let Some(PropertySerialization::Migrate(migration)) = canonical_property.migration {
-        let new_property_name = &migration.migrates_to;
+        let new_property_name = &migration.new_property_name;
 
         if !instance.builder.has_property(new_property_name) {
             match migration.perform(&value) {

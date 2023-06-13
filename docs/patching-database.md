@@ -83,8 +83,8 @@ Change:
     Font: # Property we're migrating *from*
       Serialization:
         Type: Migrate
-        MigratesTo: FontFace # Name of the property we're migrating *to*
-        Migration: FontToFontFace # Name of the migration operation we're using
+        To: FontFace # Name of the property we're migrating to
+        Migration: FontToFontFace # Name of the migration operation that should convert the old property value to the new one
 ```
 
 If this property is present on multiple classes, you may need to specify the Serialization change for multiple properties on multiple classes. For example, the `Font` property is present on `TextLabel`, `TextButton`, `TextBox` without being derived from a superclass, so the real patch is approximately 3 times as long since it needs to be applied to each class.

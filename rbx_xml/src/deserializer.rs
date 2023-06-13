@@ -611,7 +611,7 @@ fn deserialize_properties<R: Read>(
                 PropertyKind::Canonical {
                     serialization: PropertySerialization::Migrate(migration),
                 } => {
-                    let new_property_name = &migration.migrates_to;
+                    let new_property_name = &migration.new_property_name;
 
                     if !props.contains_key(new_property_name) {
                         match migration.perform(&value) {

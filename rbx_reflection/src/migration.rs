@@ -24,7 +24,8 @@ pub enum MigrationError {
 #[serde(rename_all = "PascalCase")]
 #[non_exhaustive]
 pub struct PropertyMigration {
-    pub migrates_to: String,
+    #[serde(rename = "To")]
+    pub new_property_name: String,
     migration: MigrationOperation,
 }
 
