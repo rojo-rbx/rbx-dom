@@ -96,10 +96,10 @@ struct CanonicalProperty<'a> {
 fn find_canonical_property<'de>(
     database: &'de ReflectionDatabase,
     binary_type: Type,
-    type_name: &str,
+    class_name: &str,
     prop_name: &'de str,
 ) -> Option<CanonicalProperty<'de>> {
-    match find_property_descriptors(database, type_name, prop_name) {
+    match find_property_descriptors(database, class_name, prop_name) {
         Some(descriptors) => {
             // If this descriptor is known but wasn't supposed to be
             // serialized, we should skip it.
