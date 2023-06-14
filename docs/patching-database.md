@@ -66,7 +66,7 @@ model.Scale = 2
 ## Roblox added a new property, but it's a migration from an existing property, and the existing property no longer loads
 Sometimes Roblox migrates an existing property whose type is too constrained to a new property with a more flexible type.
 
-This can cause problems when binary files containing the old property and binary files containing the new property are placed together in the same DOM, then serialized with rbx_binary. In the Roblox binary format, all instances of a class must define the same properties, so for instances from old files (where the new property is missing), rbx_binary simply writes the new property with a default value to uphold the invariant. This can result in weird behavior like old text UI all having the Arial font, because the default value of a new property took priority.
+This can cause problems when binary files containing the old property and binary files containing the new property are placed together in the same DOM, then serialized with `rbx_binary`. In the Roblox binary format, all instances of a class must define the same properties, so for instances from old files (where the new property is missing), `rbx_binary` simply writes the new property with a default value to uphold the invariant. This can result in weird behavior like old text UI all having the Arial font, because the default value of a new property took priority.
 
 To fix this, we need to write a migration (in Rust) and apply it is as a patch (using database patch files), so that the old property is translated to the new property on deserialization.
 
