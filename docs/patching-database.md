@@ -94,7 +94,7 @@ If this property is present on multiple classes, you may need to specify the Ser
 ## Roblox added a new property, but modifying it from Lua requires a special API
 Sometimes a property is added that cannot be assigned directly from Lua.
 
-First up, modify the reflection database to either add or change the property's `Scriptability` to `Custom`:
+First, modify the reflection database to either add or change the property's `Scriptability` to `Custom`:
 
 ```yaml
 # To change the property:
