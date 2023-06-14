@@ -1,7 +1,11 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
-* Fix potential stack overflow when creating or inserting into a `WeakDom`
+* Fix potential stack overflow when creating or inserting into a `WeakDom`. ([#279])
+* Added `InstanceBuilder::has_property` for checking if an `InstanceBuilder` defines a given property. ([#283])
+
+[#279]: https://github.com/rojo-rbx/rbx-dom/pull/279
+[#283]: https://github.com/rojo-rbx/rbx-dom/pull/283
 
 ## 2.4.0 (2022-06-05)
 * Added `WeakDom::into_raw` for enabling fast, non-tree-preserving transformations.
