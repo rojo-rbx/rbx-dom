@@ -1,5 +1,5 @@
 # How to Fix a New Property Added by Roblox
-When Roblox introduces new properties, usually tools like Rojo can use them without any additional changes. Sometimes, though, properties are added with different names, multiple serialized forms, need to be migrated to a new property, or aren't listed at all in the reflection dump that Roblox gives us.
+When Roblox introduces new properties, usually tools like Rojo can use them without any additional changes. Sometimes though, properties are added with different names, multiple serialized forms, need to be migrated to a new property, or aren't listed at all in the reflection dump that Roblox gives us.
 
 This document describes some common scenarios and the necessary steps to fix them.
 
