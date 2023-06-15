@@ -2,6 +2,7 @@ mod bitfields;
 mod cframe;
 mod colors;
 mod font;
+mod option;
 mod physical_properties;
 mod ray;
 mod rect;
@@ -20,6 +21,7 @@ pub use self::{
     cframe::cframe_deserializer,
     colors::{color3_deserializer, color3uint8_deserializer},
     font::font_deserializer,
+    option::optional_cframe_deserializer,
     physical_properties::physical_properties_deserializer,
     ray::ray_deserializer,
     rect::rect_deserializer,
@@ -118,4 +120,5 @@ deserializers! {
     "PhysicalProperties" => Variant::PhysicalProperties; use physical_properties_deserializer,
     "Content" => Variant::Content; use content_deserializer,
     "UniqueId" => Variant::UniqueId; use unique_id_deserializer,
+    "OptionalCoordinateFrame" => Variant::OptionalCFrame; use optional_cframe_deserializer,
 }
