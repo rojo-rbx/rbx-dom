@@ -305,84 +305,85 @@ fn deserialize_properties<R: BufRead>(
     log::trace!("decoding Properties");
     reader.expect_start_with_name("Properties")?;
 
-    loop {
-        match reader.peek() {
-            Some(Ok(event)) => match event {
-                XmlData::ElementStart { name, .. } => {
-                    // We may be able to get around this later but for now
-                    // we have to take ownership of the element name.
-                    let prop_type = name.clone();
-                    if data_types::is_known_type(&prop_type) {
-                        let mut element = reader.expect_start_with_name(&prop_type)?;
-                        let prop_name = element.get_attribute("name")?;
-                        if log::log_enabled!(log::Level::Debug) {
-                            let class_name = &state.dom.get_by_ref(referent).unwrap().class;
-                            log::debug!("Attempting to deserialize property {class_name}.{prop_name} of type {prop_type}");
-                        }
-
-                        let data_offset = reader.offset();
-                        let variant = match data_types::attempt_deserialization(reader, &prop_type)
-                        {
-                            Ok(v) => v,
-                            Err(error) => {
-                                return Err(ErrorKind::PropertyNotReadable {
-                                    name: prop_name,
-                                    offset: data_offset,
-                                    message: error.to_string(),
-                                }
-                                .err())
-                            }
-                        };
-
-                        if prop_type == "Ref" {
-                            log::trace!("referent property {prop_name} = {variant:?}");
-                            state.ref_properties.push((
-                                referent,
-                                prop_name,
-                                match variant {
-                                    Variant::String(str) => str,
-                                    _ => unreachable!(),
-                                },
-                            ));
-                        } else if prop_type == "SharedString" {
-                            log::trace!("SharedString property {prop_name} = {variant:?}");
-                            state.sstr_properties.push((
-                                referent,
-                                prop_name,
-                                match variant {
-                                    Variant::String(str) => str,
-                                    _ => unreachable!(),
-                                },
-                            ));
-                        } else if properties.get(&prop_name).is_none() {
-                            properties.insert(prop_name, variant);
-                        } else {
-                            return Err(ErrorKind::DuplicateProperty(prop_name).err());
-                        }
-
-                        reader.expect_end_with_name(&prop_type)?;
-                    } else if state.config.ignore_new_types {
-                        state.unknown_types.insert(prop_type);
-                        reader.skip_element()?;
-                    } else {
-                        log::error!("Unknown property type {prop_type}");
-                        return Err(ErrorKind::UnknownType(prop_type).err());
+    while let Some(Ok(event)) = reader.peek() {
+        match event {
+            XmlData::ElementStart { name, .. } => {
+                // We may be able to get around this later but for now
+                // we have to take ownership of the element name.
+                let prop_type = name.clone();
+                if data_types::is_known_type(&prop_type) {
+                    let mut element = reader.expect_start_with_name(&prop_type)?;
+                    let prop_name = element.get_attribute("name")?;
+                    if log::log_enabled!(log::Level::Debug) {
+                        let class_name = &state.dom.get_by_ref(referent).unwrap().class;
+                        log::debug!("Attempting to deserialize property {class_name}.{prop_name} of type {prop_type}");
                     }
+
+                    let data_offset = reader.offset();
+                    let variant = match data_types::attempt_deserialization(reader, &prop_type) {
+                        Ok(v) => v,
+                        Err(error) => {
+                            return Err(ErrorKind::PropertyNotReadable {
+                                name: prop_name,
+                                offset: data_offset,
+                                message: error.to_string(),
+                            }
+                            .err())
+                        }
+                    };
+
+                    if prop_type == "Ref" {
+                        log::trace!("referent property {prop_name} = {variant:?}");
+                        state.ref_properties.push((
+                            referent,
+                            prop_name,
+                            match variant {
+                                Variant::String(str) => str,
+                                _ => unreachable!(),
+                            },
+                        ));
+                    } else if prop_type == "SharedString" {
+                        log::trace!("SharedString property {prop_name} = {variant:?}");
+                        state.sstr_properties.push((
+                            referent,
+                            prop_name,
+                            match variant {
+                                Variant::String(str) => str,
+                                _ => unreachable!(),
+                            },
+                        ));
+                    } else if properties.get(&prop_name).is_none() {
+                        properties.insert(prop_name, variant);
+                    } else {
+                        return Err(ErrorKind::DuplicateProperty(prop_name).err());
+                    }
+
+                    reader.expect_end_with_name(&prop_type)?;
+                } else if state.config.ignore_new_types {
+                    state.unknown_types.insert(prop_type);
+                    reader.skip_element()?;
+                } else {
+                    log::error!("Unknown property type {prop_type}");
+                    return Err(ErrorKind::UnknownType(prop_type).err());
                 }
-                XmlData::ElementEnd { name } if name == "Properties" => {
-                    log::trace!("finished decoding properties");
-                    reader.next();
-                    return Ok(());
-                }
-                event => {
-                    log::trace!("unexpected event {event:?}");
-                    reader.expect_next()?;
-                    return Err(ErrorKind::UnexpectedToken(reader.offset()).err());
-                }
-            },
-            Some(Err(_)) => return Err(reader.next().unwrap().unwrap_err()),
-            None => return Err(ErrorKind::UnexpectedEof.err()),
+            }
+            XmlData::ElementEnd { name } if name == "Properties" => {
+                log::trace!("finished decoding properties");
+                reader.next();
+                return Ok(());
+            }
+            event => {
+                log::trace!("unexpected event {event:?}");
+                reader.expect_next()?;
+                return Err(ErrorKind::UnexpectedToken(reader.offset()).err());
+            }
         }
+    }
+    match reader.peek() {
+        Some(Err(_)) => Err(reader.next().unwrap().unwrap_err()),
+        None => Err(ErrorKind::UnexpectedEof.err()),
+        // This can never happen because it's the exit condition of the loop
+        Some(Ok(_)) => unreachable!(),
     }
 }
 
