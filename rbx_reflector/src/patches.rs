@@ -2,7 +2,8 @@ use std::{borrow::Cow, collections::HashMap, fs, path::Path};
 
 use anyhow::{anyhow, bail, Context};
 use rbx_reflection::{
-    DataType, PropertyKind, PropertySerialization, ReflectionDatabase, Scriptability,
+    DataType, PropertyKind, PropertyMigration, PropertySerialization, ReflectionDatabase,
+    Scriptability,
 };
 use serde::Deserialize;
 
@@ -135,6 +136,7 @@ pub enum Serialization {
         #[serde(rename = "As")]
         serializes_as: String,
     },
+    Migrate(PropertyMigration),
 }
 
 impl From<Serialization> for PropertySerialization<'_> {
@@ -145,6 +147,7 @@ impl From<Serialization> for PropertySerialization<'_> {
             Serialization::SerializesAs { serializes_as } => {
                 PropertySerialization::SerializesAs(Cow::Owned(serializes_as))
             }
+            Serialization::Migrate(migration) => PropertySerialization::Migrate(migration),
         }
     }
 }

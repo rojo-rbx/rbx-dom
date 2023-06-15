@@ -77,6 +77,8 @@ expression: decoded_viewed
       Enum: 0
     Scale:
       Float32: 1
+    SignalBehavior:
+      Enum: 0
     SourceAssetId:
       Int64: -1
     StreamOutBehavior:

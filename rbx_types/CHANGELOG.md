@@ -2,9 +2,12 @@
 
 ## Unreleased Changes
 * Added support for `UniqueId` values. ([#271])
-* Changed `BinaryString`'s non-human readable serde implementation to be identical to `Vec<u8>`
+* Changed `BinaryString`'s non-human readable serde implementation to be identical to `Vec<u8>`. ([#276])
+* Added `Font::new` and `Font::regular` constructors. ([#283])
 
 [#271]: https://github.com/rojo-rbx/rbx-dom/pull/271
+[#276]: https://github.com/rojo-rbx/rbx-dom/pull/276
+[#283]: https://github.com/rojo-rbx/rbx-dom/pull/283
 
 ## 1.5.0 (2023-04-22)
 * Implemented `Font`. ([#248])
