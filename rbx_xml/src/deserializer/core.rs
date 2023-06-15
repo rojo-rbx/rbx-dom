@@ -186,7 +186,7 @@ fn deserialize_item<R: BufRead>(
     // Previously, `referent` wasn't required, it now is
     let read_ref = item.get_attribute("referent")?;
 
-    if state.config.strict_class_names {
+    if state.config.check_class_names {
         if let Some(database) = state.config.database {
             if !database.classes.contains_key(class.as_str()) {
                 return Err(ErrorKind::UnknownClass(class, read_ref).err());
@@ -246,7 +246,7 @@ fn deserialize_item<R: BufRead>(
     // This fails on impossible conversions, which is actually more restrictive
     // than what the old rbx_xml did. We'll have to either establish more
     // migrations or simply ignore any that can't happen.
-    if state.config.strict_data_types || state.config.strict_property_names {
+    if state.config.migrate_properties {
         if let Some(database) = state.config.database {
             for (prop_name, value) in properties.iter_mut() {
                 let class_name = &inst.class;
@@ -274,7 +274,7 @@ fn deserialize_item<R: BufRead>(
                         }
                     }
                     None => {
-                        if state.config.strict_property_names {
+                        if state.config.error_on_unknown() {
                             return Err(ErrorKind::UnknownProperty(
                                 class_name.to_owned(),
                                 prop_name.to_owned(),
@@ -359,7 +359,7 @@ fn deserialize_properties<R: BufRead>(
                     }
 
                     reader.expect_end_with_name(&prop_type)?;
-                } else if state.config.ignore_new_types {
+                } else if state.config.ignore_unknown() {
                     state.unknown_types.insert(prop_type);
                     reader.skip_element()?;
                 } else {

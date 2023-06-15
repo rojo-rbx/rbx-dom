@@ -111,7 +111,7 @@ fn serialize_item<'db, W: io::Write>(
         .ok_or_else(|| ErrorKind::RefNotInDom(referent).err())?;
     let class_name = instance.class.as_str();
 
-    if state.config.strict_class_names {
+    if state.config.check_class_names {
         if let Some(database) = state.config.database {
             if !database.classes.contains_key(class_name) {
                 log::error!("Unknown class: {}", class_name);
@@ -123,43 +123,42 @@ fn serialize_item<'db, W: io::Write>(
     }
     log::debug!("Attempting to serialize Instance {}", referent);
 
-    if state.config.strict_data_types || state.config.strict_property_names {
+    if state.config.migrate_properties {
         if let Some(database) = state.config.database {
             for (canon_name, canon_value) in &instance.properties {
                 if let Some(descriptor) =
                     find_serialized_property_descriptor(database, class_name, canon_name)
                 {
-                    if state.config.strict_data_types {
-                        let serial_type = match descriptor.data_type {
-                            DataType::Value(ty) => ty,
-                            DataType::Enum(_) => VariantType::Enum,
-                            _ => unimplemented!(),
-                        };
-                        if serial_type == canon_value.ty() {
-                            log::debug!(
-                                "Translated {class_name}.{canon_name} to {}",
-                                descriptor.name
-                            );
-                            prop_list.push((descriptor.name.clone(), Cow::Borrowed(canon_value)))
-                        } else {
-                            log::debug!(
-                                "Converting {class_name}.{canon_name} from {:?} to {serial_type:?}",
-                                canon_value.ty()
-                            );
-                            match conversions::convert(canon_value, serial_type) {
-                                Ok(serial_value) => prop_list
-                                    .push((descriptor.name.clone(), Cow::Owned(serial_value))),
-                                Err(error) => {
-                                    log::error!("Could not convert {canon_value:?} to {serial_type:?} because {error}");
-                                    // return Err(ErrorKind::ConversionFail {
-                                    //     class: instance.class.clone(),
-                                    //     name: canon_name.clone(),
-                                    //     from: canon_value.ty(),
-                                    //     to: serial_type,
-                                    //     error,
-                                    // }
-                                    // .err())
-                                }
+                    let serial_type = match descriptor.data_type {
+                        DataType::Value(ty) => ty,
+                        DataType::Enum(_) => VariantType::Enum,
+                        _ => unimplemented!(),
+                    };
+                    if serial_type == canon_value.ty() {
+                        log::debug!(
+                            "Translated {class_name}.{canon_name} to {}",
+                            descriptor.name
+                        );
+                        prop_list.push((descriptor.name.clone(), Cow::Borrowed(canon_value)))
+                    } else {
+                        log::debug!(
+                            "Converting {class_name}.{canon_name} from {:?} to {serial_type:?}",
+                            canon_value.ty()
+                        );
+                        match conversions::convert(canon_value, serial_type) {
+                            Ok(serial_value) => {
+                                prop_list.push((descriptor.name.clone(), Cow::Owned(serial_value)))
+                            }
+                            Err(error) => {
+                                log::error!("Could not convert {canon_value:?} to {serial_type:?} because {error}");
+                                // return Err(ErrorKind::ConversionFail {
+                                //     class: instance.class.clone(),
+                                //     name: canon_name.clone(),
+                                //     from: canon_value.ty(),
+                                //     to: serial_type,
+                                //     error,
+                                // }
+                                // .err())
                             }
                         }
                     }
