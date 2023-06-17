@@ -1,13 +1,13 @@
 use std::{
     borrow::Cow,
-    collections::{BTreeMap, HashMap, HashSet},
+    collections::{BTreeMap, HashMap},
     io,
 };
 
 use base64::Engine;
 
 use rbx_dom_weak::{
-    types::{Ref, SharedString, Variant, VariantType},
+    types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
     WeakDom,
 };
 use rbx_reflection::DataType;
@@ -44,7 +44,7 @@ pub fn serialize_refs<'a, W: io::Write>(
 
     // TODO add a way to preallocate this for the number of Instances in a file
     let mut state = EncodeState {
-        shared_strings: HashSet::new(),
+        shared_strings: BTreeMap::new(),
         ref_map: HashMap::new(),
         ref_strings: Vec::new(),
         next_ref: 0,
@@ -64,10 +64,10 @@ pub fn serialize_refs<'a, W: io::Write>(
         writer.start_element("SharedStrings").finalize()?;
 
         let mut hash_container = String::with_capacity(base64::encoded_len(16, true).unwrap());
-        for sstr in state.shared_strings {
+        for (hash, sstr) in state.shared_strings {
             // For legacy reasons, we have to truncate the hash for shared strings
             base64::prelude::BASE64_STANDARD
-                .encode_string(&sstr.hash().as_bytes()[0..16], &mut hash_container);
+                .encode_string(&hash.as_bytes()[0..16], &mut hash_container);
             writer
                 .start_element("SharedString")
                 .attribute("md5", &hash_container)
@@ -219,7 +219,7 @@ fn serialize_item<'db, W: io::Write>(
                 // We only use the first 16 bytes of the hash for SSTR,
                 // which means it's not impossible we could have a collision
                 // one day.
-                state.shared_strings.insert(sstr.clone());
+                state.shared_strings.insert(sstr.hash(), sstr.clone());
                 data_types::serialize_shared_string(writer, prop_name, sstr.hash().as_bytes())?
             }
             _ => data_types::attempt_serialization(writer, prop_name, prop_value)?,
@@ -240,7 +240,7 @@ fn serialize_item<'db, W: io::Write>(
 }
 
 struct EncodeState<'db> {
-    shared_strings: HashSet<SharedString>,
+    shared_strings: BTreeMap<SharedStringHash, SharedString>,
     ref_map: HashMap<Ref, usize>,
     ref_strings: Vec<String>,
     next_ref: usize,
