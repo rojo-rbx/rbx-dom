@@ -4,16 +4,16 @@ use crate::core::{RbxReadExt, RbxWriteExt};
 fn read_interleaved_bytes() {
     #[rustfmt::skip]
     let mut input: &[u8] = &[
-        00, 00, 00,
-        01, 01, 01,
-        02, 02, 02,
-        03, 03, 03,
-        04, 04, 04,
-        05, 05, 05,
-        06, 06, 06,
-        07, 07, 07,
-        08, 08, 08,
-        09, 09, 09,
+        0, 0, 0,
+        1, 1, 1,
+        2, 2, 2,
+        3, 3, 3,
+        4, 4, 4,
+        5, 5, 5,
+        6, 6, 6,
+        7, 7, 7,
+        8, 8, 8,
+        9, 9, 9,
         10, 10, 10,
         11, 11, 11,
         12, 12, 12,
@@ -36,7 +36,7 @@ fn read_interleaved_bytes() {
 
 #[test]
 fn write_interleaved_bytes() {
-    let mut input: &[[u8; 16]] = &[
+    let input: &[[u8; 16]] = &[
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
@@ -44,16 +44,16 @@ fn write_interleaved_bytes() {
 
     #[rustfmt::skip]
     let expected = &[
-            00, 00, 00,
-            01, 01, 01,
-            02, 02, 02,
-            03, 03, 03,
-            04, 04, 04,
-            05, 05, 05,
-            06, 06, 06,
-            07, 07, 07,
-            08, 08, 08,
-            09, 09, 09,
+            0, 0, 0,
+            1, 1, 1,
+            2, 2, 2,
+            3, 3, 3,
+            4, 4, 4,
+            5, 5, 5,
+            6, 6, 6,
+            7, 7, 7,
+            8, 8, 8,
+            9, 9, 9,
             10, 10, 10,
             11, 11, 11,
             12, 12, 12,
@@ -63,7 +63,7 @@ fn write_interleaved_bytes() {
         ];
 
     let mut result = Vec::new();
-    result.write_interleaved_bytes::<16>(&mut input).unwrap();
+    result.write_interleaved_bytes::<16>(input).unwrap();
 
     assert_eq!(result, expected)
 }
