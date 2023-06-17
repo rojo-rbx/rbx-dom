@@ -52,7 +52,8 @@ pub fn serialize_refs<'a, W: io::Write>(
     };
     let mut prop_list = Vec::new();
 
-    serialize_meta(&mut writer, "ExplicitAutoJoints", "true")?;
+    //TODO determine if we even need to do this anymore
+    // serialize_meta(&mut writer, "ExplicitAutoJoints", "true")?;
 
     for referent in refs {
         serialize_item(&mut writer, &mut state, dom, *referent, &mut prop_list)?;
@@ -293,12 +294,9 @@ mod tests {
             </Item>
         </roblox>
     "#;
-        let dom = crate::from_str(
-            document,
-            Config::with_database(rbx_reflection_database::get()),
-        )
-        .map_err(|e| panic!("could not decode: {}", e))
-        .unwrap();
+        let dom = crate::from_str_default(document)
+            .map_err(|e| panic!("could not decode: {}", e))
+            .unwrap();
         let mut out = Vec::new();
         if let Err(error) = serialize_dom(
             &mut out,
