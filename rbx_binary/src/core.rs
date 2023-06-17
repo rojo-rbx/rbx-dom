@@ -269,9 +269,9 @@ pub trait RbxWriteExt: Write {
     fn write_interleaved_bytes<const N: usize>(&mut self, values: &[[u8; N]]) -> io::Result<()> {
         let len = values.len();
         let mut blob = vec![0; len * N];
-        for (x, bytes) in values.iter().enumerate() {
-            for (y, byte) in bytes.iter().enumerate() {
-                blob[y + x * N] = *byte;
+        for (i, bytes) in values.iter().enumerate() {
+            for (j, byte) in bytes.iter().enumerate() {
+                blob[i + len * j] = *byte;
             }
         }
         self.write_all(&blob)?;
