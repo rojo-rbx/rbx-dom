@@ -208,7 +208,7 @@ fn read_unique_id() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(document, rbx_xml::DecodeConfig::new()).unwrap();
+    let tree = rbx_xml::from_str_default(document).unwrap();
 
     let root = tree.root();
     let child = tree.get_by_ref(root.children()[0]).unwrap();

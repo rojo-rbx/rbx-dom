@@ -124,11 +124,11 @@ use serializer::encode_internal;
 pub use serializer::EncodeError;
 
 use deserializer::decode_internal;
-pub use deserializer::DecodeError;
+pub use deserializer::{DecodeError, DecodeOptions, DecodePropertyBehavior};
 
 /// Decodes an XML-format model or place from something that implements the
 /// `std::io::Read` trait.
-pub fn from_reader<R: Read>(reader: R, config: Config) -> Result<WeakDom, DecodeError> {
+pub fn from_reader<R: Read>(reader: R, config: DecodeOptions) -> Result<WeakDom, DecodeError> {
     decode_internal(BufReader::new(reader), config)
 }
 
@@ -137,13 +137,12 @@ pub fn from_reader<R: Read>(reader: R, config: Config) -> Result<WeakDom, Decode
 pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
     decode_internal(
         reader,
-        Config::with_database(rbx_reflection_database::get()),
+        DecodeOptions::new().database(rbx_reflection_database::get()),
     )
-    // decode_internal(reader, Config::default())
 }
 
 /// Decodes an XML-format model or place from a string.
-pub fn from_str<S: AsRef<str>>(reader: S, config: Config) -> Result<WeakDom, DecodeError> {
+pub fn from_str<S: AsRef<str>>(reader: S, config: DecodeOptions) -> Result<WeakDom, DecodeError> {
     decode_internal(reader.as_ref().as_bytes(), config)
 }
 
@@ -152,9 +151,8 @@ pub fn from_str<S: AsRef<str>>(reader: S, config: Config) -> Result<WeakDom, Dec
 pub fn from_str_default<S: AsRef<str>>(reader: S) -> Result<WeakDom, DecodeError> {
     decode_internal(
         reader.as_ref().as_bytes(),
-        Config::with_database(rbx_reflection_database::get()),
+        DecodeOptions::new().database(rbx_reflection_database::get()),
     )
-    // decode_internal(reader.as_ref().as_bytes(), Config::default())
 }
 
 /// Serializes a subset of the given tree to an XML format model or place,

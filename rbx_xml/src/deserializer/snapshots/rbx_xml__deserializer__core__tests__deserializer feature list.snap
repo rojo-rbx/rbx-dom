@@ -11,6 +11,7 @@ children:
     name: "\"Test Name\""
     class: TestClass
     properties:
+      RefTest: "null"
       TestAxes1:
         Axes: []
       TestAxes2:

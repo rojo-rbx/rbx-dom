@@ -16,7 +16,7 @@ children:
         name: Test Part
         class: Part
         properties:
-          BrickColor:
+          Color:
             Int32: 137
         children: []
 

@@ -8,8 +8,6 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum ConversionError {
-    #[error("no conversion possible")]
-    NoConversion,
     #[error("{0} is not a valid BrickColor")]
     IntToBrickColor(i32),
     #[error("tags contained invalid UTF-8")]
@@ -39,7 +37,7 @@ pub fn convert(from: &mut Variant, to: VariantType) -> Result<(), ConversionErro
                 Attributes::from_reader(bytes).map_err(ConversionError::InvalidAttribute)?,
             )
         }
-        _ => return Err(ConversionError::NoConversion),
+        _ => return Ok(()),
     };
 
     Ok(())

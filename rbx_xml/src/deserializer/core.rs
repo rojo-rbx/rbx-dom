@@ -10,7 +10,8 @@ use rbx_dom_weak::{
 use rbx_reflection::DataType;
 
 use crate::{
-    deserializer::conversions, property_descriptor::find_canonical_property_descriptor, Config,
+    deserializer::conversions, property_descriptor::find_canonical_property_descriptor,
+    DecodeOptions,
 };
 
 use super::{
@@ -19,9 +20,9 @@ use super::{
     reader::{XmlData, XmlReader},
 };
 
-pub(crate) fn deserialize_file<'a, R: BufRead>(
+pub(crate) fn deserialize_file<R: BufRead>(
     mut reader: XmlReader<R>,
-    config: &'a Config<'a>,
+    options: DecodeOptions,
 ) -> Result<WeakDom, DecodeError> {
     log::trace!("beginning file deserialization");
     let mut roblox = reader.expect_start_with_name("roblox")?;
@@ -42,7 +43,7 @@ pub(crate) fn deserialize_file<'a, R: BufRead>(
         ref_properties: Vec::new(),
         sstr_properties: Vec::new(),
         unknown_types: HashSet::new(),
-        config,
+        options,
     };
 
     loop {
@@ -90,12 +91,14 @@ pub(crate) fn deserialize_file<'a, R: BufRead>(
 
     log::debug!("Rewriting Referent properties");
     for (inst_referent, prop_name, prop_value) in state.ref_properties {
-        log::trace!("rewriting {inst_referent}.{prop_name}");
+        log::trace!("rewriting {inst_referent}.{prop_name} (read value = {prop_value})");
         let inst = state.dom.get_by_ref_mut(inst_referent).unwrap();
 
         if inst.properties.get(&prop_name).is_none() {
             if let Some(value) = state.read_refs.get(&prop_value) {
                 inst.properties.insert(prop_name, Variant::Ref(*value));
+            } else {
+                inst.properties.insert(prop_name, Variant::Ref(Ref::none()));
             }
         } else {
             return Err(ErrorKind::DuplicateProperty(prop_name).err());
@@ -104,7 +107,7 @@ pub(crate) fn deserialize_file<'a, R: BufRead>(
 
     log::debug!("Rewriting SharedString properties");
     for (inst_referent, prop_name, prop_value) in state.sstr_properties {
-        log::trace!("rewriting {inst_referent}.{prop_name}");
+        log::trace!("rewriting {inst_referent}.{prop_name} (read value = {prop_value})");
         let inst = state.dom.get_by_ref_mut(inst_referent).unwrap();
 
         if inst.properties.get(&prop_name).is_none() {
@@ -186,15 +189,8 @@ fn deserialize_item<R: BufRead>(
     // Previously, `referent` wasn't required, it now is
     let read_ref = item.get_attribute("referent")?;
 
-    if state.config.check_class_names {
-        if let Some(database) = state.config.database {
-            if !database.classes.contains_key(class.as_str()) {
-                return Err(ErrorKind::UnknownClass(class, read_ref).err());
-            }
-        } else {
-            return Err(ErrorKind::StrictWithoutDatabase("class names").err());
-        }
-    }
+    //TODO check class name against database?
+
     log::debug!("Attempting to deserialize Instance {read_ref} of class {class}");
 
     let real_ref = state.dom.insert(parent, InstanceBuilder::new(class));
@@ -242,53 +238,6 @@ fn deserialize_item<R: BufRead>(
         }
     }
 
-    // TODO make this... less strict?
-    // This fails on impossible conversions, which is actually more restrictive
-    // than what the old rbx_xml did. We'll have to either establish more
-    // migrations or simply ignore any that can't happen.
-    if state.config.migrate_properties {
-        if let Some(database) = state.config.database {
-            for (prop_name, value) in properties.iter_mut() {
-                let class_name = &inst.class;
-                let canonical = find_canonical_property_descriptor(database, class_name, prop_name);
-                match canonical {
-                    Some(descriptor) => {
-                        let canonical_type = match &descriptor.data_type {
-                            DataType::Value(ty) => *ty,
-                            DataType::Enum(_) => VariantType::Enum,
-                            _ => unimplemented!(),
-                        };
-                        if canonical_type != value.ty() {
-                            log::debug!("Attempting to convert {class_name}.{prop_name} to be of type {canonical_type:?} (currently {:?})", value.ty());
-                            if let Err(error) = conversions::convert(value, canonical_type) {
-                                log::error!("Could not convert {value:?} to {canonical_type:?} because {error}");
-                                // return Err(ErrorKind::ConversionFail {
-                                //     class: class_name.clone(),
-                                //     name: prop_name.clone(),
-                                //     from: value.ty(),
-                                //     to: canonical_type,
-                                //     error,
-                                // }
-                                // .err());
-                            }
-                        }
-                    }
-                    None => {
-                        if state.config.error_on_unknown() {
-                            return Err(ErrorKind::UnknownProperty(
-                                class_name.to_owned(),
-                                prop_name.to_owned(),
-                            )
-                            .err());
-                        }
-                    }
-                }
-            }
-        } else {
-            return Err(ErrorKind::StrictWithoutDatabase("properties").err());
-        }
-    }
-
     inst.properties = properties;
 
     state.read_refs.insert(read_ref, real_ref);
@@ -303,6 +252,7 @@ fn deserialize_properties<R: BufRead>(
     properties: &mut HashMap<String, Variant>,
 ) -> Result<(), DecodeError> {
     log::trace!("decoding Properties");
+    let class_name = &state.dom.get_by_ref(referent).unwrap().class;
     reader.expect_start_with_name("Properties")?;
 
     while let Some(Ok(event)) = reader.peek() {
@@ -313,14 +263,12 @@ fn deserialize_properties<R: BufRead>(
                 let prop_type = name.clone();
                 if data_types::is_known_type(&prop_type) {
                     let mut element = reader.expect_start_with_name(&prop_type)?;
-                    let prop_name = element.get_attribute("name")?;
-                    if log::log_enabled!(log::Level::Debug) {
-                        let class_name = &state.dom.get_by_ref(referent).unwrap().class;
-                        log::debug!("Attempting to deserialize property {class_name}.{prop_name} of type {prop_type}");
-                    }
+                    let mut prop_name = element.get_attribute("name")?;
+                    log::trace!("Attempting to deserialize property {class_name}.{prop_name} of type {prop_type}");
 
                     let data_offset = reader.offset();
-                    let variant = match data_types::attempt_deserialization(reader, &prop_type) {
+                    let mut variant = match data_types::attempt_deserialization(reader, &prop_type)
+                    {
                         Ok(v) => v,
                         Err(error) => {
                             return Err(ErrorKind::PropertyNotReadable {
@@ -331,6 +279,41 @@ fn deserialize_properties<R: BufRead>(
                             .err())
                         }
                     };
+
+                    if state.options.use_reflection() {
+                        let database = state.options.database.unwrap();
+                        if let Some(descriptor) =
+                            find_canonical_property_descriptor(database, class_name, &prop_name)
+                        {
+                            if prop_name != descriptor.name {
+                                log::trace!("Renaming from {prop_name} to {}", descriptor.name);
+                                prop_name = descriptor.name.to_string();
+                            }
+                            let canon_type = match descriptor.data_type {
+                                DataType::Value(ty) => ty,
+                                DataType::Enum(_) => VariantType::Enum,
+                                _ => unimplemented!(),
+                            };
+                            let read_type = variant.ty();
+                            if canon_type != read_type {
+                                log::trace!("Converting {class_name}.{prop_name} from {read_type:?} to {canon_type:?}");
+                                if let Err(error) = conversions::convert(&mut variant, canon_type) {
+                                    return Err(ErrorKind::ConversionFail {
+                                        class: class_name.clone(),
+                                        name: prop_name,
+                                        from: read_type,
+                                        to: canon_type,
+                                        error,
+                                    }
+                                    .err());
+                                }
+                            }
+                        } else if !state.options.ignore_unknown() {
+                            return Err(
+                                ErrorKind::UnknownProperty(class_name.clone(), prop_name).err()
+                            );
+                        }
+                    }
 
                     if prop_type == "Ref" {
                         log::trace!("referent property {prop_name} = {variant:?}");
@@ -359,12 +342,12 @@ fn deserialize_properties<R: BufRead>(
                     }
 
                     reader.expect_end_with_name(&prop_type)?;
-                } else if state.config.ignore_unknown() {
-                    state.unknown_types.insert(prop_type);
-                    reader.skip_element()?;
-                } else {
+                } else if state.options.error_on_unknown_type() {
                     log::error!("Unknown property type {prop_type}");
                     return Err(ErrorKind::UnknownType(prop_type).err());
+                } else {
+                    state.unknown_types.insert(prop_type);
+                    reader.skip_element()?;
                 }
             }
             XmlData::ElementEnd { name } if name == "Properties" => {
@@ -413,7 +396,7 @@ struct XmlState<'db> {
     /// This is utilized to ensure an error isn't emitted more than one time
     /// per unknown type.
     unknown_types: HashSet<String>,
-    config: &'db Config<'db>,
+    options: DecodeOptions<'db>,
 }
 
 #[cfg(test)]
@@ -520,7 +503,7 @@ mod tests {
             </roblox>
         "#;
 
-        match deserialize_file(XmlReader::from_str(document), &Default::default()) {
+        match deserialize_file(XmlReader::from_str(document), DecodeOptions::new()) {
             Err(err) => panic!("{}", err),
             Ok(dom) => {
                 insta::assert_yaml_snapshot!(
@@ -538,7 +521,7 @@ mod tests {
         let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
 
         let reader = XmlReader::from_reader(std::io::BufReader::new(file));
-        if let Err(err) = deserialize_file(reader, &Default::default()) {
+        if let Err(err) = deserialize_file(reader, DecodeOptions::new()) {
             panic!("{}", err)
         }
     }
@@ -552,7 +535,7 @@ mod tests {
         let reader = XmlReader::from_reader(std::io::BufReader::new(file));
         if let Err(err) = deserialize_file(
             reader,
-            &Config::with_database(rbx_reflection_database::get()),
+            DecodeOptions::new().database(rbx_reflection_database::get()),
         ) {
             panic!("{}", err)
         }
@@ -580,7 +563,7 @@ mod tests {
 
         match deserialize_file(
             XmlReader::from_str(document),
-            &Config::with_database(rbx_reflection_database::get()),
+            DecodeOptions::new().database(rbx_reflection_database::get()),
         ) {
             Err(err) => panic!("{}", err),
             Ok(dom) => {

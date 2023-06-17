@@ -19,10 +19,6 @@ pub(crate) enum ErrorKind {
     /// An element that the parser doesn't know how to read was encountered.
     #[error("unknown element {0}")]
     UnknownElement(String),
-    /// A 'strict' configuration option was set for the deserializer without
-    /// a database being included.
-    #[error("cannot be strict with {0} without a database")]
-    StrictWithoutDatabase(&'static str),
 
     /// The 'Name' property on an Instance was not a string.
     #[error("property 'Name' must be a string")]
