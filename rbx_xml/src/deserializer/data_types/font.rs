@@ -9,6 +9,10 @@ use crate::deserializer::{
 };
 
 pub fn font_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<Font, DecodeError> {
+    if matches!(reader.peek(), Some(Ok(XmlData::ElementEnd{name})) if name == "Font") {
+        return Ok(Font::default());
+    }
+
     let family = reader
         .read_named_with("Family", content_deserializer)?
         .into_string();
