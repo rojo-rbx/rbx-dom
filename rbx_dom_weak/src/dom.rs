@@ -442,4 +442,37 @@ mod test {
             panic!("UniqueId property must exist and contain a Variant::UniqueId")
         };
     }
+
+    #[test]
+    fn transfer_unique_id_collision() {
+        let desired_unique_id: UniqueId = "0badd00dc0ffee4200133700deadd00d".parse().unwrap();
+
+        let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let other_root_ref = other_dom.root_ref();
+
+        let folder_ref = dom.insert(
+            dom.root_ref(),
+            InstanceBuilder::new("Folder")
+                .with_property("UniqueId", Variant::UniqueId(desired_unique_id)),
+        );
+
+        other_dom.insert(
+            other_root_ref,
+            InstanceBuilder::new("Folder")
+                .with_property("UniqueId", Variant::UniqueId(desired_unique_id)),
+        );
+
+        dom.transfer(folder_ref, &mut other_dom, other_root_ref);
+
+        let folder = other_dom.get_by_ref(folder_ref).unwrap();
+        if let Some(Variant::UniqueId(unique_id)) = folder.properties.get("UniqueId") {
+            assert_ne!(
+                desired_unique_id, *unique_id,
+                "WeakDom::transfer caused a UniqueId collision."
+            )
+        } else {
+            panic!("UniqueId property must exist and contain a Variant::UniqueId")
+        };
+    }
 }
