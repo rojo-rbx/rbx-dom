@@ -21,11 +21,9 @@ pub struct WeakDom {
 impl WeakDom {
     /// Construct a new `WeakDom` described by the given [`InstanceBuilder`].
     pub fn new(builder: InstanceBuilder) -> WeakDom {
-        let root_ref = builder.referent;
-
         let mut dom = WeakDom {
             instances: HashMap::new(),
-            root_ref,
+            root_ref: builder.referent,
             unique_ids: HashSet::new(),
         };
 
