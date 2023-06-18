@@ -380,10 +380,10 @@ mod test {
         let child = dom.get_by_ref(child_ref).unwrap();
         if let Some(Variant::UniqueId(unique_id)) = child.properties.get("UniqueId") {
             assert_ne!(
-            root_unique_id,
-            *unique_id,
-            "child should have a different UniqueId than the root ({root_unique_id}), but it was the same."
-        )
+                root_unique_id,
+                *unique_id,
+                "child should have a different UniqueId than the root ({root_unique_id}), but it was the same."
+            )
         } else {
             panic!("UniqueId property must exist and contain a Variant::UniqueId")
         };
@@ -410,10 +410,10 @@ mod test {
         let child = dom.get_by_ref(child_ref).unwrap();
         if let Some(Variant::UniqueId(unique_id)) = child.properties.get("UniqueId") {
             assert_ne!(
-            parent_unique_id,
-            *unique_id,
-            "child should have a different UniqueId than the parent ({parent_unique_id}), but it was the same."
-        )
+                parent_unique_id,
+                *unique_id,
+                "child should have a different UniqueId than the parent ({parent_unique_id}), but it was the same."
+            )
         } else {
             panic!("UniqueId property must exist and contain a Variant::UniqueId")
         }
@@ -434,10 +434,10 @@ mod test {
         let child = dom.get_by_ref(child_ref).unwrap();
         if let Some(Variant::UniqueId(unique_id)) = child.properties.get("UniqueId") {
             assert_eq!(
-            desired_unique_id,
-            *unique_id,
-            "if there is no collision, UniqueId should remain the same after passing it to WeakDom::insert."
-        )
+                desired_unique_id,
+                *unique_id,
+                "if there is no collision, UniqueId should remain the same after passing it to WeakDom::insert."
+            )
         } else {
             panic!("UniqueId property must exist and contain a Variant::UniqueId")
         };
