@@ -367,11 +367,10 @@ mod test {
         // Should avoid a collision even if dom was created from a builder containing a
         // UniqueId prop at the root
         let mut dom = WeakDom::new(builder);
-        let root_ref = dom.root().referent;
 
         // Try to make a collision!
         let child_ref = dom.insert(
-            root_ref,
+            dom.root_ref(),
             InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
         );
 
@@ -391,10 +390,10 @@ mod test {
     fn unique_id_collision() {
         let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
         let unique_id: UniqueId = UniqueId::now().unwrap();
-        let parent_builder =
-            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id));
-
-        let parent_ref = dom.insert(dom.root_ref(), parent_builder);
+        let parent_ref = dom.insert(
+            dom.root_ref(),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
+        );
 
         // Try to make a collision!
         let child_ref = dom.insert(
@@ -418,10 +417,9 @@ mod test {
     fn unique_id_no_collision() {
         let unique_id = UniqueId::now().unwrap();
         let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
-        let root_ref = dom.root().referent;
 
         let child_ref = dom.insert(
-            root_ref,
+            dom.root_ref(),
             InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
         );
 
@@ -442,7 +440,6 @@ mod test {
         let unique_id = UniqueId::now().unwrap();
         let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
         let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
-        let other_root_ref = other_dom.root_ref();
 
         let folder_ref = dom.insert(
             dom.root_ref(),
@@ -450,10 +447,11 @@ mod test {
         );
 
         other_dom.insert(
-            other_root_ref,
+            other_dom.root_ref(),
             InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
         );
 
+        let other_root_ref = other_dom.root_ref();
         dom.transfer(folder_ref, &mut other_dom, other_root_ref);
 
         let folder = other_dom.get_by_ref(folder_ref).unwrap();
