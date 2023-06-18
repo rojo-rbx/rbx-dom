@@ -254,7 +254,10 @@ impl WeakDom {
     }
 
     fn remove_maybe_forget_uniqueid(&mut self, referent: Ref) -> Instance {
-        let instance = self.instances.remove(&referent).unwrap();
+        let instance = self
+            .instances
+            .remove(&referent)
+            .unwrap_or_else(|| panic!("cannot remove an instance that does not exist"));
 
         if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
             self.unique_ids.remove(unique_id);
