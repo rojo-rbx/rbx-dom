@@ -94,8 +94,8 @@ impl WeakDom {
             );
 
             // We need to ensure that the value of the Instance.UniqueId property does not
-            // collide with another instance. If we *don't* do this, it's possible to to
-            // use WeakDom::insert to insert UniqueId properties that collide with other
+            // collide with another instance. If we *don't* do this, it's possible to use
+            // WeakDom::insert to insert UniqueId properties that collide with other
             // instances in the dom, violating the invariant that every UniqueId is
             // unique.
 
