@@ -98,27 +98,7 @@ impl WeakDom {
             // WeakDom::insert to insert UniqueId properties that collide with other
             // instances in the dom, violating the invariant that every UniqueId is
             // unique.
-
-            // Unwrap is safe because we just inserted this referent into the instance map
-            let instance = self.instances.get_mut(&builder.referent).unwrap();
-            if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
-                if self.unique_ids.contains(unique_id) {
-                    // We found a collision! We need to replace the UniqueId property with
-                    // a new value.
-
-                    // Unwrap is probably ok. Likely not worth making WeakDom::insert
-                    // fallible just because the system clock might be out whack, so
-                    // panicking is fine
-                    let new_unique_id = UniqueId::now().unwrap();
-
-                    self.unique_ids.insert(new_unique_id);
-                    instance
-                        .properties
-                        .insert("UniqueId".to_string(), Variant::UniqueId(new_unique_id));
-                } else {
-                    self.unique_ids.insert(*unique_id);
-                };
-            }
+            self.maybe_regenerate_uniqueid(builder.referent);
 
             if parent.is_some() {
                 self.instances
@@ -217,6 +197,7 @@ impl WeakDom {
         // Bye-bye, instance!
         instance.parent = dest_parent_ref;
         dest.instances.insert(referent, instance);
+        dest.maybe_regenerate_uniqueid(referent);
 
         // Transfer all of the descendants of the moving instance breadth-first.
         while let Some(referent) = to_move.pop_front() {
@@ -228,6 +209,7 @@ impl WeakDom {
 
             to_move.extend(instance.children.iter().copied());
             dest.instances.insert(referent, instance);
+            dest.maybe_regenerate_uniqueid(referent);
         }
 
         // Finally, notify the new parent instance that their adoption is
@@ -274,6 +256,28 @@ impl WeakDom {
             .get_mut(&dest_parent_ref)
             .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
         dest_parent.children.push(referent);
+    }
+
+    fn maybe_regenerate_uniqueid(&mut self, referent: Ref) {
+        // Unwrap is safe because we just inserted this referent into the instance map
+        let instance = self.instances.get_mut(&referent).unwrap();
+        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+            if self.unique_ids.contains(unique_id) {
+                // We found a collision! We need to replace the UniqueId property with
+                // a new value.
+
+                // Unwrap is probably ok. Likely not worth making this method fallible
+                // just because the system clock might be out whack, so panicking is fine
+                let new_unique_id = UniqueId::now().unwrap();
+
+                self.unique_ids.insert(new_unique_id);
+                instance
+                    .properties
+                    .insert("UniqueId".to_string(), Variant::UniqueId(new_unique_id));
+            } else {
+                self.unique_ids.insert(*unique_id);
+            };
+        }
     }
 }
 
