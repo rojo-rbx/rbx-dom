@@ -356,6 +356,39 @@ mod test {
     }
 
     #[test]
+    fn unique_id_collision() {
+        let unique_id = "0badd00dc0ffee4200133700deadd00d";
+        let parent_unique_id: UniqueId = unique_id.parse().unwrap();
+        let parent_builder = InstanceBuilder::new("Folder")
+            .with_property("UniqueId", Variant::UniqueId(parent_unique_id));
+
+        // Should avoid a collision even if dom was created from a builder containing a
+        // UniqueId prop at the root
+        let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let root_ref = dom.root().referent;
+
+        let parent_ref = dom.insert(root_ref, parent_builder);
+
+        // Try to make a collision!
+        let child_ref = dom.insert(
+            parent_ref,
+            InstanceBuilder::new("Folder")
+                .with_property("UniqueId", Variant::UniqueId(parent_unique_id)),
+        );
+
+        let child = dom.get_by_ref(child_ref).unwrap();
+        if let Some(Variant::UniqueId(unique_id)) = child.properties.get("UniqueId") {
+            assert_ne!(
+            parent_unique_id,
+            *unique_id,
+            "child should have a different UniqueId than the parent ({parent_unique_id}), but it was the same."
+        )
+        } else {
+            panic!("UniqueId property must exist and contain a Variant::UniqueId")
+        }
+    }
+
+    #[test]
     fn unique_id_no_collision() {
         let desired_unique_id: UniqueId = "0badd00dc0ffee4200133700deadd00d".parse().unwrap();
         let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
