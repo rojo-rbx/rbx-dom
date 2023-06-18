@@ -362,10 +362,9 @@ mod test {
 
     #[test]
     fn unique_id_collision_weakdom_new() {
-        let unique_id = "0badd00dc0ffee4200133700deadd00d";
-        let root_unique_id: UniqueId = unique_id.parse().unwrap();
-        let builder = InstanceBuilder::new("Folder")
-            .with_property("UniqueId", Variant::UniqueId(root_unique_id));
+        let unique_id: UniqueId = UniqueId::now().unwrap();
+        let builder =
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id));
 
         // Should avoid a collision even if dom was created from a builder containing a
         // UniqueId prop at the root
@@ -375,16 +374,15 @@ mod test {
         // Try to make a collision!
         let child_ref = dom.insert(
             root_ref,
-            InstanceBuilder::new("Folder")
-                .with_property("UniqueId", Variant::UniqueId(root_unique_id)),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
         );
 
         let child = dom.get_by_ref(child_ref).unwrap();
-        if let Some(Variant::UniqueId(unique_id)) = child.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get("UniqueId") {
             assert_ne!(
-                root_unique_id,
-                *unique_id,
-                "child should have a different UniqueId than the root ({root_unique_id}), but it was the same."
+                unique_id,
+                *actual_unique_id,
+                "child should have a different UniqueId than the root ({unique_id}), but it was the same."
             )
         } else {
             panic!("UniqueId property must exist and contain a Variant::UniqueId")
@@ -394,27 +392,24 @@ mod test {
     #[test]
     fn unique_id_collision() {
         let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
-        let root_ref = dom.root().referent;
+        let unique_id: UniqueId = UniqueId::now().unwrap();
+        let parent_builder =
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id));
 
-        let unique_id = "0badd00dc0ffee4200133700deadd00d";
-        let parent_unique_id: UniqueId = unique_id.parse().unwrap();
-        let parent_builder = InstanceBuilder::new("Folder")
-            .with_property("UniqueId", Variant::UniqueId(parent_unique_id));
-        let parent_ref = dom.insert(root_ref, parent_builder);
+        let parent_ref = dom.insert(dom.root_ref(), parent_builder);
 
         // Try to make a collision!
         let child_ref = dom.insert(
             parent_ref,
-            InstanceBuilder::new("Folder")
-                .with_property("UniqueId", Variant::UniqueId(parent_unique_id)),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
         );
 
         let child = dom.get_by_ref(child_ref).unwrap();
-        if let Some(Variant::UniqueId(unique_id)) = child.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get("UniqueId") {
             assert_ne!(
-                parent_unique_id,
-                *unique_id,
-                "child should have a different UniqueId than the parent ({parent_unique_id}), but it was the same."
+                unique_id,
+                *actual_unique_id,
+                "child should have a different UniqueId than the parent ({unique_id}), but it was the same."
             )
         } else {
             panic!("UniqueId property must exist and contain a Variant::UniqueId")
@@ -423,21 +418,20 @@ mod test {
 
     #[test]
     fn unique_id_no_collision() {
-        let desired_unique_id: UniqueId = "0badd00dc0ffee4200133700deadd00d".parse().unwrap();
+        let unique_id = UniqueId::now().unwrap();
         let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
         let root_ref = dom.root().referent;
 
         let child_ref = dom.insert(
             root_ref,
-            InstanceBuilder::new("Folder")
-                .with_property("UniqueId", Variant::UniqueId(desired_unique_id)),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
         );
 
         let child = dom.get_by_ref(child_ref).unwrap();
-        if let Some(Variant::UniqueId(unique_id)) = child.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get("UniqueId") {
             assert_eq!(
-                desired_unique_id,
-                *unique_id,
+                unique_id,
+                *actual_unique_id,
                 "if there is no collision, UniqueId should remain the same after passing it to WeakDom::insert."
             )
         } else {
@@ -446,31 +440,28 @@ mod test {
     }
 
     #[test]
-    fn transfer_unique_id_collision() {
-        let desired_unique_id: UniqueId = "0badd00dc0ffee4200133700deadd00d".parse().unwrap();
-
+    fn unique_id_collision_transfer() {
+        let unique_id = UniqueId::now().unwrap();
         let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
         let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
         let other_root_ref = other_dom.root_ref();
 
         let folder_ref = dom.insert(
             dom.root_ref(),
-            InstanceBuilder::new("Folder")
-                .with_property("UniqueId", Variant::UniqueId(desired_unique_id)),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
         );
 
         other_dom.insert(
             other_root_ref,
-            InstanceBuilder::new("Folder")
-                .with_property("UniqueId", Variant::UniqueId(desired_unique_id)),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
         );
 
         dom.transfer(folder_ref, &mut other_dom, other_root_ref);
 
         let folder = other_dom.get_by_ref(folder_ref).unwrap();
-        if let Some(Variant::UniqueId(unique_id)) = folder.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(actual_unique_id)) = folder.properties.get("UniqueId") {
             assert_ne!(
-                desired_unique_id, *unique_id,
+                unique_id, *actual_unique_id,
                 "WeakDom::transfer caused a UniqueId collision."
             )
         } else {
