@@ -354,4 +354,28 @@ mod test {
             panic!("UniqueId property must exist and contain a Variant::UniqueId")
         };
     }
+
+    #[test]
+    fn unique_id_no_collision() {
+        let desired_unique_id: UniqueId = "0badd00dc0ffee4200133700deadd00d".parse().unwrap();
+        let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let root_ref = dom.root().referent;
+
+        let child_ref = dom.insert(
+            root_ref,
+            InstanceBuilder::new("Folder")
+                .with_property("UniqueId", Variant::UniqueId(desired_unique_id)),
+        );
+
+        let child = dom.get_by_ref(child_ref).unwrap();
+        if let Some(Variant::UniqueId(unique_id)) = child.properties.get("UniqueId") {
+            assert_eq!(
+            desired_unique_id,
+            *unique_id,
+            "if there is no collision, UniqueId should remain the same after passing it to WeakDom::insert."
+        )
+        } else {
+            panic!("UniqueId property must exist and contain a Variant::UniqueId")
+        };
+    }
 }
