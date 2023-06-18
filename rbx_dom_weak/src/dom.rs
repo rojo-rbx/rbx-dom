@@ -124,7 +124,10 @@ impl WeakDom {
             panic!("cannot destroy the root instance of a WeakDom");
         }
 
-        let instance = self.remove_maybe_forget_uniqueid(referent);
+        let instance = self
+            .instances
+            .get(&referent)
+            .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
 
         let parent_ref = instance.parent;
         let parent = self.instances.get_mut(&parent_ref).unwrap();
