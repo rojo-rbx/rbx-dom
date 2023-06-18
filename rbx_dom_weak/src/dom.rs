@@ -248,6 +248,7 @@ mod test {
     use super::*;
 
     use crate::DomViewer;
+    use rbx_types::{UniqueId, Variant};
 
     #[test]
     fn transfer() {
@@ -321,5 +322,36 @@ mod test {
             refs.push(base.referent());
         }
         let _ = WeakDom::new(base);
+    }
+
+    #[test]
+    fn unique_id_collision_weakdom_new() {
+        let unique_id = "0badd00dc0ffee4200133700deadd00d";
+        let root_unique_id: UniqueId = unique_id.parse().unwrap();
+        let builder = InstanceBuilder::new("Folder")
+            .with_property("UniqueId", Variant::UniqueId(root_unique_id));
+
+        // Should avoid a collision even if dom was created from a builder containing a
+        // UniqueId prop at the root
+        let mut dom = WeakDom::new(builder);
+        let root_ref = dom.root().referent;
+
+        // Try to make a collision!
+        let child_ref = dom.insert(
+            root_ref,
+            InstanceBuilder::new("Folder")
+                .with_property("UniqueId", Variant::UniqueId(root_unique_id)),
+        );
+
+        let child = dom.get_by_ref(child_ref).unwrap();
+        if let Some(Variant::UniqueId(unique_id)) = child.properties.get("UniqueId") {
+            assert_ne!(
+            root_unique_id,
+            *unique_id,
+            "child should have a different UniqueId than the root ({root_unique_id}), but it was the same."
+        )
+        } else {
+            panic!("UniqueId property must exist and contain a Variant::UniqueId")
+        };
     }
 }
