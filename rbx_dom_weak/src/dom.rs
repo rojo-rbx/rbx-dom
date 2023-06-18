@@ -1,6 +1,6 @@
-use std::collections::{HashMap, VecDeque};
+use std::collections::{HashMap, HashSet, VecDeque};
 
-use rbx_types::Ref;
+use rbx_types::{Ref, UniqueId, Variant};
 
 use crate::instance::{Instance, InstanceBuilder};
 
@@ -15,6 +15,7 @@ use crate::instance::{Instance, InstanceBuilder};
 pub struct WeakDom {
     instances: HashMap<Ref, Instance>,
     root_ref: Ref,
+    unique_ids: HashSet<UniqueId>,
 }
 
 impl WeakDom {
@@ -38,6 +39,7 @@ impl WeakDom {
         let mut dom = WeakDom {
             instances,
             root_ref,
+            unique_ids: HashSet::new(),
         };
 
         for child in builder.children {
@@ -106,6 +108,34 @@ impl WeakDom {
                     properties: builder.properties,
                 },
             );
+
+            // We need to ensure that the value of the Instance.UniqueId property does not
+            // collide with another instance. If we *don't* do this, it's possible to to
+            // use WeakDom::insert to insert UniqueId properties that collide with other
+            // instances in the dom, violating the invariant that every UniqueId is
+            // unique.
+
+            // Unwrap is safe because we just inserted this referent into the instance map
+            let instance = self.instances.get_mut(&builder.referent).unwrap();
+            if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+                if self.unique_ids.contains(unique_id) {
+                    // We found a collision! We need to replace the UniqueId property with
+                    // a new value.
+
+                    // Unwrap is probably ok. Likely not worth making WeakDom::insert
+                    // fallible just because the system clock might be out whack, so
+                    // panicking is fine
+                    let new_unique_id = UniqueId::now().unwrap();
+
+                    self.unique_ids.insert(new_unique_id);
+                    instance
+                        .properties
+                        .insert("UniqueId".to_string(), Variant::UniqueId(new_unique_id));
+                } else {
+                    self.unique_ids.insert(*unique_id);
+                };
+            }
+
             self.instances
                 .get_mut(&parent)
                 .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"))
