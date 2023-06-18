@@ -153,6 +153,10 @@ impl WeakDom {
             .get(&referent)
             .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
 
+        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+            self.unique_ids.remove(unique_id);
+        }
+
         let parent_ref = instance.parent;
         let parent = self.instances.get_mut(&parent_ref).unwrap();
         parent.children.retain(|&child| child != referent);
@@ -162,6 +166,11 @@ impl WeakDom {
 
         while let Some(referent) = to_remove.pop_front() {
             let instance = self.instances.remove(&referent).unwrap();
+
+            if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+                self.unique_ids.remove(unique_id);
+            }
+
             to_remove.extend(instance.children);
         }
     }
@@ -188,6 +197,10 @@ impl WeakDom {
             .remove(&referent)
             .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
 
+        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+            self.unique_ids.remove(unique_id);
+        }
+
         // Remove the instance being moved from its parent's list of children.
         // If we care about panic tolerance in the future, doing this first is
         // important to ensure this link is the one severed first.
@@ -208,6 +221,11 @@ impl WeakDom {
         // Transfer all of the descendants of the moving instance breadth-first.
         while let Some(referent) = to_move.pop_front() {
             let instance = self.instances.remove(&referent).unwrap();
+
+            if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+                self.unique_ids.remove(unique_id);
+            }
+
             to_move.extend(instance.children.iter().copied());
             dest.instances.insert(referent, instance);
         }
