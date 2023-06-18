@@ -124,14 +124,7 @@ impl WeakDom {
             panic!("cannot destroy the root instance of a WeakDom");
         }
 
-        let instance = self
-            .instances
-            .get(&referent)
-            .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
-
-        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
-            self.unique_ids.remove(unique_id);
-        }
+        let instance = self.remove_maybe_forget_uniqueid(referent);
 
         let parent_ref = instance.parent;
         let parent = self.instances.get_mut(&parent_ref).unwrap();
@@ -141,12 +134,7 @@ impl WeakDom {
         to_remove.push_back(referent);
 
         while let Some(referent) = to_remove.pop_front() {
-            let instance = self.instances.remove(&referent).unwrap();
-
-            if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
-                self.unique_ids.remove(unique_id);
-            }
-
+            let instance = self.remove_maybe_forget_uniqueid(referent);
             to_remove.extend(instance.children);
         }
     }
@@ -168,14 +156,7 @@ impl WeakDom {
             panic!("cannot transfer the root instance of WeakDom");
         }
 
-        let mut instance = self
-            .instances
-            .remove(&referent)
-            .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
-
-        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
-            self.unique_ids.remove(unique_id);
-        }
+        let mut instance = self.remove_maybe_forget_uniqueid(referent);
 
         // Remove the instance being moved from its parent's list of children.
         // If we care about panic tolerance in the future, doing this first is
@@ -196,11 +177,7 @@ impl WeakDom {
 
         // Transfer all of the descendants of the moving instance breadth-first.
         while let Some(referent) = to_move.pop_front() {
-            let instance = self.instances.remove(&referent).unwrap();
-
-            if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
-                self.unique_ids.remove(unique_id);
-            }
+            let instance = self.remove_maybe_forget_uniqueid(referent);
 
             to_move.extend(instance.children.iter().copied());
             dest.insert_maybe_regenerate_uniqueid(referent, instance);
@@ -274,6 +251,16 @@ impl WeakDom {
                 self.unique_ids.insert(*unique_id);
             };
         }
+    }
+
+    fn remove_maybe_forget_uniqueid(&mut self, referent: Ref) -> Instance {
+        let instance = self.instances.remove(&referent).unwrap();
+
+        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+            self.unique_ids.remove(unique_id);
+        }
+
+        instance
     }
 }
 
