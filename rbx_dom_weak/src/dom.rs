@@ -391,16 +391,13 @@ mod test {
 
     #[test]
     fn unique_id_collision() {
+        let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let root_ref = dom.root().referent;
+
         let unique_id = "0badd00dc0ffee4200133700deadd00d";
         let parent_unique_id: UniqueId = unique_id.parse().unwrap();
         let parent_builder = InstanceBuilder::new("Folder")
             .with_property("UniqueId", Variant::UniqueId(parent_unique_id));
-
-        // Should avoid a collision even if dom was created from a builder containing a
-        // UniqueId prop at the root
-        let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
-        let root_ref = dom.root().referent;
-
         let parent_ref = dom.insert(root_ref, parent_builder);
 
         // Try to make a collision!
