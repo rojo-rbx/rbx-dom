@@ -23,29 +23,13 @@ impl WeakDom {
     pub fn new(builder: InstanceBuilder) -> WeakDom {
         let root_ref = builder.referent;
 
-        let mut instances = HashMap::new();
-        instances.insert(
-            root_ref,
-            Instance {
-                referent: root_ref,
-                children: Vec::with_capacity(builder.children.len()),
-                parent: Ref::none(),
-                name: builder.name,
-                class: builder.class,
-                properties: builder.properties,
-            },
-        );
-
         let mut dom = WeakDom {
-            instances,
+            instances: HashMap::new(),
             root_ref,
             unique_ids: HashSet::new(),
         };
 
-        for child in builder.children {
-            dom.insert(root_ref, child);
-        }
-
+        dom.insert(Ref::none(), builder);
         dom
     }
 
@@ -136,11 +120,13 @@ impl WeakDom {
                 };
             }
 
-            self.instances
-                .get_mut(&parent)
-                .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"))
-                .children
-                .push(builder.referent);
+            if parent.is_some() {
+                self.instances
+                    .get_mut(&parent)
+                    .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"))
+                    .children
+                    .push(builder.referent);
+            }
 
             for child in builder.children {
                 queue.push_back((builder.referent, child));
