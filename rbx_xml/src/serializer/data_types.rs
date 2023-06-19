@@ -1,3 +1,4 @@
+mod binary_string;
 mod ray;
 mod simple_types;
 mod vectors;
@@ -9,6 +10,7 @@ use rbx_dom_weak::types::Variant;
 
 use super::error::{EncodeError, ErrorKind};
 
+use binary_string::{attributes_serializer, tags_serializer};
 use ray::ray_serializer;
 use simple_types::{
     binary_string_serializer, bool_serializer, f32_serializer, f64_serializer, i32_serializer,
@@ -105,6 +107,8 @@ macro_rules! serializers {
 }
 
 serializers! {
+    Tags: "BinaryString" => tags_serializer,
+    Attributes: "BinaryString" => attributes_serializer,
     String: "string" => string_serializer,
     BinaryString: "BinaryString" => binary_string_serializer,
     Bool: "bool" => bool_serializer,

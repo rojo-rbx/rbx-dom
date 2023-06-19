@@ -51,6 +51,8 @@ pub(crate) enum ErrorKind {
     /// An IO error occured while serializing a file.
     #[error("IO error was encountered: {0}")]
     Io(#[from] std::io::Error),
+    #[error("cannot serialize type because {0}")]
+    RbxType(#[from] rbx_dom_weak::types::Error),
 }
 
 impl ErrorKind {
