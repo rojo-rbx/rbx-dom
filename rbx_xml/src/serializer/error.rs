@@ -13,8 +13,8 @@ pub struct EncodeError(Box<ErrorKind>);
 #[derive(Debug, Error)]
 pub(crate) enum ErrorKind {
     /// A property with a type that's not known to the serializer was passed.
-    #[error("could not serialize property of type '{0:?}'")]
-    UnknownType(VariantType),
+    #[error("could not serialize property {0} of type '{1:?}'")]
+    UnknownType(String, VariantType),
     #[error("type {0:?} cannot be serialized without a state")]
     TypeNeedsState(VariantType),
     #[error("cannot be strict with {0} without a database")]

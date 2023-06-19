@@ -50,6 +50,15 @@ pub fn serialize_shared_string<W: io::Write>(
 
 macro_rules! serializers {
     ($($name:ident: $elem:literal => $serializer:path),*$(,)?) => {
+        pub fn is_known_type(value: &Variant) -> bool {
+            match value {
+                $(
+                    Variant::$name(_) => true,
+                )*
+                _ => false,
+            }
+        }
+
         pub fn try_serialize_value<W: io::Write>(
             writer: &mut XmlWriter<W>,
             value: &Variant,
@@ -61,7 +70,6 @@ macro_rules! serializers {
                 $(
                     Variant::$name(v) => $serializer(writer, v),
                 )*
-                // _ => Err(ErrorKind::UnknownType(value.ty()).err()),
                 _ => Ok(()),
             }
         }
@@ -79,7 +87,6 @@ macro_rules! serializers {
                 $(
                     Variant::$name(_) => $elem,
                 )*
-                // _ => return Err(ErrorKind::UnknownType(prop_value.ty()).err()),
                 _ => return Ok(())
             };
             log::trace!("serializing with element name {element_name}");

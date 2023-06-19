@@ -17,23 +17,24 @@ use crate::{property_descriptor::find_serialized_property_descriptor, Config};
 use super::{
     conversions, data_types,
     error::{EncodeError, ErrorKind},
+    EncodeOptions,
 };
 
 use super::writer::XmlWriter;
 
-pub fn serialize_dom<'a, W: io::Write>(
+pub fn serialize_dom<W: io::Write>(
     output: &mut W,
     dom: &WeakDom,
-    config: &'a Config,
+    options: EncodeOptions,
 ) -> Result<(), EncodeError> {
-    serialize_refs(output, dom, dom.root().children(), config)
+    serialize_refs(output, dom, dom.root().children(), options)
 }
 
-pub fn serialize_refs<'a, W: io::Write>(
+pub fn serialize_refs<W: io::Write>(
     output: &mut W,
     dom: &WeakDom,
     refs: &[Ref],
-    config: &'a Config<'a>,
+    options: EncodeOptions,
 ) -> Result<(), EncodeError> {
     let mut writer = XmlWriter::new(output, Some((b' ', 2)));
 
@@ -48,7 +49,7 @@ pub fn serialize_refs<'a, W: io::Write>(
         ref_map: HashMap::new(),
         ref_strings: Vec::new(),
         next_ref: 0,
-        config,
+        options,
     };
     let mut prop_list = Vec::new();
 
@@ -112,63 +113,58 @@ fn serialize_item<'db, W: io::Write>(
         .ok_or_else(|| ErrorKind::RefNotInDom(referent).err())?;
     let class_name = instance.class.as_str();
 
-    if state.config.check_class_names {
-        if let Some(database) = state.config.database {
-            if !database.classes.contains_key(class_name) {
-                log::error!("Unknown class: {}", class_name);
-                return Err(ErrorKind::UnknownClass(class_name.to_owned()).err());
-            }
-        } else {
-            return Err(ErrorKind::StrictWithoutDatabase("class names").err());
-        }
-    }
+    // TODO check Instance class names?
     log::debug!("Attempting to serialize Instance {}", referent);
 
-    if state.config.migrate_properties {
-        if let Some(database) = state.config.database {
-            for (canon_name, canon_value) in &instance.properties {
-                if let Some(descriptor) =
-                    find_serialized_property_descriptor(database, class_name, canon_name)
-                {
-                    let serial_type = match descriptor.data_type {
-                        DataType::Value(ty) => ty,
-                        DataType::Enum(_) => VariantType::Enum,
-                        _ => unimplemented!(),
-                    };
-                    if serial_type == canon_value.ty() {
-                        log::debug!(
-                            "Translated {class_name}.{canon_name} to {}",
-                            descriptor.name
-                        );
-                        prop_list.push((descriptor.name.clone(), Cow::Borrowed(canon_value)))
-                    } else {
-                        log::debug!(
-                            "Converting {class_name}.{canon_name} from {:?} to {serial_type:?}",
-                            canon_value.ty()
-                        );
-                        match conversions::convert(canon_value, serial_type) {
-                            Ok(serial_value) => {
-                                prop_list.push((descriptor.name.clone(), Cow::Owned(serial_value)))
+    if state.options.use_reflection() {
+        let database = state.options.database.unwrap();
+        for (canon_name, canon_value) in &instance.properties {
+            log::trace!("visiting {canon_name} with the reflection database");
+            if let Some(descriptor) =
+                find_serialized_property_descriptor(database, class_name, canon_name)
+            {
+                let serial_name = if canon_name.as_str() != descriptor.name {
+                    log::trace!("renaming {canon_name} to {}", descriptor.name);
+                    descriptor.name.clone()
+                } else {
+                    Cow::Borrowed(canon_name.as_str())
+                };
+                let canon_type = canon_value.ty();
+                let serial_type = match descriptor.data_type {
+                    DataType::Value(ty) => ty,
+                    DataType::Enum(_) => VariantType::Enum,
+                    _ => unimplemented!(),
+                };
+                if canon_type != serial_type {
+                    log::trace!(
+                        "converting {class_name}.{serial_name} from {canon_type:?} to {serial_type:?}"
+                    );
+                    match conversions::convert(Cow::Borrowed(canon_value), serial_type) {
+                        Ok(serial_value) => prop_list.push((serial_name, serial_value)),
+                        Err(error) => {
+                            return Err(ErrorKind::ConversionFail {
+                                class: class_name.into(),
+                                name: serial_name.to_string(),
+                                from: canon_type,
+                                to: serial_type,
+                                error,
                             }
-                            Err(error) => {
-                                log::error!("Could not convert {canon_value:?} to {serial_type:?} because {error}");
-                                // return Err(ErrorKind::ConversionFail {
-                                //     class: instance.class.clone(),
-                                //     name: canon_name.clone(),
-                                //     from: canon_value.ty(),
-                                //     to: serial_type,
-                                //     error,
-                                // }
-                                // .err())
-                            }
+                            .err())
                         }
                     }
                 } else {
-                    // this could indicate there's no rewrite needed
-                    // or that we don't know about it so unfortunately
-                    // we can't assume anything :(
-                    prop_list.push((Cow::Borrowed(canon_name), Cow::Borrowed(canon_value)))
+                    prop_list.push((serial_name, Cow::Borrowed(canon_value)))
                 }
+            } else if !state.options.ignore_unknown() {
+                return Err(
+                    ErrorKind::UnknownProperty(class_name.into(), canon_name.clone()).err(),
+                );
+            } else {
+                log::trace!("unknown property {canon_name}");
+                prop_list.push((
+                    Cow::Borrowed(canon_name.as_str()),
+                    Cow::Borrowed(canon_value),
+                ));
             }
         }
     } else {
@@ -222,7 +218,15 @@ fn serialize_item<'db, W: io::Write>(
                 state.shared_strings.insert(sstr.hash(), sstr.clone());
                 data_types::serialize_shared_string(writer, prop_name, sstr.hash().as_bytes())?
             }
-            _ => data_types::attempt_serialization(writer, prop_name, prop_value)?,
+            _ => {
+                if data_types::is_known_type(prop_value) {
+                    data_types::attempt_serialization(writer, prop_name, prop_value)?
+                } else if state.options.unknown_type_err {
+                    return Err(
+                        ErrorKind::UnknownType(prop_name.to_string(), prop_value.ty()).err(),
+                    );
+                }
+            }
         }
     }
     writer.end_element("Properties")?;
@@ -244,7 +248,7 @@ struct EncodeState<'db> {
     ref_map: HashMap<Ref, usize>,
     ref_strings: Vec<String>,
     next_ref: usize,
-    config: &'db Config<'db>,
+    options: EncodeOptions<'db>,
 }
 
 impl<'db> EncodeState<'db> {
@@ -301,7 +305,7 @@ mod tests {
         if let Err(error) = serialize_dom(
             &mut out,
             &dom,
-            &Config::with_database(rbx_reflection_database::get()),
+            EncodeOptions::new().database(rbx_reflection_database::get()),
         ) {
             panic!("{}", error);
         }
@@ -368,7 +372,11 @@ mod tests {
     "#;
         let dom = crate::from_str_default(document).unwrap();
         let mut out = Vec::new();
-        if let Err(error) = serialize_dom(&mut out, &dom, &Config::new()) {
+        if let Err(error) = serialize_dom(
+            &mut out,
+            &dom,
+            EncodeOptions::new().database(rbx_reflection_database::get()),
+        ) {
             panic!("{}", error);
         }
 
@@ -383,7 +391,11 @@ mod tests {
 
         let dom = crate::from_reader_default(file).unwrap();
         let mut out: Vec<u8> = Vec::new();
-        match serialize_dom(&mut out, &dom, &Config::default()) {
+        match serialize_dom(
+            &mut out,
+            &dom,
+            EncodeOptions::new().database(rbx_reflection_database::get()),
+        ) {
             Err(err) => panic!("{}", err),
             Ok(_) => {
                 let dom2 = crate::from_reader_default(out.as_slice()).unwrap();

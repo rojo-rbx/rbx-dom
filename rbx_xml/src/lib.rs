@@ -121,15 +121,15 @@ use rbx_dom_weak::{types::Ref, WeakDom};
 use rbx_reflection::ReflectionDatabase;
 
 use serializer::encode_internal;
-pub use serializer::EncodeError;
+pub use serializer::{EncodeError, EncodeOptions, EncodePropertyBehavior};
 
 use deserializer::decode_internal;
 pub use deserializer::{DecodeError, DecodeOptions, DecodePropertyBehavior};
 
 /// Decodes an XML-format model or place from something that implements the
 /// `std::io::Read` trait.
-pub fn from_reader<R: Read>(reader: R, config: DecodeOptions) -> Result<WeakDom, DecodeError> {
-    decode_internal(BufReader::new(reader), config)
+pub fn from_reader<R: Read>(reader: R, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
+    decode_internal(BufReader::new(reader), options)
 }
 
 /// Decodes an XML-format model or place from something that implements the
@@ -142,8 +142,8 @@ pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
 }
 
 /// Decodes an XML-format model or place from a string.
-pub fn from_str<S: AsRef<str>>(reader: S, config: DecodeOptions) -> Result<WeakDom, DecodeError> {
-    decode_internal(reader.as_ref().as_bytes(), config)
+pub fn from_str<S: AsRef<str>>(reader: S, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
+    decode_internal(reader.as_ref().as_bytes(), options)
 }
 
 /// Decodes an XML-format model or place from a string using the default decoder
@@ -161,9 +161,9 @@ pub fn to_writer<W: Write>(
     writer: &mut W,
     tree: &WeakDom,
     ids: &[Ref],
-    config: Config,
+    options: EncodeOptions,
 ) -> Result<(), EncodeError> {
-    encode_internal(writer, tree, ids, config)
+    encode_internal(writer, tree, ids, options)
 }
 
 /// Serializes a subset of the given tree to an XML format model or place,
@@ -178,9 +178,8 @@ pub fn to_writer_default<W: Write>(
         writer,
         tree,
         ids,
-        Config::with_database(rbx_reflection_database::get()),
+        EncodeOptions::new().database(rbx_reflection_database::get()),
     )
-    // encode_internal(writer, tree, ids, Config::default())
 }
 
 #[derive(Debug, Clone, Default)]
