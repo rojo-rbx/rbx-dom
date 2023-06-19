@@ -79,6 +79,12 @@ impl<W: io::Write> XmlWriter<W> {
         Ok(())
     }
 
+    /// Writes a given Roblox value with a specific name.
+    /// Callers should be mindful of passing references that may be copied
+    /// automatically if performance is important.
+    ///
+    /// As an example, `CFrame` is `Copy` so passing `&CFrame` into this
+    /// function would result in the value being dereferenced and thus copied.
     pub fn write_rbx(&mut self, name: &str, value: impl Into<Variant>) -> Result<(), EncodeError> {
         self.inner
             .write_event(Event::Start(BytesStart::new(name)))?;

@@ -1,10 +1,8 @@
 use std::io;
 
-use rbx_dom_weak::types::BinaryString;
+use rbx_dom_weak::types::{BinaryString, Content};
 
-use super::XmlWriter;
-
-use crate::EncodeError;
+use super::{EncodeError, XmlWriter};
 
 pub fn string_serializer<W: io::Write>(
     writer: &mut XmlWriter<W>,
@@ -75,5 +73,18 @@ pub fn f64_serializer<W: io::Write>(
         writer.write_text("-INF")
     } else {
         writer.write_text(&value.to_string())
+    }
+}
+
+pub fn content_serializer<W: io::Write>(
+    writer: &mut XmlWriter<W>,
+    value: &Content,
+) -> Result<(), EncodeError> {
+    // FIXME: Content should have method for taking it as a &str
+    let str: &str = value.as_ref();
+    if str.is_empty() {
+        writer.write_element("null", "")
+    } else {
+        writer.write_element("url", str)
     }
 }

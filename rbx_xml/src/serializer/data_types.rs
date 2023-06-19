@@ -1,6 +1,16 @@
 mod binary_string;
+mod bitfield;
+mod cframe;
+mod colors;
+mod font;
+mod option;
+mod physical_properties;
 mod ray;
+mod rect;
+mod sequences;
 mod simple_types;
+mod udims;
+mod unique_id;
 mod vectors;
 
 use std::io;
@@ -11,11 +21,21 @@ use rbx_dom_weak::types::Variant;
 use super::error::{EncodeError, ErrorKind};
 
 use binary_string::{attributes_serializer, tags_serializer};
+use bitfield::{axes_serializer, faces_serializer};
+use cframe::cframe_serializer;
+use colors::{color3_serializer, color3uint8_serializer};
+use font::font_serializer;
+use option::optional_cframe_serializer;
+use physical_properties::physical_properties_serializer;
 use ray::ray_serializer;
+use rect::rect_serializer;
+use sequences::{color_sequence_serializer, number_range_serializer, number_sequence_serializer};
 use simple_types::{
-    binary_string_serializer, bool_serializer, f32_serializer, f64_serializer, i32_serializer,
-    i64_serializer, string_serializer,
+    binary_string_serializer, bool_serializer, content_serializer, f32_serializer, f64_serializer,
+    i32_serializer, i64_serializer, string_serializer,
 };
+use udims::{udim2_serializer, udim_serializer};
+use unique_id::unique_id_serializer;
 use vectors::{vector2_serializer, vector3_serializer, vector3int16_serializer};
 
 pub fn serialize_ref<W: io::Write>(
@@ -106,6 +126,7 @@ macro_rules! serializers {
     };
 }
 
+// TODO validate tag names
 serializers! {
     Tags: "BinaryString" => tags_serializer,
     Attributes: "BinaryString" => attributes_serializer,
@@ -120,4 +141,20 @@ serializers! {
     Vector2: "Vector2" => vector2_serializer,
     Vector3int16: "Vector3int16" => vector3int16_serializer,
     Ray: "Ray" => ray_serializer,
+    Faces: "Faces" => faces_serializer,
+    Axes: "Axes" => axes_serializer,
+    CFrame: "CFrame" => cframe_serializer,
+    ColorSequence: "ColorSequence" => color_sequence_serializer,
+    NumberSequence: "NumberSequence" => number_sequence_serializer,
+    NumberRange: "NumberRaneg" => number_range_serializer,
+    Color3: "Color3" => color3_serializer,
+    Color3uint8: "Color3uint8" => color3uint8_serializer,
+    UDim: "UDim" => udim_serializer,
+    UDim2: "UDim2" => udim2_serializer,
+    UniqueId: "UniqueId" => unique_id_serializer,
+    Content: "Content" => content_serializer,
+    Font: "Font" => font_serializer,
+    Rect: "Rect2D" => rect_serializer,
+    PhysicalProperties: "PhysicalProperties" => physical_properties_serializer,
+    OptionalCFrame: "OptionalCoordinateFrame" => optional_cframe_serializer,
 }
