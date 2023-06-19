@@ -14,6 +14,7 @@ pub fn font_serializer<W: io::Write>(
     // serializing here or just clone the Strings. Cloning is the better
     // option to me since it makes fixing it faster in the future.
     writer.write_rbx("Family", Content::from(value.family.clone()))?;
+    writer.write_element("Weight", value.weight.as_u16())?;
     writer.write_element(
         "Style",
         match &value.style {
