@@ -231,14 +231,14 @@ fn serialize_item<'db, W: io::Write>(
     }
     writer.end_element("Properties")?;
 
-    writer.end_element("Item")?;
-
     prop_list.clear();
 
     log::trace!("Serializing children of Instance {}", instance.referent());
     for child_ref in instance.children() {
         serialize_item(writer, state, dom, *child_ref, prop_list)?;
     }
+
+    writer.end_element("Item")?;
 
     Ok(())
 }
@@ -390,6 +390,7 @@ mod tests {
         let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
 
         let dom = crate::from_reader_default(file).unwrap();
+        // insta::assert_yaml_snapshot!("deserialize crossroads", DomViewer::new().view(&dom));
         let mut out: Vec<u8> = Vec::new();
         match serialize_dom(
             &mut out,
@@ -398,6 +399,7 @@ mod tests {
         ) {
             Err(err) => panic!("{}", err),
             Ok(_) => {
+                std::fs::write("crossroads_ser.rbxlx", &out).unwrap();
                 let dom2 = crate::from_reader_default(out.as_slice()).unwrap();
                 // insta::assert_yaml_snapshot!("serialize crossroads", DomViewer::new().view(&dom2))
             }
