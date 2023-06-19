@@ -79,12 +79,7 @@ impl WeakDom {
         queue.push_back((parent_ref, root_builder));
 
         while let Some((parent, builder)) = queue.pop_front() {
-            self.insert_maybe_regenerate_uniqueid(
-                // We need to ensure that the value of the Instance.UniqueId property does
-                // not collide with another instance. If it does, we must regenerate
-                // it. If we *don't* do this, it's possible to use WeakDom::insert to
-                // insert UniqueId properties that collide with other instances in the
-                // dom, violating the invariant that every UniqueId is unique.
+            self.inner_insert(
                 builder.referent,
                 Instance {
                     referent: builder.referent,
@@ -137,7 +132,7 @@ impl WeakDom {
         to_remove.push_back(referent);
 
         while let Some(referent) = to_remove.pop_front() {
-            let instance = self.remove_maybe_forget_uniqueid(referent);
+            let instance = self.inner_remove(referent);
             to_remove.extend(instance.children);
         }
     }
@@ -159,7 +154,7 @@ impl WeakDom {
             panic!("cannot transfer the root instance of WeakDom");
         }
 
-        let mut instance = self.remove_maybe_forget_uniqueid(referent);
+        let mut instance = self.inner_remove(referent);
 
         // Remove the instance being moved from its parent's list of children.
         // If we care about panic tolerance in the future, doing this first is
@@ -176,14 +171,14 @@ impl WeakDom {
         // Instance was released.
         // Bye-bye, instance!
         instance.parent = dest_parent_ref;
-        dest.insert_maybe_regenerate_uniqueid(referent, instance);
+        dest.inner_insert(referent, instance);
 
         // Transfer all of the descendants of the moving instance breadth-first.
         while let Some(referent) = to_move.pop_front() {
-            let instance = self.remove_maybe_forget_uniqueid(referent);
+            let instance = self.inner_remove(referent);
 
             to_move.extend(instance.children.iter().copied());
-            dest.insert_maybe_regenerate_uniqueid(referent, instance);
+            dest.inner_insert(referent, instance);
         }
 
         // Finally, notify the new parent instance that their adoption is
@@ -232,8 +227,14 @@ impl WeakDom {
         dest_parent.children.push(referent);
     }
 
-    fn insert_maybe_regenerate_uniqueid(&mut self, referent: Ref, instance: Instance) {
+    fn inner_insert(&mut self, referent: Ref, instance: Instance) {
         self.instances.insert(referent, instance);
+
+        // We need to ensure that the value of the Instance.UniqueId property does
+        // not collide with another instance. If it does, we must regenerate
+        // it. If we *don't* do this, it's possible to use WeakDom::insert to
+        // insert UniqueId properties that collide with other instances in the
+        // dom, violating the invariant that every UniqueId is unique.
 
         // Unwrap is safe because we just inserted this referent into the instance map
         let instance = self.instances.get_mut(&referent).unwrap();
@@ -256,7 +257,7 @@ impl WeakDom {
         }
     }
 
-    fn remove_maybe_forget_uniqueid(&mut self, referent: Ref) -> Instance {
+    fn inner_remove(&mut self, referent: Ref) -> Instance {
         let instance = self
             .instances
             .remove(&referent)
