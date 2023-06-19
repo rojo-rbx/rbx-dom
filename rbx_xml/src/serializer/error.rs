@@ -17,6 +17,8 @@ pub(crate) enum ErrorKind {
     UnknownType(String, VariantType),
     #[error("type {0:?} cannot be serialized without a state")]
     TypeNeedsState(VariantType),
+    #[error("cannot serialize value of type '{0:?}'")]
+    CannotSerialize(VariantType),
     #[error("cannot be strict with {0} without a database")]
     StrictWithoutDatabase(&'static str),
 

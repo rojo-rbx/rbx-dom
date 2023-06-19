@@ -72,7 +72,7 @@ macro_rules! serializers {
                 $(
                     Variant::$name(v) => $serializer(writer, v),
                 )*
-                _ => Ok(()),
+                _ => Err(ErrorKind::CannotSerialize(value.ty()).err()),
             }
         }
 

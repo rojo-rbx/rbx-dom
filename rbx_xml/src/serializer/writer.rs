@@ -1,6 +1,6 @@
 //! Wrapper type for a quick_xml writer. This is just a few convenience
 //! functions, as the actual API is rather straightforward.
-use std::io;
+use std::{fmt::Display, io};
 
 use base64::Engine;
 use quick_xml::{
@@ -72,19 +72,19 @@ impl<W: io::Write> XmlWriter<W> {
     /// Writes an element named `name` and writes `value` into it. This is a
     /// convenience function that combines `start_element`, `write_text` and
     /// `end_element` without any attributes.
-    pub fn write_element<V: Into<String>>(
-        &mut self,
-        name: &str,
-        value: V,
-    ) -> Result<(), EncodeError> {
+    pub fn write_element(&mut self, name: &str, value: impl Display) -> Result<(), EncodeError> {
         self.inner
             .create_element(name)
-            .write_text_content(BytesText::new(&value.into()))?;
+            .write_text_content(BytesText::new(&value.to_string()))?;
         Ok(())
     }
 
-    pub fn write_rbx(&mut self, value: impl Into<Variant>) -> Result<(), EncodeError> {
-        try_serialize_value(self, &value.into())
+    pub fn write_rbx(&mut self, name: &str, value: impl Into<Variant>) -> Result<(), EncodeError> {
+        self.inner
+            .write_event(Event::Start(BytesStart::new(name)))?;
+        try_serialize_value(self, &value.into())?;
+        self.inner.write_event(Event::End(BytesEnd::new(name)))?;
+        Ok(())
     }
 }
 
