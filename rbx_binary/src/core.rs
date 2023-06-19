@@ -117,7 +117,7 @@ pub trait RbxReadExt: Read {
     }
 
     fn read_interleaved_i32_array(&mut self, output: &mut [i32]) -> io::Result<()> {
-        let mut buffer = vec![0; output.len() * mem::size_of::<i32>()];
+        let mut buffer = vec![0; mem::size_of_val(output)];
         self.read_exact(&mut buffer)?;
 
         for i in 0..output.len() {
@@ -133,7 +133,7 @@ pub trait RbxReadExt: Read {
     }
 
     fn read_interleaved_u32_array(&mut self, output: &mut [u32]) -> io::Result<()> {
-        let mut buffer = vec![0; output.len() * mem::size_of::<u32>()];
+        let mut buffer = vec![0; mem::size_of_val(output)];
         self.read_exact(&mut buffer)?;
 
         for i in 0..output.len() {
@@ -151,7 +151,7 @@ pub trait RbxReadExt: Read {
     }
 
     fn read_interleaved_f32_array(&mut self, output: &mut [f32]) -> io::Result<()> {
-        let mut buf = vec![0; output.len() * mem::size_of::<f32>()];
+        let mut buf = vec![0; mem::size_of_val(output)];
         self.read_exact(&mut buf)?;
 
         for i in 0..output.len() {
@@ -179,7 +179,7 @@ pub trait RbxReadExt: Read {
     }
 
     fn read_interleaved_i64_array(&mut self, output: &mut [i64]) -> io::Result<()> {
-        let mut buf = vec![0; output.len() * mem::size_of::<i64>()];
+        let mut buf = vec![0; mem::size_of_val(output)];
         self.read_exact(&mut buf)?;
 
         for i in 0..output.len() {
@@ -269,9 +269,9 @@ pub trait RbxWriteExt: Write {
     fn write_interleaved_bytes<const N: usize>(&mut self, values: &[[u8; N]]) -> io::Result<()> {
         let len = values.len();
         let mut blob = vec![0; len * N];
-        for (x, bytes) in values.iter().enumerate() {
-            for (y, byte) in bytes.iter().enumerate() {
-                blob[y + x * N] = *byte;
+        for (i, bytes) in values.iter().enumerate() {
+            for (j, byte) in bytes.iter().enumerate() {
+                blob[i + len * j] = *byte;
             }
         }
         self.write_all(&blob)?;
