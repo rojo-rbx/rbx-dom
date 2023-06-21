@@ -445,17 +445,11 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                 add_property(instance, &property, value.into());
                             }
                             Err(err) => {
-                                log::warn!(
-                                    "Failed to deserialize attributes on {}: {:?}",
-                                    type_info.type_name,
-                                    err
-                                );
-
-                                add_property(
-                                    instance,
-                                    &property,
-                                    BinaryString::from(buffer).into(),
-                                );
+                                return Err(InnerError::PropertyError {
+                                    source: err,
+                                    class_name: type_info.type_name.to_string(),
+                                    prop_name,
+                                })
                             }
                         }
                     }
