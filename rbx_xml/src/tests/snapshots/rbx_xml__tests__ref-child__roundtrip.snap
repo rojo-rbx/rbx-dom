@@ -1,7 +1,6 @@
 ---
-source: rbx_xml/tests/test-files.rs
-assertion_line: 26
-expression: viewer.view_children(&dom)
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
   name: Value

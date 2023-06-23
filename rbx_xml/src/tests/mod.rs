@@ -1,3 +1,4 @@
+//! Tests to ensure the functionality of the parser.
 mod models;
 
 use std::{fmt, fs, path::PathBuf};

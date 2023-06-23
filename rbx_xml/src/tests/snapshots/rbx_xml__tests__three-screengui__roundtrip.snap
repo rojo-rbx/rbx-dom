@@ -1,0 +1,71 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: DisplayOrder0
+  class: ScreenGui
+  properties:
+    Attributes:
+      Attributes: {}
+    AutoLocalize:
+      Bool: true
+    DisplayOrder:
+      Int32: 0
+    Enabled:
+      Bool: true
+    ResetOnSpawn:
+      Bool: true
+    RootLocalizationTable: "null"
+    ScreenInsets:
+      Enum: 2
+    Tags:
+      Tags: []
+    ZIndexBehavior:
+      Enum: 1
+  children: []
+- referent: referent-1
+  name: DisplayOrder1
+  class: ScreenGui
+  properties:
+    Attributes:
+      Attributes: {}
+    AutoLocalize:
+      Bool: true
+    DisplayOrder:
+      Int32: 1
+    Enabled:
+      Bool: true
+    ResetOnSpawn:
+      Bool: true
+    RootLocalizationTable: "null"
+    ScreenInsets:
+      Enum: 2
+    Tags:
+      Tags: []
+    ZIndexBehavior:
+      Enum: 1
+  children: []
+- referent: referent-2
+  name: DisplayOrder2
+  class: ScreenGui
+  properties:
+    Attributes:
+      Attributes: {}
+    AutoLocalize:
+      Bool: true
+    DisplayOrder:
+      Int32: 2
+    Enabled:
+      Bool: true
+    ResetOnSpawn:
+      Bool: true
+    RootLocalizationTable: "null"
+    ScreenInsets:
+      Enum: 2
+    Tags:
+      Tags: []
+    ZIndexBehavior:
+      Enum: 1
+  children: []
+

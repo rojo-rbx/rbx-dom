@@ -1,0 +1,59 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: "1, 2, 3, 4, 5, 6, -1, -2, -3, -4, -5, -6"
+  class: CFrameValue
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Value:
+      CFrame:
+        position:
+          - 1
+          - 2
+          - 3
+        orientation:
+          - - 4
+            - 5
+            - 6
+          - - -1
+            - -2
+            - -3
+          - - -4
+            - -5
+            - -6
+  children: []
+- referent: referent-1
+  name: "0.15625, -0.15625, 0.1, -0.1, 0, 0, 1337, -1337, inf, -inf, nan, nan"
+  class: CFrameValue
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Value:
+      CFrame:
+        position:
+          - 0.15625
+          - -0.15625
+          - 0.1
+        orientation:
+          - - -0.1
+            - 0
+            - 0
+          - - 1337
+            - -1337
+            - inf
+          - - -inf
+            - NaN
+            - NaN
+  children: []
+

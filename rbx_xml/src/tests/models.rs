@@ -31,7 +31,6 @@ model_tests! {
     axes,
     bloomeffect,
     cframe_case_mixture,
-    cframe_special_cases,
     default_inserted_folder,
     default_inserted_modulescript,
     faces,

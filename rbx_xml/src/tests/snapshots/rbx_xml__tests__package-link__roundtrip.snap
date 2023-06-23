@@ -1,0 +1,64 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: Model
+  class: Model
+  properties:
+    Attributes:
+      Attributes: {}
+    LevelOfDetail:
+      Enum: 0
+    ModelMeshCFrame:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    NeedsPivotMigration:
+      Bool: false
+    PrimaryPart: "null"
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    WorldPivotData:
+      OptionalCFrame: ~
+  children:
+    - referent: referent-1
+      name: PackageLink
+      class: PackageLink
+      properties:
+        Attributes:
+          Attributes: {}
+        AutoUpdate:
+          Bool: false
+        PackageId:
+          Content: "rbxassetid://9111823334"
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        VersionIdSerialize:
+          Int64: 1
+      children: []
+

@@ -1,9 +1,9 @@
 ---
-source: rbx_xml/tests/test-files.rs
-expression: viewer.view_children(&dom)
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Bold Denk
+  name: TextLabel
   class: TextLabel
   properties:
     Active:
@@ -20,9 +20,9 @@ expression: viewer.view_children(&dom)
       Enum: 0
     BackgroundColor3:
       Color3:
-        - 0.6392157
-        - 0.63529414
-        - 0.64705884
+        - 1
+        - 1
+        - 1
     BackgroundTransparency:
       Float32: 0
     BorderColor3:
@@ -40,9 +40,9 @@ expression: viewer.view_children(&dom)
       Bool: false
     FontFace:
       Font:
-        family: "rbxasset://fonts/families/SourceSansPro.json"
-        weight: Regular
-        style: Normal
+        family: "rbxasset://fonts/families/RobotoMono.json"
+        weight: Bold
+        style: Italic
         cachedFaceId: ~
     LayoutOrder:
       Int32: 0
@@ -83,9 +83,9 @@ expression: viewer.view_children(&dom)
     Size:
       UDim2:
         - - 0
-          - 0
+          - 200
         - - 0
-          - 0
+          - 50
     SizeConstraint:
       Enum: 0
     SourceAssetId:
@@ -93,16 +93,16 @@ expression: viewer.view_children(&dom)
     Tags:
       Tags: []
     Text:
-      String: Example
+      String: My Text
     TextColor3:
       Color3:
-        - 0.10588236
-        - 0.16470589
-        - 0.20784315
+        - 0
+        - 0
+        - 0
     TextScaled:
       Bool: false
     TextSize:
-      Float32: 8
+      Float32: 14
     TextStrokeColor3:
       Color3:
         - 0
