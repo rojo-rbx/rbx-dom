@@ -1,4 +1,4 @@
-//! Temporary tests while re-bootstrapping rbx_xml
+//! Basic functionality tests
 
 use rbx_dom_weak::types::{
     Attributes, BinaryString, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint,
@@ -21,7 +21,7 @@ fn with_bool() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str_default(document).unwrap();
+    let tree = crate::from_str_default(document).unwrap();
 
     let root = tree.root();
     let child = tree.get_by_ref(root.children()[0]).unwrap();
@@ -45,7 +45,7 @@ fn read_tags() {
         </roblox>
     "#;
 
-    let dom = rbx_xml::from_str_default(document).unwrap();
+    let dom = crate::from_str_default(document).unwrap();
     let folder = dom.get_by_ref(dom.root().children()[0]).unwrap();
 
     let mut tags = Tags::new();
@@ -63,7 +63,7 @@ fn write_empty_tags() {
     let dom = WeakDom::new(part);
 
     let mut encoded = Vec::new();
-    rbx_xml::to_writer_default(&mut encoded, &dom, &[dom.root_ref()]).unwrap();
+    crate::to_writer_default(&mut encoded, &dom, &[dom.root_ref()]).unwrap();
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
 
@@ -79,7 +79,7 @@ fn write_tags() {
     let dom = WeakDom::new(part);
 
     let mut encoded = Vec::new();
-    rbx_xml::to_writer_default(&mut encoded, &dom, &[dom.root_ref()]).unwrap();
+    crate::to_writer_default(&mut encoded, &dom, &[dom.root_ref()]).unwrap();
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
 
@@ -105,7 +105,7 @@ fn read_attributes() {
         </roblox>
     "#;
 
-    let dom = rbx_xml::from_str_default(document).unwrap();
+    let dom = crate::from_str_default(document).unwrap();
     let folder = dom.get_by_ref(dom.root().children()[0]).unwrap();
 
     assert_eq!(folder.properties.get("AttributesSerialize"), None);
@@ -205,13 +205,13 @@ fn read_unique_id() {
         </roblox>
     "#;
 
-    let tree = rbx_xml::from_str(
+    let tree = crate::from_str(
         document,
-        rbx_xml::DecodeOptions::new()
+        crate::DecodeOptions::new()
             // This is necessary at the moment because we do not actually
             // have UniqueId properties in our reflection database. This may
             // change, but it should in general be safe.
-            .property_behavior(rbx_xml::DecodePropertyBehavior::ReadUnknown),
+            .property_behavior(crate::DecodePropertyBehavior::ReadUnknown),
     )
     .unwrap();
 
