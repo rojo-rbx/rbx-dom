@@ -17,7 +17,6 @@ use rbx_dom_weak::{
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
-    cframe,
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt},
     types::Type,
@@ -829,7 +828,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                     chunk.read_le_f32()?,
                                 ),
                             ));
-                        } else if let Some(basic_rotation) = cframe::from_basic_rotation_id(id) {
+                        } else if let Ok(basic_rotation) = Matrix3::from_basic_rotation_id(id) {
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
@@ -1237,7 +1236,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                     chunk.read_le_f32()?,
                                 ),
                             ));
-                        } else if let Some(basic_rotation) = cframe::from_basic_rotation_id(id) {
+                        } else if let Ok(basic_rotation) = Matrix3::from_basic_rotation_id(id) {
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
