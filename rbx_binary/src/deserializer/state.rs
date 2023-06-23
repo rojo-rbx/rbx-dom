@@ -445,7 +445,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                 add_property(instance, &property, value.into());
                             }
                             Err(err) => {
-                                return Err(InnerError::PropertyError {
+                                return Err(InnerError::BadPropertyValue {
                                     source: err,
                                     class_name: type_info.type_name.to_string(),
                                     prop_name,

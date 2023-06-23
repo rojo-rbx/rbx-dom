@@ -81,7 +81,7 @@ pub(crate) enum InnerError {
     },
 
     #[error("Failed to deserialize {class_name}.{prop_name} because {source}")]
-    PropertyError {
+    BadPropertyValue {
         source: rbx_dom_weak::types::Error,
         prop_name: String,
         class_name: String,
