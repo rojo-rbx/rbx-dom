@@ -217,7 +217,7 @@ impl Matrix3 {
 
         // Because we don't enforce orthonormality, it's still possible at
         // this point for the z row to differ from the basic rotation's z
-        // row.  We check for anyway to avoid altering the value.
+        // row. We check for this case to avoid altering the value.
         if Matrix3::from_basic_rotation_id(basic_rotation_id)
             .ok()?
             .transpose()
