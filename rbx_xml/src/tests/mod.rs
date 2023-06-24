@@ -1,6 +1,7 @@
 //! Tests to ensure the functionality of the parser.
 mod basic;
 mod edge_cases;
+mod formatting;
 mod models;
 
 use std::{fmt, fs, path::PathBuf};
