@@ -13,7 +13,7 @@ pub use error::EncodeError;
 pub use writer::XmlWriter;
 
 pub fn encode_internal<W: Write>(
-    output: &mut W,
+    output: W,
     dom: &WeakDom,
     refs: &[Ref],
     options: EncodeOptions,

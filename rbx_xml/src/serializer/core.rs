@@ -12,7 +12,7 @@ use rbx_dom_weak::{
 };
 use rbx_reflection::DataType;
 
-use crate::{property_descriptor::find_serialized_property_descriptor, Config};
+use crate::property_descriptor::find_serialized_property_descriptor;
 
 use super::{
     conversions, data_types,
@@ -23,7 +23,7 @@ use super::{
 use super::writer::XmlWriter;
 
 pub fn serialize_dom<W: io::Write>(
-    output: &mut W,
+    output: W,
     dom: &WeakDom,
     options: EncodeOptions,
 ) -> Result<(), EncodeError> {
@@ -31,7 +31,7 @@ pub fn serialize_dom<W: io::Write>(
 }
 
 pub fn serialize_refs<W: io::Write>(
-    output: &mut W,
+    output: W,
     dom: &WeakDom,
     refs: &[Ref],
     options: EncodeOptions,

@@ -170,7 +170,7 @@ pub fn to_writer<W: Write>(
 /// writing to something that implements the `std::io::Write` trait using the
 /// default encoder options.
 pub fn to_writer_default<W: Write>(
-    writer: &mut W,
+    writer: W,
     tree: &WeakDom,
     ids: &[Ref],
 ) -> Result<(), EncodeError> {
