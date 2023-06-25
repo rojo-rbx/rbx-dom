@@ -1,0 +1,92 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: Folder
+  class: Folder
+  properties:
+    Attributes:
+      Attributes:
+        Boolean:
+          Bool: true
+        BrickColor:
+          BrickColor: 1004
+        Color3:
+          Color3:
+            - 0.63529414
+            - 0
+            - 1
+        ColorSequence:
+          ColorSequence:
+            keypoints:
+              - time: 0
+                color:
+                  - 1
+                  - 0
+                  - 0
+              - time: 0.5
+                color:
+                  - 0
+                  - 1
+                  - 0
+              - time: 1
+                color:
+                  - 0
+                  - 0
+                  - 1
+        "Infinity":
+          Float64: inf
+        "NaN":
+          Float64: NaN
+        Number:
+          Float64: 12345
+        NumberRange:
+          NumberRange:
+            - 5
+            - 10
+        NumberSequence:
+          NumberSequence:
+            keypoints:
+              - time: 0
+                value: 1
+                envelope: 0
+              - time: 0.5
+                value: 0
+                envelope: 0
+              - time: 1
+                value: 1
+                envelope: 0
+        Rect:
+          Rect:
+            - - 1
+              - 2
+            - - 3
+              - 4
+        String:
+          BinaryString: SGVsbG8sIHdvcmxkIQ==
+        UDim:
+          UDim:
+            - 0.5
+            - 100
+        UDim2:
+          UDim2:
+            - - 0.5
+              - 10
+            - - 0.7
+              - 30
+        Vector2:
+          Vector2:
+            - 10
+            - 50
+        Vector3:
+          Vector3:
+            - 1
+            - 2
+            - 3
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+

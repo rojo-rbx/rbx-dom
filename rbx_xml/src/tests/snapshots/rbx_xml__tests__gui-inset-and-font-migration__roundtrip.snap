@@ -1,0 +1,484 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: Folder
+  class: Folder
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children:
+    - referent: referent-1
+      name: "IgnoreGuiInset: true"
+      class: ScreenGui
+      properties:
+        Attributes:
+          Attributes: {}
+        AutoLocalize:
+          Bool: true
+        ClipToDeviceSafeArea:
+          Bool: true
+        DisplayOrder:
+          Int32: 0
+        Enabled:
+          Bool: true
+        ResetOnSpawn:
+          Bool: true
+        RootLocalizationTable: "null"
+        SafeAreaCompatibility:
+          Enum: 1
+        ScreenInsets:
+          Enum: 1
+        SelectionBehaviorDown:
+          Enum: 0
+        SelectionBehaviorLeft:
+          Enum: 0
+        SelectionBehaviorRight:
+          Enum: 0
+        SelectionBehaviorUp:
+          Enum: 0
+        SelectionGroup:
+          Bool: false
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        ZIndexBehavior:
+          Enum: 1
+      children: []
+    - referent: referent-2
+      name: "IgnoreGuiInset: false"
+      class: ScreenGui
+      properties:
+        Attributes:
+          Attributes: {}
+        AutoLocalize:
+          Bool: true
+        ClipToDeviceSafeArea:
+          Bool: true
+        DisplayOrder:
+          Int32: 0
+        Enabled:
+          Bool: true
+        ResetOnSpawn:
+          Bool: true
+        RootLocalizationTable: "null"
+        SafeAreaCompatibility:
+          Enum: 1
+        ScreenInsets:
+          Enum: 2
+        SelectionBehaviorDown:
+          Enum: 0
+        SelectionBehaviorLeft:
+          Enum: 0
+        SelectionBehaviorRight:
+          Enum: 0
+        SelectionBehaviorUp:
+          Enum: 0
+        SelectionGroup:
+          Bool: false
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        ZIndexBehavior:
+          Enum: 1
+      children:
+        - referent: referent-3
+          name: TextLabel
+          class: TextLabel
+          properties:
+            Active:
+              Bool: false
+            AnchorPoint:
+              Vector2:
+                - 0
+                - 0
+            Attributes:
+              Attributes: {}
+            AutoLocalize:
+              Bool: true
+            AutomaticSize:
+              Enum: 0
+            BackgroundColor3:
+              Color3:
+                - 1
+                - 1
+                - 1
+            BackgroundTransparency:
+              Float32: 0
+            BorderColor3:
+              Color3:
+                - 0.10588236
+                - 0.16470589
+                - 0.20784315
+            BorderMode:
+              Enum: 0
+            BorderSizePixel:
+              Int32: 1
+            ClipsDescendants:
+              Bool: false
+            Draggable:
+              Bool: false
+            FontFace:
+              Font:
+                family: "rbxasset://fonts/families/Inconsolata.json"
+                weight: Regular
+                style: Normal
+                cachedFaceId: ~
+            LayoutOrder:
+              Int32: 0
+            LineHeight:
+              Float32: 1
+            MaxVisibleGraphemes:
+              Int32: -1
+            NextSelectionDown: "null"
+            NextSelectionLeft: "null"
+            NextSelectionRight: "null"
+            NextSelectionUp: "null"
+            Position:
+              UDim2:
+                - - 0
+                  - 0
+                - - 0
+                  - 0
+            RichText:
+              Bool: false
+            RootLocalizationTable: "null"
+            Rotation:
+              Float32: 0
+            Selectable:
+              Bool: false
+            SelectionBehaviorDown:
+              Enum: 0
+            SelectionBehaviorLeft:
+              Enum: 0
+            SelectionBehaviorRight:
+              Enum: 0
+            SelectionBehaviorUp:
+              Enum: 0
+            SelectionGroup:
+              Bool: false
+            SelectionImageObject: "null"
+            SelectionOrder:
+              Int32: 0
+            Size:
+              UDim2:
+                - - 0
+                  - 200
+                - - 0
+                  - 50
+            SizeConstraint:
+              Enum: 0
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            Text:
+              String: Label
+            TextColor3:
+              Color3:
+                - 0
+                - 0
+                - 0
+            TextScaled:
+              Bool: false
+            TextSize:
+              Float32: 14
+            TextStrokeColor3:
+              Color3:
+                - 0
+                - 0
+                - 0
+            TextStrokeTransparency:
+              Float32: 1
+            TextTransparency:
+              Float32: 0
+            TextTruncate:
+              Enum: 0
+            TextWrapped:
+              Bool: false
+            TextXAlignment:
+              Enum: 2
+            TextYAlignment:
+              Enum: 1
+            Visible:
+              Bool: true
+            ZIndex:
+              Int32: 1
+          children: []
+        - referent: referent-4
+          name: TextButton
+          class: TextButton
+          properties:
+            Active:
+              Bool: true
+            AnchorPoint:
+              Vector2:
+                - 0
+                - 0
+            Attributes:
+              Attributes: {}
+            AutoButtonColor:
+              Bool: true
+            AutoLocalize:
+              Bool: true
+            AutomaticSize:
+              Enum: 0
+            BackgroundColor3:
+              Color3:
+                - 1
+                - 1
+                - 1
+            BackgroundTransparency:
+              Float32: 0
+            BorderColor3:
+              Color3:
+                - 0.10588236
+                - 0.16470589
+                - 0.20784315
+            BorderMode:
+              Enum: 0
+            BorderSizePixel:
+              Int32: 1
+            ClipsDescendants:
+              Bool: false
+            Draggable:
+              Bool: false
+            FontFace:
+              Font:
+                family: "rbxasset://fonts/families/SourceSansPro.json"
+                weight: Bold
+                style: Normal
+                cachedFaceId: ~
+            LayoutOrder:
+              Int32: 0
+            LineHeight:
+              Float32: 1
+            MaxVisibleGraphemes:
+              Int32: -1
+            Modal:
+              Bool: false
+            NextSelectionDown: "null"
+            NextSelectionLeft: "null"
+            NextSelectionRight: "null"
+            NextSelectionUp: "null"
+            Position:
+              UDim2:
+                - - 0
+                  - 0
+                - - 0
+                  - 55
+            RichText:
+              Bool: false
+            RootLocalizationTable: "null"
+            Rotation:
+              Float32: 0
+            Selectable:
+              Bool: true
+            Selected:
+              Bool: false
+            SelectionBehaviorDown:
+              Enum: 0
+            SelectionBehaviorLeft:
+              Enum: 0
+            SelectionBehaviorRight:
+              Enum: 0
+            SelectionBehaviorUp:
+              Enum: 0
+            SelectionGroup:
+              Bool: false
+            SelectionImageObject: "null"
+            SelectionOrder:
+              Int32: 0
+            Size:
+              UDim2:
+                - - 0
+                  - 200
+                - - 0
+                  - 50
+            SizeConstraint:
+              Enum: 0
+            SourceAssetId:
+              Int64: -1
+            Style:
+              Enum: 0
+            Tags:
+              Tags: []
+            Text:
+              String: Button
+            TextColor3:
+              Color3:
+                - 0
+                - 0
+                - 0
+            TextScaled:
+              Bool: false
+            TextSize:
+              Float32: 14
+            TextStrokeColor3:
+              Color3:
+                - 0
+                - 0
+                - 0
+            TextStrokeTransparency:
+              Float32: 1
+            TextTransparency:
+              Float32: 0
+            TextTruncate:
+              Enum: 0
+            TextWrapped:
+              Bool: false
+            TextXAlignment:
+              Enum: 2
+            TextYAlignment:
+              Enum: 1
+            Visible:
+              Bool: true
+            ZIndex:
+              Int32: 1
+          children: []
+        - referent: referent-5
+          name: TextBox
+          class: TextBox
+          properties:
+            Active:
+              Bool: true
+            AnchorPoint:
+              Vector2:
+                - 0
+                - 0
+            Attributes:
+              Attributes: {}
+            AutoLocalize:
+              Bool: true
+            AutomaticSize:
+              Enum: 0
+            BackgroundColor3:
+              Color3:
+                - 1
+                - 1
+                - 1
+            BackgroundTransparency:
+              Float32: 0
+            BorderColor3:
+              Color3:
+                - 0.10588236
+                - 0.16470589
+                - 0.20784315
+            BorderMode:
+              Enum: 0
+            BorderSizePixel:
+              Int32: 1
+            ClearTextOnFocus:
+              Bool: true
+            ClipsDescendants:
+              Bool: false
+            Draggable:
+              Bool: false
+            FontFace:
+              Font:
+                family: "rbxasset://fonts/families/SourceSansPro.json"
+                weight: Regular
+                style: Italic
+                cachedFaceId: ~
+            LayoutOrder:
+              Int32: 0
+            LineHeight:
+              Float32: 1
+            MaxVisibleGraphemes:
+              Int32: -1
+            MultiLine:
+              Bool: false
+            NextSelectionDown: "null"
+            NextSelectionLeft: "null"
+            NextSelectionRight: "null"
+            NextSelectionUp: "null"
+            PlaceholderColor3:
+              Color3:
+                - 0.7
+                - 0.7
+                - 0.7
+            PlaceholderText:
+              String: ""
+            Position:
+              UDim2:
+                - - 0
+                  - 0
+                - - 0
+                  - 110
+            RichText:
+              Bool: false
+            RootLocalizationTable: "null"
+            Rotation:
+              Float32: 0
+            Selectable:
+              Bool: true
+            SelectionBehaviorDown:
+              Enum: 0
+            SelectionBehaviorLeft:
+              Enum: 0
+            SelectionBehaviorRight:
+              Enum: 0
+            SelectionBehaviorUp:
+              Enum: 0
+            SelectionGroup:
+              Bool: false
+            SelectionImageObject: "null"
+            SelectionOrder:
+              Int32: 0
+            ShowNativeInput:
+              Bool: true
+            Size:
+              UDim2:
+                - - 0
+                  - 200
+                - - 0
+                  - 50
+            SizeConstraint:
+              Enum: 0
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            Text:
+              String: TextBox
+            TextColor3:
+              Color3:
+                - 0
+                - 0
+                - 0
+            TextEditable:
+              Bool: true
+            TextScaled:
+              Bool: false
+            TextSize:
+              Float32: 14
+            TextStrokeColor3:
+              Color3:
+                - 0
+                - 0
+                - 0
+            TextStrokeTransparency:
+              Float32: 1
+            TextTransparency:
+              Float32: 0
+            TextTruncate:
+              Enum: 0
+            TextWrapped:
+              Bool: false
+            TextXAlignment:
+              Enum: 2
+            TextYAlignment:
+              Enum: 1
+            Visible:
+              Bool: true
+            ZIndex:
+              Int32: 1
+          children: []
+

@@ -113,6 +113,8 @@ mod serializer;
 
 #[cfg(test)]
 mod test_util;
+#[cfg(test)]
+mod tests;
 
 use std::io::{BufReader, Read, Write};
 

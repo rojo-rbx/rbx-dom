@@ -1,0 +1,47 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: Value
+  class: Color3Value
+  properties:
+    Attributes:
+      Attributes: {}
+    Tags:
+      Tags: []
+    Value:
+      Color3:
+        - 0
+        - 0.3137255
+        - 0.49803922
+  children: []
+- referent: referent-1
+  name: Value
+  class: Color3Value
+  properties:
+    Attributes:
+      Attributes: {}
+    Tags:
+      Tags: []
+    Value:
+      Color3:
+        - 1
+        - 0.7058824
+        - 0.078431375
+  children: []
+- referent: referent-2
+  name: Value
+  class: Color3Value
+  properties:
+    Attributes:
+      Attributes: {}
+    Tags:
+      Tags: []
+    Value:
+      Color3:
+        - 2.0078433
+        - 1.0196079
+        - 0.039215688
+  children: []
+

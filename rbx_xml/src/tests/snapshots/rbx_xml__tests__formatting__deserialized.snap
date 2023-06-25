@@ -1,0 +1,185 @@
+---
+source: rbx_xml/src/tests/formatting.rs
+expression: "DomViewer::new().view_children(&de)"
+---
+- referent: referent-0
+  name: TestClass
+  class: TestClass
+  properties:
+    TestAxes:
+      Axes:
+        - X
+        - Z
+    TestBinaryString:
+      BinaryString: SGVsbG8sIHdvcmxkIQ==
+    TestBool:
+      Bool: true
+    TestCFrame:
+      CFrame:
+        position:
+          - 123
+          - 456
+          - 789
+        orientation:
+          - - 987
+            - 654
+            - 432
+          - - 210
+            - 0
+            - -12345
+          - - 765
+            - 234
+            - 123123
+    TestColor3:
+      Color3:
+        - 1
+        - 0.5
+        - 125600
+    TestColorSequence:
+      ColorSequence:
+        keypoints:
+          - time: 0
+            color:
+              - 0
+              - 0.5
+              - 1
+          - time: 1
+            color:
+              - 1
+              - 0.5
+              - 0
+    TestContent1:
+      Content: Wow!
+    TestContent2:
+      Content: ""
+  children:
+    - referent: referent-1
+      name: TestClass
+      class: TestClass
+      properties:
+        TestDouble:
+          Float64: inf
+        TestFace:
+          Faces:
+            - Top
+            - Left
+            - Front
+        TestFloat:
+          Float32: NaN
+        TestFont:
+          Font:
+            family: Font Family
+            weight: Thin
+            style: Normal
+            cachedFaceId: ""
+        TestInt:
+          Int32: 1337
+        TestInt64:
+          Int64: 8675309
+      children: []
+    - referent: referent-2
+      name: TestClass
+      class: TestClass
+      properties:
+        TestNumberRange:
+          NumberRange:
+            - -1337
+            - 1337
+        TestNumberSequence:
+          NumberSequence:
+            keypoints:
+              - time: 0
+                value: 10
+                envelope: 20
+              - time: 1
+                value: 30
+                envelope: 40
+        TestOptionCFrame1:
+          OptionalCFrame: ~
+        TestOptionCFrame2:
+          OptionalCFrame:
+            position:
+              - 100
+              - 200
+              - 300
+            orientation:
+              - - -100
+                - -200
+                - -300
+              - - 123
+                - 456
+                - -123
+              - - -456
+                - inf
+                - -inf
+      children:
+        - referent: referent-3
+          name: TestClass
+          class: TestClass
+          properties:
+            TestEnum:
+              Enum: 1337
+            TestPhysicalProperties1:
+              PhysicalProperties: Default
+            TestPhysicalProperties2:
+              PhysicalProperties:
+                density: 1
+                friction: -1
+                elasticity: 0.15625
+                frictionWeight: -0.15625
+                elasticityWeight: NaN
+            TestProtectedString:
+              String: "Hello world, again!"
+            TestRay:
+              Ray:
+                origin:
+                  - 10
+                  - 20
+                  - 30
+                direction:
+                  - 30
+                  - 20
+                  - 10
+            TestRect:
+              Rect:
+                - - 1
+                  - 2
+                - - 0
+                  - inf
+            TestRef1: referent-0
+            TestRef2: "null"
+            TestSharedString:
+              len: 13
+              hash: ede5c0b10f2ec4979c69b52f61e42ff5b413519ce09be0f14d098dcfe5f6f98d
+            TestString:
+              String: "Hello, world!"
+            TestUDim:
+              UDim:
+                - 1234.5
+                - -123
+            TestUDim2:
+              UDim2:
+                - - 1234.5
+                  - -123
+                - - -1234.5
+                  - 123
+            TestUniqueId1:
+              UniqueId: "00000000000000000000000000000000"
+            TestUniqueId2:
+              UniqueId: 1234567890abcdef00c0ffeebadf00d0
+            TestVector2:
+              Vector2:
+                - inf
+                - 0
+            TestVector3:
+              Vector3:
+                - 0
+                - inf
+                - 123
+            TestVector3int16:
+              Vector3int16:
+                - -10
+                - 0
+                - 10
+          children: []
+

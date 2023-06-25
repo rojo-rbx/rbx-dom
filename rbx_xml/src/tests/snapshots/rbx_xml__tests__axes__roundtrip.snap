@@ -1,0 +1,185 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: ""
+  class: ArcHandles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Axes:
+      Axes: []
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-1
+  name: X
+  class: ArcHandles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Axes:
+      Axes:
+        - X
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-2
+  name: "X, Y"
+  class: ArcHandles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Axes:
+      Axes:
+        - X
+        - Y
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-3
+  name: "X, Y, Z"
+  class: ArcHandles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Axes:
+      Axes:
+        - X
+        - Y
+        - Z
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-4
+  name: "X, Z"
+  class: ArcHandles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Axes:
+      Axes:
+        - X
+        - Z
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-5
+  name: Y
+  class: ArcHandles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Axes:
+      Axes:
+        - Y
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-6
+  name: "Y, Z"
+  class: ArcHandles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Axes:
+      Axes:
+        - Y
+        - Z
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-7
+  name: Z
+  class: ArcHandles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Axes:
+      Axes:
+        - Z
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+

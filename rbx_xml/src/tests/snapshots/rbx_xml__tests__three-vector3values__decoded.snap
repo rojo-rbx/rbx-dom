@@ -1,0 +1,53 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: "1337, -1337, 0"
+  class: Vector3Value
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Value:
+      Vector3:
+        - 1337
+        - -1337
+        - 0
+  children: []
+- referent: referent-1
+  name: "0.15625, -0.15625, 0.1"
+  class: Vector3Value
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Value:
+      Vector3:
+        - 0.15625
+        - -0.15625
+        - 0.1
+  children: []
+- referent: referent-2
+  name: "inf, -inf, nan"
+  class: Vector3Value
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Value:
+      Vector3:
+        - inf
+        - -inf
+        - NaN
+  children: []
+

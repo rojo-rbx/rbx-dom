@@ -1,0 +1,212 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: Frame1
+  class: Frame
+  properties:
+    Active:
+      Bool: false
+    AnchorPoint:
+      Vector2:
+        - 0.1
+        - 0.2
+    Attributes:
+      Attributes: {}
+    AutoLocalize:
+      Bool: true
+    BackgroundColor3:
+      Color3:
+        - 1
+        - 0.49803922
+        - 0
+    BackgroundTransparency:
+      Float32: 0
+    BorderColor3:
+      Color3:
+        - 1
+        - 0
+        - 0.49803922
+    BorderMode:
+      Enum: 0
+    BorderSizePixel:
+      Int32: 1
+    ClipsDescendants:
+      Bool: false
+    Draggable:
+      Bool: false
+    LayoutOrder:
+      Int32: 0
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      UDim2:
+        - - 0.1
+          - 2
+        - - 0.2
+          - 4
+    RootLocalizationTable: "null"
+    Rotation:
+      Float32: 0
+    Selectable:
+      Bool: false
+    SelectionImageObject: "null"
+    Size:
+      UDim2:
+        - - 0.1
+          - 2
+        - - 0.2
+          - 4
+    SizeConstraint:
+      Enum: 1
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Visible:
+      Bool: true
+    ZIndex:
+      Int32: 1
+  children: []
+- referent: referent-1
+  name: Frame2
+  class: Frame
+  properties:
+    Active:
+      Bool: false
+    AnchorPoint:
+      Vector2:
+        - 0.3
+        - 0.4
+    Attributes:
+      Attributes: {}
+    AutoLocalize:
+      Bool: true
+    BackgroundColor3:
+      Color3:
+        - 0
+        - 1
+        - 0
+    BackgroundTransparency:
+      Float32: 0.1
+    BorderColor3:
+      Color3:
+        - 0
+        - 0
+        - 1
+    BorderMode:
+      Enum: 0
+    BorderSizePixel:
+      Int32: 2
+    ClipsDescendants:
+      Bool: false
+    Draggable:
+      Bool: false
+    LayoutOrder:
+      Int32: 1
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      UDim2:
+        - - 0.3
+          - 16
+        - - 0.4
+          - 32
+    RootLocalizationTable: "null"
+    Rotation:
+      Float32: 1
+    Selectable:
+      Bool: false
+    SelectionImageObject: "null"
+    Size:
+      UDim2:
+        - - 0.3
+          - 16
+        - - 0.4
+          - 32
+    SizeConstraint:
+      Enum: 0
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Visible:
+      Bool: true
+    ZIndex:
+      Int32: 1
+  children: []
+- referent: referent-2
+  name: Frame3
+  class: Frame
+  properties:
+    Active:
+      Bool: false
+    AnchorPoint:
+      Vector2:
+        - 0.5
+        - 0.6
+    Attributes:
+      Attributes: {}
+    AutoLocalize:
+      Bool: true
+    BackgroundColor3:
+      Color3:
+        - 1
+        - 0
+        - 1
+    BackgroundTransparency:
+      Float32: 0.2
+    BorderColor3:
+      Color3:
+        - 1
+        - 1
+        - 0
+    BorderMode:
+      Enum: 0
+    BorderSizePixel:
+      Int32: 3
+    ClipsDescendants:
+      Bool: false
+    Draggable:
+      Bool: false
+    LayoutOrder:
+      Int32: 2
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      UDim2:
+        - - 0.5
+          - 64
+        - - 0.6
+          - 128
+    RootLocalizationTable: "null"
+    Rotation:
+      Float32: 2
+    Selectable:
+      Bool: false
+    SelectionImageObject: "null"
+    Size:
+      UDim2:
+        - - 0.5
+          - 64
+        - - 0.6
+          - 128
+    SizeConstraint:
+      Enum: 2
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Visible:
+      Bool: true
+    ZIndex:
+      Int32: 1
+  children: []
+

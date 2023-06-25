@@ -1,0 +1,1669 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: ""
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces: []
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-1
+  name: Right
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-2
+  name: "Right, Top"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-3
+  name: "Right, Top, Back"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Back
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-4
+  name: "Right, Top, Back, Left"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Back
+        - Left
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-5
+  name: "Right, Top, Back, Left, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Back
+        - Left
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-6
+  name: "Right, Top, Back, Left, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Back
+        - Left
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-7
+  name: "Right, Top, Back, Left, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Back
+        - Left
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-8
+  name: "Right, Top, Back, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Back
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-9
+  name: "Right, Top, Back, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Back
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-10
+  name: "Right, Top, Back, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Back
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-11
+  name: "Right, Top, Left"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Left
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-12
+  name: "Right, Top, Left, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Left
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-13
+  name: "Right, Top, Left, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Left
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-14
+  name: "Right, Top, Left, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Left
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-15
+  name: "Right, Top, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-16
+  name: "Right, Top, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-17
+  name: "Right, Top, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Top
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-18
+  name: "Right, Back"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Back
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-19
+  name: "Right, Back, Left"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Back
+        - Left
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-20
+  name: "Right, Back, Left, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Back
+        - Left
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-21
+  name: "Right, Back, Left, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Back
+        - Left
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-22
+  name: "Right, Back, Left, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Back
+        - Left
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-23
+  name: "Right, Back, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Back
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-24
+  name: "Right, Back, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Back
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-25
+  name: "Right, Back, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Back
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-26
+  name: "Right, Left"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Left
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-27
+  name: "Right, Left, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Left
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-28
+  name: "Right, Left, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Left
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-29
+  name: "Right, Left, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Left
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-30
+  name: "Right, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-31
+  name: "Right, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-32
+  name: "Right, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Right
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-33
+  name: Top
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-34
+  name: "Top, Back"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Back
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-35
+  name: "Top, Back, Left"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Back
+        - Left
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-36
+  name: "Top, Back, Left, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Back
+        - Left
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-37
+  name: "Top, Back, Left, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Back
+        - Left
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-38
+  name: "Top, Back, Left, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Back
+        - Left
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-39
+  name: "Top, Back, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Back
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-40
+  name: "Top, Back, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Back
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-41
+  name: "Top, Back, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Back
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-42
+  name: "Top, Left"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Left
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-43
+  name: "Top, Left, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Left
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-44
+  name: "Top, Left, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Left
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-45
+  name: "Top, Left, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Left
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-46
+  name: "Top, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-47
+  name: "Top, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-48
+  name: "Top, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Top
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-49
+  name: Back
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Back
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-50
+  name: "Back, Left"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Back
+        - Left
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-51
+  name: "Back, Left, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Back
+        - Left
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-52
+  name: "Back, Left, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Back
+        - Left
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-53
+  name: "Back, Left, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Back
+        - Left
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-54
+  name: "Back, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Back
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-55
+  name: "Back, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Back
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-56
+  name: "Back, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Back
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-57
+  name: Left
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Left
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-58
+  name: "Left, Bottom"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Left
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-59
+  name: "Left, Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Left
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-60
+  name: "Left, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Left
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-61
+  name: Bottom
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Bottom
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-62
+  name: "Bottom, Front"
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Bottom
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+- referent: referent-63
+  name: Front
+  class: Handles
+  properties:
+    Adornee: "null"
+    Attributes:
+      Attributes: {}
+    Color3:
+      Color3:
+        - 0.050980397
+        - 0.41176474
+        - 0.6745098
+    Faces:
+      Faces:
+        - Front
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    Transparency:
+      Float32: 0
+    Visible:
+      Bool: true
+  children: []
+

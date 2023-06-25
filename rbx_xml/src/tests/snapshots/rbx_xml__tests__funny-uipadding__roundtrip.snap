@@ -1,0 +1,30 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: UIPadding
+  class: UIPadding
+  properties:
+    Attributes:
+      Attributes: {}
+    PaddingBottom:
+      UDim:
+        - 13.37
+        - 42
+    PaddingLeft:
+      UDim:
+        - -13.37
+        - 42
+    PaddingRight:
+      UDim:
+        - 13.37
+        - -42
+    PaddingTop:
+      UDim:
+        - -13.37
+        - -42
+    Tags:
+      Tags: []
+  children: []
+

@@ -1,0 +1,24 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: Ref Target
+  class: Folder
+  properties:
+    Attributes:
+      Attributes: {}
+    Tags:
+      Tags: []
+  children:
+    - referent: referent-1
+      name: Value
+      class: ObjectValue
+      properties:
+        Attributes:
+          Attributes: {}
+        Tags:
+          Tags: []
+        Value: referent-0
+      children: []
+
