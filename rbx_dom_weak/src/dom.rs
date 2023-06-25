@@ -1,6 +1,6 @@
-use std::collections::{HashMap, VecDeque};
+use std::collections::{HashMap, HashSet, VecDeque};
 
-use rbx_types::Ref;
+use rbx_types::{Ref, UniqueId, Variant};
 
 use crate::instance::{Instance, InstanceBuilder};
 
@@ -15,35 +15,19 @@ use crate::instance::{Instance, InstanceBuilder};
 pub struct WeakDom {
     instances: HashMap<Ref, Instance>,
     root_ref: Ref,
+    unique_ids: HashSet<UniqueId>,
 }
 
 impl WeakDom {
     /// Construct a new `WeakDom` described by the given [`InstanceBuilder`].
     pub fn new(builder: InstanceBuilder) -> WeakDom {
-        let root_ref = builder.referent;
-
-        let mut instances = HashMap::new();
-        instances.insert(
-            root_ref,
-            Instance {
-                referent: root_ref,
-                children: Vec::with_capacity(builder.children.len()),
-                parent: Ref::none(),
-                name: builder.name,
-                class: builder.class,
-                properties: builder.properties,
-            },
-        );
-
         let mut dom = WeakDom {
-            instances,
-            root_ref,
+            instances: HashMap::new(),
+            root_ref: builder.referent,
+            unique_ids: HashSet::new(),
         };
 
-        for child in builder.children {
-            dom.insert(root_ref, child);
-        }
-
+        dom.insert(Ref::none(), builder);
         dom
     }
 
@@ -109,7 +93,7 @@ impl WeakDom {
         queue.push_back((parent_ref, root_builder));
 
         while let Some((parent, builder)) = queue.pop_front() {
-            self.instances.insert(
+            self.inner_insert(
                 builder.referent,
                 Instance {
                     referent: builder.referent,
@@ -120,11 +104,14 @@ impl WeakDom {
                     properties: builder.properties,
                 },
             );
-            self.instances
-                .get_mut(&parent)
-                .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"))
-                .children
-                .push(builder.referent);
+
+            if parent.is_some() {
+                self.instances
+                    .get_mut(&parent)
+                    .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"))
+                    .children
+                    .push(builder.referent);
+            }
 
             for child in builder.children {
                 queue.push_back((builder.referent, child));
@@ -159,7 +146,7 @@ impl WeakDom {
         to_remove.push_back(referent);
 
         while let Some(referent) = to_remove.pop_front() {
-            let instance = self.instances.remove(&referent).unwrap();
+            let instance = self.inner_remove(referent);
             to_remove.extend(instance.children);
         }
     }
@@ -181,10 +168,7 @@ impl WeakDom {
             panic!("cannot transfer the root instance of WeakDom");
         }
 
-        let mut instance = self
-            .instances
-            .remove(&referent)
-            .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
+        let mut instance = self.inner_remove(referent);
 
         // Remove the instance being moved from its parent's list of children.
         // If we care about panic tolerance in the future, doing this first is
@@ -201,13 +185,14 @@ impl WeakDom {
         // Instance was released.
         // Bye-bye, instance!
         instance.parent = dest_parent_ref;
-        dest.instances.insert(referent, instance);
+        dest.inner_insert(referent, instance);
 
         // Transfer all of the descendants of the moving instance breadth-first.
         while let Some(referent) = to_move.pop_front() {
-            let instance = self.instances.remove(&referent).unwrap();
+            let instance = self.inner_remove(referent);
+
             to_move.extend(instance.children.iter().copied());
-            dest.instances.insert(referent, instance);
+            dest.inner_insert(referent, instance);
         }
 
         // Finally, notify the new parent instance that their adoption is
@@ -255,6 +240,49 @@ impl WeakDom {
             .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
         dest_parent.children.push(referent);
     }
+
+    fn inner_insert(&mut self, referent: Ref, instance: Instance) {
+        self.instances.insert(referent, instance);
+
+        // We need to ensure that the value of the Instance.UniqueId property does
+        // not collide with another instance. If it does, we must regenerate
+        // it. If we *don't* do this, it's possible to use WeakDom::insert to
+        // insert UniqueId properties that collide with other instances in the
+        // dom, violating the invariant that every UniqueId is unique.
+
+        // Unwrap is safe because we just inserted this referent into the instance map
+        let instance = self.instances.get_mut(&referent).unwrap();
+        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+            if self.unique_ids.contains(unique_id) {
+                // We found a collision! We need to replace the UniqueId property with
+                // a new value.
+
+                // Unwrap is probably ok. Likely not worth making this method fallible
+                // just because the system clock might be out whack, so panicking is fine
+                let new_unique_id = UniqueId::now().unwrap();
+
+                self.unique_ids.insert(new_unique_id);
+                instance
+                    .properties
+                    .insert("UniqueId".to_string(), Variant::UniqueId(new_unique_id));
+            } else {
+                self.unique_ids.insert(*unique_id);
+            };
+        }
+    }
+
+    fn inner_remove(&mut self, referent: Ref) -> Instance {
+        let instance = self
+            .instances
+            .remove(&referent)
+            .unwrap_or_else(|| panic!("cannot remove an instance that does not exist"));
+
+        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+            self.unique_ids.remove(unique_id);
+        }
+
+        instance
+    }
 }
 
 #[cfg(test)]
@@ -262,6 +290,7 @@ mod test {
     use super::*;
 
     use crate::DomViewer;
+    use rbx_types::{UniqueId, Variant};
 
     #[test]
     fn transfer() {
@@ -335,5 +364,112 @@ mod test {
             refs.push(base.referent());
         }
         let _ = WeakDom::new(base);
+    }
+
+    #[test]
+    fn unique_id_collision_weakdom_new() {
+        let unique_id: UniqueId = UniqueId::now().unwrap();
+        let builder =
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id));
+
+        // Should avoid a collision even if dom was created from a builder containing a
+        // UniqueId prop at the root
+        let mut dom = WeakDom::new(builder);
+
+        // Try to make a collision!
+        let child_ref = dom.insert(
+            dom.root_ref(),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
+        );
+
+        let child = dom.get_by_ref(child_ref).unwrap();
+        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get("UniqueId") {
+            assert_ne!(
+                unique_id,
+                *actual_unique_id,
+                "child should have a different UniqueId than the root ({unique_id}), but it was the same."
+            )
+        } else {
+            panic!("UniqueId property must exist and contain a Variant::UniqueId")
+        };
+    }
+
+    #[test]
+    fn unique_id_collision() {
+        let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let unique_id: UniqueId = UniqueId::now().unwrap();
+        let parent_ref = dom.insert(
+            dom.root_ref(),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
+        );
+
+        // Try to make a collision!
+        let child_ref = dom.insert(
+            parent_ref,
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
+        );
+
+        let child = dom.get_by_ref(child_ref).unwrap();
+        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get("UniqueId") {
+            assert_ne!(
+                unique_id,
+                *actual_unique_id,
+                "child should have a different UniqueId than the parent ({unique_id}), but it was the same."
+            )
+        } else {
+            panic!("UniqueId property must exist and contain a Variant::UniqueId")
+        }
+    }
+
+    #[test]
+    fn unique_id_no_collision() {
+        let unique_id = UniqueId::now().unwrap();
+        let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+
+        let child_ref = dom.insert(
+            dom.root_ref(),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
+        );
+
+        let child = dom.get_by_ref(child_ref).unwrap();
+        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get("UniqueId") {
+            assert_eq!(
+                unique_id,
+                *actual_unique_id,
+                "if there is no collision, UniqueId should remain the same after passing it to WeakDom::insert."
+            )
+        } else {
+            panic!("UniqueId property must exist and contain a Variant::UniqueId")
+        };
+    }
+
+    #[test]
+    fn unique_id_collision_transfer() {
+        let unique_id = UniqueId::now().unwrap();
+        let mut dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+
+        let folder_ref = dom.insert(
+            dom.root_ref(),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
+        );
+
+        other_dom.insert(
+            other_dom.root_ref(),
+            InstanceBuilder::new("Folder").with_property("UniqueId", Variant::UniqueId(unique_id)),
+        );
+
+        let other_root_ref = other_dom.root_ref();
+        dom.transfer(folder_ref, &mut other_dom, other_root_ref);
+
+        let folder = other_dom.get_by_ref(folder_ref).unwrap();
+        if let Some(Variant::UniqueId(actual_unique_id)) = folder.properties.get("UniqueId") {
+            assert_ne!(
+                unique_id, *actual_unique_id,
+                "WeakDom::transfer caused a UniqueId collision."
+            )
+        } else {
+            panic!("UniqueId property must exist and contain a Variant::UniqueId")
+        };
     }
 }
