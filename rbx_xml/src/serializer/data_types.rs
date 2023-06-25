@@ -23,7 +23,7 @@ use super::error::{EncodeError, ErrorKind};
 use binary_string::{attributes_serializer, tags_serializer};
 use bitfield::{axes_serializer, faces_serializer};
 use cframe::cframe_serializer;
-use colors::{color3_serializer, color3uint8_serializer};
+use colors::{brickcolor_serializer, color3_serializer, color3uint8_serializer};
 use font::font_serializer;
 use option::optional_cframe_serializer;
 use physical_properties::physical_properties_serializer;
@@ -158,4 +158,5 @@ serializers! {
     PhysicalProperties: "PhysicalProperties" => physical_properties_serializer,
     OptionalCFrame: "OptionalCoordinateFrame" => optional_cframe_serializer,
     Enum: "token" => enum_serializer,
+    BrickColor: "int" => brickcolor_serializer,
 }

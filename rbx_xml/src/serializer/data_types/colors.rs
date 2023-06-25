@@ -1,7 +1,7 @@
 use std::io;
 
 use super::{EncodeError, XmlWriter};
-use rbx_dom_weak::types::{Color3, Color3uint8};
+use rbx_dom_weak::types::{BrickColor, Color3, Color3uint8};
 
 pub fn color3_serializer<W: io::Write>(
     writer: &mut XmlWriter<W>,
@@ -19,5 +19,14 @@ pub fn color3uint8_serializer<W: io::Write>(
 ) -> Result<(), EncodeError> {
     let packed: u32 = (value.r as u32) << 16 | (value.g as u32) << 8 | (value.b as u32);
     writer.write_text(&packed.to_string())?;
+    Ok(())
+}
+
+pub fn brickcolor_serializer<W: io::Write>(
+    writer: &mut XmlWriter<W>,
+    value: &BrickColor,
+) -> Result<(), EncodeError> {
+    // FIXME: BrickColor should have an `as_number` method
+    writer.write_text(&(*value as u16).to_string())?;
     Ok(())
 }
