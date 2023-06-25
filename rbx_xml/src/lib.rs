@@ -108,7 +108,6 @@
 
 mod conversion;
 mod deserializer;
-mod error;
 mod property_descriptor;
 mod serializer;
 
