@@ -1,0 +1,128 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: TextLabel
+  class: TextLabel
+  properties:
+    Active:
+      Bool: false
+    AnchorPoint:
+      Vector2:
+        - 0
+        - 0
+    Attributes:
+      Attributes: {}
+    AutoLocalize:
+      Bool: true
+    AutomaticSize:
+      Enum: 0
+    BackgroundColor3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    BackgroundTransparency:
+      Float32: 0
+    BorderColor3:
+      Color3:
+        - 0.10588236
+        - 0.16470589
+        - 0.20784315
+    BorderMode:
+      Enum: 0
+    BorderSizePixel:
+      Int32: 1
+    ClipsDescendants:
+      Bool: false
+    Draggable:
+      Bool: false
+    FontFace:
+      Font:
+        family: "rbxasset://fonts/families/RobotoMono.json"
+        weight: Bold
+        style: Italic
+        cachedFaceId: ~
+    LayoutOrder:
+      Int32: 0
+    LineHeight:
+      Float32: 1
+    MaxVisibleGraphemes:
+      Int32: -1
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      UDim2:
+        - - 0
+          - 0
+        - - 0
+          - 0
+    RichText:
+      Bool: false
+    RootLocalizationTable: "null"
+    Rotation:
+      Float32: 0
+    Selectable:
+      Bool: false
+    SelectionBehaviorDown:
+      Enum: 0
+    SelectionBehaviorLeft:
+      Enum: 0
+    SelectionBehaviorRight:
+      Enum: 0
+    SelectionBehaviorUp:
+      Enum: 0
+    SelectionGroup:
+      Bool: false
+    SelectionImageObject: "null"
+    SelectionOrder:
+      Int32: 0
+    Size:
+      UDim2:
+        - - 0
+          - 200
+        - - 0
+          - 50
+    SizeConstraint:
+      Enum: 0
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Text:
+      String: My Text
+    TextColor3:
+      Color3:
+        - 0
+        - 0
+        - 0
+    TextScaled:
+      Bool: false
+    TextSize:
+      Float32: 14
+    TextStrokeColor3:
+      Color3:
+        - 0
+        - 0
+        - 0
+    TextStrokeTransparency:
+      Float32: 1
+    TextTransparency:
+      Float32: 0
+    TextTruncate:
+      Enum: 0
+    TextWrapped:
+      Bool: false
+    TextXAlignment:
+      Enum: 2
+    TextYAlignment:
+      Enum: 1
+    Visible:
+      Bool: true
+    ZIndex:
+      Int32: 1
+  children: []
+

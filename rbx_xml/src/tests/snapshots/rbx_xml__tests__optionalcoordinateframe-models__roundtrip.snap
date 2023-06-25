@@ -1,0 +1,159 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: None
+  class: Model
+  properties:
+    Attributes:
+      Attributes: {}
+    LevelOfDetail:
+      Enum: 0
+    ModelMeshCFrame:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    NeedsPivotMigration:
+      Bool: false
+    PrimaryPart: "null"
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    WorldPivotData:
+      OptionalCFrame: ~
+  children: []
+- referent: referent-1
+  name: Some
+  class: Model
+  properties:
+    Attributes:
+      Attributes: {}
+    LevelOfDetail:
+      Enum: 0
+    ModelMeshCFrame:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    NeedsPivotMigration:
+      Bool: false
+    PrimaryPart: "null"
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    WorldPivotData:
+      OptionalCFrame:
+        position:
+          - 1
+          - -1
+          - 0.5
+        orientation:
+          - - 0.06294725
+            - 0.403198
+            - 0.9129453
+          - - 0.75241846
+            - -0.6201453
+            - 0.22200526
+          - - 0.65567076
+            - 0.6729422
+            - -0.34241003
+  children: []
+- referent: referent-2
+  name: SomeInfNaN
+  class: Model
+  properties:
+    Attributes:
+      Attributes: {}
+    LevelOfDetail:
+      Enum: 0
+    ModelMeshCFrame:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    NeedsPivotMigration:
+      Bool: false
+    PrimaryPart: "null"
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    WorldPivotData:
+      OptionalCFrame:
+        position:
+          - -0.5
+          - inf
+          - NaN
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+  children: []
+
