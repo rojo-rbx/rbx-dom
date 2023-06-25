@@ -23,14 +23,7 @@ pub(crate) enum ErrorKind {
     /// The 'Name' property on an Instance was not a string.
     #[error("property 'Name' must be a string")]
     NameNotString(VariantType),
-    /// A class of an unknown name was encountered. This will only be raised
-    /// when the corresponding configuration option is set.
-    #[error("unknown class name '{0}' (referent: ({1})")]
-    UnknownClass(String, String),
 
-    /// The 'name' attribute of a property was not present
-    #[error("property of type {0} without 'name' attribute")]
-    UnnamedProperty(String),
     /// A property was duplicated on an Instance
     #[error("duplicate property {0} on Instance")]
     DuplicateProperty(String),
@@ -120,17 +113,6 @@ impl ErrorKind {
     /// A convenience function for turning an `ErrorKind` into a `DecodeError`.
     pub fn err(self) -> DecodeError {
         DecodeError(Box::from(self))
-    }
-}
-
-impl DecodeError {
-    /// Returns a new `DecodeError` from the given `ErrorKind`.
-    pub(crate) fn new(kind: ErrorKind) -> Self {
-        Self(Box::from(kind))
-    }
-
-    pub(crate) fn kind(&self) -> &ErrorKind {
-        &self.0
     }
 }
 

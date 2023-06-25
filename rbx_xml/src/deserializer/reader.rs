@@ -34,14 +34,6 @@ pub struct ElementStart(String, HashMap<String, String>);
 pub struct ElementEnd(String);
 
 impl ElementStart {
-    pub fn name(&self) -> &str {
-        &self.0
-    }
-
-    pub fn attributes(&self) -> &HashMap<String, String> {
-        &self.1
-    }
-
     pub fn get_attribute(&mut self, name: &str) -> Result<String, DecodeError> {
         match self.1.get(name) {
             Some(_) => Ok(self.1.remove(name).unwrap()),
@@ -50,25 +42,6 @@ impl ElementStart {
                 element: self.0.clone(),
             }
             .err()),
-        }
-    }
-}
-
-impl ElementEnd {
-    pub fn name(&self) -> &str {
-        &self.0
-    }
-}
-
-impl<'a> XmlReader<io::BufReader<&'a [u8]>> {
-    pub(crate) fn from_str(string: &'a str) -> Self {
-        let mut inner = Reader::from_reader(io::BufReader::new(string.as_bytes()));
-        inner.trim_text(true);
-        Self {
-            reader: inner,
-            event_buffer: Vec::new(),
-            peeked: None,
-            finished: false,
         }
     }
 }
@@ -145,7 +118,7 @@ impl<R: io::BufRead> XmlReader<R> {
 
     /// Deserializes a `T` using the provided function, expecting it to be
     /// contained inside of an element with the provided `name`.
-    pub fn read_named_with<T, F>(&mut self, name: &str, mut with: F) -> Result<T, DecodeError>
+    pub fn read_named_with<T, F>(&mut self, name: &str, with: F) -> Result<T, DecodeError>
     where
         F: Fn(&mut Self) -> Result<T, DecodeError>,
     {
@@ -292,7 +265,7 @@ mod test {
             <tag2>   Tag2 Content No Space   </tag2>
             <tag3 att3 = "BAZ"></tag3>
         </tag1>"#;
-        for event in XmlReader::from_str(document) {
+        for event in XmlReader::from_reader(document.as_bytes()) {
             event.unwrap();
         }
     }
@@ -302,14 +275,14 @@ mod test {
         let document = r#"
         <bool name = "Test">true</bool>
         "#;
-        let mut reader = XmlReader::from_str(document);
+        let mut reader = XmlReader::from_reader(document.as_bytes());
         let mut start = reader.expect_start_with_name("bool").unwrap();
         let content = reader.eat_text().unwrap();
         let end = reader.expect_end_with_name("bool").unwrap();
 
-        assert_eq!(start.name(), "bool");
+        assert_eq!(start.0, "bool");
         assert_eq!(start.get_attribute("name").unwrap(), "Test".to_owned());
         assert_eq!(content, "true");
-        assert_eq!(end.name(), "bool");
+        assert_eq!(end.0, "bool");
     }
 }

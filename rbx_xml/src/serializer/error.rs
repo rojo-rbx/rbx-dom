@@ -19,15 +19,10 @@ pub(crate) enum ErrorKind {
     TypeNeedsState(VariantType),
     #[error("cannot serialize value of type '{0:?}'")]
     CannotSerialize(VariantType),
-    #[error("cannot be strict with {0} without a database")]
-    StrictWithoutDatabase(&'static str),
 
     /// A `Ref` was not located inside of the provided `WeakDom`
     #[error("Ref {0} was not in the Dom")]
     RefNotInDom(Ref),
-    /// A class was not known to the reflection database
-    #[error("unknown class name '{0}'")]
-    UnknownClass(String),
     /// A property was not known by name to the reflection database
     #[error("unknown property '{0}.{1}'")]
     UnknownProperty(String, String),
@@ -61,13 +56,6 @@ impl ErrorKind {
     /// A convenience function for turning an `ErrorKind` into a `EncodeError`.
     pub fn err(self) -> EncodeError {
         EncodeError(Box::from(self))
-    }
-}
-
-impl EncodeError {
-    /// Returns a new `EncodeError` from the given `ErrorKind`.
-    pub(crate) fn new(kind: ErrorKind) -> Self {
-        Self(Box::from(kind))
     }
 }
 

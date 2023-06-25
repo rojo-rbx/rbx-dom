@@ -17,10 +17,6 @@ pub struct XmlWriter<W: io::Write> {
 }
 
 impl<W: io::Write> XmlWriter<W> {
-    pub fn into_inner(self) -> W {
-        self.inner.into_inner()
-    }
-
     pub fn new(writer: W, indent: Option<(u8, usize)>) -> XmlWriter<W> {
         XmlWriter {
             inner: if let Some((indent_char, indent_size)) = indent {

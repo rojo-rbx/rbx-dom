@@ -516,7 +516,10 @@ mod tests {
             </roblox>
         "#;
 
-        match deserialize_file(XmlReader::from_str(document), DecodeOptions::new()) {
+        match deserialize_file(
+            XmlReader::from_reader(document.as_bytes()),
+            DecodeOptions::new(),
+        ) {
             Err(err) => panic!("{}", err),
             Ok(dom) => {
                 insta::assert_yaml_snapshot!(
@@ -575,7 +578,7 @@ mod tests {
         "#;
 
         match deserialize_file(
-            XmlReader::from_str(document),
+            XmlReader::from_reader(document.as_bytes()),
             DecodeOptions::new().database(rbx_reflection_database::get()),
         ) {
             Err(err) => panic!("{}", err),

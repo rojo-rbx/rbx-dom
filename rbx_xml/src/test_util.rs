@@ -18,7 +18,9 @@ macro_rules! deserialize_test {
     ($deserializer:path, $expected:expr, $input:expr) => {{
         let _ = env_logger::try_init();
         // We do this to have a nicer panic message :-)
-        let value = match $deserializer(&mut $crate::deserializer::XmlReader::from_str($input)) {
+        let value = match $deserializer(&mut $crate::deserializer::XmlReader::from_reader(
+            $input.as_bytes(),
+        )) {
             Ok(v) => v,
             Err(err) => panic!("{}", err),
         };
@@ -52,11 +54,12 @@ macro_rules! deserialize_test {
 macro_rules! serialize_test {
     ($serializer:path, $value:expr, $expected:expr) => {{
         let _ = env_logger::try_init();
-        let mut writer = $crate::serializer::XmlWriter::new(Vec::new(), Some((b' ', 2)));
+        let mut vec = Vec::new();
+        let mut writer = $crate::serializer::XmlWriter::new(&mut vec, Some((b' ', 2)));
         $serializer(&mut writer, &$value).unwrap();
         assert_eq!(
             $expected,
-            String::from_utf8(writer.into_inner()).unwrap(),
+            String::from_utf8(vec).unwrap(),
             concat!(
                 "serializer '",
                 stringify!($serializer),

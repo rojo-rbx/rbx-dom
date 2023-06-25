@@ -113,3 +113,9 @@ impl<'db> DecodeOptions<'db> {
         self.unknown_type_err
     }
 }
+
+impl<'db> Default for DecodeOptions<'db> {
+    fn default() -> Self {
+        Self::new()
+    }
+}

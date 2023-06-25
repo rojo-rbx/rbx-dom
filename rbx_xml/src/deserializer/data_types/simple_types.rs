@@ -208,7 +208,7 @@ mod tests {
 
         // Can't compare Nan to itself and the macros use assert_eq! (which uses ==)
         let input = "NAN";
-        let output = f32_deserializer(&mut XmlReader::from_str(input)).unwrap();
+        let output = f32_deserializer(&mut XmlReader::from_reader(input.as_bytes())).unwrap();
         assert!(
             output.is_nan(),
             "f32_deserializer did not produce NaN from {}",
@@ -228,7 +228,7 @@ mod tests {
 
         // Can't compare nan to itself and the macro uses assert_eq! (which uses ==)
         let input = "NAN";
-        let output = f64_deserializer(&mut XmlReader::from_str(input)).unwrap();
+        let output = f64_deserializer(&mut XmlReader::from_reader(input.as_bytes())).unwrap();
         assert!(
             output.is_nan(),
             "f64_deserializer did not produce NaN from {}",

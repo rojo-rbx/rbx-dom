@@ -104,10 +104,10 @@ impl<'db> EncodeOptions<'db> {
             EncodePropertyBehavior::IgnoreUnknown | EncodePropertyBehavior::NoReflection
         )
     }
+}
 
-    /// A utility function to determine whether or not we should error when
-    /// an unknown type is encountered
-    pub(crate) fn error_on_unknown_type(&self) -> bool {
-        self.unknown_type_err
+impl<'db> Default for EncodeOptions<'db> {
+    fn default() -> Self {
+        Self::new()
     }
 }

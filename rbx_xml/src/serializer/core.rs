@@ -22,14 +22,6 @@ use super::{
 
 use super::writer::XmlWriter;
 
-pub fn serialize_dom<W: io::Write>(
-    output: W,
-    dom: &WeakDom,
-    options: EncodeOptions,
-) -> Result<(), EncodeError> {
-    serialize_refs(output, dom, dom.root().children(), options)
-}
-
 pub fn serialize_refs<W: io::Write>(
     output: W,
     dom: &WeakDom,
@@ -85,21 +77,23 @@ pub fn serialize_refs<W: io::Write>(
     Ok(())
 }
 
-pub fn serialize_meta<W: io::Write>(
-    writer: &mut XmlWriter<W>,
-    name: &str,
-    value: &str,
-) -> Result<(), EncodeError> {
-    log::debug!("Writing metadata {name} = {value}");
-    writer
-        .start_element("Meta")
-        .attribute("name", name)
-        .finalize()?;
-    writer.write_text(value)?;
-    writer.end_element("Meta")?;
+// TODO serialize metadata (see issue #3)
 
-    Ok(())
-}
+// pub fn serialize_meta<W: io::Write>(
+//     writer: &mut XmlWriter<W>,
+//     name: &str,
+//     value: &str,
+// ) -> Result<(), EncodeError> {
+//     log::debug!("Writing metadata {name} = {value}");
+//     writer
+//         .start_element("Meta")
+//         .attribute("name", name)
+//         .finalize()?;
+//     writer.write_text(value)?;
+//     writer.end_element("Meta")?;
+
+//     Ok(())
+// }
 
 fn serialize_item<'db, W: io::Write>(
     writer: &mut XmlWriter<W>,
@@ -252,6 +246,8 @@ struct EncodeState<'db> {
 }
 
 impl<'db> EncodeState<'db> {
+    // Either gets a sequential integer string to replace a referent during
+    // serialization or generates one.
     fn map_or_set_ref(&mut self, referent: &Ref) -> &str {
         match self.ref_map.get(referent) {
             Some(index) => &self.ref_strings[*index],
@@ -262,146 +258,6 @@ impl<'db> EncodeState<'db> {
                 self.ref_map.insert(*referent, n);
                 self.ref_strings.push(str);
                 &self.ref_strings[n]
-            }
-        }
-    }
-
-    fn map_ref(&self, referent: Ref) -> Option<&str> {
-        self.ref_map
-            .get(&referent)
-            .map(|i| self.ref_strings[*i].as_str())
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use rbx_dom_weak::DomViewer;
-
-    #[test]
-    fn dom_migration() {
-        let _ = env_logger::try_init();
-        let document = r#"
-        <roblox version="4">
-            <External>TestExternal</External>
-            <Meta name="TestMetadata">TestValue</Meta>
-            <Item class="Part" referent="foo">
-                <Properties>
-                    <string name="Name">Hello, world!</string>
-                    <int name = "Color">197</int>
-                    <Vector3 name="Position">
-                        <X>10</X>
-                        <Y>20</Y>
-                        <Z>30</Z>
-                    </Vector3>
-                </Properties>
-            </Item>
-        </roblox>
-    "#;
-        let dom = crate::from_str_default(document)
-            .map_err(|e| panic!("could not decode: {}", e))
-            .unwrap();
-        let mut out = Vec::new();
-        if let Err(error) = serialize_dom(
-            &mut out,
-            &dom,
-            EncodeOptions::new().database(rbx_reflection_database::get()),
-        ) {
-            panic!("{}", error);
-        }
-
-        println!("{}", String::from_utf8(out).unwrap());
-    }
-
-    #[test]
-    fn dom_test() {
-        let document = r#"
-        <roblox version="4">
-            <External>TestExternal</External>
-            <Meta name="TestMetadata">TestValue</Meta>
-            <Item class="TestClass" referent="TestReferent">
-                <Properties>
-                    <string name = "Name">"Test Name"</string>
-                    <Ref name = "RefTest">null</Ref>
-                    <SharedString name="TestSharedString">Test Shared String Key</SharedString>
-                    <bool name="TestBool1">true</bool>
-                    <bool name="TestBool2">false</bool>
-                    <string name="TestString">Test Value</string>
-                    <float name="TestFloat1">-0.15625</float>
-                    <float name="TestFloat2">INF</float>
-                    <float name="TestFloat3">-INF</float>
-                    <float name="TestFloat4">NAN</float>
-                    <double name="TestDouble1">-0.15625</double>
-                    <double name="TestDouble2">INF</double>
-                    <double name="TestDouble3">-INF</double>
-                    <double name="TestDouble4">NAN</double>
-                    <Vector3 name="TestVector3">
-                        <X>1337</X>
-                        <Y>123456789.10</Y>
-                        <Z>-4276993775</Z>
-                    </Vector3>
-                </Properties>
-                <Item class="TestClass2" referent="TestReferent2">
-                    <Properties>
-                        <Ref name = "RefTest">TestReferent</Ref>
-                        <SharedString name="TestSharedString">Test Shared String Key</SharedString>
-                        <int name = "TestInt1">10</int>
-                        <int name = "TestInt2">-10</int>
-                        <int64 name = "TestInt64_1">20</int64>
-                        <int64 name = "TestInt64_2">-20</int64>
-                        <ProtectedString name = "Test"><![CDATA[   Protected String   ]]></ProtectedString>
-                        <Ray name="TestRay">
-                            <origin>
-                                <X>1</X>
-                                <Y>2</Y>
-                                <Z>3</Z>
-                            </origin>
-                            <direction>
-                                <X>-4</X>
-                                <Y>-5</Y>
-                                <Z>-6</Z>
-                            </direction>
-                        </Ray>
-                    </Properties>
-                </Item>
-            </Item>
-            <SharedStrings>
-                <SharedString md5="Test Shared String Key">Q1NHSzg1MTYxZjdlOWNmZjMyNTlhNmU1NmE2NGJjZmNjMzJh</SharedString>
-            </SharedStrings>
-        </roblox>
-    "#;
-        let dom = crate::from_str_default(document).unwrap();
-        let mut out = Vec::new();
-        if let Err(error) = serialize_dom(
-            &mut out,
-            &dom,
-            EncodeOptions::new().database(rbx_reflection_database::get()),
-        ) {
-            panic!("{}", error);
-        }
-
-        println!("{}", String::from_utf8(out).unwrap());
-    }
-
-    #[test]
-    fn dom_round_trip() {
-        #![allow(unused_must_use)]
-        env_logger::try_init();
-        let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
-
-        let dom = crate::from_reader_default(file).unwrap();
-        // insta::assert_yaml_snapshot!("deserialize crossroads", DomViewer::new().view(&dom));
-        let mut out: Vec<u8> = Vec::new();
-        match serialize_dom(
-            &mut out,
-            &dom,
-            EncodeOptions::new().database(rbx_reflection_database::get()),
-        ) {
-            Err(err) => panic!("{}", err),
-            Ok(_) => {
-                std::fs::write("crossroads_ser.rbxlx", &out).unwrap();
-                let dom2 = crate::from_reader_default(out.as_slice()).unwrap();
-                // insta::assert_yaml_snapshot!("serialize crossroads", DomViewer::new().view(&dom2))
             }
         }
     }

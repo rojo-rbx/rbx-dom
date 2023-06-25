@@ -3,9 +3,7 @@
 
 use std::{borrow::Cow, convert::TryInto};
 
-use rbx_dom_weak::types::{
-    Attributes, BinaryString, BrickColor, Error, Tags, Variant, VariantType,
-};
+use rbx_dom_weak::types::{BrickColor, Variant, VariantType};
 use thiserror::Error;
 
 #[derive(Debug, Error)]
