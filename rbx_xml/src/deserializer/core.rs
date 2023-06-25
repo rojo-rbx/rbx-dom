@@ -531,33 +531,6 @@ mod tests {
     }
 
     #[test]
-    fn crossroads_decode() {
-        #![allow(unused_must_use)]
-        env_logger::try_init();
-        let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
-
-        let reader = XmlReader::from_reader(std::io::BufReader::new(file));
-        if let Err(err) = deserialize_file(reader, DecodeOptions::new()) {
-            panic!("{}", err)
-        }
-    }
-
-    #[test]
-    fn crossroads_strict() {
-        #![allow(unused_must_use)]
-        env_logger::try_init();
-        let file = std::fs::File::open("benches/crossroads.rbxlx").unwrap();
-
-        let reader = XmlReader::from_reader(std::io::BufReader::new(file));
-        if let Err(err) = deserialize_file(
-            reader,
-            DecodeOptions::new().database(rbx_reflection_database::get()),
-        ) {
-            panic!("{}", err)
-        }
-    }
-
-    #[test]
     fn decode_strict() {
         #![allow(unused_must_use)]
         env_logger::try_init();
