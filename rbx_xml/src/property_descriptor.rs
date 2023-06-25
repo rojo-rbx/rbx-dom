@@ -86,7 +86,9 @@ fn descriptor_from_kind<'db>(
 ) -> Option<(&'db PropertyDescriptor<'db>, &'db PropertyDescriptor<'db>)> {
     match &property_descriptor.kind {
         PropertyKind::Canonical { serialization } => match serialization {
-            PropertySerialization::Serializes => Some((property_descriptor, property_descriptor)),
+            PropertySerialization::Serializes | PropertySerialization::Migrate { .. } => {
+                Some((property_descriptor, property_descriptor))
+            }
             PropertySerialization::DoesNotSerialize => {
                 // This hasn't caused any issues for 3 years
                 None

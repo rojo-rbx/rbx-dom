@@ -102,6 +102,8 @@ pub(crate) enum ErrorKind {
     /// There was an error while decoding a Base64 string.
     #[error("invalid base64 string: {0}")]
     InvalidBase64(#[from] base64::DecodeError),
+    #[error("could not migrate property: {0}")]
+    MigrationFail(#[from] rbx_reflection::MigrationError),
 
     /// A property could not be read because of invalid data inside it.
     #[error("{0}")]

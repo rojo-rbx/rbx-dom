@@ -7,7 +7,7 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::DataType;
+use rbx_reflection::{DataType, PropertyKind, PropertySerialization};
 
 use crate::{
     deserializer::conversions, property_descriptor::find_canonical_property_descriptor,
@@ -306,6 +306,19 @@ fn deserialize_properties<R: BufRead>(
                                         error,
                                     }
                                     .err());
+                                }
+                            }
+                            if let PropertyKind::Canonical {
+                                serialization: PropertySerialization::Migrate(migration),
+                            } = &descriptor.kind
+                            {
+                                if !properties.contains_key(&migration.new_property_name) {
+                                    log::trace!(
+                                        "Trying to migrate {prop_name} to {}",
+                                        migration.new_property_name
+                                    );
+                                    variant = migration.perform(&variant)?;
+                                    prop_name = migration.new_property_name.clone();
                                 }
                             }
                         } else if !state.options.ignore_unknown() {
