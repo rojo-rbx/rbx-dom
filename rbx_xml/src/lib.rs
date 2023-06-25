@@ -158,7 +158,7 @@ pub fn from_str_default<S: AsRef<str>>(reader: S) -> Result<WeakDom, DecodeError
 /// Serializes a subset of the given tree to an XML format model or place,
 /// writing to something that implements the `std::io::Write` trait.
 pub fn to_writer<W: Write>(
-    writer: &mut W,
+    writer: W,
     tree: &WeakDom,
     ids: &[Ref],
     options: EncodeOptions,
