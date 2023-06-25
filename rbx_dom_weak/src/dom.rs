@@ -34,12 +34,27 @@ impl WeakDom {
     /// Crates a `WeakDom` from a root referent and a map of Instances. This
     /// is intended for use with `into_raw`.
     ///
-    /// It is up to the caller to ensure that the values passed do not crate an
-    /// invalid Dom. This means that all values in `instances` must be
+    /// It is up to the caller to ensure that the values passed do not create
+    /// an invalid Dom. This means that all values in `instances` must be
     /// descendants of the root *and* that the `Instance` pointed to by `root`
     /// must be inside `instances`.
-    pub fn from_raw(root: Ref, instances: HashMap<Ref, Instance>) -> WeakDom {
+    pub fn from_raw(root: Ref, mut instances: HashMap<Ref, Instance>) -> WeakDom {
+        let mut unique_ids = HashSet::new();
+        for instance in instances.values_mut() {
+            if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+                if unique_ids.contains(unique_id) {
+                    // This may panic if the system clock is wrong, but that's
+                    // probably fine.
+                    let new = UniqueId::now().unwrap();
+                    unique_ids.insert(new);
+                    instance
+                        .properties
+                        .insert("UniqueId".to_string(), new.into());
+                }
+            }
+        }
         Self {
+            unique_ids,
             root_ref: root,
             instances,
         }
