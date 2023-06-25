@@ -117,7 +117,6 @@ mod test_util;
 use std::io::{BufReader, Read, Write};
 
 use rbx_dom_weak::{types::Ref, WeakDom};
-use rbx_reflection::ReflectionDatabase;
 
 use serializer::encode_internal;
 pub use serializer::{EncodeError, EncodeOptions, EncodePropertyBehavior};
@@ -201,69 +200,4 @@ pub enum PropertyBehavior {
     /// Returns an error if any properties are found that aren't known to
     /// the reflection database.
     ErrorOnUnknown,
-}
-
-/// Represents a configuration for deserializing and serializing an XML file.
-/// Specifically, this allows the user to control whether a reflection database
-/// is used, and if so what the behavior is when unknown properties are encountered.
-///
-/// The `'db` lifetime of this struct refers to the lifetime of the reflection
-/// database, as it only holds a reference to it.
-#[derive(Debug, Clone, Default)]
-pub struct Config<'db> {
-    database: Option<&'db ReflectionDatabase<'db>>,
-    property_behavior: PropertyBehavior,
-    migrate_properties: bool,
-    check_class_names: bool,
-}
-
-impl<'db> Config<'db> {
-    /// Creates a new `Config` with the default options. This means
-    /// no database is used and unknown properties, classes, and datatypes are
-    /// ignored during (de)serialization.
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    /// Creates a new `Config` with the given database. By default, this means
-    /// this means that unknown properties will be read and written but
-    /// properties may have their names and values translated to new ones
-    /// according to the rules in the reflection database.
-    pub fn with_database(database: &'db ReflectionDatabase<'db>) -> Self {
-        Self {
-            database: Some(database),
-            property_behavior: PropertyBehavior::AcceptUnknown,
-            migrate_properties: true,
-            check_class_names: false,
-        }
-    }
-
-    /// Sets a database to use during (de)serialization.
-    pub fn database(mut self, database: &'db ReflectionDatabase<'db>) -> Self {
-        self.database = Some(database);
-        self
-    }
-
-    /// Sets whether property names and values are migrated during
-    /// (de)serialization.
-    pub fn migrate_properties(mut self, migrate: bool) -> Self {
-        self.migrate_properties = migrate;
-        self
-    }
-
-    /// Sets the behavior to use when (de)serializing properties. For more
-    /// information, see `PropertyBehavior.
-    pub fn property_behavior(mut self, behavior: PropertyBehavior) -> Self {
-        self.property_behavior = behavior;
-        self
-    }
-
-    /// Whether to ignore uknown properties
-    pub(crate) fn ignore_unknown(&self) -> bool {
-        matches!(self.property_behavior, PropertyBehavior::IgnoreUnknown)
-    }
-
-    pub(crate) fn error_on_unknown(&self) -> bool {
-        matches!(self.property_behavior, PropertyBehavior::ErrorOnUnknown)
-    }
 }
