@@ -90,7 +90,11 @@ pub fn content_serializer<W: io::Write>(
     // FIXME: Content should have method for taking it as a &str
     let str: &str = value.as_ref();
     if str.is_empty() {
-        writer.write_element("null", "")
+        // This is necessary to mimic the formatting of the old
+        // version of rbx_xml. Without it, `<null></null>` will get written
+        // onto one line which breaks diffs.
+        writer.start_element("null").finalize()?;
+        writer.end_element("null")
     } else {
         writer.write_element("url", str)
     }
