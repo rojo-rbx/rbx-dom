@@ -19,7 +19,6 @@ use rbx_dom_weak::{
 use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
 
 use crate::{
-    cframe,
     chunk::{ChunkBuilder, ChunkCompression},
     core::{
         find_property_descriptors, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
@@ -850,7 +849,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         }
 
                         for matrix in rotations {
-                            if let Some(id) = cframe::to_basic_rotation_id(matrix) {
+                            if let Some(id) = matrix.to_basic_rotation_id() {
                                 chunk.write_u8(id)?;
                             } else {
                                 chunk.write_u8(0x00)?;
@@ -1086,7 +1085,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         }
 
                         for matrix in rotations {
-                            if let Some(id) = cframe::to_basic_rotation_id(matrix) {
+                            if let Some(id) = matrix.to_basic_rotation_id() {
                                 chunk.write_u8(id)?;
                             } else {
                                 chunk.write_u8(0x00)?;

@@ -1,3 +1,7 @@
+use thiserror::Error;
+
+use crate::Error;
+
 /// Represents any Roblox enum value.
 ///
 /// Roblox enums are not strongly typed, so the meaning of a value depends on
@@ -177,6 +181,12 @@ pub struct Matrix3 {
     pub z: Vector3,
 }
 
+#[derive(Debug, Error)]
+pub(crate) enum Matrix3Error {
+    #[error("invalid rotation ID: {id}")]
+    BadRotationId { id: u8 },
+}
+
 impl Matrix3 {
     pub fn new(x: Vector3, y: Vector3, z: Vector3) -> Self {
         Self { x, y, z }
@@ -195,6 +205,151 @@ impl Matrix3 {
             x: Vector3::new(self.x.x, self.y.x, self.z.x),
             y: Vector3::new(self.x.y, self.y.y, self.z.y),
             z: Vector3::new(self.x.z, self.y.z, self.z.z),
+        }
+    }
+
+    pub fn to_basic_rotation_id(&self) -> Option<u8> {
+        let transpose = self.transpose();
+        let x_id = transpose.x.to_normal_id()?;
+        let y_id = transpose.y.to_normal_id()?;
+        let z_id = transpose.z.to_normal_id()?;
+        let basic_rotation_id = (6 * x_id) + y_id + 1;
+
+        // Because we don't enforce orthonormality, it's still possible at
+        // this point for the z row to differ from the basic rotation's z
+        // row. We check for this case to avoid altering the value.
+        if Matrix3::from_basic_rotation_id(basic_rotation_id)
+            .ok()?
+            .transpose()
+            .z
+            .to_normal_id()?
+            == z_id
+        {
+            Some(basic_rotation_id)
+        } else {
+            None
+        }
+    }
+
+    pub fn from_basic_rotation_id(id: u8) -> Result<Matrix3, Error> {
+        match id {
+            0x02 => Ok(Matrix3::identity()),
+            0x03 => Ok(Matrix3::new(
+                Vector3::new(1.0, 0.0, 0.0),
+                Vector3::new(0.0, 0.0, -1.0),
+                Vector3::new(0.0, 1.0, 0.0),
+            )),
+            0x05 => Ok(Matrix3::new(
+                Vector3::new(1.0, 0.0, 0.0),
+                Vector3::new(0.0, -1.0, 0.0),
+                Vector3::new(0.0, 0.0, -1.0),
+            )),
+            0x06 => Ok(Matrix3::new(
+                Vector3::new(1.0, 0.0, 0.0),
+                Vector3::new(0.0, 0.0, 1.0),
+                Vector3::new(0.0, -1.0, 0.0),
+            )),
+            0x07 => Ok(Matrix3::new(
+                Vector3::new(0.0, 1.0, 0.0),
+                Vector3::new(1.0, 0.0, 0.0),
+                Vector3::new(0.0, 0.0, -1.0),
+            )),
+            0x09 => Ok(Matrix3::new(
+                Vector3::new(0.0, 0.0, 1.0),
+                Vector3::new(1.0, 0.0, 0.0),
+                Vector3::new(0.0, 1.0, 0.0),
+            )),
+            0x0a => Ok(Matrix3::new(
+                Vector3::new(0.0, -1.0, 0.0),
+                Vector3::new(1.0, 0.0, 0.0),
+                Vector3::new(0.0, 0.0, 1.0),
+            )),
+            0x0c => Ok(Matrix3::new(
+                Vector3::new(0.0, 0.0, -1.0),
+                Vector3::new(1.0, 0.0, 0.0),
+                Vector3::new(0.0, -1.0, 0.0),
+            )),
+            0x0d => Ok(Matrix3::new(
+                Vector3::new(0.0, 1.0, 0.0),
+                Vector3::new(0.0, 0.0, 1.0),
+                Vector3::new(1.0, 0.0, 0.0),
+            )),
+            0x0e => Ok(Matrix3::new(
+                Vector3::new(0.0, 0.0, -1.0),
+                Vector3::new(0.0, 1.0, 0.0),
+                Vector3::new(1.0, 0.0, 0.0),
+            )),
+            0x10 => Ok(Matrix3::new(
+                Vector3::new(0.0, -1.0, 0.0),
+                Vector3::new(0.0, 0.0, -1.0),
+                Vector3::new(1.0, 0.0, 0.0),
+            )),
+            0x11 => Ok(Matrix3::new(
+                Vector3::new(0.0, 0.0, 1.0),
+                Vector3::new(0.0, -1.0, 0.0),
+                Vector3::new(1.0, 0.0, 0.0),
+            )),
+            0x14 => Ok(Matrix3::new(
+                Vector3::new(-1.0, 0.0, 0.0),
+                Vector3::new(0.0, 1.0, 0.0),
+                Vector3::new(0.0, 0.0, -1.0),
+            )),
+            0x15 => Ok(Matrix3::new(
+                Vector3::new(-1.0, 0.0, 0.0),
+                Vector3::new(0.0, 0.0, 1.0),
+                Vector3::new(0.0, 1.0, 0.0),
+            )),
+            0x17 => Ok(Matrix3::new(
+                Vector3::new(-1.0, 0.0, 0.0),
+                Vector3::new(0.0, -1.0, 0.0),
+                Vector3::new(0.0, 0.0, 1.0),
+            )),
+            0x18 => Ok(Matrix3::new(
+                Vector3::new(-1.0, 0.0, 0.0),
+                Vector3::new(0.0, 0.0, -1.0),
+                Vector3::new(0.0, -1.0, 0.0),
+            )),
+            0x19 => Ok(Matrix3::new(
+                Vector3::new(0.0, 1.0, 0.0),
+                Vector3::new(-1.0, 0.0, 0.0),
+                Vector3::new(0.0, 0.0, 1.0),
+            )),
+            0x1b => Ok(Matrix3::new(
+                Vector3::new(0.0, 0.0, -1.0),
+                Vector3::new(-1.0, 0.0, 0.0),
+                Vector3::new(0.0, 1.0, 0.0),
+            )),
+            0x1c => Ok(Matrix3::new(
+                Vector3::new(0.0, -1.0, 0.0),
+                Vector3::new(-1.0, 0.0, 0.0),
+                Vector3::new(0.0, 0.0, -1.0),
+            )),
+            0x1e => Ok(Matrix3::new(
+                Vector3::new(0.0, 0.0, 1.0),
+                Vector3::new(-1.0, 0.0, 0.0),
+                Vector3::new(0.0, -1.0, 0.0),
+            )),
+            0x1f => Ok(Matrix3::new(
+                Vector3::new(0.0, 1.0, 0.0),
+                Vector3::new(0.0, 0.0, -1.0),
+                Vector3::new(-1.0, 0.0, 0.0),
+            )),
+            0x20 => Ok(Matrix3::new(
+                Vector3::new(0.0, 0.0, 1.0),
+                Vector3::new(0.0, 1.0, 0.0),
+                Vector3::new(-1.0, 0.0, 0.0),
+            )),
+            0x22 => Ok(Matrix3::new(
+                Vector3::new(0.0, -1.0, 0.0),
+                Vector3::new(0.0, 0.0, 1.0),
+                Vector3::new(-1.0, 0.0, 0.0),
+            )),
+            0x23 => Ok(Matrix3::new(
+                Vector3::new(0.0, 0.0, -1.0),
+                Vector3::new(0.0, -1.0, 0.0),
+                Vector3::new(-1.0, 0.0, 0.0),
+            )),
+            _ => Err(Error::from(Matrix3Error::BadRotationId { id })),
         }
     }
 }
