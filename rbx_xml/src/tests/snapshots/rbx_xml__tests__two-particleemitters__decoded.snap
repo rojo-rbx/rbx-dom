@@ -1,0 +1,197 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: ParticleEmitter
+  class: ParticleEmitter
+  properties:
+    Acceleration:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    Attributes:
+      Attributes: {}
+    Color:
+      ColorSequence:
+        keypoints:
+          - time: 0
+            color:
+              - 1
+              - 1
+              - 1
+          - time: 1
+            color:
+              - 1
+              - 1
+              - 1
+    Drag:
+      Float32: 0
+    EmissionDirection:
+      Enum: 1
+    Enabled:
+      Bool: true
+    Lifetime:
+      NumberRange:
+        - -20.2
+        - 10.1
+    LightEmission:
+      Float32: 0
+    LightInfluence:
+      Float32: 1
+    LockedToPart:
+      Bool: false
+    Rate:
+      Float32: 2
+    RotSpeed:
+      NumberRange:
+        - 45
+        - 46
+    Rotation:
+      NumberRange:
+        - -6.66
+        - 6.66
+    Size:
+      NumberSequence:
+        keypoints:
+          - time: 0
+            value: 1
+            envelope: 0
+          - time: 0.0803674
+            value: 0.5625
+            envelope: 0
+          - time: 0.121699
+            value: 1.9375
+            envelope: 0
+          - time: 0.143513
+            value: 3.75
+            envelope: 0
+          - time: 1
+            value: 1
+            envelope: 0
+    SourceAssetId:
+      Int64: -1
+    Speed:
+      NumberRange:
+        - 2
+        - 5
+    SpreadAngle:
+      Vector2:
+        - 0
+        - 0
+    Tags:
+      Tags: []
+    Texture:
+      Content: "rbxasset://textures/particles/sparkles_main.dds"
+    Transparency:
+      NumberSequence:
+        keypoints:
+          - time: 0
+            value: 0
+            envelope: 0
+          - time: 1
+            value: 0
+            envelope: 0
+    VelocityInheritance:
+      Float32: 0
+    ZOffset:
+      Float32: 0
+  children: []
+- referent: referent-1
+  name: ParticleEmitter
+  class: ParticleEmitter
+  properties:
+    Acceleration:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    Attributes:
+      Attributes: {}
+    Color:
+      ColorSequence:
+        keypoints:
+          - time: 0
+            color:
+              - 1
+              - 1
+              - 1
+          - time: 1
+            color:
+              - 1
+              - 1
+              - 1
+    Drag:
+      Float32: 0
+    EmissionDirection:
+      Enum: 1
+    Enabled:
+      Bool: true
+    Lifetime:
+      NumberRange:
+        - -20.2
+        - 10.1
+    LightEmission:
+      Float32: 0
+    LightInfluence:
+      Float32: 1
+    LockedToPart:
+      Bool: false
+    Rate:
+      Float32: 2
+    RotSpeed:
+      NumberRange:
+        - 45
+        - 46
+    Rotation:
+      NumberRange:
+        - -6.66
+        - 6.66
+    Size:
+      NumberSequence:
+        keypoints:
+          - time: 0
+            value: 1
+            envelope: 0
+          - time: 0.0803674
+            value: 0.5625
+            envelope: 0
+          - time: 0.121699
+            value: 1.9375
+            envelope: 0
+          - time: 0.143513
+            value: 3.75
+            envelope: 0
+          - time: 1
+            value: 1
+            envelope: 0
+    SourceAssetId:
+      Int64: -1
+    Speed:
+      NumberRange:
+        - 2
+        - 5
+    SpreadAngle:
+      Vector2:
+        - 0
+        - 0
+    Tags:
+      Tags: []
+    Texture:
+      Content: "rbxasset://textures/particles/sparkles_main.dds"
+    Transparency:
+      NumberSequence:
+        keypoints:
+          - time: 0
+            value: 0
+            envelope: 0
+          - time: 1
+            value: 0
+            envelope: 0
+    VelocityInheritance:
+      Float32: 0
+    ZOffset:
+      Float32: 0
+  children: []
+

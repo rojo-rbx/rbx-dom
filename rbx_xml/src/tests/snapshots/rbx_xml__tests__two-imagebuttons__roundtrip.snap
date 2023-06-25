@@ -1,0 +1,237 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: ImageButton
+  class: ImageButton
+  properties:
+    Active:
+      Bool: true
+    AnchorPoint:
+      Vector2:
+        - 0
+        - 0
+    Attributes:
+      Attributes: {}
+    AutoButtonColor:
+      Bool: true
+    AutoLocalize:
+      Bool: true
+    AutomaticSize:
+      Enum: 0
+    BackgroundColor3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    BackgroundTransparency:
+      Float32: 0
+    BorderColor3:
+      Color3:
+        - 0.10588236
+        - 0.16470589
+        - 0.20784315
+    BorderMode:
+      Enum: 0
+    BorderSizePixel:
+      Int32: 1
+    ClipsDescendants:
+      Bool: false
+    Draggable:
+      Bool: false
+    HoverImage:
+      Content: ""
+    Image:
+      Content: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+    ImageColor3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    ImageRectOffset:
+      Vector2:
+        - 0
+        - 0
+    ImageRectSize:
+      Vector2:
+        - 0
+        - 0
+    ImageTransparency:
+      Float32: 0
+    LayoutOrder:
+      Int32: 0
+    Modal:
+      Bool: false
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      UDim2:
+        - - 0
+          - 0
+        - - 0
+          - 0
+    PressedImage:
+      Content: ""
+    RootLocalizationTable: "null"
+    Rotation:
+      Float32: 0
+    ScaleType:
+      Enum: 1
+    Selectable:
+      Bool: true
+    Selected:
+      Bool: false
+    SelectionImageObject: "null"
+    Size:
+      UDim2:
+        - - 0
+          - 100
+        - - 0
+          - 100
+    SizeConstraint:
+      Enum: 0
+    SliceCenter:
+      Rect:
+        - - -1
+          - -10
+        - - 8
+          - 9
+    SliceScale:
+      Float32: 1
+    SourceAssetId:
+      Int64: -1
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    TileSize:
+      UDim2:
+        - - 1
+          - 0
+        - - 1
+          - 0
+    Visible:
+      Bool: true
+    ZIndex:
+      Int32: 1
+  children: []
+- referent: referent-1
+  name: ImageButton
+  class: ImageButton
+  properties:
+    Active:
+      Bool: true
+    AnchorPoint:
+      Vector2:
+        - 0
+        - 0
+    Attributes:
+      Attributes: {}
+    AutoButtonColor:
+      Bool: true
+    AutoLocalize:
+      Bool: true
+    AutomaticSize:
+      Enum: 0
+    BackgroundColor3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    BackgroundTransparency:
+      Float32: 0
+    BorderColor3:
+      Color3:
+        - 0.10588236
+        - 0.16470589
+        - 0.20784315
+    BorderMode:
+      Enum: 0
+    BorderSizePixel:
+      Int32: 1
+    ClipsDescendants:
+      Bool: false
+    Draggable:
+      Bool: false
+    HoverImage:
+      Content: ""
+    Image:
+      Content: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+    ImageColor3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    ImageRectOffset:
+      Vector2:
+        - 0
+        - 0
+    ImageRectSize:
+      Vector2:
+        - 0
+        - 0
+    ImageTransparency:
+      Float32: 0
+    LayoutOrder:
+      Int32: 0
+    Modal:
+      Bool: false
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      UDim2:
+        - - 0
+          - 0
+        - - 0
+          - 0
+    PressedImage:
+      Content: ""
+    RootLocalizationTable: "null"
+    Rotation:
+      Float32: 0
+    ScaleType:
+      Enum: 1
+    Selectable:
+      Bool: true
+    Selected:
+      Bool: false
+    SelectionImageObject: "null"
+    Size:
+      UDim2:
+        - - 0
+          - 100
+        - - 0
+          - 100
+    SizeConstraint:
+      Enum: 0
+    SliceCenter:
+      Rect:
+        - - 0
+          - 1
+        - - 5
+          - 6
+    SliceScale:
+      Float32: 1
+    SourceAssetId:
+      Int64: -1
+    Style:
+      Enum: 0
+    Tags:
+      Tags: []
+    TileSize:
+      UDim2:
+        - - 1
+          - 0
+        - - 1
+          - 0
+    Visible:
+      Bool: true
+    ZIndex:
+      Int32: 1
+  children: []
+

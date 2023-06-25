@@ -1,0 +1,104 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: UIGridLayout
+  class: UIGridLayout
+  properties:
+    Attributes:
+      Attributes: {}
+    CellPadding:
+      UDim2:
+        - - 0
+          - 0
+        - - -0.1
+          - 100
+    CellSize:
+      UDim2:
+        - - 0.2
+          - -150
+        - - -0.3
+          - 300
+    FillDirection:
+      Enum: 0
+    FillDirectionMaxCells:
+      Int32: 0
+    HorizontalAlignment:
+      Enum: 1
+    SortOrder:
+      Enum: 0
+    StartCorner:
+      Enum: 0
+    Tags:
+      Tags: []
+    VerticalAlignment:
+      Enum: 1
+  children: []
+- referent: referent-1
+  name: UIGridLayout
+  class: UIGridLayout
+  properties:
+    Attributes:
+      Attributes: {}
+    CellPadding:
+      UDim2:
+        - - 0.4
+          - -500
+        - - -0.5
+          - 600
+    CellSize:
+      UDim2:
+        - - 0.6
+          - -1200
+        - - -0.7
+          - 1000
+    FillDirection:
+      Enum: 0
+    FillDirectionMaxCells:
+      Int32: 0
+    HorizontalAlignment:
+      Enum: 1
+    SortOrder:
+      Enum: 0
+    StartCorner:
+      Enum: 0
+    Tags:
+      Tags: []
+    VerticalAlignment:
+      Enum: 1
+  children: []
+- referent: referent-2
+  name: UIGridLayout
+  class: UIGridLayout
+  properties:
+    Attributes:
+      Attributes: {}
+    CellPadding:
+      UDim2:
+        - - 0.8
+          - -200
+        - - -0.9
+          - 250
+    CellSize:
+      UDim2:
+        - - 1
+          - -300
+        - - -1.1
+          - 1200
+    FillDirection:
+      Enum: 0
+    FillDirectionMaxCells:
+      Int32: 0
+    HorizontalAlignment:
+      Enum: 1
+    SortOrder:
+      Enum: 0
+    StartCorner:
+      Enum: 0
+    Tags:
+      Tags: []
+    VerticalAlignment:
+      Enum: 1
+  children: []
+

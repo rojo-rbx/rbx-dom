@@ -1,0 +1,32 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: Grandparent
+  class: Folder
+  properties:
+    Attributes:
+      Attributes: {}
+    Tags:
+      Tags: []
+  children:
+    - referent: referent-1
+      name: Parent
+      class: Folder
+      properties:
+        Attributes:
+          Attributes: {}
+        Tags:
+          Tags: []
+      children:
+        - referent: referent-2
+          name: Child
+          class: Folder
+          properties:
+            Attributes:
+              Attributes: {}
+            Tags:
+              Tags: []
+          children: []
+

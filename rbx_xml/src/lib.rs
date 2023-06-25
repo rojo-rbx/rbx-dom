@@ -116,6 +116,8 @@ mod types;
 
 #[cfg(test)]
 mod test_util;
+#[cfg(test)]
+mod tests;
 
 use std::io::{Read, Write};
 
