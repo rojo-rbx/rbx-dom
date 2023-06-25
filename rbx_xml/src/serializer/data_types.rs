@@ -31,8 +31,8 @@ use ray::ray_serializer;
 use rect::rect_serializer;
 use sequences::{color_sequence_serializer, number_range_serializer, number_sequence_serializer};
 use simple_types::{
-    binary_string_serializer, bool_serializer, content_serializer, f32_serializer, f64_serializer,
-    i32_serializer, i64_serializer, string_serializer,
+    binary_string_serializer, bool_serializer, content_serializer, enum_serializer, f32_serializer,
+    f64_serializer, i32_serializer, i64_serializer, string_serializer,
 };
 use udims::{udim2_serializer, udim_serializer};
 use unique_id::unique_id_serializer;
@@ -157,4 +157,5 @@ serializers! {
     Rect: "Rect2D" => rect_serializer,
     PhysicalProperties: "PhysicalProperties" => physical_properties_serializer,
     OptionalCFrame: "OptionalCoordinateFrame" => optional_cframe_serializer,
+    Enum: "token" => enum_serializer,
 }

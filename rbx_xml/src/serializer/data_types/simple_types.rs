@@ -1,6 +1,6 @@
 use std::io;
 
-use rbx_dom_weak::types::{BinaryString, Content};
+use rbx_dom_weak::types::{BinaryString, Content, Enum};
 
 use super::{EncodeError, XmlWriter};
 
@@ -74,6 +74,13 @@ pub fn f64_serializer<W: io::Write>(
     } else {
         writer.write_text(&value.to_string())
     }
+}
+
+pub fn enum_serializer<W: io::Write>(
+    writer: &mut XmlWriter<W>,
+    value: &Enum,
+) -> Result<(), EncodeError> {
+    writer.write_text(&value.to_u32().to_string())
 }
 
 pub fn content_serializer<W: io::Write>(
