@@ -63,4 +63,5 @@ model_tests! {
     package_link,
     text_label_with_font,
     gui_inset_and_font_migration,
+    folder_with_cframe_attributes,
 }
