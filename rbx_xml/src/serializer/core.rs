@@ -67,6 +67,7 @@ pub fn serialize_refs<W: io::Write>(
                 .finalize()?;
             writer.write_base64(sstr.data())?;
             writer.end_element("SharedString")?;
+            hash_container.clear();
         }
 
         writer.end_element("SharedStrings")?;
