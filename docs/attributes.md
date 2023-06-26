@@ -16,6 +16,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [Color3](#color3)
     - [Vector2](#vector2)
     - [Vector3](#vector3)
+    - [CFrame](#cframe)
     - [NumberSequence](#numbersequence)
     - [ColorSequence](#colorsequence)
     - [NumberRange](#numberrange)
@@ -148,7 +149,7 @@ The `Vector3` type is a struct composed of three `f32`s:
 A Vector3 with the value `10, 20, 30` looks like this: `00 00 20 41 00 00 a0 41 00 00 f0 41`.
 
 ### CFrame
-** Type ID `0x14`**
+**Type ID `0x14`**
 
 The `CFrame` type is composed of a `Vector3`, a 1-byte rotation ID, and an optional rotation matrix:
 
