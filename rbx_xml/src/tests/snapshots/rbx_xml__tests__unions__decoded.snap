@@ -74,6 +74,8 @@ expression: "DomViewer::new().view_children(&decoded)"
         - 5
         - 2
         - 2
+    LODData:
+      BinaryString: ""
     LeftParamA:
       Float32: -0.5
     LeftParamB:
@@ -215,6 +217,8 @@ expression: "DomViewer::new().view_children(&decoded)"
         - 5
         - 2
         - 2
+    LODData:
+      BinaryString: ""
     LeftParamA:
       Float32: -0.5
     LeftParamB:
@@ -356,6 +360,8 @@ expression: "DomViewer::new().view_children(&decoded)"
         - 4
         - 2
         - 2
+    LODData:
+      BinaryString: ""
     LeftParamA:
       Float32: -0.5
     LeftParamB:
