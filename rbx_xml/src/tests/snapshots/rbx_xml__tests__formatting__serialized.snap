@@ -9,7 +9,7 @@ expression: ser_str
       <Axes name="TestAxes">
         <axes>5</axes>
       </Axes>
-      <BinaryString name="TestBinaryString"><![CDATA[SGVsbG8sIHdvcmxkIQ==]]></BinaryString>
+      <BinaryString name="TestBinaryString">SGVsbG8sIHdvcmxkIQ==</BinaryString>
       <bool name="TestBool">true</bool>
       <CoordinateFrame name="TestCFrame">
         <X>123</X>
@@ -81,8 +81,8 @@ expression: ser_str
             <R11>456</R11>
             <R12>-123</R12>
             <R20>-456</R20>
-            <R21>inf</R21>
-            <R22>-inf</R22>
+            <R21>INF</R21>
+            <R22>-INF</R22>
           </CFrame>
         </OptionalCoordinateFrame>
       </Properties>
