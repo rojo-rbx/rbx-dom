@@ -35,4 +35,12 @@ pub(crate) enum AttributeError {
 
     #[error("couldn't read bytes to deserialize {0}")]
     ReadType(&'static str),
+
+    #[error("font contained invalid UTF-8 in {field}")]
+    FontBadUnicode {
+        #[source]
+        source: FromUtf8Error,
+
+        field: String,
+    },
 }
