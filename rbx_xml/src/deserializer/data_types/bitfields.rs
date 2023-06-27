@@ -30,3 +30,29 @@ pub fn faces_deserializer<R: BufRead>(reader: &mut XmlReader<R>) -> Result<Faces
     reader.expect_end_with_name("faces")?;
     ret
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::deserialize_test;
+
+    #[test]
+    #[should_panic = "invalid Axes value"]
+    fn axes_value_out_of_range() {
+        deserialize_test!(
+            axes_deserializer,
+            Axes::from_bits(0).unwrap(),
+            "<axes>12345</axes>"
+        );
+    }
+
+    #[test]
+    #[should_panic = "invalid Faces value"]
+    fn faces_value_out_of_range() {
+        deserialize_test!(
+            faces_deserializer,
+            Faces::from_bits(0).unwrap(),
+            "<faces>12345</faces>"
+        );
+    }
+}
