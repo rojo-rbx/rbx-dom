@@ -408,11 +408,11 @@ The `CFrame` type is more complicated than other types. To save space, there are
 
 If the byte is `00`, a `CFrame` looks like this:
 
-| Field Name  | Format                  | Value                                                                                                        |
-|:------------|:------------------------|:-------------------------------------------------------------------------------------------------------------|
-| ID          | `u8`                    | Always `00` in this case.                                                                                    |
-| Orientation | Array of 9 `f32` values | The rotation matrix of the `CFrame`. It represents the RightVector, UpVector, and LookVector, in that order. |
-| Position    | [`Vector3`](#vector3)   | The position of the `CFrame`.                                                                                |
+| Field Name  | Format                  | Value                                                                                                |
+|:------------|:------------------------|:-----------------------------------------------------------------------------------------------------|
+| ID          | `u8`                    | Always `00` in this case.                                                                            |
+| Orientation | Array of 9 `f32` values | The rotation matrix of the `CFrame`. It represents the XVector, YVector, and ZVector, in that order. |
+| Position    | [`Vector3`](#vector3)   | The position of the `CFrame`.                                                                        |
 
 In this case, the `Orientation` field is stored as nine untransformed [IEEE-754 standard](https://en.wikipedia.org/wiki/Single-precision_floating-point_format) 32-bit floats.
 
