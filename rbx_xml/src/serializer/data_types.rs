@@ -20,23 +20,25 @@ use rbx_dom_weak::types::Variant;
 
 use super::error::{EncodeError, ErrorKind};
 
-use binary_string::{attributes_serializer, tags_serializer};
-use bitfield::{axes_serializer, faces_serializer};
-use cframe::cframe_serializer;
-use colors::{brickcolor_serializer, color3_serializer, color3uint8_serializer};
-use font::font_serializer;
-use option::optional_cframe_serializer;
-use physical_properties::physical_properties_serializer;
-use ray::ray_serializer;
-use rect::rect_serializer;
-use sequences::{color_sequence_serializer, number_range_serializer, number_sequence_serializer};
-use simple_types::{
-    binary_string_serializer, bool_serializer, content_serializer, enum_serializer, f32_serializer,
-    f64_serializer, i32_serializer, i64_serializer, string_serializer,
+pub use self::{
+    binary_string::{attributes_serializer, tags_serializer},
+    bitfield::{axes_serializer, faces_serializer},
+    cframe::cframe_serializer,
+    colors::{brickcolor_serializer, color3_serializer, color3uint8_serializer},
+    font::font_serializer,
+    option::optional_cframe_serializer,
+    physical_properties::physical_properties_serializer,
+    ray::ray_serializer,
+    rect::rect_serializer,
+    sequences::{color_sequence_serializer, number_range_serializer, number_sequence_serializer},
+    simple_types::{
+        binary_string_serializer, bool_serializer, content_serializer, enum_serializer,
+        f32_serializer, f64_serializer, i32_serializer, i64_serializer, string_serializer,
+    },
+    udims::{udim2_serializer, udim_serializer},
+    unique_id::unique_id_serializer,
+    vectors::{vector2_serializer, vector3_serializer, vector3int16_serializer},
 };
-use udims::{udim2_serializer, udim_serializer};
-use unique_id::unique_id_serializer;
-use vectors::{vector2_serializer, vector3_serializer, vector3int16_serializer};
 
 pub fn serialize_ref<W: io::Write>(
     writer: &mut XmlWriter<W>,
