@@ -92,6 +92,15 @@ pub(crate) fn write_attributes<W: Write>(
                     write_vector3(&mut writer, matrix.z)?;
                 }
             }
+            Variant::Font(font) => {
+                write_u16(&mut writer, font.weight.as_u16())?;
+                write_u8(&mut writer, font.style.as_u8())?;
+                write_string(&mut writer, &font.family)?;
+                write_string(
+                    &mut writer,
+                    &font.cached_face_id.clone().unwrap_or_default(),
+                )?;
+            }
 
             other_variant => unreachable!("variant {:?} was not implemented", other_variant),
         }
@@ -109,6 +118,10 @@ fn write_f64<W: Write>(mut writer: W, n: f64) -> io::Result<()> {
 }
 
 fn write_u32<W: Write>(mut writer: W, n: u32) -> io::Result<()> {
+    writer.write_all(&n.to_le_bytes()[..])
+}
+
+fn write_u16<W: Write>(mut writer: W, n: u16) -> io::Result<()> {
     writer.write_all(&n.to_le_bytes()[..])
 }
 
