@@ -9,6 +9,7 @@ use super::{type_id, AttributeError};
 use crate::{
     basic_types::{Color3, UDim, Vector2},
     variant::Variant,
+    Vector3,
 };
 
 /// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
@@ -76,6 +77,21 @@ pub(crate) fn write_attributes<W: Write>(
                 write_f32(&mut writer, vector3.y)?;
                 write_f32(&mut writer, vector3.z)?
             }
+            Variant::CFrame(cframe) => {
+                write_vector3(&mut writer, cframe.position)?;
+
+                let matrix = cframe.orientation;
+
+                if let Some(rotation_id) = matrix.to_basic_rotation_id() {
+                    write_u8(&mut writer, rotation_id)?;
+                } else {
+                    write_u8(&mut writer, 0x00)?;
+
+                    write_vector3(&mut writer, matrix.x)?;
+                    write_vector3(&mut writer, matrix.y)?;
+                    write_vector3(&mut writer, matrix.z)?;
+                }
+            }
 
             other_variant => unreachable!("variant {:?} was not implemented", other_variant),
         }
@@ -93,6 +109,10 @@ fn write_f64<W: Write>(mut writer: W, n: f64) -> io::Result<()> {
 }
 
 fn write_u32<W: Write>(mut writer: W, n: u32) -> io::Result<()> {
+    writer.write_all(&n.to_le_bytes()[..])
+}
+
+fn write_u8<W: Write>(mut writer: W, n: u8) -> io::Result<()> {
     writer.write_all(&n.to_le_bytes()[..])
 }
 
@@ -116,4 +136,10 @@ fn write_udim<W: Write>(mut writer: W, udim: UDim) -> io::Result<()> {
 fn write_vector2<W: Write>(mut writer: W, vector2: Vector2) -> io::Result<()> {
     write_f32(&mut writer, vector2.x)?;
     write_f32(&mut writer, vector2.y)
+}
+
+fn write_vector3<W: Write>(mut writer: W, vector3: Vector3) -> io::Result<()> {
+    write_f32(&mut writer, vector3.x)?;
+    write_f32(&mut writer, vector3.y)?;
+    write_f32(&mut writer, vector3.z)
 }

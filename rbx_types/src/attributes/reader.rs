@@ -4,9 +4,9 @@ use std::{
 };
 
 use crate::{
-    BinaryString, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint, NumberRange,
-    NumberSequence, NumberSequenceKeypoint, Rect, UDim, UDim2, Variant, VariantType, Vector2,
-    Vector3,
+    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, Matrix3,
+    NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, UDim, UDim2, Variant, VariantType,
+    Vector2, Vector3,
 };
 
 use super::{type_id, AttributeError};
@@ -143,6 +143,24 @@ pub(crate) fn read_attributes<R: Read>(
             )
             .into(),
 
+            VariantType::CFrame => {
+                let position = read_vector3(&mut value)?;
+                let rotation_id = read_u8(&mut value)?;
+
+                let rotation = if rotation_id == 0 {
+                    Matrix3::new(
+                        read_vector3(&mut value)?,
+                        read_vector3(&mut value)?,
+                        read_vector3(&mut value)?,
+                    )
+                } else {
+                    Matrix3::from_basic_rotation_id(rotation_id)?
+                };
+
+                CFrame::new(position, rotation)
+            }
+            .into(),
+
             other => return Err(AttributeError::UnsupportedVariantType(other)),
         };
 
@@ -212,6 +230,14 @@ fn read_udim<R: Read>(mut reader: R) -> io::Result<UDim> {
 
 fn read_vector2<R: Read>(mut reader: R) -> io::Result<Vector2> {
     Ok(Vector2::new(read_f32(&mut reader)?, read_f32(&mut reader)?))
+}
+
+fn read_vector3<R: Read>(mut reader: R) -> io::Result<Vector3> {
+    Ok(Vector3::new(
+        read_f32(&mut reader)?,
+        read_f32(&mut reader)?,
+        read_f32(&mut reader)?,
+    ))
 }
 
 /// Implementation taken from read_exact, but allowing an empty buffer by

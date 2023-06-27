@@ -30,6 +30,9 @@ pub(crate) enum AttributeError {
     #[error(transparent)]
     Io(#[from] std::io::Error),
 
+    #[error(transparent)]
+    BadAttributeValue(#[from] crate::Error),
+
     #[error("couldn't read bytes to deserialize {0}")]
     ReadType(&'static str),
 }

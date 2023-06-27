@@ -16,6 +16,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [Color3](#color3)
     - [Vector2](#vector2)
     - [Vector3](#vector3)
+    - [CFrame](#cframe)
     - [NumberSequence](#numbersequence)
     - [ColorSequence](#colorsequence)
     - [NumberRange](#numberrange)
@@ -146,6 +147,38 @@ The `Vector3` type is a struct composed of three `f32`s:
 | Z          | `f32`  | The `Z` component of the Vector2 |
 
 A Vector3 with the value `10, 20, 30` looks like this: `00 00 20 41 00 00 a0 41 00 00 f0 41`.
+
+### CFrame
+**Type ID `0x14`**
+
+The `CFrame` type is composed of a `Vector3`, a 1-byte rotation ID, and an optional rotation matrix:
+
+| Field Name      | Format              | Value                                                                                                                                                                                                                                                  |
+|:----------------|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Position        | `Vector3`           | The positional component of the `CFrame`.                                                                                                                                                                                                              |
+| Rotation ID     | `u8`                | An identifier representing axis-alignment of the rotation, determining whether the rotation matrix is present (see `Rotation matrix`). If the rotation *is* axis-aligned, this field is one of the values from the table below; otherwise, it is `00`. |
+| Rotation matrix | `Optional<Matrix3>` | The rotational component of the `CFrame`, stored as a sequence of nine `f32`s. If Rotation ID is `00`, this field is the XVector, the YVector, and ZVector, in that order; otherwise, it is absent.                                                    |
+
+A rotation is considered "axis-aligned" if it's in increments of 90 degrees around one or more axes. The following table shows the mapping between Rotation IDs and rotations (rotations are Euler angles in degrees, applied in the order `Y -> X -> Z`):
+
+| ID   | Rotation       | ID   | Rotation       |
+|:-----|:---------------|:-----|:---------------|
+| `02` | (0, 0, 0)      | `14` | (0, 180, 0)    |
+| `03` | (90, 0, 0)     | `15` | (-90, -180, 0) |
+| `05` | (0, 180, 180)  | `17` | (0, 0, 180)    |
+| `06` | (-90, 0, 0)    | `18` | (90, 180, 0)   |
+| `07` | (0, 180, 90)   | `19` | (0, 0, -90)    |
+| `09` | (0, 90, 90)    | `1b` | (0, -90, -90)  |
+| `0a` | (0, 0, 90)     | `1c` | (0, -180, -90) |
+| `0c` | (0, -90, 90)   | `1e` | (0, 90, -90)   |
+| `0d` | (-90, -90, 0)  | `1f` | (90, 90, 0)    |
+| `0e` | (0, -90, 0)    | `20` | (0, 90, 0)     |
+| `10` | (90, -90, 0)   | `22` | (-90, 90, 0)   |
+| `11` | (0, 90, 180)   | `23` | (0, -90, 180)  |
+
+A `CFrame` with the value `CFrame.new(1, 2, 3) * CFrame.Angles(0, 45, 0)` looks like this when serialized: `00 00 80 3f 00 00 00 40 00 00 40 40 00 f3 04 35 3f 00 00 00 00 f3 04 35 3f 00 00 00 00 00 00 80 3f 00 00 00 00 f3 04 35 bf 00 00 00 00 f3 04 35 3f`.
+
+Demonstrating the axis-aligned rotation matrix case, a `CFrame` with the value `CFrame.new(1, 2, 3)` looks like this: `00 00 80 3f 00 00 00 40 00 00 40 40 02`.
 
 ### NumberSequence
 **Type ID `0x17`**
