@@ -41,6 +41,6 @@ pub(crate) enum AttributeError {
         #[source]
         source: FromUtf8Error,
 
-        field: String,
+        field: &'static str,
     },
 }
