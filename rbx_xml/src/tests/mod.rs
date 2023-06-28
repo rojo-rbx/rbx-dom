@@ -3,6 +3,7 @@ mod basic;
 mod edge_cases;
 mod formatting;
 mod models;
+mod roundtrip;
 
 use std::{fmt, fs, path::PathBuf};
 
