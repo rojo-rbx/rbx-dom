@@ -1,0 +1,22 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Folder
+  class: Folder
+  properties:
+    Attributes:
+      Attributes:
+        AFontAttribute:
+          Font:
+            family: "rbxasset://fonts/families/Creepster.json"
+            weight: Regular
+            style: Normal
+            cachedFaceId: ~
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+

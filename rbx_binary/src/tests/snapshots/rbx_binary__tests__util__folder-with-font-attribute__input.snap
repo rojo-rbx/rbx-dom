@@ -1,0 +1,48 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - 01 00 00 00 0e 00 00 00 41 46 6f 6e 74 41 74 74 72 69 62 75 74 65 21 90 01 00 28 00 00 00 72 62 78 61 73 73 65 74 3a 2f 2f 66 6f 6e 74 73 2f 66 61 6d 69 6c 69 65 73 2f 43 72 65 65 70 73 74 65 72 2e 6a 73 6f 6e 00 00 00 00
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Folder
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End
+

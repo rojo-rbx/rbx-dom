@@ -49,4 +49,5 @@ type_ids! {
     // ??? => 0x1A,
     NumberRange => 0x1B,
     Rect => 0x1C,
+    Font => 0x21,
 }
