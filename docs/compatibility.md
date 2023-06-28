@@ -32,9 +32,15 @@ Issues of this category would impact the usage of `rbx-xml` if Roblox makes a br
 
 ### BrickColor Properties
 
-To improve readability by humans, `rbx-xml` serializes `BrickColor` properties using the element name `BrickColor`. This datatype is serialized as `int` by Roblox Studio. Since Roblox does not care about the name of the element for properties in the XML format, this has no consequences and is an easy win for readability.
+Roblox and `rbx-xml` serialize BrickColor properties using an element named `int`. When using a reflection database, this is fine because those properties get converted to BrickColor during deserialization. However, if the database used by `rbx-xml` is out of date, it won't know to do this, so any new BrickColor properties will be deserialized as integers.
 
-If Roblox were to suddenly start reading the name of property elements though, the element name for `BrickColor` properties would have to change to `int`.
+This is not expected to be a problem, as Roblox will translate the properties just fine when deserializing files, but it may be inconvenient for end users.
+
+### Strings that contain `]]>`
+
+String properties that contain leading or trailing whitespace characters are serialized using `CDATA` to preserve it. However, the sequence `]]>` is used to end `CDATA` values. If that sequence is present in a string property that also has trailing whitespace, it will serialize incorrectly as a result.
+
+This is an easy problem to fix but due to the performance concerns of traversing every string property serialized for the sequence `]]>`, the current implementation does not. It's unlikely that a string will both have whitespace padding and contain the sequence `]]>` though, so it's considered low priority to fix.
 
 ### Empty Property Elements
 
