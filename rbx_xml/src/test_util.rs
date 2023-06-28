@@ -25,15 +25,12 @@ macro_rules! deserialize_test {
             Err(err) => panic!("{}", err),
         };
         assert_eq!(
-            $expected, value,
-            concat!(
-                "deserializer ",
-                stringify!($deserializer),
-                " failed to produce '",
-                stringify!($expected),
-                "' from ",
-                stringify!($input)
-            )
+            $expected,
+            value,
+            "deserializer {} failed to produce '{}' from {}",
+            stringify!($deserializer),
+            stringify!($expected),
+            $input
         )
     }};
 }
@@ -60,11 +57,8 @@ macro_rules! serialize_test {
         assert_eq!(
             $expected,
             String::from_utf8(vec).unwrap(),
-            concat!(
-                "serializer '",
-                stringify!($serializer),
-                "' failed to serialize {:?} as expected"
-            ),
+            "serializer '{}' failed to serialize {:?} as expected",
+            stringify!($serializer),
             $value
         )
     }};
@@ -92,33 +86,31 @@ macro_rules! roundtrip_test {
         let mut writer = $crate::serializer::XmlWriter::new(&mut buff, Some((b' ', 2)));
 
         log::debug!(
-            concat!(
-                "Attempting to serialize {:?} using ",
-                stringify!($serializer)
-            ),
-            $value
+            "Attempting to serialize {:?} using {}",
+            $value,
+            stringify!($serializer)
         );
-        $serializer(&mut writer, &$value).unwrap();
+        $serializer(&mut writer, &$value)
+            .map_err(|e| panic!("could not serialize: {}", e))
+            .unwrap();
 
-        log::debug!(concat!(
-            "Attempting to deserialize using ",
+        log::debug!(
+            "Attempting to deserialize using {}",
             stringify!($deserializer)
-        ));
+        );
 
         let new_value = $deserializer(&mut $crate::deserializer::XmlReader::from_reader(
             buff.as_slice(),
         ))
+        .map_err(|e| panic!("could not deserialize: {}", e))
         .unwrap();
 
         assert_eq!(
-            $value, new_value,
-            concat!(
-                "round trip with ",
-                stringify!($serializer),
-                " and ",
-                stringify!($deserializer),
-                " did not produce the same value"
-            )
+            $value,
+            new_value,
+            "round trip with {} and {} did not produce the same value",
+            stringify!($serializer),
+            stringify!($deserializer),
         )
     }};
 }
