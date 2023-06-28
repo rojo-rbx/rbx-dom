@@ -170,7 +170,7 @@ pub(crate) fn read_attributes<R: Read>(
 
                     String::from_utf8(buf).map_err(|source| AttributeError::FontBadUnicode {
                         source,
-                        field: "family".to_string(),
+                        field: "family",
                     })?
                 };
 
