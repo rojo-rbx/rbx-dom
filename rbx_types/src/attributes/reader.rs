@@ -183,7 +183,7 @@ pub(crate) fn read_attributes<R: Read>(
                         Some(String::from_utf8(buf).map_err(|source| {
                             AttributeError::FontBadUnicode {
                                 source,
-                                field: "cached_face_id".to_string(),
+                                field: "cached_face_id",
                             }
                         })?)
                     }
