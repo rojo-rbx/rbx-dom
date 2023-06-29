@@ -489,6 +489,15 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         add_property(instance, &property, value.into());
                     }
                 }
+                VariantType::Int64 => {
+                    let mut values = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_i32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        add_property(instance, &property, (value as i64).into());
+                    }
+                }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.clone(),
