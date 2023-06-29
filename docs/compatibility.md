@@ -38,7 +38,7 @@ This is not expected to be a problem, as Roblox will translate the properties ju
 
 ### Strings that contain `]]>`
 
-String properties that contain leading or trailing whitespace characters are serialized using `CDATA` to preserve it. However, the sequence `]]>` is used to end `CDATA` values. If that sequence is present in a string property that also has trailing whitespace, it will serialize incorrectly as a result.
+String properties that contain leading or trailing whitespace characters are serialized using `CDATA` to preserve the whitespace. However, the sequence `]]>` is used to end `CDATA` sections. This means that when a string property contains leading or trailing whitespace, and also contains `]]>`, the property will serialize incorrectly.
 
 This is an easy problem to fix but due to the performance concerns of traversing every string property serialized for the sequence `]]>`, the current implementation does not. It's unlikely that a string will both have whitespace padding and contain the sequence `]]>` though, so it's considered low priority to fix.
 
