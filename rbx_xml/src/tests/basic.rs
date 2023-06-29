@@ -230,3 +230,36 @@ fn read_unique_id() {
         )))
     );
 }
+
+#[test]
+fn number_widening() {
+    let _ = env_logger::try_init();
+    let document = r#"
+        <roblox version="4">
+            <Item class="IntValue" referent="Test">
+                <Properties>
+                    <int name="Value">194</int>
+                </Properties>
+            </Item>
+            <Item class="NumberValue" referent="Test">
+                <Properties>
+                    <float name="Value">1337</float>
+                </Properties>
+            </Item>
+        </roblox>
+    "#;
+    let tree = crate::from_str_default(document).unwrap();
+
+    let int_value = tree.get_by_ref(tree.root().children()[0]).unwrap();
+    assert_eq!(int_value.class, "IntValue");
+    assert_eq!(
+        int_value.properties.get("Value"),
+        Some(&Variant::Int64(194))
+    );
+    let float_value = tree.get_by_ref(tree.root().children()[1]).unwrap();
+    assert_eq!(float_value.class, "NumberValue");
+    assert_eq!(
+        float_value.properties.get("Value"),
+        Some(&Variant::Float64(1337.0))
+    );
+}

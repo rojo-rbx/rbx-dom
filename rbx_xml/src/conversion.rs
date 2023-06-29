@@ -27,6 +27,10 @@ impl ConvertVariant for Variant {
         target_type: VariantType,
     ) -> Result<Cow<'_, Self>, String> {
         match (value.borrow(), target_type) {
+            (Variant::Int32(value), VariantType::Int64) => Ok(Cow::Owned((*value as i64).into())),
+            (Variant::Float32(value), VariantType::Float64) => {
+                Ok(Cow::Owned((*value as f64).into()))
+            }
             (Variant::Int32(value), VariantType::BrickColor) => {
                 let narrowed: u16 = (*value).try_into().map_err(|_| {
                     format!("Value {} is not in the range of a valid BrickColor", value)
