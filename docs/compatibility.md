@@ -32,9 +32,9 @@ Issues of this category would impact the usage of `rbx-xml` if Roblox makes a br
 
 ### BrickColor Properties
 
-Roblox and `rbx-xml` serialize BrickColor properties using an element named `int`. When using a reflection database, this is fine because those properties get converted to BrickColor during deserialization. However, if the database used by `rbx-xml` is out of date, it won't know to do this, so any new BrickColor properties will be deserialized as integers.
+Due to how Roblox and `rbx-xml` serialize `BrickColor` properties, they may be deserialized as `Int32` values by `rbx-xml`. This will happen when no reflection database is used and may happen when an outdated one is used.
 
-This is not expected to be a problem, as Roblox will translate the properties just fine when deserializing files, but it may be inconvenient for end users.
+To fix this problem, an up-to-date reflection database should be used. The `rbx-xml` deserializer must know that the correct type of a property is `BrickColor` to correctly deserialize it, and a database will contain the types of every property. In the event that using an updated database does not work though, a [patch may need to be made](patching-database.md) that changes the type of the property to `BrickColor`.
 
 ### Strings that contain `]]>`
 
