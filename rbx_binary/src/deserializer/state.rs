@@ -498,7 +498,8 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        add_property(instance, &property, (value as i64).into());
+                        let value_converted = i64::from(value);
+                        add_property(instance, &property, value_converted.into());
                     }
                 }
                 invalid_type => {
