@@ -35,11 +35,10 @@ pub fn serialize_refs<W: io::Write>(
         .attribute("version", "4")
         .finalize()?;
 
-    // TODO add a way to preallocate this for the number of Instances in a file
     let mut state = EncodeState {
         shared_strings: BTreeMap::new(),
-        ref_map: HashMap::new(),
-        ref_strings: Vec::new(),
+        ref_map: HashMap::with_capacity(refs.len()),
+        ref_strings: Vec::with_capacity(refs.len()),
         next_ref: 0,
         options,
     };

@@ -128,7 +128,6 @@ macro_rules! serializers {
     };
 }
 
-// TODO validate tag names
 serializers! {
     Tags: "BinaryString" => tags_serializer,
     Attributes: "BinaryString" => attributes_serializer,
