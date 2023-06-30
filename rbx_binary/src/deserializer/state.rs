@@ -489,6 +489,9 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         add_property(instance, &property, value.into());
                     }
                 }
+                // This branch allows values serialized as Int32 to be converted to Int64 when we expect a Int64
+                // Basically, we convert Int32 to Int64 when we expect a Int64 but read a Int32
+                // See: #301
                 VariantType::Int64 => {
                     let mut values = vec![0; type_info.referents.len()];
                     chunk.read_interleaved_i32_array(&mut values)?;
