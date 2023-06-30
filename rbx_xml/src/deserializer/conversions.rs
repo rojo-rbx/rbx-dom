@@ -18,6 +18,10 @@ pub enum ConversionError {
 
 pub fn convert(from: &mut Variant, to: VariantType) -> Result<(), ConversionError> {
     *from = match (&from, to) {
+        // Older files that predate Roblox's switch to 64-bit numbers can still
+        // have 32-bit ones where there shouldn't be. See issue #301.
+        (Variant::Int32(value), VariantType::Int64) => (i64::from(*value)).into(),
+        (Variant::Float32(value), VariantType::Float64) => (f64::from(*value)).into(),
         (Variant::Int32(value), VariantType::BrickColor) => {
             let new = (*value)
                 .try_into()
