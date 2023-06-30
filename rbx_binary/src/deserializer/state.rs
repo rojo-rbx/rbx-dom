@@ -489,6 +489,19 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         add_property(instance, &property, value.into());
                     }
                 }
+                // This branch allows values serialized as Int32 to be converted to Int64 when we expect a Int64
+                // Basically, we convert Int32 to Int64 when we expect a Int64 but read a Int32
+                // See: #301
+                VariantType::Int64 => {
+                    let mut values = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_i32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value_converted = i64::from(value);
+                        add_property(instance, &property, value_converted.into());
+                    }
+                }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.clone(),
@@ -523,6 +536,19 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_le_f64()?;
                         add_property(instance, &property, value.into());
+                    }
+                }
+                // This branch allows values serialized as Float32 to be converted to Float64 when we expect a Float64
+                // Basically, we convert Float32 to Float64 when we expect a Float64 but read a Float32
+                // See: #301
+                VariantType::Float32 => {
+                    let mut values = vec![0.0; type_info.referents.len()];
+                    chunk.read_interleaved_f32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let converted_value = f64::from(value);
+                        add_property(instance, &property, converted_value.into());
                     }
                 }
                 invalid_type => {
