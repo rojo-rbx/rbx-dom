@@ -25,3 +25,39 @@ pub fn physical_properties_deserializer<R: BufRead>(
         Ok(PhysicalProperties::Default)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::deserialize_test;
+    use rbx_dom_weak::types::CustomPhysicalProperties;
+
+    #[test]
+    fn default() {
+        deserialize_test!(
+            physical_properties_deserializer,
+            PhysicalProperties::Default,
+            "<CustomPhysics>false</CustomPhysics>"
+        )
+    }
+
+    #[test]
+    fn custom() {
+        deserialize_test!(
+            physical_properties_deserializer,
+            PhysicalProperties::Custom(CustomPhysicalProperties {
+                density: 0.5,
+                friction: 1.0,
+                elasticity: 1.5,
+                friction_weight: 2.0,
+                elasticity_weight: 2.5,
+            }),
+            "<CustomPhysics>true</CustomPhysics>
+<Density>0.5</Density>
+<Friction>1</Friction>
+<Elasticity>1.5</Elasticity>
+<FrictionWeight>2</FrictionWeight>
+<ElasticityWeight>2.5</ElasticityWeight>"
+        )
+    }
+}
