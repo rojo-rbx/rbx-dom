@@ -19,7 +19,6 @@ use crate::{
     api_dump::{Dump, DumpClassMember, Security, Tag, ValueCategory},
     defaults::apply_defaults,
     patches::Patches,
-    studio_version,
 };
 
 use super::{defaults_place::DefaultsPlaceSubcommand, dump::DumpSubcommand};
@@ -49,7 +48,7 @@ impl GenerateSubcommand {
         let contents = fs::read_to_string(&api_dump_path).context("Could not read API dump")?;
         let dump = serde_json::from_str(&contents).context("Invalid API dump")?;
 
-        DefaultsPlaceSubcommand {
+        let studio_info = DefaultsPlaceSubcommand {
             api_dump: api_dump_path,
             output: defaults_place_path.clone(),
         }
@@ -66,7 +65,7 @@ impl GenerateSubcommand {
 
         apply_defaults(&mut database, &defaults_place_path)?;
 
-        database.version = studio_version::get_studio_version()?;
+        database.version = studio_info.version;
 
         for path in &self.output {
             let extension = path.extension().unwrap_or_default().to_str();

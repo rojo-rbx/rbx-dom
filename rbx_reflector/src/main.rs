@@ -2,7 +2,6 @@ mod api_dump;
 mod cli;
 mod defaults;
 mod patches;
-mod studio_version;
 
 use clap::Parser;
 
