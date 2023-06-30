@@ -27,6 +27,8 @@ impl ConvertVariant for Variant {
         target_type: VariantType,
     ) -> Result<Cow<'_, Self>, String> {
         match (value.borrow(), target_type) {
+            // Older files may not have their number types moved to 64-bit yet,
+            // which can cause problems. See issue #301.
             (Variant::Int32(value), VariantType::Int64) => {
                 Ok(Cow::Owned((i64::from(*value)).into()))
             }
