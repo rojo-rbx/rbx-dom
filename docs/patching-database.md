@@ -55,14 +55,6 @@ Finally, we say that `xmlRead_MaxDistance_3` is an alias for `MaxDistance`, the 
 
 For this property, we're done!
 
-## Roblox added a new property, but modifying it from Lua requires a special API
-Sometimes a property is added that cannot be assigned directly from Lua. For example, the `Model.Scale` property:
-
-```lua
--- This line of code throws an error: "Scale is not a valid member of Model"
-model.Scale = 2
-```
-
 ## Roblox added a new property, but it's a migration from an existing property, and the existing property no longer loads
 Sometimes Roblox migrates an existing property whose type is too constrained to a new property with a more flexible type.
 
@@ -92,9 +84,14 @@ Change:
 If this property is present on multiple classes, you may need to specify the Serialization change for multiple properties on multiple classes. For example, the `Font` property is present on `TextLabel`, `TextButton`, `TextBox` without being derived from a superclass, so the real patch is approximately 3 times as long since it needs to be applied to each class.
 
 ## Roblox added a new property, but modifying it from Lua requires a special API
-Sometimes a property is added that cannot be assigned directly from Lua.
+Sometimes a property is added that cannot be assigned directly from Lua. For example, the `Model.Scale` property:
 
-First, modify the reflection database to either add or change the property's `Scriptability` to `Custom`:
+```lua
+-- This line of code throws an error: "Scale is not a valid member of Model"
+model.Scale = 2
+```
+
+To fix this, first modify the reflection database to either add or change the property's `Scriptability` to `Custom`:
 
 ```yaml
 # To change the property:
