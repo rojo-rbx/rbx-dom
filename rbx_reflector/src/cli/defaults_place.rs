@@ -13,6 +13,7 @@ use clap::Parser;
 use innerput::{Innerput, Key, Keyboard};
 use notify::{Config, RecommendedWatcher, RecursiveMode, Watcher};
 use roblox_install::RobloxStudio;
+use serde::Deserialize;
 use tempfile::tempdir;
 use tiny_http::Response;
 
@@ -31,7 +32,7 @@ pub struct DefaultsPlaceSubcommand {
 }
 
 impl DefaultsPlaceSubcommand {
-    pub fn run(&self) -> anyhow::Result<()> {
+    pub fn run(&self) -> anyhow::Result<StudioInfo> {
         if self.output.extension().unwrap_or_default() != "rbxlx" {
             bail!("The output path must have a .rbxlx extension")
         }
@@ -45,15 +46,15 @@ impl DefaultsPlaceSubcommand {
         let temp_place_path = temp_dir.path().join("defaults-place.rbxlx");
 
         generate_place_with_all_classes(&temp_place_path, &dump)?;
-        save_place_in_studio(&temp_place_path)?;
+        let studio_info = save_place_in_studio(&temp_place_path)?;
 
         fs::copy(temp_place_path, &self.output)?;
 
-        Ok(())
+        Ok(studio_info)
     }
 }
 
-fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
+fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<StudioInfo> {
     let studio_install =
         RobloxStudio::locate().context("Could not locate Roblox Studio install")?;
 
@@ -67,7 +68,7 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
 
     log::info!("Waiting for Roblox Studio to re-save place...");
 
-    plugin_injector.wait_for_response()?;
+    let studio_info = plugin_injector.wait_for_response()?;
 
     let (tx, rx) = mpsc::channel();
     let mut watcher = RecommendedWatcher::new(tx, Config::default())?;
@@ -97,7 +98,7 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<()> {
 
     studio_process.kill()?;
 
-    Ok(())
+    Ok(studio_info)
 }
 
 fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Result<()> {
@@ -203,6 +204,11 @@ pub struct PluginInjector<'a> {
     studio_install: &'a RobloxStudio,
 }
 
+#[derive(Debug, Deserialize)]
+pub struct StudioInfo {
+    pub version: [u32; 4],
+}
+
 impl<'a> PluginInjector<'a> {
     pub fn start(studio_install: &'a RobloxStudio) -> anyhow::Result<Self> {
         let http_server = tiny_http::Server::http("0.0.0.0:22073").unwrap();
@@ -221,15 +227,16 @@ impl<'a> PluginInjector<'a> {
         })
     }
 
-    pub fn wait_for_response(self) -> anyhow::Result<()> {
-        let request = match self.http_server.recv_timeout(Duration::from_secs(30))? {
+    pub fn wait_for_response(self) -> anyhow::Result<StudioInfo> {
+        let mut request = match self.http_server.recv_timeout(Duration::from_secs(30))? {
             Some(request) => request,
             None => bail!("Plugin did not send a response within 30 seconds"),
         };
 
+        let studio_info: StudioInfo = serde_json::from_reader(request.as_reader())?;
         request.respond(Response::empty(200))?;
 
-        Ok(())
+        Ok(studio_info)
     }
 }
 

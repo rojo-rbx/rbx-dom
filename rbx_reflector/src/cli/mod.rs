@@ -29,7 +29,7 @@ impl Args {
     pub fn run(&self) -> anyhow::Result<()> {
         match &self.subcommand {
             Subcommand::Dump(sub) => sub.run(),
-            Subcommand::DefaultsPlace(sub) => sub.run(),
+            Subcommand::DefaultsPlace(sub) => sub.run().map(|_| ()),
             Subcommand::Generate(sub) => sub.run(),
             Subcommand::Values(sub) => sub.run(),
         }
