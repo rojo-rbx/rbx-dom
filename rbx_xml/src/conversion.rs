@@ -27,6 +27,14 @@ impl ConvertVariant for Variant {
         target_type: VariantType,
     ) -> Result<Cow<'_, Self>, String> {
         match (value.borrow(), target_type) {
+            // Older files may not have their number types moved to 64-bit yet,
+            // which can cause problems. See issue #301.
+            (Variant::Int32(value), VariantType::Int64) => {
+                Ok(Cow::Owned((i64::from(*value)).into()))
+            }
+            (Variant::Float32(value), VariantType::Float64) => {
+                Ok(Cow::Owned((f64::from(*value)).into()))
+            }
             (Variant::Int32(value), VariantType::BrickColor) => {
                 let narrowed: u16 = (*value).try_into().map_err(|_| {
                     format!("Value {} is not in the range of a valid BrickColor", value)
