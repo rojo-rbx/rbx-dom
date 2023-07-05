@@ -80,8 +80,8 @@ impl<'src> CloneContext<'src> {
     fn rewrite_refs(ref_rewrites: &HashMap<Ref, Ref>, instance: &mut Instance) {
         for prop_value in instance.properties.values_mut() {
             if let Variant::Ref(old_ref) = prop_value {
-                // NOTE: It is possible to get None here if the ref points to
-                // something outside of the newly cloned instance hierarchy
+                // We only want to rewrite Refs if they point to instances within the
+                // cloned subtree
                 if let Some(new_ref) = ref_rewrites.get(old_ref) {
                     *prop_value = Variant::Ref(*new_ref);
                 }
@@ -445,6 +445,75 @@ mod test {
 
         // This snapshot should have Root and SpawnLocation contained in Dest.
         insta::assert_yaml_snapshot!(viewer.view_children(&dom));
+    }
+
+    #[test]
+    fn clone_within() {
+        let mut dom = {
+            let mut child1 = InstanceBuilder::new("Part");
+            let mut child2 = InstanceBuilder::new("Part");
+
+            child1 = child1.with_property("RefProp", child2.referent);
+            child2 = child2.with_property("RefProp", child1.referent);
+
+            WeakDom::new(
+                InstanceBuilder::new("Folder")
+                    .with_name("Root")
+                    .with_children([child1, child2]),
+            )
+        };
+
+        let cloned_root = dom.clone_within(dom.root_ref);
+
+        assert!(
+            dom.get_by_ref(cloned_root).unwrap().parent.is_none(),
+            "parent of cloned subtree root should be none directly after a clone"
+        );
+
+        dom.transfer_within(cloned_root, dom.root_ref);
+
+        // This snapshot should have a clone of the root Folder under itself, with the ref
+        // properties in the cloned subtree pointing to the cloned instances.
+        let mut viewer = DomViewer::new();
+        insta::assert_yaml_snapshot!(viewer.view(&dom));
+    }
+
+    #[test]
+    fn clone_into_external() {
+        let mut dom = {
+            let mut child1 = InstanceBuilder::new("Part");
+            let mut child2 = InstanceBuilder::new("Part");
+
+            child1 = child1.with_property("RefProp", child2.referent);
+            child2 = child2.with_property("RefProp", child1.referent);
+
+            WeakDom::new(
+                InstanceBuilder::new("Folder")
+                    .with_name("Root")
+                    .with_children([child1, child2]),
+            )
+        };
+
+        let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let cloned_root = dom.clone_into_external(dom.root_ref, &mut other_dom);
+
+        assert!(
+            other_dom.get_by_ref(cloned_root).unwrap().parent.is_none(),
+            "parent of cloned subtree root should be none directly after a clone"
+        );
+
+        other_dom.transfer_within(cloned_root, other_dom.root_ref);
+
+        let mut viewer = DomViewer::new();
+
+        // This snapshot is here just to show that the ref props are rewritten after being
+        // cloned into the other dom. It should contain a Folder at the root with two
+        // Parts as children
+        insta::assert_yaml_snapshot!(viewer.view(&dom));
+
+        // This snapshot should have a clone of the root Folder under the other dom's
+        // DataModel, with the ref properties pointing to the newly cloned parts.
+        insta::assert_yaml_snapshot!(viewer.view(&other_dom));
     }
 
     #[test]
