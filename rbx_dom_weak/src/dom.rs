@@ -221,8 +221,10 @@ impl WeakDom {
         instance.parent = dest_parent_ref;
 
         // Remove the instance's referent from its parent's list of children.
-        let parent = self.instances.get_mut(&parent_ref).unwrap();
-        parent.children.retain(|&child| child != referent);
+        if parent_ref.is_some() {
+            let parent = self.instances.get_mut(&parent_ref).unwrap();
+            parent.children.retain(|&child| child != referent);
+        }
 
         // Add the instance's referent to its new parent's list of children.
         let dest_parent = self
