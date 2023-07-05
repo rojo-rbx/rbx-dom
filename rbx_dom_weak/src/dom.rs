@@ -241,7 +241,12 @@ impl WeakDom {
         dest_parent.children.push(referent);
     }
 
-    /// Ook
+    /// Clone an instance and all its descendants into the same WeakDom.
+    ///
+    /// After the operation, the root of the cloned subtree has no parent.
+    ///
+    /// Any Ref properties that point to instances contained in the subtree are
+    /// rewritten to point to the cloned instances.
     pub fn clone_within(&mut self, referent: Ref) -> Ref {
         let mut ctx = CloneContext::default();
         let root_builder = self.instancebuilder_from_ref(&mut ctx, referent);
@@ -257,7 +262,12 @@ impl WeakDom {
         root_ref
     }
 
-    /// OOoook
+    /// Clone an instance and all its descendants into a different WeakDom.
+    ///
+    /// After the operation, the root of the cloned subtree has no parent.
+    ///
+    /// Any Ref properties that point to instances contained in the subtree are
+    /// rewritten to point to the cloned instances.
     pub fn clone_into_external(&self, referent: Ref, dest: &mut WeakDom) -> Ref {
         let mut ctx = CloneContext::default();
         let root_builder = self.instancebuilder_from_ref(&mut ctx, referent);
