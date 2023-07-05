@@ -126,8 +126,10 @@ impl WeakDom {
             .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
 
         let parent_ref = instance.parent;
-        let parent = self.instances.get_mut(&parent_ref).unwrap();
-        parent.children.retain(|&child| child != referent);
+        if parent_ref.is_some() {
+            let parent = self.instances.get_mut(&parent_ref).unwrap();
+            parent.children.retain(|&child| child != referent);
+        }
 
         let mut to_remove = VecDeque::new();
         to_remove.push_back(referent);
@@ -160,8 +162,11 @@ impl WeakDom {
         // Remove the instance being moved from its parent's list of children.
         // If we care about panic tolerance in the future, doing this first is
         // important to ensure this link is the one severed first.
-        let parent = self.instances.get_mut(&instance.parent).unwrap();
-        parent.children.retain(|&child| child != referent);
+        let parent_ref = instance.parent;
+        if parent_ref.is_some() {
+            let parent = self.instances.get_mut(&parent_ref).unwrap();
+            parent.children.retain(|&child| child != referent);
+        }
 
         // We'll start tracking all of the instances that we're moving in a
         // queue. We're about to move the moving instance, so we need to do this
@@ -217,8 +222,10 @@ impl WeakDom {
         instance.parent = dest_parent_ref;
 
         // Remove the instance's referent from its parent's list of children.
-        let parent = self.instances.get_mut(&parent_ref).unwrap();
-        parent.children.retain(|&child| child != referent);
+        if parent_ref.is_some() {
+            let parent = self.instances.get_mut(&parent_ref).unwrap();
+            parent.children.retain(|&child| child != referent);
+        }
 
         // Add the instance's referent to its new parent's list of children.
         let dest_parent = self
