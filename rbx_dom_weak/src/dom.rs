@@ -18,6 +18,102 @@ pub struct WeakDom {
     unique_ids: HashSet<UniqueId>,
 }
 
+#[derive(Debug)]
+struct CloneContext<'dom> {
+    // TODO: Should we use a specific type for these instead of (Ref, Ref)?
+    queue: VecDeque<(Ref, Ref)>,
+
+    ref_rewrites: HashMap<Ref, Ref>,
+    dom: &'dom mut WeakDom,
+    subtree_root: Ref,
+}
+
+impl<'dom> CloneContext<'dom> {
+    fn new(dom: &'dom mut WeakDom, subtree_root: Ref) -> Self {
+        Self {
+            ref_rewrites: HashMap::default(),
+            queue: VecDeque::default(),
+            subtree_root,
+            dom,
+        }
+    }
+
+    pub fn clone_within(mut self) -> Ref {
+        let root_builder = self.instancebuilder_from_ref(self.subtree_root);
+        let root_ref = self.dom.insert(Ref::none(), root_builder);
+
+        while let Some((cloned_parent, uncloned_child)) = self.queue.pop_front() {
+            let builder = self.instancebuilder_from_ref(uncloned_child);
+            self.dom.insert(cloned_parent, builder);
+        }
+
+        for (_, new_ref) in self.ref_rewrites.iter() {
+            let instance = self
+                .dom
+                .get_by_ref_mut(*new_ref)
+                .expect("Cannot rewrite refs on an instance that does not exist");
+
+            Self::rewrite_refs(&self.ref_rewrites, instance);
+        }
+
+        root_ref
+    }
+
+    pub fn clone_external(mut self, dest: &mut WeakDom) -> Ref {
+        let root_builder = self.instancebuilder_from_ref(self.subtree_root);
+        let root_ref = dest.insert(Ref::none(), root_builder);
+
+        while let Some((cloned_parent, uncloned_child)) = self.queue.pop_front() {
+            let builder = self.instancebuilder_from_ref(uncloned_child);
+            dest.insert(cloned_parent, builder);
+        }
+
+        for (_, new_ref) in self.ref_rewrites.iter() {
+            let instance = dest
+                .get_by_ref_mut(*new_ref)
+                .expect("Cannot rewrite refs on an instance that does not exist");
+
+            Self::rewrite_refs(&self.ref_rewrites, instance);
+        }
+
+        root_ref
+    }
+
+    fn rewrite_refs(ref_rewrites: &HashMap<Ref, Ref>, instance: &mut Instance) {
+        for prop_value in instance.properties.values_mut() {
+            if let Variant::Ref(old_ref) = prop_value {
+                // NOTE: It is possible to get None here if the ref points to
+                // something outside of the newly cloned instance hierarchy
+                if let Some(new_ref) = ref_rewrites.get(old_ref) {
+                    *prop_value = Variant::Ref(*new_ref);
+                }
+            }
+        }
+    }
+
+    fn instancebuilder_from_ref(&mut self, referent: Ref) -> InstanceBuilder {
+        let (new_ref, builder, children) = {
+            let instance = self
+                .dom
+                .get_by_ref(referent)
+                .expect("Cannot clone an instance that does not exist");
+
+            let builder = InstanceBuilder::new(instance.class.to_string())
+                .with_name(instance.name.to_string())
+                .with_properties(instance.properties.clone());
+
+            (builder.referent, builder, instance.children.to_vec())
+        };
+
+        for uncloned_child in children.iter() {
+            self.queue.push_back((new_ref, *uncloned_child))
+        }
+
+        self.ref_rewrites.insert(referent, new_ref);
+        builder
+    }
+}
+
 impl WeakDom {
     /// Construct a new `WeakDom` described by the given [`InstanceBuilder`].
     pub fn new(builder: InstanceBuilder) -> WeakDom {
@@ -233,6 +329,16 @@ impl WeakDom {
             .get_mut(&dest_parent_ref)
             .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
         dest_parent.children.push(referent);
+    }
+
+    /// Ook
+    pub fn clone_within(&mut self, referent: Ref) -> Ref {
+        CloneContext::new(self, referent).clone_within()
+    }
+
+    /// OOoook
+    pub fn clone_external(&mut self, referent: Ref, dest: &mut WeakDom) -> Ref {
+        CloneContext::new(self, referent).clone_external(dest)
     }
 
     fn inner_insert(&mut self, referent: Ref, instance: Instance) {
