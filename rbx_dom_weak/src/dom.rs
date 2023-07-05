@@ -65,10 +65,11 @@ impl WeakDom {
         self.instances.get_mut(&referent)
     }
 
-    /// Insert a new instance into the DOM with the given parent.
+    /// Insert a new instance into the DOM with the given parent. The parent is allowed to
+    /// be the none Ref.
     ///
     /// ## Panics
-    /// Panics if `parent_ref` does not refer to an instance in the DOM.
+    /// Panics if `parent_ref` is some and does not refer to an instance in the DOM.
     pub fn insert(&mut self, parent_ref: Ref, root_builder: InstanceBuilder) -> Ref {
         let root_referent = root_builder.referent;
 
