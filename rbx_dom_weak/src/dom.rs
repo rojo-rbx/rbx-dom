@@ -356,10 +356,10 @@ impl WeakDom {
                 .expect("Cannot rewrite refs on an instance that does not exist");
 
             for prop_value in instance.properties.values_mut() {
-                if let Variant::Ref(old_ref) = prop_value {
+                if let Variant::Ref(original_ref) = prop_value {
                     // We only want to rewrite Refs if they point to instances within the
                     // cloned subtree
-                    if let Some(new_ref) = ctx.ref_rewrites.get(old_ref) {
+                    if let Some(new_ref) = ctx.ref_rewrites.get(original_ref) {
                         *prop_value = Variant::Ref(*new_ref);
                     }
                 }
