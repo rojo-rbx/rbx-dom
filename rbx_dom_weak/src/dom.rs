@@ -125,8 +125,10 @@ impl WeakDom {
             .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
 
         let parent_ref = instance.parent;
-        let parent = self.instances.get_mut(&parent_ref).unwrap();
-        parent.children.retain(|&child| child != referent);
+        if parent_ref.is_some() {
+            let parent = self.instances.get_mut(&parent_ref).unwrap();
+            parent.children.retain(|&child| child != referent);
+        }
 
         let mut to_remove = VecDeque::new();
         to_remove.push_back(referent);
