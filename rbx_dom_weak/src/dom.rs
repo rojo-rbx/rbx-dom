@@ -18,98 +18,10 @@ pub struct WeakDom {
     unique_ids: HashSet<UniqueId>,
 }
 
-#[derive(Debug)]
-struct CloneContext<'src> {
+#[derive(Debug, Default)]
+struct CloneContext {
     queue: VecDeque<(Ref, Ref)>,
     ref_rewrites: HashMap<Ref, Ref>,
-    source: &'src mut WeakDom,
-    subtree_root: Ref,
-}
-
-impl<'src> CloneContext<'src> {
-    fn new(dom: &'src mut WeakDom, subtree_root: Ref) -> Self {
-        Self {
-            ref_rewrites: HashMap::default(),
-            queue: VecDeque::default(),
-            subtree_root,
-            source: dom,
-        }
-    }
-
-    pub fn clone_within(mut self) -> Ref {
-        let root_builder = self.instancebuilder_from_ref(self.subtree_root);
-        let root_ref = self.source.insert(Ref::none(), root_builder);
-
-        while let Some((cloned_parent, uncloned_child)) = self.queue.pop_front() {
-            let builder = self.instancebuilder_from_ref(uncloned_child);
-            self.source.insert(cloned_parent, builder);
-        }
-
-        for (_, new_ref) in self.ref_rewrites.iter() {
-            let instance = self
-                .source
-                .get_by_ref_mut(*new_ref)
-                .expect("Cannot rewrite refs on an instance that does not exist");
-
-            Self::rewrite_refs(&self.ref_rewrites, instance);
-        }
-
-        root_ref
-    }
-
-    pub fn clone_into_external(mut self, dest: &mut WeakDom) -> Ref {
-        let root_builder = self.instancebuilder_from_ref(self.subtree_root);
-        let root_ref = dest.insert(Ref::none(), root_builder);
-
-        while let Some((cloned_parent, uncloned_child)) = self.queue.pop_front() {
-            let builder = self.instancebuilder_from_ref(uncloned_child);
-            dest.insert(cloned_parent, builder);
-        }
-
-        for (_, new_ref) in self.ref_rewrites.iter() {
-            let instance = dest
-                .get_by_ref_mut(*new_ref)
-                .expect("Cannot rewrite refs on an instance that does not exist");
-
-            Self::rewrite_refs(&self.ref_rewrites, instance);
-        }
-
-        root_ref
-    }
-
-    fn rewrite_refs(ref_rewrites: &HashMap<Ref, Ref>, instance: &mut Instance) {
-        for prop_value in instance.properties.values_mut() {
-            if let Variant::Ref(old_ref) = prop_value {
-                // We only want to rewrite Refs if they point to instances within the
-                // cloned subtree
-                if let Some(new_ref) = ref_rewrites.get(old_ref) {
-                    *prop_value = Variant::Ref(*new_ref);
-                }
-            }
-        }
-    }
-
-    fn instancebuilder_from_ref(&mut self, referent: Ref) -> InstanceBuilder {
-        let (new_ref, builder, children) = {
-            let instance = self
-                .source
-                .get_by_ref(referent)
-                .expect("Cannot clone an instance that does not exist");
-
-            let builder = InstanceBuilder::new(instance.class.to_string())
-                .with_name(instance.name.to_string())
-                .with_properties(instance.properties.clone());
-
-            (builder.referent, builder, instance.children.to_vec())
-        };
-
-        for uncloned_child in children.iter() {
-            self.queue.push_back((new_ref, *uncloned_child))
-        }
-
-        self.ref_rewrites.insert(referent, new_ref);
-        builder
-    }
 }
 
 impl WeakDom {
@@ -331,12 +243,34 @@ impl WeakDom {
 
     /// Ook
     pub fn clone_within(&mut self, referent: Ref) -> Ref {
-        CloneContext::new(self, referent).clone_within()
+        let mut ctx = CloneContext::default();
+        let root_builder = self.instancebuilder_from_ref(&mut ctx, referent);
+        let root_ref = self.insert(Ref::none(), root_builder);
+
+        while let Some((cloned_parent, uncloned_child)) = ctx.queue.pop_front() {
+            let builder = self.instancebuilder_from_ref(&mut ctx, uncloned_child);
+            self.insert(cloned_parent, builder);
+        }
+
+        Self::rewrite_refs(self, &ctx);
+
+        root_ref
     }
 
     /// OOoook
-    pub fn clone_into_external(&mut self, referent: Ref, dest: &mut WeakDom) -> Ref {
-        CloneContext::new(self, referent).clone_into_external(dest)
+    pub fn clone_into_external(&self, referent: Ref, dest: &mut WeakDom) -> Ref {
+        let mut ctx = CloneContext::default();
+        let root_builder = self.instancebuilder_from_ref(&mut ctx, referent);
+        let root_ref = dest.insert(Ref::none(), root_builder);
+
+        while let Some((cloned_parent, uncloned_child)) = ctx.queue.pop_front() {
+            let builder = self.instancebuilder_from_ref(&mut ctx, uncloned_child);
+            dest.insert(cloned_parent, builder);
+        }
+
+        Self::rewrite_refs(dest, &ctx);
+
+        root_ref
     }
 
     fn inner_insert(&mut self, referent: Ref, instance: Instance) {
@@ -380,6 +314,45 @@ impl WeakDom {
         }
 
         instance
+    }
+
+    fn instancebuilder_from_ref(&self, ctx: &mut CloneContext, referent: Ref) -> InstanceBuilder {
+        let (new_ref, builder, children) = {
+            let instance = self
+                .get_by_ref(referent)
+                .expect("Cannot clone an instance that does not exist");
+
+            let builder = InstanceBuilder::new(instance.class.to_string())
+                .with_name(instance.name.to_string())
+                .with_properties(instance.properties.clone());
+
+            (builder.referent, builder, instance.children.to_vec())
+        };
+
+        for uncloned_child in children.iter() {
+            ctx.queue.push_back((new_ref, *uncloned_child))
+        }
+
+        ctx.ref_rewrites.insert(referent, new_ref);
+        builder
+    }
+
+    fn rewrite_refs(dom: &mut WeakDom, ctx: &CloneContext) {
+        for (_, new_ref) in ctx.ref_rewrites.iter() {
+            let instance = dom
+                .get_by_ref_mut(*new_ref)
+                .expect("Cannot rewrite refs on an instance that does not exist");
+
+            for prop_value in instance.properties.values_mut() {
+                if let Variant::Ref(old_ref) = prop_value {
+                    // We only want to rewrite Refs if they point to instances within the
+                    // cloned subtree
+                    if let Some(new_ref) = ctx.ref_rewrites.get(old_ref) {
+                        *prop_value = Variant::Ref(*new_ref);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -480,7 +453,7 @@ mod test {
 
     #[test]
     fn clone_into_external() {
-        let mut dom = {
+        let dom = {
             let mut child1 = InstanceBuilder::new("Part");
             let mut child2 = InstanceBuilder::new("Part");
 
