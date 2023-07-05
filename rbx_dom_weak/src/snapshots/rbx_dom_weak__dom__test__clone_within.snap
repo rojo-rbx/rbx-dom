@@ -1,0 +1,39 @@
+---
+source: rbx_dom_weak/src/dom.rs
+expression: viewer.view(&dom)
+---
+referent: referent-0
+name: Root
+class: Folder
+properties: {}
+children:
+  - referent: referent-1
+    name: Part
+    class: Part
+    properties:
+      RefProp: referent-2
+    children: []
+  - referent: referent-2
+    name: Part
+    class: Part
+    properties:
+      RefProp: referent-1
+    children: []
+  - referent: referent-3
+    name: Root
+    class: Folder
+    properties: {}
+    children:
+      - referent: referent-4
+        name: Part
+        class: Part
+        properties:
+          RefProp: referent-5
+        children: []
+      - referent: referent-5
+        name: Part
+        class: Part
+        properties:
+          RefProp: referent-4
+        children: []
+

@@ -1,0 +1,27 @@
+---
+source: rbx_dom_weak/src/dom.rs
+expression: viewer.view(&other_dom)
+---
+referent: referent-3
+name: DataModel
+class: DataModel
+properties: {}
+children:
+  - referent: referent-4
+    name: Root
+    class: Folder
+    properties: {}
+    children:
+      - referent: referent-5
+        name: Part
+        class: Part
+        properties:
+          RefProp: referent-6
+        children: []
+      - referent: referent-6
+        name: Part
+        class: Part
+        properties:
+          RefProp: referent-5
+        children: []
+
