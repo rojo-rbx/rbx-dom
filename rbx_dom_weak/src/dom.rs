@@ -257,7 +257,7 @@ impl WeakDom {
             self.insert(cloned_parent, builder);
         }
 
-        Self::rewrite_refs(self, &ctx);
+        Self::rewrite_refs(self, ctx);
 
         root_ref
     }
@@ -278,7 +278,7 @@ impl WeakDom {
             dest.insert(cloned_parent, builder);
         }
 
-        Self::rewrite_refs(dest, &ctx);
+        Self::rewrite_refs(dest, ctx);
 
         root_ref
     }
@@ -349,7 +349,7 @@ impl WeakDom {
         builder
     }
 
-    fn rewrite_refs(dom: &mut WeakDom, ctx: &CloneContext) {
+    fn rewrite_refs(dom: &mut WeakDom, ctx: CloneContext) {
         for (_, new_ref) in ctx.ref_rewrites.iter() {
             let instance = dom
                 .get_by_ref_mut(*new_ref)
