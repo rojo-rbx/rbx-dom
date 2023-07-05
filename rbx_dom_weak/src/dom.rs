@@ -57,7 +57,7 @@ impl<'src> CloneContext<'src> {
         root_ref
     }
 
-    pub fn clone_external(mut self, dest: &mut WeakDom) -> Ref {
+    pub fn clone_into_external(mut self, dest: &mut WeakDom) -> Ref {
         let root_builder = self.instancebuilder_from_ref(self.subtree_root);
         let root_ref = dest.insert(Ref::none(), root_builder);
 
@@ -335,8 +335,8 @@ impl WeakDom {
     }
 
     /// OOoook
-    pub fn clone_external(&mut self, referent: Ref, dest: &mut WeakDom) -> Ref {
-        CloneContext::new(self, referent).clone_external(dest)
+    pub fn clone_into_external(&mut self, referent: Ref, dest: &mut WeakDom) -> Ref {
+        CloneContext::new(self, referent).clone_into_external(dest)
     }
 
     fn inner_insert(&mut self, referent: Ref, instance: Instance) {
