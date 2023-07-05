@@ -19,37 +19,35 @@ pub struct WeakDom {
 }
 
 #[derive(Debug)]
-struct CloneContext<'dom> {
-    // TODO: Should we use a specific type for these instead of (Ref, Ref)?
+struct CloneContext<'src> {
     queue: VecDeque<(Ref, Ref)>,
-
     ref_rewrites: HashMap<Ref, Ref>,
-    dom: &'dom mut WeakDom,
+    source: &'src mut WeakDom,
     subtree_root: Ref,
 }
 
-impl<'dom> CloneContext<'dom> {
-    fn new(dom: &'dom mut WeakDom, subtree_root: Ref) -> Self {
+impl<'src> CloneContext<'src> {
+    fn new(dom: &'src mut WeakDom, subtree_root: Ref) -> Self {
         Self {
             ref_rewrites: HashMap::default(),
             queue: VecDeque::default(),
             subtree_root,
-            dom,
+            source: dom,
         }
     }
 
     pub fn clone_within(mut self) -> Ref {
         let root_builder = self.instancebuilder_from_ref(self.subtree_root);
-        let root_ref = self.dom.insert(Ref::none(), root_builder);
+        let root_ref = self.source.insert(Ref::none(), root_builder);
 
         while let Some((cloned_parent, uncloned_child)) = self.queue.pop_front() {
             let builder = self.instancebuilder_from_ref(uncloned_child);
-            self.dom.insert(cloned_parent, builder);
+            self.source.insert(cloned_parent, builder);
         }
 
         for (_, new_ref) in self.ref_rewrites.iter() {
             let instance = self
-                .dom
+                .source
                 .get_by_ref_mut(*new_ref)
                 .expect("Cannot rewrite refs on an instance that does not exist");
 
@@ -94,7 +92,7 @@ impl<'dom> CloneContext<'dom> {
     fn instancebuilder_from_ref(&mut self, referent: Ref) -> InstanceBuilder {
         let (new_ref, builder, children) = {
             let instance = self
-                .dom
+                .source
                 .get_by_ref(referent)
                 .expect("Cannot clone an instance that does not exist");
 
