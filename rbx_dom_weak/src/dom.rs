@@ -326,24 +326,26 @@ impl WeakDom {
         instance
     }
 
-    fn ref_into_instancebuilder(&self, ctx: &mut CloneContext, referent: Ref) -> InstanceBuilder {
-        let (new_ref, builder, children) = {
-            let instance = self
-                .get_by_ref(referent)
-                .expect("Cannot clone an instance that does not exist");
+    fn ref_into_instancebuilder(
+        &self,
+        ctx: &mut CloneContext,
+        original_ref: Ref,
+    ) -> InstanceBuilder {
+        let instance = self
+            .get_by_ref(original_ref)
+            .expect("Cannot clone an instance that does not exist");
 
-            let builder = InstanceBuilder::new(instance.class.to_string())
-                .with_name(instance.name.to_string())
-                .with_properties(instance.properties.clone());
+        let builder = InstanceBuilder::new(instance.class.to_string())
+            .with_name(instance.name.to_string())
+            .with_properties(instance.properties.clone());
 
-            (builder.referent, builder, instance.children.to_vec())
-        };
+        let new_ref = builder.referent;
 
-        for uncloned_child in children.iter() {
+        for uncloned_child in instance.children.iter() {
             ctx.queue.push_back((new_ref, *uncloned_child))
         }
 
-        ctx.ref_rewrites.insert(referent, new_ref);
+        ctx.ref_rewrites.insert(original_ref, new_ref);
         builder
     }
 
