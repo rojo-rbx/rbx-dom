@@ -161,8 +161,11 @@ impl WeakDom {
         // Remove the instance being moved from its parent's list of children.
         // If we care about panic tolerance in the future, doing this first is
         // important to ensure this link is the one severed first.
-        let parent = self.instances.get_mut(&instance.parent).unwrap();
-        parent.children.retain(|&child| child != referent);
+        let parent_ref = instance.parent;
+        if parent_ref.is_some() {
+            let parent = self.instances.get_mut(&parent_ref).unwrap();
+            parent.children.retain(|&child| child != referent);
+        }
 
         // We'll start tracking all of the instances that we're moving in a
         // queue. We're about to move the moving instance, so we need to do this
