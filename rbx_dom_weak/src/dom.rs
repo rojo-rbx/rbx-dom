@@ -18,32 +18,6 @@ pub struct WeakDom {
     unique_ids: HashSet<UniqueId>,
 }
 
-#[derive(Debug, Default)]
-struct CloneContext {
-    queue: VecDeque<(Ref, Ref)>,
-    ref_rewrites: HashMap<Ref, Ref>,
-}
-
-impl CloneContext {
-    fn rewrite_refs(self, dom: &mut WeakDom) {
-        for (_, new_ref) in self.ref_rewrites.iter() {
-            let instance = dom
-                .get_by_ref_mut(*new_ref)
-                .expect("Cannot rewrite refs on an instance that does not exist");
-
-            for prop_value in instance.properties.values_mut() {
-                if let Variant::Ref(original_ref) = prop_value {
-                    // We only want to rewrite Refs if they point to instances within the
-                    // cloned subtree
-                    if let Some(new_ref) = self.ref_rewrites.get(original_ref) {
-                        *prop_value = Variant::Ref(*new_ref);
-                    }
-                }
-            }
-        }
-    }
-}
-
 impl WeakDom {
     /// Construct a new `WeakDom` described by the given [`InstanceBuilder`].
     pub fn new(builder: InstanceBuilder) -> WeakDom {
@@ -366,6 +340,32 @@ impl WeakDom {
 
         ctx.ref_rewrites.insert(original_ref, new_ref);
         builder
+    }
+}
+
+#[derive(Debug, Default)]
+struct CloneContext {
+    queue: VecDeque<(Ref, Ref)>,
+    ref_rewrites: HashMap<Ref, Ref>,
+}
+
+impl CloneContext {
+    fn rewrite_refs(self, dom: &mut WeakDom) {
+        for (_, new_ref) in self.ref_rewrites.iter() {
+            let instance = dom
+                .get_by_ref_mut(*new_ref)
+                .expect("Cannot rewrite refs on an instance that does not exist");
+
+            for prop_value in instance.properties.values_mut() {
+                if let Variant::Ref(original_ref) = prop_value {
+                    // We only want to rewrite Refs if they point to instances within the
+                    // cloned subtree
+                    if let Some(new_ref) = self.ref_rewrites.get(original_ref) {
+                        *prop_value = Variant::Ref(*new_ref);
+                    }
+                }
+            }
+        }
     }
 }
 
