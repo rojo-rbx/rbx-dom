@@ -235,7 +235,8 @@ impl WeakDom {
         dest_parent.children.push(referent);
     }
 
-    /// Clone an instance and all its descendants into the same WeakDom.
+    /// Clone the instance with the given `referent` and all its descendants
+    /// (i.e. the entire subtree) into the same WeakDom.
     ///
     /// After the operation, the root of the cloned subtree has no parent.
     ///
@@ -255,7 +256,8 @@ impl WeakDom {
         root_ref
     }
 
-    /// Clone an instance and all its descendants into a different WeakDom.
+    /// Clone the instance with the given `referent` and all its descendants (i.e. the
+    /// entire subtree) into the given WeakDom.
     ///
     /// After the operation, the root of the cloned subtree has no parent.
     ///
