@@ -243,11 +243,11 @@ impl WeakDom {
     /// rewritten to point to the cloned instances.
     pub fn clone_within(&mut self, referent: Ref) -> Ref {
         let mut ctx = CloneContext::default();
-        let root_builder = self.clone_ref_as_builder(&mut ctx, referent);
+        let root_builder = ctx.clone_ref_as_builder(self, referent);
         let root_ref = self.insert(Ref::none(), root_builder);
 
         while let Some((cloned_parent, uncloned_child)) = ctx.queue.pop_front() {
-            let builder = self.clone_ref_as_builder(&mut ctx, uncloned_child);
+            let builder = ctx.clone_ref_as_builder(self, uncloned_child);
             self.insert(cloned_parent, builder);
         }
 
@@ -263,11 +263,11 @@ impl WeakDom {
     /// rewritten to point to the cloned instances.
     pub fn clone_into_external(&self, referent: Ref, dest: &mut WeakDom) -> Ref {
         let mut ctx = CloneContext::default();
-        let root_builder = self.clone_ref_as_builder(&mut ctx, referent);
+        let root_builder = ctx.clone_ref_as_builder(self, referent);
         let root_ref = dest.insert(Ref::none(), root_builder);
 
         while let Some((cloned_parent, uncloned_child)) = ctx.queue.pop_front() {
-            let builder = self.clone_ref_as_builder(&mut ctx, uncloned_child);
+            let builder = ctx.clone_ref_as_builder(self, uncloned_child);
             dest.insert(cloned_parent, builder);
         }
 
@@ -317,30 +317,6 @@ impl WeakDom {
 
         instance
     }
-
-    /// Clones the instance with the given referent and context into a new
-    /// InstanceBuilder.
-    ///
-    /// This method only clones the instance's class name, name, and properties; it
-    /// does not clone any children.
-    fn clone_ref_as_builder(&self, ctx: &mut CloneContext, original_ref: Ref) -> InstanceBuilder {
-        let instance = self
-            .get_by_ref(original_ref)
-            .expect("Cannot clone an instance that does not exist");
-
-        let builder = InstanceBuilder::new(instance.class.to_string())
-            .with_name(instance.name.to_string())
-            .with_properties(instance.properties.clone());
-
-        let new_ref = builder.referent;
-
-        for uncloned_child in instance.children.iter() {
-            ctx.queue.push_back((new_ref, *uncloned_child))
-        }
-
-        ctx.ref_rewrites.insert(original_ref, new_ref);
-        builder
-    }
 }
 
 #[derive(Debug, Default)]
@@ -366,6 +342,30 @@ impl CloneContext {
                 }
             }
         }
+    }
+
+    /// Clones the instance with the given referent and context into a new
+    /// InstanceBuilder.
+    ///
+    /// This method only clones the instance's class name, name, and properties; it
+    /// does not clone any children.
+    fn clone_ref_as_builder(&mut self, source: &WeakDom, original_ref: Ref) -> InstanceBuilder {
+        let instance = source
+            .get_by_ref(original_ref)
+            .expect("Cannot clone an instance that does not exist");
+
+        let builder = InstanceBuilder::new(instance.class.to_string())
+            .with_name(instance.name.to_string())
+            .with_properties(instance.properties.clone());
+
+        let new_ref = builder.referent;
+
+        for uncloned_child in instance.children.iter() {
+            self.queue.push_back((new_ref, *uncloned_child))
+        }
+
+        self.ref_rewrites.insert(original_ref, new_ref);
+        builder
     }
 }
 
