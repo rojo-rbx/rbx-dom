@@ -328,6 +328,8 @@ struct CloneContext {
 }
 
 impl CloneContext {
+    /// On any instances cloned during the operation, rewrite any Ref properties that
+    /// point to instances that were also cloned.
     fn rewrite_refs(self, dom: &mut WeakDom) {
         for (_, new_ref) in self.ref_rewrites.iter() {
             let instance = dom
@@ -346,8 +348,9 @@ impl CloneContext {
         }
     }
 
-    /// Clones the instance with the given referent and context into a new
-    /// InstanceBuilder.
+    /// Clone the instance with the given `referent` and `source` WeakDom into a new
+    /// InstanceBuilder, and record the mapping of the original referent to the new
+    /// referent.
     ///
     /// This method only clones the instance's class name, name, and properties; it
     /// does not clone any children.
