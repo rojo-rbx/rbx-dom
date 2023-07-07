@@ -262,7 +262,8 @@ impl WeakDom {
     /// After the operation, the root of the cloned subtree has no parent.
     ///
     /// Any Ref properties that point to instances contained in the subtree are
-    /// rewritten to point to the cloned instances.
+    /// rewritten to point to the cloned instances. Any other Ref properties
+    /// would be invalid  in `dest` and are thus rewritten to be `Ref::none()`
     pub fn clone_into_external(&self, referent: Ref, dest: &mut WeakDom) -> Ref {
         let mut ctx = CloneContext::default();
         let root_builder = ctx.clone_ref_as_builder(self, referent);
