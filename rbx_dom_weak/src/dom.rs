@@ -356,7 +356,7 @@ impl CloneContext {
             for prop_value in instance.properties.values_mut() {
                 if let Variant::Ref(original_ref) = prop_value {
                     if let Some(new_ref) = self.ref_rewrites.get(original_ref) {
-                        // If the ref points to an instances contained within the
+                        // If the ref points to an instance contained within the
                         // cloned subtree, rewrite it as the corresponding new ref
                         *prop_value = Variant::Ref(*new_ref);
                     } else if !existing_dest_refs.contains(original_ref) {
