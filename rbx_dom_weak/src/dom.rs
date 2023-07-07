@@ -456,31 +456,31 @@ mod test {
 
     #[test]
     fn clone_within() {
-        let mut dom = {
-            let mut child1 = InstanceBuilder::new("Part");
-            let mut child2 = InstanceBuilder::new("Part");
+        let mut child1 = InstanceBuilder::new("Part").with_name("Child1");
+        let child1_ref = child1.referent;
 
-            child1 = child1.with_property("RefProp", child2.referent);
+        let mut dom = {
+            let root = InstanceBuilder::new("Folder").with_name("Root");
+            let mut child2 = InstanceBuilder::new("Part").with_name("Child2");
+
+            child1 = child1.with_property("RefProp", root.referent);
             child2 = child2.with_property("RefProp", child1.referent);
 
-            WeakDom::new(
-                InstanceBuilder::new("Folder")
-                    .with_name("Root")
-                    .with_children([child1, child2]),
-            )
+            WeakDom::new(root.with_child(child1.with_child(child2)))
         };
 
-        let cloned_root = dom.clone_within(dom.root_ref);
+        let cloned_child1_ref = dom.clone_within(child1_ref);
 
         assert!(
-            dom.get_by_ref(cloned_root).unwrap().parent.is_none(),
+            dom.get_by_ref(cloned_child1_ref).unwrap().parent.is_none(),
             "parent of cloned subtree root should be none directly after a clone"
         );
 
-        dom.transfer_within(cloned_root, dom.root_ref);
+        dom.transfer_within(cloned_child1_ref, dom.root_ref);
 
-        // This snapshot should have a clone of the root Folder under itself, with the ref
-        // properties in the cloned subtree pointing to the cloned instances.
+        // This snapshot should have a clone of the Child1 subtree under the
+        // root Folder, with Child2's ref property pointing to the cloned
+        // Child1, and Child1's ref property pointing to the root Folder.
         let mut viewer = DomViewer::new();
         insta::assert_yaml_snapshot!(viewer.view(&dom));
     }

@@ -8,32 +8,27 @@ class: Folder
 properties: {}
 children:
   - referent: referent-1
-    name: Part
+    name: Child1
     class: Part
     properties:
-      RefProp: referent-2
-    children: []
-  - referent: referent-2
-    name: Part
-    class: Part
-    properties:
-      RefProp: referent-1
-    children: []
+      RefProp: referent-0
+    children:
+      - referent: referent-2
+        name: Child2
+        class: Part
+        properties:
+          RefProp: referent-1
+        children: []
   - referent: referent-3
-    name: Root
-    class: Folder
-    properties: {}
+    name: Child1
+    class: Part
+    properties:
+      RefProp: "null"
     children:
       - referent: referent-4
-        name: Part
+        name: Child2
         class: Part
         properties:
-          RefProp: referent-5
-        children: []
-      - referent: referent-5
-        name: Part
-        class: Part
-        properties:
-          RefProp: referent-4
+          RefProp: referent-3
         children: []
 
