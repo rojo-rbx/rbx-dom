@@ -44,7 +44,11 @@ impl<W: io::Write> XmlWriter<W> {
     /// This will automatically escape text but may trim whitespace.
     /// Use `write_raw_text` to preserve the exact text.
     pub fn write_text(&mut self, text: &str) -> Result<(), EncodeError> {
-        self.inner.write_event(Event::Text(BytesText::new(text)))?;
+        // This is necessary because we don't want to escape " and '
+        // This is for readability, mostly.
+        self.inner.write_event(Event::Text(BytesText::from_escaped(
+            quick_xml::escape::partial_escape(text),
+        )))?;
         Ok(())
     }
 

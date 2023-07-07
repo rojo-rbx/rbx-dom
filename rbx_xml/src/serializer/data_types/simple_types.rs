@@ -123,7 +123,6 @@ mod tests {
         serialize_test!(string_serializer, "مرحبًا", "مرحبًا");
 
         serialize_test!(string_serializer, ">Test<", "&gt;Test&lt;");
-        serialize_test!(string_serializer, "&'\"", "&amp;&apos;&quot;");
     }
 
     #[test]
@@ -151,6 +150,12 @@ mod tests {
         serialize_test!(string_serializer, " مرحبًا ", "<![CDATA[ مرحبًا ]]>");
 
         serialize_test!(string_serializer, " >Test< ", "<![CDATA[ >Test< ]]>");
+    }
+
+    #[test]
+    fn string_with_quotes() {
+        serialize_test!(string_serializer, "\"Hello, world!\"", "\"Hello, world!\"");
+        serialize_test!(string_serializer, "'Hello, world!'", "'Hello, world!'");
     }
 
     #[test]
