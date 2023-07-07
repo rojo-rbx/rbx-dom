@@ -488,16 +488,18 @@ mod test {
     #[test]
     fn clone_into_external() {
         let dom = {
-            let mut child1 = InstanceBuilder::new("Part");
-            let mut child2 = InstanceBuilder::new("Part");
+            let mut child1 = InstanceBuilder::new("Part").with_name("Child1");
+            let mut child2 = InstanceBuilder::new("Part").with_name("Child2");
+            let mut child3 = InstanceBuilder::new("Part").with_name("Child3");
 
             child1 = child1.with_property("RefProp", child2.referent);
             child2 = child2.with_property("RefProp", child1.referent);
+            child3 = child3.with_property("RefProp", Ref::new());
 
             WeakDom::new(
                 InstanceBuilder::new("Folder")
                     .with_name("Root")
-                    .with_children([child1, child2]),
+                    .with_children([child1, child2, child3]),
             )
         };
 
@@ -514,12 +516,13 @@ mod test {
         let mut viewer = DomViewer::new();
 
         // This snapshot is here just to show that the ref props are rewritten after being
-        // cloned into the other dom. It should contain a Folder at the root with two
+        // cloned into the other dom. It should contain a Folder at the root with the three
         // Parts as children
         insta::assert_yaml_snapshot!(viewer.view(&dom));
 
-        // This snapshot should have a clone of the root Folder under the other dom's
-        // DataModel, with the ref properties pointing to the newly cloned parts.
+        // This snapshot should have a clone of the root Folder under the other
+        // dom's DataModel, with Child1's and Child2's ref properties rewritten to point
+        // to the newly cloned instances, and Child3's ref property rewritten to none.
         insta::assert_yaml_snapshot!(viewer.view(&other_dom));
     }
 
