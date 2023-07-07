@@ -23,7 +23,7 @@ children:
     name: Child1
     class: Part
     properties:
-      RefProp: "null"
+      RefProp: referent-0
     children:
       - referent: referent-4
         name: Child2
