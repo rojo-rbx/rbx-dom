@@ -331,7 +331,7 @@ impl CloneContext {
     /// On any instances cloned during the operation, rewrite any Ref properties that
     /// point to instances that were also cloned.
     fn rewrite_refs(self, dest: &mut WeakDom) {
-        let mut existing_dest_refs = HashSet::<Ref>::new();
+        let mut existing_dest_refs = HashSet::new();
 
         for (_, new_ref) in self.ref_rewrites.iter() {
             let instance = dest
