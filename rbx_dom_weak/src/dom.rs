@@ -330,18 +330,34 @@ struct CloneContext {
 impl CloneContext {
     /// On any instances cloned during the operation, rewrite any Ref properties that
     /// point to instances that were also cloned.
-    fn rewrite_refs(self, dom: &mut WeakDom) {
+    fn rewrite_refs(self, dest: &mut WeakDom) {
+        let original_dest_refs: HashSet<Ref> = self
+            .ref_rewrites
+            .iter()
+            .filter_map(|(original_ref, _)| {
+                if dest.instances.contains_key(original_ref) {
+                    Some(*original_ref)
+                } else {
+                    None
+                }
+            })
+            .collect();
+
         for (_, new_ref) in self.ref_rewrites.iter() {
-            let instance = dom
+            let instance = dest
                 .get_by_ref_mut(*new_ref)
                 .expect("Cannot rewrite refs on an instance that does not exist");
 
             for prop_value in instance.properties.values_mut() {
                 if let Variant::Ref(original_ref) = prop_value {
-                    // We only want to rewrite Refs if they point to instances within the
-                    // cloned subtree
                     if let Some(new_ref) = self.ref_rewrites.get(original_ref) {
+                        // If the ref points to an instances contained within the
+                        // cloned subtree, rewrite it as the corresponding new ref
                         *prop_value = Variant::Ref(*new_ref);
+                    } else if !original_dest_refs.contains(original_ref) {
+                        // If the ref points to an instance that does not exist
+                        // in the destination WeakDom, rewrite it as none
+                        *prop_value = Variant::Ref(Ref::none())
                     }
                 }
             }
