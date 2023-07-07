@@ -235,6 +235,49 @@ impl WeakDom {
         dest_parent.children.push(referent);
     }
 
+    /// Clone the instance with the given `referent` and all its descendants
+    /// (i.e. the entire subtree) into the same WeakDom.
+    ///
+    /// After the operation, the root of the cloned subtree has no parent.
+    ///
+    /// Any Ref properties that point to instances contained in the subtree are
+    /// rewritten to point to the cloned instances.
+    pub fn clone_within(&mut self, referent: Ref) -> Ref {
+        let mut ctx = CloneContext::default();
+        let root_builder = ctx.clone_ref_as_builder(self, referent);
+        let root_ref = self.insert(Ref::none(), root_builder);
+
+        while let Some((cloned_parent, uncloned_child)) = ctx.queue.pop_front() {
+            let builder = ctx.clone_ref_as_builder(self, uncloned_child);
+            self.insert(cloned_parent, builder);
+        }
+
+        ctx.rewrite_refs(self);
+        root_ref
+    }
+
+    /// Clone the instance with the given `referent` and all its descendants (i.e. the
+    /// entire subtree) into the given WeakDom.
+    ///
+    /// After the operation, the root of the cloned subtree has no parent.
+    ///
+    /// Any Ref properties that point to instances contained in the subtree are
+    /// rewritten to point to the cloned instances. Any other Ref properties
+    /// would be invalid  in `dest` and are thus rewritten to be `Ref::none()`
+    pub fn clone_into_external(&self, referent: Ref, dest: &mut WeakDom) -> Ref {
+        let mut ctx = CloneContext::default();
+        let root_builder = ctx.clone_ref_as_builder(self, referent);
+        let root_ref = dest.insert(Ref::none(), root_builder);
+
+        while let Some((cloned_parent, uncloned_child)) = ctx.queue.pop_front() {
+            let builder = ctx.clone_ref_as_builder(self, uncloned_child);
+            dest.insert(cloned_parent, builder);
+        }
+
+        ctx.rewrite_refs(dest);
+        root_ref
+    }
+
     fn inner_insert(&mut self, referent: Ref, instance: Instance) {
         self.instances.insert(referent, instance);
 
@@ -276,6 +319,79 @@ impl WeakDom {
         }
 
         instance
+    }
+}
+
+#[derive(Debug, Default)]
+struct CloneContext {
+    queue: VecDeque<(Ref, Ref)>,
+    ref_rewrites: HashMap<Ref, Ref>,
+}
+
+impl CloneContext {
+    /// On any instances cloned during the operation, rewrite any Ref properties that
+    /// point to instances that were also cloned.
+    fn rewrite_refs(self, dest: &mut WeakDom) {
+        let mut existing_dest_refs = HashSet::new();
+
+        for (_, new_ref) in self.ref_rewrites.iter() {
+            let instance = dest
+                .get_by_ref(*new_ref)
+                .expect("Cannot rewrite refs on an instance that does not exist");
+
+            for prop_value in instance.properties.values() {
+                if let Variant::Ref(value) = prop_value {
+                    if dest.instances.contains_key(value) {
+                        existing_dest_refs.insert(*value);
+                    }
+                }
+            }
+        }
+
+        for (_, new_ref) in self.ref_rewrites.iter() {
+            let instance = dest
+                .get_by_ref_mut(*new_ref)
+                .expect("Cannot rewrite refs on an instance that does not exist");
+
+            for prop_value in instance.properties.values_mut() {
+                if let Variant::Ref(original_ref) = prop_value {
+                    if let Some(new_ref) = self.ref_rewrites.get(original_ref) {
+                        // If the ref points to an instance contained within the
+                        // cloned subtree, rewrite it as the corresponding new ref
+                        *prop_value = Variant::Ref(*new_ref);
+                    } else if !existing_dest_refs.contains(original_ref) {
+                        // If the ref points to an instance that does not exist
+                        // in the destination WeakDom, rewrite it as none
+                        *prop_value = Variant::Ref(Ref::none())
+                    }
+                }
+            }
+        }
+    }
+
+    /// Clone the instance with the given `referent` and `source` WeakDom into a new
+    /// InstanceBuilder, and record the mapping of the original referent to the new
+    /// referent.
+    ///
+    /// This method only clones the instance's class name, name, and properties; it
+    /// does not clone any children.
+    fn clone_ref_as_builder(&mut self, source: &WeakDom, original_ref: Ref) -> InstanceBuilder {
+        let instance = source
+            .get_by_ref(original_ref)
+            .expect("Cannot clone an instance that does not exist");
+
+        let builder = InstanceBuilder::new(instance.class.to_string())
+            .with_name(instance.name.to_string())
+            .with_properties(instance.properties.clone());
+
+        let new_ref = builder.referent;
+
+        for uncloned_child in instance.children.iter() {
+            self.queue.push_back((new_ref, *uncloned_child))
+        }
+
+        self.ref_rewrites.insert(original_ref, new_ref);
+        builder
     }
 }
 
@@ -341,6 +457,78 @@ mod test {
 
         // This snapshot should have Root and SpawnLocation contained in Dest.
         insta::assert_yaml_snapshot!(viewer.view_children(&dom));
+    }
+
+    #[test]
+    fn clone_within() {
+        let mut child1 = InstanceBuilder::new("Part").with_name("Child1");
+        let child1_ref = child1.referent;
+
+        let mut dom = {
+            let root = InstanceBuilder::new("Folder").with_name("Root");
+            let mut child2 = InstanceBuilder::new("Part").with_name("Child2");
+
+            child1 = child1.with_property("RefProp", root.referent);
+            child2 = child2.with_property("RefProp", child1.referent);
+
+            WeakDom::new(root.with_child(child1.with_child(child2)))
+        };
+
+        let cloned_child1_ref = dom.clone_within(child1_ref);
+
+        assert!(
+            dom.get_by_ref(cloned_child1_ref).unwrap().parent.is_none(),
+            "parent of cloned subtree root should be none directly after a clone"
+        );
+
+        dom.transfer_within(cloned_child1_ref, dom.root_ref);
+
+        // This snapshot should have a clone of the Child1 subtree under the
+        // root Folder, with Child2's ref property pointing to the cloned
+        // Child1, and Child1's ref property pointing to the root Folder.
+        let mut viewer = DomViewer::new();
+        insta::assert_yaml_snapshot!(viewer.view(&dom));
+    }
+
+    #[test]
+    fn clone_into_external() {
+        let dom = {
+            let mut child1 = InstanceBuilder::new("Part").with_name("Child1");
+            let mut child2 = InstanceBuilder::new("Part").with_name("Child2");
+            let mut child3 = InstanceBuilder::new("Part").with_name("Child3");
+
+            child1 = child1.with_property("RefProp", child2.referent);
+            child2 = child2.with_property("RefProp", child1.referent);
+            child3 = child3.with_property("RefProp", Ref::new());
+
+            WeakDom::new(
+                InstanceBuilder::new("Folder")
+                    .with_name("Root")
+                    .with_children([child1, child2, child3]),
+            )
+        };
+
+        let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let cloned_root = dom.clone_into_external(dom.root_ref, &mut other_dom);
+
+        assert!(
+            other_dom.get_by_ref(cloned_root).unwrap().parent.is_none(),
+            "parent of cloned subtree root should be none directly after a clone"
+        );
+
+        other_dom.transfer_within(cloned_root, other_dom.root_ref);
+
+        let mut viewer = DomViewer::new();
+
+        // This snapshot is here just to show that the ref props are rewritten after being
+        // cloned into the other dom. It should contain a Folder at the root with the three
+        // Parts as children
+        insta::assert_yaml_snapshot!(viewer.view(&dom));
+
+        // This snapshot should have a clone of the root Folder under the other
+        // dom's DataModel, with Child1's and Child2's ref properties rewritten to point
+        // to the newly cloned instances, and Child3's ref property rewritten to none.
+        insta::assert_yaml_snapshot!(viewer.view(&other_dom));
     }
 
     #[test]
