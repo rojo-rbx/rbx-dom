@@ -99,9 +99,9 @@ impl<'db> EncodeOptions<'db> {
     /// A utility function to determine whether or not we should ignore unknown
     /// properties.
     pub(crate) fn ignore_unknown(&self) -> bool {
-        matches!(
+        !matches!(
             self.property_behavior,
-            EncodePropertyBehavior::IgnoreUnknown | EncodePropertyBehavior::NoReflection
+            EncodePropertyBehavior::ErrorOnUnknown
         )
     }
 }
