@@ -12,8 +12,8 @@ pub enum ConversionError {
     IntToBrickColor(i32),
 }
 
-pub fn convert(from: Cow<Variant>, to: VariantType) -> Result<Cow<Variant>, ConversionError> {
-    Ok(Cow::Owned(match (from.as_ref(), to) {
+pub fn convert(from: &Variant, to: VariantType) -> Result<Cow<Variant>, ConversionError> {
+    Ok(Cow::Owned(match (from, to) {
         (Variant::BrickColor(value), VariantType::Int32) => Variant::Int32(*value as i32),
         (Variant::Int32(value), VariantType::BrickColor) => {
             let new = (*value)
@@ -29,7 +29,7 @@ pub fn convert(from: Cow<Variant>, to: VariantType) -> Result<Cow<Variant>, Conv
                 "no conversion possible for '{:?} -> {to:?}', returning input",
                 from.ty()
             );
-            return Ok(from.clone());
+            return Ok(Cow::Borrowed(from));
         }
     }))
 }

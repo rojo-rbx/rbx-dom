@@ -95,12 +95,12 @@ pub fn serialize_refs<W: io::Write>(
 //     Ok(())
 // }
 
-fn serialize_item<'db, W: io::Write>(
+fn serialize_item<'a, 'db, W: io::Write>(
     writer: &mut XmlWriter<W>,
     state: &mut EncodeState<'db>,
-    dom: &'db WeakDom,
+    dom: &'a WeakDom,
     referent: Ref,
-    prop_list: &mut Vec<(Cow<'db, str>, Cow<'db, Variant>)>,
+    prop_list: &mut Vec<(&'a String, &'a Variant)>,
 ) -> Result<(), EncodeError> {
     let instance = dom
         .get_by_ref(referent)
@@ -109,66 +109,6 @@ fn serialize_item<'db, W: io::Write>(
 
     // TODO check Instance class names?
     log::debug!("Attempting to serialize Instance {}", referent);
-
-    if state.options.use_reflection() {
-        let database = state.options.database.unwrap();
-        for (canon_name, canon_value) in &instance.properties {
-            log::trace!("visiting {canon_name} with the reflection database");
-            if let Some(descriptor) =
-                find_serialized_property_descriptor(database, class_name, canon_name)
-            {
-                let serial_name = if canon_name.as_str() != descriptor.name {
-                    log::trace!("renaming {canon_name} to {}", descriptor.name);
-                    descriptor.name.clone()
-                } else {
-                    Cow::Borrowed(canon_name.as_str())
-                };
-                let canon_type = canon_value.ty();
-                let serial_type = match descriptor.data_type {
-                    DataType::Value(ty) => ty,
-                    DataType::Enum(_) => VariantType::Enum,
-                    _ => unimplemented!(),
-                };
-                if canon_type != serial_type {
-                    log::trace!(
-                        "converting {class_name}.{serial_name} from {canon_type:?} to {serial_type:?}"
-                    );
-                    match conversions::convert(Cow::Borrowed(canon_value), serial_type) {
-                        Ok(serial_value) => prop_list.push((serial_name, serial_value)),
-                        Err(error) => {
-                            return Err(ErrorKind::ConversionFail {
-                                class: class_name.into(),
-                                name: serial_name.to_string(),
-                                from: canon_type,
-                                to: serial_type,
-                                error,
-                            }
-                            .err())
-                        }
-                    }
-                } else {
-                    prop_list.push((serial_name, Cow::Borrowed(canon_value)))
-                }
-            } else if !state.options.ignore_unknown() {
-                return Err(
-                    ErrorKind::UnknownProperty(class_name.into(), canon_name.clone()).err(),
-                );
-            } else {
-                log::trace!("unknown property {canon_name}");
-                prop_list.push((
-                    Cow::Borrowed(canon_name.as_str()),
-                    Cow::Borrowed(canon_value),
-                ));
-            }
-        }
-    } else {
-        for (canon_name, canon_value) in &instance.properties {
-            prop_list.push((Cow::Borrowed(canon_name), Cow::Borrowed(canon_value)))
-        }
-    }
-
-    prop_list.sort_unstable_by_key(|(name, _)| name.clone());
-
     writer
         .start_element("Item")
         .attribute("class", &instance.class)
@@ -182,47 +122,87 @@ fn serialize_item<'db, W: io::Write>(
     // The other option is taking ownership of the Dom which isn't an option.
     data_types::attempt_serialization(writer, "Name", &Variant::String(instance.name.clone()))?;
 
-    for (prop_name, prop_value) in prop_list.iter() {
-        log::trace!("trying to serialize {prop_name}");
-        match prop_value {
-            Cow::Borrowed(Variant::Ref(referent)) => {
-                if referent.is_some() {
-                    if log::log_enabled!(log::Level::Trace) {
-                        log::trace!(
-                            "referent property {prop_name} = {referent}, setting to {}",
-                            state.map_or_set_ref(referent)
-                        );
+    prop_list.extend(&instance.properties);
+    prop_list.sort_unstable_by_key(|(name, _)| name.clone());
+
+    for (name, value) in prop_list.drain(..) {
+        let mut real_name = Cow::Borrowed(name.as_str());
+        let mut real_value = Cow::Borrowed(value);
+
+        if state.options.use_reflection() {
+            let database = state.options.database.unwrap();
+            log::trace!("visiting {name} with reflection database");
+            if let Some(descriptor) =
+                find_serialized_property_descriptor(database, class_name, name)
+            {
+                if name.as_str() != descriptor.name {
+                    // TODO check if the new property name already exists
+                    log::trace!("renaming {name} to {}", descriptor.name);
+                    real_name = descriptor.name.clone();
+                }
+                let current_ty = value.ty();
+                let real_ty = match descriptor.data_type {
+                    DataType::Value(ty) => ty,
+                    DataType::Enum(_) => VariantType::Enum,
+                    _ => unimplemented!(),
+                };
+                if current_ty != real_ty {
+                    log::trace!("converting {real_name} from {current_ty:?} to {real_ty:?}");
+                    match conversions::convert(value, real_ty) {
+                        Ok(new) => real_value = new,
+                        Err(error) => {
+                            return Err(ErrorKind::ConversionFail {
+                                class: class_name.into(),
+                                name: real_name.into(),
+                                from: current_ty,
+                                to: real_ty,
+                                error,
+                            }
+                            .into())
+                        }
                     }
-                    data_types::serialize_ref(writer, prop_name, state.map_or_set_ref(referent))?
+                }
+            } else if !state.options.ignore_unknown() {
+                return Err(ErrorKind::UnknownProperty(class_name.into(), name.into()).err());
+            }
+        }
+        log::trace!("attempting to serialize {real_name}");
+
+        match real_value.as_ref() {
+            Variant::Ref(referent) => {
+                log::trace!("ref property");
+                if referent.is_some() {
+                    data_types::serialize_ref(writer, &real_name, state.map_or_set_ref(referent))?
                 } else {
-                    log::trace!("referent property {prop_name} = null");
-                    data_types::serialize_ref(writer, prop_name, "null")?
+                    data_types::serialize_ref(writer, &real_name, "null")?
                 }
             }
-            Cow::Borrowed(Variant::SharedString(sstr)) => {
+            Variant::SharedString(sstr) => {
                 log::trace!(
-                    "sstr property {prop_name} {:?} ({} bytes)",
+                    "sstr property {:?} ({} bytes)",
                     sstr.hash(),
                     sstr.data().len()
                 );
+
                 // TODO account for potential collisions here
                 // We only use the first 16 bytes of the hash for SSTR,
                 // which means it's not impossible we could have a collision
                 // one day.
                 state.shared_strings.insert(sstr.hash(), sstr.clone());
-                data_types::serialize_shared_string(writer, prop_name, sstr.hash().as_bytes())?
+                data_types::serialize_shared_string(writer, &real_name, sstr.hash())?
             }
             _ => {
-                if data_types::is_known_type(prop_value) {
-                    data_types::attempt_serialization(writer, prop_name, prop_value)?
+                if data_types::is_known_type(&real_value) {
+                    data_types::attempt_serialization(writer, &real_name, &real_value)?
                 } else if state.options.unknown_type_err {
                     return Err(
-                        ErrorKind::UnknownType(prop_name.to_string(), prop_value.ty()).err(),
+                        ErrorKind::UnknownType(real_name.to_string(), real_value.ty()).err(),
                     );
                 }
             }
         }
     }
+
     writer.end_element("Properties")?;
 
     prop_list.clear();

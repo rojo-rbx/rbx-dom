@@ -16,7 +16,7 @@ mod vectors;
 use std::io;
 
 use super::writer::XmlWriter;
-use rbx_dom_weak::types::Variant;
+use rbx_dom_weak::types::{SharedStringHash, Variant};
 
 use super::error::{EncodeError, ErrorKind};
 
@@ -57,7 +57,7 @@ pub fn serialize_ref<W: io::Write>(
 pub fn serialize_shared_string<W: io::Write>(
     writer: &mut XmlWriter<W>,
     prop_name: &str,
-    key: &[u8],
+    key: SharedStringHash,
 ) -> Result<(), EncodeError> {
     writer
         .start_element("SharedString")
@@ -66,7 +66,7 @@ pub fn serialize_shared_string<W: io::Write>(
     // We've historically written only the first 16 bytes of shared string
     // hashes. This isn't really recommended but collisions are unlikely
     // and we can't really change it now because it'd break diffs
-    writer.write_base64(&key[0..16])?;
+    writer.write_base64(&key.as_bytes()[0..16])?;
     writer.end_element("SharedString")?;
 
     Ok(())
