@@ -6,3 +6,17 @@ Change:
         As: xmlRead_MaxDistance_3
     xmlRead_MaxDistance_3:
       AliasFor: MaxDistance
+
+    RollOffMinDistance:
+      Serialization:
+        Type: SerializesAs
+        As: EmitterSize
+    EmitterSize:
+      AliasFor: RollOffMinDistance
+    
+    RollOffMaxDistance:
+      Serialization:
+        Type: SerializesAs
+        As: xmlRead_MaxDistance_3
+    xmlRead_MaxDistance_3:
+      AliasFor: RollOffMaxDistance
