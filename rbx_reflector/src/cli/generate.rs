@@ -227,6 +227,7 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "NumberSequence" => VariantType::NumberSequence,
         "OptionalCoordinateFrame" => VariantType::OptionalCFrame,
         "PhysicalProperties" => VariantType::PhysicalProperties,
+        "QDir" => VariantType::QDir,
         "Ray" => VariantType::Ray,
         "Rect" => VariantType::Rect,
         "Region3" => VariantType::Region3,
@@ -257,7 +258,7 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "DateTime" => return Ok(None),
 
         // These types are not generally implemented right now.
-        "QDir" | "QFont" | "UniqueId" | "SystemAddress" | "CSGPropertyData" => return Ok(None),
+        "QFont" | "UniqueId" | "SystemAddress" | "CSGPropertyData" => return Ok(None),
 
         _ => bail!("Unknown type {}", value),
     }))
