@@ -23,6 +23,7 @@ mod number_sequence;
 mod numbers;
 mod optional_cframe;
 mod physical_properties;
+mod qdir;
 mod ray;
 mod rect;
 mod referent;
@@ -37,7 +38,7 @@ use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
     Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, Enum, Faces, Font,
-    NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, UniqueId,
+    NumberRange, NumberSequence, PhysicalProperties, QDir, Ray, Rect, Ref, UDim, UDim2, UniqueId,
     Variant, Vector2, Vector2int16, Vector3, Vector3int16,
 };
 
@@ -142,6 +143,7 @@ declare_rbx_types! {
     NumberSequence: NumberSequence,
     OptionalCFrame: Option<CFrame>,
     PhysicalProperties: PhysicalProperties,
+    QDir: QDir,
     Ray: Ray,
     Rect: Rect,
     String: String,
