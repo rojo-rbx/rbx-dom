@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-use crate::{AttributeError, Matrix3Error};
+use crate::{AttributeError, MaterialColorsError, Matrix3Error};
 
 /// Represents an error that occurred when using a fallible method.
 #[derive(Debug, Error)]
@@ -32,4 +32,7 @@ enum InnerError {
 
     #[error(transparent)]
     Matrix3Error(#[from] Matrix3Error),
+
+    #[error(transparent)]
+    MaterialColorsError(#[from] MaterialColorsError),
 }
