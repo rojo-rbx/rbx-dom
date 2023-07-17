@@ -25,6 +25,14 @@ impl From<Matrix3Error> for Error {
     }
 }
 
+impl From<MaterialColorsError> for Error {
+    fn from(source: MaterialColorsError) -> Self {
+        Self {
+            source: Box::new(source.into()),
+        }
+    }
+}
+
 #[derive(Debug, Error)]
 enum InnerError {
     #[error(transparent)]

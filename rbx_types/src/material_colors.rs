@@ -4,6 +4,8 @@ use thiserror::Error;
 
 use crate::Color3uint8;
 
+use crate::Error as CrateError;
+
 #[derive(Debug, PartialEq, Clone)]
 #[cfg_attr(
     feature = "serde",
@@ -54,9 +56,9 @@ impl MaterialColors {
 
     /// Decodes a `MaterialColors` from a binary blob. The blob must be
     /// the same format used by `encode` and Roblox.
-    pub fn decode(buffer: &[u8]) -> Result<Self, MaterialColorsError> {
+    pub fn decode(buffer: &[u8]) -> Result<Self, CrateError> {
         if buffer.len() != 69 {
-            return Err(MaterialColorsError::WrongLength(buffer.len()));
+            return Err(MaterialColorsError::WrongLength(buffer.len()).into());
         }
         let mut map = HashMap::with_capacity(21);
         // We have to skip the first 6 bytes, which amounts to 2 chunks
