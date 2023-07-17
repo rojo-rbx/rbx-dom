@@ -71,6 +71,15 @@ impl MaterialColors {
     }
 }
 
+impl<T> From<T> for MaterialColors
+where
+    T: Into<HashMap<TerrainMaterials, Color3uint8>>,
+{
+    fn from(value: T) -> Self {
+        Self(value.into())
+    }
+}
+
 /// An error that can occur when deserializing MaterialColors.
 #[derive(Debug, Error)]
 pub enum MaterialColorsError {
