@@ -7169,6 +7169,9 @@
             0.0
           ]
         },
+        "MaxBubbles": {
+          "Float32": 3.0
+        },
         "MaxDistance": {
           "Float32": 100.0
         },
@@ -7180,6 +7183,9 @@
         },
         "Tags": {
           "Tags": []
+        },
+        "TailVisible": {
+          "Bool": true
         },
         "TextColor3": {
           "Color3": [
@@ -7267,7 +7273,17 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "BulkImportService": {
       "Name": "BulkImportService",
@@ -10349,6 +10365,9 @@
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
+        },
+        "EnableFluidForces": {
+          "Bool": false
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -13645,6 +13664,9 @@
         }
       },
       "DefaultProperties": {
+        "ActivatedCursorIcon": {
+          "Content": ""
+        },
         "ApplyAtCenterOfMass": {
           "Bool": false
         },
@@ -14050,7 +14072,44 @@
       "Tags": [],
       "Superclass": "FileMesh",
       "Properties": {},
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "MeshId": {
+          "Content": ""
+        },
+        "Offset": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "Scale": {
+          "Vector3": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "TextureId": {
+          "Content": ""
+        },
+        "VertexColor": {
+          "Vector3": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
     },
     "DynamicRotate": {
       "Name": "DynamicRotate",
@@ -16026,6 +16085,9 @@
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
+        },
+        "EnableFluidForces": {
+          "Bool": false
         },
         "FormFactor": {
           "Enum": 1
@@ -23321,6 +23383,9 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
+        "EnableFluidForces": {
+          "Bool": false
+        },
         "FormFactor": {
           "Enum": 3
         },
@@ -24646,6 +24711,9 @@
         "Enabled": {
           "Bool": true
         },
+        "ForceLimitMode": {
+          "Enum": 0
+        },
         "LineDirection": {
           "Vector3": [
             1.0,
@@ -24656,8 +24724,21 @@
         "LineVelocity": {
           "Float32": -0.0
         },
+        "MaxAxesForce": {
+          "Vector3": [
+            1000.0,
+            1000.0,
+            1000.0
+          ]
+        },
         "MaxForce": {
           "Float32": 1000.0
+        },
+        "MaxPlanarAxesForce": {
+          "Vector2": [
+            1000.0,
+            1000.0
+          ]
         },
         "PlaneVelocity": {
           "Vector2": [
@@ -24742,7 +24823,7 @@
           "Enum": 0
         },
         "ScriptGuid": {
-          "String": "{868FA750-12EB-4C6F-AF1E-336366ED0245}"
+          "String": "{CA754EFF-3141-4BBA-AAC4-5D9D074482B1}"
         },
         "Source": {
           "String": ""
@@ -27251,6 +27332,9 @@
         "DoubleSided": {
           "Bool": false
         },
+        "EnableFluidForces": {
+          "Bool": false
+        },
         "FrontParamA": {
           "Float32": -0.5
         },
@@ -28062,7 +28146,7 @@
           "Content": ""
         },
         "ScriptGuid": {
-          "String": "{30D660DE-3F76-4514-BCD2-6789B5D9FD9F}"
+          "String": "{4463F8B4-D390-43D1-A7AA-DFEDC3B16372}"
         },
         "Source": {
           "String": ""
@@ -28704,6 +28788,9 @@
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
+        },
+        "EnableFluidForces": {
+          "Bool": false
         },
         "FormFactor": {
           "Enum": 3
@@ -29368,7 +29455,17 @@
       ],
       "Superclass": "Instance",
       "Properties": {},
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "OrderedDataStore": {
       "Name": "OrderedDataStore",
@@ -30001,6 +30098,9 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
+        "EnableFluidForces": {
+          "Bool": false
+        },
         "FormFactor": {
           "Enum": 1
         },
@@ -30452,6 +30552,9 @@
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
+        },
+        "EnableFluidForces": {
+          "Bool": false
         },
         "FormFactor": {
           "Enum": 3
@@ -37674,7 +37777,7 @@
           "Enum": 0
         },
         "ScriptGuid": {
-          "String": "{14AFF3E9-A115-4868-A399-62A4D4D297DB}"
+          "String": "{A0D36069-1D24-4729-9A30-DF725F4045FD}"
         },
         "Source": {
           "String": ""
@@ -38534,6 +38637,9 @@
           "PhysicalProperties": "Default"
         },
         "Disabled": {
+          "Bool": false
+        },
+        "EnableFluidForces": {
           "Bool": false
         },
         "FormFactor": {
@@ -39634,6 +39740,9 @@
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
+        },
+        "EnableFluidForces": {
+          "Bool": false
         },
         "FormFactor": {
           "Enum": 1
@@ -41496,6 +41605,9 @@
         },
         "Duration": {
           "Int32": 10
+        },
+        "EnableFluidForces": {
+          "Bool": false
         },
         "Enabled": {
           "Bool": true
@@ -46635,6 +46747,9 @@
         "Attributes": {
           "Attributes": {}
         },
+        "BalanceRigidityEnabled": {
+          "Bool": false
+        },
         "MoveSpeedFactor": {
           "Float32": 1.0
         },
@@ -47267,9 +47382,9 @@
         },
         "MaterialColors": {
           "Name": "MaterialColors",
-          "Scriptability": "None",
+          "Scriptability": "Custom",
           "DataType": {
-            "Value": "BinaryString"
+            "Value": "MaterialColors"
           },
           "Tags": [
             "NotScriptable"
@@ -47515,6 +47630,9 @@
           "PhysicalProperties": "Default"
         },
         "Decoration": {
+          "Bool": false
+        },
+        "EnableFluidForces": {
           "Bool": false
         },
         "FrontParamA": {
@@ -48842,6 +48960,9 @@
             0.20784315
           ]
         },
+        "TextDirection": {
+          "Enum": 0
+        },
         "TextEditable": {
           "Bool": true
         },
@@ -49406,6 +49527,9 @@
             0.16470589,
             0.20784315
           ]
+        },
+        "TextDirection": {
+          "Enum": 0
         },
         "TextScaled": {
           "Bool": false
@@ -50306,6 +50430,9 @@
             0.16470589,
             0.20784315
           ]
+        },
+        "TextDirection": {
+          "Enum": 0
         },
         "TextScaled": {
           "Bool": false
@@ -51914,6 +52041,9 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
+        "EnableFluidForces": {
+          "Bool": false
+        },
         "FrontParamA": {
           "Float32": -0.5
         },
@@ -52141,7 +52271,17 @@
       ],
       "Superclass": "Instance",
       "Properties": {},
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "UGCValidationService": {
       "Name": "UGCValidationService",
@@ -53441,6 +53581,9 @@
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
+        },
+        "EnableFluidForces": {
+          "Bool": false
         },
         "FormFactor": {
           "Enum": 3
@@ -55467,6 +55610,9 @@
         "Disabled": {
           "Bool": false
         },
+        "EnableFluidForces": {
+          "Bool": false
+        },
         "FrontParamA": {
           "Float32": -0.5
         },
@@ -56731,6 +56877,9 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
+        "EnableFluidForces": {
+          "Bool": false
+        },
         "FormFactor": {
           "Enum": 1
         },
@@ -57750,6 +57899,9 @@
         }
       },
       "DefaultProperties": {
+        "AirDensity": {
+          "Float32": 0.0012
+        },
         "AllowThirdPartySales": {
           "Bool": false
         },
@@ -57768,6 +57920,9 @@
         "DistributedGameTime": {
           "Float64": 0.0
         },
+        "EnableFluidForces": {
+          "Bool": false
+        },
         "ExplicitAutoJoints": {
           "Bool": true
         },
@@ -57785,6 +57940,9 @@
           "Float32": 196.2
         },
         "HumanoidOnlySetCollisionsOnStateChange": {
+          "Enum": 0
+        },
+        "IKControlConstraintSupport": {
           "Enum": 0
         },
         "InterpolationThrottling": {
@@ -57828,6 +57986,9 @@
             0.0,
             0.0
           ]
+        },
+        "ModelStreamingBehavior": {
+          "Enum": 0
         },
         "ModelStreamingMode": {
           "Enum": 0
