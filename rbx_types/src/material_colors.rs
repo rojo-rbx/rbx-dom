@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 use thiserror::Error;
 
@@ -12,14 +12,15 @@ use crate::Error as CrateError;
     derive(serde::Serialize, serde::Deserialize),
     serde(transparent)
 )]
-pub struct MaterialColors(HashMap<TerrainMaterials, Color3uint8>);
+// We use BTreeMap because otherwise serde isn't ordered
+pub struct MaterialColors(BTreeMap<TerrainMaterials, Color3uint8>);
 
 impl MaterialColors {
     /// Constructs a new `MaterialColors` where all colors are their default
     /// values.
     #[inline]
     pub fn new() -> Self {
-        Self(HashMap::new())
+        Self(BTreeMap::new())
     }
 
     /// Retrieves the set color for the given material, or the default if
@@ -60,7 +61,7 @@ impl MaterialColors {
         if buffer.len() != 69 {
             return Err(MaterialColorsError::WrongLength(buffer.len()).into());
         }
-        let mut map = HashMap::with_capacity(21);
+        let mut map = BTreeMap::new();
         // We have to skip the first 6 bytes, which amounts to 2 chunks
         for (material, color) in MATERIAL_ORDER.iter().zip(buffer.chunks(3).skip(2)) {
             map.insert(
@@ -75,7 +76,7 @@ impl MaterialColors {
 
 impl<T> From<T> for MaterialColors
 where
-    T: Into<HashMap<TerrainMaterials, Color3uint8>>,
+    T: Into<BTreeMap<TerrainMaterials, Color3uint8>>,
 {
     fn from(value: T) -> Self {
         Self(value.into())
@@ -109,7 +110,7 @@ macro_rules! material_colors {
         const MATERIAL_ORDER: [TerrainMaterials; 21] = [$(TerrainMaterials::$name,)*];
 
         /// All materials that are represented by `MaterialColors`.
-        #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+        #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
         #[cfg_attr(
             feature = "serde",
             derive(serde::Serialize, serde::Deserialize),
