@@ -447,7 +447,91 @@ expression: decoded_viewed
         Material:
           Enum: 256
         MaterialColors:
-          BinaryString: AAAAAAAAb34+WFlWmJiYimFJz8unrJRsY2Rm3eTl6/3/lHxfeXBiS0pKjIJo/xhDUFRUhoZ2zNLfaoZA///+//PAj5CH
+          MaterialColors:
+            Grass:
+              - 111
+              - 126
+              - 62
+            Slate:
+              - 88
+              - 89
+              - 86
+            Concrete:
+              - 152
+              - 152
+              - 152
+            Brick:
+              - 138
+              - 97
+              - 73
+            Sand:
+              - 207
+              - 203
+              - 167
+            WoodPlanks:
+              - 172
+              - 148
+              - 108
+            Rock:
+              - 99
+              - 100
+              - 102
+            Glacier:
+              - 221
+              - 228
+              - 229
+            Snow:
+              - 235
+              - 253
+              - 255
+            Sandstone:
+              - 148
+              - 124
+              - 95
+            Mud:
+              - 121
+              - 112
+              - 98
+            Basalt:
+              - 75
+              - 74
+              - 74
+            Ground:
+              - 140
+              - 130
+              - 104
+            CrackedLava:
+              - 255
+              - 24
+              - 67
+            Asphalt:
+              - 80
+              - 84
+              - 84
+            Cobblestone:
+              - 134
+              - 134
+              - 118
+            Ice:
+              - 204
+              - 210
+              - 223
+            LeafyGrass:
+              - 106
+              - 134
+              - 64
+            Salt:
+              - 255
+              - 255
+              - 254
+            Limestone:
+              - 255
+              - 243
+              - 192
+            Pavement:
+              - 143
+              - 144
+              - 135
         MaterialVariantSerialized:
           String: ""
         PhysicsGrid:

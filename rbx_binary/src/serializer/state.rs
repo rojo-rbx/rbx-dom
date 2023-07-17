@@ -9,9 +9,9 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, Enum, Faces, Font, Matrix3, NumberRange, NumberSequence,
-        NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim,
-        UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        ColorSequenceKeypoint, Content, Enum, Faces, Font, MaterialColors, Matrix3, NumberRange,
+        NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SharedString,
+        Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, WeakDom,
 };
@@ -620,11 +620,14 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
 
                                     chunk.write_binary_string(&buf)?;
                                 }
+                                Variant::MaterialColors(value) => {
+                                    chunk.write_binary_string(&value.encode())?;
+                                }
                                 _ => {
                                     return type_mismatch(
                                         i,
                                         &rbx_value,
-                                        "String, Content, Tags, Attributes, or BinaryString",
+                                        "String, Content, Tags, Attributes, MaterialColors, or BinaryString",
                                     );
                                 }
                             }
@@ -1271,6 +1274,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             VariantType::Attributes => Variant::Attributes(Attributes::new()),
             VariantType::UniqueId => Variant::UniqueId(UniqueId::now().unwrap()),
             VariantType::Font => Variant::Font(Font::default()),
+            VariantType::MaterialColors => Variant::MaterialColors(MaterialColors::new()),
             _ => return None,
         })
     }

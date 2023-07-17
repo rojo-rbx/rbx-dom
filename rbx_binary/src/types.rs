@@ -51,6 +51,7 @@ impl Type {
             VariantType::BinaryString => Type::String,
             VariantType::Content => Type::String,
             VariantType::Tags => Type::String,
+            VariantType::MaterialColors => Type::String,
 
             VariantType::Bool => Type::Bool,
             VariantType::Int32 => Type::Int32,
