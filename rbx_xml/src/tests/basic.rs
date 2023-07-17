@@ -1,9 +1,9 @@
 //! Basic functionality tests
 
 use rbx_dom_weak::types::{
-    Attributes, BinaryString, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint,
-    NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, Tags, UDim, UDim2, UniqueId,
-    Variant, Vector2, Vector3,
+    Attributes, BinaryString, BrickColor, Color3, Color3uint8, ColorSequence,
+    ColorSequenceKeypoint, MaterialColors, NumberRange, NumberSequence, NumberSequenceKeypoint,
+    Rect, Tags, TerrainMaterials, UDim, UDim2, UniqueId, Variant, Vector2, Vector3,
 };
 use rbx_dom_weak::{InstanceBuilder, WeakDom};
 
@@ -186,6 +186,59 @@ fn read_attributes() {
 
     for (key, value) in attributes {
         assert_eq!(folder_attributes.get(key), Some(&value));
+    }
+}
+
+#[test]
+fn write_material_colors() {
+    let _ = env_logger::try_init();
+
+    let terrain =
+        InstanceBuilder::new("Terrain").with_property("MaterialColors", MaterialColors::new());
+    let dom = WeakDom::new(terrain);
+
+    let mut encoded = Vec::new();
+    crate::to_writer_default(&mut encoded, &dom, &[dom.root_ref()]).unwrap();
+    insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
+}
+
+#[test]
+fn read_material_colors() {
+    let _ = env_logger::try_init();
+
+    let document = r#"
+        <roblox version="4">
+            <Item class="Terrain" referent="hope your day is swell :-)">
+                <Properties>
+                    <BinaryString name="MaterialColors">AAAAAAAAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/</BinaryString>
+                </Properties>
+            </Item>
+        </roblox>
+    "#;
+
+    let dom = crate::from_str_default(document).unwrap();
+    let terrain = dom.get_by_ref(dom.root().children()[0]).unwrap();
+
+    if let Some(Variant::MaterialColors(colors)) = terrain.properties.get("MaterialColors") {
+        // There are tests to ensure competency in the actual MaterialColors
+        // implementation, so these are just basic "are you ok" checks.
+        assert_eq!(
+            colors.get_color(TerrainMaterials::Grass),
+            Color3uint8::new(1, 2, 3)
+        );
+        assert_eq!(
+            colors.get_color(TerrainMaterials::CrackedLava),
+            Color3uint8::new(40, 41, 42)
+        );
+        assert_eq!(
+            colors.get_color(TerrainMaterials::Limestone),
+            Color3uint8::new(58, 59, 60)
+        );
+    } else {
+        panic!(
+            "MaterialColors was not Some(Variant::MaterialColors(_)) and was instead {:?}",
+            terrain.properties.get("MaterialColors")
+        )
     }
 }
 
