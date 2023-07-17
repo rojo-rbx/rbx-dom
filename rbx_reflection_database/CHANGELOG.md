@@ -2,7 +2,9 @@
 
 ## Unreleased Changes
 * Updated to Roblox version 583.
-* Added support for reflecting `QDir` properties.
+* Added support for reflecting `QDir` properties. ([#322])
+
+[#322]: https://github.com/rojo-rbx/rbx-dom/pull/322
 
 ## 0.2.6+roblox-572
 * Updated to Roblox version 572.
