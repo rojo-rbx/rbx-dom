@@ -103,15 +103,15 @@ return {
 				-- make one.
 				local colors = {}
 				for _, material in TERRAIN_MATERIAL_COLORS do
-					colors[material.Name] = instance:GetMaterialColor(material)
+					colors[material] = instance:GetMaterialColor(material)
 				end
 
 				return true, colors
 			end,
-			write = function(instance: Terrain, value: { [string]: Color3 })
+			write = function(instance: Terrain, _, value: { [Enum.Material]: Color3 })
 				for material, color in value do
 					-- This is probably fine.
-					instance:SetMaterialColor(Enum.Material[material], color)
+					instance:SetMaterialColor(material, color)
 				end
 				return true
 			end,
