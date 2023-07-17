@@ -4,10 +4,10 @@ use anyhow::bail;
 use clap::Parser;
 use rbx_types::{
     Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-    ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, Matrix3,
-    NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect,
-    Region3int16, Tags, UDim, UDim2, Variant, VariantType, Vector2, Vector2int16, Vector3,
-    Vector3int16,
+    ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, MaterialColors,
+    Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect,
+    Region3int16, Tags, TerrainMaterials, UDim, UDim2, Variant, VariantType, Vector2, Vector2int16,
+    Vector3, Vector3int16,
 };
 use serde::Serialize;
 
@@ -86,6 +86,39 @@ impl ValuesSubcommand {
         values.insert("Font", Font::default().into());
         values.insert("Int32", 6014i32.into());
         values.insert("Int64", 23491023i64.into());
+        values.insert(
+            "MaterialColors",
+            MaterialColors::from([
+                (TerrainMaterials::Grass, Color3uint8::new(106, 127, 63)),
+                (TerrainMaterials::Slate, Color3uint8::new(63, 127, 107)),
+                (TerrainMaterials::Concrete, Color3uint8::new(127, 102, 63)),
+                (TerrainMaterials::Brick, Color3uint8::new(138, 86, 62)),
+                (TerrainMaterials::Sand, Color3uint8::new(143, 126, 95)),
+                (TerrainMaterials::WoodPlanks, Color3uint8::new(139, 109, 79)),
+                (TerrainMaterials::Rock, Color3uint8::new(102, 108, 111)),
+                (TerrainMaterials::Glacier, Color3uint8::new(101, 176, 234)),
+                (TerrainMaterials::Snow, Color3uint8::new(195, 199, 218)),
+                (TerrainMaterials::Sandstone, Color3uint8::new(137, 90, 71)),
+                (TerrainMaterials::Mud, Color3uint8::new(58, 46, 36)),
+                (TerrainMaterials::Basalt, Color3uint8::new(30, 30, 37)),
+                (TerrainMaterials::Ground, Color3uint8::new(102, 92, 59)),
+                (
+                    TerrainMaterials::CrackedLava,
+                    Color3uint8::new(232, 156, 74),
+                ),
+                (TerrainMaterials::Asphalt, Color3uint8::new(115, 123, 107)),
+                (
+                    TerrainMaterials::Cobblestone,
+                    Color3uint8::new(132, 123, 90),
+                ),
+                (TerrainMaterials::Ice, Color3uint8::new(129, 194, 224)),
+                (TerrainMaterials::LeafyGrass, Color3uint8::new(115, 132, 74)),
+                (TerrainMaterials::Salt, Color3uint8::new(198, 189, 181)),
+                (TerrainMaterials::Limestone, Color3uint8::new(206, 173, 148)),
+                (TerrainMaterials::Pavement, Color3uint8::new(148, 148, 140)),
+            ])
+            .into(),
+        );
         values.insert("NumberRange", NumberRange::new(-36.0, 94.0).into());
         values.insert(
             "NumberSequence",
