@@ -36,11 +36,11 @@ impl From<MaterialColorsError> for Error {
 #[derive(Debug, Error)]
 enum InnerError {
     #[error(transparent)]
-    AttributeError(#[from] AttributeError),
+    Attribute(#[from] AttributeError),
 
     #[error(transparent)]
-    Matrix3Error(#[from] Matrix3Error),
+    Matrix3(#[from] Matrix3Error),
 
     #[error(transparent)]
-    MaterialColorsError(#[from] MaterialColorsError),
+    MaterialColors(#[from] MaterialColorsError),
 }
