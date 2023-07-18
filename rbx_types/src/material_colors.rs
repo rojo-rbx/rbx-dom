@@ -12,22 +12,27 @@ use crate::Error as CrateError;
     derive(serde::Serialize, serde::Deserialize),
     serde(transparent)
 )]
-// We use BTreeMap because otherwise serde isn't ordered
-pub struct MaterialColors(BTreeMap<TerrainMaterials, Color3uint8>);
+pub struct MaterialColors {
+    /// The underlying map used by this struct. A `BTreeMap` is used
+    /// over a `HashMap` to ensure serialization with serde is ordered.
+    inner: BTreeMap<TerrainMaterials, Color3uint8>,
+}
 
 impl MaterialColors {
     /// Constructs a new `MaterialColors` where all colors are their default
     /// values.
     #[inline]
     pub fn new() -> Self {
-        Self(BTreeMap::new())
+        Self {
+            inner: BTreeMap::new(),
+        }
     }
 
     /// Retrieves the set color for the given material, or the default if
     /// none is set.
     #[inline]
     pub fn get_color(&self, material: TerrainMaterials) -> Color3uint8 {
-        if let Some(color) = self.0.get(&material) {
+        if let Some(color) = self.inner.get(&material) {
             color.clone()
         } else {
             material.default_color()
@@ -37,7 +42,7 @@ impl MaterialColors {
     /// Sets the color for the given material.
     #[inline]
     pub fn set_color(&mut self, material: TerrainMaterials, color: Color3uint8) {
-        self.0.insert(material, color);
+        self.inner.insert(material, color);
     }
 
     /// Encodes the `MaterialColors` into a binary blob that can be understood
@@ -70,7 +75,7 @@ impl MaterialColors {
             );
         }
 
-        Ok(Self(map))
+        Ok(Self { inner: map })
     }
 }
 
@@ -79,7 +84,9 @@ where
     T: Into<BTreeMap<TerrainMaterials, Color3uint8>>,
 {
     fn from(value: T) -> Self {
-        Self(value.into())
+        Self {
+            inner: value.into(),
+        }
     }
 }
 
