@@ -12,6 +12,7 @@ use crate::Error as CrateError;
     derive(serde::Serialize, serde::Deserialize),
     serde(transparent)
 )]
+/// Represents the mapping of materials to colors used by Roblox's `Terrain`.
 pub struct MaterialColors {
     /// The underlying map used by this struct. A `BTreeMap` is used
     /// over a `HashMap` to ensure serialization with serde is ordered.
