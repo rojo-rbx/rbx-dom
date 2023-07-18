@@ -1,7 +1,7 @@
 use crate::{
     Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-    Content, Enum, Faces, Font, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref,
-    Region3, Region3int16, SharedString, Tags, UDim, UDim2, UniqueId, Vector2, Vector2int16,
+    Content, Enum, Faces, Font, NumberRange, NumberSequence, PhysicalProperties, QDir, Ray, Rect,
+    Ref, Region3, Region3int16, SharedString, Tags, UDim, UDim2, UniqueId, Vector2, Vector2int16,
     Vector3, Vector3int16,
 };
 
@@ -131,6 +131,7 @@ make_variant! {
     Attributes(Attributes),
     Font(Font),
     UniqueId(UniqueId),
+    QDir(QDir),
 }
 
 impl From<&'_ str> for Variant {

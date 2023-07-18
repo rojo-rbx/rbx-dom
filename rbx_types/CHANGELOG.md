@@ -6,12 +6,14 @@
 * Added `Font::new` and `Font::regular` constructors. ([#283])
 * Added support for `CFrame` values in attributes. ([#296])
 * Added support for `Font` values in attributes. ([#299])
+* Added support for `QDir` values. ([#322])
 
 [#271]: https://github.com/rojo-rbx/rbx-dom/pull/271
 [#276]: https://github.com/rojo-rbx/rbx-dom/pull/276
 [#283]: https://github.com/rojo-rbx/rbx-dom/pull/283
 [#296]: https://github.com/rojo-rbx/rbx-dom/pull/296
 [#299]: https://github.com/rojo-rbx/rbx-dom/pull/299
+[#322]: https://github.com/rojo-rbx/rbx-dom/pull/322
 
 ## 1.5.0 (2023-04-22)
 * Implemented `Font`. ([#248])
