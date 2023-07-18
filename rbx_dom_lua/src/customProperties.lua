@@ -110,7 +110,6 @@ return {
 			end,
 			write = function(instance: Terrain, _, value: { [Enum.Material]: Color3 })
 				for material, color in value do
-					-- This is probably fine.
 					instance:SetMaterialColor(material, color)
 				end
 				return true
