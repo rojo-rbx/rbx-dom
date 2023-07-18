@@ -6,7 +6,7 @@ use crate::Color3uint8;
 
 use crate::Error as CrateError;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Default)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
@@ -34,7 +34,7 @@ impl MaterialColors {
     #[inline]
     pub fn get_color(&self, material: TerrainMaterials) -> Color3uint8 {
         if let Some(color) = self.inner.get(&material) {
-            color.clone()
+            *color
         } else {
             material.default_color()
         }
@@ -70,10 +70,7 @@ impl MaterialColors {
         let mut map = BTreeMap::new();
         // We have to skip the first 6 bytes, which amounts to 2 chunks
         for (material, color) in MATERIAL_ORDER.iter().zip(buffer.chunks(3).skip(2)) {
-            map.insert(
-                material.clone(),
-                Color3uint8::new(color[0], color[1], color[2]),
-            );
+            map.insert(*material, Color3uint8::new(color[0], color[1], color[2]));
         }
 
         Ok(Self { inner: map })
