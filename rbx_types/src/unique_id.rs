@@ -46,6 +46,14 @@ pub struct UniqueId {
 static INDEX: AtomicU32 = AtomicU32::new(0);
 
 impl UniqueId {
+    pub fn non_unique() -> Self {
+        Self {
+            index: 0,
+            time: 0,
+            random: 0,
+        }
+    }
+
     pub fn new(index: u32, time: u32, random: i64) -> Self {
         Self {
             index,
@@ -66,6 +74,16 @@ impl UniqueId {
             // but is also always positive.
             random: thread_rng().gen_range(0..i64::MAX),
         })
+    }
+
+    pub fn is_unique(&self) -> bool {
+        // Note that because only one field needs to be non-zero, we use
+        // || here
+        self.time != 0 || self.index != 0 || self.random != 0
+    }
+
+    pub fn is_non_unique(&self) -> bool {
+        !self.is_unique()
     }
 
     pub fn time(&self) -> u32 {
