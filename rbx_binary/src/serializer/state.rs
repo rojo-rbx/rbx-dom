@@ -1269,7 +1269,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             VariantType::Tags => Variant::Tags(Tags::new()),
             VariantType::Content => Variant::Content(Content::new()),
             VariantType::Attributes => Variant::Attributes(Attributes::new()),
-            VariantType::UniqueId => Variant::UniqueId(UniqueId::now().unwrap()),
+            VariantType::UniqueId => Variant::UniqueId(UniqueId::non_unique()),
             VariantType::Font => Variant::Font(Font::default()),
             _ => return None,
         })
