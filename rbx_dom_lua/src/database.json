@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    582,
-    1,
-    5820387
+    586,
+    0,
+    5860000
   ],
   "Classes": {
     "Accessory": {
@@ -472,10 +472,13 @@
           "DataType": {
             "Value": "Vector3"
           },
-          "Tags": [],
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -557,13 +560,6 @@
         },
         "BalanceSpeed": {
           "Float32": 100.0
-        },
-        "LinearImpulse": {
-          "Vector3": [
-            0.0,
-            0.0,
-            0.0
-          ]
         },
         "MaintainAngularMomentum": {
           "Bool": true
@@ -9853,6 +9849,22 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "Active": {
+          "Name": "Active",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "BalanceRigidityEnabled": {
           "Name": "BalanceRigidityEnabled",
           "Scriptability": "ReadWrite",
@@ -10367,7 +10379,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -14067,6 +14079,29 @@
       },
       "DefaultProperties": {}
     },
+    "DynamicImage": {
+      "Name": "DynamicImage",
+      "Tags": [
+        "NotCreatable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Size": {
+          "Name": "Size",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector2"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "DynamicMesh": {
       "Name": "DynamicMesh",
       "Tags": [],
@@ -16087,7 +16122,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FormFactor": {
           "Enum": 1
@@ -18749,6 +18784,40 @@
             "Value": "Bool"
           },
           "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "PreferredTransparency": {
+          "Name": "PreferredTransparency",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ReducedMotionEnabled": {
+          "Name": "ReducedMotionEnabled",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
             "NotReplicated",
             "ReadOnly"
           ],
@@ -22090,45 +22159,6 @@
         }
       }
     },
-    "ImageDataExperimental": {
-      "Name": "ImageDataExperimental",
-      "Tags": [
-        "NotCreatable"
-      ],
-      "Superclass": "Instance",
-      "Properties": {
-        "Size": {
-          "Name": "Size",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Vector2"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
-        "TemporaryId": {
-          "Name": "TemporaryId",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Content"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
     "ImageHandleAdornment": {
       "Name": "ImageHandleAdornment",
       "Tags": [],
@@ -23384,7 +23414,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FormFactor": {
           "Enum": 3
@@ -24823,7 +24853,7 @@
           "Enum": 0
         },
         "ScriptGuid": {
-          "String": "{AFF9BCA9-5F5D-4433-BBF3-B6952E4698AF}"
+          "String": "{17842F3C-27BC-44F1-9FA3-5D99D2911E7C}"
         },
         "Source": {
           "String": ""
@@ -26699,32 +26729,6 @@
       "Properties": {},
       "DefaultProperties": {}
     },
-    "MeshDataExperimental": {
-      "Name": "MeshDataExperimental",
-      "Tags": [
-        "NotCreatable"
-      ],
-      "Superclass": "Instance",
-      "Properties": {
-        "Size": {
-          "Name": "Size",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Vector3"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {}
-    },
     "MeshImportData": {
       "Name": "MeshImportData",
       "Tags": [
@@ -27333,7 +27337,7 @@
           "Bool": false
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -28146,7 +28150,7 @@
           "Content": ""
         },
         "ScriptGuid": {
-          "String": "{EB9DABA0-59E7-425E-883F-D5212E4A4A60}"
+          "String": "{DFBF1E7F-2D38-425C-84BF-80B7354DEEF1}"
         },
         "Source": {
           "String": ""
@@ -28790,7 +28794,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FormFactor": {
           "Enum": 3
@@ -29441,6 +29445,16 @@
         "NotCreatable",
         "NotReplicated",
         "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "OpenCloudApiV1": {
+      "Name": "OpenCloudApiV1",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
       ],
       "Superclass": "Instance",
       "Properties": {},
@@ -30099,7 +30113,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FormFactor": {
           "Enum": 1
@@ -30272,6 +30286,23 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "CSGMesh2KernelMap": {
+          "Name": "CSGMesh2KernelMap",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "SharedString"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -30554,7 +30585,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FormFactor": {
           "Enum": 3
@@ -32316,6 +32347,28 @@
           "Tags": []
         }
       }
+    },
+    "PlaceStatsService": {
+      "Name": "PlaceStatsService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "PlacesService": {
+      "Name": "PlacesService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
     },
     "Plane": {
       "Name": "Plane",
@@ -37777,7 +37830,7 @@
           "Enum": 0
         },
         "ScriptGuid": {
-          "String": "{A960615F-A99F-44C1-95E4-D67C8D721A0C}"
+          "String": "{7389F351-1AC3-4049-A5E6-EE6D99BD7E7C}"
         },
         "Source": {
           "String": ""
@@ -38640,7 +38693,7 @@
           "Bool": false
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FormFactor": {
           "Enum": 1
@@ -38790,21 +38843,6 @@
             "Hidden",
             "NotReplicated",
             "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "DEPRECATED_ShowBoundingBox": {
-          "Name": "DEPRECATED_ShowBoundingBox",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "Hidden"
           ],
           "Kind": {
             "Canonical": {
@@ -39742,7 +39780,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FormFactor": {
           "Enum": 1
@@ -40652,8 +40690,8 @@
             "Deprecated"
           ],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "RollOffMinDistance"
             }
           }
         },
@@ -40926,7 +40964,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "xmlRead_MaxDistance_3"
+              }
             }
           }
         },
@@ -40941,7 +40981,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "EmitterSize"
+              }
             }
           }
         },
@@ -41090,7 +41132,7 @@
           ],
           "Kind": {
             "Alias": {
-              "AliasFor": "MaxDistance"
+              "AliasFor": "RollOffMaxDistance"
             }
           }
         },
@@ -41607,7 +41649,7 @@
           "Int32": 10
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "Enabled": {
           "Bool": true
@@ -43542,6 +43584,17 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "StopWatchReporter": {
+      "Name": "StopWatchReporter",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "StringValue": {
       "Name": "StringValue",
       "Tags": [],
@@ -44092,19 +44145,6 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "Drag Multiple Parts As Single Part": {
-          "Name": "Drag Multiple Parts As Single Part",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
             }
           }
         },
@@ -44989,19 +45029,6 @@
             }
           }
         },
-        "Search Content For Core Scripts": {
-          "Name": "Search Content For Core Scripts",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "Secondary Text Color": {
           "Name": "Secondary Text Color",
           "Scriptability": "ReadWrite",
@@ -45113,19 +45140,6 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "Selection Highlight Thickness": {
-          "Name": "Selection Highlight Thickness",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Float32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
             }
           }
         },
@@ -45520,6 +45534,110 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "StudioCallout": {
+      "Name": "StudioCallout",
+      "Tags": [],
+      "Superclass": "Instance",
+      "Properties": {
+        "AnchorPoint": {
+          "Name": "AnchorPoint",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Vector2"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "IsArrowVisible": {
+          "Name": "IsArrowVisible",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "IsNextVisible": {
+          "Name": "IsNextVisible",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "RowName": {
+          "Name": "RowName",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Text": {
+          "Name": "Text",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Title": {
+          "Name": "Title",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "StudioData": {
       "Name": "StudioData",
       "Tags": [
@@ -45636,6 +45754,13 @@
           }
         }
       },
+      "DefaultProperties": {}
+    },
+    "StudioObjectBase": {
+      "Name": "StudioObjectBase",
+      "Tags": [],
+      "Superclass": "Instance",
+      "Properties": {},
       "DefaultProperties": {}
     },
     "StudioPublishService": {
@@ -45885,6 +46010,13 @@
         "NotReplicated"
       ],
       "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
+    "StudioWidget": {
+      "Name": "StudioWidget",
+      "Tags": [],
+      "Superclass": "StudioObjectBase",
       "Properties": {},
       "DefaultProperties": {}
     },
@@ -47633,7 +47765,7 @@
           "Bool": false
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -50659,22 +50791,6 @@
               "Serialization": "Serializes"
             }
           }
-        },
-        "TemporaryId": {
-          "Name": "TemporaryId",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Content"
-          },
-          "Tags": [
-            "NotReplicated",
-            "ReadOnly"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
         }
       },
       "DefaultProperties": {}
@@ -52042,7 +52158,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -53583,7 +53699,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FormFactor": {
           "Enum": 3
@@ -55611,7 +55727,7 @@
           "Bool": false
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FrontParamA": {
           "Float32": -0.5
@@ -56276,6 +56392,16 @@
         }
       }
     },
+    "VideoService": {
+      "Name": "VideoService",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "ViewportFrame": {
       "Name": "ViewportFrame",
       "Tags": [],
@@ -56878,7 +57004,7 @@
           "PhysicalProperties": "Default"
         },
         "EnableFluidForces": {
-          "Bool": false
+          "Bool": true
         },
         "FormFactor": {
           "Enum": 1
@@ -59865,6 +59991,14 @@
         "Rejected": 1
       }
     },
+    "FinishRecordingOperation": {
+      "name": "FinishRecordingOperation",
+      "items": {
+        "Append": 2,
+        "Cancel": 0,
+        "Commit": 1
+      }
+    },
     "Font": {
       "name": "Font",
       "items": {
@@ -61535,6 +61669,16 @@
         "Both": 2,
         "BoundingBoxes": 1,
         "Outlines": 0
+      }
+    },
+    "SelfViewPosition": {
+      "name": "SelfViewPosition",
+      "items": {
+        "BottomLeft": 3,
+        "BottomRight": 4,
+        "LastPosition": 0,
+        "TopLeft": 1,
+        "TopRight": 2
       }
     },
     "SensorMode": {
