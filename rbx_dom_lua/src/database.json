@@ -22931,6 +22931,23 @@
             }
           }
         },
+        "HistoryId": {
+          "Name": "HistoryId",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "UniqueId"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "Name": {
           "Name": "Name",
           "Scriptability": "ReadWrite",
@@ -23021,6 +23038,23 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "UniqueId": {
+          "Name": "UniqueId",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "UniqueId"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -24852,9 +24886,6 @@
         "RunContext": {
           "Enum": 0
         },
-        "ScriptGuid": {
-          "String": "{17842F3C-27BC-44F1-9FA3-5D99D2911E7C}"
-        },
         "Source": {
           "String": ""
         },
@@ -25450,7 +25481,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -28148,9 +28179,6 @@
         },
         "LinkedSource": {
           "Content": ""
-        },
-        "ScriptGuid": {
-          "String": "{DFBF1E7F-2D38-425C-84BF-80B7354DEEF1}"
         },
         "Source": {
           "String": ""
@@ -37829,9 +37857,6 @@
         "RunContext": {
           "Enum": 0
         },
-        "ScriptGuid": {
-          "String": "{7389F351-1AC3-4049-A5E6-EE6D99BD7E7C}"
-        },
         "Source": {
           "String": ""
         },
@@ -41158,9 +41183,6 @@
         "Attributes": {
           "Attributes": {}
         },
-        "EmitterSize": {
-          "Float32": 10.0
-        },
         "LoopRegion": {
           "NumberRange": [
             0.0,
@@ -41169,9 +41191,6 @@
         },
         "Looped": {
           "Bool": false
-        },
-        "MaxDistance": {
-          "Float32": 10000.0
         },
         "PlayOnRemove": {
           "Bool": false
@@ -41190,6 +41209,12 @@
         },
         "Playing": {
           "Bool": false
+        },
+        "RollOffMaxDistance": {
+          "Float32": 10000.0
+        },
+        "RollOffMinDistance": {
+          "Float32": 10.0
         },
         "RollOffMode": {
           "Enum": 0
@@ -45636,7 +45661,17 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "StudioData": {
       "Name": "StudioData",
@@ -45761,7 +45796,17 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {},
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "StudioPublishService": {
       "Name": "StudioPublishService",
@@ -46018,7 +46063,17 @@
       "Tags": [],
       "Superclass": "StudioObjectBase",
       "Properties": {},
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "StyleBase": {
       "Name": "StyleBase",
@@ -56400,7 +56455,17 @@
       ],
       "Superclass": "Instance",
       "Properties": {},
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "ViewportFrame": {
       "Name": "ViewportFrame",
