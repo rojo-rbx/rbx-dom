@@ -3,9 +3,15 @@ Change:
     # BasePart.BrickColor now defers to the Color3 properties in every case, so
     # we can basically pretend that BrickColor and brickColor never existed.
     brickColor:
-      AliasFor: Color
+      Serialization:
+        Type: Migrate
+        To: Color
+        Migration: BrickColorToColor
     BrickColor:
-      AliasFor: Color
+      Serialization:
+        Type: Migrate
+        To: Color
+        Migration: BrickColorToColor
     Color:
       Serialization:
         Type: SerializesAs

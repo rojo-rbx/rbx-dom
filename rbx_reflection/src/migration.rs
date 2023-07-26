@@ -33,6 +33,7 @@ pub struct PropertyMigration {
 pub enum MigrationOperation {
     IgnoreGuiInsetToScreenInsets,
     FontToFontFace,
+    BrickColorToColor,
 }
 
 impl PropertyMigration {
@@ -148,6 +149,17 @@ impl PropertyMigration {
                     Err(MigrationError::InvalidTypeForMigration {
                         migration: MigrationOperation::FontToFontFace,
                         expected: "Enum",
+                        actual: input.clone(),
+                    })
+                }
+            }
+            MigrationOperation::BrickColorToColor => {
+                if let Variant::BrickColor(color) = input {
+                    Ok(color.to_color3uint8().into())
+                } else {
+                    Err(MigrationError::InvalidTypeForMigration {
+                        migration: MigrationOperation::BrickColorToColor,
+                        expected: "BrickColor",
                         actual: input.clone(),
                     })
                 }
