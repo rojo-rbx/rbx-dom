@@ -1,5 +1,7 @@
 use std::fmt;
 
+use crate::Color3uint8;
+
 macro_rules! make_brick_color {
     ({
         $([
@@ -60,6 +62,14 @@ macro_rules! make_brick_color {
                     )+
 
                     _ => None,
+                }
+            }
+
+            pub fn to_color3uint8 (&self) -> Color3uint8 {
+                match self {
+                    $(
+                        BrickColor::$enum => Color3uint8::new($color3_r, $color3_g, $color3_b),
+                    )+
                 }
             }
         }
