@@ -10,8 +10,6 @@ expression: decoded_viewed
       Attributes: {}
     LinkedSource:
       Content: ""
-    ScriptGuid:
-      String: "{27E39FEB-27B7-43EC-9398-04115CF856B2}"
     Source:
       String: "local module = {}\n\nreturn module\n"
     Tags:

@@ -168,7 +168,10 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
                     ValueCategory::Primitive | ValueCategory::DataType => {
                         match variant_type_from_str(type_name)? {
                             Some(variant_type) => DataType::Value(variant_type),
-                            None => continue,
+                            None => {
+                                log::debug!("Skipping property {}.{} because it was of unsupported type '{type_name}'", dump_class.name, dump_property.name);
+                                continue;
+                            }
                         }
                     }
                     ValueCategory::Class => DataType::Value(VariantType::Ref),
@@ -234,6 +237,7 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "SharedString" => VariantType::SharedString,
         "UDim" => VariantType::UDim,
         "UDim2" => VariantType::UDim2,
+        "UniqueId" => VariantType::UniqueId,
         "Vector2" => VariantType::Vector2,
         "Vector2int16" => VariantType::Vector2int16,
         "Vector3" => VariantType::Vector3,
@@ -257,7 +261,7 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "DateTime" => return Ok(None),
 
         // These types are not generally implemented right now.
-        "QDir" | "QFont" | "UniqueId" | "SystemAddress" | "CSGPropertyData" => return Ok(None),
+        "QDir" | "QFont" | "SystemAddress" | "CSGPropertyData" => return Ok(None),
 
         _ => bail!("Unknown type {}", value),
     }))

@@ -212,7 +212,7 @@ impl WeakDom {
             panic!("cannot transfer the root instance of WeakDom");
         }
 
-        let mut instance = self
+        let instance = self
             .instances
             .get_mut(&referent)
             .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
