@@ -429,12 +429,6 @@ chunks:
         - ""
   - Prop:
       type_id: 30
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
-  - Prop:
-      type_id: 30
       prop_name: Name
       prop_type: String
       values:
@@ -452,23 +446,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 30
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048309a
-  - Prop:
       type_id: 28
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 28
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 28
       prop_name: Name
@@ -487,12 +469,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 28
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483096
   - Prop:
       type_id: 55
       prop_name: AttributesSerialize
@@ -535,12 +511,6 @@ chunks:
         - 0
   - Prop:
       type_id: 55
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
-  - Prop:
-      type_id: 55
       prop_name: Name
       prop_type: String
       values:
@@ -564,12 +534,6 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 55
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831f6
-  - Prop:
       type_id: 56
       prop_name: AttributesSerialize
       prop_type: String
@@ -581,12 +545,6 @@ chunks:
       prop_type: Bool
       values:
         - true
-  - Prop:
-      type_id: 56
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 56
       prop_name: Intensity
@@ -624,23 +582,11 @@ chunks:
       values:
         - 2
   - Prop:
-      type_id: 56
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831f7
-  - Prop:
       type_id: 3
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 3
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 3
       prop_name: Name
@@ -659,12 +605,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 3
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048305c
   - Prop:
       type_id: 46
       prop_name: AttributesSerialize
@@ -747,12 +687,6 @@ chunks:
         - 1
   - Prop:
       type_id: 46
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
-  - Prop:
-      type_id: 46
       prop_name: Name
       prop_type: String
       values:
@@ -770,12 +704,6 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 46
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831f8
-  - Prop:
       type_id: 4
       prop_name: AttributesSerialize
       prop_type: String
@@ -787,12 +715,6 @@ chunks:
       prop_type: Bool
       values:
         - true
-  - Prop:
-      type_id: 4
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 4
       prop_name: LoadDefaultChat
@@ -818,23 +740,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 4
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483061
-  - Prop:
       type_id: 18
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 18
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 18
       prop_name: Name
@@ -854,23 +764,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 18
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048307f
-  - Prop:
       type_id: 26
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 26
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 26
       prop_name: Name
@@ -890,23 +788,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 26
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483093
-  - Prop:
       type_id: 24
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 24
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 24
       prop_name: Name
@@ -926,12 +812,6 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 24
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483087
-  - Prop:
       type_id: 41
       prop_name: AttributesSerialize
       prop_type: String
@@ -943,12 +823,6 @@ chunks:
       prop_type: Bool
       values:
         - true
-  - Prop:
-      type_id: 41
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 41
       prop_name: LegacyNamingScheme
@@ -974,23 +848,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 41
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831f9
-  - Prop:
       type_id: 23
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 23
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 23
       prop_name: MaxItems
@@ -1016,12 +878,6 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 23
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483086
-  - Prop:
       type_id: 59
       prop_name: AttributesSerialize
       prop_type: String
@@ -1041,12 +897,6 @@ chunks:
       prop_type: Enum
       values:
         - 1
-  - Prop:
-      type_id: 59
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 59
       prop_name: Name
@@ -1079,12 +929,6 @@ chunks:
         - 0
   - Prop:
       type_id: 59
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831fa
-  - Prop:
-      type_id: 59
       prop_name: ZIndex
       prop_type: Int32
       values:
@@ -1113,12 +957,6 @@ chunks:
       prop_type: Float32
       values:
         - 0.05
-  - Prop:
-      type_id: 57
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 57
       prop_name: InFocusRadius
@@ -1150,23 +988,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 57
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831fb
-  - Prop:
       type_id: 22
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 22
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 22
       prop_name: Name
@@ -1186,23 +1012,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 22
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483085
-  - Prop:
       type_id: 20
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 20
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 20
       prop_name: Name
@@ -1222,23 +1036,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 20
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483082
-  - Prop:
       type_id: 42
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 42
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 42
       prop_name: HttpEnabled
@@ -1264,12 +1066,6 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 42
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831fc
-  - Prop:
       type_id: 21
       prop_name: AllowClientInsertModels
       prop_type: Bool
@@ -1289,12 +1085,6 @@ chunks:
         - ""
   - Prop:
       type_id: 21
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
-  - Prop:
-      type_id: 21
       prop_name: Name
       prop_type: String
       values:
@@ -1312,23 +1102,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 21
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483084
-  - Prop:
       type_id: 31
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 31
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 31
       prop_name: Name
@@ -1348,23 +1126,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 31
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 3152d93110d773a904200e490000773a
-  - Prop:
       type_id: 38
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 38
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 38
       prop_name: Name
@@ -1383,12 +1149,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 38
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831f0
   - Prop:
       type_id: 39
       prop_name: Ambient
@@ -1477,12 +1237,6 @@ chunks:
         - true
   - Prop:
       type_id: 39
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
-  - Prop:
-      type_id: 39
       prop_name: Name
       prop_type: String
       values:
@@ -1532,23 +1286,11 @@ chunks:
       values:
         - "14:30:00"
   - Prop:
-      type_id: 39
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004830cd
-  - Prop:
       type_id: 16
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 16
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 16
       prop_name: Name
@@ -1568,23 +1310,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 16
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483079
-  - Prop:
       type_id: 40
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 40
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 40
       prop_name: Name
@@ -1604,23 +1334,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 40
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004830d0
-  - Prop:
       type_id: 36
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 36
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 36
       prop_name: Name
@@ -1639,12 +1357,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 36
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004830a7
   - Prop:
       type_id: 9
       prop_name: AsphaltName
@@ -1735,12 +1447,6 @@ chunks:
       prop_type: String
       values:
         - Ground
-  - Prop:
-      type_id: 9
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 9
       prop_name: IceName
@@ -1857,12 +1563,6 @@ chunks:
         - ""
   - Prop:
       type_id: 9
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048306b
-  - Prop:
-      type_id: 9
       prop_name: Use2022MaterialsXml
       prop_type: Bool
       values:
@@ -1887,12 +1587,6 @@ chunks:
         - ""
   - Prop:
       type_id: 2
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
-  - Prop:
-      type_id: 2
       prop_name: Name
       prop_type: String
       values:
@@ -1909,12 +1603,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 2
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048305b
   - Prop:
       type_id: 47
       prop_name: Anchored
@@ -2074,12 +1762,6 @@ chunks:
       prop_type: Enum
       values:
         - 0
-  - Prop:
-      type_id: 47
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 47
       prop_name: LeftParamA
@@ -2255,12 +1937,6 @@ chunks:
         - 0
   - Prop:
       type_id: 47
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831fd
-  - Prop:
-      type_id: 47
       prop_name: Velocity
       prop_type: Vector3
       values:
@@ -2273,12 +1949,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 10
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 10
       prop_name: Name
@@ -2298,23 +1968,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 10
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048306f
-  - Prop:
       type_id: 19
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 19
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 19
       prop_name: Name
@@ -2333,12 +1991,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 19
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483080
   - Prop:
       type_id: 11
       prop_name: AttributesSerialize
@@ -2363,12 +2015,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 11
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 11
       prop_name: Name
@@ -2400,12 +2046,6 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 11
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483071
-  - Prop:
       type_id: 6
       prop_name: AttributesSerialize
       prop_type: String
@@ -2417,12 +2057,6 @@ chunks:
       prop_type: Bool
       values:
         - true
-  - Prop:
-      type_id: 6
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 6
       prop_name: MaxPlayersInternal
@@ -2461,12 +2095,6 @@ chunks:
         - ""
   - Prop:
       type_id: 6
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483064
-  - Prop:
-      type_id: 6
       prop_name: UseStrafingAnimations
       prop_type: Bool
       values:
@@ -2477,12 +2105,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 37
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 37
       prop_name: Name
@@ -2502,23 +2124,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 37
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004830a8
-  - Prop:
       type_id: 7
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 7
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 7
       prop_name: Name
@@ -2538,23 +2148,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 7
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483068
-  - Prop:
       type_id: 35
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 35
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 35
       prop_name: Name
@@ -2574,23 +2172,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 35
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004830a0
-  - Prop:
       type_id: 27
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 27
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 27
       prop_name: Name
@@ -2610,23 +2196,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 27
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483095
-  - Prop:
       type_id: 32
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 32
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 32
       prop_name: Name
@@ -2646,23 +2220,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 32
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048309d
-  - Prop:
       type_id: 33
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 33
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 33
       prop_name: LoadStringEnabled
@@ -2688,23 +2250,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 33
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048309e
-  - Prop:
       type_id: 34
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 34
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 34
       prop_name: Name
@@ -2724,12 +2274,6 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 34
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048309f
-  - Prop:
       type_id: 53
       prop_name: AttributesSerialize
       prop_type: String
@@ -2741,12 +2285,6 @@ chunks:
       prop_type: Bool
       values:
         - true
-  - Prop:
-      type_id: 53
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 53
       prop_name: MoonAngularSize
@@ -2832,12 +2370,6 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 53
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831fe
-  - Prop:
       type_id: 1
       prop_name: AmbientReverb
       prop_type: Enum
@@ -2861,12 +2393,6 @@ chunks:
       prop_type: Float32
       values:
         - 1
-  - Prop:
-      type_id: 1
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 1
       prop_name: Name
@@ -2897,12 +2423,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 1
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048304f
   - Prop:
       type_id: 1
       prop_name: VolumetricAudio
@@ -3086,12 +2606,6 @@ chunks:
       prop_type: Enum
       values:
         - 0
-  - Prop:
-      type_id: 49
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 49
       prop_name: LeftParamA
@@ -3279,12 +2793,6 @@ chunks:
         - 0
   - Prop:
       type_id: 49
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004831ff
-  - Prop:
-      type_id: 49
       prop_name: Velocity
       prop_type: Vector3
       values:
@@ -3297,12 +2805,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 51
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 51
       prop_name: Name
@@ -3322,23 +2824,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 51
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483200
-  - Prop:
       type_id: 15
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 15
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 15
       prop_name: Name
@@ -3383,12 +2873,6 @@ chunks:
         - ""
   - Prop:
       type_id: 15
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483077
-  - Prop:
-      type_id: 15
       prop_name: VirtualCursorMode
       prop_type: Enum
       values:
@@ -3399,12 +2883,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 14
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 14
       prop_name: Name
@@ -3423,12 +2901,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 14
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483076
   - Prop:
       type_id: 13
       prop_name: AllowCustomAnimations
@@ -3652,12 +3124,6 @@ chunks:
         - 100
   - Prop:
       type_id: 13
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
-  - Prop:
-      type_id: 13
       prop_name: HumanoidStateMachineMode
       prop_type: Enum
       values:
@@ -3700,12 +3166,6 @@ chunks:
         - ""
   - Prop:
       type_id: 13
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483075
-  - Prop:
-      type_id: 13
       prop_name: UserEmotesEnabled
       prop_type: Bool
       values:
@@ -3716,12 +3176,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 50
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 50
       prop_name: Name
@@ -3741,23 +3195,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 50
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483201
-  - Prop:
       type_id: 52
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 52
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 52
       prop_name: Name
@@ -3778,12 +3220,6 @@ chunks:
         - ""
   - Prop:
       type_id: 52
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483202
-  - Prop:
-      type_id: 52
       prop_name: Value
       prop_type: String
       values:
@@ -3800,12 +3236,6 @@ chunks:
       prop_type: Bool
       values:
         - false
-  - Prop:
-      type_id: 12
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 12
       prop_name: Name
@@ -3825,12 +3255,6 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 12
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483074
-  - Prop:
       type_id: 54
       prop_name: AttributesSerialize
       prop_type: String
@@ -3842,12 +3266,6 @@ chunks:
       prop_type: Bool
       values:
         - true
-  - Prop:
-      type_id: 54
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 54
       prop_name: Intensity
@@ -3879,23 +3297,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 54
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483203
-  - Prop:
       type_id: 43
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 43
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 43
       prop_name: Name
@@ -3915,23 +3321,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 43
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483204
-  - Prop:
       type_id: 17
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 17
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 17
       prop_name: Name
@@ -3950,12 +3344,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 17
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048307d
   - Prop:
       type_id: 48
       prop_name: AcquisitionMethod
@@ -4121,12 +3509,6 @@ chunks:
       prop_type: Enum
       values:
         - 0
-  - Prop:
-      type_id: 48
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 48
       prop_name: LeftParamA
@@ -4326,12 +3708,6 @@ chunks:
         - 0
   - Prop:
       type_id: 48
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483205
-  - Prop:
-      type_id: 48
       prop_name: Velocity
       prop_type: Vector3
       values:
@@ -4396,12 +3772,6 @@ chunks:
         - false
   - Prop:
       type_id: 44
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
-  - Prop:
-      type_id: 44
       prop_name: Is30FpsThrottleEnabled
       prop_type: Bool
       values:
@@ -4455,12 +3825,6 @@ chunks:
       values:
         - 10
   - Prop:
-      type_id: 44
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483206
-  - Prop:
       type_id: 58
       prop_name: AttributesSerialize
       prop_type: String
@@ -4480,12 +3844,6 @@ chunks:
       prop_type: Enum
       values:
         - 1
-  - Prop:
-      type_id: 58
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 58
       prop_name: Name
@@ -4542,12 +3900,6 @@ chunks:
         - 0.8
   - Prop:
       type_id: 58
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483207
-  - Prop:
-      type_id: 58
       prop_name: ZIndex
       prop_type: Int32
       values:
@@ -4558,12 +3910,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 5
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 5
       prop_name: Name
@@ -4583,23 +3929,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 5
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483062
-  - Prop:
       type_id: 29
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 29
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 29
       prop_name: Name
@@ -4619,23 +3953,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 29
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483097
-  - Prop:
       type_id: 8
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 8
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 8
       prop_name: Name
@@ -4655,23 +3977,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 8
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d0048306a
-  - Prop:
       type_id: 25
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 25
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 25
       prop_name: Name
@@ -4691,23 +4001,11 @@ chunks:
       values:
         - ""
   - Prop:
-      type_id: 25
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483091
-  - Prop:
       type_id: 45
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 45
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 45
       prop_name: Name
@@ -4726,12 +4024,6 @@ chunks:
       prop_type: String
       values:
         - ""
-  - Prop:
-      type_id: 45
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d00483208
   - Prop:
       type_id: 0
       prop_name: AllowThirdPartySales
@@ -4794,12 +4086,6 @@ chunks:
       prop_type: Float32
       values:
         - 196.2
-  - Prop:
-      type_id: 0
-      prop_name: HistoryId
-      prop_type: UniqueId
-      values:
-        - "00000000000000000000000000000000"
   - Prop:
       type_id: 0
       prop_name: HumanoidOnlySetCollisionsOnStateChange
@@ -4971,12 +4257,6 @@ chunks:
       prop_type: Bool
       values:
         - false
-  - Prop:
-      type_id: 0
-      prop_name: UniqueId
-      prop_type: UniqueId
-      values:
-        - 44b188dace632b4702e9c68d004815fc
   - Prop:
       type_id: 0
       prop_name: WorldPivotData
