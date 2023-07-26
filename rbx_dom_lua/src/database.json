@@ -43366,7 +43366,7 @@
           "Bool": true
         },
         "AvatarJointUpgrade": {
-          "Enum": 480
+          "Enum": 62
         },
         "CameraMaxZoomDistance": {
           "Float32": 400.0
@@ -47682,9 +47682,9 @@
         },
         "MaterialColors": {
           "Name": "MaterialColors",
-          "Scriptability": "None",
+          "Scriptability": "Custom",
           "DataType": {
-            "Value": "BinaryString"
+            "Value": "MaterialColors"
           },
           "Tags": [
             "NotScriptable"
