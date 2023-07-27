@@ -314,21 +314,24 @@ pub trait RbxWriteExt: Write {
 
 impl<W> RbxWriteExt for W where W: Write {}
 
-/// Applies the integer transformation generally used in property data in the
-/// Roblox binary format.
+/// Applies the 'zigzag' transformation done by Roblox to many `i32` values.
 pub fn transform_i32(value: i32) -> i32 {
     (value << 1) ^ (value >> 31)
 }
 
-/// The inverse of `transform_i32`.
+/// Inverses the 'zigzag' encoding transformation done by Roblox to many
+/// `i32` values.
 pub fn untransform_i32(value: i32) -> i32 {
     ((value as u32) >> 1) as i32 ^ -(value & 1)
 }
 
+/// Applies the 'zigzag' transformation done by Roblox to many `i64` values.
 pub fn transform_i64(value: i64) -> i64 {
     (value << 1) ^ (value >> 63)
 }
 
+/// Inverses the 'zigzag' encoding transformation done by Roblox to many
+/// `i64` values.
 pub fn untransform_i64(value: i64) -> i64 {
     ((value as u64) >> 1) as i64 ^ -(value & 1)
 }
