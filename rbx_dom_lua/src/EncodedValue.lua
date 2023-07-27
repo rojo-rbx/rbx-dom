@@ -276,7 +276,11 @@ types = {
 		toPod = function(roblox: { [Enum.Material]: Color3 })
 			local pod = {}
 			for material, color in roblox do
-				pod[material.Name] = { math.floor(color.R * 255), math.floor(color.G * 255), math.floor(color.B * 255) }
+				pod[material.Name] = {
+					math.round(math.clamp(color.R, 0, 1) * 255),
+					math.round(math.clamp(color.G, 0, 1) * 255),
+					math.round(math.clamp(color.B, 0, 1) * 255)
+				}
 			end
 		end,
 	},
