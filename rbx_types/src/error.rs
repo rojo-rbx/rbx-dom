@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-use crate::{AttributeError, Matrix3Error};
+use crate::{AttributeError, MaterialColorsError, Matrix3Error};
 
 /// Represents an error that occurred when using a fallible method.
 #[derive(Debug, Error)]
@@ -25,11 +25,22 @@ impl From<Matrix3Error> for Error {
     }
 }
 
+impl From<MaterialColorsError> for Error {
+    fn from(source: MaterialColorsError) -> Self {
+        Self {
+            source: Box::new(source.into()),
+        }
+    }
+}
+
 #[derive(Debug, Error)]
 enum InnerError {
     #[error(transparent)]
-    AttributeError(#[from] AttributeError),
+    Attribute(#[from] AttributeError),
 
     #[error(transparent)]
-    Matrix3Error(#[from] Matrix3Error),
+    Matrix3(#[from] Matrix3Error),
+
+    #[error(transparent)]
+    MaterialColors(#[from] MaterialColorsError),
 }

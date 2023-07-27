@@ -18,6 +18,7 @@ mod content;
 mod enumeration;
 mod faces;
 mod font;
+mod material_colors;
 mod number_range;
 mod number_sequence;
 mod numbers;
@@ -52,6 +53,7 @@ use crate::{
 
 use self::{
     attributes::write_attributes,
+    material_colors::write_material_colors,
     referent::{read_ref, write_ref},
     shared_string::{read_shared_string, write_shared_string},
     tags::write_tags,
@@ -113,6 +115,7 @@ macro_rules! declare_rbx_types {
                 Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
                 Variant::Tags(value) => write_tags(writer, xml_property_name, value),
                 Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
+                Variant::MaterialColors(value) => write_material_colors(writer, xml_property_name, value),
 
                 unknown => {
                     Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.ty())))

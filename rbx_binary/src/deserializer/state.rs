@@ -8,7 +8,7 @@ use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, FontStyle,
-        FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+        FontWeight, MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
         PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim, UDim2, UniqueId, Variant,
         VariantType, Vector2, Vector3, Vector3int16,
     },
@@ -443,6 +443,22 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                             Ok(value) => {
                                 add_property(instance, &property, value.into());
                             }
+                            Err(err) => {
+                                return Err(InnerError::BadPropertyValue {
+                                    source: err,
+                                    class_name: type_info.type_name.to_string(),
+                                    prop_name,
+                                })
+                            }
+                        }
+                    }
+                }
+                VariantType::MaterialColors => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let buffer = chunk.read_binary_string()?;
+                        match MaterialColors::decode(&buffer) {
+                            Ok(value) => add_property(instance, &property, value.into()),
                             Err(err) => {
                                 return Err(InnerError::BadPropertyValue {
                                     source: err,
