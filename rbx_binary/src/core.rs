@@ -116,55 +116,47 @@ pub trait RbxReadExt: Read {
         Ok(())
     }
 
+    /// Fills `output` with big-endian `i32` values read from the buffer.
+    /// These values are untransformed while being read.
     fn read_interleaved_i32_array(&mut self, output: &mut [i32]) -> io::Result<()> {
-        let mut buffer = vec![0; mem::size_of_val(output)];
-        self.read_exact(&mut buffer)?;
+        let mut read = vec![[0; mem::size_of::<i32>()]; output.len()];
+        self.read_interleaved_bytes(&mut read)?;
 
-        for i in 0..output.len() {
-            let v0 = buffer[i] as i32;
-            let v1 = buffer[i + output.len()] as i32;
-            let v2 = buffer[i + output.len() * 2] as i32;
-            let v3 = buffer[i + output.len() * 3] as i32;
-
-            output[i] = untransform_i32((v0 << 24) | (v1 << 16) | (v2 << 8) | v3);
+        for (chunk, n) in read.into_iter().zip(output) {
+            *n = untransform_i32(i32::from_be_bytes(chunk));
         }
 
         Ok(())
     }
 
+    /// Fills `output` with big-endian `u32` values read from the buffer.
     fn read_interleaved_u32_array(&mut self, output: &mut [u32]) -> io::Result<()> {
-        let mut buffer = vec![0; mem::size_of_val(output)];
-        self.read_exact(&mut buffer)?;
+        let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
+        self.read_interleaved_bytes(&mut read)?;
 
-        for i in 0..output.len() {
-            let bytes = [
-                buffer[i],
-                buffer[i + output.len()],
-                buffer[i + output.len() * 2],
-                buffer[i + output.len() * 3],
-            ];
-
-            output[i] = u32::from_be_bytes(bytes);
+        for (chunk, n) in read.into_iter().zip(output) {
+            *n = u32::from_be_bytes(chunk);
         }
 
         Ok(())
     }
 
+    /// Fills `output` with big-endian `f32` values read from the buffer.
+    /// These values are properly unrotated while being read.
     fn read_interleaved_f32_array(&mut self, output: &mut [f32]) -> io::Result<()> {
-        let mut buf = vec![0; mem::size_of_val(output)];
-        self.read_exact(&mut buf)?;
+        let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
+        self.read_interleaved_bytes(&mut read)?;
 
-        for i in 0..output.len() {
-            let v0 = buf[i] as u32;
-            let v1 = buf[i + output.len()] as u32;
-            let v2 = buf[i + output.len() * 2] as u32;
-            let v3 = buf[i + output.len() * 3] as u32;
-
-            output[i] = f32::from_bits(((v0 << 24) | (v1 << 16) | (v2 << 8) | v3).rotate_right(1));
+        for (chunk, n) in read.into_iter().zip(output) {
+            *n = f32::from_bits(u32::from_be_bytes(chunk).rotate_right(1));
         }
+
         Ok(())
     }
 
+    /// Fills `output` with big-endian `i32` values read from the buffer.
+    /// The values are properly untransformed and accumulated so as to properly
+    /// read arrays of referent values.
     fn read_referent_array(&mut self, output: &mut [i32]) -> io::Result<()> {
         self.read_interleaved_i32_array(output)?;
 
@@ -178,30 +170,14 @@ pub trait RbxReadExt: Read {
         Ok(())
     }
 
+    /// Fills `output` with big-endian `64` values read from the buffer.
+    /// These values are untransformed while being read.
     fn read_interleaved_i64_array(&mut self, output: &mut [i64]) -> io::Result<()> {
-        let mut buf = vec![0; mem::size_of_val(output)];
-        self.read_exact(&mut buf)?;
+        let mut read = vec![[0; mem::size_of::<i64>()]; output.len()];
+        self.read_interleaved_bytes(&mut read)?;
 
-        for i in 0..output.len() {
-            let z0 = buf[i] as i64;
-            let z1 = buf[i + output.len()] as i64;
-            let z2 = buf[i + output.len() * 2] as i64;
-            let z3 = buf[i + output.len() * 3] as i64;
-            let z4 = buf[i + output.len() * 4] as i64;
-            let z5 = buf[i + output.len() * 5] as i64;
-            let z6 = buf[i + output.len() * 6] as i64;
-            let z7 = buf[i + output.len() * 7] as i64;
-
-            output[i] = untransform_i64(
-                (z0 << 56)
-                    | (z1 << 48)
-                    | (z2 << 40)
-                    | (z3 << 32)
-                    | (z4 << 24)
-                    | (z5 << 16)
-                    | (z6 << 8)
-                    | z7,
-            );
+        for (chunk, n) in read.into_iter().zip(output) {
+            *n = untransform_i64(i64::from_be_bytes(chunk));
         }
 
         Ok(())
