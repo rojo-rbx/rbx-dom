@@ -255,49 +255,38 @@ pub trait RbxWriteExt: Write {
         Ok(())
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes. Transformation is applied to the values as they're written.
     fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = i32>,
     {
-        let values: Vec<_> = values.collect();
-
-        for shift in &[24, 16, 8, 0] {
-            for value in values.iter().copied() {
-                let encoded = transform_i32(value) >> shift;
-                self.write_u8(encoded as u8)?;
-            }
-        }
-
-        Ok(())
+        let values: Vec<_> = values.map(|v| transform_i32(v).to_be_bytes()).collect();
+        self.write_interleaved_bytes(&values)
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes.
     fn write_interleaved_u32_array(&mut self, values: &[u32]) -> io::Result<()> {
-        for shift in &[24, 16, 8, 0] {
-            for value in values.iter().copied() {
-                let encoded = value >> shift;
-                self.write_u8(encoded as u8)?;
-            }
-        }
-
-        Ok(())
+        let values: Vec<_> = values.iter().map(|v| v.to_be_bytes()).collect();
+        self.write_interleaved_bytes(&values)
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes. Rotation is applied to the values as they're written.
     fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = f32>,
     {
-        let values: Vec<_> = values.collect();
-
-        for shift in &[24, 16, 8, 0] {
-            for value in values.iter().copied() {
-                let encoded = value.to_bits().rotate_left(1) >> shift;
-                self.write_u8(encoded as u8)?;
-            }
-        }
-
-        Ok(())
+        let values: Vec<_> = values
+            .map(|v| v.to_bits().rotate_left(1).to_be_bytes())
+            .collect();
+        self.write_interleaved_bytes(&values)
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes. The appropriate transformation and de-accumulation is done as
+    /// values are written.
     fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = i32>,
@@ -312,20 +301,14 @@ pub trait RbxWriteExt: Write {
         self.write_interleaved_i32_array(delta_encoded)
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes. Transformation is applied to the values as they're written.
     fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = i64>,
     {
-        let values: Vec<_> = values.collect();
-
-        for shift in &[56, 48, 40, 32, 24, 16, 8, 0] {
-            for value in values.iter().copied() {
-                let encoded = transform_i64(value) >> shift;
-                self.write_u8(encoded as u8)?;
-            }
-        }
-
-        Ok(())
+        let values: Vec<_> = values.map(|v| transform_i64(v).to_be_bytes()).collect();
+        self.write_interleaved_bytes(&values)
     }
 }
 
