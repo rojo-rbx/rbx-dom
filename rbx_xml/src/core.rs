@@ -50,7 +50,7 @@ pub fn find_serialized_property_descriptor(
     class_name: &str,
     property_name: &str,
 ) -> Option<&'static PropertyDescriptor<'static>> {
-    find_property_descriptors(class_name, property_name).map_or(None, |(_canonical, serialized)| {
+    find_property_descriptors(class_name, property_name).and_then(|(_canonical, serialized)| {
         if let PropertyKind::Canonical {
             serialization: PropertySerialization::Migrate(_),
         } = serialized.kind
