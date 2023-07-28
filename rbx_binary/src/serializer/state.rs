@@ -16,7 +16,7 @@ use rbx_dom_weak::{
     Instance, WeakDom,
 };
 
-use rbx_reflection::{ClassDescriptor, ClassTag, DataType};
+use rbx_reflection::{ClassDescriptor, ClassTag, DataType, PropertyKind, PropertySerialization};
 
 use crate::{
     chunk::{ChunkBuilder, ChunkCompression},
@@ -304,7 +304,16 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                     // For any properties that do not serialize, we can skip
                     // adding them to the set of type_infos.
                     let serialized = match descriptors.serialized {
-                        Some(descriptor) => descriptor,
+                        Some(descriptor) => {
+                            if let PropertyKind::Canonical {
+                                serialization: PropertySerialization::Migrate(_),
+                            } = descriptor.kind
+                            {
+                                continue;
+                            } else {
+                                descriptor
+                            }
+                        }
                         None => continue,
                     };
 
