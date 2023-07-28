@@ -7,4 +7,13 @@ More details about this crate are available on [the rbx-dom GitHub](https://gith
 Implementation of Roblox's binary model formats, rbxm and rbxl, for the rbx-dom ecosystem.
 
 ## Coverage
-rbx_binary aims to support all property types from rbx_dom_weak, but it currently lags behind rbx_xml due to implementation complexity.
+
+rbx_binary supports all property types from [`rbx_types`](https://crates.io/crates/rbx_types). It currently embeds a reflection database which contains a list of classes, properties, their types, and other information. In the event that this database is outdated, some issues may come up.
+
+These are mostly harmless, but they may include:
+	- Properties being serialized under the wrong name
+	- Properties having the incorrect default
+
+Additionally, data types newer than the current release of rbx_binary cannot be (de)serialized.
+
+In all of these cases, an update is needed for this crate.
