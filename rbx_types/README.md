@@ -11,6 +11,6 @@ rbx_types contains value types, which are generally evergreen and are added infr
 - `Vector3`, Roblox's 3D vector type
 - `NumberSequence`, a series of numbers on a timeline
 - `BinaryString`, an opaque buffer of binary data
-- In the future, more specialized types like `Tags`, a list of `CollectionService` tags
+- More specialized data types representing specific `BinaryString` blobs
 
 rbx_types will _not_ contain instance types. New instances are added to the platform all the time and have more complicated semantics.
