@@ -18,3 +18,7 @@ Cargo.lock
 /*.rbxm
 /*.rbxmx
 /rbx_dom_lua/*.rbxlx
+
+# Editor-specific folders and files
+/.vscode
+sourcemap.json
