@@ -312,18 +312,40 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                     let serialized = match descriptors.serialized {
                         Some(descriptor) => {
                             if let PropertyKind::Canonical {
-                                serialization: PropertySerialization::Migrate(_),
-                            } = descriptor.kind
+                                serialization: PropertySerialization::Migrate(prop_migration),
+                            } = &descriptor.kind
                             {
-                                continue;
+                                // If the property migrates, we need to look up the
+                                // property it should migrate to and use the reflection
+                                // information of the new property instead of the old
+                                // property, because migrated properties should not
+                                // serialize
+                                let new_descriptors = find_property_descriptors(
+                                    database,
+                                    &instance.class,
+                                    &prop_migration.new_property_name,
+                                );
+
+                                migration = Some(prop_migration);
+
+                                match new_descriptors {
+                                    Some(descriptor) => match descriptor.serialized {
+                                        Some(serialized) => {
+                                            canonical_name = descriptor.canonical.name.clone();
+                                            serialized
+                                        }
+                                        None => continue,
+                                    },
+                                    None => continue,
+                                }
                             } else {
+                                canonical_name = descriptors.canonical.name.clone();
                                 descriptor
                             }
                         }
                         None => continue,
                     };
 
-                    canonical_name = descriptors.canonical.name.clone();
                     serialized_name = serialized.name.clone();
 
                     serialized_ty = match &serialized.data_type {
