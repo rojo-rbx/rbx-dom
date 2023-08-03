@@ -1,0 +1,118 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+expression: decoded
+---
+num_types: 4
+num_instances: 8
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+  - Inst:
+      type_id: 2
+      type_name: Part
+      object_format: 0
+      referents:
+        - 3
+        - 4
+        - 5
+  - Inst:
+      type_id: 1
+      type_name: ScreenGui
+      object_format: 0
+      referents:
+        - 1
+        - 2
+  - Inst:
+      type_id: 3
+      type_name: TextLabel
+      object_format: 0
+      referents:
+        - 6
+        - 7
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Folder
+  - Prop:
+      type_id: 2
+      prop_name: Color3uint8
+      prop_type: Color3uint8
+      values:
+        - - 255
+          - 255
+          - 255
+        - - 180
+          - 128
+          - 255
+        - - 180
+          - 128
+          - 255
+  - Prop:
+      type_id: 2
+      prop_name: Name
+      prop_type: String
+      values:
+        - Part
+        - Part
+        - Part
+  - Prop:
+      type_id: 1
+      prop_name: Name
+      prop_type: String
+      values:
+        - ScreenGui
+        - ScreenGui
+  - Prop:
+      type_id: 1
+      prop_name: ScreenInsets
+      prop_type: Enum
+      values:
+        - 0
+        - 1
+  - Prop:
+      type_id: 3
+      prop_name: FontFace
+      prop_type: Font
+      values:
+        - family: "rbxasset://fonts/families/SourceSansPro.json"
+          weight: Regular
+          style: Normal
+          cachedFaceId: ~
+        - family: "rbxasset://fonts/families/Guru.json"
+          weight: Regular
+          style: Normal
+          cachedFaceId: ~
+  - Prop:
+      type_id: 3
+      prop_name: Name
+      prop_type: String
+      values:
+        - TextLabel
+        - TextLabel
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - 0
+        - - 2
+          - 0
+        - - 3
+          - 0
+        - - 4
+          - 0
+        - - 5
+          - 0
+        - - 6
+          - 0
+        - - 7
+          - 0
+  - End
+
