@@ -46,9 +46,9 @@ pub struct UniqueId {
 static INDEX: AtomicU32 = AtomicU32::new(0);
 
 impl UniqueId {
-    /// Returns a non-unique `UniqueId` that has every field set to `0`.
+    /// Returns a 'nil' `UniqueId` that has every field set to `0`.
     /// This value may appear multiple times in a Roblox file safely.
-    pub fn non_unique() -> Self {
+    pub fn nil() -> Self {
         Self {
             index: 0,
             time: 0,
@@ -81,18 +81,10 @@ impl UniqueId {
         })
     }
 
-    /// Returns whether this `UniqueId` represents a value that **must** be
-    /// unique across all Instances in a Roblox file.
-    pub fn is_unique(&self) -> bool {
-        // Note that because only one field needs to be non-zero, we use
-        // || here
-        self.time != 0 || self.index != 0 || self.random != 0
-    }
-
-    /// Returns whether this `UniqueId` represents the non-unique
-    /// `UniqueId` value.
-    pub fn is_non_unique(&self) -> bool {
-        !self.is_unique()
+    /// Returns whether this `UniqueId` is 'nil' or not. That is, whether
+    /// every field of the UniqueId is set to `0`.
+    pub fn is_nil(&self) -> bool {
+        self.time != 0 && self.index != 0 && self.random != 0
     }
 
     /// The 'time' portion of the UniqueId. This is the number of seconds since
