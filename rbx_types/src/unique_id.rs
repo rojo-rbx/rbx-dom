@@ -46,6 +46,18 @@ pub struct UniqueId {
 static INDEX: AtomicU32 = AtomicU32::new(0);
 
 impl UniqueId {
+    /// Returns a 'nil' `UniqueId` that has every field set to `0`.
+    /// This value may appear multiple times in a Roblox file safely.
+    pub fn nil() -> Self {
+        Self {
+            index: 0,
+            time: 0,
+            random: 0,
+        }
+    }
+
+    /// Returns a new `UniqueId` with each component set to the passed
+    /// values.
     pub fn new(index: u32, time: u32, random: i64) -> Self {
         Self {
             index,
@@ -54,6 +66,7 @@ impl UniqueId {
         }
     }
 
+    /// Returns a new UniqueId.
     pub fn now() -> Result<Self, UniqueIdError> {
         let time = SystemTime::now()
             .duration_since(*EPOCH)
@@ -68,14 +81,30 @@ impl UniqueId {
         })
     }
 
+    /// Returns whether this `UniqueId` is 'nil' or not. That is, whether
+    /// every field of the UniqueId is set to `0`.
+    pub fn is_nil(&self) -> bool {
+        self.time == 0 && self.index == 0 && self.random == 0
+    }
+
+    /// The 'time' portion of the UniqueId. This is the number of seconds since
+    /// 1 January 2021.
+    ///
+    /// Pending system time errors, this value will always be above `0`.
     pub fn time(&self) -> u32 {
         self.time
     }
 
+    /// The 'index' portion of the UniqueId.
+    ///
+    /// This value may be any number in the range `[0, u32::MAX]`.
     pub fn index(&self) -> u32 {
         self.index
     }
 
+    /// The 'random' portion of the `UniqueId`.
+    ///
+    /// This value may be any number in the range `[0, i64::MAX]`.
     pub fn random(&self) -> i64 {
         self.random
     }
