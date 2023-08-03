@@ -16,7 +16,9 @@ use rbx_dom_weak::{
     Instance, WeakDom,
 };
 
-use rbx_reflection::{ClassDescriptor, ClassTag, DataType, PropertyKind, PropertySerialization};
+use rbx_reflection::{
+    ClassDescriptor, ClassTag, DataType, PropertyKind, PropertyMigration, PropertySerialization,
+};
 
 use crate::{
     chunk::{ChunkBuilder, ChunkCompression},
@@ -134,6 +136,8 @@ struct PropInfo {
     /// Default values are first populated from the reflection database, if
     /// present, followed by an educated guess based on the type of the value.
     default_value: Cow<'static, Variant>,
+
+    migration: Option<&'static PropertyMigration>,
 }
 
 /// Contains all of the `TypeInfo` objects known to the serializer so far. This
@@ -193,6 +197,7 @@ impl<'dom> TypeInfos<'dom> {
                     serialized_name: Cow::Borrowed("Name"),
                     aliases: BTreeSet::new(),
                     default_value: Cow::Owned(Variant::String(String::new())),
+                    migration: None,
                 },
             );
 
@@ -297,6 +302,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             let canonical_name;
             let serialized_name;
             let serialized_ty;
+            let mut migration = None;
 
             let database = rbx_reflection_database::get();
             match find_property_descriptors(database, &instance.class, prop_name) {
@@ -390,6 +396,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         serialized_name,
                         aliases: BTreeSet::new(),
                         default_value,
+                        migration,
                     },
                 );
             }
