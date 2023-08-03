@@ -410,6 +410,8 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                 if !prop_info.aliases.contains(prop_name) {
                     prop_info.aliases.insert(prop_name.clone());
                 }
+
+                prop_info.migration = migration;
             }
         }
 
