@@ -611,6 +611,16 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         // reasonable default.
                         Cow::Borrowed(prop_info.default_value.borrow())
                     })
+                    .map(|value| {
+                        if let Some(migration) = prop_info.migration {
+                            match migration.perform(&value) {
+                                Ok(new_value) => Cow::Owned(new_value),
+                                Err(_) => value,
+                            }
+                        } else {
+                            value
+                        }
+                    })
                     .enumerate();
 
                 // Helper to generate a type mismatch error with context from
