@@ -84,7 +84,7 @@ impl UniqueId {
     /// Returns whether this `UniqueId` is 'nil' or not. That is, whether
     /// every field of the UniqueId is set to `0`.
     pub fn is_nil(&self) -> bool {
-        self.time != 0 && self.index != 0 && self.random != 0
+        self.time == 0 && self.index == 0 && self.random == 0
     }
 
     /// The 'time' portion of the UniqueId. This is the number of seconds since
