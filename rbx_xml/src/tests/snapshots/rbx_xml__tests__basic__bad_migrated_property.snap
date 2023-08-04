@@ -1,0 +1,17 @@
+---
+source: rbx_xml/src/tests/basic.rs
+expression: "std::str::from_utf8(&encoded).unwrap()"
+---
+<roblox version="4">
+  <Item class="Folder" referent="0">
+    <Properties>
+      <string name="Name">Folder</string>
+    </Properties>
+    <Item class="TextLabel" referent="1">
+      <Properties>
+        <string name="Name">TextLabel</string>
+        <token name="Font">4294967295</token>
+      </Properties>
+    </Item>
+  </Item>
+</roblox>

@@ -334,3 +334,14 @@ fn migrated_properties() {
     crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
+
+#[test]
+fn bad_migrated_property() {
+    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children([
+        InstanceBuilder::new("TextLabel").with_property("Font", Enum::from_u32(u32::MAX)),
+    ]));
+
+    let mut encoded = Vec::new();
+    crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
+    insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
+}
