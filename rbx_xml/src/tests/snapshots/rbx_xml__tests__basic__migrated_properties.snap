@@ -16,6 +16,7 @@ expression: "std::str::from_utf8(&encoded).unwrap()"
     <Item class="ScreenGui" referent="2">
       <Properties>
         <string name="Name">ScreenGui</string>
+        <bool name="IgnoreGuiInset">true</bool>
       </Properties>
     </Item>
     <Item class="Part" referent="3">
@@ -27,11 +28,13 @@ expression: "std::str::from_utf8(&encoded).unwrap()"
     <Item class="Part" referent="4">
       <Properties>
         <string name="Name">Part</string>
+        <int name="BrickColor">1006</int>
       </Properties>
     </Item>
     <Item class="Part" referent="5">
       <Properties>
         <string name="Name">Part</string>
+        <int name="brickColor">1006</int>
       </Properties>
     </Item>
     <Item class="TextLabel" referent="6">
@@ -49,6 +52,7 @@ expression: "std::str::from_utf8(&encoded).unwrap()"
     <Item class="TextLabel" referent="7">
       <Properties>
         <string name="Name">TextLabel</string>
+        <token name="Font">8</token>
       </Properties>
     </Item>
   </Item>
