@@ -116,55 +116,47 @@ pub trait RbxReadExt: Read {
         Ok(())
     }
 
+    /// Fills `output` with big-endian `i32` values read from the buffer.
+    /// These values are untransformed while being read.
     fn read_interleaved_i32_array(&mut self, output: &mut [i32]) -> io::Result<()> {
-        let mut buffer = vec![0; mem::size_of_val(output)];
-        self.read_exact(&mut buffer)?;
+        let mut read = vec![[0; mem::size_of::<i32>()]; output.len()];
+        self.read_interleaved_bytes(&mut read)?;
 
-        for i in 0..output.len() {
-            let v0 = buffer[i] as i32;
-            let v1 = buffer[i + output.len()] as i32;
-            let v2 = buffer[i + output.len() * 2] as i32;
-            let v3 = buffer[i + output.len() * 3] as i32;
-
-            output[i] = untransform_i32((v0 << 24) | (v1 << 16) | (v2 << 8) | v3);
+        for (chunk, out) in read.into_iter().zip(output) {
+            *out = untransform_i32(i32::from_be_bytes(chunk));
         }
 
         Ok(())
     }
 
+    /// Fills `output` with big-endian `u32` values read from the buffer.
     fn read_interleaved_u32_array(&mut self, output: &mut [u32]) -> io::Result<()> {
-        let mut buffer = vec![0; mem::size_of_val(output)];
-        self.read_exact(&mut buffer)?;
+        let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
+        self.read_interleaved_bytes(&mut read)?;
 
-        for i in 0..output.len() {
-            let bytes = [
-                buffer[i],
-                buffer[i + output.len()],
-                buffer[i + output.len() * 2],
-                buffer[i + output.len() * 3],
-            ];
-
-            output[i] = u32::from_be_bytes(bytes);
+        for (chunk, out) in read.into_iter().zip(output) {
+            *out = u32::from_be_bytes(chunk);
         }
 
         Ok(())
     }
 
+    /// Fills `output` with big-endian `f32` values read from the buffer.
+    /// These values are properly unrotated while being read.
     fn read_interleaved_f32_array(&mut self, output: &mut [f32]) -> io::Result<()> {
-        let mut buf = vec![0; mem::size_of_val(output)];
-        self.read_exact(&mut buf)?;
+        let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
+        self.read_interleaved_bytes(&mut read)?;
 
-        for i in 0..output.len() {
-            let v0 = buf[i] as u32;
-            let v1 = buf[i + output.len()] as u32;
-            let v2 = buf[i + output.len() * 2] as u32;
-            let v3 = buf[i + output.len() * 3] as u32;
-
-            output[i] = f32::from_bits(((v0 << 24) | (v1 << 16) | (v2 << 8) | v3).rotate_right(1));
+        for (chunk, out) in read.into_iter().zip(output) {
+            *out = f32::from_bits(u32::from_be_bytes(chunk).rotate_right(1));
         }
+
         Ok(())
     }
 
+    /// Fills `output` with big-endian `i32` values read from the buffer.
+    /// The values are properly untransformed and accumulated so as to properly
+    /// read arrays of referent values.
     fn read_referent_array(&mut self, output: &mut [i32]) -> io::Result<()> {
         self.read_interleaved_i32_array(output)?;
 
@@ -178,30 +170,14 @@ pub trait RbxReadExt: Read {
         Ok(())
     }
 
+    /// Fills `output` with big-endian `64` values read from the buffer.
+    /// These values are untransformed while being read.
     fn read_interleaved_i64_array(&mut self, output: &mut [i64]) -> io::Result<()> {
-        let mut buf = vec![0; mem::size_of_val(output)];
-        self.read_exact(&mut buf)?;
+        let mut read = vec![[0; mem::size_of::<i64>()]; output.len()];
+        self.read_interleaved_bytes(&mut read)?;
 
-        for i in 0..output.len() {
-            let z0 = buf[i] as i64;
-            let z1 = buf[i + output.len()] as i64;
-            let z2 = buf[i + output.len() * 2] as i64;
-            let z3 = buf[i + output.len() * 3] as i64;
-            let z4 = buf[i + output.len() * 4] as i64;
-            let z5 = buf[i + output.len() * 5] as i64;
-            let z6 = buf[i + output.len() * 6] as i64;
-            let z7 = buf[i + output.len() * 7] as i64;
-
-            output[i] = untransform_i64(
-                (z0 << 56)
-                    | (z1 << 48)
-                    | (z2 << 40)
-                    | (z3 << 32)
-                    | (z4 << 24)
-                    | (z5 << 16)
-                    | (z6 << 8)
-                    | z7,
-            );
+        for (chunk, out) in read.into_iter().zip(output) {
+            *out = untransform_i64(i64::from_be_bytes(chunk));
         }
 
         Ok(())
@@ -279,49 +255,38 @@ pub trait RbxWriteExt: Write {
         Ok(())
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes. Transformation is applied to the values as they're written.
     fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = i32>,
     {
-        let values: Vec<_> = values.collect();
-
-        for shift in &[24, 16, 8, 0] {
-            for value in values.iter().copied() {
-                let encoded = transform_i32(value) >> shift;
-                self.write_u8(encoded as u8)?;
-            }
-        }
-
-        Ok(())
+        let values: Vec<_> = values.map(|v| transform_i32(v).to_be_bytes()).collect();
+        self.write_interleaved_bytes(&values)
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes.
     fn write_interleaved_u32_array(&mut self, values: &[u32]) -> io::Result<()> {
-        for shift in &[24, 16, 8, 0] {
-            for value in values.iter().copied() {
-                let encoded = value >> shift;
-                self.write_u8(encoded as u8)?;
-            }
-        }
-
-        Ok(())
+        let values: Vec<_> = values.iter().map(|v| v.to_be_bytes()).collect();
+        self.write_interleaved_bytes(&values)
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes. Rotation is applied to the values as they're written.
     fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = f32>,
     {
-        let values: Vec<_> = values.collect();
-
-        for shift in &[24, 16, 8, 0] {
-            for value in values.iter().copied() {
-                let encoded = value.to_bits().rotate_left(1) >> shift;
-                self.write_u8(encoded as u8)?;
-            }
-        }
-
-        Ok(())
+        let values: Vec<_> = values
+            .map(|v| v.to_bits().rotate_left(1).to_be_bytes())
+            .collect();
+        self.write_interleaved_bytes(&values)
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes. The appropriate transformation and de-accumulation is done as
+    /// values are written.
     fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = i32>,
@@ -336,40 +301,37 @@ pub trait RbxWriteExt: Write {
         self.write_interleaved_i32_array(delta_encoded)
     }
 
+    /// Writes all items from `values` into the buffer as a blob of interleaved
+    /// bytes. Transformation is applied to the values as they're written.
     fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: Iterator<Item = i64>,
     {
-        let values: Vec<_> = values.collect();
-
-        for shift in &[56, 48, 40, 32, 24, 16, 8, 0] {
-            for value in values.iter().copied() {
-                let encoded = transform_i64(value) >> shift;
-                self.write_u8(encoded as u8)?;
-            }
-        }
-
-        Ok(())
+        let values: Vec<_> = values.map(|v| transform_i64(v).to_be_bytes()).collect();
+        self.write_interleaved_bytes(&values)
     }
 }
 
 impl<W> RbxWriteExt for W where W: Write {}
 
-/// Applies the integer transformation generally used in property data in the
-/// Roblox binary format.
+/// Applies the 'zigzag' transformation done by Roblox to many `i32` values.
 pub fn transform_i32(value: i32) -> i32 {
     (value << 1) ^ (value >> 31)
 }
 
-/// The inverse of `transform_i32`.
+/// Inverses the 'zigzag' encoding transformation done by Roblox to many
+/// `i32` values.
 pub fn untransform_i32(value: i32) -> i32 {
     ((value as u32) >> 1) as i32 ^ -(value & 1)
 }
 
+/// Applies the 'zigzag' transformation done by Roblox to many `i64` values.
 pub fn transform_i64(value: i64) -> i64 {
     (value << 1) ^ (value >> 63)
 }
 
+/// Inverses the 'zigzag' encoding transformation done by Roblox to many
+/// `i64` values.
 pub fn untransform_i64(value: i64) -> i64 {
     ((value as u64) >> 1) as i64 ^ -(value & 1)
 }
