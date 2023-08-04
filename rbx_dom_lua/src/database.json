@@ -2724,7 +2724,17 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioChorus": {
       "Name": "AudioChorus",
@@ -2773,7 +2783,26 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Depth": {
+          "Float32": 0.45
+        },
+        "Mix": {
+          "Float32": 0.85
+        },
+        "Rate": {
+          "Float32": 5.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioCompressor": {
       "Name": "AudioCompressor",
@@ -2848,7 +2877,32 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attack": {
+          "Float32": 0.1
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "MakeupGain": {
+          "Float32": 0.0
+        },
+        "Ratio": {
+          "Float32": 40.0
+        },
+        "Release": {
+          "Float32": 0.1
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "Threshold": {
+          "Float32": -40.0
+        }
+      }
     },
     "AudioDeviceInput": {
       "Name": "AudioDeviceInput",
@@ -2942,7 +2996,26 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "AccessType": {
+          "Enum": 1
+        },
+        "Active": {
+          "Bool": true
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Muted": {
+          "Bool": false
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioDeviceOutput": {
       "Name": "AudioDeviceOutput",
@@ -2965,7 +3038,17 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioDistortion": {
       "Name": "AudioDistortion",
@@ -2988,7 +3071,20 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Level": {
+          "Float32": 0.5
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioEcho": {
       "Name": "AudioEcho",
@@ -3050,7 +3146,29 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "DelayTime": {
+          "Float32": 1.0
+        },
+        "DryLevel": {
+          "Float32": 0.0
+        },
+        "Feedback": {
+          "Float32": 0.5
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "WetLevel": {
+          "Float32": 0.0
+        }
+      }
     },
     "AudioEmitter": {
       "Name": "AudioEmitter",
@@ -3073,7 +3191,20 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "AudioInteractionGroup": {
+          "String": ""
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioEqualizer": {
       "Name": "AudioEqualizer",
@@ -3135,7 +3266,32 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "HighGain": {
+          "Float32": 0.0
+        },
+        "LowGain": {
+          "Float32": 0.0
+        },
+        "MidGain": {
+          "Float32": 0.0
+        },
+        "MidRange": {
+          "NumberRange": [
+            400.0,
+            4000.0
+          ]
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioFader": {
       "Name": "AudioFader",
@@ -3158,7 +3314,20 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "Volume": {
+          "Float32": 1.0
+        }
+      }
     },
     "AudioFlanger": {
       "Name": "AudioFlanger",
@@ -3207,7 +3376,26 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Depth": {
+          "Float32": 0.45
+        },
+        "Mix": {
+          "Float32": 0.85
+        },
+        "Rate": {
+          "Float32": 5.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioListener": {
       "Name": "AudioListener",
@@ -3230,7 +3418,20 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "AudioInteractionGroup": {
+          "String": ""
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioPages": {
       "Name": "AudioPages",
@@ -3263,7 +3464,20 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Pitch": {
+          "Float32": 1.25
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
     },
     "AudioPlayer": {
       "Name": "AudioPlayer",
@@ -3409,7 +3623,44 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "AssetId": {
+          "String": ""
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "AutoLoad": {
+          "Bool": true
+        },
+        "LoopRegion": {
+          "NumberRange": [
+            0.0,
+            60000.0
+          ]
+        },
+        "Looping": {
+          "Bool": false
+        },
+        "PlaybackRegion": {
+          "NumberRange": [
+            0.0,
+            60000.0
+          ]
+        },
+        "PlaybackSpeed": {
+          "Float64": 1.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "TimePosition": {
+          "Float64": 0.0
+        }
+      }
     },
     "AudioReverb": {
       "Name": "AudioReverb",
@@ -3575,7 +3826,53 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "DecayRatio": {
+          "Float32": 0.5
+        },
+        "DecayTime": {
+          "Float32": 1.5
+        },
+        "Density": {
+          "Float32": 1.0
+        },
+        "Diffusion": {
+          "Float32": 1.0
+        },
+        "DryLevel": {
+          "Float32": 0.0
+        },
+        "EarlyDelayTime": {
+          "Float32": 0.02
+        },
+        "HighCutFrequency": {
+          "Float32": 20000.0
+        },
+        "LateDelayTime": {
+          "Float32": 0.04
+        },
+        "LowShelfFrequency": {
+          "Float32": 250.0
+        },
+        "LowShelfGain": {
+          "Float32": 0.0
+        },
+        "ReferenceFrequency": {
+          "Float32": 5000.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "WetLevel": {
+          "Float32": -6.0
+        }
+      }
     },
     "AudioSearchParams": {
       "Name": "AudioSearchParams",
@@ -9286,6 +9583,9 @@
       "DefaultProperties": {
         "Attributes": {
           "Attributes": {}
+        },
+        "AutocompleteEnabled": {
+          "Bool": true
         },
         "BackgroundColor3": {
           "Color3": [
@@ -27424,6 +27724,18 @@
         "BrickName": {
           "String": "Brick"
         },
+        "CardboardName": {
+          "String": "Cardboard"
+        },
+        "CarpetName": {
+          "String": "Carpet"
+        },
+        "CeramicTilesName": {
+          "String": "CeramicTiles"
+        },
+        "ClayRoofTilesName": {
+          "String": "ClayRoofTiles"
+        },
         "CobblestoneName": {
           "String": "Cobblestone"
         },
@@ -27463,6 +27775,9 @@
         "LeafyGrassName": {
           "String": "LeafyGrass"
         },
+        "LeatherName": {
+          "String": "Leather"
+        },
         "LimestoneName": {
           "String": "Limestone"
         },
@@ -27481,11 +27796,20 @@
         "PebbleName": {
           "String": "Pebble"
         },
+        "PlasterName": {
+          "String": "Plaster"
+        },
         "PlasticName": {
           "String": "Plastic"
         },
         "RockName": {
           "String": "Rock"
+        },
+        "RoofShinglesName": {
+          "String": "RoofShingles"
+        },
+        "RubberName": {
+          "String": "Rubber"
         },
         "SaltName": {
           "String": "Salt"
@@ -58828,7 +59152,23 @@
           }
         }
       },
-      "DefaultProperties": {}
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "SourceName": {
+          "String": "Output"
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "TargetName": {
+          "String": "Input"
+        }
+      }
     },
     "WireframeHandleAdornment": {
       "Name": "WireframeHandleAdornment",
