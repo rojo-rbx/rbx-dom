@@ -16,7 +16,9 @@ use rbx_dom_weak::{
     Instance, WeakDom,
 };
 
-use rbx_reflection::{ClassDescriptor, ClassTag, DataType, PropertyKind, PropertySerialization};
+use rbx_reflection::{
+    ClassDescriptor, ClassTag, DataType, PropertyKind, PropertyMigration, PropertySerialization,
+};
 
 use crate::{
     chunk::{ChunkBuilder, ChunkCompression},
@@ -134,6 +136,11 @@ struct PropInfo {
     /// Default values are first populated from the reflection database, if
     /// present, followed by an educated guess based on the type of the value.
     default_value: Cow<'static, Variant>,
+
+    /// If a logical property has a migration associated with it (i.e. BrickColor ->
+    /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
+    /// it is None.
+    migration: Option<&'static PropertyMigration>,
 }
 
 /// Contains all of the `TypeInfo` objects known to the serializer so far. This
@@ -193,6 +200,7 @@ impl<'dom> TypeInfos<'dom> {
                     serialized_name: Cow::Borrowed("Name"),
                     aliases: BTreeSet::new(),
                     default_value: Cow::Owned(Variant::String(String::new())),
+                    migration: None,
                 },
             );
 
@@ -297,6 +305,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             let canonical_name;
             let serialized_name;
             let serialized_ty;
+            let mut migration = None;
 
             let database = rbx_reflection_database::get();
             match find_property_descriptors(database, &instance.class, prop_name) {
@@ -306,18 +315,40 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                     let serialized = match descriptors.serialized {
                         Some(descriptor) => {
                             if let PropertyKind::Canonical {
-                                serialization: PropertySerialization::Migrate(_),
-                            } = descriptor.kind
+                                serialization: PropertySerialization::Migrate(prop_migration),
+                            } = &descriptor.kind
                             {
-                                continue;
+                                // If the property migrates, we need to look up the
+                                // property it should migrate to and use the reflection
+                                // information of the new property instead of the old
+                                // property, because migrated properties should not
+                                // serialize
+                                let new_descriptors = find_property_descriptors(
+                                    database,
+                                    &instance.class,
+                                    &prop_migration.new_property_name,
+                                );
+
+                                migration = Some(prop_migration);
+
+                                match new_descriptors {
+                                    Some(descriptor) => match descriptor.serialized {
+                                        Some(serialized) => {
+                                            canonical_name = descriptor.canonical.name.clone();
+                                            serialized
+                                        }
+                                        None => continue,
+                                    },
+                                    None => continue,
+                                }
                             } else {
+                                canonical_name = descriptors.canonical.name.clone();
                                 descriptor
                             }
                         }
                         None => continue,
                     };
 
-                    canonical_name = descriptors.canonical.name.clone();
                     serialized_name = serialized.name.clone();
 
                     serialized_ty = match &serialized.data_type {
@@ -390,6 +421,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         serialized_name,
                         aliases: BTreeSet::new(),
                         default_value,
+                        migration,
                     },
                 );
             }
@@ -403,6 +435,8 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                 if !prop_info.aliases.contains(prop_name) {
                     prop_info.aliases.insert(prop_name.clone());
                 }
+
+                prop_info.migration = migration;
             }
         }
 
@@ -579,6 +613,16 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         // reflection database if available, or falls back to a
                         // reasonable default.
                         Cow::Borrowed(prop_info.default_value.borrow())
+                    })
+                    .map(|value| {
+                        if let Some(migration) = prop_info.migration {
+                            match migration.perform(&value) {
+                                Ok(new_value) => Cow::Owned(new_value),
+                                Err(_) => value,
+                            }
+                        } else {
+                            value
+                        }
                     })
                     .enumerate();
 
