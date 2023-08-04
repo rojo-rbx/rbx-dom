@@ -137,6 +137,9 @@ struct PropInfo {
     /// present, followed by an educated guess based on the type of the value.
     default_value: Cow<'static, Variant>,
 
+    /// If a logical property has a migration associated with it (i.e. BrickColor ->
+    /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
+    /// it is None.
     migration: Option<&'static PropertyMigration>,
 }
 
