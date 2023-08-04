@@ -122,8 +122,8 @@ pub trait RbxReadExt: Read {
         let mut read = vec![[0; mem::size_of::<i32>()]; output.len()];
         self.read_interleaved_bytes(&mut read)?;
 
-        for (chunk, n) in read.into_iter().zip(output) {
-            *n = untransform_i32(i32::from_be_bytes(chunk));
+        for (chunk, out) in read.into_iter().zip(output) {
+            *out = untransform_i32(i32::from_be_bytes(chunk));
         }
 
         Ok(())
@@ -134,8 +134,8 @@ pub trait RbxReadExt: Read {
         let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
         self.read_interleaved_bytes(&mut read)?;
 
-        for (chunk, n) in read.into_iter().zip(output) {
-            *n = u32::from_be_bytes(chunk);
+        for (chunk, out) in read.into_iter().zip(output) {
+            *out = u32::from_be_bytes(chunk);
         }
 
         Ok(())
@@ -147,8 +147,8 @@ pub trait RbxReadExt: Read {
         let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
         self.read_interleaved_bytes(&mut read)?;
 
-        for (chunk, n) in read.into_iter().zip(output) {
-            *n = f32::from_bits(u32::from_be_bytes(chunk).rotate_right(1));
+        for (chunk, out) in read.into_iter().zip(output) {
+            *out = f32::from_bits(u32::from_be_bytes(chunk).rotate_right(1));
         }
 
         Ok(())
@@ -176,8 +176,8 @@ pub trait RbxReadExt: Read {
         let mut read = vec![[0; mem::size_of::<i64>()]; output.len()];
         self.read_interleaved_bytes(&mut read)?;
 
-        for (chunk, n) in read.into_iter().zip(output) {
-            *n = untransform_i64(i64::from_be_bytes(chunk));
+        for (chunk, out) in read.into_iter().zip(output) {
+            *out = untransform_i64(i64::from_be_bytes(chunk));
         }
 
         Ok(())
