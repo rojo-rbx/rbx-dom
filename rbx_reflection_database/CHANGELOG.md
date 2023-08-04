@@ -1,7 +1,7 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
-* Updated to Roblox version 586.
+* Updated to Roblox version 588.
 * `Instance.UniqueId`, `Instance.HistoryId`, and `LuaSourceContainer` are now marked as `DoesNotSerialize` ([#327])
 
 [#327]: https://github.com/rojo-rbx/rbx-dom/pull/327

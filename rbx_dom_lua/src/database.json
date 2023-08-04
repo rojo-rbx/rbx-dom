@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    587,
+    588,
     0,
-    5870056
+    5880517
   ],
   "Classes": {
     "Accessory": {
@@ -601,6 +601,21 @@
             }
           }
         },
+        "LookAtPosition": {
+          "Name": "LookAtPosition",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "MaxAngularVelocity": {
           "Name": "MaxAngularVelocity",
           "Scriptability": "ReadWrite",
@@ -818,9 +833,7 @@
           "DataType": {
             "Enum": "ForceLimitMode"
           },
-          "Tags": [
-            "NotBrowsable"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -2671,6 +2684,755 @@
         }
       }
     },
+    "AudioAnalyzer": {
+      "Name": "AudioAnalyzer",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "PeakLevel": {
+          "Name": "PeakLevel",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "RmsLevel": {
+          "Name": "RmsLevel",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
+    "AudioChorus": {
+      "Name": "AudioChorus",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Depth": {
+          "Name": "Depth",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Mix": {
+          "Name": "Mix",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Rate": {
+          "Name": "Rate",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Depth": {
+          "Float32": 0.45
+        },
+        "Mix": {
+          "Float32": 0.85
+        },
+        "Rate": {
+          "Float32": 5.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
+    "AudioCompressor": {
+      "Name": "AudioCompressor",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Attack": {
+          "Name": "Attack",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MakeupGain": {
+          "Name": "MakeupGain",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Ratio": {
+          "Name": "Ratio",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Release": {
+          "Name": "Release",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Threshold": {
+          "Name": "Threshold",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attack": {
+          "Float32": 0.1
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "MakeupGain": {
+          "Float32": 0.0
+        },
+        "Ratio": {
+          "Float32": 40.0
+        },
+        "Release": {
+          "Float32": 0.1
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "Threshold": {
+          "Float32": -40.0
+        }
+      }
+    },
+    "AudioDeviceInput": {
+      "Name": "AudioDeviceInput",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "AccessList": {
+          "Name": "AccessList",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "BinaryString"
+          },
+          "Tags": [
+            "Hidden",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "AccessType": {
+          "Name": "AccessType",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "AccessModifierType"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Active": {
+          "Name": "Active",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "IsReady": {
+          "Name": "IsReady",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Muted": {
+          "Name": "Muted",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Player": {
+          "Name": "Player",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AccessType": {
+          "Enum": 1
+        },
+        "Active": {
+          "Bool": true
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Muted": {
+          "Bool": false
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
+    "AudioDeviceOutput": {
+      "Name": "AudioDeviceOutput",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Player": {
+          "Name": "Player",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
+    "AudioDistortion": {
+      "Name": "AudioDistortion",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Level": {
+          "Name": "Level",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Level": {
+          "Float32": 0.5
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
+    "AudioEcho": {
+      "Name": "AudioEcho",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "DelayTime": {
+          "Name": "DelayTime",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "DryLevel": {
+          "Name": "DryLevel",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Feedback": {
+          "Name": "Feedback",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WetLevel": {
+          "Name": "WetLevel",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "DelayTime": {
+          "Float32": 1.0
+        },
+        "DryLevel": {
+          "Float32": 0.0
+        },
+        "Feedback": {
+          "Float32": 0.5
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "WetLevel": {
+          "Float32": 0.0
+        }
+      }
+    },
+    "AudioEmitter": {
+      "Name": "AudioEmitter",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "AudioInteractionGroup": {
+          "Name": "AudioInteractionGroup",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "AudioInteractionGroup": {
+          "String": ""
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
+    "AudioEqualizer": {
+      "Name": "AudioEqualizer",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "HighGain": {
+          "Name": "HighGain",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LowGain": {
+          "Name": "LowGain",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MidGain": {
+          "Name": "MidGain",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "MidRange": {
+          "Name": "MidRange",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "NumberRange"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "HighGain": {
+          "Float32": 0.0
+        },
+        "LowGain": {
+          "Float32": 0.0
+        },
+        "MidGain": {
+          "Float32": 0.0
+        },
+        "MidRange": {
+          "NumberRange": [
+            400.0,
+            4000.0
+          ]
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
+    "AudioFader": {
+      "Name": "AudioFader",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Volume": {
+          "Name": "Volume",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "Volume": {
+          "Float32": 1.0
+        }
+      }
+    },
+    "AudioFlanger": {
+      "Name": "AudioFlanger",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Depth": {
+          "Name": "Depth",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Mix": {
+          "Name": "Mix",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Rate": {
+          "Name": "Rate",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Depth": {
+          "Float32": 0.45
+        },
+        "Mix": {
+          "Float32": 0.85
+        },
+        "Rate": {
+          "Float32": 5.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
+    "AudioListener": {
+      "Name": "AudioListener",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "AudioInteractionGroup": {
+          "Name": "AudioInteractionGroup",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "AudioInteractionGroup": {
+          "String": ""
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
     "AudioPages": {
       "Name": "AudioPages",
       "Tags": [
@@ -2680,6 +3442,437 @@
       "Superclass": "Pages",
       "Properties": {},
       "DefaultProperties": {}
+    },
+    "AudioPitchShifter": {
+      "Name": "AudioPitchShifter",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Pitch": {
+          "Name": "Pitch",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Pitch": {
+          "Float32": 1.25
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        }
+      }
+    },
+    "AudioPlayer": {
+      "Name": "AudioPlayer",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "AssetId": {
+          "Name": "AssetId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "AutoLoad": {
+          "Name": "AutoLoad",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "IsPlaying": {
+          "Name": "IsPlaying",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "IsReady": {
+          "Name": "IsReady",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "LoopRegion": {
+          "Name": "LoopRegion",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "NumberRange"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Looping": {
+          "Name": "Looping",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PlaybackRegion": {
+          "Name": "PlaybackRegion",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "NumberRange"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PlaybackSpeed": {
+          "Name": "PlaybackSpeed",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TimeLength": {
+          "Name": "TimeLength",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "TimePosition": {
+          "Name": "TimePosition",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "AssetId": {
+          "String": ""
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "AutoLoad": {
+          "Bool": true
+        },
+        "LoopRegion": {
+          "NumberRange": [
+            0.0,
+            60000.0
+          ]
+        },
+        "Looping": {
+          "Bool": false
+        },
+        "PlaybackRegion": {
+          "NumberRange": [
+            0.0,
+            60000.0
+          ]
+        },
+        "PlaybackSpeed": {
+          "Float64": 1.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "TimePosition": {
+          "Float64": 0.0
+        }
+      }
+    },
+    "AudioReverb": {
+      "Name": "AudioReverb",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "DecayRatio": {
+          "Name": "DecayRatio",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "DecayTime": {
+          "Name": "DecayTime",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Density": {
+          "Name": "Density",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Diffusion": {
+          "Name": "Diffusion",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "DryLevel": {
+          "Name": "DryLevel",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "EarlyDelayTime": {
+          "Name": "EarlyDelayTime",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "HighCutFrequency": {
+          "Name": "HighCutFrequency",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LateDelayTime": {
+          "Name": "LateDelayTime",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LowShelfFrequency": {
+          "Name": "LowShelfFrequency",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LowShelfGain": {
+          "Name": "LowShelfGain",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ReferenceFrequency": {
+          "Name": "ReferenceFrequency",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WetLevel": {
+          "Name": "WetLevel",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "DecayRatio": {
+          "Float32": 0.5
+        },
+        "DecayTime": {
+          "Float32": 1.5
+        },
+        "Density": {
+          "Float32": 1.0
+        },
+        "Diffusion": {
+          "Float32": 1.0
+        },
+        "DryLevel": {
+          "Float32": 0.0
+        },
+        "EarlyDelayTime": {
+          "Float32": 0.02
+        },
+        "HighCutFrequency": {
+          "Float32": 20000.0
+        },
+        "LateDelayTime": {
+          "Float32": 0.04
+        },
+        "LowShelfFrequency": {
+          "Float32": 250.0
+        },
+        "LowShelfGain": {
+          "Float32": 0.0
+        },
+        "ReferenceFrequency": {
+          "Float32": 5000.0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "WetLevel": {
+          "Float32": -6.0
+        }
+      }
     },
     "AudioSearchParams": {
       "Name": "AudioSearchParams",
@@ -8186,6 +9379,19 @@
             }
           }
         },
+        "AutocompleteEnabled": {
+          "Name": "AutocompleteEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "BackgroundColor3": {
           "Name": "BackgroundColor3",
           "Scriptability": "ReadWrite",
@@ -8377,6 +9583,9 @@
       "DefaultProperties": {
         "Attributes": {
           "Attributes": {}
+        },
+        "AutocompleteEnabled": {
+          "Bool": true
         },
         "BackgroundColor3": {
           "Color3": [
@@ -18366,6 +19575,22 @@
             }
           }
         },
+        "GuiState": {
+          "Name": "GuiState",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "GuiState"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "LayoutOrder": {
           "Name": "LayoutOrder",
           "Scriptability": "ReadWrite",
@@ -25897,6 +27122,66 @@
             }
           }
         },
+        "CardboardName": {
+          "Name": "CardboardName",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CarpetName": {
+          "Name": "CarpetName",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CeramicTilesName": {
+          "Name": "CeramicTilesName",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ClayRoofTilesName": {
+          "Name": "ClayRoofTilesName",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "CobblestoneName": {
           "Name": "CobblestoneName",
           "Scriptability": "None",
@@ -26092,6 +27377,21 @@
             }
           }
         },
+        "LeatherName": {
+          "Name": "LeatherName",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "LimestoneName": {
           "Name": "LimestoneName",
           "Scriptability": "None",
@@ -26182,6 +27482,21 @@
             }
           }
         },
+        "PlasterName": {
+          "Name": "PlasterName",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "PlasticName": {
           "Name": "PlasticName",
           "Scriptability": "None",
@@ -26199,6 +27514,36 @@
         },
         "RockName": {
           "Name": "RockName",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RoofShinglesName": {
+          "Name": "RoofShinglesName",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RubberName": {
+          "Name": "RubberName",
           "Scriptability": "None",
           "DataType": {
             "Value": "String"
@@ -26379,6 +27724,18 @@
         "BrickName": {
           "String": "Brick"
         },
+        "CardboardName": {
+          "String": "Cardboard"
+        },
+        "CarpetName": {
+          "String": "Carpet"
+        },
+        "CeramicTilesName": {
+          "String": "CeramicTiles"
+        },
+        "ClayRoofTilesName": {
+          "String": "ClayRoofTiles"
+        },
         "CobblestoneName": {
           "String": "Cobblestone"
         },
@@ -26418,6 +27775,9 @@
         "LeafyGrassName": {
           "String": "LeafyGrass"
         },
+        "LeatherName": {
+          "String": "Leather"
+        },
         "LimestoneName": {
           "String": "Limestone"
         },
@@ -26436,11 +27796,20 @@
         "PebbleName": {
           "String": "Pebble"
         },
+        "PlasterName": {
+          "String": "Plaster"
+        },
         "PlasticName": {
           "String": "Plastic"
         },
         "RockName": {
           "String": "Rock"
+        },
+        "RoofShinglesName": {
+          "String": "RoofShingles"
+        },
+        "RubberName": {
+          "String": "Rubber"
         },
         "SaltName": {
           "String": "Salt"
@@ -31917,6 +33286,19 @@
             }
           }
         },
+        "AreAssemblyCentersOfMassShown": {
+          "Name": "AreAssemblyCentersOfMassShown",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "AreAwakePartsHighlighted": {
           "Name": "AreAwakePartsHighlighted",
           "Scriptability": "ReadWrite",
@@ -35835,6 +37217,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Enum": "QualityLevel"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Enable VR Mode": {
+          "Name": "Enable VR Mode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
           },
           "Tags": [],
           "Kind": {
@@ -43366,7 +44761,7 @@
           "Bool": true
         },
         "AvatarJointUpgrade": {
-          "Enum": 62
+          "Enum": 0
         },
         "CameraMaxZoomDistance": {
           "Float32": 400.0
@@ -47969,7 +49364,113 @@
           "Enum": 256
         },
         "MaterialColors": {
-          "BinaryString": "AAAAAAAAan8/P39rf2Y/ilY+j35fi21PZmxvZbDqw8faiVpHOi4kHh4lZlw76JxKc3trhHtagcLgc4RKxr21zq2UlJSM"
+          "MaterialColors": {
+            "Grass": [
+              106,
+              127,
+              63
+            ],
+            "Slate": [
+              63,
+              127,
+              107
+            ],
+            "Concrete": [
+              127,
+              102,
+              63
+            ],
+            "Brick": [
+              138,
+              86,
+              62
+            ],
+            "Sand": [
+              143,
+              126,
+              95
+            ],
+            "WoodPlanks": [
+              139,
+              109,
+              79
+            ],
+            "Rock": [
+              102,
+              108,
+              111
+            ],
+            "Glacier": [
+              101,
+              176,
+              234
+            ],
+            "Snow": [
+              195,
+              199,
+              218
+            ],
+            "Sandstone": [
+              137,
+              90,
+              71
+            ],
+            "Mud": [
+              58,
+              46,
+              36
+            ],
+            "Basalt": [
+              30,
+              30,
+              37
+            ],
+            "Ground": [
+              102,
+              92,
+              59
+            ],
+            "CrackedLava": [
+              232,
+              156,
+              74
+            ],
+            "Asphalt": [
+              115,
+              123,
+              107
+            ],
+            "Cobblestone": [
+              132,
+              123,
+              90
+            ],
+            "Ice": [
+              129,
+              194,
+              224
+            ],
+            "LeafyGrass": [
+              115,
+              132,
+              74
+            ],
+            "Salt": [
+              198,
+              189,
+              181
+            ],
+            "Limestone": [
+              206,
+              173,
+              148
+            ],
+            "Pavement": [
+              148,
+              148,
+              140
+            ]
+          }
         },
         "MaterialVariantSerialized": {
           "String": ""
@@ -57575,6 +59076,100 @@
         }
       }
     },
+    "Wire": {
+      "Name": "Wire",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Connected": {
+          "Name": "Connected",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "SourceInstance": {
+          "Name": "SourceInstance",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "SourceName": {
+          "Name": "SourceName",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TargetInstance": {
+          "Name": "TargetInstance",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TargetName": {
+          "Name": "TargetName",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Attributes": {
+          "Attributes": {}
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "SourceName": {
+          "String": "Output"
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "TargetName": {
+          "String": "Input"
+        }
+      }
+    },
     "WireframeHandleAdornment": {
       "Name": "WireframeHandleAdornment",
       "Tags": [],
@@ -58920,6 +60515,13 @@
     }
   },
   "Enums": {
+    "AccessModifierType": {
+      "name": "AccessModifierType",
+      "items": {
+        "Allow": 0,
+        "Deny": 1
+      }
+    },
     "AccessoryType": {
       "name": "AccessoryType",
       "items": {
@@ -59202,6 +60804,14 @@
       "items": {
         "Music": 1,
         "SoundEffect": 2
+      }
+    },
+    "AudioWindowSize": {
+      "name": "AudioWindowSize",
+      "items": {
+        "Large": 2,
+        "Medium": 1,
+        "Small": 0
       }
     },
     "AutoIndentRule": {
@@ -60409,6 +62019,14 @@
         "Vulkan": 6
       }
     },
+    "GuiState": {
+      "name": "GuiState",
+      "items": {
+        "Hover": 1,
+        "Idle": 0,
+        "Press": 2
+      }
+    },
     "GuiType": {
       "name": "GuiType",
       "items": {
@@ -61012,6 +62630,10 @@
         "Asphalt": 1376,
         "Basalt": 788,
         "Brick": 848,
+        "Cardboard": 2304,
+        "Carpet": 2305,
+        "CeramicTiles": 2306,
+        "ClayRoofTiles": 2307,
         "Cobblestone": 880,
         "Concrete": 816,
         "CorrodedMetal": 1040,
@@ -61027,6 +62649,7 @@
         "Ground": 1360,
         "Ice": 1536,
         "LeafyGrass": 1284,
+        "Leather": 2309,
         "Limestone": 820,
         "Marble": 784,
         "Metal": 1088,
@@ -61034,8 +62657,11 @@
         "Neon": 288,
         "Pavement": 836,
         "Pebble": 864,
+        "Plaster": 2310,
         "Plastic": 256,
         "Rock": 896,
+        "RoofShingles": 2308,
+        "Rubber": 2311,
         "Salt": 1392,
         "Sand": 1296,
         "Sandstone": 912,
