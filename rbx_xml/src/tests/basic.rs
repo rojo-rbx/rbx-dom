@@ -2,8 +2,9 @@
 
 use rbx_dom_weak::types::{
     Attributes, BinaryString, BrickColor, Color3, Color3uint8, ColorSequence,
-    ColorSequenceKeypoint, MaterialColors, NumberRange, NumberSequence, NumberSequenceKeypoint,
-    Rect, Tags, TerrainMaterials, UDim, UDim2, UniqueId, Variant, Vector2, Vector3,
+    ColorSequenceKeypoint, Enum, Font, MaterialColors, NumberRange, NumberSequence,
+    NumberSequenceKeypoint, Rect, Tags, TerrainMaterials, UDim, UDim2, UniqueId, Variant, Vector2,
+    Vector3,
 };
 use rbx_dom_weak::{InstanceBuilder, WeakDom};
 
@@ -315,4 +316,32 @@ fn number_widening() {
         float_value.properties.get("Value"),
         Some(&Variant::Float64(1337.0))
     );
+}
+
+#[test]
+fn migrated_properties() {
+    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children([
+        InstanceBuilder::new("ScreenGui").with_property("ScreenInsets", Enum::from_u32(0)),
+        InstanceBuilder::new("ScreenGui").with_property("IgnoreGuiInset", true),
+        InstanceBuilder::new("Part").with_property("Color", Color3::new(1.0, 1.0, 1.0)),
+        InstanceBuilder::new("Part").with_property("BrickColor", BrickColor::Alder),
+        InstanceBuilder::new("Part").with_property("brickColor", BrickColor::Alder),
+        InstanceBuilder::new("TextLabel").with_property("FontFace", Font::default()),
+        InstanceBuilder::new("TextLabel").with_property("Font", Enum::from_u32(8)),
+    ]));
+
+    let mut encoded = Vec::new();
+    crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
+    insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
+}
+
+#[test]
+fn bad_migrated_property() {
+    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children([
+        InstanceBuilder::new("TextLabel").with_property("Font", Enum::from_u32(u32::MAX)),
+    ]));
+
+    let mut encoded = Vec::new();
+    crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
+    insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
