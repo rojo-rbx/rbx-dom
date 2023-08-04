@@ -225,7 +225,7 @@ fn serialize_instance<'a, W: Write>(
                 }
             }
 
-            write_value_xml(writer, state, &serialized_name, &converted_value)?;
+            write_value_xml(writer, state, serialized_name, &converted_value)?;
         } else {
             match state.options.property_behavior {
                 EncodePropertyBehavior::IgnoreUnknown => {}
