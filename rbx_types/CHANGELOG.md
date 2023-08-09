@@ -1,6 +1,8 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+
+## 1.6.0 (2023-08-09)
 * Added support for `UniqueId` values. ([#271])
 * Changed `BinaryString`'s non-human readable serde implementation to be identical to `Vec<u8>`. ([#276])
 * Added `Font::new` and `Font::regular` constructors. ([#283])
