@@ -2,6 +2,12 @@
 
 ## Unreleased Changes
 
+## 4.3.0
+* Add support for migrations that should occur from one property to another ([#283])
+* Update to rbx_types 1.6.
+
+[#283]: https://github.com/rojo-rbx/rbx-dom/pull/283
+
 ## 4.2.0 (2021-10-11)
 * Updated to rbx_types 1.3.
 
