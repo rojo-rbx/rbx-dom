@@ -1,6 +1,8 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+
+## 2.5.0 (2023-08-09)
 * Fix potential stack overflow when creating or inserting into a `WeakDom`. ([#279])
 * Added `InstanceBuilder::has_property` for checking if an `InstanceBuilder` defines a given property. ([#283])
 * Added `WeakDom::clone_within` and `WeakDom::clone_into_external` for cloning instances into the same or a different `WeakDom`, respectively. ([#312])
