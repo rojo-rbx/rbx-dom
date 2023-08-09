@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.13.1 (2023-08-09)
 * Added support for `UniqueId` values. ([#271])
 * Added migrations for properties like `ScreenGui.IgnoreGuiInset` and `TextLabel.Font` to their new counterparts (`ScreenGui.GuiInsets` and `TextLabel.FontFace`, respectively). ([#283])
 * Added support for `Terrain.MaterialColors`. ([#323])
