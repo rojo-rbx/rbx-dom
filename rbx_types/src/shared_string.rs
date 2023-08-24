@@ -103,7 +103,7 @@ impl Drop for SharedString {
         // If the reference we're about to drop is the very last reference to
         // the buffer, we'll be able to unwrap it and remove it from the
         // SharedString cache.
-        if Arc::try_unwrap(self.data.take().unwrap()).is_ok() {
+        if Arc::into_inner(self.data.take().unwrap()).is_some() {
             let mut cache = match STRING_CACHE.lock() {
                 Ok(v) => v,
                 Err(_) => {
