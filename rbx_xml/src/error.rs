@@ -94,10 +94,6 @@ pub(crate) enum DecodeErrorKind {
         actual_type: VariantType,
         message: String,
     },
-    InvalidPropertyData {
-        property_type: &'static str,
-        error: String,
-    },
 }
 
 impl fmt::Display for DecodeErrorKind {
