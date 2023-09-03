@@ -142,13 +142,13 @@ macro_rules! material_colors {
         }
 
         impl FromStr for TerrainMaterials {
-            type Err = MaterialColorsError;
+            type Err = CrateError;
 
             fn from_str(s: &str) -> Result<Self, Self::Err> {
                 match s {$(
                     stringify!($name) => Ok(Self::$name),
                 )*
-                    _ => Err(MaterialColorsError::UnknownMaterial(s.to_string())),
+                    _ => Err(MaterialColorsError::UnknownMaterial(s.to_string()).into()),
                 }
             }
         }
