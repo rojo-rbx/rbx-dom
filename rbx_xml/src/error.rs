@@ -142,13 +142,6 @@ impl fmt::Display for DecodeErrorKind {
                  When trying to convert, this error occured: {}",
                 class_name, property_name, expected_type, actual_type, message
             ),
-            InvalidPropertyData {
-                property_type,
-                error,
-            } => write!(
-                output,
-                "Could not decode property of type {property_type} because: {error}"
-            ),
         }
     }
 }
