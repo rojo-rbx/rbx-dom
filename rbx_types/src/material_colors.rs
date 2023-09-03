@@ -88,7 +88,7 @@ where
     }
 }
 
-/// An error that can occur when deserializing MaterialColors.
+/// An error that can occur when deserializing or working with MaterialColors and TerrainMaterials.
 #[derive(Debug, Error)]
 pub enum MaterialColorsError {
     /// The `MaterialColors` blob was the wrong number of bytes.
