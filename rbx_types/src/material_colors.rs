@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::{collections::BTreeMap, str::FromStr};
 
 use thiserror::Error;
 
@@ -96,6 +96,10 @@ pub enum MaterialColorsError {
         "MaterialColors blob was the wrong length (expected it to be 69 bytes, it was {0} bytes)"
     )]
     WrongLength(usize),
+    /// The argument provided to `from_str` did not correspond to a known
+    /// TerrainMaterial.
+    #[error("cannot convert `{0}` into TerrainMaterial")]
+    UnknownMaterial(String),
 }
 
 /// Constructs an enum named `TerrainMaterials` for all values contained in
@@ -133,6 +137,18 @@ macro_rules! material_colors {
                     $(
                         Self::$name => Color3uint8::new($r, $g, $b),
                     )*
+                }
+            }
+        }
+
+        impl FromStr for TerrainMaterials {
+            type Err = MaterialColorsError;
+
+            fn from_str(s: &str) -> Result<Self, Self::Err> {
+                match s {$(
+                    stringify!($name) => Ok(Self::$name),
+                )*
+                    _ => Err(MaterialColorsError::UnknownMaterial(s.to_string())),
                 }
             }
         }
@@ -264,5 +280,19 @@ mod test {
         let blob = base64::encode(colors.encode());
 
         assert_eq!(blob, "AAAAAAAAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/");
+    }
+
+    #[test]
+    fn from_str_materials() {
+        assert!(TerrainMaterials::from_str("Grass").is_ok());
+        assert!(TerrainMaterials::from_str("Concrete").is_ok());
+        assert!(TerrainMaterials::from_str("Rock").is_ok());
+        assert!(TerrainMaterials::from_str("Asphalt").is_ok());
+        assert!(TerrainMaterials::from_str("Salt").is_ok());
+        assert!(TerrainMaterials::from_str("Pavement").is_ok());
+
+        assert!(TerrainMaterials::from_str("A name I am certain Roblox will never add").is_err());
+        // `from_str` is case-sensitive
+        assert!(TerrainMaterials::from_str("gRaSs").is_err());
     }
 }
