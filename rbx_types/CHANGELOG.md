@@ -1,6 +1,9 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* `MaterialColorsError` and `UniqueIdError` are no longer publicly exposed. ([#355])
+
+[#355]: https://github.com/rojo-rbx/rbx-dom/pull/355
 
 ## 1.6.0 (2023-08-09)
 * Added support for `UniqueId` values. ([#271])
