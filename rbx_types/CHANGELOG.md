@@ -2,6 +2,10 @@
 
 ## Unreleased Changes
 
+* Implement `FromStr` for `TerrainMaterials`. ([#354])
+
+[#354]: https://github.com/rojo-rbx/rbx-dom/pull/354
+
 ## 1.6.0 (2023-08-09)
 * Added support for `UniqueId` values. ([#271])
 * Changed `BinaryString`'s non-human readable serde implementation to be identical to `Vec<u8>`. ([#276])
