@@ -1,0 +1,39 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: Hmmm
+  class: NumberValue
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    DefinesCapabilities:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Value:
+      Float64: 2.71828182846
+  children: []
+- referent: referent-1
+  name: WhereIs
+  class: NumberValue
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 2882400000
+    DefinesCapabilities:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Value:
+      Float64: 2.71828182846
+  children: []
+
