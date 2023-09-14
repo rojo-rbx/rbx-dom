@@ -11,6 +11,8 @@ use std::{
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
 
+use crate::Error as CrateError;
+
 /// The `UniqueId` epoch (2021-01-01 00:00:00 GMT) in terms of time since the Unix epoch
 const EPOCH_AS_UNIX: u64 = 1_609_459_200;
 
@@ -21,7 +23,7 @@ lazy_static! {
 
 /// Represents an error that can occur when constructing a new `UniqueId`.
 #[derive(Debug, Error)]
-pub enum UniqueIdError {
+pub(crate) enum UniqueIdError {
     #[error("SystemTime generated a timestamp that is before the UniqueId epoch")]
     SystemPastTime,
     #[error("UniqueId timestamp is more than 2^32 - 1 seconds past epoch")]
@@ -67,14 +69,15 @@ impl UniqueId {
     }
 
     /// Returns a new UniqueId.
-    pub fn now() -> Result<Self, UniqueIdError> {
+    pub fn now() -> Result<Self, CrateError> {
         let time = SystemTime::now()
             .duration_since(*EPOCH)
-            .map_err(|_| UniqueIdError::SystemPastTime)?;
+            .map_err(|_| CrateError::from(UniqueIdError::SystemPastTime))?;
 
         Ok(Self {
             index: INDEX.fetch_add(1, Ordering::AcqRel),
-            time: u32::try_from(time.as_secs()).map_err(|_| UniqueIdError::Overflow)?,
+            time: u32::try_from(time.as_secs())
+                .map_err(|_| CrateError::from(UniqueIdError::Overflow))?,
             // This matches Roblox's behavior, where the value is both an i64
             // but is also always positive.
             random: thread_rng().gen_range(0..i64::MAX),
@@ -117,17 +120,20 @@ impl fmt::Display for UniqueId {
 }
 
 impl FromStr for UniqueId {
-    type Err = UniqueIdError;
+    type Err = CrateError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         if s.len() == 32 {
             Ok(UniqueId {
-                random: i64::from_str_radix(&s[0..16], 16)?,
-                time: u32::from_str_radix(&s[16..24], 16)?,
-                index: u32::from_str_radix(&s[24..32], 16)?,
+                random: i64::from_str_radix(&s[0..16], 16)
+                    .map_err(|e| CrateError::from(UniqueIdError::from(e)))?,
+                time: u32::from_str_radix(&s[16..24], 16)
+                    .map_err(|e| CrateError::from(UniqueIdError::from(e)))?,
+                index: u32::from_str_radix(&s[24..32], 16)
+                    .map_err(|e| CrateError::from(UniqueIdError::from(e)))?,
             })
         } else {
-            Err(UniqueIdError::FromStrBadLen(s.len()))
+            Err(UniqueIdError::FromStrBadLen(s.len()).into())
         }
     }
 }

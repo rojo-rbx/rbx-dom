@@ -1,6 +1,9 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* `MaterialColorsError` and `UniqueIdError` are no longer publicly exposed. ([#355])
+
+[#355]: https://github.com/rojo-rbx/rbx-dom/pull/355
 
 * Implement `FromStr` for `TerrainMaterials`. ([#354])
 
