@@ -9,8 +9,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, FontStyle,
         FontWeight, MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SharedString, Tags, UDim, UDim2, UniqueId, Variant,
-        VariantType, Vector2, Vector3, Vector3int16,
+        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
+        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     InstanceBuilder, WeakDom,
 };
@@ -1357,6 +1357,17 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "UniqueId",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::SecurityCapabilities => match canonical_type {
+                VariantType::SecurityCapabilities => todo!(),
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "SecurityCapabilities",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }

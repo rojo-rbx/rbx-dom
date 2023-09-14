@@ -41,6 +41,7 @@ pub enum Type {
     OptionalCFrame = 0x1E,
     UniqueId = 0x1F,
     Font = 0x20,
+    SecurityCapabilities = 0x21,
 }
 
 impl Type {
@@ -81,6 +82,7 @@ impl Type {
             VariantType::OptionalCFrame => Type::OptionalCFrame,
             VariantType::UniqueId => Type::UniqueId,
             VariantType::Font => Type::Font,
+            VariantType::SecurityCapabilities => Type::SecurityCapabilities,
             _ => return None,
         })
     }
@@ -118,6 +120,7 @@ impl Type {
             Type::OptionalCFrame => VariantType::OptionalCFrame,
             Type::UniqueId => VariantType::UniqueId,
             Type::Font => VariantType::Font,
+            Type::SecurityCapabilities => VariantType::SecurityCapabilities,
         })
     }
 }
@@ -158,6 +161,7 @@ impl TryFrom<u8> for Type {
             0x1E => OptionalCFrame,
             0x1F => UniqueId,
             0x20 => Font,
+            0x21 => SecurityCapabilities,
             _ => return Err(InvalidTypeError(value)),
         })
     }

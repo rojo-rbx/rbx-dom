@@ -1,0 +1,76 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 1
+num_instances: 2
+chunks:
+  - Meta:
+      entries:
+        - - ExplicitAutoJoints
+          - "true"
+  - Inst:
+      type_id: 0
+      type_name: NumberValue
+      object_format: 0
+      referents:
+        - 0
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+        - 2882400000
+  - Prop:
+      type_id: 0
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Hmmm
+        - WhereIs
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Value
+      prop_type: Float64
+      values:
+        - 2.71828182846
+        - 2.71828182846
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+  - End
+

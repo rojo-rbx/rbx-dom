@@ -1186,6 +1186,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
 
                         chunk.write_interleaved_bytes::<16>(&blobs)?;
                     }
+                    Type::SecurityCapabilities => todo!(),
                 }
 
                 chunk.dump(&mut self.output)?;
