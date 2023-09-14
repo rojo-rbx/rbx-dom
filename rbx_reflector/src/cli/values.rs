@@ -6,8 +6,8 @@ use rbx_types::{
     Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
     ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, MaterialColors,
     Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect,
-    Region3int16, Tags, TerrainMaterials, UDim, UDim2, Variant, VariantType, Vector2, Vector2int16,
-    Vector3, Vector3int16,
+    Region3int16, SecurityCapabilities, Tags, TerrainMaterials, UDim, UDim2, Variant, VariantType,
+    Vector2, Vector2int16, Vector3, Vector3int16,
 };
 use serde::Serialize;
 
@@ -176,6 +176,10 @@ impl ValuesSubcommand {
         values.insert("Vector2int16", Vector2int16::new(-300, 300).into());
         values.insert("Vector3", Vector3::new(-300.0, 0.0, 1500.0).into());
         values.insert("Vector3int16", Vector3int16::new(60, 37, -450).into());
+        values.insert(
+            "SecurityCapabilities",
+            SecurityCapabilities::from_bits(256).into(),
+        );
 
         let entries: BTreeMap<&str, TestEntry> = values
             .into_iter()

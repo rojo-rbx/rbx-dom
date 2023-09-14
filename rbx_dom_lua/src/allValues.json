@@ -437,6 +437,12 @@
     },
     "ty": "Region3int16"
   },
+  "SecurityCapabilities": {
+    "value": {
+      "SecurityCapabilities": 256
+    },
+    "ty": "SecurityCapabilities"
+  },
   "String": {
     "value": {
       "String": "Hello, world!"

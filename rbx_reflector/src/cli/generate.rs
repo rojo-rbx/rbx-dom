@@ -234,6 +234,7 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         "Rect" => VariantType::Rect,
         "Region3" => VariantType::Region3,
         "Region3int16" => VariantType::Region3int16,
+        "SecurityCapabilities" => VariantType::SecurityCapabilities,
         "SharedString" => VariantType::SharedString,
         "UDim" => VariantType::UDim,
         "UDim2" => VariantType::UDim2,
