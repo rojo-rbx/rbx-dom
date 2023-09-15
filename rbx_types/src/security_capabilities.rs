@@ -1,5 +1,3 @@
-use std::fmt;
-
 #[derive(Clone, Copy, Default, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 #[cfg_attr(
     feature = "serde",
@@ -14,10 +12,8 @@ impl SecurityCapabilities {
     pub fn from_bits(value: u64) -> Self {
         SecurityCapabilities { value }
     }
-}
 
-impl fmt::Display for SecurityCapabilities {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        self.value.fmt(f)
+    pub fn bits(self) -> u64 {
+        self.value
     }
 }
