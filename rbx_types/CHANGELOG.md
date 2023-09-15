@@ -2,9 +2,11 @@
 
 ## Unreleased Changes
 
-* Implement `FromStr` for `TerrainMaterials`. ([#354])
+* Implemented `FromStr` for `TerrainMaterials`. ([#354])
+* Implemented barebones `SecurityCapabilities`. ([#358])
 
 [#354]: https://github.com/rojo-rbx/rbx-dom/pull/354
+[#358]: https://github.com/rojo-rbx/rbx-dom/pull/358
 
 ## 1.6.0 (2023-08-09)
 * Added support for `UniqueId` values. ([#271])
