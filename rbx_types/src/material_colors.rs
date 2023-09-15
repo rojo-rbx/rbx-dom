@@ -90,7 +90,7 @@ where
 
 /// An error that can occur when deserializing or working with MaterialColors and TerrainMaterials.
 #[derive(Debug, Error)]
-pub enum MaterialColorsError {
+pub(crate) enum MaterialColorsError {
     /// The `MaterialColors` blob was the wrong number of bytes.
     #[error(
         "MaterialColors blob was the wrong length (expected it to be 69 bytes, it was {0} bytes)"

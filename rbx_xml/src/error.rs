@@ -74,6 +74,7 @@ pub(crate) enum DecodeErrorKind {
     ParseInt(std::num::ParseIntError),
     DecodeBase64(base64::DecodeError),
     MigrationError(rbx_reflection::MigrationError),
+    TypeError(rbx_dom_weak::types::Error),
 
     // Errors specific to rbx_xml
     WrongDocVersion(String),
@@ -93,10 +94,6 @@ pub(crate) enum DecodeErrorKind {
         actual_type: VariantType,
         message: String,
     },
-    InvalidPropertyData {
-        property_type: &'static str,
-        error: String,
-    },
 }
 
 impl fmt::Display for DecodeErrorKind {
@@ -109,6 +106,7 @@ impl fmt::Display for DecodeErrorKind {
             ParseInt(err) => write!(output, "{}", err),
             DecodeBase64(err) => write!(output, "{}", err),
             MigrationError(err) => write!(output, "{}", err),
+            TypeError(err) => write!(output, "{}", err),
 
             WrongDocVersion(version) => {
                 write!(output, "Invalid version '{}', expected version 4", version)
@@ -143,13 +141,6 @@ impl fmt::Display for DecodeErrorKind {
                 "Property {}.{} is expected to be of type {:?}, but it was of type {:?} \
                  When trying to convert, this error occured: {}",
                 class_name, property_name, expected_type, actual_type, message
-            ),
-            InvalidPropertyData {
-                property_type,
-                error,
-            } => write!(
-                output,
-                "Could not decode property of type {property_type} because: {error}"
             ),
         }
     }

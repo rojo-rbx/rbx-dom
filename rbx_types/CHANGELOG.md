@@ -1,11 +1,12 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
-
 * Implemented `FromStr` for `TerrainMaterials`. ([#354])
+* `MaterialColorsError` and `UniqueIdError` are no longer publicly exposed. ([#355])
 * Implemented barebones `SecurityCapabilities`. ([#358])
 
 [#354]: https://github.com/rojo-rbx/rbx-dom/pull/354
+[#355]: https://github.com/rojo-rbx/rbx-dom/pull/355
 [#358]: https://github.com/rojo-rbx/rbx-dom/pull/358
 
 ## 1.6.0 (2023-08-09)

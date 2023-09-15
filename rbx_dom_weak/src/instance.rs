@@ -156,7 +156,7 @@ impl InstanceBuilder {
     where
         I: IntoIterator<Item = InstanceBuilder>,
     {
-        self.children.extend(children.into_iter());
+        self.children.extend(children);
         self
     }
 
@@ -167,7 +167,7 @@ impl InstanceBuilder {
     where
         I: IntoIterator<Item = InstanceBuilder>,
     {
-        self.children.extend(children.into_iter());
+        self.children.extend(children);
     }
 }
 
