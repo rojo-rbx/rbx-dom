@@ -11,7 +11,7 @@ pub struct SecurityCapabilities {
 }
 
 impl SecurityCapabilities {
-    pub fn new(value: u64) -> Self {
+    pub fn from_bits(value: u64) -> Self {
         SecurityCapabilities { value }
     }
 }
