@@ -3772,18 +3772,6 @@ chunks:
         - false
   - Prop:
       type_id: 44
-      prop_name: Is30FpsThrottleEnabled
-      prop_type: Bool
-      values:
-        - true
-  - Prop:
-      type_id: 44
-      prop_name: IsPhysicsEnvironmentalThrottled
-      prop_type: Bool
-      values:
-        - true
-  - Prop:
-      type_id: 44
       prop_name: IsSleepAllowed
       prop_type: Bool
       values:
