@@ -1686,10 +1686,6 @@ expression: decoded_viewed
       String: ""
     ExecuteWithStudioRun:
       Bool: false
-    Is30FpsThrottleEnabled:
-      Bool: true
-    IsPhysicsEnvironmentalThrottled:
-      Bool: true
     IsSleepAllowed:
       Bool: true
     NumberOfPlayers:
