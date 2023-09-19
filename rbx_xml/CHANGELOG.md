@@ -1,6 +1,9 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Added support for `SecurityCapabilities` values. ([#359])
+
+[#359]: https://github.com/rojo-rbx/rbx-dom/pull/359
 
 ## 0.13.1 (2023-08-09)
 * Added support for `UniqueId` values. ([#271])
