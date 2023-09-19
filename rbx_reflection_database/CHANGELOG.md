@@ -1,7 +1,9 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
-* Added properties of type `SecurityCapabilities`.
+* Added properties of type `SecurityCapabilities`. ([#359])
+
+[#359]: https://github.com/rojo-rbx/rbx-dom/pull/359
 
 ## 0.2.7+roblox-588
 * Updated to Roblox version 588.
