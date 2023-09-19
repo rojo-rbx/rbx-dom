@@ -1,6 +1,7 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+* Added properties of type `SecurityCapabilities`.
 
 ## 0.2.7+roblox-588
 * Updated to Roblox version 588.
