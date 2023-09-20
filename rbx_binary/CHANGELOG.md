@@ -1,9 +1,9 @@
 # rbx_binary Changelog
 
 ## Unreleased
-* Added support for `SecurityCapabilities` values. ([#359])
+* Added support for `SecurityCapabilities` values. ([#361])
 
-[#359]: https://github.com/rojo-rbx/rbx-dom/pull/359
+[#361]: https://github.com/rojo-rbx/rbx-dom/pull/361
 
 ## 0.7.1 (2023-08-09)
 * Added support for `UniqueId` values. ([#271])
