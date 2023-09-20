@@ -94,7 +94,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Ref                     | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ✔ |
 | Region3                 | N/A                             | ✔ | ✔ | ❌ | ❌ |
 | Region3int16            | `Terrain.MaxExtents`            | ✔ | ✔ | ❌ | ❌ |
-| SecurityCapabilities    | `Folder.SecurityCapabilities`   | ✔ | ❌ | ❌ | ❌ |
+| SecurityCapabilities    | `Folder.SecurityCapabilities`   | ✔ | ❌ | ✔ | ✔ |
 | SharedString            | N/A                             | ✔ | ✔ | ✔ | ✔ |
 | String                  | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
 | UDim                    | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ✔ |
