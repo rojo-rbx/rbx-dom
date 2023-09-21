@@ -278,6 +278,25 @@ impl WeakDom {
         root_ref
     }
 
+    /// Ok
+    pub fn clone_multiple_into_external(&self, referents: &[Ref], dest: &mut WeakDom) -> Vec<Ref> {
+        let mut ctx = CloneContext::default();
+        let mut root_refs = Vec::with_capacity(referents.len());
+
+        for referent in referents {
+            let builder = ctx.clone_ref_as_builder(self, *referent);
+            root_refs.push(dest.insert(Ref::none(), builder));
+        }
+
+        while let Some((cloned_parent, uncloned_child)) = ctx.queue.pop_front() {
+            let builder = ctx.clone_ref_as_builder(self, uncloned_child);
+            dest.insert(cloned_parent, builder);
+        }
+
+        ctx.rewrite_refs(dest);
+        root_refs
+    }
+
     fn inner_insert(&mut self, referent: Ref, instance: Instance) {
         self.instances.insert(referent, instance);
 
