@@ -9,8 +9,8 @@ use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
     CustomPhysicalProperties, Enum, Faces, Font, FontStyle, FontWeight, Matrix3, NumberRange,
-    NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim,
-    UDim2, UniqueId, Vector2, Vector3, Vector3int16,
+    NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SecurityCapabilities,
+    SharedString, UDim, UDim2, UniqueId, Vector2, Vector3, Vector3int16,
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
@@ -224,6 +224,7 @@ pub enum DecodedValues {
     OptionalCFrame(Vec<Option<CFrame>>),
     UniqueId(Vec<UniqueId>),
     Font(Vec<Font>),
+    SecurityCapabilities(Vec<SecurityCapabilities>),
 }
 
 impl DecodedValues {
@@ -711,6 +712,18 @@ impl DecodedValues {
                 }
 
                 Some(DecodedValues::UniqueId(values))
+            }
+            Type::SecurityCapabilities => {
+                let mut values = vec![0; prop_count];
+
+                reader.read_interleaved_i64_array(&mut values).unwrap();
+
+                let values = values
+                    .into_iter()
+                    .map(|value| SecurityCapabilities::from_bits(value as u64))
+                    .collect();
+
+                Some(DecodedValues::SecurityCapabilities(values))
             }
         }
     }

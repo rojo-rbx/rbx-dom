@@ -64,4 +64,5 @@ binary_tests! {
     gui_inset_and_font_migration,
     folder_with_cframe_attributes,
     folder_with_font_attribute,
+    number_values_with_security_capabilities,
 }

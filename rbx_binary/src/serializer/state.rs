@@ -1186,6 +1186,19 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
 
                         chunk.write_interleaved_bytes::<16>(&blobs)?;
                     }
+                    Type::SecurityCapabilities => {
+                        let mut capabilities = Vec::with_capacity(values.len());
+
+                        for (i, rbx_value) in values {
+                            if let Variant::SecurityCapabilities(value) = rbx_value.as_ref() {
+                                capabilities.push(value.bits() as i64)
+                            } else {
+                                return type_mismatch(i, &rbx_value, "SecurityCapabilities");
+                            }
+                        }
+
+                        chunk.write_interleaved_i64_array(capabilities.into_iter())?;
+                    }
                 }
 
                 chunk.dump(&mut self.output)?;
