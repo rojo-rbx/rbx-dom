@@ -1115,8 +1115,14 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::SharedString(value) = rbx_value.as_ref() {
-                                let id = &self.shared_string_ids[value];
-                                entries.push(*id);
+                                if let Some(id) = self.shared_string_ids.get(value) {
+                                    entries.push(*id);
+                                } else {
+                                    panic!(
+                                        "SharedString {} was not found during type collection",
+                                        value.hash()
+                                    )
+                                }
                             } else {
                                 return type_mismatch(i, &rbx_value, "SharedString");
                             }
