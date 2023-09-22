@@ -264,6 +264,10 @@ impl WeakDom {
     /// Any Ref properties that point to instances contained in the subtree are
     /// rewritten to point to the cloned instances. Any other Ref properties
     /// would be invalid  in `dest` and are thus rewritten to be `Ref::none()`
+    ///
+    /// This means that if you call this method on multiple different instances, Ref
+    /// properties will not necessarily be preserved in the destination dom. If you're
+    /// cloning multiple instances, prefer `clone_multiple_into_external` instead!
     pub fn clone_into_external(&self, referent: Ref, dest: &mut WeakDom) -> Ref {
         let mut ctx = CloneContext::default();
         let root_builder = ctx.clone_ref_as_builder(self, referent);
@@ -278,7 +282,8 @@ impl WeakDom {
         root_ref
     }
 
-    /// Ok
+    /// Similar to clone_into_external, but clones multiple subtrees all at once. This
+    /// method will preserve Ref properties that point across the cloned subtrees.
     pub fn clone_multiple_into_external(&self, referents: &[Ref], dest: &mut WeakDom) -> Vec<Ref> {
         let mut ctx = CloneContext::default();
         let mut root_refs = Vec::with_capacity(referents.len());
