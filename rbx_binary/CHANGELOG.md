@@ -2,8 +2,10 @@
 
 ## Unreleased
 * Added support for `SecurityCapabilities` values. ([#361])
+* Fixed potential crash when serializing `SharedString` values ([#363])
 
 [#361]: https://github.com/rojo-rbx/rbx-dom/pull/361
+[#363]: https://github.com/rojo-rbx/rbx-dom/pull/363
 
 ## 0.7.1 (2023-08-09)
 * Added support for `UniqueId` values. ([#271])
