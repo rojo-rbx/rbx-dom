@@ -424,6 +424,15 @@ types = {
 		end,
 	},
 
+	SecurityCapabilities = {
+		fromPod = function(pod)
+			error("SecurityCapabilities is not implemented")
+		end,
+		toPod = function(roblox)
+			error("SecurityCapabilities is not implemented")
+		end
+	},
+
 	SharedString = {
 		fromPod = function(pod)
 			error("SharedString is not supported")
