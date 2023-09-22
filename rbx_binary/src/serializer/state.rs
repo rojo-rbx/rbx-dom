@@ -262,7 +262,10 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             self.shared_string_ids.insert(shared_string, id as u32);
         }
 
-        log::debug!("Type info discovered: {:#?}", self.type_infos);
+        log::debug!(
+            "Discovered {} unique TypeInfos",
+            self.type_infos.values.len()
+        );
 
         Ok(())
     }
