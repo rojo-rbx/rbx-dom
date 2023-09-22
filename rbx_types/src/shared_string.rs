@@ -1,6 +1,7 @@
 use std::{
     cmp::Ordering,
     collections::{hash_map::Entry, HashMap},
+    fmt,
     hash::{Hash, Hasher},
     sync::{Arc, Mutex, Weak},
 };
@@ -137,6 +138,12 @@ impl Ord for SharedStringHash {
 impl PartialOrd for SharedStringHash {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         Some(self.cmp(other))
+    }
+}
+
+impl fmt::Display for SharedStringHash {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(self.0.to_hex().as_str())
     }
 }
 
