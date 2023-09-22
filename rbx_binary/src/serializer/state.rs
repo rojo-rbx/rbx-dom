@@ -406,6 +406,16 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                         }
                     })?;
 
+                // There's no assurance that the default SharedString value
+                // will actually get serialized inside of the SSTR chunk, so we
+                // check here just to make sure.
+                if let Cow::Owned(Variant::SharedString(sstr)) = &default_value {
+                    if !self.shared_string_ids.contains_key(sstr) {
+                        self.shared_string_ids.insert(sstr.clone(), 0);
+                        self.shared_strings.push(sstr.clone());
+                    }
+                }
+
                 let ser_type = Type::from_rbx_type(serialized_ty).ok_or_else(|| {
                     // This is a known value type, but rbx_binary doesn't have a
                     // binary type value for it. rbx_binary might be out of
