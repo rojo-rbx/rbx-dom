@@ -1,5 +1,5 @@
 use rbx_dom_weak::{
-    types::{BrickColor, Color3, Color3uint8, Enum, Font, Ref, Region3, Vector3},
+    types::{BrickColor, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Vector3},
     InstanceBuilder, WeakDom,
 };
 
@@ -169,6 +169,26 @@ fn part_color() {
 
     let mut buf = Vec::new();
     let _ = to_writer(&mut buf, &tree, tree.root().children());
+
+    let decoded = DecodedModel::from_reader(buf.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
+#[test]
+fn default_shared_string() {
+    let mut tree = WeakDom::new(InstanceBuilder::new("Folder"));
+    let ref_1 = tree.insert(
+        tree.root_ref(),
+        InstanceBuilder::new("Model").with_property(
+            // This is the first SharedString property I saw in the database
+            "ModelMeshData",
+            SharedString::new(b"arbitrary string".to_vec()),
+        ),
+    );
+    let ref_2 = tree.insert(tree.root_ref(), InstanceBuilder::new("Model"));
+
+    let mut buf = Vec::new();
+    let _ = to_writer(&mut buf, &tree, &[ref_1, ref_2]);
 
     let decoded = DecodedModel::from_reader(buf.as_slice());
     insta::assert_yaml_snapshot!(decoded);

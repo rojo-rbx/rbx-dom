@@ -262,7 +262,10 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             self.shared_string_ids.insert(shared_string, id as u32);
         }
 
-        log::debug!("Type info discovered: {:#?}", self.type_infos);
+        log::debug!(
+            "Discovered {} unique TypeInfos",
+            self.type_infos.values.len()
+        );
 
         Ok(())
     }
@@ -402,6 +405,16 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
                             prop_type: format!("{:?}", serialized_ty),
                         }
                     })?;
+
+                // There's no assurance that the default SharedString value
+                // will actually get serialized inside of the SSTR chunk, so we
+                // check here just to make sure.
+                if let Cow::Owned(Variant::SharedString(sstr)) = &default_value {
+                    if !self.shared_string_ids.contains_key(sstr) {
+                        self.shared_string_ids.insert(sstr.clone(), 0);
+                        self.shared_strings.push(sstr.clone());
+                    }
+                }
 
                 let ser_type = Type::from_rbx_type(serialized_ty).ok_or_else(|| {
                     // This is a known value type, but rbx_binary doesn't have a
@@ -1102,8 +1115,14 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::SharedString(value) = rbx_value.as_ref() {
-                                let id = &self.shared_string_ids[value];
-                                entries.push(*id);
+                                if let Some(id) = self.shared_string_ids.get(value) {
+                                    entries.push(*id);
+                                } else {
+                                    panic!(
+                                        "SharedString {} was not found during type collection",
+                                        value.hash()
+                                    )
+                                }
                             } else {
                                 return type_mismatch(i, &rbx_value, "SharedString");
                             }

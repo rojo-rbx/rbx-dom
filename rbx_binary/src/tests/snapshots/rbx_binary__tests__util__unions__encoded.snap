@@ -8,6 +8,8 @@ chunks:
   - Sstr:
       version: 0
       entries:
+        - len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
         - len: 1367
           hash: cc62d7045ec238081b7ebbd97ce5ce7dc15166e688168c307247089135718bdb
         - len: 1803
@@ -348,9 +350,9 @@ chunks:
       prop_name: PhysicalConfigData
       prop_type: SharedString
       values:
+        - 2
+        - 2
         - 1
-        - 1
-        - 0
   - Prop:
       type_id: 0
       prop_name: PhysicsData
