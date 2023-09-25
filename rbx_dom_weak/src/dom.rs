@@ -572,7 +572,7 @@ mod test {
         };
 
         let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
-        let cloned = dom.clone_multiple_into_external(&dom.root().children(), &mut other_dom);
+        let cloned = dom.clone_multiple_into_external(dom.root().children(), &mut other_dom);
 
         assert!(
             other_dom.get_by_ref(cloned[0]).unwrap().parent.is_none(),
