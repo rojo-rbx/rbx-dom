@@ -282,7 +282,7 @@ impl WeakDom {
         root_ref
     }
 
-    /// Similar to clone_into_external, but clones multiple subtrees all at once. This
+    /// Similar to `clone_into_external`, but clones multiple subtrees all at once. This
     /// method will preserve Ref properties that point across the cloned subtrees.
     pub fn clone_multiple_into_external(&self, referents: &[Ref], dest: &mut WeakDom) -> Vec<Ref> {
         let mut ctx = CloneContext::default();
