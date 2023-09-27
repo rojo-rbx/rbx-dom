@@ -264,6 +264,10 @@ impl WeakDom {
     /// Any Ref properties that point to instances contained in the subtree are
     /// rewritten to point to the cloned instances. Any other Ref properties
     /// would be invalid  in `dest` and are thus rewritten to be `Ref::none()`
+    ///
+    /// This means that if you call this method on multiple different instances, Ref
+    /// properties will not necessarily be preserved in the destination dom. If you're
+    /// cloning multiple instances, prefer `clone_multiple_into_external` instead!
     pub fn clone_into_external(&self, referent: Ref, dest: &mut WeakDom) -> Ref {
         let mut ctx = CloneContext::default();
         let root_builder = ctx.clone_ref_as_builder(self, referent);
@@ -276,6 +280,26 @@ impl WeakDom {
 
         ctx.rewrite_refs(dest);
         root_ref
+    }
+
+    /// Similar to `clone_into_external`, but clones multiple subtrees all at once. This
+    /// method will preserve Ref properties that point across the cloned subtrees.
+    pub fn clone_multiple_into_external(&self, referents: &[Ref], dest: &mut WeakDom) -> Vec<Ref> {
+        let mut ctx = CloneContext::default();
+        let mut root_refs = Vec::with_capacity(referents.len());
+
+        for referent in referents {
+            let builder = ctx.clone_ref_as_builder(self, *referent);
+            root_refs.push(dest.insert(Ref::none(), builder));
+        }
+
+        while let Some((cloned_parent, uncloned_child)) = ctx.queue.pop_front() {
+            let builder = ctx.clone_ref_as_builder(self, uncloned_child);
+            dest.insert(cloned_parent, builder);
+        }
+
+        ctx.rewrite_refs(dest);
+        root_refs
     }
 
     fn inner_insert(&mut self, referent: Ref, instance: Instance) {
@@ -528,6 +552,45 @@ mod test {
         // This snapshot should have a clone of the root Folder under the other
         // dom's DataModel, with Child1's and Child2's ref properties rewritten to point
         // to the newly cloned instances, and Child3's ref property rewritten to none.
+        insta::assert_yaml_snapshot!(viewer.view(&other_dom));
+    }
+
+    #[test]
+    fn clone_multiple_into_external() {
+        let dom = {
+            let mut child1 = InstanceBuilder::new("Part").with_name("Child1");
+            let mut child2 = InstanceBuilder::new("Part").with_name("Child2");
+
+            child1 = child1.with_property("RefProp", child2.referent);
+            child2 = child2.with_property("RefProp", child1.referent);
+
+            WeakDom::new(
+                InstanceBuilder::new("Folder")
+                    .with_name("Root")
+                    .with_children([child1, child2]),
+            )
+        };
+
+        let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let cloned = dom.clone_multiple_into_external(dom.root().children(), &mut other_dom);
+
+        assert!(
+            other_dom.get_by_ref(cloned[0]).unwrap().parent.is_none(),
+            "parent of cloned subtree root should be none directly after a clone"
+        );
+
+        assert!(
+            other_dom.get_by_ref(cloned[1]).unwrap().parent.is_none(),
+            "parent of cloned subtree root should be none directly after a clone"
+        );
+
+        other_dom.transfer_within(cloned[0], other_dom.root_ref);
+        other_dom.transfer_within(cloned[1], other_dom.root_ref);
+
+        let mut viewer = DomViewer::new();
+
+        // This snapshot should contain Child1 and Child2, with Child1's and Child2's ref
+        // properties rewritten to point to the newly cloned instances
         insta::assert_yaml_snapshot!(viewer.view(&other_dom));
     }
 

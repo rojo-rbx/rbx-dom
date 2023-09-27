@@ -1,6 +1,9 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+* Added `WeakDom::clone_multiple_into_external` that allows cloning multiple subtrees all at once into a given `WeakDom`, useful for preserving `Ref` properties that point across cloned subtrees ([#364])
+
+[#364]: https://github.com/rojo-rbx/rbx-dom/pull/364
 
 ## 2.5.0 (2023-08-09)
 * Fix potential stack overflow when creating or inserting into a `WeakDom`. ([#279])
