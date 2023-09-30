@@ -3,7 +3,7 @@ on:
   push:
     branches: 'main'
   pull_request:
-    paths: '**.lua **.luau'
+    paths: ["*.lua", "*.luau"]
 jobs: 
   Lint:
     runs-on: ubuntu-latest
