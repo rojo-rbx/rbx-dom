@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ok-nick/setup-aftman@v0.3.0
+      - uses: ok-nick/setup-aftman@v0.4.2
       
       - name: Run Selene
         run: selene rbx_dom_lua/src
