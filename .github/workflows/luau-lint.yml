@@ -1,0 +1,19 @@
+name: Luau Linting
+on:
+  push:
+    branches: "master"
+  pull_request:
+    branches: "master"
+    paths: ["*.lua", "*.luau"]
+jobs: 
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ok-nick/setup-aftman@v0.4.2
+      
+      - name: Run Selene
+        run: selene rbx_dom_lua/src
+      
+      - name: Run StyLua
+        run: stylua rbx_dom_lua/src --check
