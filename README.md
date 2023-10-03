@@ -131,10 +131,10 @@ Cutting new releases is not currently as optimized as it should be. While we wor
 
 The process for publishing these is:
 
-1. Decide a new version number (usually increment the minor version)
+1. Decide a new version number, following [SemVer](semver.org/)
 2. Update changelog to list new release under its own heading
 3. Increment version in `Cargo.toml`
-4. Add a git tag in the format `library_name-vX.Y.Z`
+4. Add a git tag in the format `library_name-vMAJOR.MINOR.PATCH`
 5. Publish to Cargo
 
 ## License
