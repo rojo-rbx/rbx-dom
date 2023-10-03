@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.7.2 (2023-10-03)
 * Added support for `SecurityCapabilities` values. ([#361])
 * Fixed potential crash when serializing `SharedString` values ([#363])
 
