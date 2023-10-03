@@ -1,6 +1,8 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+
+## 1.7.0 (2023-10-03)
 * Implemented `FromStr` for `TerrainMaterials`. ([#354])
 * `MaterialColorsError` and `UniqueIdError` are no longer publicly exposed. ([#355])
 * Implemented barebones `SecurityCapabilities`. ([#358])
