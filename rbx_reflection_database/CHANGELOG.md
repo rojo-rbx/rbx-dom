@@ -1,6 +1,8 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+
+## 0.2.8+roblox-596 (2023-10-03)
 * Updated to Roblox version 596.
 * Added properties of type `SecurityCapabilities`. ([#359])
 
