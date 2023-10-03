@@ -1,6 +1,8 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.13.2 (2023-10-03)
 * Added support for `SecurityCapabilities` values. ([#359])
 
 [#359]: https://github.com/rojo-rbx/rbx-dom/pull/359
