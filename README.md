@@ -133,9 +133,10 @@ The process for publishing these is:
 
 1. Decide a new version number, following [SemVer](semver.org/)
 2. Update changelog to list new release under its own heading
-3. Increment version in `Cargo.toml`
-4. Add a git tag in the format `library_name-vMAJOR.MINOR.PATCH` at the commit that incremented the Cargo version
-5. Publish to Cargo
+3. Adjust versions of local dependencies to be the new release (this is why releases must happen in a specific order)
+4. Increment version in `Cargo.toml`
+5. Add a git tag in the format `library_name-vMAJOR.MINOR.PATCH` at the commit that incremented the Cargo version
+6. Publish to Cargo
 
 ## License
 rbx-dom is available under the MIT license. See [LICENSE.txt](LICENSE.txt) for details.
