@@ -1,6 +1,7 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+* Updated to Roblox version 596.
 * Added properties of type `SecurityCapabilities`. ([#359])
 
 [#359]: https://github.com/rojo-rbx/rbx-dom/pull/359
