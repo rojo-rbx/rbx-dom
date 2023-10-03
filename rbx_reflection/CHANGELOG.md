@@ -2,7 +2,10 @@
 
 ## Unreleased Changes
 
-## 4.3.0
+## 4.4.0
+* Update to rbx_types 1.7.
+
+## 4.3.0 (2023-08-09)
 * Add support for migrations that should occur from one property to another ([#283])
 * Update to rbx_types 1.6.
 
