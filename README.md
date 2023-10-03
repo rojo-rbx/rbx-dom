@@ -120,5 +120,22 @@ This project has unveiled a handful of interesting bugs and quirks in Roblox!
 - `Color3` properties not serialized as `Color3uint8` would have their colors mistakenly clamped in the XML place format. This was bad for properties on `Lighting`.
 - `ColorSequence`'s XML serialization contains an extra value per keypoint that was intended to be used as an envelope value, but was never implemented.
 
+## For Maintainers
+
+Cutting new releases is not currently as optimized as it should be. While we work on improving it, packages need to be published in a specific order to make sense. The order that currently works well is:
+
+1. `rbx_types`
+2. `rbx_dom_weak` and `rbx_reflection`
+3. `rbx_reflection_database`
+4. `rbx_binary` and `rbx_xml`
+
+The process for publishing these is:
+
+1. Decide a new version number (usually increment the minor version)
+2. Update changelog to list new release under its own heading
+3. Increment version in `Cargo.toml`
+4. Add a git tag in the format `library_name-vX.Y.Z`
+5. Publish to Cargo
+
 ## License
 rbx-dom is available under the MIT license. See [LICENSE.txt](LICENSE.txt) for details.
