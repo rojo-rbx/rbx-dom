@@ -2,7 +2,8 @@
 
 ## Unreleased Changes
 
-## 0.2.8+roblox-596 (2023-10-03)
+## 0.2.9+roblox-596 (2023-10-03)
+## 0.2.8+roblox-296 (incorrect metadata)
 * Updated to Roblox version 596.
 * Added properties of type `SecurityCapabilities`. ([#359])
 
