@@ -117,7 +117,6 @@ return {
 			end,
 		},
 	},
-
 	Script = {
 		Source = {
 			read = function(instance: Script)
@@ -133,7 +132,6 @@ return {
 			end,
 		},
 	},
-
 	ModuleScript = {
 		Source = {
 			read = function(instance: ModuleScript)
