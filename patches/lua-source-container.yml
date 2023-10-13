@@ -5,3 +5,11 @@ Change:
     ScriptGuid:
       Serialization:
         Type: DoesNotSerialize
+
+  Script:
+    Source:
+      Scriptability: Custom
+
+  ModuleScript:
+    Source:
+      Scriptability: Custom

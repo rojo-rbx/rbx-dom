@@ -1,5 +1,4 @@
 use std::{
-    borrow::Borrow,
     collections::BTreeMap,
     io::{self, Write},
 };
@@ -24,7 +23,7 @@ pub(crate) fn write_attributes<W: Write>(
     writer.write_all(&(map.len() as u32).to_le_bytes())?;
 
     for (name, variant) in map {
-        let variant = variant.borrow();
+        let variant = variant;
 
         write_string(&mut writer, name)?;
 
