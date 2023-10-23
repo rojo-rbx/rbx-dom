@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.7.3 (2023-10-23)
 * Fixed missing fallback default for `SecurityCapabilities` ([#371]).
 
 ## 0.7.2 (2023-10-03)
