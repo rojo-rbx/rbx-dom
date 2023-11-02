@@ -19,5 +19,6 @@ Cargo.lock
 /*.rbxmx
 /rbx_dom_lua/*.rbxlx
 
-# Selene-generated Roblox standard library
-/roblox.toml
+# Editor-specific folders and files
+/.vscode
+sourcemap.json
