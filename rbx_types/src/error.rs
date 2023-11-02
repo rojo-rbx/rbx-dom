@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-use crate::AttributeError;
+use crate::{AttributeError, MaterialColorsError, Matrix3Error, UniqueIdError};
 
 /// Represents an error that occurred when using a fallible method.
 #[derive(Debug, Error)]
@@ -17,8 +17,41 @@ impl From<AttributeError> for Error {
     }
 }
 
+impl From<Matrix3Error> for Error {
+    fn from(source: Matrix3Error) -> Self {
+        Self {
+            source: Box::new(source.into()),
+        }
+    }
+}
+
+impl From<MaterialColorsError> for Error {
+    fn from(source: MaterialColorsError) -> Self {
+        Self {
+            source: Box::new(source.into()),
+        }
+    }
+}
+
+impl From<UniqueIdError> for Error {
+    fn from(source: UniqueIdError) -> Self {
+        Self {
+            source: Box::new(source.into()),
+        }
+    }
+}
+
 #[derive(Debug, Error)]
 enum InnerError {
     #[error(transparent)]
-    AttributeError(#[from] AttributeError),
+    Attribute(#[from] AttributeError),
+
+    #[error(transparent)]
+    Matrix3(#[from] Matrix3Error),
+
+    #[error(transparent)]
+    MaterialColors(#[from] MaterialColorsError),
+
+    #[error(transparent)]
+    UniqueId(#[from] UniqueIdError),
 }

@@ -1,0 +1,7 @@
+Change:
+  ScreenGui:
+    IgnoreGuiInset:
+      Serialization:
+        Type: Migrate
+        To: ScreenInsets
+        Migration: IgnoreGuiInsetToScreenInsets

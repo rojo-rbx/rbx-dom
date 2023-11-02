@@ -1,6 +1,23 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+* Updated to Roblox version 597
+
+## 0.2.9+roblox-596 (2023-10-03)
+## 0.2.8+roblox-296 (incorrect metadata)
+* Updated to Roblox version 596.
+* Added properties of type `SecurityCapabilities`. ([#359])
+
+[#359]: https://github.com/rojo-rbx/rbx-dom/pull/359
+
+## 0.2.7+roblox-588
+* Updated to Roblox version 588.
+* `Instance.UniqueId`, `Instance.HistoryId`, and `LuaSourceContainer` are now marked as `DoesNotSerialize` ([#327])
+
+[#327]: https://github.com/rojo-rbx/rbx-dom/pull/327
+
+## 0.2.6+roblox-572
+* Updated to Roblox version 572.
 
 ## 0.2.5+roblox-530
 * Updated to Roblox version 530.

@@ -109,6 +109,11 @@ impl InstanceBuilder {
         self.properties.insert(key.into(), value.into());
     }
 
+    /// Check if the `InstanceBuilder` already has a property with the given key.
+    pub fn has_property<K: Into<String>>(&self, key: K) -> bool {
+        self.properties.contains_key(&key.into())
+    }
+
     /// Add multiple properties to the `InstanceBuilder` at once.
     pub fn with_properties<K, V, I>(mut self, props: I) -> Self
     where
@@ -151,7 +156,7 @@ impl InstanceBuilder {
     where
         I: IntoIterator<Item = InstanceBuilder>,
     {
-        self.children.extend(children.into_iter());
+        self.children.extend(children);
         self
     }
 
@@ -162,7 +167,7 @@ impl InstanceBuilder {
     where
         I: IntoIterator<Item = InstanceBuilder>,
     {
-        self.children.extend(children.into_iter());
+        self.children.extend(children);
     }
 }
 

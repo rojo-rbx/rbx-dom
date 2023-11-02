@@ -40,7 +40,7 @@ type_ids! {
     Vector3 => 0x11,
     // ??? => 0x12,
     // ??? => 0x13,
-    // ??? => 0x14,
+    CFrame => 0x14,
     // ??? => 0x15,
     // ??? => 0x16,
     NumberSequence => 0x17,
@@ -49,4 +49,5 @@ type_ids! {
     // ??? => 0x1A,
     NumberRange => 0x1B,
     Rect => 0x1C,
+    Font => 0x21,
 }

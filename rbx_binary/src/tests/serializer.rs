@@ -1,5 +1,5 @@
 use rbx_dom_weak::{
-    types::{Color3, Color3uint8, Ref, Region3, Vector3},
+    types::{BrickColor, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Vector3},
     InstanceBuilder, WeakDom,
 };
 
@@ -99,6 +99,26 @@ fn unknown_id() {
     assert!(result.is_err());
 }
 
+#[test]
+fn migrated_properties() {
+    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children([
+        InstanceBuilder::new("ScreenGui").with_property("ScreenInsets", Enum::from_u32(0)),
+        InstanceBuilder::new("ScreenGui").with_property("IgnoreGuiInset", true),
+        InstanceBuilder::new("Part").with_property("Color", Color3::new(1.0, 1.0, 1.0)),
+        InstanceBuilder::new("Part").with_property("BrickColor", BrickColor::Alder),
+        InstanceBuilder::new("Part").with_property("brickColor", BrickColor::Alder),
+        InstanceBuilder::new("TextLabel").with_property("FontFace", Font::default()),
+        InstanceBuilder::new("TextLabel").with_property("Font", Enum::from_u32(8)),
+    ]));
+
+    let mut buffer = Vec::new();
+
+    to_writer(&mut buffer, &tree, &[tree.root_ref()]).expect("failed to encode model");
+
+    let decoded = DecodedModel::from_reader(buffer.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
 /// Ensures that only one name for each logical property is serialized to a
 /// file. Here, we use BasePart.Size and BasePart.size, which alias and both
 /// serialize to BasePart.size.
@@ -149,6 +169,26 @@ fn part_color() {
 
     let mut buf = Vec::new();
     let _ = to_writer(&mut buf, &tree, tree.root().children());
+
+    let decoded = DecodedModel::from_reader(buf.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
+#[test]
+fn default_shared_string() {
+    let mut tree = WeakDom::new(InstanceBuilder::new("Folder"));
+    let ref_1 = tree.insert(
+        tree.root_ref(),
+        InstanceBuilder::new("Model").with_property(
+            // This is the first SharedString property I saw in the database
+            "ModelMeshData",
+            SharedString::new(b"arbitrary string".to_vec()),
+        ),
+    );
+    let ref_2 = tree.insert(tree.root_ref(), InstanceBuilder::new("Model"));
+
+    let mut buf = Vec::new();
+    let _ = to_writer(&mut buf, &tree, &[ref_1, ref_2]);
 
     let decoded = DecodedModel::from_reader(buf.as_slice());
     insta::assert_yaml_snapshot!(decoded);

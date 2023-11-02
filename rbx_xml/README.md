@@ -7,6 +7,13 @@ More details about this crate are available on [the rbx-dom GitHub](https://gith
 Implementation of Roblox's XML model formats, rbxmx and rbxlx for the rbx-dom ecosystem.
 
 ## Coverage
-rbx_xml aims to support all property types from rbx_dom_weak.
 
-Some properties serialize with different names in XML than the names exposed via Roblox's API dump or via the Lua API. In those cases, rbx_xml keeps a mapping that needs to be kept up to date. These cases are pretty uncommon, so that table is small.
+rbx_xml supports all property types from [`rbx_types`](https://crates.io/crates/rbx_types). It currently embeds a reflection database which contains a list of classes, properties, their types, and other information. In the event that this database is outdated, some issues may come up.
+
+These are mostly harmless, but they may include:
+	- Properties being serialized under the wrong name
+	- Properties having the incorrect default
+
+Additionally, data types newer than the current release of rbx_xml cannot be (de)serialized.
+
+In all of these cases, an update is needed for this crate.

@@ -1,0 +1,1433 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Parts
+  class: Model
+  properties:
+    Attributes:
+      Attributes: {}
+    LevelOfDetail:
+      Enum: 0
+    ModelMeshCFrame:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    ModelStreamingMode:
+      Enum: 0
+    NeedsPivotMigration:
+      Bool: false
+    PrimaryPart: "null"
+    Scale:
+      Float32: 1
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    WorldPivotData:
+      OptionalCFrame:
+        position:
+          - -0.69070053
+          - 1.3813775
+          - -0.8003998
+        orientation:
+          - - -0.10631021
+            - 0.0024746137
+            - -0.99433017
+          - - -0.021991055
+            - -0.99975836
+            - -0.00013692312
+          - - -0.9940901
+            - 0.021851815
+            - 0.10633871
+  children:
+    - referent: referent-1
+      name: Union
+      class: UnionOperation
+      properties:
+        Anchored:
+          Bool: false
+        AssetId:
+          Content: "https://www.roblox.com//asset/?id=2892119179"
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 10
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 10
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - -0.09659165
+              - 1.517803
+              - -0.83597946
+            orientation:
+              - - 0.10630996
+                - -0.0024746126
+                - -0.9943304
+              - - 0.021991052
+                - 0.999758
+                - -0.0001369233
+              - - 0.99409056
+                - -0.02185182
+                - 0.1063388
+        CanCollide:
+          Bool: false
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        ChildData:
+          BinaryString: ""
+        ChildData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 159
+            - 161
+            - 172
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 3
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 10
+        FrontSurfaceInput:
+          Enum: 0
+        InitialSize:
+          Vector3:
+            - 1.0000002
+            - 18
+            - 31.000004
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 10
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 272
+        MaterialVariantSerialized:
+          String: ""
+        MeshData:
+          BinaryString: ""
+        MeshData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        PhysicalConfigData:
+          len: 8350
+          hash: fb095154e907fd5daaca93bae5bf68ca6400ee1c213e897c65cbf95c65fb4463
+        PhysicsData:
+          BinaryString: ""
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0.1
+        RenderFidelity:
+          Enum: 1
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 10
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Size:
+          Vector3:
+            - 0.05
+            - 0.3600072
+            - 0.6200124
+        SmoothingAngle:
+          Float32: 0
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 10
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        UsePartColor:
+          Bool: true
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children: []
+    - referent: referent-2
+      name: Union
+      class: UnionOperation
+      properties:
+        Anchored:
+          Bool: false
+        AssetId:
+          Content: "https://www.roblox.com//asset/?id=2892119179"
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 10
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 10
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - -1.2853186
+              - 1.5163233
+              - -0.769176
+            orientation:
+              - - -0.106310226
+                - -0.0024746126
+                - 0.99433064
+              - - -0.02199106
+                - 0.999758
+                - 0.00013691811
+              - - -0.9940908
+                - -0.02185182
+                - -0.10633907
+        CanCollide:
+          Bool: false
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        ChildData:
+          BinaryString: ""
+        ChildData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 159
+            - 161
+            - 172
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 3
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 10
+        FrontSurfaceInput:
+          Enum: 0
+        InitialSize:
+          Vector3:
+            - 1.0000002
+            - 18
+            - 31.000004
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 10
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 272
+        MaterialVariantSerialized:
+          String: ""
+        MeshData:
+          BinaryString: ""
+        MeshData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        PhysicalConfigData:
+          len: 8350
+          hash: fb095154e907fd5daaca93bae5bf68ca6400ee1c213e897c65cbf95c65fb4463
+        PhysicsData:
+          BinaryString: ""
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0.1
+        RenderFidelity:
+          Enum: 1
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 10
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Size:
+          Vector3:
+            - 0.05
+            - 0.36000714
+            - 0.62001246
+        SmoothingAngle:
+          Float32: 0
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 10
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        UsePartColor:
+          Bool: true
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children: []
+    - referent: referent-3
+      name: Union
+      class: UnionOperation
+      properties:
+        Anchored:
+          Bool: false
+        AssetId:
+          Content: ""
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 10
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 10
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - 0.16903359
+              - 1.3672578
+              - -0.89124817
+            orientation:
+              - - 0.10630996
+                - 0.002474614
+                - 0.99433064
+              - - 0.021991052
+                - -0.99975836
+                - 0.00013691811
+              - - 0.99409056
+                - 0.02185183
+                - -0.10633907
+        CanCollide:
+          Bool: false
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        ChildData:
+          BinaryString: ""
+        ChildData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 248
+            - 248
+            - 248
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 3
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 10
+        FrontSurfaceInput:
+          Enum: 0
+        InitialSize:
+          Vector3:
+            - 4.8
+            - 2.0098171
+            - 2.0169144
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 10
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 1088
+        MaterialVariantSerialized:
+          String: ""
+        MeshData:
+          BinaryString: ""
+        MeshData2:
+          len: 36
+          hash: a8e881ce93449542139935bd0ec3f0a77725c368b5a699b2b87077d9fd842a64
+        PhysicalConfigData:
+          len: 19694
+          hash: c0f5b001cda7f15fa5f109b9872cecc30fcc0ce5d83a101d95a77f4ee7cfb221
+        PhysicsData:
+          BinaryString: ""
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0
+        RenderFidelity:
+          Enum: 1
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 10
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Size:
+          Vector3:
+            - 0.096
+            - 0.05
+            - 0.05
+        SmoothingAngle:
+          Float32: 0
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 10
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        UsePartColor:
+          Bool: false
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children: []
+    - referent: referent-4
+      name: Union
+      class: UnionOperation
+      properties:
+        Anchored:
+          Bool: false
+        AssetId:
+          Content: "https://www.roblox.com//asset/?id=2892119179"
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 10
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 10
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - -0.102969766
+              - 1.5164837
+              - -0.8956378
+            orientation:
+              - - 0.10630996
+                - -0.0024746126
+                - -0.9943304
+              - - 0.021991052
+                - 0.999758
+                - -0.0001369233
+              - - 0.99409056
+                - -0.02185182
+                - 0.1063388
+        CanCollide:
+          Bool: false
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        ChildData:
+          BinaryString: ""
+        ChildData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 159
+            - 161
+            - 172
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 3
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 10
+        FrontSurfaceInput:
+          Enum: 0
+        InitialSize:
+          Vector3:
+            - 1.0000002
+            - 18
+            - 31.000004
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 10
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 272
+        MaterialVariantSerialized:
+          String: ""
+        MeshData:
+          BinaryString: ""
+        MeshData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        PhysicalConfigData:
+          len: 8350
+          hash: fb095154e907fd5daaca93bae5bf68ca6400ee1c213e897c65cbf95c65fb4463
+        PhysicsData:
+          BinaryString: ""
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0.1
+        RenderFidelity:
+          Enum: 1
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 10
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Size:
+          Vector3:
+            - 0.05
+            - 0.3600072
+            - 0.6200124
+        SmoothingAngle:
+          Float32: 0
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 10
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        UsePartColor:
+          Bool: true
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children: []
+    - referent: referent-5
+      name: Union
+      class: UnionOperation
+      properties:
+        Anchored:
+          Bool: false
+        AssetId:
+          Content: "https://www.roblox.com//asset/?id=2892119179"
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 10
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 10
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - -1.2789422
+              - 1.5176423
+              - -0.70953286
+            orientation:
+              - - -0.106310226
+                - -0.0024746126
+                - 0.99433064
+              - - -0.02199106
+                - 0.999758
+                - 0.00013691811
+              - - -0.9940908
+                - -0.02185182
+                - -0.10633907
+        CanCollide:
+          Bool: false
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        ChildData:
+          BinaryString: ""
+        ChildData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 159
+            - 161
+            - 172
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 3
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 10
+        FrontSurfaceInput:
+          Enum: 0
+        InitialSize:
+          Vector3:
+            - 1.0000002
+            - 18
+            - 31.000004
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 10
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 272
+        MaterialVariantSerialized:
+          String: ""
+        MeshData:
+          BinaryString: ""
+        MeshData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        PhysicalConfigData:
+          len: 8350
+          hash: fb095154e907fd5daaca93bae5bf68ca6400ee1c213e897c65cbf95c65fb4463
+        PhysicsData:
+          BinaryString: ""
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0.1
+        RenderFidelity:
+          Enum: 1
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 10
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Size:
+          Vector3:
+            - 0.05
+            - 0.36000714
+            - 0.62001246
+        SmoothingAngle:
+          Float32: 0
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 10
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        UsePartColor:
+          Bool: true
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children: []
+    - referent: referent-6
+      name: Union
+      class: UnionOperation
+      properties:
+        Anchored:
+          Bool: false
+        AssetId:
+          Content: "https://www.roblox.com//asset/?id=2892119179"
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 10
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 10
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - -1.2813833
+              - 1.2170323
+              - -0.7327989
+            orientation:
+              - - -0.106310226
+                - 0.002474614
+                - -0.9943304
+              - - -0.02199106
+                - -0.99975836
+                - -0.0001369233
+              - - -0.9940908
+                - 0.02185183
+                - 0.1063388
+        CanCollide:
+          Bool: false
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        ChildData:
+          BinaryString: ""
+        ChildData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 159
+            - 161
+            - 172
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 3
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 10
+        FrontSurfaceInput:
+          Enum: 0
+        InitialSize:
+          Vector3:
+            - 1.0000002
+            - 18
+            - 31.000004
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 10
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 272
+        MaterialVariantSerialized:
+          String: ""
+        MeshData:
+          BinaryString: ""
+        MeshData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        PhysicalConfigData:
+          len: 8350
+          hash: fb095154e907fd5daaca93bae5bf68ca6400ee1c213e897c65cbf95c65fb4463
+        PhysicsData:
+          BinaryString: ""
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0.1
+        RenderFidelity:
+          Enum: 1
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 10
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Size:
+          Vector3:
+            - 0.05
+            - 0.36000717
+            - 0.62001246
+        SmoothingAngle:
+          Float32: 0
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 10
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        UsePartColor:
+          Bool: true
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children: []
+    - referent: referent-7
+      name: Union
+      class: UnionOperation
+      properties:
+        Anchored:
+          Bool: false
+        AssetId:
+          Content: ""
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 10
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 10
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - -1.5503206
+              - 1.3669466
+              - -0.7073545
+            orientation:
+              - - -0.106310226
+                - 0.002474614
+                - -0.9943304
+              - - -0.02199106
+                - -0.99975836
+                - -0.0001369233
+              - - -0.9940908
+                - 0.02185183
+                - 0.1063388
+        CanCollide:
+          Bool: false
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        ChildData:
+          BinaryString: ""
+        ChildData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 248
+            - 248
+            - 248
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 3
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 10
+        FrontSurfaceInput:
+          Enum: 0
+        InitialSize:
+          Vector3:
+            - 4.800001
+            - 2.0047607
+            - 2.0113258
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 10
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 1088
+        MaterialVariantSerialized:
+          String: ""
+        MeshData:
+          BinaryString: ""
+        MeshData2:
+          len: 36
+          hash: 9262df03156e7ba931096479dc69773b7674d01299e9a832118c53cc21f388ed
+        PhysicalConfigData:
+          len: 16278
+          hash: ab812b4f1546543445cb10ee2ae8a71c7993a54932de7b1f7a60612a8a027dfa
+        PhysicsData:
+          BinaryString: ""
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0.2
+        RenderFidelity:
+          Enum: 1
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 10
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Size:
+          Vector3:
+            - 0.09600002
+            - 0.05
+            - 0.05
+        SmoothingAngle:
+          Float32: 0
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 10
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        UsePartColor:
+          Bool: false
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children: []
+    - referent: referent-8
+      name: Union
+      class: UnionOperation
+      properties:
+        Anchored:
+          Bool: false
+        AssetId:
+          Content: "https://www.roblox.com//asset/?id=2892119179"
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 10
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 10
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - -0.099030495
+              - 1.2171957
+              - -0.85926116
+            orientation:
+              - - 0.10630996
+                - 0.002474614
+                - 0.99433064
+              - - 0.021991052
+                - -0.99975836
+                - 0.00013691811
+              - - 0.99409056
+                - 0.02185183
+                - -0.10633907
+        CanCollide:
+          Bool: false
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        ChildData:
+          BinaryString: ""
+        ChildData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 159
+            - 161
+            - 172
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 3
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 10
+        FrontSurfaceInput:
+          Enum: 0
+        InitialSize:
+          Vector3:
+            - 1.0000002
+            - 18
+            - 31.000004
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 10
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 272
+        MaterialVariantSerialized:
+          String: ""
+        MeshData:
+          BinaryString: ""
+        MeshData2:
+          len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        PhysicalConfigData:
+          len: 8350
+          hash: fb095154e907fd5daaca93bae5bf68ca6400ee1c213e897c65cbf95c65fb4463
+        PhysicsData:
+          BinaryString: ""
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0.1
+        RenderFidelity:
+          Enum: 1
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 10
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Size:
+          Vector3:
+            - 0.05
+            - 0.36000717
+            - 0.62001246
+        SmoothingAngle:
+          Float32: 0
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 10
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        UsePartColor:
+          Bool: true
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children: []
+

@@ -1,9 +1,0 @@
----
-source: rbx_xml/tests/test-files.rs
-expression: viewer.view_children(&dom)
----
-- referent: referent-0
-  name: A NumberValue
-  class: NumberValue
-  properties: {}
-  children: []

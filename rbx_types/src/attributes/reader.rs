@@ -4,9 +4,9 @@ use std::{
 };
 
 use crate::{
-    BinaryString, BrickColor, Color3, ColorSequence, ColorSequenceKeypoint, NumberRange,
-    NumberSequence, NumberSequenceKeypoint, Rect, UDim, UDim2, Variant, VariantType, Vector2,
-    Vector3,
+    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, Font,
+    FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, Rect,
+    UDim, UDim2, Variant, VariantType, Vector2, Vector3,
 };
 
 use super::{type_id, AttributeError};
@@ -143,6 +143,61 @@ pub(crate) fn read_attributes<R: Read>(
             )
             .into(),
 
+            VariantType::CFrame => {
+                let position = read_vector3(&mut value)?;
+                let rotation_id = read_u8(&mut value)?;
+
+                let rotation = if rotation_id == 0 {
+                    Matrix3::new(
+                        read_vector3(&mut value)?,
+                        read_vector3(&mut value)?,
+                        read_vector3(&mut value)?,
+                    )
+                } else {
+                    Matrix3::from_basic_rotation_id(rotation_id)?
+                };
+
+                CFrame::new(position, rotation)
+            }
+            .into(),
+
+            VariantType::Font => {
+                let weight = read_u16(&mut value)?;
+                let style = read_u8(&mut value)?;
+
+                let family = {
+                    let buf = read_string(&mut value)?;
+
+                    String::from_utf8(buf).map_err(|source| AttributeError::FontBadUnicode {
+                        source,
+                        field: "family",
+                    })?
+                };
+
+                let cached_face_id = {
+                    let buf = read_string(&mut value)?;
+
+                    if buf.is_empty() {
+                        None
+                    } else {
+                        Some(String::from_utf8(buf).map_err(|source| {
+                            AttributeError::FontBadUnicode {
+                                source,
+                                field: "cached_face_id",
+                            }
+                        })?)
+                    }
+                };
+
+                Font {
+                    family,
+                    weight: FontWeight::from_u16(weight).unwrap_or_default(),
+                    style: FontStyle::from_u8(style).unwrap_or_default(),
+                    cached_face_id,
+                }
+            }
+            .into(),
+
             other => return Err(AttributeError::UnsupportedVariantType(other)),
         };
 
@@ -156,6 +211,12 @@ fn read_u8<R: Read>(mut reader: R) -> io::Result<u8> {
     let mut bytes = [0u8; 1];
     reader.read_exact(&mut bytes)?;
     Ok(bytes[0])
+}
+
+fn read_u16<R: Read>(mut reader: R) -> io::Result<u16> {
+    let mut bytes = [0u8; 2];
+    reader.read_exact(&mut bytes)?;
+    Ok(u16::from_le_bytes(bytes))
 }
 
 fn read_i32<R: Read>(mut reader: R) -> io::Result<i32> {
@@ -212,6 +273,14 @@ fn read_udim<R: Read>(mut reader: R) -> io::Result<UDim> {
 
 fn read_vector2<R: Read>(mut reader: R) -> io::Result<Vector2> {
     Ok(Vector2::new(read_f32(&mut reader)?, read_f32(&mut reader)?))
+}
+
+fn read_vector3<R: Read>(mut reader: R) -> io::Result<Vector3> {
+    Ok(Vector3::new(
+        read_f32(&mut reader)?,
+        read_f32(&mut reader)?,
+        read_f32(&mut reader)?,
+    ))
 }
 
 /// Implementation taken from read_exact, but allowing an empty buffer by

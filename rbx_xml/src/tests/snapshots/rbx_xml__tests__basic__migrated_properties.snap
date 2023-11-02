@@ -1,0 +1,65 @@
+---
+source: rbx_xml/src/tests/basic.rs
+expression: "std::str::from_utf8(&encoded).unwrap()"
+---
+<roblox version="4">
+  <Item class="Folder" referent="0">
+    <Properties>
+      <string name="Name">Folder</string>
+    </Properties>
+    <Item class="ScreenGui" referent="1">
+      <Properties>
+        <string name="Name">ScreenGui</string>
+        <token name="ScreenInsets">0</token>
+      </Properties>
+    </Item>
+    <Item class="ScreenGui" referent="2">
+      <Properties>
+        <string name="Name">ScreenGui</string>
+        <token name="ScreenInsets">1</token>
+      </Properties>
+    </Item>
+    <Item class="Part" referent="3">
+      <Properties>
+        <string name="Name">Part</string>
+        <Color3uint8 name="Color3uint8">16777215</Color3uint8>
+      </Properties>
+    </Item>
+    <Item class="Part" referent="4">
+      <Properties>
+        <string name="Name">Part</string>
+        <Color3uint8 name="Color">11829503</Color3uint8>
+      </Properties>
+    </Item>
+    <Item class="Part" referent="5">
+      <Properties>
+        <string name="Name">Part</string>
+        <Color3uint8 name="Color">11829503</Color3uint8>
+      </Properties>
+    </Item>
+    <Item class="TextLabel" referent="6">
+      <Properties>
+        <string name="Name">TextLabel</string>
+        <Font name="FontFace">
+          <Family>
+            <url>rbxasset://fonts/families/SourceSansPro.json</url>
+          </Family>
+          <Weight>400</Weight>
+          <Style>Normal</Style>
+        </Font>
+      </Properties>
+    </Item>
+    <Item class="TextLabel" referent="7">
+      <Properties>
+        <string name="Name">TextLabel</string>
+        <Font name="FontFace">
+          <Family>
+            <url>rbxasset://fonts/families/Guru.json</url>
+          </Family>
+          <Weight>400</Weight>
+          <Style>Normal</Style>
+        </Font>
+      </Properties>
+    </Item>
+  </Item>
+</roblox>

@@ -17,6 +17,8 @@ mod colors;
 mod content;
 mod enumeration;
 mod faces;
+mod font;
+mod material_colors;
 mod number_range;
 mod number_sequence;
 mod numbers;
@@ -25,18 +27,20 @@ mod physical_properties;
 mod ray;
 mod rect;
 mod referent;
+mod security_capabilities;
 mod shared_string;
 mod strings;
 mod tags;
 mod udims;
+mod unique_id;
 mod vectors;
 
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
-    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, Enum, Faces,
-    NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, UDim, UDim2, Variant, Vector2,
-    Vector2int16, Vector3, Vector3int16,
+    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, Enum, Faces, Font,
+    NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, UDim,
+    UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3, Vector3int16,
 };
 
 use crate::{
@@ -50,6 +54,7 @@ use crate::{
 
 use self::{
     attributes::write_attributes,
+    material_colors::write_material_colors,
     referent::{read_ref, write_ref},
     shared_string::{read_shared_string, write_shared_string},
     tags::write_tags,
@@ -111,6 +116,7 @@ macro_rules! declare_rbx_types {
                 Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
                 Variant::Tags(value) => write_tags(writer, xml_property_name, value),
                 Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
+                Variant::MaterialColors(value) => write_material_colors(writer, xml_property_name, value),
 
                 unknown => {
                     Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.ty())))
@@ -133,6 +139,7 @@ declare_rbx_types! {
     Faces: Faces,
     Float32: f32,
     Float64: f64,
+    Font: Font,
     Int32: i32,
     Int64: i64,
     NumberRange: NumberRange,
@@ -141,9 +148,11 @@ declare_rbx_types! {
     PhysicalProperties: PhysicalProperties,
     Ray: Ray,
     Rect: Rect,
+    SecurityCapabilities: SecurityCapabilities,
     String: String,
     UDim2: UDim2,
     UDim: UDim,
+    UniqueId: UniqueId,
     Vector2: Vector2,
     Vector2int16: Vector2int16,
     Vector3: Vector3,

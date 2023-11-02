@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -15,11 +14,11 @@ expression: decoded_viewed
       Int32: 0
     Enabled:
       Bool: true
-    IgnoreGuiInset:
-      Bool: false
     ResetOnSpawn:
       Bool: true
     RootLocalizationTable: "null"
+    ScreenInsets:
+      Enum: 2
     Tags:
       Tags: []
     ZIndexBehavior:
@@ -37,11 +36,11 @@ expression: decoded_viewed
       Int32: 1
     Enabled:
       Bool: true
-    IgnoreGuiInset:
-      Bool: false
     ResetOnSpawn:
       Bool: true
     RootLocalizationTable: "null"
+    ScreenInsets:
+      Enum: 2
     Tags:
       Tags: []
     ZIndexBehavior:
@@ -59,11 +58,11 @@ expression: decoded_viewed
       Int32: 2
     Enabled:
       Bool: true
-    IgnoreGuiInset:
-      Bool: false
     ResetOnSpawn:
       Bool: true
     RootLocalizationTable: "null"
+    ScreenInsets:
+      Enum: 2
     Tags:
       Tags: []
     ZIndexBehavior:

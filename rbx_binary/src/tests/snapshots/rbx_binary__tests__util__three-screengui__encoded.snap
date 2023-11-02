@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -48,14 +47,6 @@ chunks:
         - true
   - Prop:
       type_id: 0
-      prop_name: IgnoreGuiInset
-      prop_type: Bool
-      values:
-        - false
-        - false
-        - false
-  - Prop:
-      type_id: 0
       prop_name: Name
       prop_type: String
       values:
@@ -78,6 +69,14 @@ chunks:
         - -1
         - -1
         - -1
+  - Prop:
+      type_id: 0
+      prop_name: ScreenInsets
+      prop_type: Enum
+      values:
+        - 2
+        - 2
+        - 2
   - Prop:
       type_id: 0
       prop_name: Tags

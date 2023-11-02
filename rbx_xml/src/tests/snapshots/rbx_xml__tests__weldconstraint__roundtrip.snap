@@ -1,0 +1,329 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: Folder
+  class: Folder
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children:
+    - referent: referent-1
+      name: A
+      class: Part
+      properties:
+        Anchored:
+          Bool: false
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 0
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 0
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - -6
+              - 0.5000011
+              - -11
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        CanCollide:
+          Bool: true
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 163
+            - 162
+            - 165
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 1
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 0
+        FrontSurfaceInput:
+          Enum: 0
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 0
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 256
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 0
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Shape:
+          Enum: 1
+        Size:
+          Vector3:
+            - 4
+            - 1
+            - 2
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 0
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children:
+        - referent: referent-2
+          name: WeldConstraint
+          class: WeldConstraint
+          properties:
+            Attributes:
+              Attributes: {}
+            CFrame0:
+              CFrame:
+                position:
+                  - 4
+                  - 1
+                  - -4
+                orientation:
+                  - - 1
+                    - 0
+                    - 0
+                  - - 0
+                    - 1
+                    - 0
+                  - - 0
+                    - 0
+                    - 1
+            Part0: referent-1
+            Part1: referent-3
+            SourceAssetId:
+              Int64: -1
+            State:
+              Int32: 3
+            Tags:
+              Tags: []
+          children: []
+    - referent: referent-3
+      name: B
+      class: Part
+      properties:
+        Anchored:
+          Bool: false
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 0
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 0
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - -2
+              - 1.5000011
+              - -15
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        CanCollide:
+          Bool: true
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 163
+            - 162
+            - 165
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 1
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 0
+        FrontSurfaceInput:
+          Enum: 0
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 0
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 256
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 0
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Shape:
+          Enum: 1
+        Size:
+          Vector3:
+            - 4
+            - 1
+            - 2
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 0
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children: []
+

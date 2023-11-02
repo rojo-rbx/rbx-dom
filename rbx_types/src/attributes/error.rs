@@ -30,6 +30,17 @@ pub(crate) enum AttributeError {
     #[error(transparent)]
     Io(#[from] std::io::Error),
 
+    #[error(transparent)]
+    BadAttributeValue(#[from] crate::Error),
+
     #[error("couldn't read bytes to deserialize {0}")]
     ReadType(&'static str),
+
+    #[error("font contained invalid UTF-8 in {field}")]
+    FontBadUnicode {
+        #[source]
+        source: FromUtf8Error,
+
+        field: &'static str,
+    },
 }

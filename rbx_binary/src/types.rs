@@ -39,6 +39,9 @@ pub enum Type {
     Int64 = 0x1B,
     SharedString = 0x1C,
     OptionalCFrame = 0x1E,
+    UniqueId = 0x1F,
+    Font = 0x20,
+    SecurityCapabilities = 0x21,
 }
 
 impl Type {
@@ -49,6 +52,7 @@ impl Type {
             VariantType::BinaryString => Type::String,
             VariantType::Content => Type::String,
             VariantType::Tags => Type::String,
+            VariantType::MaterialColors => Type::String,
 
             VariantType::Bool => Type::Bool,
             VariantType::Int32 => Type::Int32,
@@ -76,6 +80,9 @@ impl Type {
             VariantType::Int64 => Type::Int64,
             VariantType::SharedString => Type::SharedString,
             VariantType::OptionalCFrame => Type::OptionalCFrame,
+            VariantType::UniqueId => Type::UniqueId,
+            VariantType::Font => Type::Font,
+            VariantType::SecurityCapabilities => Type::SecurityCapabilities,
             _ => return None,
         })
     }
@@ -111,6 +118,9 @@ impl Type {
             Type::Int64 => VariantType::Int64,
             Type::SharedString => VariantType::SharedString,
             Type::OptionalCFrame => VariantType::OptionalCFrame,
+            Type::UniqueId => VariantType::UniqueId,
+            Type::Font => VariantType::Font,
+            Type::SecurityCapabilities => VariantType::SecurityCapabilities,
         })
     }
 }
@@ -149,6 +159,9 @@ impl TryFrom<u8> for Type {
             0x1B => Int64,
             0x1C => SharedString,
             0x1E => OptionalCFrame,
+            0x1F => UniqueId,
+            0x20 => Font,
+            0x21 => SecurityCapabilities,
             _ => return Err(InvalidTypeError(value)),
         })
     }

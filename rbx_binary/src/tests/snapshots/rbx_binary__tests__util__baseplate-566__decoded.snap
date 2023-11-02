@@ -1,0 +1,1713 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Workspace
+  class: Workspace
+  properties:
+    AllowThirdPartySales:
+      Bool: false
+    Attributes:
+      Attributes: {}
+    ClientAnimatorThrottling:
+      Enum: 0
+    CollisionGroupData:
+      BinaryString: AQEABP////8HRGVmYXVsdA==
+    CurrentCamera: referent-1
+    DistributedGameTime:
+      Float64: 0
+    ExplicitAutoJoints:
+      Bool: true
+    FallenPartsDestroyHeight:
+      Float32: -500
+    GlobalWind:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    Gravity:
+      Float32: 196.2
+    HumanoidOnlySetCollisionsOnStateChange:
+      Enum: 0
+    InterpolationThrottling:
+      Enum: 0
+    LevelOfDetail:
+      Enum: 0
+    MeshPartHeadsAndAccessories:
+      Enum: 0
+    ModelMeshCFrame:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    ModelStreamingMode:
+      Enum: 0
+    NeedsPivotMigration:
+      Bool: false
+    PhysicsSteppingMethod:
+      Enum: 0
+    PrimaryPart: "null"
+    RejectCharacterDeletions:
+      Enum: 0
+    ReplicateInstanceDestroySetting:
+      Enum: 0
+    Retargeting:
+      Enum: 0
+    Scale:
+      Float32: 1
+    SignalBehavior:
+      Enum: 0
+    SourceAssetId:
+      Int64: -1
+    StreamOutBehavior:
+      Enum: 0
+    StreamingEnabled:
+      Bool: false
+    StreamingIntegrityMode:
+      Enum: 0
+    StreamingMinRadius:
+      Int32: 64
+    StreamingTargetRadius:
+      Int32: 1024
+    Tags:
+      Tags: []
+    TerrainWeldsFixed:
+      Bool: true
+    TouchesUseCollisionGroups:
+      Bool: false
+    WorldPivotData:
+      OptionalCFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+  children:
+    - referent: referent-1
+      name: Camera
+      class: Camera
+      properties:
+        Attributes:
+          Attributes: {}
+        CFrame:
+          CFrame:
+            position:
+              - -19.93419
+              - 14.091625
+              - -19.064589
+            orientation:
+              - - -0.691168
+                - 0.31943393
+                - -0.648266
+              - - -0
+                - 0.89701295
+                - 0.44200432
+              - - 0.72269416
+                - 0.30549926
+                - -0.61998665
+        CameraSubject: "null"
+        CameraType:
+          Enum: 0
+        FieldOfView:
+          Float32: 70
+        FieldOfViewMode:
+          Enum: 0
+        Focus:
+          CFrame:
+            position:
+              - -18.63766
+              - 13.207617
+              - -17.824615
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        HeadLocked:
+          Bool: true
+        HeadScale:
+          Float32: 1
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+      children: []
+    - referent: referent-2
+      name: Baseplate
+      class: Part
+      properties:
+        Anchored:
+          Bool: true
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 0
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 0
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - 0
+              - -8
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        CanCollide:
+          Bool: true
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 91
+            - 91
+            - 91
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        FormFactor:
+          Enum: 0
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 0
+        FrontSurfaceInput:
+          Enum: 0
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 0
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: true
+        Massless:
+          Bool: false
+        Material:
+          Enum: 256
+        MaterialVariantSerialized:
+          String: ""
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 0
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Shape:
+          Enum: 1
+        Size:
+          Vector3:
+            - 2048
+            - 16
+            - 2048
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 0
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children:
+        - referent: referent-3
+          name: Texture
+          class: Texture
+          properties:
+            Attributes:
+              Attributes: {}
+            Color3:
+              Color3:
+                - 0
+                - 0
+                - 0
+            Face:
+              Enum: 1
+            OffsetStudsU:
+              Float32: 0
+            OffsetStudsV:
+              Float32: 0
+            SourceAssetId:
+              Int64: -1
+            StudsPerTileU:
+              Float32: 8
+            StudsPerTileV:
+              Float32: 8
+            Tags:
+              Tags: []
+            Texture:
+              Content: "rbxassetid://6372755229"
+            Transparency:
+              Float32: 0.8
+            ZIndex:
+              Int32: 1
+          children: []
+    - referent: referent-4
+      name: Terrain
+      class: Terrain
+      properties:
+        AcquisitionMethod:
+          Enum: 0
+        Anchored:
+          Bool: true
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 0
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 4
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        CanCollide:
+          Bool: true
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 163
+            - 162
+            - 165
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        Decoration:
+          Bool: true
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 0
+        FrontSurfaceInput:
+          Enum: 0
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 0
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: true
+        Massless:
+          Bool: false
+        Material:
+          Enum: 256
+        MaterialColors:
+          MaterialColors:
+            Grass:
+              - 111
+              - 126
+              - 62
+            Slate:
+              - 88
+              - 89
+              - 86
+            Concrete:
+              - 152
+              - 152
+              - 152
+            Brick:
+              - 138
+              - 97
+              - 73
+            Sand:
+              - 207
+              - 203
+              - 167
+            WoodPlanks:
+              - 172
+              - 148
+              - 108
+            Rock:
+              - 99
+              - 100
+              - 102
+            Glacier:
+              - 221
+              - 228
+              - 229
+            Snow:
+              - 235
+              - 253
+              - 255
+            Sandstone:
+              - 148
+              - 124
+              - 95
+            Mud:
+              - 121
+              - 112
+              - 98
+            Basalt:
+              - 75
+              - 74
+              - 74
+            Ground:
+              - 140
+              - 130
+              - 104
+            CrackedLava:
+              - 255
+              - 24
+              - 67
+            Asphalt:
+              - 80
+              - 84
+              - 84
+            Cobblestone:
+              - 134
+              - 134
+              - 118
+            Ice:
+              - 204
+              - 210
+              - 223
+            LeafyGrass:
+              - 106
+              - 134
+              - 64
+            Salt:
+              - 255
+              - 255
+              - 254
+            Limestone:
+              - 255
+              - 243
+              - 192
+            Pavement:
+              - 143
+              - 144
+              - 135
+        MaterialVariantSerialized:
+          String: ""
+        PhysicsGrid:
+          BinaryString: AgMAAAAAAAAAAAAAAAA=
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 0
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        ShorelinesUpgraded:
+          Bool: false
+        Size:
+          Vector3:
+            - 2044
+            - 252
+            - 2044
+        SmoothGrid:
+          BinaryString: AQU=
+        SmoothVoxelsUpgraded:
+          Bool: false
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 3
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        WaterColor:
+          Color3:
+            - 0.04705883
+            - 0.32941177
+            - 0.36078432
+        WaterReflectance:
+          Float32: 1
+        WaterTransparency:
+          Float32: 0.3
+        WaterWaveSize:
+          Float32: 0.15
+        WaterWaveSpeed:
+          Float32: 10
+      children: []
+    - referent: referent-5
+      name: SpawnLocation
+      class: SpawnLocation
+      properties:
+        AllowTeamChangeOnTouch:
+          Bool: false
+        Anchored:
+          Bool: true
+        Attributes:
+          Attributes: {}
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 0
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 0
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - 0
+              - 0.5
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        CanCollide:
+          Bool: true
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        CastShadow:
+          Bool: true
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 163
+            - 162
+            - 165
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        Duration:
+          Int32: 0
+        Enabled:
+          Bool: true
+        FormFactor:
+          Enum: 1
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 0
+        FrontSurfaceInput:
+          Enum: 0
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 0
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: false
+        Massless:
+          Bool: false
+        Material:
+          Enum: 256
+        MaterialVariantSerialized:
+          String: ""
+        Neutral:
+          Bool: true
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 0
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Shape:
+          Enum: 1
+        Size:
+          Vector3:
+            - 12
+            - 1
+            - 12
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TeamColor:
+          BrickColor: 194
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 0
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+      children:
+        - referent: referent-6
+          name: Decal
+          class: Decal
+          properties:
+            Attributes:
+              Attributes: {}
+            Color3:
+              Color3:
+                - 1
+                - 1
+                - 1
+            Face:
+              Enum: 1
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            Texture:
+              Content: "rbxasset://textures/SpawnLocation.png"
+            Transparency:
+              Float32: 0
+            ZIndex:
+              Int32: 1
+          children: []
+- referent: referent-7
+  name: SoundService
+  class: SoundService
+  properties:
+    AmbientReverb:
+      Enum: 0
+    Attributes:
+      Attributes: {}
+    DistanceFactor:
+      Float32: 3.33
+    DopplerScale:
+      Float32: 1
+    RespectFilteringEnabled:
+      Bool: true
+    RolloffScale:
+      Float32: 1
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    VolumetricAudio:
+      Enum: 1
+  children: []
+- referent: referent-8
+  name: NonReplicatedCSGDictionaryService
+  class: NonReplicatedCSGDictionaryService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-9
+  name: CSGDictionaryService
+  class: CSGDictionaryService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-10
+  name: Chat
+  class: Chat
+  properties:
+    Attributes:
+      Attributes: {}
+    BubbleChatEnabled:
+      Bool: true
+    LoadDefaultChat:
+      Bool: true
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-11
+  name: Instance
+  class: TimerService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-12
+  name: Players
+  class: Players
+  properties:
+    Attributes:
+      Attributes: {}
+    CharacterAutoLoads:
+      Bool: true
+    MaxPlayers:
+      Int32: 30
+    PreferredPlayers:
+      Int32: 30
+    RespawnTime:
+      Float32: 3
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UseStrafingAnimations:
+      Bool: false
+  children: []
+- referent: referent-13
+  name: ReplicatedFirst
+  class: ReplicatedFirst
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-14
+  name: TweenService
+  class: TweenService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-15
+  name: MaterialService
+  class: MaterialService
+  properties:
+    AsphaltName:
+      String: Asphalt
+    Attributes:
+      Attributes: {}
+    BasaltName:
+      String: Basalt
+    BrickName:
+      String: Brick
+    CobblestoneName:
+      String: Cobblestone
+    ConcreteName:
+      String: Concrete
+    CorrodedMetalName:
+      String: CorrodedMetal
+    CrackedLavaName:
+      String: CrackedLava
+    DiamondPlateName:
+      String: DiamondPlate
+    FabricName:
+      String: Fabric
+    FoilName:
+      String: Foil
+    GlacierName:
+      String: Glacier
+    GraniteName:
+      String: Granite
+    GrassName:
+      String: Grass
+    GroundName:
+      String: Ground
+    IceName:
+      String: Ice
+    LeafyGrassName:
+      String: LeafyGrass
+    LimestoneName:
+      String: Limestone
+    MarbleName:
+      String: Marble
+    MetalName:
+      String: Metal
+    MudName:
+      String: Mud
+    PavementName:
+      String: Pavement
+    PebbleName:
+      String: Pebble
+    PlasticName:
+      String: Plastic
+    RockName:
+      String: Rock
+    SaltName:
+      String: Salt
+    SandName:
+      String: Sand
+    SandstoneName:
+      String: Sandstone
+    SlateName:
+      String: Slate
+    SmoothPlasticName:
+      String: SmoothPlastic
+    SnowName:
+      String: Snow
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Use2022MaterialsXml:
+      Bool: true
+    WoodName:
+      String: Wood
+    WoodPlanksName:
+      String: WoodPlanks
+  children: []
+- referent: referent-16
+  name: PermissionsService
+  class: PermissionsService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-17
+  name: PlayerEmulatorService
+  class: PlayerEmulatorService
+  properties:
+    Attributes:
+      Attributes: {}
+    CustomPoliciesEnabled:
+      Bool: false
+    EmulatedCountryCode:
+      String: ""
+    EmulatedGameLocale:
+      String: ""
+    PlayerEmulationEnabled:
+      Bool: false
+    SerializedEmulatedPolicyInfo:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-18
+  name: StudioData
+  class: StudioData
+  properties:
+    Attributes:
+      Attributes: {}
+    EnableScriptCollabByDefaultOnLoad:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-19
+  name: StarterPlayer
+  class: StarterPlayer
+  properties:
+    AllowCustomAnimations:
+      Bool: true
+    Attributes:
+      Attributes: {}
+    AutoJumpEnabled:
+      Bool: true
+    CameraMaxZoomDistance:
+      Float32: 128
+    CameraMinZoomDistance:
+      Float32: 0.5
+    CameraMode:
+      Enum: 0
+    CharacterJumpHeight:
+      Float32: 7.2
+    CharacterJumpPower:
+      Float32: 50
+    CharacterMaxSlopeAngle:
+      Float32: 89
+    CharacterUseJumpPower:
+      Bool: false
+    CharacterWalkSpeed:
+      Float32: 16
+    DevCameraOcclusionMode:
+      Enum: 0
+    DevComputerCameraMovementMode:
+      Enum: 0
+    DevComputerMovementMode:
+      Enum: 0
+    DevTouchCameraMovementMode:
+      Enum: 0
+    DevTouchMovementMode:
+      Enum: 0
+    EnableDynamicHeads:
+      Enum: 0
+    EnableMouseLockOption:
+      Bool: true
+    GameSettingsAssetIDFace:
+      Int64: 0
+    GameSettingsAssetIDHead:
+      Int64: 0
+    GameSettingsAssetIDLeftArm:
+      Int64: 0
+    GameSettingsAssetIDLeftLeg:
+      Int64: 0
+    GameSettingsAssetIDPants:
+      Int64: 0
+    GameSettingsAssetIDRightArm:
+      Int64: 0
+    GameSettingsAssetIDRightLeg:
+      Int64: 0
+    GameSettingsAssetIDShirt:
+      Int64: 0
+    GameSettingsAssetIDTeeShirt:
+      Int64: 0
+    GameSettingsAssetIDTorso:
+      Int64: 0
+    GameSettingsAvatar:
+      Enum: 1
+    GameSettingsR15Collision:
+      Enum: 0
+    GameSettingsScaleRangeBodyType:
+      NumberRange:
+        - 0
+        - 1
+    GameSettingsScaleRangeHead:
+      NumberRange:
+        - 0.95
+        - 1
+    GameSettingsScaleRangeHeight:
+      NumberRange:
+        - 0.9
+        - 1.05
+    GameSettingsScaleRangeProportion:
+      NumberRange:
+        - 0
+        - 1
+    GameSettingsScaleRangeWidth:
+      NumberRange:
+        - 0.7
+        - 1
+    HealthDisplayDistance:
+      Float32: 100
+    HumanoidStateMachineMode:
+      Enum: 0
+    LoadCharacterAppearance:
+      Bool: true
+    LoadCharacterLayeredClothing:
+      Enum: 0
+    NameDisplayDistance:
+      Float32: 100
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UserEmotesEnabled:
+      Bool: true
+  children:
+    - referent: referent-20
+      name: StarterPlayerScripts
+      class: StarterPlayerScripts
+      properties:
+        Attributes:
+          Attributes: {}
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+      children: []
+    - referent: referent-21
+      name: StarterCharacterScripts
+      class: StarterCharacterScripts
+      properties:
+        Attributes:
+          Attributes: {}
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+      children: []
+- referent: referent-22
+  name: StarterPack
+  class: StarterPack
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-23
+  name: StarterGui
+  class: StarterGui
+  properties:
+    Attributes:
+      Attributes: {}
+    ResetPlayerGuiOnSpawn:
+      Bool: true
+    RtlTextSupport:
+      Enum: 0
+    ScreenOrientation:
+      Enum: 4
+    ShowDevelopmentGui:
+      Bool: true
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    VirtualCursorMode:
+      Enum: 0
+  children: []
+- referent: referent-24
+  name: LocalizationService
+  class: LocalizationService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-25
+  name: Teleport Service
+  class: TeleportService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-26
+  name: CollectionService
+  class: CollectionService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-27
+  name: PhysicsService
+  class: PhysicsService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-28
+  name: Geometry
+  class: Geometry
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-29
+  name: InsertService
+  class: InsertService
+  properties:
+    AllowClientInsertModels:
+      Bool: false
+    AllowInsertFreeModels:
+      Bool: false
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children:
+    - referent: referent-30
+      name: InsertionHash
+      class: StringValue
+      properties:
+        Attributes:
+          Attributes: {}
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        Value:
+          String: "{27DB7157-ECC3-47DA-9A78-AF69D482E6A5}"
+      children: []
+- referent: referent-31
+  name: GamePassService
+  class: GamePassService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-32
+  name: Debris
+  class: Debris
+  properties:
+    Attributes:
+      Attributes: {}
+    MaxItems:
+      Int32: 1000
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-33
+  name: CookiesService
+  class: CookiesService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-34
+  name: VRService
+  class: VRService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-35
+  name: ContextActionService
+  class: ContextActionService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-36
+  name: Instance
+  class: ScriptService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-37
+  name: AssetService
+  class: AssetService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-38
+  name: TouchInputService
+  class: TouchInputService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-39
+  name: AnalyticsService
+  class: AnalyticsService
+  properties:
+    ApiKey:
+      String: ""
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-40
+  name: FilteredSelection
+  class: Instance
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-41
+  name: Selection
+  class: Selection
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-42
+  name: ServerScriptService
+  class: ServerScriptService
+  properties:
+    Attributes:
+      Attributes: {}
+    LoadStringEnabled:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-43
+  name: ServerStorage
+  class: ServerStorage
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-44
+  name: ReplicatedStorage
+  class: ReplicatedStorage
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-45
+  name: Instance
+  class: LuaWebService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-46
+  name: ProcessInstancePhysicsService
+  class: ProcessInstancePhysicsService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-47
+  name: LanguageService
+  class: LanguageService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-48
+  name: Lighting
+  class: Lighting
+  properties:
+    Ambient:
+      Color3:
+        - 0.27450982
+        - 0.27450982
+        - 0.27450982
+    Attributes:
+      Attributes:
+        UseCurrentLighting:
+          Bool: false
+    Brightness:
+      Float32: 3
+    ColorShift_Bottom:
+      Color3:
+        - 0
+        - 0
+        - 0
+    ColorShift_Top:
+      Color3:
+        - 0
+        - 0
+        - 0
+    EnvironmentDiffuseScale:
+      Float32: 1
+    EnvironmentSpecularScale:
+      Float32: 1
+    ExposureCompensation:
+      Float32: 0
+    FogColor:
+      Color3:
+        - 0.75294125
+        - 0.75294125
+        - 0.75294125
+    FogEnd:
+      Float32: 100000
+    FogStart:
+      Float32: 0
+    GeographicLatitude:
+      Float32: 0
+    GlobalShadows:
+      Bool: true
+    OutdoorAmbient:
+      Color3:
+        - 0.27450982
+        - 0.27450982
+        - 0.27450982
+    Outlines:
+      Bool: false
+    ShadowSoftness:
+      Float32: 0.2
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Technology:
+      Enum: 3
+    TimeOfDay:
+      String: "14:30:00"
+  children:
+    - referent: referent-49
+      name: Sky
+      class: Sky
+      properties:
+        Attributes:
+          Attributes: {}
+        CelestialBodiesShown:
+          Bool: true
+        MoonAngularSize:
+          Float32: 11
+        MoonTextureId:
+          Content: "rbxassetid://6444320592"
+        SkyboxBk:
+          Content: "rbxassetid://6444884337"
+        SkyboxDn:
+          Content: "rbxassetid://6444884785"
+        SkyboxFt:
+          Content: "rbxassetid://6444884337"
+        SkyboxLf:
+          Content: "rbxassetid://6444884337"
+        SkyboxRt:
+          Content: "rbxassetid://6444884337"
+        SkyboxUp:
+          Content: "rbxassetid://6412503613"
+        SourceAssetId:
+          Int64: 332039975
+        StarCount:
+          Int32: 3000
+        SunAngularSize:
+          Float32: 11
+        SunTextureId:
+          Content: "rbxassetid://6196665106"
+        Tags:
+          Tags: []
+      children: []
+    - referent: referent-50
+      name: SunRays
+      class: SunRaysEffect
+      properties:
+        Attributes:
+          Attributes: {}
+        Enabled:
+          Bool: true
+        Intensity:
+          Float32: 0.01
+        SourceAssetId:
+          Int64: -1
+        Spread:
+          Float32: 0.1
+        Tags:
+          Tags: []
+      children: []
+    - referent: referent-51
+      name: Atmosphere
+      class: Atmosphere
+      properties:
+        Attributes:
+          Attributes: {}
+        Color:
+          Color3:
+            - 0.78039217
+            - 0.78039217
+            - 0.78039217
+        Decay:
+          Color3:
+            - 0.41568628
+            - 0.4392157
+            - 0.49019608
+        Density:
+          Float32: 0.3
+        Glare:
+          Float32: 0
+        Haze:
+          Float32: 0
+        Offset:
+          Float32: 0.25
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+      children: []
+    - referent: referent-52
+      name: Bloom
+      class: BloomEffect
+      properties:
+        Attributes:
+          Attributes: {}
+        Enabled:
+          Bool: true
+        Intensity:
+          Float32: 1
+        Size:
+          Float32: 24
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        Threshold:
+          Float32: 2
+      children: []
+    - referent: referent-53
+      name: DepthOfField
+      class: DepthOfFieldEffect
+      properties:
+        Attributes:
+          Attributes: {}
+        Enabled:
+          Bool: false
+        FarIntensity:
+          Float32: 0.1
+        FocusDistance:
+          Float32: 0.05
+        InFocusRadius:
+          Float32: 30
+        NearIntensity:
+          Float32: 0.75
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+      children: []
+- referent: referent-54
+  name: Instance
+  class: LodDataService
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-55
+  name: DataStoreService
+  class: DataStoreService
+  properties:
+    Attributes:
+      Attributes: {}
+    AutomaticRetry:
+      Bool: true
+    LegacyNamingScheme:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-56
+  name: HttpService
+  class: HttpService
+  properties:
+    Attributes:
+      Attributes: {}
+    HttpEnabled:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-57
+  name: Teams
+  class: Teams
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-58
+  name: TestService
+  class: TestService
+  properties:
+    Attributes:
+      Attributes: {}
+    AutoRuns:
+      Bool: true
+    Description:
+      String: ""
+    ExecuteWithStudioRun:
+      Bool: false
+    IsSleepAllowed:
+      Bool: true
+    NumberOfPlayers:
+      Int32: 0
+    SimulateSecondsLag:
+      Float64: 0
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Timeout:
+      Float64: 10
+  children: []
+- referent: referent-59
+  name: VirtualInputManager
+  class: VirtualInputManager
+  properties:
+    Attributes:
+      Attributes: {}
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+

@@ -1,6 +1,7 @@
 use std::{
     cmp::Ordering,
     collections::{hash_map::Entry, HashMap},
+    fmt,
     hash::{Hash, Hasher},
     sync::{Arc, Mutex, Weak},
 };
@@ -103,7 +104,7 @@ impl Drop for SharedString {
         // If the reference we're about to drop is the very last reference to
         // the buffer, we'll be able to unwrap it and remove it from the
         // SharedString cache.
-        if Arc::try_unwrap(self.data.take().unwrap()).is_ok() {
+        if Arc::into_inner(self.data.take().unwrap()).is_some() {
             let mut cache = match STRING_CACHE.lock() {
                 Ok(v) => v,
                 Err(_) => {
@@ -137,6 +138,12 @@ impl Ord for SharedStringHash {
 impl PartialOrd for SharedStringHash {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         Some(self.cmp(other))
+    }
+}
+
+impl fmt::Display for SharedStringHash {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(self.0.to_hex().as_str())
     }
 }
 

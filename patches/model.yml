@@ -1,0 +1,9 @@
+Change:
+  Model:
+    ScaleFactor:
+      AliasFor: Scale
+    Scale:
+      Serialization:
+        Type: SerializesAs
+        As: ScaleFactor
+      Scriptability: Custom

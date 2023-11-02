@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rust_version: [stable, "1.59.0"]
+        rust_version: [stable]
 
     steps:
     - uses: actions/checkout@v1

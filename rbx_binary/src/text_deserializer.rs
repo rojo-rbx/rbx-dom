@@ -8,13 +8,13 @@ use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
-    CustomPhysicalProperties, Enum, Faces, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SharedString, UDim, UDim2, Vector2,
-    Vector3, Vector3int16,
+    CustomPhysicalProperties, Enum, Faces, Font, FontStyle, FontWeight, Matrix3, NumberRange,
+    NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SecurityCapabilities,
+    SharedString, UDim, UDim2, UniqueId, Vector2, Vector3, Vector3int16,
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
-use crate::{cframe, chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
+use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
 
 #[derive(Debug, Serialize)]
 pub struct DecodedModel {
@@ -222,6 +222,9 @@ pub enum DecodedValues {
     Int64(Vec<i64>),
     SharedString(Vec<u32>), // For the text deserializer, we only show the index in the shared string array.
     OptionalCFrame(Vec<Option<CFrame>>),
+    UniqueId(Vec<UniqueId>),
+    Font(Vec<Font>),
+    SecurityCapabilities(Vec<SecurityCapabilities>),
 }
 
 impl DecodedValues {
@@ -310,6 +313,32 @@ impl DecodedValues {
 
                 Some(DecodedValues::UDim2(values))
             }
+            Type::Font => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    let family = reader.read_string().unwrap();
+                    let weight =
+                        FontWeight::from_u16(reader.read_le_u16().unwrap()).unwrap_or_default();
+                    let style = FontStyle::from_u8(reader.read_u8().unwrap()).unwrap_or_default();
+                    let cached_face_id = reader.read_string().unwrap();
+
+                    let cached_face_id = if cached_face_id.is_empty() {
+                        None
+                    } else {
+                        Some(cached_face_id)
+                    };
+
+                    values.push(Font {
+                        family,
+                        weight,
+                        style,
+                        cached_face_id,
+                    })
+                }
+
+                Some(DecodedValues::Font(values))
+            }
             Type::Ray => {
                 let mut values = Vec::with_capacity(prop_count);
 
@@ -382,7 +411,7 @@ impl DecodedValues {
                             ),
                         );
                     } else {
-                        *rotation = cframe::from_basic_rotation_id(id).unwrap();
+                        *rotation = Matrix3::from_basic_rotation_id(id).unwrap();
                     }
                 }
 
@@ -640,7 +669,7 @@ impl DecodedValues {
                             ),
                         );
                     } else {
-                        *rotation = cframe::from_basic_rotation_id(id).unwrap();
+                        *rotation = Matrix3::from_basic_rotation_id(id).unwrap();
                     }
                 }
 
@@ -669,6 +698,32 @@ impl DecodedValues {
                     .collect();
 
                 Some(DecodedValues::CFrame(values))
+            }
+            Type::UniqueId => {
+                let mut values = Vec::with_capacity(prop_count);
+                let mut blobs = vec![[0; 16]; prop_count];
+                reader.read_interleaved_bytes::<16>(&mut blobs).unwrap();
+
+                for mut value in blobs.iter().map(|v| v.as_slice()) {
+                    let index = value.read_be_u32().unwrap();
+                    let time = value.read_be_u32().unwrap();
+                    let random = value.read_be_i64().unwrap().rotate_right(1);
+                    values.push(UniqueId::new(index, time, random));
+                }
+
+                Some(DecodedValues::UniqueId(values))
+            }
+            Type::SecurityCapabilities => {
+                let mut values = vec![0; prop_count];
+
+                reader.read_interleaved_i64_array(&mut values).unwrap();
+
+                let values = values
+                    .into_iter()
+                    .map(|value| SecurityCapabilities::from_bits(value as u64))
+                    .collect();
+
+                Some(DecodedValues::SecurityCapabilities(values))
             }
         }
     }

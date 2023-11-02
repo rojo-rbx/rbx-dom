@@ -71,6 +71,7 @@ int_type!(i64, "int64");
 // Convenience implementations for other types.
 // FIXME: This feels weird to bundle into the XmlType trait.
 int_type!(i16, "<NOT A REAL TYPE>");
+int_type!(u16, "<NOT A REAL TYPE>");
 
 #[cfg(test)]
 mod test {

@@ -1,0 +1,1251 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 2
+num_instances: 9
+chunks:
+  - Sstr:
+      version: 0
+      entries:
+        - len: 36
+          hash: 9262df03156e7ba931096479dc69773b7674d01299e9a832118c53cc21f388ed
+        - len: 36
+          hash: a8e881ce93449542139935bd0ec3f0a77725c368b5a699b2b87077d9fd842a64
+        - len: 16278
+          hash: ab812b4f1546543445cb10ee2ae8a71c7993a54932de7b1f7a60612a8a027dfa
+        - len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        - len: 19694
+          hash: c0f5b001cda7f15fa5f109b9872cecc30fcc0ce5d83a101d95a77f4ee7cfb221
+        - len: 8350
+          hash: fb095154e907fd5daaca93bae5bf68ca6400ee1c213e897c65cbf95c65fb4463
+  - Inst:
+      type_id: 0
+      type_name: Model
+      object_format: 0
+      referents:
+        - 0
+  - Inst:
+      type_id: 1
+      type_name: UnionOperation
+      object_format: 0
+      referents:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: LevelOfDetail
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshCFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshData
+      prop_type: SharedString
+      values:
+        - 3
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshSize
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 0
+      prop_name: ModelStreamingMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Parts
+  - Prop:
+      type_id: 0
+      prop_name: NeedsPivotMigration
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: PrimaryPart
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: ScaleFactor
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: WorldPivotData
+      prop_type: OptionalCFrame
+      values:
+        - position:
+            - -0.69070053
+            - 1.3813775
+            - -0.8003998
+          orientation:
+            - - -0.10631021
+              - 0.0024746137
+              - -0.99433017
+            - - -0.021991055
+              - -0.99975836
+              - -0.00013692312
+            - - -0.9940901
+              - 0.021851815
+              - 0.10633871
+  - Prop:
+      type_id: 1
+      prop_name: Anchored
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 1
+      prop_name: AssetId
+      prop_type: String
+      values:
+        - "https://www.roblox.com//asset/?id=2892119179"
+        - "https://www.roblox.com//asset/?id=2892119179"
+        - ""
+        - "https://www.roblox.com//asset/?id=2892119179"
+        - "https://www.roblox.com//asset/?id=2892119179"
+        - "https://www.roblox.com//asset/?id=2892119179"
+        - ""
+        - "https://www.roblox.com//asset/?id=2892119179"
+  - Prop:
+      type_id: 1
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: BackParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 1
+      prop_name: BackParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 1
+      prop_name: BackSurface
+      prop_type: Enum
+      values:
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+  - Prop:
+      type_id: 1
+      prop_name: BackSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: BottomParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 1
+      prop_name: BottomParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 1
+      prop_name: BottomSurface
+      prop_type: Enum
+      values:
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+  - Prop:
+      type_id: 1
+      prop_name: BottomSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: CFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - -0.09659165
+            - 1.517803
+            - -0.83597946
+          orientation:
+            - - 0.10630996
+              - -0.0024746126
+              - -0.9943304
+            - - 0.021991052
+              - 0.999758
+              - -0.0001369233
+            - - 0.99409056
+              - -0.02185182
+              - 0.1063388
+        - position:
+            - -1.2853186
+            - 1.5163233
+            - -0.769176
+          orientation:
+            - - -0.106310226
+              - -0.0024746126
+              - 0.99433064
+            - - -0.02199106
+              - 0.999758
+              - 0.00013691811
+            - - -0.9940908
+              - -0.02185182
+              - -0.10633907
+        - position:
+            - 0.16903359
+            - 1.3672578
+            - -0.89124817
+          orientation:
+            - - 0.10630996
+              - 0.002474614
+              - 0.99433064
+            - - 0.021991052
+              - -0.99975836
+              - 0.00013691811
+            - - 0.99409056
+              - 0.02185183
+              - -0.10633907
+        - position:
+            - -0.102969766
+            - 1.5164837
+            - -0.8956378
+          orientation:
+            - - 0.10630996
+              - -0.0024746126
+              - -0.9943304
+            - - 0.021991052
+              - 0.999758
+              - -0.0001369233
+            - - 0.99409056
+              - -0.02185182
+              - 0.1063388
+        - position:
+            - -1.2789422
+            - 1.5176423
+            - -0.70953286
+          orientation:
+            - - -0.106310226
+              - -0.0024746126
+              - 0.99433064
+            - - -0.02199106
+              - 0.999758
+              - 0.00013691811
+            - - -0.9940908
+              - -0.02185182
+              - -0.10633907
+        - position:
+            - -1.2813833
+            - 1.2170323
+            - -0.7327989
+          orientation:
+            - - -0.106310226
+              - 0.002474614
+              - -0.9943304
+            - - -0.02199106
+              - -0.99975836
+              - -0.0001369233
+            - - -0.9940908
+              - 0.02185183
+              - 0.1063388
+        - position:
+            - -1.5503206
+            - 1.3669466
+            - -0.7073545
+          orientation:
+            - - -0.106310226
+              - 0.002474614
+              - -0.9943304
+            - - -0.02199106
+              - -0.99975836
+              - -0.0001369233
+            - - -0.9940908
+              - 0.02185183
+              - 0.1063388
+        - position:
+            - -0.099030495
+            - 1.2171957
+            - -0.85926116
+          orientation:
+            - - 0.10630996
+              - 0.002474614
+              - 0.99433064
+            - - 0.021991052
+              - -0.99975836
+              - 0.00013691811
+            - - 0.99409056
+              - 0.02185183
+              - -0.10633907
+  - Prop:
+      type_id: 1
+      prop_name: CanCollide
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 1
+      prop_name: CanQuery
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+  - Prop:
+      type_id: 1
+      prop_name: CanTouch
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+  - Prop:
+      type_id: 1
+      prop_name: CastShadow
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+  - Prop:
+      type_id: 1
+      prop_name: ChildData
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: ChildData2
+      prop_type: SharedString
+      values:
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+  - Prop:
+      type_id: 1
+      prop_name: CollisionGroup
+      prop_type: String
+      values:
+        - Default
+        - Default
+        - Default
+        - Default
+        - Default
+        - Default
+        - Default
+        - Default
+  - Prop:
+      type_id: 1
+      prop_name: CollisionGroupId
+      prop_type: Int32
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: Color3uint8
+      prop_type: Color3uint8
+      values:
+        - - 159
+          - 161
+          - 172
+        - - 159
+          - 161
+          - 172
+        - - 248
+          - 248
+          - 248
+        - - 159
+          - 161
+          - 172
+        - - 159
+          - 161
+          - 172
+        - - 159
+          - 161
+          - 172
+        - - 248
+          - 248
+          - 248
+        - - 159
+          - 161
+          - 172
+  - Prop:
+      type_id: 1
+      prop_name: CustomPhysicalProperties
+      prop_type: PhysicalProperties
+      values:
+        - Default
+        - Default
+        - Default
+        - Default
+        - Default
+        - Default
+        - Default
+        - Default
+  - Prop:
+      type_id: 1
+      prop_name: FormFactor
+      prop_type: Enum
+      values:
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+  - Prop:
+      type_id: 1
+      prop_name: FrontParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 1
+      prop_name: FrontParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 1
+      prop_name: FrontSurface
+      prop_type: Enum
+      values:
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+  - Prop:
+      type_id: 1
+      prop_name: FrontSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: InitialSize
+      prop_type: Vector3
+      values:
+        - - 1.0000002
+          - 18
+          - 31.000004
+        - - 1.0000002
+          - 18
+          - 31.000004
+        - - 4.8
+          - 2.0098171
+          - 2.0169144
+        - - 1.0000002
+          - 18
+          - 31.000004
+        - - 1.0000002
+          - 18
+          - 31.000004
+        - - 1.0000002
+          - 18
+          - 31.000004
+        - - 4.800001
+          - 2.0047607
+          - 2.0113258
+        - - 1.0000002
+          - 18
+          - 31.000004
+  - Prop:
+      type_id: 1
+      prop_name: LeftParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 1
+      prop_name: LeftParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 1
+      prop_name: LeftSurface
+      prop_type: Enum
+      values:
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+  - Prop:
+      type_id: 1
+      prop_name: LeftSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: Locked
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 1
+      prop_name: Massless
+      prop_type: Bool
+      values:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+  - Prop:
+      type_id: 1
+      prop_name: Material
+      prop_type: Enum
+      values:
+        - 272
+        - 272
+        - 1088
+        - 272
+        - 272
+        - 272
+        - 1088
+        - 272
+  - Prop:
+      type_id: 1
+      prop_name: MaterialVariantSerialized
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: MeshData
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: MeshData2
+      prop_type: SharedString
+      values:
+        - 3
+        - 3
+        - 1
+        - 3
+        - 3
+        - 3
+        - 0
+        - 3
+  - Prop:
+      type_id: 1
+      prop_name: Name
+      prop_type: String
+      values:
+        - Union
+        - Union
+        - Union
+        - Union
+        - Union
+        - Union
+        - Union
+        - Union
+  - Prop:
+      type_id: 1
+      prop_name: PhysicalConfigData
+      prop_type: SharedString
+      values:
+        - 5
+        - 5
+        - 4
+        - 5
+        - 5
+        - 5
+        - 2
+        - 5
+  - Prop:
+      type_id: 1
+      prop_name: PhysicsData
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: PivotOffset
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 1
+      prop_name: Reflectance
+      prop_type: Float32
+      values:
+        - 0.1
+        - 0.1
+        - 0
+        - 0.1
+        - 0.1
+        - 0.1
+        - 0.2
+        - 0.1
+  - Prop:
+      type_id: 1
+      prop_name: RenderFidelity
+      prop_type: Enum
+      values:
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+  - Prop:
+      type_id: 1
+      prop_name: RightParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 1
+      prop_name: RightParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 1
+      prop_name: RightSurface
+      prop_type: Enum
+      values:
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+  - Prop:
+      type_id: 1
+      prop_name: RightSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: RootPriority
+      prop_type: Int32
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: RotVelocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 1
+      prop_name: size
+      prop_type: Vector3
+      values:
+        - - 0.05
+          - 0.3600072
+          - 0.6200124
+        - - 0.05
+          - 0.36000714
+          - 0.62001246
+        - - 0.096
+          - 0.05
+          - 0.05
+        - - 0.05
+          - 0.3600072
+          - 0.6200124
+        - - 0.05
+          - 0.36000714
+          - 0.62001246
+        - - 0.05
+          - 0.36000717
+          - 0.62001246
+        - - 0.09600002
+          - 0.05
+          - 0.05
+        - - 0.05
+          - 0.36000717
+          - 0.62001246
+  - Prop:
+      type_id: 1
+      prop_name: SmoothingAngle
+      prop_type: Float32
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+  - Prop:
+      type_id: 1
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: TopParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 1
+      prop_name: TopParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 1
+      prop_name: TopSurface
+      prop_type: Enum
+      values:
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+        - 10
+  - Prop:
+      type_id: 1
+      prop_name: TopSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: UsePartColor
+      prop_type: Bool
+      values:
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+  - Prop:
+      type_id: 1
+      prop_name: Velocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - 0
+        - - 2
+          - 0
+        - - 3
+          - 0
+        - - 4
+          - 0
+        - - 5
+          - 0
+        - - 6
+          - 0
+        - - 7
+          - 0
+        - - 8
+          - 0
+  - End
+

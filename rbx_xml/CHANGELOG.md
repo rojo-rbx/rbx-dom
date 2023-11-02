@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## 0.13.2 (2023-10-03)
+* Added support for `SecurityCapabilities` values. ([#359])
+
+[#359]: https://github.com/rojo-rbx/rbx-dom/pull/359
+
+## 0.13.1 (2023-08-09)
+* Added support for `UniqueId` values. ([#271])
+* Added migrations for properties like `ScreenGui.IgnoreGuiInset` and `TextLabel.Font` to their new counterparts (`ScreenGui.GuiInsets` and `TextLabel.FontFace`, respectively). ([#283])
+* Added support for `Terrain.MaterialColors`. ([#323])
+
+[#271]: https://github.com/rojo-rbx/rbx-dom/pull/271
+[#283]: https://github.com/rojo-rbx/rbx-dom/pull/283
+[#323]: https://github.com/rojo-rbx/rbx-dom/pull/323
+
+## 0.13.0 (2023-04-22)
+* Added support for `Font` values. ([#248])
+
+[#248]: https://github.com/rojo-rbx/rbx-dom/pull/248
+
 ## 0.12.4 (2022-06-12)
 * Implemented serialization and deserialization for `Attributes`. ([#219])
 

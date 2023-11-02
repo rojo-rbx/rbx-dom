@@ -4,7 +4,9 @@
 use std::borrow::{Borrow, Cow};
 use std::convert::TryInto;
 
-use rbx_dom_weak::types::{Attributes, BrickColor, Color3uint8, Tags, Variant, VariantType};
+use rbx_dom_weak::types::{
+    Attributes, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType,
+};
 
 pub trait ConvertVariant: Clone + Sized {
     fn try_convert(self, target_type: VariantType) -> Result<Self, String> {
@@ -27,6 +29,14 @@ impl ConvertVariant for Variant {
         target_type: VariantType,
     ) -> Result<Cow<'_, Self>, String> {
         match (value.borrow(), target_type) {
+            // Older files may not have their number types moved to 64-bit yet,
+            // which can cause problems. See issue #301.
+            (Variant::Int32(value), VariantType::Int64) => {
+                Ok(Cow::Owned((i64::from(*value)).into()))
+            }
+            (Variant::Float32(value), VariantType::Float64) => {
+                Ok(Cow::Owned((f64::from(*value)).into()))
+            }
             (Variant::Int32(value), VariantType::BrickColor) => {
                 let narrowed: u16 = (*value).try_into().map_err(|_| {
                     format!("Value {} is not in the range of a valid BrickColor", value)
@@ -54,6 +64,11 @@ impl ConvertVariant for Variant {
                         .into(),
                 ))
             }
+            (Variant::BinaryString(value), VariantType::MaterialColors) => Ok(Cow::Owned(
+                MaterialColors::decode(value.as_ref())
+                    .map_err(|_| "invalid MaterialColors value")?
+                    .into(),
+            )),
             (_, _) => Ok(value),
         }
     }

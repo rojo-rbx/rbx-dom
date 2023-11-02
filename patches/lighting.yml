@@ -1,0 +1,5 @@
+Change:
+  Lighting:
+    ClockTime:
+      Serialization:
+        Type: Serializes

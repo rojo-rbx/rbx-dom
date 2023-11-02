@@ -1,0 +1,416 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: Folder
+  class: Folder
+  properties:
+    Attributes:
+      Attributes:
+        Rotation02:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Rotation03:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 0
+                - -1
+              - - 0
+                - 1
+                - 0
+        Rotation05:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - -1
+                - 0
+              - - 0
+                - 0
+                - -1
+        Rotation06:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 0
+                - 1
+              - - 0
+                - -1
+                - 0
+        Rotation07:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 1
+                - 0
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 0
+                - -1
+        Rotation09:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 0
+                - 1
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+        Rotation0a:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - -1
+                - 0
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 0
+                - 1
+        Rotation0c:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 0
+                - -1
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - -1
+                - 0
+        Rotation0d:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+              - - 1
+                - 0
+                - 0
+        Rotation0e:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 0
+                - -1
+              - - 0
+                - 1
+                - 0
+              - - 1
+                - 0
+                - 0
+        Rotation10:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - -1
+                - 0
+              - - 0
+                - 0
+                - -1
+              - - 1
+                - 0
+                - 0
+        Rotation11:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 0
+                - 1
+              - - 0
+                - -1
+                - 0
+              - - 1
+                - 0
+                - 0
+        Rotation14:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - -1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - -1
+        Rotation15:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - -1
+                - 0
+                - 0
+              - - 0
+                - 0
+                - 1
+              - - 0
+                - 1
+                - 0
+        Rotation17:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - -1
+                - 0
+                - 0
+              - - 0
+                - -1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Rotation18:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - -1
+                - 0
+                - 0
+              - - 0
+                - 0
+                - -1
+              - - 0
+                - -1
+                - 0
+        Rotation19:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 1
+                - 0
+              - - -1
+                - 0
+                - 0
+              - - 0
+                - 0
+                - 1
+        Rotation1b:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 0
+                - -1
+              - - -1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+        Rotation1c:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - -1
+                - 0
+              - - -1
+                - 0
+                - 0
+              - - 0
+                - 0
+                - -1
+        Rotation1e:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 0
+                - 1
+              - - -1
+                - 0
+                - 0
+              - - 0
+                - -1
+                - 0
+        Rotation1f:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - -1
+              - - -1
+                - 0
+                - 0
+        Rotation20:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 0
+                - 1
+              - - 0
+                - 1
+                - 0
+              - - -1
+                - 0
+                - 0
+        Rotation22:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - -1
+                - 0
+              - - 0
+                - 0
+                - 1
+              - - -1
+                - 0
+                - 0
+        Rotation23:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 0
+                - 0
+                - -1
+              - - 0
+                - -1
+                - 0
+              - - -1
+                - 0
+                - 0
+        YetAnotherCFrameAttribute:
+          CFrame:
+            position:
+              - 1
+              - 3.1333337
+              - 0.808
+            orientation:
+              - - -0.24184482
+                - -0.9396926
+                - -0.24184477
+              - - 0.70710677
+                - -0.00000003090862
+                - -0.70710677
+              - - 0.664463
+                - -0.34202018
+                - 0.664463
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+

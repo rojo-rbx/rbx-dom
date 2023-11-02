@@ -1,4 +1,5 @@
 use std::{
+    borrow::Cow,
     collections::{BTreeMap, HashMap},
     io::Write,
 };
@@ -7,7 +8,7 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
     WeakDom,
 };
-use rbx_reflection::DataType;
+use rbx_reflection::{DataType, PropertyKind, PropertySerialization};
 
 use crate::{
     conversion::ConvertVariant,
@@ -194,7 +195,9 @@ fn serialize_instance<'a, W: Write>(
                 _ => unimplemented!(),
             };
 
-            let converted_value = match value.try_convert_ref(data_type) {
+            let mut serialized_name = serialized_descriptor.name.as_ref();
+
+            let mut converted_value = match value.try_convert_ref(data_type) {
                 Ok(value) => value,
                 Err(message) => {
                     return Err(
@@ -209,7 +212,20 @@ fn serialize_instance<'a, W: Write>(
                 }
             };
 
-            write_value_xml(writer, state, &serialized_descriptor.name, &converted_value)?;
+            // Perform migrations during serialization
+            if let PropertyKind::Canonical {
+                serialization: PropertySerialization::Migrate(migration),
+            } = &serialized_descriptor.kind
+            {
+                // If the migration fails, there's no harm in us doing nothing
+                // since old values will still load in Studio.
+                if let Ok(new_value) = migration.perform(&converted_value) {
+                    converted_value = Cow::Owned(new_value);
+                    serialized_name = &migration.new_property_name
+                }
+            }
+
+            write_value_xml(writer, state, serialized_name, &converted_value)?;
         } else {
             match state.options.property_behavior {
                 EncodePropertyBehavior::IgnoreUnknown => {}

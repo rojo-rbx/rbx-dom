@@ -1,16 +1,12 @@
-Add:
+Change:
   Workspace:
-    # Collision groups in a place are serialized as a string that looks like:
-    # Default^0^1
+    SignalBehavior:
+      Serialization:
+        Type: SerializesAs
+        As: SignalBehavior2
+    SignalBehavior2:
+      AliasFor: SignalBehavior
+
     CollisionGroups:
       Serialization:
         Type: Serializes
-      DataType:
-        Value: String
-      Scriptability: None
-    ExplicitAutoJoints:
-      Serialization:
-        Type: Serializes
-      DataType:
-        Value: Bool
-      Scriptability: None

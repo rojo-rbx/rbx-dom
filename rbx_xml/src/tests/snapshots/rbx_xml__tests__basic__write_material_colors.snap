@@ -1,0 +1,12 @@
+---
+source: rbx_xml/src/tests/basic.rs
+expression: "std::str::from_utf8(&encoded).unwrap()"
+---
+<roblox version="4">
+  <Item class="Terrain" referent="0">
+    <Properties>
+      <string name="Name">Terrain</string>
+      <BinaryString name="MaterialColors">AAAAAAAAan8/P39rf2Y/ilY+j35fi21PZmxvZbDqw8faiVpHOi4kHh4lZlw76JxKc3trhHtagcLgc4RKxr21zq2UlJSM</BinaryString>
+    </Properties>
+  </Item>
+</roblox>

@@ -1,0 +1,4391 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 60
+num_instances: 60
+chunks:
+  - Sstr:
+      version: 0
+      entries:
+        - len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+  - Inst:
+      type_id: 30
+      type_name: AnalyticsService
+      object_format: 1
+      referents:
+        - 30
+      remaining: "01"
+  - Inst:
+      type_id: 28
+      type_name: AssetService
+      object_format: 1
+      referents:
+        - 28
+      remaining: "01"
+  - Inst:
+      type_id: 55
+      type_name: Atmosphere
+      object_format: 0
+      referents:
+        - 55
+  - Inst:
+      type_id: 56
+      type_name: BloomEffect
+      object_format: 0
+      referents:
+        - 56
+  - Inst:
+      type_id: 3
+      type_name: CSGDictionaryService
+      object_format: 1
+      referents:
+        - 3
+      remaining: "01"
+  - Inst:
+      type_id: 46
+      type_name: Camera
+      object_format: 0
+      referents:
+        - 46
+  - Inst:
+      type_id: 4
+      type_name: Chat
+      object_format: 1
+      referents:
+        - 4
+      remaining: "01"
+  - Inst:
+      type_id: 18
+      type_name: CollectionService
+      object_format: 1
+      referents:
+        - 18
+      remaining: "01"
+  - Inst:
+      type_id: 26
+      type_name: ContextActionService
+      object_format: 1
+      referents:
+        - 26
+      remaining: "01"
+  - Inst:
+      type_id: 24
+      type_name: CookiesService
+      object_format: 1
+      referents:
+        - 24
+      remaining: "01"
+  - Inst:
+      type_id: 41
+      type_name: DataStoreService
+      object_format: 1
+      referents:
+        - 41
+      remaining: "01"
+  - Inst:
+      type_id: 23
+      type_name: Debris
+      object_format: 1
+      referents:
+        - 23
+      remaining: "01"
+  - Inst:
+      type_id: 59
+      type_name: Decal
+      object_format: 0
+      referents:
+        - 59
+  - Inst:
+      type_id: 57
+      type_name: DepthOfFieldEffect
+      object_format: 0
+      referents:
+        - 57
+  - Inst:
+      type_id: 22
+      type_name: GamePassService
+      object_format: 1
+      referents:
+        - 22
+      remaining: "01"
+  - Inst:
+      type_id: 20
+      type_name: Geometry
+      object_format: 1
+      referents:
+        - 20
+      remaining: "01"
+  - Inst:
+      type_id: 42
+      type_name: HttpService
+      object_format: 1
+      referents:
+        - 42
+      remaining: "01"
+  - Inst:
+      type_id: 21
+      type_name: InsertService
+      object_format: 1
+      referents:
+        - 21
+      remaining: "01"
+  - Inst:
+      type_id: 31
+      type_name: Instance
+      object_format: 0
+      referents:
+        - 31
+  - Inst:
+      type_id: 38
+      type_name: LanguageService
+      object_format: 1
+      referents:
+        - 38
+      remaining: "01"
+  - Inst:
+      type_id: 39
+      type_name: Lighting
+      object_format: 1
+      referents:
+        - 39
+      remaining: "01"
+  - Inst:
+      type_id: 16
+      type_name: LocalizationService
+      object_format: 1
+      referents:
+        - 16
+      remaining: "01"
+  - Inst:
+      type_id: 40
+      type_name: LodDataService
+      object_format: 1
+      referents:
+        - 40
+      remaining: "01"
+  - Inst:
+      type_id: 36
+      type_name: LuaWebService
+      object_format: 1
+      referents:
+        - 36
+      remaining: "01"
+  - Inst:
+      type_id: 9
+      type_name: MaterialService
+      object_format: 1
+      referents:
+        - 9
+      remaining: "01"
+  - Inst:
+      type_id: 2
+      type_name: NonReplicatedCSGDictionaryService
+      object_format: 1
+      referents:
+        - 2
+      remaining: "01"
+  - Inst:
+      type_id: 47
+      type_name: Part
+      object_format: 0
+      referents:
+        - 47
+  - Inst:
+      type_id: 10
+      type_name: PermissionsService
+      object_format: 1
+      referents:
+        - 10
+      remaining: "01"
+  - Inst:
+      type_id: 19
+      type_name: PhysicsService
+      object_format: 1
+      referents:
+        - 19
+      remaining: "01"
+  - Inst:
+      type_id: 11
+      type_name: PlayerEmulatorService
+      object_format: 1
+      referents:
+        - 11
+      remaining: "01"
+  - Inst:
+      type_id: 6
+      type_name: Players
+      object_format: 1
+      referents:
+        - 6
+      remaining: "01"
+  - Inst:
+      type_id: 37
+      type_name: ProcessInstancePhysicsService
+      object_format: 1
+      referents:
+        - 37
+      remaining: "01"
+  - Inst:
+      type_id: 7
+      type_name: ReplicatedFirst
+      object_format: 1
+      referents:
+        - 7
+      remaining: "01"
+  - Inst:
+      type_id: 35
+      type_name: ReplicatedStorage
+      object_format: 1
+      referents:
+        - 35
+      remaining: "01"
+  - Inst:
+      type_id: 27
+      type_name: ScriptService
+      object_format: 1
+      referents:
+        - 27
+      remaining: "01"
+  - Inst:
+      type_id: 32
+      type_name: Selection
+      object_format: 1
+      referents:
+        - 32
+      remaining: "01"
+  - Inst:
+      type_id: 33
+      type_name: ServerScriptService
+      object_format: 1
+      referents:
+        - 33
+      remaining: "01"
+  - Inst:
+      type_id: 34
+      type_name: ServerStorage
+      object_format: 1
+      referents:
+        - 34
+      remaining: "01"
+  - Inst:
+      type_id: 53
+      type_name: Sky
+      object_format: 0
+      referents:
+        - 53
+  - Inst:
+      type_id: 1
+      type_name: SoundService
+      object_format: 1
+      referents:
+        - 1
+      remaining: "01"
+  - Inst:
+      type_id: 49
+      type_name: SpawnLocation
+      object_format: 0
+      referents:
+        - 49
+  - Inst:
+      type_id: 51
+      type_name: StarterCharacterScripts
+      object_format: 0
+      referents:
+        - 51
+  - Inst:
+      type_id: 15
+      type_name: StarterGui
+      object_format: 1
+      referents:
+        - 15
+      remaining: "01"
+  - Inst:
+      type_id: 14
+      type_name: StarterPack
+      object_format: 1
+      referents:
+        - 14
+      remaining: "01"
+  - Inst:
+      type_id: 13
+      type_name: StarterPlayer
+      object_format: 1
+      referents:
+        - 13
+      remaining: "01"
+  - Inst:
+      type_id: 50
+      type_name: StarterPlayerScripts
+      object_format: 0
+      referents:
+        - 50
+  - Inst:
+      type_id: 52
+      type_name: StringValue
+      object_format: 0
+      referents:
+        - 52
+  - Inst:
+      type_id: 12
+      type_name: StudioData
+      object_format: 1
+      referents:
+        - 12
+      remaining: "01"
+  - Inst:
+      type_id: 54
+      type_name: SunRaysEffect
+      object_format: 0
+      referents:
+        - 54
+  - Inst:
+      type_id: 43
+      type_name: Teams
+      object_format: 1
+      referents:
+        - 43
+      remaining: "01"
+  - Inst:
+      type_id: 17
+      type_name: TeleportService
+      object_format: 1
+      referents:
+        - 17
+      remaining: "01"
+  - Inst:
+      type_id: 48
+      type_name: Terrain
+      object_format: 0
+      referents:
+        - 48
+  - Inst:
+      type_id: 44
+      type_name: TestService
+      object_format: 1
+      referents:
+        - 44
+      remaining: "01"
+  - Inst:
+      type_id: 58
+      type_name: Texture
+      object_format: 0
+      referents:
+        - 58
+  - Inst:
+      type_id: 5
+      type_name: TimerService
+      object_format: 1
+      referents:
+        - 5
+      remaining: "01"
+  - Inst:
+      type_id: 29
+      type_name: TouchInputService
+      object_format: 1
+      referents:
+        - 29
+      remaining: "01"
+  - Inst:
+      type_id: 8
+      type_name: TweenService
+      object_format: 1
+      referents:
+        - 8
+      remaining: "01"
+  - Inst:
+      type_id: 25
+      type_name: VRService
+      object_format: 1
+      referents:
+        - 25
+      remaining: "01"
+  - Inst:
+      type_id: 45
+      type_name: VirtualInputManager
+      object_format: 1
+      referents:
+        - 45
+      remaining: "01"
+  - Inst:
+      type_id: 0
+      type_name: Workspace
+      object_format: 1
+      referents:
+        - 0
+      remaining: "01"
+  - Prop:
+      type_id: 30
+      prop_name: ApiKey
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 30
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 30
+      prop_name: Name
+      prop_type: String
+      values:
+        - AnalyticsService
+  - Prop:
+      type_id: 30
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 30
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 28
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 28
+      prop_name: Name
+      prop_type: String
+      values:
+        - AssetService
+  - Prop:
+      type_id: 28
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 28
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 55
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 55
+      prop_name: Color
+      prop_type: Color3
+      values:
+        - - 0.78039217
+          - 0.78039217
+          - 0.78039217
+  - Prop:
+      type_id: 55
+      prop_name: Decay
+      prop_type: Color3
+      values:
+        - - 0.41568628
+          - 0.4392157
+          - 0.49019608
+  - Prop:
+      type_id: 55
+      prop_name: Density
+      prop_type: Float32
+      values:
+        - 0.3
+  - Prop:
+      type_id: 55
+      prop_name: Glare
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 55
+      prop_name: Haze
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 55
+      prop_name: Name
+      prop_type: String
+      values:
+        - Atmosphere
+  - Prop:
+      type_id: 55
+      prop_name: Offset
+      prop_type: Float32
+      values:
+        - 0.25
+  - Prop:
+      type_id: 55
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 55
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 56
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 56
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 56
+      prop_name: Intensity
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 56
+      prop_name: Name
+      prop_type: String
+      values:
+        - Bloom
+  - Prop:
+      type_id: 56
+      prop_name: Size
+      prop_type: Float32
+      values:
+        - 24
+  - Prop:
+      type_id: 56
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 56
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 56
+      prop_name: Threshold
+      prop_type: Float32
+      values:
+        - 2
+  - Prop:
+      type_id: 3
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 3
+      prop_name: Name
+      prop_type: String
+      values:
+        - CSGDictionaryService
+  - Prop:
+      type_id: 3
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 3
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 46
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 46
+      prop_name: CFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - -19.93419
+            - 14.091625
+            - -19.064589
+          orientation:
+            - - -0.691168
+              - 0.31943393
+              - -0.648266
+            - - -0
+              - 0.89701295
+              - 0.44200432
+            - - 0.72269416
+              - 0.30549926
+              - -0.61998665
+  - Prop:
+      type_id: 46
+      prop_name: CameraSubject
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 46
+      prop_name: CameraType
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 46
+      prop_name: FieldOfView
+      prop_type: Float32
+      values:
+        - 70
+  - Prop:
+      type_id: 46
+      prop_name: FieldOfViewMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 46
+      prop_name: Focus
+      prop_type: CFrame
+      values:
+        - position:
+            - -18.63766
+            - 13.207617
+            - -17.824615
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 46
+      prop_name: HeadLocked
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 46
+      prop_name: HeadScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 46
+      prop_name: Name
+      prop_type: String
+      values:
+        - Camera
+  - Prop:
+      type_id: 46
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 46
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 4
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 4
+      prop_name: BubbleChatEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 4
+      prop_name: LoadDefaultChat
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 4
+      prop_name: Name
+      prop_type: String
+      values:
+        - Chat
+  - Prop:
+      type_id: 4
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 4
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 18
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 18
+      prop_name: Name
+      prop_type: String
+      values:
+        - CollectionService
+  - Prop:
+      type_id: 18
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 18
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 26
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 26
+      prop_name: Name
+      prop_type: String
+      values:
+        - ContextActionService
+  - Prop:
+      type_id: 26
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 26
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 24
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 24
+      prop_name: Name
+      prop_type: String
+      values:
+        - CookiesService
+  - Prop:
+      type_id: 24
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 24
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 41
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 41
+      prop_name: AutomaticRetry
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 41
+      prop_name: LegacyNamingScheme
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 41
+      prop_name: Name
+      prop_type: String
+      values:
+        - DataStoreService
+  - Prop:
+      type_id: 41
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 41
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 23
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 23
+      prop_name: MaxItems
+      prop_type: Int32
+      values:
+        - 1000
+  - Prop:
+      type_id: 23
+      prop_name: Name
+      prop_type: String
+      values:
+        - Debris
+  - Prop:
+      type_id: 23
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 23
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 59
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 59
+      prop_name: Color3
+      prop_type: Color3
+      values:
+        - - 1
+          - 1
+          - 1
+  - Prop:
+      type_id: 59
+      prop_name: Face
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 59
+      prop_name: Name
+      prop_type: String
+      values:
+        - Decal
+  - Prop:
+      type_id: 59
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 59
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 59
+      prop_name: Texture
+      prop_type: String
+      values:
+        - "rbxasset://textures/SpawnLocation.png"
+  - Prop:
+      type_id: 59
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 59
+      prop_name: ZIndex
+      prop_type: Int32
+      values:
+        - 1
+  - Prop:
+      type_id: 57
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 57
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 57
+      prop_name: FarIntensity
+      prop_type: Float32
+      values:
+        - 0.1
+  - Prop:
+      type_id: 57
+      prop_name: FocusDistance
+      prop_type: Float32
+      values:
+        - 0.05
+  - Prop:
+      type_id: 57
+      prop_name: InFocusRadius
+      prop_type: Float32
+      values:
+        - 30
+  - Prop:
+      type_id: 57
+      prop_name: Name
+      prop_type: String
+      values:
+        - DepthOfField
+  - Prop:
+      type_id: 57
+      prop_name: NearIntensity
+      prop_type: Float32
+      values:
+        - 0.75
+  - Prop:
+      type_id: 57
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 57
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 22
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 22
+      prop_name: Name
+      prop_type: String
+      values:
+        - GamePassService
+  - Prop:
+      type_id: 22
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 22
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 20
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 20
+      prop_name: Name
+      prop_type: String
+      values:
+        - Geometry
+  - Prop:
+      type_id: 20
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 20
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 42
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 42
+      prop_name: HttpEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 42
+      prop_name: Name
+      prop_type: String
+      values:
+        - HttpService
+  - Prop:
+      type_id: 42
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 42
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 21
+      prop_name: AllowClientInsertModels
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 21
+      prop_name: AllowInsertFreeModels
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 21
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 21
+      prop_name: Name
+      prop_type: String
+      values:
+        - InsertService
+  - Prop:
+      type_id: 21
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 21
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 31
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 31
+      prop_name: Name
+      prop_type: String
+      values:
+        - FilteredSelection
+  - Prop:
+      type_id: 31
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 31
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 38
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 38
+      prop_name: Name
+      prop_type: String
+      values:
+        - LanguageService
+  - Prop:
+      type_id: 38
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 38
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 39
+      prop_name: Ambient
+      prop_type: Color3
+      values:
+        - - 0.27450982
+          - 0.27450982
+          - 0.27450982
+  - Prop:
+      type_id: 39
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - "\u0001\u0000\u0000\u0000\u0012\u0000\u0000\u0000UseCurrentLighting\u0003\u0000"
+  - Prop:
+      type_id: 39
+      prop_name: Brightness
+      prop_type: Float32
+      values:
+        - 3
+  - Prop:
+      type_id: 39
+      prop_name: ColorShift_Bottom
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 39
+      prop_name: ColorShift_Top
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 39
+      prop_name: EnvironmentDiffuseScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 39
+      prop_name: EnvironmentSpecularScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 39
+      prop_name: ExposureCompensation
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 39
+      prop_name: FogColor
+      prop_type: Color3
+      values:
+        - - 0.75294125
+          - 0.75294125
+          - 0.75294125
+  - Prop:
+      type_id: 39
+      prop_name: FogEnd
+      prop_type: Float32
+      values:
+        - 100000
+  - Prop:
+      type_id: 39
+      prop_name: FogStart
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 39
+      prop_name: GeographicLatitude
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 39
+      prop_name: GlobalShadows
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 39
+      prop_name: Name
+      prop_type: String
+      values:
+        - Lighting
+  - Prop:
+      type_id: 39
+      prop_name: OutdoorAmbient
+      prop_type: Color3
+      values:
+        - - 0.27450982
+          - 0.27450982
+          - 0.27450982
+  - Prop:
+      type_id: 39
+      prop_name: Outlines
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 39
+      prop_name: ShadowSoftness
+      prop_type: Float32
+      values:
+        - 0.2
+  - Prop:
+      type_id: 39
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 39
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 39
+      prop_name: Technology
+      prop_type: Enum
+      values:
+        - 3
+  - Prop:
+      type_id: 39
+      prop_name: TimeOfDay
+      prop_type: String
+      values:
+        - "14:30:00"
+  - Prop:
+      type_id: 16
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 16
+      prop_name: Name
+      prop_type: String
+      values:
+        - LocalizationService
+  - Prop:
+      type_id: 16
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 16
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 40
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 40
+      prop_name: Name
+      prop_type: String
+      values:
+        - Instance
+  - Prop:
+      type_id: 40
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 40
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 36
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 36
+      prop_name: Name
+      prop_type: String
+      values:
+        - Instance
+  - Prop:
+      type_id: 36
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 36
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 9
+      prop_name: AsphaltName
+      prop_type: String
+      values:
+        - Asphalt
+  - Prop:
+      type_id: 9
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 9
+      prop_name: BasaltName
+      prop_type: String
+      values:
+        - Basalt
+  - Prop:
+      type_id: 9
+      prop_name: BrickName
+      prop_type: String
+      values:
+        - Brick
+  - Prop:
+      type_id: 9
+      prop_name: CobblestoneName
+      prop_type: String
+      values:
+        - Cobblestone
+  - Prop:
+      type_id: 9
+      prop_name: ConcreteName
+      prop_type: String
+      values:
+        - Concrete
+  - Prop:
+      type_id: 9
+      prop_name: CorrodedMetalName
+      prop_type: String
+      values:
+        - CorrodedMetal
+  - Prop:
+      type_id: 9
+      prop_name: CrackedLavaName
+      prop_type: String
+      values:
+        - CrackedLava
+  - Prop:
+      type_id: 9
+      prop_name: DiamondPlateName
+      prop_type: String
+      values:
+        - DiamondPlate
+  - Prop:
+      type_id: 9
+      prop_name: FabricName
+      prop_type: String
+      values:
+        - Fabric
+  - Prop:
+      type_id: 9
+      prop_name: FoilName
+      prop_type: String
+      values:
+        - Foil
+  - Prop:
+      type_id: 9
+      prop_name: GlacierName
+      prop_type: String
+      values:
+        - Glacier
+  - Prop:
+      type_id: 9
+      prop_name: GraniteName
+      prop_type: String
+      values:
+        - Granite
+  - Prop:
+      type_id: 9
+      prop_name: GrassName
+      prop_type: String
+      values:
+        - Grass
+  - Prop:
+      type_id: 9
+      prop_name: GroundName
+      prop_type: String
+      values:
+        - Ground
+  - Prop:
+      type_id: 9
+      prop_name: IceName
+      prop_type: String
+      values:
+        - Ice
+  - Prop:
+      type_id: 9
+      prop_name: LeafyGrassName
+      prop_type: String
+      values:
+        - LeafyGrass
+  - Prop:
+      type_id: 9
+      prop_name: LimestoneName
+      prop_type: String
+      values:
+        - Limestone
+  - Prop:
+      type_id: 9
+      prop_name: MarbleName
+      prop_type: String
+      values:
+        - Marble
+  - Prop:
+      type_id: 9
+      prop_name: MetalName
+      prop_type: String
+      values:
+        - Metal
+  - Prop:
+      type_id: 9
+      prop_name: MudName
+      prop_type: String
+      values:
+        - Mud
+  - Prop:
+      type_id: 9
+      prop_name: Name
+      prop_type: String
+      values:
+        - MaterialService
+  - Prop:
+      type_id: 9
+      prop_name: PavementName
+      prop_type: String
+      values:
+        - Pavement
+  - Prop:
+      type_id: 9
+      prop_name: PebbleName
+      prop_type: String
+      values:
+        - Pebble
+  - Prop:
+      type_id: 9
+      prop_name: PlasticName
+      prop_type: String
+      values:
+        - Plastic
+  - Prop:
+      type_id: 9
+      prop_name: RockName
+      prop_type: String
+      values:
+        - Rock
+  - Prop:
+      type_id: 9
+      prop_name: SaltName
+      prop_type: String
+      values:
+        - Salt
+  - Prop:
+      type_id: 9
+      prop_name: SandName
+      prop_type: String
+      values:
+        - Sand
+  - Prop:
+      type_id: 9
+      prop_name: SandstoneName
+      prop_type: String
+      values:
+        - Sandstone
+  - Prop:
+      type_id: 9
+      prop_name: SlateName
+      prop_type: String
+      values:
+        - Slate
+  - Prop:
+      type_id: 9
+      prop_name: SmoothPlasticName
+      prop_type: String
+      values:
+        - SmoothPlastic
+  - Prop:
+      type_id: 9
+      prop_name: SnowName
+      prop_type: String
+      values:
+        - Snow
+  - Prop:
+      type_id: 9
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 9
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 9
+      prop_name: Use2022MaterialsXml
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 9
+      prop_name: WoodName
+      prop_type: String
+      values:
+        - Wood
+  - Prop:
+      type_id: 9
+      prop_name: WoodPlanksName
+      prop_type: String
+      values:
+        - WoodPlanks
+  - Prop:
+      type_id: 2
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 2
+      prop_name: Name
+      prop_type: String
+      values:
+        - NonReplicatedCSGDictionaryService
+  - Prop:
+      type_id: 2
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 2
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 47
+      prop_name: Anchored
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 47
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 47
+      prop_name: BackParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 47
+      prop_name: BackParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 47
+      prop_name: BackSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: BackSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: BottomParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 47
+      prop_name: BottomParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 47
+      prop_name: BottomSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: BottomSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: CFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - -8
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 47
+      prop_name: CanCollide
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 47
+      prop_name: CanQuery
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 47
+      prop_name: CanTouch
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 47
+      prop_name: CastShadow
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 47
+      prop_name: CollisionGroup
+      prop_type: String
+      values:
+        - Default
+  - Prop:
+      type_id: 47
+      prop_name: CollisionGroupId
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: Color3uint8
+      prop_type: Color3uint8
+      values:
+        - - 91
+          - 91
+          - 91
+  - Prop:
+      type_id: 47
+      prop_name: CustomPhysicalProperties
+      prop_type: PhysicalProperties
+      values:
+        - Default
+  - Prop:
+      type_id: 47
+      prop_name: formFactorRaw
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: FrontParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 47
+      prop_name: FrontParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 47
+      prop_name: FrontSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: FrontSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: LeftParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 47
+      prop_name: LeftParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 47
+      prop_name: LeftSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: LeftSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: Locked
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 47
+      prop_name: Massless
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 47
+      prop_name: Material
+      prop_type: Enum
+      values:
+        - 256
+  - Prop:
+      type_id: 47
+      prop_name: MaterialVariantSerialized
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 47
+      prop_name: Name
+      prop_type: String
+      values:
+        - Baseplate
+  - Prop:
+      type_id: 47
+      prop_name: PivotOffset
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 47
+      prop_name: Reflectance
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: RightParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 47
+      prop_name: RightParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 47
+      prop_name: RightSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: RightSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: RootPriority
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: RotVelocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 47
+      prop_name: shape
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 47
+      prop_name: size
+      prop_type: Vector3
+      values:
+        - - 2048
+          - 16
+          - 2048
+  - Prop:
+      type_id: 47
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 47
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 47
+      prop_name: TopParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 47
+      prop_name: TopParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 47
+      prop_name: TopSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: TopSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: Velocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 10
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 10
+      prop_name: Name
+      prop_type: String
+      values:
+        - PermissionsService
+  - Prop:
+      type_id: 10
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 10
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 19
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 19
+      prop_name: Name
+      prop_type: String
+      values:
+        - PhysicsService
+  - Prop:
+      type_id: 19
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 19
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 11
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 11
+      prop_name: CustomPoliciesEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 11
+      prop_name: EmulatedCountryCode
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 11
+      prop_name: EmulatedGameLocale
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 11
+      prop_name: Name
+      prop_type: String
+      values:
+        - PlayerEmulatorService
+  - Prop:
+      type_id: 11
+      prop_name: PlayerEmulationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 11
+      prop_name: SerializedEmulatedPolicyInfo
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 11
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 11
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 6
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 6
+      prop_name: CharacterAutoLoads
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 6
+      prop_name: MaxPlayersInternal
+      prop_type: Int32
+      values:
+        - 30
+  - Prop:
+      type_id: 6
+      prop_name: Name
+      prop_type: String
+      values:
+        - Players
+  - Prop:
+      type_id: 6
+      prop_name: PreferredPlayersInternal
+      prop_type: Int32
+      values:
+        - 30
+  - Prop:
+      type_id: 6
+      prop_name: RespawnTime
+      prop_type: Float32
+      values:
+        - 3
+  - Prop:
+      type_id: 6
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 6
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 6
+      prop_name: UseStrafingAnimations
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 37
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 37
+      prop_name: Name
+      prop_type: String
+      values:
+        - ProcessInstancePhysicsService
+  - Prop:
+      type_id: 37
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 37
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 7
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 7
+      prop_name: Name
+      prop_type: String
+      values:
+        - ReplicatedFirst
+  - Prop:
+      type_id: 7
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 7
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 35
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 35
+      prop_name: Name
+      prop_type: String
+      values:
+        - ReplicatedStorage
+  - Prop:
+      type_id: 35
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 35
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 27
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 27
+      prop_name: Name
+      prop_type: String
+      values:
+        - Instance
+  - Prop:
+      type_id: 27
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 27
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 32
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 32
+      prop_name: Name
+      prop_type: String
+      values:
+        - Selection
+  - Prop:
+      type_id: 32
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 32
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 33
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 33
+      prop_name: LoadStringEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 33
+      prop_name: Name
+      prop_type: String
+      values:
+        - ServerScriptService
+  - Prop:
+      type_id: 33
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 33
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 34
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 34
+      prop_name: Name
+      prop_type: String
+      values:
+        - ServerStorage
+  - Prop:
+      type_id: 34
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 34
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 53
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 53
+      prop_name: CelestialBodiesShown
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: MoonAngularSize
+      prop_type: Float32
+      values:
+        - 11
+  - Prop:
+      type_id: 53
+      prop_name: MoonTextureId
+      prop_type: String
+      values:
+        - "rbxassetid://6444320592"
+  - Prop:
+      type_id: 53
+      prop_name: Name
+      prop_type: String
+      values:
+        - Sky
+  - Prop:
+      type_id: 53
+      prop_name: SkyboxBk
+      prop_type: String
+      values:
+        - "rbxassetid://6444884337"
+  - Prop:
+      type_id: 53
+      prop_name: SkyboxDn
+      prop_type: String
+      values:
+        - "rbxassetid://6444884785"
+  - Prop:
+      type_id: 53
+      prop_name: SkyboxFt
+      prop_type: String
+      values:
+        - "rbxassetid://6444884337"
+  - Prop:
+      type_id: 53
+      prop_name: SkyboxLf
+      prop_type: String
+      values:
+        - "rbxassetid://6444884337"
+  - Prop:
+      type_id: 53
+      prop_name: SkyboxRt
+      prop_type: String
+      values:
+        - "rbxassetid://6444884337"
+  - Prop:
+      type_id: 53
+      prop_name: SkyboxUp
+      prop_type: String
+      values:
+        - "rbxassetid://6412503613"
+  - Prop:
+      type_id: 53
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - 332039975
+  - Prop:
+      type_id: 53
+      prop_name: StarCount
+      prop_type: Int32
+      values:
+        - 3000
+  - Prop:
+      type_id: 53
+      prop_name: SunAngularSize
+      prop_type: Float32
+      values:
+        - 11
+  - Prop:
+      type_id: 53
+      prop_name: SunTextureId
+      prop_type: String
+      values:
+        - "rbxassetid://6196665106"
+  - Prop:
+      type_id: 53
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: AmbientReverb
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: DistanceFactor
+      prop_type: Float32
+      values:
+        - 3.33
+  - Prop:
+      type_id: 1
+      prop_name: DopplerScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 1
+      prop_name: Name
+      prop_type: String
+      values:
+        - SoundService
+  - Prop:
+      type_id: 1
+      prop_name: RespectFilteringEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 1
+      prop_name: RolloffScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 1
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 1
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: VolumetricAudio
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 49
+      prop_name: AllowTeamChangeOnTouch
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 49
+      prop_name: Anchored
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 49
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 49
+      prop_name: BackParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 49
+      prop_name: BackParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 49
+      prop_name: BackSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: BackSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: BottomParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 49
+      prop_name: BottomParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 49
+      prop_name: BottomSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: BottomSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: CFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0.5
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 49
+      prop_name: CanCollide
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 49
+      prop_name: CanQuery
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 49
+      prop_name: CanTouch
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 49
+      prop_name: CastShadow
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 49
+      prop_name: CollisionGroup
+      prop_type: String
+      values:
+        - Default
+  - Prop:
+      type_id: 49
+      prop_name: CollisionGroupId
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: Color3uint8
+      prop_type: Color3uint8
+      values:
+        - - 163
+          - 162
+          - 165
+  - Prop:
+      type_id: 49
+      prop_name: CustomPhysicalProperties
+      prop_type: PhysicalProperties
+      values:
+        - Default
+  - Prop:
+      type_id: 49
+      prop_name: Duration
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 49
+      prop_name: formFactorRaw
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 49
+      prop_name: FrontParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 49
+      prop_name: FrontParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 49
+      prop_name: FrontSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: FrontSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: LeftParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 49
+      prop_name: LeftParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 49
+      prop_name: LeftSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: LeftSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: Locked
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 49
+      prop_name: Massless
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 49
+      prop_name: Material
+      prop_type: Enum
+      values:
+        - 256
+  - Prop:
+      type_id: 49
+      prop_name: MaterialVariantSerialized
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 49
+      prop_name: Name
+      prop_type: String
+      values:
+        - SpawnLocation
+  - Prop:
+      type_id: 49
+      prop_name: Neutral
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 49
+      prop_name: PivotOffset
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 49
+      prop_name: Reflectance
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: RightParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 49
+      prop_name: RightParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 49
+      prop_name: RightSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: RightSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: RootPriority
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: RotVelocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 49
+      prop_name: shape
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 49
+      prop_name: size
+      prop_type: Vector3
+      values:
+        - - 12
+          - 1
+          - 12
+  - Prop:
+      type_id: 49
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 49
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 49
+      prop_name: TeamColor
+      prop_type: BrickColor
+      values:
+        - 194
+  - Prop:
+      type_id: 49
+      prop_name: TopParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 49
+      prop_name: TopParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 49
+      prop_name: TopSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: TopSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: Velocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 51
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 51
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterCharacterScripts
+  - Prop:
+      type_id: 51
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 51
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 15
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 15
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterGui
+  - Prop:
+      type_id: 15
+      prop_name: ResetPlayerGuiOnSpawn
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 15
+      prop_name: RtlTextSupport
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 15
+      prop_name: ScreenOrientation
+      prop_type: Enum
+      values:
+        - 4
+  - Prop:
+      type_id: 15
+      prop_name: ShowDevelopmentGui
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 15
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 15
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 15
+      prop_name: VirtualCursorMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 14
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 14
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterPack
+  - Prop:
+      type_id: 14
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 14
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 13
+      prop_name: AllowCustomAnimations
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 13
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 13
+      prop_name: AutoJumpEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 13
+      prop_name: CameraMaxZoomDistance
+      prop_type: Float32
+      values:
+        - 128
+  - Prop:
+      type_id: 13
+      prop_name: CameraMinZoomDistance
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 13
+      prop_name: CameraMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: CharacterJumpHeight
+      prop_type: Float32
+      values:
+        - 7.2
+  - Prop:
+      type_id: 13
+      prop_name: CharacterJumpPower
+      prop_type: Float32
+      values:
+        - 50
+  - Prop:
+      type_id: 13
+      prop_name: CharacterMaxSlopeAngle
+      prop_type: Float32
+      values:
+        - 89
+  - Prop:
+      type_id: 13
+      prop_name: CharacterUseJumpPower
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 13
+      prop_name: CharacterWalkSpeed
+      prop_type: Float32
+      values:
+        - 16
+  - Prop:
+      type_id: 13
+      prop_name: DevCameraOcclusionMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: DevComputerCameraMovementMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: DevComputerMovementMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: DevTouchCameraMovementMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: DevTouchMovementMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: EnableDynamicHeads
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: EnableMouseLockOption
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDFace
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDHead
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDLeftArm
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDLeftLeg
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDPants
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDRightArm
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDRightLeg
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDShirt
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDTeeShirt
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAssetIDTorso
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsAvatar
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsR15Collision
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsScaleRangeBodyType
+      prop_type: NumberRange
+      values:
+        - - 0
+          - 1
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsScaleRangeHead
+      prop_type: NumberRange
+      values:
+        - - 0.95
+          - 1
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsScaleRangeHeight
+      prop_type: NumberRange
+      values:
+        - - 0.9
+          - 1.05
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsScaleRangeProportion
+      prop_type: NumberRange
+      values:
+        - - 0
+          - 1
+  - Prop:
+      type_id: 13
+      prop_name: GameSettingsScaleRangeWidth
+      prop_type: NumberRange
+      values:
+        - - 0.7
+          - 1
+  - Prop:
+      type_id: 13
+      prop_name: HealthDisplayDistance
+      prop_type: Float32
+      values:
+        - 100
+  - Prop:
+      type_id: 13
+      prop_name: HumanoidStateMachineMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: LoadCharacterAppearance
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 13
+      prop_name: LoadCharacterLayeredClothing
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterPlayer
+  - Prop:
+      type_id: 13
+      prop_name: NameDisplayDistance
+      prop_type: Float32
+      values:
+        - 100
+  - Prop:
+      type_id: 13
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 13
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 13
+      prop_name: UserEmotesEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 50
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 50
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterPlayerScripts
+  - Prop:
+      type_id: 50
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 50
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 52
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 52
+      prop_name: Name
+      prop_type: String
+      values:
+        - InsertionHash
+  - Prop:
+      type_id: 52
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 52
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 52
+      prop_name: Value
+      prop_type: String
+      values:
+        - "{27DB7157-ECC3-47DA-9A78-AF69D482E6A5}"
+  - Prop:
+      type_id: 12
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 12
+      prop_name: EnableScriptCollabByDefaultOnLoad
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 12
+      prop_name: Name
+      prop_type: String
+      values:
+        - StudioData
+  - Prop:
+      type_id: 12
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 12
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 54
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 54
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 54
+      prop_name: Intensity
+      prop_type: Float32
+      values:
+        - 0.01
+  - Prop:
+      type_id: 54
+      prop_name: Name
+      prop_type: String
+      values:
+        - SunRays
+  - Prop:
+      type_id: 54
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 54
+      prop_name: Spread
+      prop_type: Float32
+      values:
+        - 0.1
+  - Prop:
+      type_id: 54
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 43
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 43
+      prop_name: Name
+      prop_type: String
+      values:
+        - Teams
+  - Prop:
+      type_id: 43
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 43
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 17
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 17
+      prop_name: Name
+      prop_type: String
+      values:
+        - Teleport Service
+  - Prop:
+      type_id: 17
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 17
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 48
+      prop_name: AcquisitionMethod
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: Anchored
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 48
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 48
+      prop_name: BackParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 48
+      prop_name: BackParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 48
+      prop_name: BackSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: BackSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: BottomParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 48
+      prop_name: BottomParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 48
+      prop_name: BottomSurface
+      prop_type: Enum
+      values:
+        - 4
+  - Prop:
+      type_id: 48
+      prop_name: BottomSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: CFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 48
+      prop_name: CanCollide
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 48
+      prop_name: CanQuery
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 48
+      prop_name: CanTouch
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 48
+      prop_name: CastShadow
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 48
+      prop_name: CollisionGroup
+      prop_type: String
+      values:
+        - Default
+  - Prop:
+      type_id: 48
+      prop_name: CollisionGroupId
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: Color3uint8
+      prop_type: Color3uint8
+      values:
+        - - 163
+          - 162
+          - 165
+  - Prop:
+      type_id: 48
+      prop_name: CustomPhysicalProperties
+      prop_type: PhysicalProperties
+      values:
+        - Default
+  - Prop:
+      type_id: 48
+      prop_name: Decoration
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 48
+      prop_name: FrontParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 48
+      prop_name: FrontParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 48
+      prop_name: FrontSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: FrontSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: LeftParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 48
+      prop_name: LeftParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 48
+      prop_name: LeftSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: LeftSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: Locked
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 48
+      prop_name: Massless
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 48
+      prop_name: Material
+      prop_type: Enum
+      values:
+        - 256
+  - Prop:
+      type_id: 48
+      prop_name: MaterialColors
+      prop_type: String
+      values:
+        - 00 00 00 00 00 00 6f 7e 3e 58 59 56 98 98 98 8a 61 49 cf cb a7 ac 94 6c 63 64 66 dd e4 e5 eb fd ff 94 7c 5f 79 70 62 4b 4a 4a 8c 82 68 ff 18 43 50 54 54 86 86 76 cc d2 df 6a 86 40 ff ff fe ff f3 c0 8f 90 87
+  - Prop:
+      type_id: 48
+      prop_name: MaterialVariantSerialized
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 48
+      prop_name: Name
+      prop_type: String
+      values:
+        - Terrain
+  - Prop:
+      type_id: 48
+      prop_name: PhysicsGrid
+      prop_type: String
+      values:
+        - "\u0002\u0003\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+  - Prop:
+      type_id: 48
+      prop_name: PivotOffset
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 48
+      prop_name: Reflectance
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: RightParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 48
+      prop_name: RightParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 48
+      prop_name: RightSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: RightSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: RootPriority
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: RotVelocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 48
+      prop_name: ShorelinesUpgraded
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 48
+      prop_name: size
+      prop_type: Vector3
+      values:
+        - - 2044
+          - 252
+          - 2044
+  - Prop:
+      type_id: 48
+      prop_name: SmoothGrid
+      prop_type: String
+      values:
+        - "\u0001\u0005"
+  - Prop:
+      type_id: 48
+      prop_name: SmoothVoxelsUpgraded
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 48
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 48
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 48
+      prop_name: TopParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 48
+      prop_name: TopParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 48
+      prop_name: TopSurface
+      prop_type: Enum
+      values:
+        - 3
+  - Prop:
+      type_id: 48
+      prop_name: TopSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: Velocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 48
+      prop_name: WaterColor
+      prop_type: Color3
+      values:
+        - - 0.04705883
+          - 0.32941177
+          - 0.36078432
+  - Prop:
+      type_id: 48
+      prop_name: WaterReflectance
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 48
+      prop_name: WaterTransparency
+      prop_type: Float32
+      values:
+        - 0.3
+  - Prop:
+      type_id: 48
+      prop_name: WaterWaveSize
+      prop_type: Float32
+      values:
+        - 0.15
+  - Prop:
+      type_id: 48
+      prop_name: WaterWaveSpeed
+      prop_type: Float32
+      values:
+        - 10
+  - Prop:
+      type_id: 44
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 44
+      prop_name: AutoRuns
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 44
+      prop_name: Description
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 44
+      prop_name: ExecuteWithStudioRun
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 44
+      prop_name: IsSleepAllowed
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 44
+      prop_name: Name
+      prop_type: String
+      values:
+        - TestService
+  - Prop:
+      type_id: 44
+      prop_name: NumberOfPlayers
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 44
+      prop_name: SimulateSecondsLag
+      prop_type: Float64
+      values:
+        - 0
+  - Prop:
+      type_id: 44
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 44
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 44
+      prop_name: Timeout
+      prop_type: Float64
+      values:
+        - 10
+  - Prop:
+      type_id: 58
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 58
+      prop_name: Color3
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 58
+      prop_name: Face
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 58
+      prop_name: Name
+      prop_type: String
+      values:
+        - Texture
+  - Prop:
+      type_id: 58
+      prop_name: OffsetStudsU
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 58
+      prop_name: OffsetStudsV
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 58
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 58
+      prop_name: StudsPerTileU
+      prop_type: Float32
+      values:
+        - 8
+  - Prop:
+      type_id: 58
+      prop_name: StudsPerTileV
+      prop_type: Float32
+      values:
+        - 8
+  - Prop:
+      type_id: 58
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 58
+      prop_name: Texture
+      prop_type: String
+      values:
+        - "rbxassetid://6372755229"
+  - Prop:
+      type_id: 58
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0.8
+  - Prop:
+      type_id: 58
+      prop_name: ZIndex
+      prop_type: Int32
+      values:
+        - 1
+  - Prop:
+      type_id: 5
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 5
+      prop_name: Name
+      prop_type: String
+      values:
+        - Instance
+  - Prop:
+      type_id: 5
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 5
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 29
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 29
+      prop_name: Name
+      prop_type: String
+      values:
+        - TouchInputService
+  - Prop:
+      type_id: 29
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 29
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 8
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 8
+      prop_name: Name
+      prop_type: String
+      values:
+        - TweenService
+  - Prop:
+      type_id: 8
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 8
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 25
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 25
+      prop_name: Name
+      prop_type: String
+      values:
+        - VRService
+  - Prop:
+      type_id: 25
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 25
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 45
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 45
+      prop_name: Name
+      prop_type: String
+      values:
+        - VirtualInputManager
+  - Prop:
+      type_id: 45
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 45
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: AllowThirdPartySales
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: ClientAnimatorThrottling
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: CollisionGroupData
+      prop_type: String
+      values:
+        - 01 01 00 04 ff ff ff ff 07 44 65 66 61 75 6c 74
+  - Prop:
+      type_id: 0
+      prop_name: CurrentCamera
+      prop_type: Ref
+      values:
+        - 46
+  - Prop:
+      type_id: 0
+      prop_name: DistributedGameTime
+      prop_type: Float64
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: ExplicitAutoJoints
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: FallenPartsDestroyHeight
+      prop_type: Float32
+      values:
+        - -500
+  - Prop:
+      type_id: 0
+      prop_name: GlobalWind
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 0
+      prop_name: Gravity
+      prop_type: Float32
+      values:
+        - 196.2
+  - Prop:
+      type_id: 0
+      prop_name: HumanoidOnlySetCollisionsOnStateChange
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: InterpolationThrottling
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: LevelOfDetail
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: MeshPartHeadsAndAccessories
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshCFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshData
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshSize
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 0
+      prop_name: ModelStreamingMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Workspace
+  - Prop:
+      type_id: 0
+      prop_name: NeedsPivotMigration
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: PhysicsSteppingMethod
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: PrimaryPart
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: RejectCharacterDeletions
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: ReplicateInstanceDestroySetting
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Retargeting
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: ScaleFactor
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: SignalBehavior2
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: StreamOutBehavior
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: StreamingEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: StreamingIntegrityMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: StreamingMinRadius
+      prop_type: Int32
+      values:
+        - 64
+  - Prop:
+      type_id: 0
+      prop_name: StreamingTargetRadius
+      prop_type: Int32
+      values:
+        - 1024
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: TerrainWeldsFixed
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: TouchesUseCollisionGroups
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: WorldPivotData
+      prop_type: OptionalCFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+        - - 2
+          - -1
+        - - 3
+          - -1
+        - - 4
+          - -1
+        - - 5
+          - -1
+        - - 6
+          - -1
+        - - 7
+          - -1
+        - - 8
+          - -1
+        - - 9
+          - -1
+        - - 10
+          - -1
+        - - 11
+          - -1
+        - - 12
+          - -1
+        - - 13
+          - -1
+        - - 14
+          - -1
+        - - 15
+          - -1
+        - - 16
+          - -1
+        - - 17
+          - -1
+        - - 18
+          - -1
+        - - 19
+          - -1
+        - - 20
+          - -1
+        - - 21
+          - -1
+        - - 22
+          - -1
+        - - 23
+          - -1
+        - - 24
+          - -1
+        - - 25
+          - -1
+        - - 26
+          - -1
+        - - 27
+          - -1
+        - - 28
+          - -1
+        - - 29
+          - -1
+        - - 30
+          - -1
+        - - 31
+          - -1
+        - - 32
+          - -1
+        - - 33
+          - -1
+        - - 34
+          - -1
+        - - 35
+          - -1
+        - - 36
+          - -1
+        - - 37
+          - -1
+        - - 38
+          - -1
+        - - 39
+          - -1
+        - - 40
+          - -1
+        - - 41
+          - -1
+        - - 42
+          - -1
+        - - 43
+          - -1
+        - - 44
+          - -1
+        - - 45
+          - -1
+        - - 46
+          - 0
+        - - 47
+          - 0
+        - - 48
+          - 0
+        - - 49
+          - 0
+        - - 50
+          - 13
+        - - 51
+          - 13
+        - - 52
+          - 21
+        - - 53
+          - 39
+        - - 54
+          - 39
+        - - 55
+          - 39
+        - - 56
+          - 39
+        - - 57
+          - 39
+        - - 58
+          - 47
+        - - 59
+          - 49
+  - End
+

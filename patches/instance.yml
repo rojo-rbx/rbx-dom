@@ -1,32 +1,16 @@
-# Patches up basic properties of Instance.
-
-Add:
-  Instance:
-    # Tags serialize as a \0-delimited BinaryString of the tags on the instance.
-    Tags:
-      DataType:
-        Value: Tags
-      Serialization:
-        Type: Serializes
-      Scriptability: Custom
-
-    # Attributes serialize as a BinaryString with a strange name, but we want to
-    # refer to them with a different name.
-    Attributes:
-      DataType:
-        Value: Attributes
-      Serialization:
-        Type: SerializesAs
-        As: AttributesSerialize
-      Scriptability: Custom
-    AttributesSerialize:
-      AliasFor: Attributes
-      DataType:
-        Value: BinaryString
-      Scriptability: None
-
 Change:
   Instance:
+    # UniqueId properties might be random everytime Studio saves a place file
+    # and don't have a use right now outside of packages, which Rojo doesn't
+    # account for anyway. They generate diff noise, so we shouldn't serialize
+    # them until we have to.
+    UniqueId:
+      Serialization:
+        Type: DoesNotSerialize
+    HistoryId:
+      Serialization:
+        Type: DoesNotSerialize
+
     archivable:
       AliasFor: Archivable
     Archivable:
@@ -34,8 +18,22 @@ Change:
         Type: SerializesAs
         As: archivable
 
+    # Attributes serialize as a BinaryString with a strange name, but we want to
+    # refer to them with a different name.
+    Attributes:
+      DataType:
+        Value: "Attributes"
+      Serialization:
+        Type: SerializesAs
+        As: AttributesSerialize
+      Scriptability: Custom
+    AttributesSerialize:
+      AliasFor: Attributes
+
     className:
       AliasFor: ClassName
 
-    SourceAssetId:
-      Scriptability: None
+    Tags:
+      DataType:
+        Value: "Tags"
+      Scriptability: Custom

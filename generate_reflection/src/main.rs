@@ -52,11 +52,11 @@ fn run(options: Options) -> anyhow::Result<()> {
 
     if let Some(path) = &options.json_path {
         let encoded = serde_json::to_string_pretty(&database)?;
-        fs::write(&path, encoded)?;
+        fs::write(path, encoded)?;
     }
 
     if let Some(path) = &options.values_path {
-        fs::write(&path, values::encode()?)?;
+        fs::write(path, values::encode()?)?;
     }
 
     Ok(())

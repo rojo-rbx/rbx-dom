@@ -2,6 +2,20 @@
 
 ## Unreleased Changes
 
+## 2.6.0 (2023-10-03)
+* Added `WeakDom::clone_multiple_into_external` that allows cloning multiple subtrees all at once into a given `WeakDom`, useful for preserving `Ref` properties that point across cloned subtrees ([#364])
+
+[#364]: https://github.com/rojo-rbx/rbx-dom/pull/364
+
+## 2.5.0 (2023-08-09)
+* Fix potential stack overflow when creating or inserting into a `WeakDom`. ([#279])
+* Added `InstanceBuilder::has_property` for checking if an `InstanceBuilder` defines a given property. ([#283])
+* Added `WeakDom::clone_within` and `WeakDom::clone_into_external` for cloning instances into the same or a different `WeakDom`, respectively. ([#312])
+
+[#279]: https://github.com/rojo-rbx/rbx-dom/pull/279
+[#283]: https://github.com/rojo-rbx/rbx-dom/pull/283
+[#312]: https://github.com/rojo-rbx/rbx-dom/pull/312
+
 ## 2.4.0 (2022-06-05)
 * Added `WeakDom::into_raw` for enabling fast, non-tree-preserving transformations.
 * Added `empty`, `with_class`, and `set_class` methods to `InstanceBuilder`.

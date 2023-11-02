@@ -1,0 +1,18 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: ModuleScript
+  class: ModuleScript
+  properties:
+    Attributes:
+      Attributes: {}
+    LinkedSource:
+      Content: ""
+    Source:
+      String: "local module = {}\n\nreturn module\n"
+    Tags:
+      Tags: []
+  children: []
+

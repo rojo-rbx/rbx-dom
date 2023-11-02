@@ -7,16 +7,16 @@ use std::{
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Matrix3,
-        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
-        SharedString, Tags, UDim, UDim2, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, FontStyle,
+        FontWeight, MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
+        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::{DataType, PropertyKind, PropertySerialization};
+use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
-    cframe,
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt},
     types::Type,
@@ -82,6 +82,132 @@ struct Instance {
 
     /// Document-defined IDs for the children of this instance.
     children: Vec<i32>,
+}
+
+/// Properties may be serialized under different names or types than
+/// they ultimately should have in the DOM. CanonicalProperty
+/// represents the "proper" name and type of a property, and possibly
+/// contains a migration for some properties Roblox has replaced with
+/// others (like Font, which has been superceded by FontFace).
+#[derive(Debug)]
+struct CanonicalProperty<'a> {
+    name: &'a str,
+    ty: VariantType,
+    migration: Option<&'a PropertySerialization<'a>>,
+}
+
+fn find_canonical_property<'de>(
+    database: &'de ReflectionDatabase,
+    binary_type: Type,
+    class_name: &str,
+    prop_name: &'de str,
+) -> Option<CanonicalProperty<'de>> {
+    match find_property_descriptors(database, class_name, prop_name) {
+        Some(descriptors) => {
+            // If this descriptor is known but wasn't supposed to be
+            // serialized, we should skip it.
+            //
+            // On 2021-09-07 (v494), BasePart.MaterialVariant was added as a
+            // serializable Referent property. It was removed soon after, on
+            // 2021-10-12 (v499). Any models saved during that period have
+            // BasePart.MaterialVariant present.
+            //
+            // On 2022-03-08 (v517), BasePart.MaterialVariant was
+            // reintroduced as a string property that does not serialize. It
+            // serializes as MaterialVariantSerialized.
+            //
+            // In case we run into a model serialized during that period, or
+            // this happens again, we need to make sure that the name we
+            // found is the one that's supposed to serialize.
+            if let PropertyKind::Canonical { serialization } = &descriptors.canonical.kind {
+                if matches!(serialization, PropertySerialization::DoesNotSerialize) {
+                    log::debug!(
+                        "Skipping property {} as it is canonical and should not serialize.",
+                        descriptors.canonical.name
+                    );
+                    return None;
+                }
+            }
+
+            // TODO: Do we need an additional fix here?
+            let canonical_name = &descriptors.canonical.name;
+            let canonical_type = match &descriptors.canonical.data_type {
+                DataType::Value(ty) => *ty,
+                DataType::Enum(_) => VariantType::Enum,
+                _ => {
+                    // TODO: Configurable handling of unknown types?
+                    return None;
+                }
+            };
+            let migration = match &descriptors.canonical.kind {
+                PropertyKind::Canonical {
+                    serialization: migration @ PropertySerialization::Migrate(_),
+                } => Some(migration),
+                _ => None,
+            };
+
+            log::trace!(
+                "Known prop, canonical name {} and type {:?}, with {:?} migration",
+                canonical_name,
+                canonical_type,
+                migration,
+            );
+
+            Some(CanonicalProperty {
+                name: canonical_name,
+                ty: canonical_type,
+                migration,
+            })
+        }
+        None => {
+            let canonical_type = match binary_type.to_default_rbx_type() {
+                Some(rbx_type) => rbx_type,
+                None => {
+                    log::warn!("Unsupported prop type {:?}, skipping property", binary_type);
+                    return None;
+                }
+            };
+
+            log::trace!("Unknown prop, using type {:?}", canonical_type);
+
+            Some(CanonicalProperty {
+                name: prop_name,
+                ty: canonical_type,
+                migration: None,
+            })
+        }
+    }
+}
+
+fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty, value: Variant) {
+    if let Some(PropertySerialization::Migrate(migration)) = canonical_property.migration {
+        let new_property_name = &migration.new_property_name;
+        let old_property_name = canonical_property.name;
+
+        if !instance.builder.has_property(new_property_name) {
+            log::trace!(
+                "Attempting to migrate property {old_property_name} to {new_property_name}"
+            );
+            match migration.perform(&value) {
+                Ok(new_value) => {
+                    instance.builder.add_property(new_property_name, new_value);
+                    log::trace!(
+                        "Successfully migrated property {old_property_name} to {new_property_name}"
+                    );
+                }
+                Err(e) => {
+                    log::warn!(
+                        "Failed to migrate property {old_property_name} to {new_property_name} because: {}",
+                        e.to_string()
+                    );
+                }
+            };
+        }
+    } else {
+        instance
+            .builder
+            .add_property(canonical_property.name, value)
+    }
 }
 
 impl<'a, R: Read> DeserializerState<'a, R> {
@@ -255,73 +381,18 @@ impl<'a, R: Read> DeserializerState<'a, R> {
             return Ok(());
         }
 
-        let canonical_name;
-        let canonical_type;
-
-        match find_property_descriptors(
+        let property = if let Some(property) = find_canonical_property(
             self.deserializer.database.unwrap(),
+            binary_type,
             &type_info.type_name,
             &prop_name,
         ) {
-            Some(descriptors) => {
-                // If this descriptor is known but wasn't supposed to be
-                // serialized, we should skip it.
-                //
-                // On 2021-09-07 (v494), BasePart.MaterialVariant was added as a
-                // serializable Referent property. It was removed soon after, on
-                // 2021-10-12 (v499). Any models saved during that period have
-                // BasePart.MaterialVariant present.
-                //
-                // On 2022-03-08 (v517), BasePart.MaterialVariant was
-                // reintroduced as a string property that does not serialize. It
-                // serializes as MaterialVariantSerialized.
-                //
-                // In case we run into a model serialized during that period, or
-                // this happens again, we need to make sure that the name we
-                // found is the one that's supposed to serialize.
-                if let PropertyKind::Canonical { serialization } = &descriptors.canonical.kind {
-                    if matches!(serialization, PropertySerialization::DoesNotSerialize) {
-                        log::debug!(
-                            "Skipping property {} as it is canonical and should not serialize.",
-                            descriptors.canonical.name
-                        );
-                        return Ok(());
-                    }
-                }
+            property
+        } else {
+            return Ok(());
+        };
 
-                // TODO: Do we need an additional fix here?
-
-                canonical_name = descriptors.canonical.name.clone().into_owned();
-                canonical_type = match &descriptors.canonical.data_type {
-                    DataType::Value(ty) => *ty,
-                    DataType::Enum(_) => VariantType::Enum,
-                    _ => {
-                        // TODO: Configurable handling of unknown types?
-                        return Ok(());
-                    }
-                };
-
-                log::trace!(
-                    "Known prop, canonical name {} and type {:?}",
-                    canonical_name,
-                    canonical_type
-                );
-            }
-            None => {
-                canonical_name = prop_name.clone();
-
-                match binary_type.to_default_rbx_type() {
-                    Some(rbx_type) => canonical_type = rbx_type,
-                    None => {
-                        log::warn!("Unsupported prop type {:?}, skipping property", binary_type);
-
-                        return Ok(());
-                    }
-                }
-
-                log::trace!("Unknown prop, using type {:?}", canonical_type);
-            }
-        }
+        let canonical_type = property.ty;
 
         match binary_type {
             Type::String => match canonical_type {
@@ -329,21 +400,21 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_string()?;
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::Content => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value: Content = chunk.read_string()?.into();
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::BinaryString => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value: BinaryString = chunk.read_binary_string()?.into();
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::Tags => {
@@ -360,7 +431,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                             }
                         })?;
 
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::Attributes => {
@@ -370,18 +441,30 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                         match Attributes::from_reader(buffer.as_slice()) {
                             Ok(value) => {
-                                instance.builder.add_property(&canonical_name, value);
+                                add_property(instance, &property, value.into());
                             }
                             Err(err) => {
-                                log::warn!(
-                                    "Failed to deserialize attributes on {}: {:?}",
-                                    type_info.type_name,
-                                    err
-                                );
-
-                                instance
-                                    .builder
-                                    .add_property(&canonical_name, BinaryString::from(buffer));
+                                return Err(InnerError::BadPropertyValue {
+                                    source: err,
+                                    class_name: type_info.type_name.to_string(),
+                                    prop_name,
+                                })
+                            }
+                        }
+                    }
+                }
+                VariantType::MaterialColors => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let buffer = chunk.read_binary_string()?;
+                        match MaterialColors::decode(&buffer) {
+                            Ok(value) => add_property(instance, &property, value.into()),
+                            Err(err) => {
+                                return Err(InnerError::BadPropertyValue {
+                                    source: err,
+                                    class_name: type_info.type_name.to_string(),
+                                    prop_name,
+                                })
                             }
                         }
                     }
@@ -400,7 +483,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_bool()?;
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
@@ -419,7 +502,20 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
+                    }
+                }
+                // This branch allows values serialized as Int32 to be converted to Int64 when we expect a Int64
+                // Basically, we convert Int32 to Int64 when we expect a Int64 but read a Int32
+                // See: #301
+                VariantType::Int64 => {
+                    let mut values = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_i32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value_converted = i64::from(value);
+                        add_property(instance, &property, value_converted.into());
                     }
                 }
                 invalid_type => {
@@ -438,7 +534,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
@@ -455,7 +551,20 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_le_f64()?;
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
+                    }
+                }
+                // This branch allows values serialized as Float32 to be converted to Float64 when we expect a Float64
+                // Basically, we convert Float32 to Float64 when we expect a Float64 but read a Float32
+                // See: #301
+                VariantType::Float32 => {
+                    let mut values = vec![0.0; type_info.referents.len()];
+                    chunk.read_interleaved_f32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let converted_value = f64::from(value);
+                        add_property(instance, &property, converted_value.into());
                     }
                 }
                 invalid_type => {
@@ -482,7 +591,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
@@ -521,7 +630,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
@@ -545,12 +654,14 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
-                        instance.builder.add_property(
-                            &canonical_name,
+                        add_property(
+                            instance,
+                            &property,
                             Ray::new(
                                 Vector3::new(origin_x, origin_y, origin_z),
                                 Vector3::new(direction_x, direction_y, direction_z),
-                            ),
+                            )
+                            .into(),
                         );
                     }
                 }
@@ -576,7 +687,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                 actual_value: value.to_string(),
                             })?;
 
-                        instance.builder.add_property(&canonical_name, faces);
+                        add_property(instance, &property, faces.into());
                     }
                 }
                 invalid_type => {
@@ -602,7 +713,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                 actual_value: value.to_string(),
                             })?;
 
-                        instance.builder.add_property(&canonical_name, axes);
+                        add_property(instance, &property, axes.into());
                     }
                 }
                 invalid_type => {
@@ -632,7 +743,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                 actual_value: value.to_string(),
                             })?;
 
-                        instance.builder.add_property(&canonical_name, color);
+                        add_property(instance, &property, color.into());
                     }
                 }
                 invalid_type => {
@@ -662,7 +773,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (color, referent) in colors.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, color);
+                        add_property(instance, &property, color.into());
                     }
                 }
                 invalid_type => {
@@ -686,7 +797,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
@@ -716,7 +827,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
@@ -753,7 +864,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                     chunk.read_le_f32()?,
                                 ),
                             ));
-                        } else if let Some(basic_rotation) = cframe::from_basic_rotation_id(id) {
+                        } else if let Ok(basic_rotation) = Matrix3::from_basic_rotation_id(id) {
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
@@ -782,7 +893,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (cframe, referent) in values.zip(referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, cframe);
+                        add_property(instance, &property, cframe.into());
                     }
                 }
                 invalid_type => {
@@ -801,9 +912,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance
-                            .builder
-                            .add_property(&canonical_name, Enum::from_u32(value));
+                        add_property(instance, &property, Enum::from_u32(value).into());
                     }
                 }
                 invalid_type => {
@@ -828,7 +937,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         };
 
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, rbx_value);
+                        add_property(instance, &property, rbx_value.into());
                     }
                 }
                 invalid_type => {
@@ -844,13 +953,15 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                 VariantType::Vector3int16 => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(
-                            &canonical_name,
+                        add_property(
+                            instance,
+                            &property,
                             Vector3int16::new(
                                 chunk.read_le_i16()?,
                                 chunk.read_le_i16()?,
                                 chunk.read_le_i16()?,
-                            ),
+                            )
+                            .into(),
                         )
                     }
                 }
@@ -859,6 +970,44 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "Vector3int16",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::Font => match canonical_type {
+                VariantType::Font => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+
+                        let family = chunk.read_string()?;
+                        let weight = FontWeight::from_u16(chunk.read_le_u16()?).unwrap_or_default();
+                        let style = FontStyle::from_u8(chunk.read_u8()?).unwrap_or_default();
+                        let cached_face_id = chunk.read_string()?;
+
+                        let cached_face_id = if cached_face_id.is_empty() {
+                            None
+                        } else {
+                            Some(cached_face_id)
+                        };
+
+                        add_property(
+                            instance,
+                            &property,
+                            Font {
+                                family,
+                                weight,
+                                style,
+                                cached_face_id,
+                            }
+                            .into(),
+                        );
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "Font",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }
@@ -878,9 +1027,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                             ))
                         }
 
-                        instance
-                            .builder
-                            .add_property(&canonical_name, NumberSequence { keypoints })
+                        add_property(instance, &property, NumberSequence { keypoints }.into())
                     }
                 }
                 invalid_type => {
@@ -913,9 +1060,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                             chunk.read_le_f32()?;
                         }
 
-                        instance
-                            .builder
-                            .add_property(&canonical_name, ColorSequence { keypoints })
+                        add_property(instance, &property, ColorSequence { keypoints }.into())
                     }
                 }
                 invalid_type => {
@@ -931,9 +1076,10 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                 VariantType::NumberRange => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(
-                            &canonical_name,
-                            NumberRange::new(chunk.read_le_f32()?, chunk.read_le_f32()?),
+                        add_property(
+                            instance,
+                            &property,
+                            NumberRange::new(chunk.read_le_f32()?, chunk.read_le_f32()?).into(),
                         )
                     }
                 }
@@ -967,7 +1113,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, value)
+                        add_property(instance, &property, value.into())
                     }
                 }
                 invalid_type => {
@@ -997,7 +1143,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                             Variant::PhysicalProperties(PhysicalProperties::Default)
                         };
 
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value);
                     }
                 }
                 invalid_type => {
@@ -1028,7 +1174,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (color, referent) in colors.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, color);
+                        add_property(instance, &property, color.into());
                     }
                 }
                 invalid_type => {
@@ -1047,7 +1193,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (value, referent) in values.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, value);
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
@@ -1077,9 +1223,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
-                        instance
-                            .builder
-                            .add_property(&canonical_name, shared_string.clone());
+                        add_property(instance, &property, shared_string.clone().into());
                     }
                 }
                 invalid_type => {
@@ -1129,7 +1273,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                                     chunk.read_le_f32()?,
                                 ),
                             ));
-                        } else if let Some(basic_rotation) = cframe::from_basic_rotation_id(id) {
+                        } else if let Ok(basic_rotation) = Matrix3::from_basic_rotation_id(id) {
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
@@ -1176,7 +1320,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
 
                     for (cframe, referent) in values.zip(referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        instance.builder.add_property(&canonical_name, cframe);
+                        add_property(instance, &property, cframe.into());
                     }
                 }
                 invalid_type => {
@@ -1184,6 +1328,61 @@ impl<'a, R: Read> DeserializerState<'a, R> {
                         type_name: type_info.type_name.clone(),
                         prop_name,
                         valid_type_names: "OptionalCFrame",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::UniqueId => match canonical_type {
+                VariantType::UniqueId => {
+                    let n = type_info.referents.len();
+                    let mut values = vec![[0; 16]; n];
+                    chunk.read_interleaved_bytes::<16>(&mut values)?;
+
+                    for (i, referent) in type_info.referents.iter().enumerate() {
+                        let mut value = values[i].as_slice();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        add_property(
+                            instance,
+                            &property,
+                            UniqueId::new(
+                                value.read_be_u32()?,
+                                value.read_be_u32()?,
+                                value.read_be_i64()?.rotate_right(1),
+                            )
+                            .into(),
+                        )
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "UniqueId",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::SecurityCapabilities => match canonical_type {
+                VariantType::SecurityCapabilities => {
+                    let mut values = vec![0; type_info.referents.len()];
+
+                    chunk.read_interleaved_i64_array(values.as_mut_slice())?;
+
+                    let values: Vec<SecurityCapabilities> = values
+                        .into_iter()
+                        .map(|value| SecurityCapabilities::from_bits(value as u64))
+                        .collect();
+
+                    for (referent, value) in type_info.referents.iter().zip(values) {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        add_property(instance, &property, value.into())
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.clone(),
+                        prop_name,
+                        valid_type_names: "SecurityCapabilities",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }

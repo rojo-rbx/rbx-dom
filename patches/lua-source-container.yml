@@ -1,0 +1,15 @@
+Change:
+  LuaSourceContainer:
+    # ScriptGuid is randomly generated everytime a script is saved from Studio
+    # and it makes no sense for us to write it ourselves at this moment.
+    ScriptGuid:
+      Serialization:
+        Type: DoesNotSerialize
+
+  Script:
+    Source:
+      Scriptability: Custom
+
+  ModuleScript:
+    Source:
+      Scriptability: Custom

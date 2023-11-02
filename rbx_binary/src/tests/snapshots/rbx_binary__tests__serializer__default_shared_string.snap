@@ -1,0 +1,44 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+expression: decoded
+---
+num_types: 1
+num_instances: 2
+chunks:
+  - Sstr:
+      version: 0
+      entries:
+        - len: 16
+          hash: 5425b48244fac32fd24d4e33c3c97aa7ae75fc79ce0542878fd08db58e82449d
+        - len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+  - Inst:
+      type_id: 0
+      type_name: Model
+      object_format: 0
+      referents:
+        - 0
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: ModelMeshData
+      prop_type: SharedString
+      values:
+        - 0
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Model
+        - Model
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+  - End
+

@@ -1,0 +1,51 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: Region 1
+  class: TerrainRegion
+  properties:
+    Attributes:
+      Attributes: {}
+    ExtentsMax:
+      Vector3int16:
+        - 1
+        - 2
+        - 3
+    ExtentsMin:
+      Vector3int16:
+        - -1
+        - -2
+        - -3
+    SmoothGrid:
+      BinaryString: AQU=
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+- referent: referent-1
+  name: Region 2
+  class: TerrainRegion
+  properties:
+    Attributes:
+      Attributes: {}
+    ExtentsMax:
+      Vector3int16:
+        - 1337
+        - 100
+        - 9001
+    ExtentsMin:
+      Vector3int16:
+        - -1337
+        - -100
+        - -9001
+    SmoothGrid:
+      BinaryString: AQU=
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
+

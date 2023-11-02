@@ -2,6 +2,32 @@
 
 ## Unreleased
 
+## 0.7.3 (2023-10-23)
+* Fixed missing fallback default for `SecurityCapabilities` ([#371]).
+
+## 0.7.2 (2023-10-03)
+* Added support for `SecurityCapabilities` values. ([#361])
+* Fixed potential crash when serializing `SharedString` values ([#363])
+
+[#361]: https://github.com/rojo-rbx/rbx-dom/pull/361
+[#363]: https://github.com/rojo-rbx/rbx-dom/pull/363
+
+## 0.7.1 (2023-08-09)
+* Added support for `UniqueId` values. ([#271])
+* Added migrations for properties like `ScreenGui.IgnoreGuiInset` and `TextLabel.Font` to their new counterparts (`ScreenGui.GuiInsets` and `TextLabel.FontFace`, respectively). ([#283])
+* Added support for `Terrain.MaterialColors`. ([#323])
+
+[#271]: https://github.com/rojo-rbx/rbx-dom/pull/271
+[#283]: https://github.com/rojo-rbx/rbx-dom/pull/283
+[#323]: https://github.com/rojo-rbx/rbx-dom/pull/323
+
+## 0.7.0 (2023-04-22)
+* Added support for `Font` values. ([#248])
+* Fixed the nondeterministic output of SSTR chunk when multiple shared strings are present. ([#254])
+
+[#248]: https://github.com/rojo-rbx/rbx-dom/pull/248
+[#254]: https://github.com/rojo-rbx/rbx-dom/pull/254
+
 ## 0.6.6 (2022-06-29)
 * Fixed unserialized properties getting deserialized, like `BasePart.MaterialVariant`. ([#230])
 
