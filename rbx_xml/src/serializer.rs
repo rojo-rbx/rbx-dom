@@ -8,7 +8,7 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
     WeakDom,
 };
-use rbx_reflection::{DataType, PropertyKind, PropertySerialization};
+use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     conversion::ConvertVariant,
@@ -74,16 +74,18 @@ pub enum EncodePropertyBehavior {
 
 /// Options available for serializing an XML-format model or place.
 #[derive(Debug, Clone)]
-pub struct EncodeOptions {
+pub struct EncodeOptions<'a> {
     property_behavior: EncodePropertyBehavior,
+    database: &'a ReflectionDatabase<'a>,
 }
 
-impl EncodeOptions {
+impl<'a> EncodeOptions<'a> {
     /// Constructs a `EncodeOptions` with all values set to their defaults.
     #[inline]
     pub fn new() -> Self {
         EncodeOptions {
             property_behavior: EncodePropertyBehavior::IgnoreUnknown,
+            database: rbx_reflection_database::get(),
         }
     }
 
@@ -91,7 +93,17 @@ impl EncodeOptions {
     /// ones.
     #[inline]
     pub fn property_behavior(self, property_behavior: EncodePropertyBehavior) -> Self {
-        EncodeOptions { property_behavior }
+        EncodeOptions {
+            property_behavior,
+            ..self
+        }
+    }
+
+    /// Determines what reflection database rbx_xml will use to serialize
+    /// properties.
+    #[inline]
+    pub fn reflection_database(self, database: &'a ReflectionDatabase<'a>) -> Self {
+        EncodeOptions { database, ..self }
     }
 
     pub(crate) fn use_reflection(&self) -> bool {
@@ -99,14 +111,14 @@ impl EncodeOptions {
     }
 }
 
-impl Default for EncodeOptions {
-    fn default() -> EncodeOptions {
+impl<'a> Default for EncodeOptions<'a> {
+    fn default() -> EncodeOptions<'a> {
         EncodeOptions::new()
     }
 }
 
-pub struct EmitState {
-    options: EncodeOptions,
+pub struct EmitState<'a> {
+    options: EncodeOptions<'a>,
 
     /// A map of IDs written so far to the generated referent that they use.
     /// This map is used to correctly emit Ref properties.
@@ -120,8 +132,8 @@ pub struct EmitState {
     shared_strings_to_emit: BTreeMap<SharedStringHash, SharedString>,
 }
 
-impl EmitState {
-    pub fn new(options: EncodeOptions) -> EmitState {
+impl<'a> EmitState<'a> {
+    pub fn new(options: EncodeOptions<'a>) -> EmitState<'a> {
         EmitState {
             options,
             referent_map: HashMap::new(),
@@ -183,7 +195,11 @@ fn serialize_instance<'a, W: Write>(
 
     for (property_name, value) in property_buffer.drain(..) {
         let maybe_serialized_descriptor = if state.options.use_reflection() {
-            find_serialized_property_descriptor(&instance.class, property_name)
+            find_serialized_property_descriptor(
+                &instance.class,
+                property_name,
+                state.options.database,
+            )
         } else {
             None
         };

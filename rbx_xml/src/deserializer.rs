@@ -8,7 +8,7 @@ use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
     InstanceBuilder, WeakDom,
 };
-use rbx_reflection::{DataType, PropertyKind, PropertySerialization};
+use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     conversion::ConvertVariant,
@@ -69,16 +69,18 @@ pub enum DecodePropertyBehavior {
 
 /// Options available for deserializing an XML-format model or place.
 #[derive(Debug, Clone)]
-pub struct DecodeOptions {
+pub struct DecodeOptions<'a> {
     property_behavior: DecodePropertyBehavior,
+    database: &'a ReflectionDatabase<'a>,
 }
 
-impl DecodeOptions {
+impl<'a> DecodeOptions<'a> {
     /// Constructs a `DecodeOptions` with all values set to their defaults.
     #[inline]
     pub fn new() -> Self {
         DecodeOptions {
             property_behavior: DecodePropertyBehavior::IgnoreUnknown,
+            database: rbx_reflection_database::get(),
         }
     }
 
@@ -86,7 +88,17 @@ impl DecodeOptions {
     /// ones.
     #[inline]
     pub fn property_behavior(self, property_behavior: DecodePropertyBehavior) -> Self {
-        DecodeOptions { property_behavior }
+        DecodeOptions {
+            property_behavior,
+            ..self
+        }
+    }
+
+    /// Determines what reflection database rbx_xml will use to deserialize
+    /// properties.
+    #[inline]
+    pub fn reflection_database(self, database: &'a ReflectionDatabase<'a>) -> Self {
+        DecodeOptions { database, ..self }
     }
 
     /// A utility function to determine whether or not we should reference the
@@ -96,16 +108,17 @@ impl DecodeOptions {
     }
 }
 
-impl Default for DecodeOptions {
-    fn default() -> DecodeOptions {
+impl<'a> Default for DecodeOptions<'a> {
+    fn default() -> DecodeOptions<'a> {
         DecodeOptions::new()
     }
 }
 
 /// The state needed to deserialize an XML model into an `WeakDom`.
-pub struct ParseState<'a> {
-    tree: &'a mut WeakDom,
-    options: DecodeOptions,
+pub struct ParseState<'dom, 'a> {
+    tree: &'dom mut WeakDom,
+
+    options: DecodeOptions<'a>,
 
     /// Metadata deserialized from 'Meta' fields in the file.
     /// Known fields are:
@@ -150,8 +163,8 @@ struct SharedStringRewrite {
     shared_string_hash: String,
 }
 
-impl<'a> ParseState<'a> {
-    fn new(tree: &mut WeakDom, options: DecodeOptions) -> ParseState {
+impl<'dom, 'a> ParseState<'dom, 'a> {
+    fn new(tree: &'dom mut WeakDom, options: DecodeOptions<'a>) -> ParseState<'dom, 'a> {
         ParseState {
             tree,
             options,
@@ -559,7 +572,11 @@ fn deserialize_properties<R: Read>(
         );
 
         let maybe_descriptor = if state.options.use_reflection() {
-            find_canonical_property_descriptor(&class_name, &xml_property_name)
+            find_canonical_property_descriptor(
+                &class_name,
+                &xml_property_name,
+                state.options.database,
+            )
         } else {
             None
         };
