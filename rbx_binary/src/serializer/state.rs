@@ -153,6 +153,7 @@ struct PropInfo<'db> {
 /// self-borrowing issues from BinarySerializer getting too large.
 #[derive(Debug)]
 struct TypeInfos<'dom, 'db> {
+    database: &'db ReflectionDatabase<'db>,
     /// A map containing one entry for each unique ClassName discovered in the
     /// DOM.
     ///
@@ -166,8 +167,9 @@ struct TypeInfos<'dom, 'db> {
 }
 
 impl<'dom, 'db> TypeInfos<'dom, 'db> {
-    fn new() -> Self {
+    fn new(database: &'db ReflectionDatabase<'db>) -> Self {
         Self {
+            database,
             values: BTreeMap::new(),
             next_type_id: 0,
         }
@@ -175,16 +177,12 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(
-        &mut self,
-        database: &'db ReflectionDatabase<'db>,
-        class: &str,
-    ) -> &mut TypeInfo<'dom, 'db> {
+    fn get_or_create(&mut self, class: &str) -> &mut TypeInfo<'dom, 'db> {
         if !self.values.contains_key(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let class_descriptor = database.classes.get(class);
+            let class_descriptor = self.database.classes.get(class);
 
             let is_service = if let Some(descriptor) = &class_descriptor {
                 descriptor.tags.contains(&ClassTag::Service)
@@ -240,7 +238,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             output,
             relevant_instances: Vec::new(),
             id_to_referent: HashMap::new(),
-            type_infos: TypeInfos::new(),
+            type_infos: TypeInfos::new(serializer.database),
             shared_strings: Vec::new(),
             shared_string_ids: HashMap::new(),
         }
@@ -287,9 +285,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     #[allow(clippy::map_entry)]
     #[profiling::function]
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
-        let type_info = self
-            .type_infos
-            .get_or_create(self.serializer.database, &instance.class);
+        let type_info = self.type_infos.get_or_create(&instance.class);
         type_info.instances.push(instance);
 
         for (prop_name, prop_value) in &instance.properties {
