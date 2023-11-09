@@ -27,6 +27,7 @@ use crate::{
         find_property_descriptors, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
     },
     types::Type,
+    Serializer,
 };
 
 use super::error::InnerError;
@@ -36,7 +37,9 @@ static FILE_FOOTER: &[u8] = b"</roblox>";
 /// Represents all of the state during a single serialization session. A new
 /// `BinarySerializer` object should be created every time we want to serialize
 /// a binary model file.
-pub(super) struct SerializerState<'dom, W> {
+pub(super) struct SerializerState<'dom, 'a, W> {
+    serializer: &'a Serializer<'a>,
+
     /// The dom containing all of the instances that we're serializing.
     dom: &'dom WeakDom,
 
@@ -53,7 +56,7 @@ pub(super) struct SerializerState<'dom, W> {
 
     /// All of the types of instance discovered by our serializer that we'll be
     /// writing into the output.
-    type_infos: TypeInfos<'dom>,
+    type_infos: TypeInfos<'dom, 'a>,
 
     /// All of the SharedStrings in the DOM, in the order they'll be written
     // in.
@@ -67,7 +70,7 @@ pub(super) struct SerializerState<'dom, W> {
 /// An instance class that our serializer knows about. We should have one struct
 /// per unique ClassName.
 #[derive(Debug)]
-struct TypeInfo<'dom> {
+struct TypeInfo<'dom, 'a> {
     /// The ID that this serializer will use to refer to this type of instance.
     type_id: u32,
 
@@ -85,16 +88,16 @@ struct TypeInfo<'dom> {
     ///
     /// Stored in a sorted map to try to ensure that we write out properties in
     /// a deterministic order.
-    properties: BTreeMap<Cow<'static, str>, PropInfo>,
+    properties: BTreeMap<Cow<'a, str>, PropInfo<'a>>,
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
-    class_descriptor: Option<&'static ClassDescriptor<'static>>,
+    class_descriptor: Option<&'a ClassDescriptor<'a>>,
 
     /// A set containing the properties that we have seen so far in the file and
     /// processed. This helps us avoid traversing the reflection database
     /// multiple times if there are many copies of the same kind of instance.
-    properties_visited: HashSet<(Cow<'static, str>, VariantType)>,
+    properties_visited: HashSet<(Cow<'a, str>, VariantType)>,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -104,7 +107,7 @@ struct TypeInfo<'dom> {
 /// `BasePart.size` are present in the same document, they should share a
 /// `PropInfo` as they are the same logical property.
 #[derive(Debug)]
-struct PropInfo {
+struct PropInfo<'a> {
     /// The binary format type ID that will be use to serialize this property.
     /// This type is related to the type of the serialized form of the logical
     /// property, but is not 1:1.
@@ -117,7 +120,7 @@ struct PropInfo {
     /// The serialized name for this property. This is the name that is actually
     /// written as part of the PROP chunk and may not line up with the canonical
     /// name for the property.
-    serialized_name: Cow<'static, str>,
+    serialized_name: Cow<'a, str>,
 
     /// A set containing the names of all aliases discovered while preparing to
     /// serialize this property. Ideally, this set will remain empty (and not
@@ -136,32 +139,32 @@ struct PropInfo {
     ///
     /// Default values are first populated from the reflection database, if
     /// present, followed by an educated guess based on the type of the value.
-    default_value: Cow<'static, Variant>,
+    default_value: Cow<'a, Variant>,
 
     /// If a logical property has a migration associated with it (i.e. BrickColor ->
     /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
     /// it is None.
-    migration: Option<&'static PropertyMigration>,
+    migration: Option<&'a PropertyMigration>,
 }
 
 /// Contains all of the `TypeInfo` objects known to the serializer so far. This
 /// struct was broken out to help encapsulate the behavior here and to ease
 /// self-borrowing issues from BinarySerializer getting too large.
 #[derive(Debug)]
-struct TypeInfos<'dom> {
+struct TypeInfos<'dom, 'a> {
     /// A map containing one entry for each unique ClassName discovered in the
     /// DOM.
     ///
     /// These are stored sorted so that we naturally iterate over them in order
     /// and improve our chances of being deterministic.
-    values: BTreeMap<String, TypeInfo<'dom>>,
+    values: BTreeMap<String, TypeInfo<'dom, 'a>>,
 
     /// The next type ID that should be assigned if a type is discovered and
     /// added to the serializer.
     next_type_id: u32,
 }
 
-impl<'dom> TypeInfos<'dom> {
+impl<'dom, 'a> TypeInfos<'dom, 'a> {
     fn new() -> Self {
         Self {
             values: BTreeMap::new(),
@@ -171,7 +174,7 @@ impl<'dom> TypeInfos<'dom> {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(&mut self, class: &str) -> &mut TypeInfo<'dom> {
+    fn get_or_create(&mut self, class: &str) -> &mut TypeInfo<'dom, 'a> {
         if !self.values.contains_key(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
@@ -224,9 +227,10 @@ impl<'dom> TypeInfos<'dom> {
     }
 }
 
-impl<'dom, W: Write> SerializerState<'dom, W> {
-    pub fn new(dom: &'dom WeakDom, output: W) -> Self {
+impl<'dom, 'a, W: Write> SerializerState<'dom, 'a, W> {
+    pub fn new(serializer: &'a Serializer<'a>, dom: &'dom WeakDom, output: W) -> Self {
         SerializerState {
+            serializer,
             dom,
             output,
             relevant_instances: Vec::new(),
@@ -311,7 +315,7 @@ impl<'dom, W: Write> SerializerState<'dom, W> {
             let serialized_ty;
             let mut migration = None;
 
-            let database = rbx_reflection_database::get();
+            let database = self.serializer.database.unwrap();
             match find_property_descriptors(database, &instance.class, prop_name) {
                 Some(descriptors) => {
                     // For any properties that do not serialize, we can skip

@@ -50,6 +50,13 @@ impl<'a> Deserializer<'a> {
         }
     }
 
+    /// Sets what reflection database for the deserializer to use.
+    pub fn reflection_database(self, database: &'a ReflectionDatabase<'a>) -> Self {
+        Self {
+            database: Some(database),
+        }
+    }
+
     /// Deserialize a Roblox binary model or place from the given stream using
     /// this deserializer.
     pub fn deserialize<R: Read>(&self, reader: R) -> Result<WeakDom, Error> {
