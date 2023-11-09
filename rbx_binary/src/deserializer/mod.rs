@@ -38,6 +38,14 @@ pub use self::error::Error;
 ///
 /// # Ok::<(), Box<dyn std::error::Error>>(())
 /// ```
+///
+/// ## Configuration
+///
+/// A custom [`ReflectionDatabase`][ReflectionDatabase] can be specified via
+/// [`reflection_database`][reflection_database].
+///
+/// [ReflectionDatabase]: rbx_reflection::ReflectionDatabase
+/// [reflection_database]: Deserializer#method.reflection_database
 pub struct Deserializer<'db> {
     database: Option<&'db ReflectionDatabase<'db>>,
 }
