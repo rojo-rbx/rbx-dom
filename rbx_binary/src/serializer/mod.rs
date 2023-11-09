@@ -32,11 +32,11 @@ pub use self::error::Error;
 // * reflection_database: Option<ReflectionDatabase> = default
 // * recursive: bool = true
 #[non_exhaustive]
-pub struct Serializer<'a> {
-    database: Option<&'a ReflectionDatabase<'a>>,
+pub struct Serializer<'db> {
+    database: Option<&'db ReflectionDatabase<'db>>,
 }
 
-impl<'a> Serializer<'a> {
+impl<'db> Serializer<'db> {
     /// Create a new `Serializer` with the default settings.
     pub fn new() -> Self {
         Serializer {
@@ -45,7 +45,7 @@ impl<'a> Serializer<'a> {
     }
 
     /// Sets what reflection database for the serializer to use.
-    pub fn reflection_database(self, database: &'a ReflectionDatabase<'a>) -> Self {
+    pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
         Self {
             database: Some(database),
         }
@@ -72,7 +72,7 @@ impl<'a> Serializer<'a> {
     }
 }
 
-impl<'a> Default for Serializer<'a> {
+impl<'db> Default for Serializer<'db> {
     fn default() -> Self {
         Self::new()
     }

@@ -38,11 +38,11 @@ pub use self::error::Error;
 ///
 /// # Ok::<(), Box<dyn std::error::Error>>(())
 /// ```
-pub struct Deserializer<'a> {
-    database: Option<&'a ReflectionDatabase<'a>>,
+pub struct Deserializer<'db> {
+    database: Option<&'db ReflectionDatabase<'db>>,
 }
 
-impl<'a> Deserializer<'a> {
+impl<'db> Deserializer<'db> {
     /// Create a new `Deserializer` with the default settings.
     pub fn new() -> Self {
         Self {
@@ -51,7 +51,7 @@ impl<'a> Deserializer<'a> {
     }
 
     /// Sets what reflection database for the deserializer to use.
-    pub fn reflection_database(self, database: &'a ReflectionDatabase<'a>) -> Self {
+    pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
         Self {
             database: Some(database),
         }
@@ -88,7 +88,7 @@ impl<'a> Deserializer<'a> {
     }
 }
 
-impl<'a> Default for Deserializer<'a> {
+impl<'db> Default for Deserializer<'db> {
     fn default() -> Self {
         Self::new()
     }
