@@ -51,6 +51,7 @@ impl<'db> Deserializer<'db> {
     }
 
     /// Sets what reflection database for the deserializer to use.
+    #[inline]
     pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
         Self {
             database: Some(database),

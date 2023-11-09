@@ -45,6 +45,7 @@ impl<'db> Serializer<'db> {
     }
 
     /// Sets what reflection database for the serializer to use.
+    #[inline]
     pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
         Self {
             database: Some(database),
