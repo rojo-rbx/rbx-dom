@@ -97,10 +97,6 @@
 //! The non-default reader and writer functions accept these as their `options`
 //! argument.
 //!
-//! rbx_xml exposes no useful configuration yet, but there are methods that
-//! accept [`DecodeOptions`][DecodeOptions] and
-//! [`EncodeOptions`][EncodeOptions] that will be useful when it does.
-//!
 //! [DecodeOptions]: struct.DecodeOptions.html
 //! [EncodeOptions]: struct.EncodeOptions.html
 //! [from_str]: fn.from_str.html
