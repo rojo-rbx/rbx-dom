@@ -69,12 +69,12 @@ pub enum DecodePropertyBehavior {
 
 /// Options available for deserializing an XML-format model or place.
 #[derive(Debug, Clone)]
-pub struct DecodeOptions<'a> {
+pub struct DecodeOptions<'db> {
     property_behavior: DecodePropertyBehavior,
-    database: &'a ReflectionDatabase<'a>,
+    database: &'db ReflectionDatabase<'db>,
 }
 
-impl<'a> DecodeOptions<'a> {
+impl<'db> DecodeOptions<'db> {
     /// Constructs a `DecodeOptions` with all values set to their defaults.
     #[inline]
     pub fn new() -> Self {
@@ -97,7 +97,7 @@ impl<'a> DecodeOptions<'a> {
     /// Determines what reflection database rbx_xml will use to deserialize
     /// properties.
     #[inline]
-    pub fn reflection_database(self, database: &'a ReflectionDatabase<'a>) -> Self {
+    pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
         DecodeOptions { database, ..self }
     }
 
@@ -108,17 +108,17 @@ impl<'a> DecodeOptions<'a> {
     }
 }
 
-impl<'a> Default for DecodeOptions<'a> {
-    fn default() -> DecodeOptions<'a> {
+impl<'db> Default for DecodeOptions<'db> {
+    fn default() -> DecodeOptions<'db> {
         DecodeOptions::new()
     }
 }
 
 /// The state needed to deserialize an XML model into an `WeakDom`.
-pub struct ParseState<'dom, 'a> {
+pub struct ParseState<'dom, 'db> {
     tree: &'dom mut WeakDom,
 
-    options: DecodeOptions<'a>,
+    options: DecodeOptions<'db>,
 
     /// Metadata deserialized from 'Meta' fields in the file.
     /// Known fields are:
@@ -163,8 +163,8 @@ struct SharedStringRewrite {
     shared_string_hash: String,
 }
 
-impl<'dom, 'a> ParseState<'dom, 'a> {
-    fn new(tree: &'dom mut WeakDom, options: DecodeOptions<'a>) -> ParseState<'dom, 'a> {
+impl<'dom, 'db> ParseState<'dom, 'db> {
+    fn new(tree: &'dom mut WeakDom, options: DecodeOptions<'db>) -> ParseState<'dom, 'db> {
         ParseState {
             tree,
             options,
