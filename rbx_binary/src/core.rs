@@ -336,18 +336,18 @@ pub fn untransform_i64(value: i64) -> i64 {
     ((value as u64) >> 1) as i64 ^ -(value & 1)
 }
 
-pub struct PropertyDescriptors<'a> {
-    pub canonical: &'a PropertyDescriptor<'a>,
-    pub serialized: Option<&'a PropertyDescriptor<'a>>,
+pub struct PropertyDescriptors<'db> {
+    pub canonical: &'db PropertyDescriptor<'db>,
+    pub serialized: Option<&'db PropertyDescriptor<'db>>,
 }
 
 /// Find both the canonical and serialized property descriptors for a given
 /// class and property name pair. These might be the same descriptor!
-pub fn find_property_descriptors<'a>(
-    database: &'a ReflectionDatabase<'a>,
+pub fn find_property_descriptors<'db>(
+    database: &'db ReflectionDatabase<'db>,
     class_name: &str,
     property_name: &str,
-) -> Option<PropertyDescriptors<'a>> {
+) -> Option<PropertyDescriptors<'db>> {
     let mut class_descriptor = database.classes.get(class_name)?;
 
     // We need to find the canonical property descriptor associated with
@@ -437,11 +437,11 @@ pub fn find_property_descriptors<'a>(
 /// Given the canonical property descriptor for a logical property along with
 /// its serialization, returns the serialized form of the logical property if
 /// this property is serializable.
-fn find_serialized_from_canonical<'a>(
-    class: &'a ClassDescriptor<'a>,
-    canonical: &'a PropertyDescriptor<'a>,
-    serialization: &'a PropertySerialization<'a>,
-) -> Option<&'a PropertyDescriptor<'a>> {
+fn find_serialized_from_canonical<'db>(
+    class: &'db ClassDescriptor<'db>,
+    canonical: &'db PropertyDescriptor<'db>,
+    serialization: &'db PropertySerialization<'db>,
+) -> Option<&'db PropertyDescriptor<'db>> {
     match serialization {
         // This property serializes as-is. This is the happiest path: both the
         // canonical and serialized descriptors are the same!
