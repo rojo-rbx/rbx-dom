@@ -19,6 +19,7 @@ use rbx_dom_weak::{
 
 use rbx_reflection::{
     ClassDescriptor, ClassTag, DataType, PropertyKind, PropertyMigration, PropertySerialization,
+    ReflectionDatabase,
 };
 
 use crate::{
@@ -174,12 +175,16 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(&mut self, class: &str) -> &mut TypeInfo<'dom, 'db> {
+    fn get_or_create(
+        &mut self,
+        database: &'db ReflectionDatabase<'db>,
+        class: &str,
+    ) -> &mut TypeInfo<'dom, 'db> {
         if !self.values.contains_key(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let class_descriptor = rbx_reflection_database::get().classes.get(class);
+            let class_descriptor = database.classes.get(class);
 
             let is_service = if let Some(descriptor) = &class_descriptor {
                 descriptor.tags.contains(&ClassTag::Service)
@@ -282,7 +287,9 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     #[allow(clippy::map_entry)]
     #[profiling::function]
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
-        let type_info = self.type_infos.get_or_create(&instance.class);
+        let type_info = self
+            .type_infos
+            .get_or_create(self.serializer.database.unwrap(), &instance.class);
         type_info.instances.push(instance);
 
         for (prop_name, prop_value) in &instance.properties {
