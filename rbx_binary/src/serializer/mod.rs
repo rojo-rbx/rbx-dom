@@ -41,23 +41,21 @@ pub use self::error::Error;
 // * recursive: bool = true
 #[non_exhaustive]
 pub struct Serializer<'db> {
-    database: Option<&'db ReflectionDatabase<'db>>,
+    database: &'db ReflectionDatabase<'db>,
 }
 
 impl<'db> Serializer<'db> {
     /// Create a new `Serializer` with the default settings.
     pub fn new() -> Self {
         Serializer {
-            database: Some(rbx_reflection_database::get()),
+            database: rbx_reflection_database::get(),
         }
     }
 
     /// Sets what reflection database for the serializer to use.
     #[inline]
     pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
-        Self {
-            database: Some(database),
-        }
+        Self { database }
     }
 
     /// Serialize a Roblox binary model or place into the given stream using

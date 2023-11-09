@@ -47,23 +47,21 @@ pub use self::error::Error;
 /// [ReflectionDatabase]: rbx_reflection::ReflectionDatabase
 /// [reflection_database]: Deserializer#method.reflection_database
 pub struct Deserializer<'db> {
-    database: Option<&'db ReflectionDatabase<'db>>,
+    database: &'db ReflectionDatabase<'db>,
 }
 
 impl<'db> Deserializer<'db> {
     /// Create a new `Deserializer` with the default settings.
     pub fn new() -> Self {
         Self {
-            database: Some(rbx_reflection_database::get()),
+            database: rbx_reflection_database::get(),
         }
     }
 
     /// Sets what reflection database for the deserializer to use.
     #[inline]
     pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
-        Self {
-            database: Some(database),
-        }
+        Self { database }
     }
 
     /// Deserialize a Roblox binary model or place from the given stream using

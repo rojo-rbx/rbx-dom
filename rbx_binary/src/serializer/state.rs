@@ -289,7 +289,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
         let type_info = self
             .type_infos
-            .get_or_create(self.serializer.database.unwrap(), &instance.class);
+            .get_or_create(self.serializer.database, &instance.class);
         type_info.instances.push(instance);
 
         for (prop_name, prop_value) in &instance.properties {
@@ -322,7 +322,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             let serialized_ty;
             let mut migration = None;
 
-            let database = self.serializer.database.unwrap();
+            let database = self.serializer.database;
             match find_property_descriptors(database, &instance.class, prop_name) {
                 Some(descriptors) => {
                     // For any properties that do not serialize, we can skip

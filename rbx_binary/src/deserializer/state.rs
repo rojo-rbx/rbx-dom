@@ -382,7 +382,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         }
 
         let property = if let Some(property) = find_canonical_property(
-            self.deserializer.database.unwrap(),
+            self.deserializer.database,
             binary_type,
             &type_info.type_name,
             &prop_name,
