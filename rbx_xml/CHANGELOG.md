@@ -1,7 +1,9 @@
 # rbx_xml Changelog
 
 ## Unreleased
-* Add the ability to specify a `ReflectionDatabase` to use for serializing and deserializing. This takes the form of `DecodeOptions::reflection_database` and `EncodeOptions::reflection_database`.
+* Add the ability to specify a `ReflectionDatabase` to use for serializing and deserializing. This takes the form of `DecodeOptions::reflection_database` and `EncodeOptions::reflection_database`. ([#375])
+
+[#375]: https://github.com/rojo-rbx/rbx-dom/pull/375
 
 ## 0.13.2 (2023-10-03)
 * Added support for `SecurityCapabilities` values. ([#359])
