@@ -24,9 +24,9 @@ use crate::{
 
 use super::{error::InnerError, header::FileHeader, Deserializer};
 
-pub(super) struct DeserializerState<'a, R> {
+pub(super) struct DeserializerState<'db, R> {
     /// The user-provided configuration that we should use.
-    deserializer: &'a Deserializer<'a>,
+    deserializer: &'db Deserializer<'db>,
 
     /// The input data encoded as a binary model.
     input: R,
@@ -90,10 +90,10 @@ struct Instance {
 /// contains a migration for some properties Roblox has replaced with
 /// others (like Font, which has been superceded by FontFace).
 #[derive(Debug)]
-struct CanonicalProperty<'a> {
-    name: &'a str,
+struct CanonicalProperty<'db> {
+    name: &'db str,
     ty: VariantType,
-    migration: Option<&'a PropertySerialization<'a>>,
+    migration: Option<&'db PropertySerialization<'db>>,
 }
 
 fn find_canonical_property<'de>(
@@ -210,9 +210,9 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
     }
 }
 
-impl<'a, R: Read> DeserializerState<'a, R> {
+impl<'db, R: Read> DeserializerState<'db, R> {
     pub(super) fn new(
-        deserializer: &'a Deserializer<'a>,
+        deserializer: &'db Deserializer<'db>,
         mut input: R,
     ) -> Result<Self, InnerError> {
         let tree = WeakDom::new(InstanceBuilder::new("DataModel"));
@@ -382,7 +382,7 @@ impl<'a, R: Read> DeserializerState<'a, R> {
         }
 
         let property = if let Some(property) = find_canonical_property(
-            self.deserializer.database.unwrap(),
+            self.deserializer.database,
             binary_type,
             &type_info.type_name,
             &prop_name,

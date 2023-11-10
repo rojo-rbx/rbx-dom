@@ -4,6 +4,7 @@ mod state;
 use std::io::Write;
 
 use rbx_dom_weak::{types::Ref, WeakDom};
+use rbx_reflection::ReflectionDatabase;
 
 use self::state::SerializerState;
 
@@ -27,16 +28,34 @@ pub use self::error::Error;
 ///
 /// # Ok::<(), Box<dyn std::error::Error>>(())
 /// ```
+///
+/// ## Configuration
+///
+/// A custom [`ReflectionDatabase`][ReflectionDatabase] can be specified via
+/// [`reflection_database`][reflection_database].
+///
+/// [ReflectionDatabase]: rbx_reflection::ReflectionDatabase
+/// [reflection_database]: Serializer#method.reflection_database
+//
 // future settings:
-// * reflection_database: Option<ReflectionDatabase> = default
 // * recursive: bool = true
 #[non_exhaustive]
-pub struct Serializer {}
+pub struct Serializer<'db> {
+    database: &'db ReflectionDatabase<'db>,
+}
 
-impl Serializer {
+impl<'db> Serializer<'db> {
     /// Create a new `Serializer` with the default settings.
     pub fn new() -> Self {
-        Serializer {}
+        Serializer {
+            database: rbx_reflection_database::get(),
+        }
+    }
+
+    /// Sets what reflection database for the serializer to use.
+    #[inline]
+    pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
+        Self { database }
     }
 
     /// Serialize a Roblox binary model or place into the given stream using
@@ -44,7 +63,7 @@ impl Serializer {
     pub fn serialize<W: Write>(&self, writer: W, dom: &WeakDom, refs: &[Ref]) -> Result<(), Error> {
         profiling::scope!("rbx_binary::seserialize");
 
-        let mut serializer = SerializerState::new(dom, writer);
+        let mut serializer = SerializerState::new(self, dom, writer);
 
         serializer.add_instances(refs)?;
         serializer.generate_referents();
@@ -60,7 +79,7 @@ impl Serializer {
     }
 }
 
-impl Default for Serializer {
+impl<'db> Default for Serializer<'db> {
     fn default() -> Self {
         Self::new()
     }

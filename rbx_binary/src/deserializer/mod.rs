@@ -38,16 +38,30 @@ pub use self::error::Error;
 ///
 /// # Ok::<(), Box<dyn std::error::Error>>(())
 /// ```
-pub struct Deserializer<'a> {
-    database: Option<&'a ReflectionDatabase<'a>>,
+///
+/// ## Configuration
+///
+/// A custom [`ReflectionDatabase`][ReflectionDatabase] can be specified via
+/// [`reflection_database`][reflection_database].
+///
+/// [ReflectionDatabase]: rbx_reflection::ReflectionDatabase
+/// [reflection_database]: Deserializer#method.reflection_database
+pub struct Deserializer<'db> {
+    database: &'db ReflectionDatabase<'db>,
 }
 
-impl<'a> Deserializer<'a> {
+impl<'db> Deserializer<'db> {
     /// Create a new `Deserializer` with the default settings.
     pub fn new() -> Self {
         Self {
-            database: Some(rbx_reflection_database::get()),
+            database: rbx_reflection_database::get(),
         }
+    }
+
+    /// Sets what reflection database for the deserializer to use.
+    #[inline]
+    pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
+        Self { database }
     }
 
     /// Deserialize a Roblox binary model or place from the given stream using
@@ -81,7 +95,7 @@ impl<'a> Deserializer<'a> {
     }
 }
 
-impl<'a> Default for Deserializer<'a> {
+impl<'db> Default for Deserializer<'db> {
     fn default() -> Self {
         Self::new()
     }
