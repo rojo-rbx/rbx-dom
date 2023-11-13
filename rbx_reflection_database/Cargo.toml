@@ -18,3 +18,4 @@ rbx_reflection = { version = "4.4.0", path = "../rbx_reflection" }
 lazy_static = "1.4.0"
 serde = "1.0.137"
 rmp-serde = "1.1.1"
+dirs = "5.0.1"
