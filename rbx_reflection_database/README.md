@@ -8,7 +8,7 @@ Contains an API to get a Roblox reflection database using the types from [`rbx_r
 
 The general way this crate should be used is via `get`. This method will search for a locally stored reflection database and return it if it's found. If it isn't, it will instead return the bundled one. The details for where it searches are below.
 
-Additionally, this crate exposes `get_local` and `get_bundled` for easily only loading the locally stored database or only the bundled one respectively.
+Additionally, this crate exposes `get_local` and `get_bundled` for only loading the locally stored database or only the bundled one respectively.
 
 ## Local Details
 

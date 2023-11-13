@@ -8,7 +8,7 @@
 //! found. If it isn't, it will instead return the bundled one.
 //!
 //! Additionally, this crate exposes [`get_local`] and [`get_bundled`] for
-//! easily only loading the locally stored database or only the bundled one
+//! only loading the locally stored database or only the bundled one
 //! respectively.
 //!
 //! ## Local Details
