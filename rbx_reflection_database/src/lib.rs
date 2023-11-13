@@ -17,12 +17,14 @@ pub const LOCAL_DIR_NAME: &str = ".rbxreflection";
 
 lazy_static::lazy_static! {
     static ref BUNDLED_DATABASE: ReflectionDatabase<'static> = {
+        log::debug!("Loading bundled reflection database");
         rmp_serde::decode::from_slice(ENCODED_DATABASE).unwrap_or_else(|e| panic!("could not decode reflection database because: {}", e))
     };
 
     static ref LOCAL_DATABASE: Option<ReflectionDatabase<'static>> = {
         let location = get_local_location()?;
-        if let Ok(file) = fs::read(location) {
+        if let Ok(file) = fs::read(&location) {
+            log::debug!("Loading local reflection database from {}", location.display());
             Some(
                 rmp_serde::decode::from_slice(&file).unwrap_or_else(|e| {
                     panic!("could not decode reflection database because: {}", e)
@@ -77,6 +79,7 @@ pub fn get_bundled() -> &'static ReflectionDatabase<'static> {
 /// This may return [`None`] if the local data directory cannot be found.
 pub fn get_local_location() -> Option<PathBuf> {
     if let Ok(location) = env::var(OVERRIDE_PATH_VAR) {
+        log::debug!("Using enviromental variable {OVERRIDE_PATH_VAR} to fetch reflection database");
         Some(PathBuf::from(location))
     } else {
         // Due to concerns about the local data directory existing
