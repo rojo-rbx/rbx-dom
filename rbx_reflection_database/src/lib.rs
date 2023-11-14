@@ -24,7 +24,7 @@
 //! | Linux   | `$HOME/.rbxreflection/database.msgpack`                             |
 //!
 //! Additionally, a location override may be specified via the `RBX_DATABASE`
-//! environmental variable.
+//! environment variable.
 //!
 //! Both the default `database.msgpack` files and any files pointed to by
 //! `RBX_DATABASE` must be valid MessagePack serializations of a
@@ -35,7 +35,7 @@ use std::{env, fs, path::PathBuf};
 
 static ENCODED_DATABASE: &[u8] = include_bytes!("../database.msgpack");
 
-/// The name of an environmental variable that may be used to specify
+/// The name of an environment variable that may be used to specify
 /// the location of a reflection database to use. The expected format of
 /// a file at this point is MessagePack.
 pub const OVERRIDE_PATH_VAR: &str = "RBX_DATABASE";
@@ -78,7 +78,7 @@ pub fn get() -> &'static ReflectionDatabase<'static> {
 }
 
 /// Returns a reflection database from the file system, if one can be found.
-/// This is loaded from a location set by the `RBX_DATABASE` environmental
+/// This is loaded from a location set by the `RBX_DATABASE` environment
 /// variable if it's set. Otherwise, the default location is checked.
 ///
 /// The default location varies depending upon OS:
@@ -110,7 +110,7 @@ pub fn get_bundled() -> &'static ReflectionDatabase<'static> {
 /// This may return [`None`] if the local data directory cannot be found.
 pub fn get_local_location() -> Option<PathBuf> {
     if let Ok(location) = env::var(OVERRIDE_PATH_VAR) {
-        log::debug!("Using enviromental variable {OVERRIDE_PATH_VAR} to fetch reflection database");
+        log::debug!("Using environment variable {OVERRIDE_PATH_VAR} to fetch reflection database");
         Some(PathBuf::from(location))
     } else {
         // Due to concerns about the local data directory existing
