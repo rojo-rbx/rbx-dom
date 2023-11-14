@@ -24,7 +24,8 @@
 //! | Linux   | `$HOME/.rbxreflection/database.msgpack`                             |
 //!
 //! Additionally, a location override may be specified via the `RBX_DATABASE`
-//! environment variable.
+//! environment variable. The `RBX_DATABASE` variable points to the override
+//! `database.msgpack` file, _not_ to an override `.rbxreflection` directory.
 //!
 //! Both the default `database.msgpack` files and any files pointed to by
 //! `RBX_DATABASE` must be valid MessagePack serializations of a
