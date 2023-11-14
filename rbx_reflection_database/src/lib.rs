@@ -30,9 +30,16 @@
 //! Both the default `database.msgpack` files and any files pointed to by
 //! `RBX_DATABASE` must be valid MessagePack serializations of a
 //! [`ReflectionDatabase`] if they're present.
+mod error;
+
 use rbx_reflection::ReflectionDatabase;
 
-use std::{env, fs, path::PathBuf};
+use std::{env, fs, path::PathBuf, sync::OnceLock};
+
+pub use error::Error;
+
+/// An alias to avoid overly verbose types.
+type ResultOption<T> = Result<Option<T>, Error>;
 
 static ENCODED_DATABASE: &[u8] = include_bytes!("../database.msgpack");
 
@@ -52,30 +59,19 @@ lazy_static::lazy_static! {
         log::debug!("Loading bundled reflection database");
         rmp_serde::decode::from_slice(ENCODED_DATABASE).unwrap_or_else(|e| panic!("could not decode reflection database because: {}", e))
     };
-
-    static ref LOCAL_DATABASE: Option<ReflectionDatabase<'static>> = {
-        let location = get_local_location()?;
-        if let Ok(file) = fs::read(&location) {
-            log::debug!("Loading local reflection database from {}", location.display());
-            Some(
-                rmp_serde::decode::from_slice(&file).unwrap_or_else(|e| {
-                    panic!("could not decode reflection database because: {}", e)
-                }),
-            )
-        } else {
-            None
-        }
-    };
 }
+
+static LOCAL_DATABASE: OnceLock<ResultOption<ReflectionDatabase<'static>>> = OnceLock::new();
 
 /// Returns a populated [`ReflectionDatabase`]. This will attempt to load one locally and
 /// if one can't be found, it will return one that is bundled with this crate.
 ///
-/// ## Panics
+/// ## Errors
 ///
-/// Panics if a locally stored [`ReflectionDatabase`] is not valid MessagePack.
-pub fn get() -> &'static ReflectionDatabase<'static> {
-    get_local().unwrap_or(&BUNDLED_DATABASE)
+/// Errors if a locally stored [`ReflectionDatabase`] could not be read
+/// or is invalid MessagePack.
+pub fn get() -> Result<&'static ReflectionDatabase<'static>, Error> {
+    Ok(get_local()?.unwrap_or(&BUNDLED_DATABASE))
 }
 
 /// Returns a reflection database from the file system, if one can be found.
@@ -93,12 +89,25 @@ pub fn get() -> &'static ReflectionDatabase<'static> {
 /// The file at the above location (or the one pointed to by `RBX_DATABASE`)
 /// must be valid MessagePack.
 ///
-/// ## Panics
+/// ## Errors
 ///
-/// Panics if the file specified by `RBX_DATABASE` or in the default location
+/// Errors if the file specified by `RBX_DATABASE` or in the default location
 /// exists but is invalid MessagePack.
-pub fn get_local() -> Option<&'static ReflectionDatabase<'static>> {
-    LOCAL_DATABASE.as_ref()
+pub fn get_local() -> ResultOption<&'static ReflectionDatabase<'static>> {
+    let inner = LOCAL_DATABASE.get_or_init(|| {
+        if let Some(path) = get_local_location() {
+            let database: ReflectionDatabase<'static> = rmp_serde::from_slice(&fs::read(path)?)?;
+            Ok(Some(database))
+        } else {
+            Ok(None)
+        }
+    });
+    match inner {
+        Ok(opt) => Ok(opt.as_ref()),
+        // This clone could be avoided because these references are static,
+        // but it'd involve some indirection and these errors are rare anyway.
+        Err(e) => Err(e.clone()),
+    }
 }
 
 /// Returns the locally bundled [`ReflectionDatabase`]. This database may or may
@@ -142,7 +151,7 @@ mod test {
         test_path.push("empty.msgpack");
 
         env::set_var(OVERRIDE_PATH_VAR, &test_path);
-        let empty_db = get();
+        let empty_db = get().unwrap();
         println!("{:?}", empty_db.version);
         assert!(empty_db.version == [0, 0, 0, 0]);
     }
