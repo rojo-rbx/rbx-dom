@@ -96,8 +96,13 @@ pub fn get() -> Result<&'static ReflectionDatabase<'static>, Error> {
 pub fn get_local() -> ResultOption<&'static ReflectionDatabase<'static>> {
     let inner = LOCAL_DATABASE.get_or_init(|| {
         if let Some(path) = get_local_location() {
-            let database: ReflectionDatabase<'static> = rmp_serde::from_slice(&fs::read(path)?)?;
-            Ok(Some(database))
+            if path.exists() {
+                let database: ReflectionDatabase<'static> =
+                    rmp_serde::from_slice(&fs::read(path)?)?;
+                Ok(Some(database))
+            } else {
+                Ok(None)
+            }
         } else {
             Ok(None)
         }
