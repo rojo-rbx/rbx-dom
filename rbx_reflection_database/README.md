@@ -20,7 +20,7 @@ This crate will load a reflection database from the file system if one exists in
 | MacOS   | `$HOME/Library/Application Support/.rbxreflection/database.msgpack` |
 | Linux   | `$HOME/.rbxreflection/database.msgpack`                             |
 
-Additionally, a location override may be specified via the `RBX_DATABASE` environmental variable.
+Additionally, a location override may be specified via the `RBX_DATABASE` environmental variable. The `RBX_DATABASE` variable points to the override `database.msgpack` file, _not_ to an override `.rbxreflection` directory.
 
 Both the default `database.msgpack` files and any files pointed to by `RBX_DATABASE` must be valid MessagePack serializations of a [`ReflectionDatabase`][ReflectionDatabase] if they're present.
 
