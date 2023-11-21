@@ -1,6 +1,7 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Add `len` and `is_empty` methods to `Attributes` struct. ([#377])
 
 ## 1.7.0 (2023-10-03)
 * Implemented `FromStr` for `TerrainMaterials`. ([#354])
@@ -12,6 +13,7 @@
 [#355]: https://github.com/rojo-rbx/rbx-dom/pull/355
 [#358]: https://github.com/rojo-rbx/rbx-dom/pull/358
 [#363]: https://github.com/rojo-rbx/rbx-dom/pull/363
+[#377]: https://github.com/rojo-rbx/rbx-dom/pull/377
 
 ## 1.6.0 (2023-08-09)
 * Added support for `UniqueId` values. ([#271])
