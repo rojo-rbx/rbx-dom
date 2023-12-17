@@ -1,6 +1,7 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+* Implemented `Default` for `WeakDom`, useful when using Serde or creating an empty `WeakDom`
 
 ## 2.6.0 (2023-10-03)
 * Added `WeakDom::clone_multiple_into_external` that allows cloning multiple subtrees all at once into a given `WeakDom`, useful for preserving `Ref` properties that point across cloned subtrees ([#364])
