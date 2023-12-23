@@ -54,7 +54,7 @@ impl<'db> Deserializer<'db> {
     /// Create a new `Deserializer` with the default settings.
     pub fn new() -> Self {
         Self {
-            database: rbx_reflection_database::get(),
+            database: rbx_reflection_database::get().unwrap(),
         }
     }
 
