@@ -1,5 +1,5 @@
 mod error;
-mod header;
+pub mod header;
 mod state;
 
 use std::{io::Read, str};
@@ -8,8 +8,6 @@ use rbx_dom_weak::WeakDom;
 use rbx_reflection::ReflectionDatabase;
 
 use self::state::DeserializerState;
-
-pub(crate) use self::header::FileHeader;
 
 pub use self::error::Error;
 
