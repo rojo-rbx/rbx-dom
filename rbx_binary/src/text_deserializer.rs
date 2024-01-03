@@ -695,7 +695,7 @@ impl DecodedValues {
                             Some(CFrame::new(Vector3::new(x, y, z), rotation))
                         }
                     })
-                    .filter_map(|value| value)
+                    .flatten()
                     .collect();
 
                 Some(DecodedValues::CFrame(values))
