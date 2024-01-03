@@ -1,23 +1,14 @@
-Add:
+Change:
+  Model:
+    WorldPivot:
+      DataType:
+        Value: CFrame
+      Serialization:
+        Type: SerializesAs
+        As: WorldPivotData
   Model:
     WorldPivotData:
       AliasFor: WorldPivot
       DataType:
         Value: OptionalCFrame
       Scriptability: None
-    NeedsPivotMigration:
-      Serialization:
-        Type: Serializes
-      DataType:
-        Value: Bool
-      Scriptability: None
-
-# WorldPivot can also be found as a SERIALIZED property in some rbxms
-Change:
-  Model:
-    WorldPivot:
-      DataType:
-        Value: OptionalCFrame
-      Serialization:
-        Type: SerializesAs
-        As: WorldPivotData
