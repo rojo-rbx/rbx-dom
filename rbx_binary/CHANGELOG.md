@@ -1,6 +1,9 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Add the ability to specify a `ReflectionDatabase` to use for serializing and deserializing. This takes the form of `Deserializer::reflection_database` and `Serializer::reflection_database`. ([#375])
+
+[#375]: https://github.com/rojo-rbx/rbx-dom/pull/375
 
 ## 0.7.3 (2023-10-23)
 * Fixed missing fallback default for `SecurityCapabilities` ([#371]).

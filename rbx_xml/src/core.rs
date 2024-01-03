@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization};
+use rbx_reflection::{PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     deserializer_core::XmlEventReader,
@@ -39,30 +39,32 @@ pub trait XmlType: Sized {
     }
 }
 
-pub fn find_canonical_property_descriptor(
+pub fn find_canonical_property_descriptor<'db>(
     class_name: &str,
     property_name: &str,
-) -> Option<&'static PropertyDescriptor<'static>> {
-    find_property_descriptors(class_name, property_name).map(|(canonical, _serialized)| canonical)
+    database: &'db ReflectionDatabase<'db>,
+) -> Option<&'db PropertyDescriptor<'db>> {
+    find_property_descriptors(class_name, property_name, database)
+        .map(|(canonical, _serialized)| canonical)
 }
 
-pub fn find_serialized_property_descriptor(
+pub fn find_serialized_property_descriptor<'db>(
     class_name: &str,
     property_name: &str,
-) -> Option<&'static PropertyDescriptor<'static>> {
-    find_property_descriptors(class_name, property_name).map(|(_canonical, serialized)| serialized)
+    database: &'db ReflectionDatabase<'db>,
+) -> Option<&'db PropertyDescriptor<'db>> {
+    find_property_descriptors(class_name, property_name, database)
+        .map(|(_canonical, serialized)| serialized)
 }
 
 /// Find both the canonical and serialized property descriptors for a given
 /// class and property name pair. These might be the same descriptor!
-fn find_property_descriptors(
+fn find_property_descriptors<'db>(
     class_name: &str,
     property_name: &str,
-) -> Option<(
-    &'static PropertyDescriptor<'static>,
-    &'static PropertyDescriptor<'static>,
-)> {
-    let class_descriptor = rbx_reflection_database::get().classes.get(class_name)?;
+    database: &'db ReflectionDatabase<'db>,
+) -> Option<(&'db PropertyDescriptor<'db>, &'db PropertyDescriptor<'db>)> {
+    let class_descriptor = database.classes.get(class_name)?;
 
     let mut current_class_descriptor = class_descriptor;
 
@@ -133,7 +135,7 @@ fn find_property_descriptors(
             // If a property descriptor isn't found in our class, check
             // our superclass.
 
-            current_class_descriptor = rbx_reflection_database::get()
+            current_class_descriptor = database
                 .classes
                 .get(superclass_name)
                 .expect("Superclass in reflection database didn't exist");

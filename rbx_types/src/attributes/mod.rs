@@ -78,6 +78,18 @@ impl Attributes {
     pub fn iter(&self) -> impl Iterator<Item = (&String, &Variant)> {
         self.data.iter()
     }
+
+    /// Returns the number of attributes.
+    #[inline]
+    pub fn len(&self) -> usize {
+        self.data.len()
+    }
+
+    /// Returns true if the struct contains no attributes.
+    #[inline]
+    pub fn is_empty(&self) -> bool {
+        self.data.is_empty()
+    }
 }
 
 impl IntoIterator for Attributes {

@@ -346,6 +346,16 @@ impl WeakDom {
     }
 }
 
+impl Default for WeakDom {
+    fn default() -> WeakDom {
+        WeakDom {
+            instances: HashMap::new(),
+            root_ref: Ref::none(),
+            unique_ids: HashSet::new(),
+        }
+    }
+}
+
 #[derive(Debug, Default)]
 struct CloneContext {
     queue: VecDeque<(Ref, Ref)>,

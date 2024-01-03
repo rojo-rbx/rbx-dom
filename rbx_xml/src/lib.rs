@@ -89,9 +89,13 @@
 //! ```
 //!
 //! ## Configuration
-//! rbx_xml exposes no useful configuration yet, but there are methods that
-//! accept [`DecodeOptions`][DecodeOptions] and
-//! [`EncodeOptions`][EncodeOptions] that will be useful when it does.
+//! rbx_xml exposes a few configuration options at the moment in the form of
+//! [`DecodeOptions`][DecodeOptions] and [`EncodeOptions`][EncodeOptions].
+//! For information on the configuration, see the documentation for those
+//! structs.
+//!
+//! The non-default reader and writer functions accept these as their `options`
+//! argument.
 //!
 //! [DecodeOptions]: struct.DecodeOptions.html
 //! [EncodeOptions]: struct.EncodeOptions.html
