@@ -1,6 +1,8 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+
+## 0.2.10+roblox-607 (2024-01-16)
 * Updated to Roblox version 607
 
 ## 0.2.9+roblox-596 (2023-10-03)
