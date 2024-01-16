@@ -1,6 +1,8 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+
+## 1.8.0 (2024-01-16)
 * Add `len` and `is_empty` methods to `Attributes` struct. ([#377])
 
 ## 1.7.0 (2023-10-03)
