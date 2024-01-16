@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.7.4 (2024-01-16)
 * Add the ability to specify a `ReflectionDatabase` to use for serializing and deserializing. This takes the form of `Deserializer::reflection_database` and `Serializer::reflection_database`. ([#375])
 
 [#375]: https://github.com/rojo-rbx/rbx-dom/pull/375
