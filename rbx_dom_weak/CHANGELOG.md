@@ -1,6 +1,8 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+
+## 2.7.0 (2024-01-16)
 * Implemented `Default` for `WeakDom`, useful when using Serde or creating an empty `WeakDom`
 
 ## 2.6.0 (2023-10-03)
