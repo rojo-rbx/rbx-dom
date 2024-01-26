@@ -89,7 +89,8 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<StudioInfo> {
     println!("Please save the opened place in Roblox Studio (ctrl+s).");
 
     loop {
-        if rx.recv()??.kind.is_create() {
+        let event = rx.recv()??;
+        if event.kind.is_create() || event.kind.is_modify() {
             break;
         }
     }
