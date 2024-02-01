@@ -145,7 +145,7 @@ impl Iterator for AttributesIntoIter {
     }
 }
 
-/// A borrowed iterator over the entires of an `Attributes`.
+/// A borrowed iterator over the entries of an `Attributes`.
 /// This is created by [`Attributes::iter`].
 pub struct AttributesIter<'a> {
     iter: btree_map::Iter<'a, String, Variant>,
