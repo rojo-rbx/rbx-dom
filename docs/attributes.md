@@ -17,6 +17,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [Vector2](#vector2)
     - [Vector3](#vector3)
     - [CFrame](#cframe)
+	- [EnumItem](#EnumItem)
     - [NumberSequence](#numbersequence)
     - [ColorSequence](#colorsequence)
     - [NumberRange](#numberrange)
@@ -179,6 +180,18 @@ A rotation is considered "axis-aligned" if it's in increments of 90 degrees arou
 A `CFrame` with the value `CFrame.new(1, 2, 3) * CFrame.Angles(0, 45, 0)` looks like this when serialized: `00 00 80 3f 00 00 00 40 00 00 40 40 00 f3 04 35 3f 00 00 00 00 f3 04 35 3f 00 00 00 00 00 00 80 3f 00 00 00 00 f3 04 35 bf 00 00 00 00 f3 04 35 3f`.
 
 Demonstrating the axis-aligned rotation matrix case, a `CFrame` with the value `CFrame.new(1, 2, 3)` looks like this: `00 00 80 3f 00 00 00 40 00 00 40 40 02`.
+
+### EnumItem
+**Type ID `0x15`**
+
+The `EnumItem` type is composed of two parts: 
+
+| Field Name | Format              | Value                                                  |
+|:-----------|:--------------------|:-------------------------------------------------------|
+| Enum Name  | [`String`](#string) | The name of the [`Enum`][Enum_Type] of this `EnumItem` |
+| Value      | `u32`               | The `Value` field of the `EnumItem`                    |
+
+[Enum_Type]: https://create.roblox.com/docs/reference/engine/datatypes/Enum
 
 ### NumberSequence
 **Type ID `0x17`**
