@@ -263,12 +263,12 @@ A Rect with the value `10, 20, 30, 40` would look like this: `00 00 20 41 00 00 
 
 The `Font` type is a struct composed of a `u16`, `u8` and two `String`s
 
-| Field Name   | Format                | Value                                  |
-|:-------------|:----------------------|:---------------------------------------|
-| Weight       | `u16`                 | The weight of the font                 |
-| Style        | `u8`                  | The style of the font                  |
-| Family       | [String](#string)     | The font family content URI            |
-| CachedFaceId | [String](#string)     | The cached content URI of the TTF file |
+| Field Name   | Format                  | Value                                  |
+|:-------------|:------------------------|:---------------------------------------|
+| Weight       | `u16`                   | The weight of the font                 |
+| Style        | `u8`                    | The style of the font                  |
+| Family       | [`String`](#string)     | The font family content URI            |
+| CachedFaceId | [`String`](#string)     | The cached content URI of the TTF file |
 
 The `Weight` and `Style` values refer to the `FontWeight` and `FontStyle` enums respectively. They are stored as unsigned little-endian
 
