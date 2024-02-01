@@ -33084,7 +33084,7 @@
         },
         "SerializedDefaultAttributes": {
           "Name": "SerializedDefaultAttributes",
-          "Scriptability": "Read",
+          "Scriptability": "None",
           "DataType": {
             "Value": "BinaryString"
           },

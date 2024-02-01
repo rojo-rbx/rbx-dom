@@ -6,3 +6,5 @@ Change:
         As: PackageIdSerialize
     PackageIdSerialize:
       AliasFor: PackageId
+    SerializedDefaultAttributes:
+      Scriptability: None
