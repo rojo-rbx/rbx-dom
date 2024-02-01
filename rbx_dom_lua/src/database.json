@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    607,
+    610,
     0,
-    6070550
+    6100472
   ],
   "Classes": {
     "Accessory": {
@@ -11218,6 +11218,19 @@
             }
           }
         },
+        "IsIdle": {
+          "Name": "IsIdle",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Status": {
           "Name": "Status",
           "Scriptability": "None",
@@ -16168,7 +16181,7 @@
         "Orientation": {
           "Vector3": [
             -0.0,
-            180.0,
+            179.99998,
             90.0
           ]
         },
@@ -35022,6 +35035,19 @@
               "Serialization": "Serializes"
             }
           }
+        },
+        "ZIndex": {
+          "Name": "ZIndex",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {}
@@ -40856,6 +40882,19 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "PreferredUploadId": {
+          "Name": "PreferredUploadId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Int64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -46931,21 +46970,6 @@
             }
           }
         },
-        "AnimationCompositorMode": {
-          "Name": "AnimationCompositorMode",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Enum": "AnimationCompositorMode"
-          },
-          "Tags": [
-            "NotBrowsable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "AutoJumpEnabled": {
           "Name": "AutoJumpEnabled",
           "Scriptability": "ReadWrite",
@@ -47488,21 +47512,6 @@
             }
           }
         },
-        "HumanoidStateMachineMode": {
-          "Name": "HumanoidStateMachineMode",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Enum": "HumanoidStateMachineMode"
-          },
-          "Tags": [
-            "NotBrowsable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "LoadCharacterAppearance": {
           "Name": "LoadCharacterAppearance",
           "Scriptability": "ReadWrite",
@@ -47593,9 +47602,6 @@
       "DefaultProperties": {
         "AllowCustomAnimations": {
           "Bool": true
-        },
-        "AnimationCompositorMode": {
-          "Enum": 0
         },
         "Attributes": {
           "Attributes": {}
@@ -47728,9 +47734,6 @@
         },
         "HealthDisplayDistance": {
           "Float32": 100.0
-        },
-        "HumanoidStateMachineMode": {
-          "Enum": 0
         },
         "LoadCharacterAppearance": {
           "Bool": true
@@ -55907,6 +55910,17 @@
       "Properties": {},
       "DefaultProperties": {}
     },
+    "TextureGenerationService": {
+      "Name": "TextureGenerationService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "ThirdPartyUserService": {
       "Name": "ThirdPartyUserService",
       "Tags": [
@@ -59590,6 +59604,22 @@
             }
           }
         },
+        "ChatTranslationLocale": {
+          "Name": "ChatTranslationLocale",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ChatTranslationToggleEnabled": {
           "Name": "ChatTranslationToggleEnabled",
           "Scriptability": "None",
@@ -61068,6 +61098,7 @@
     "VRService": {
       "Name": "VRService",
       "Tags": [
+        "NotBrowsable",
         "NotCreatable",
         "Service"
       ],
@@ -61084,7 +61115,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": "Serializes"
             }
           }
         },
@@ -61111,10 +61142,12 @@
           "DataType": {
             "Value": "Bool"
           },
-          "Tags": [],
+          "Tags": [
+            "NotReplicated"
+          ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": "Serializes"
             }
           }
         },
@@ -61124,7 +61157,9 @@
           "DataType": {
             "Enum": "UserCFrame"
           },
-          "Tags": [],
+          "Tags": [
+            "NotReplicated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
@@ -61283,11 +61318,17 @@
         "Attributes": {
           "Attributes": {}
         },
+        "AutomaticScaling": {
+          "Enum": 0
+        },
         "Capabilities": {
           "SecurityCapabilities": 0
         },
         "DefinesCapabilities": {
           "Bool": false
+        },
+        "FadeOutViewOnCollision": {
+          "Bool": true
         },
         "SourceAssetId": {
           "Int64": -1
@@ -65214,14 +65255,6 @@
         "Timeout": 10
       }
     },
-    "AnimationCompositorMode": {
-      "name": "AnimationCompositorMode",
-      "items": {
-        "Default": 0,
-        "Disabled": 2,
-        "Enabled": 1
-      }
-    },
     "AnimationPriority": {
       "name": "AnimationPriority",
       "items": {
@@ -65835,10 +65868,10 @@
     "CollaboratorStatus": {
       "name": "CollaboratorStatus",
       "items": {
-        "Editing3D": 0,
-        "None": 3,
-        "PrivateScripting": 2,
-        "Scripting": 1
+        "Editing3D": 1,
+        "None": 0,
+        "PrivateScripting": 3,
+        "Scripting": 2
       }
     },
     "CollisionFidelity": {
@@ -66810,15 +66843,6 @@
         "R6": 0
       }
     },
-    "HumanoidStateMachineMode": {
-      "name": "HumanoidStateMachineMode",
-      "items": {
-        "Default": 0,
-        "Legacy": 1,
-        "LuaStateMachine": 3,
-        "NoStateMachine": 2
-      }
-    },
     "HumanoidStateType": {
       "name": "HumanoidStateType",
       "items": {
@@ -67467,6 +67491,16 @@
         "Nonatomic": 4,
         "Persistent": 2,
         "PersistentPerPlayer": 3
+      }
+    },
+    "ModerationStatus": {
+      "name": "ModerationStatus",
+      "items": {
+        "Invalid": 5,
+        "NotApplicable": 4,
+        "NotReviewed": 3,
+        "ReviewedApproved": 1,
+        "ReviewedRejected": 2
       }
     },
     "ModifierKey": {
