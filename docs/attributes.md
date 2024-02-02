@@ -17,6 +17,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [Vector2](#vector2)
     - [Vector3](#vector3)
     - [CFrame](#cframe)
+	- [EnumItem](#EnumItem)
     - [NumberSequence](#numbersequence)
     - [ColorSequence](#colorsequence)
     - [NumberRange](#numberrange)
@@ -180,6 +181,18 @@ A `CFrame` with the value `CFrame.new(1, 2, 3) * CFrame.Angles(0, 45, 0)` looks 
 
 Demonstrating the axis-aligned rotation matrix case, a `CFrame` with the value `CFrame.new(1, 2, 3)` looks like this: `00 00 80 3f 00 00 00 40 00 00 40 40 02`.
 
+### EnumItem
+**Type ID `0x15`**
+
+The `EnumItem` type is composed of two parts: 
+
+| Field Name | Format              | Value                                                  |
+|:-----------|:--------------------|:-------------------------------------------------------|
+| Enum Name  | [`String`](#string) | The name of the [`Enum`][Enum_Type] of this `EnumItem` |
+| Value      | `u32`               | The `Value` field of the `EnumItem`                    |
+
+[Enum_Type]: https://create.roblox.com/docs/reference/engine/datatypes/Enum
+
 ### NumberSequence
 **Type ID `0x17`**
 
@@ -250,12 +263,12 @@ A Rect with the value `10, 20, 30, 40` would look like this: `00 00 20 41 00 00 
 
 The `Font` type is a struct composed of a `u16`, `u8` and two `String`s
 
-| Field Name   | Format                | Value                                  |
-|:-------------|:----------------------|:---------------------------------------|
-| Weight       | `u16`                 | The weight of the font                 |
-| Style        | `u8`                  | The style of the font                  |
-| Family       | [String](#string)     | The font family content URI            |
-| CachedFaceId | [String](#string)     | The cached content URI of the TTF file |
+| Field Name   | Format                  | Value                                  |
+|:-------------|:------------------------|:---------------------------------------|
+| Weight       | `u16`                   | The weight of the font                 |
+| Style        | `u8`                    | The style of the font                  |
+| Family       | [`String`](#string)     | The font family content URI            |
+| CachedFaceId | [`String`](#string)     | The cached content URI of the TTF file |
 
 The `Weight` and `Style` values refer to the `FontWeight` and `FontStyle` enums respectively. They are stored as unsigned little-endian
 
