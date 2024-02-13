@@ -119,7 +119,7 @@ return {
 				return true, instance.MeshId
 			end,
 			write = function(instance, _, value)
-				task.spawn(function ()
+				task.spawn(function()
 					local mesh = InsertService:CreateMeshPartAsync(value, instance.CollisionFidelity, instance.RenderFidelity)
 					instance:ApplyMesh(mesh)
 				end)
