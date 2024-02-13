@@ -1,3 +1,4 @@
+local InsertService = game:GetService("InsertService")
 local CollectionService = game:GetService("CollectionService")
 local ScriptEditorService = game:GetService("ScriptEditorService")
 
@@ -109,6 +110,21 @@ return {
 			end,
 			write = function(instance, _, value)
 				return true, instance:ScaleTo(value)
+			end,
+		},
+	},
+	MeshPart = {
+		MeshId = {
+			read = function(instance, _, _)
+				return true, instance.MeshId
+			end,
+			write = function(instance, _, value)
+				task.spawn(function ()
+					local mesh = InsertService:CreateMeshPartAsync(value, instance.CollisionFidelity, instance.RenderFidelity)
+					instance:ApplyMesh(mesh)
+				end)
+				
+				return true
 			end,
 		},
 	},
