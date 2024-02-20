@@ -111,6 +111,24 @@ return {
 				return true, instance:ScaleTo(value)
 			end,
 		},
+		WorldPivotData = {
+			read = function(instance)
+				if instance.PrimaryPart == nil then
+					-- Model.WorldPivotData is unoccupied when the model does not have a
+					-- PrimaryPart
+					return true, nil
+				else
+					return true, instance:GetPivot()
+				end
+			end,
+			write = function(instance, _, value)
+				if value == nil then
+					return true, nil
+				else
+					return true, instance:PivotTo(value)
+				end
+			end,
+		},
 	},
 	Terrain = {
 		MaterialColors = {
