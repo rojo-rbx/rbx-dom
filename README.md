@@ -86,7 +86,7 @@ Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside 
 | Int64                   | `Player.UserId`                 | ✔ | ✔ | ✔ | ✔ |
 | NumberRange             | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ✔ | ✔ |
 | NumberSequence          | `Beam.Transparency`             | ✔ | ✔ | ✔ | ✔ |
-| OptionalCoordinateFrame | `Model.WorldPivotData`          | ✔ | ❌ | ✔ | ✔ |
+| OptionalCFrame          | `Model.WorldPivotData`          | ✔ | ✔ | ✔ | ✔ |
 | PhysicalProperties      | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ✔ |
 | ProtectedString         | `ModuleScript.Source`           | ✔ | ✔ | ✔ | ✔ |
 | Ray                     | `RayValue.Value`                | ✔ | ✔ | ✔ | ✔ |
