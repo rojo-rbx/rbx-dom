@@ -493,6 +493,24 @@ types = {
 	},
 }
 
+types.OptionalCFrame = {
+	fromPod = function(pod)
+		if pod == nil then
+			return nil
+		else
+			return types.CFrame.fromPod(pod)
+		end
+	end,
+
+	toPod = function(roblox)
+		if roblox == nil then
+			return nil
+		else
+			return types.CFrame.toPod(roblox)
+		end
+	end,
+}
+
 function EncodedValue.decode(encodedValue)
 	local ty, value = next(encodedValue)
 
