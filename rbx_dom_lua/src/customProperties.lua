@@ -113,13 +113,7 @@ return {
 		},
 		WorldPivotData = {
 			read = function(instance)
-				if instance.PrimaryPart == nil then
-					-- Model.WorldPivotData is unoccupied when the model does not have a
-					-- PrimaryPart
-					return true, nil
-				else
-					return true, instance:GetPivot()
-				end
+				return true, instance:GetPivot()
 			end,
 			write = function(instance, _, value)
 				if value == nil then
