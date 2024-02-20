@@ -7,3 +7,5 @@ Change:
         Type: SerializesAs
         As: ScaleFactor
       Scriptability: Custom
+    WorldPivotData:
+      Scriptability: Custom
