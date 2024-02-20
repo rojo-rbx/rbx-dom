@@ -514,6 +514,11 @@ types.OptionalCFrame = {
 function EncodedValue.decode(encodedValue)
 	local ty, value = next(encodedValue)
 
+	if ty == nil then
+		-- If the encoded pair is empty, assume it is an unoccupied optional value
+		return true, nil
+	end
+
 	local typeImpl = types[ty]
 	if typeImpl == nil then
 		return false, "Couldn't decode value " .. tostring(ty)
