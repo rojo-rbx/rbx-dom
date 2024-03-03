@@ -186,7 +186,7 @@ mod tests {
         let attributes = Attributes::from_reader(&attributes_value[..])
             .expect("couldn't deserialize attributes");
 
-        insta::assert_yaml_snapshot!(attributes);
+        insta::assert_yaml_snapshot!(&attributes);
 
         let mut new_attribute_bytes = Vec::<u8>::new();
         attributes
