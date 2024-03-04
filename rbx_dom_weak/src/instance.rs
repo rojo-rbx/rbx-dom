@@ -72,6 +72,14 @@ impl InstanceBuilder {
         self.referent
     }
 
+    /// Change the referent of the `InstanceBuilder`.
+    pub fn with_referent<R: Into<Ref>>(self, referent: R) -> Self {
+        Self {
+            referent: referent.into(),
+            ..self
+        }
+    }
+
     /// Change the name of the `InstanceBuilder`.
     pub fn with_name<S: Into<String>>(self, name: S) -> Self {
         Self {
