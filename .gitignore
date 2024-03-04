@@ -22,3 +22,6 @@ Cargo.lock
 # Editor-specific folders and files
 /.vscode
 sourcemap.json
+
+# macOS Finder files
+.DS_Store

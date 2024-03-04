@@ -1,6 +1,7 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+* Added `InstanceBuilder::with_referent` that allows building instance with predefined `Ref`
 
 ## 2.7.0 (2024-01-16)
 * Implemented `Default` for `WeakDom`, useful when using Serde or creating an empty `WeakDom`
