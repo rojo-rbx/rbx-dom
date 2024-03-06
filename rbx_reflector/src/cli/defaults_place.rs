@@ -25,7 +25,7 @@ static PLUGIN_SOURCE: &str = include_str!("../../plugin.lua");
 #[derive(Debug, Parser)]
 pub struct DefaultsPlaceSubcommand {
     /// The path of an API dump that came from the dump command.
-    #[clap(long = "api_dump")]
+    #[clap(long)]
     pub api_dump: PathBuf,
     /// Where to output the place. The extension must be .rbxlx
     pub output: PathBuf,
