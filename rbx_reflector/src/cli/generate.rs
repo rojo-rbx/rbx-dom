@@ -34,7 +34,7 @@ pub struct GenerateSubcommand {
     pub output: Vec<PathBuf>,
     /// Whether to pretty-print the JSON output. This has no effect on MessagePack.
     #[clap(long)]
-    pub pretty: bool,
+    pub no_pretty: bool,
 }
 
 impl GenerateSubcommand {
