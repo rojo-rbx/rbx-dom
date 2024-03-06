@@ -77,10 +77,10 @@ impl GenerateSubcommand {
 
             match extension {
                 Some("json") => {
-                    let result = if self.pretty {
-                        serde_json::to_writer_pretty(&mut file, &database)
-                    } else {
+                    let result = if self.no_pretty {
                         serde_json::to_writer(&mut file, &database)
+                    } else {
+                        serde_json::to_writer_pretty(&mut file, &database)
                     };
 
                     result.context("Could not serialize reflection database as JSON")?;
