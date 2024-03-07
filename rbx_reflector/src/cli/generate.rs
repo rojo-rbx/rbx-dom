@@ -27,11 +27,14 @@ use super::{defaults_place::DefaultsPlaceSubcommand, dump::DumpSubcommand};
 /// and write it to disk.
 #[derive(Debug, Parser)]
 pub struct GenerateSubcommand {
-    #[clap(long = "patches")]
+    #[clap(long)]
     pub patches: Option<PathBuf>,
     /// Where to output the reflection database. The output format is inferred
     /// from the file path and supports JSON (.json) and MessagePack (.msgpack).
     pub output: Vec<PathBuf>,
+    /// Whether to pretty-print the JSON output. This has no effect on MessagePack.
+    #[clap(long)]
+    pub no_pretty: bool,
 }
 
 impl GenerateSubcommand {
@@ -74,8 +77,13 @@ impl GenerateSubcommand {
 
             match extension {
                 Some("json") => {
-                    serde_json::to_writer_pretty(&mut file, &database)
-                        .context("Could not serialize reflection database as JSON")?;
+                    let result = if self.no_pretty {
+                        serde_json::to_writer(&mut file, &database)
+                    } else {
+                        serde_json::to_writer_pretty(&mut file, &database)
+                    };
+
+                    result.context("Could not serialize reflection database as JSON")?;
                 }
                 Some("msgpack") => {
                     let buf = rmp_serde::to_vec(&database)
