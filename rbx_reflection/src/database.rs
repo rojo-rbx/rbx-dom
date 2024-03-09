@@ -50,6 +50,7 @@ impl<'a> ReflectionDatabase<'a> {
         // theoretical 'average' case too.
         let mut list = HashSet::with_capacity(5);
         let mut current_class = self.classes.get(class_name);
+        current_class?;
 
         while let Some(class) = current_class {
             list.insert(class.name.as_ref());
