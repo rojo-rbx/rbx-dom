@@ -39,6 +39,24 @@ impl<'a> ReflectionDatabase<'a> {
             enums: HashMap::new(),
         }
     }
+
+    /// Returns a list of superclasses for the provided class name. This list
+    /// will start with the provided class and end with `Instance` if the class
+    /// exists.
+    pub fn superclasses(&self, class_name: &str) -> Option<Vec<&ClassDescriptor>> {
+        // As of the time of writing (14 March 2024), the class with the most
+        // superclasses has 6 of them.
+        let mut list = Vec::with_capacity(6);
+        let mut current_class = self.classes.get(class_name);
+        current_class?;
+
+        while let Some(class) = current_class {
+            list.push(class);
+            current_class = class.superclass.as_ref().and_then(|s| self.classes.get(s));
+        }
+
+        Some(list)
+    }
 }
 
 /// Describes a class of Instance, its properties, and its relation to other
