@@ -43,17 +43,17 @@ impl<'a> ReflectionDatabase<'a> {
     /// Returns a list of superclasses for the provided class name. This list
     /// will start with the provided class and end with `Instance` if the class
     /// exists.
-    pub fn superclasses(&self, class_name: &str) -> Option<HashSet<Cow<'a, str>>> {
+    pub fn superclasses(&self, class_name: &str) -> Option<Vec<Cow<'a, str>>> {
         // Parts have 4 superclasses, and they're generally what most models
         // are composed of so we allocate enough for them.
         // On average each class has 2.6 superclasses, so this benefits our
         // theoretical 'average' case too.
-        let mut list = HashSet::with_capacity(5);
+        let mut list = Vec::with_capacity(6);
         let mut current_class = self.classes.get(class_name);
         current_class?;
 
         while let Some(class) = current_class {
-            list.insert(class.name.clone());
+            list.push(class.name.clone());
             current_class = class.superclass.as_ref().and_then(|s| self.classes.get(s));
         }
 
