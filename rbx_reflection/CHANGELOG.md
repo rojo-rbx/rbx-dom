@@ -1,6 +1,9 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+* Add `superclasses` method to `ReflectionDatabase` to get a set of superclasses for a given class. ([#402])
+
+[#402]: https://github.com/rojo-rbx/rbx-dom/pull/402
 
 ## 4.5.0 (2024-01-16)
 * Update to rbx_types 1.8.
