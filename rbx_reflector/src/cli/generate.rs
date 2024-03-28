@@ -179,7 +179,7 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
                         // VariantType. Exactly what we'd like to do about
                         // unimplemented data types like this depends on if the
                         // property serializes or not.
-                        match (variant_type_from_str(type_name)?, &kind) {
+                        match (variant_type_from_str(type_name), &kind) {
                             // The happy path: the data type has a corresponding
                             // VariantType. We don't need to care about whether
                             // the data type is ever serialized, because it
@@ -259,8 +259,8 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
     Ok(())
 }
 
-fn variant_type_from_str(type_name: &str) -> anyhow::Result<Option<VariantType>> {
-    Ok(Some(match type_name {
+fn variant_type_from_str(type_name: &str) -> Option<VariantType> {
+    Some(match type_name {
         "Axes" => VariantType::Axes,
         "BinaryString" => VariantType::BinaryString,
         "BrickColor" => VariantType::BrickColor,
@@ -299,6 +299,6 @@ fn variant_type_from_str(type_name: &str) -> anyhow::Result<Option<VariantType>>
         // ProtectedString is handled as the same as string
         "ProtectedString" => VariantType::String,
 
-        _ => return Ok(None),
-    }))
+        _ => return None,
+    })
 }
