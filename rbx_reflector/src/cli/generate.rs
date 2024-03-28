@@ -261,17 +261,6 @@ fn variant_type_from_str(type_name: &str) -> anyhow::Result<Option<VariantType>>
         // ProtectedString is handled as the same as string
         "ProtectedString" => VariantType::String,
 
-        // TweenInfo is not supported by rbx_types yet
-        "TweenInfo" => return Ok(None),
-
-        // While DateTime is possible to Serialize, the only use it has as a
-        // DataType is for the TextChatMessage class, which cannot be serialized
-        // (at least not saved to file as it is locked to nil parent)
-        "DateTime" => return Ok(None),
-
-        // These types are not generally implemented right now.
-        "QDir" | "QFont" | "SystemAddress" | "CSGPropertyData" => return Ok(None),
-
-        _ => bail!("unknown type {type_name}"),
+        _ => return Ok(None),
     }))
 }
