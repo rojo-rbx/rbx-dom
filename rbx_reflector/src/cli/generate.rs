@@ -221,8 +221,8 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
     Ok(())
 }
 
-fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
-    Ok(Some(match value {
+fn variant_type_from_str(type_name: &str) -> anyhow::Result<Option<VariantType>> {
+    Ok(Some(match type_name {
         "Axes" => VariantType::Axes,
         "BinaryString" => VariantType::BinaryString,
         "BrickColor" => VariantType::BrickColor,
@@ -272,6 +272,6 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         // These types are not generally implemented right now.
         "QDir" | "QFont" | "SystemAddress" | "CSGPropertyData" => return Ok(None),
 
-        _ => bail!("Unknown type {}", value),
+        _ => bail!("unknown type {type_name}"),
     }))
 }
