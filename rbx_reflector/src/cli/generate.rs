@@ -174,10 +174,48 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
                 let value_type = match dump_property.value_type.category {
                     ValueCategory::Enum => DataType::Enum(type_name.clone().into()),
                     ValueCategory::Primitive | ValueCategory::DataType => {
-                        match variant_type_from_str(type_name)? {
-                            Some(variant_type) => DataType::Value(variant_type),
-                            None => {
-                                log::debug!("Skipping property {}.{} because it was of unsupported type '{type_name}'", dump_class.name, dump_property.name);
+                        // variant_type_from_str returns None when passed a
+                        // type name that does not have a corresponding
+                        // VariantType. Exactly what we'd like to do about
+                        // unimplemented data types like this depends on if the
+                        // property serializes or not.
+                        match (variant_type_from_str(type_name)?, &kind) {
+                            // The happy path: the data type has a corresponding
+                            // VariantType. We don't need to care about whether
+                            // the data type is ever serialized, because it
+                            // already has an implementation.
+                            (Some(variant_type), _) => DataType::Value(variant_type),
+
+                            // The data type does not have a corresponding
+                            // VariantType, and it serializes. This is a case
+                            // where we should fail. It means that we may need
+                            // to implement the data type.
+                            //
+                            // There is a special exception for QDir and QFont,
+                            // because these types serialize under a few
+                            // different properties, but the properties are not
+                            // normally present in place or model files. They
+                            // are usually only present in Roblox Studio
+                            // settings files. They are not used otherwise and
+                            // can safely be ignored.
+                            (None, PropertyKind::Canonical {
+                                serialization: PropertySerialization::Serializes
+                            }) if type_name != "QDir" && type_name != "QFont"  => bail!(
+                                "Property {}.{} serializes, but its data type ({}) is unimplemented",
+                                dump_class.name, dump_property.name, type_name
+                            ),
+
+                            // The data type does not have a corresponding a
+                            // VariantType, and it does not serialize (with QDir
+                            // and QFont as exceptions, noted above). We can
+                            // safely ignore this case because rbx-dom doesn't
+                            // need to know about data types that are never
+                            // serialized.
+                            (None, _) => {
+                                log::debug!(
+                                    "Skipping property {}.{} because it is of unimplemented type '{type_name}' and is not serialized",
+                                    dump_class.name, dump_property.name
+                                );
                                 continue;
                             }
                         }
