@@ -106,6 +106,8 @@ impl GenerateSubcommand {
 }
 
 fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<()> {
+    let mut ignored_properties = Vec::new();
+
     for dump_class in &dump.classes {
         let superclass = if dump_class.superclass == "<<<ROOT>>>" {
             None
@@ -212,10 +214,7 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
                             // need to know about data types that are never
                             // serialized.
                             (None, _) => {
-                                log::debug!(
-                                    "Skipping property {}.{} because it is of unimplemented type '{type_name}' and is not serialized",
-                                    dump_class.name, dump_property.name
-                                );
+                                ignored_properties.push((&dump_class.name, &dump_property.name, type_name));
                                 continue;
                             }
                         }
@@ -240,6 +239,12 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
         database
             .classes
             .insert(Cow::Owned(dump_class.name.clone()), class);
+    }
+
+    log::debug!("Skipped the following properties because their data types are not implemented, and do not need to serialize:");
+
+    for (class_name, property_name, type_name) in ignored_properties {
+        log::debug!("{class_name}.{property_name}: {type_name}");
     }
 
     for dump_enum in &dump.enums {
