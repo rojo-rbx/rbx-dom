@@ -106,6 +106,8 @@ impl GenerateSubcommand {
 }
 
 fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<()> {
+    let mut ignored_properties = Vec::new();
+
     for dump_class in &dump.classes {
         let superclass = if dump_class.superclass == "<<<ROOT>>>" {
             None
@@ -174,10 +176,45 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
                 let value_type = match dump_property.value_type.category {
                     ValueCategory::Enum => DataType::Enum(type_name.clone().into()),
                     ValueCategory::Primitive | ValueCategory::DataType => {
-                        match variant_type_from_str(type_name)? {
-                            Some(variant_type) => DataType::Value(variant_type),
-                            None => {
-                                log::debug!("Skipping property {}.{} because it was of unsupported type '{type_name}'", dump_class.name, dump_property.name);
+                        // variant_type_from_str returns None when passed a
+                        // type name that does not have a corresponding
+                        // VariantType. Exactly what we'd like to do about
+                        // unimplemented data types like this depends on if the
+                        // property serializes or not.
+                        match (variant_type_from_str(type_name), &kind) {
+                            // The happy path: the data type has a corresponding
+                            // VariantType. We don't need to care about whether
+                            // the data type is ever serialized, because it
+                            // already has an implementation.
+                            (Some(variant_type), _) => DataType::Value(variant_type),
+
+                            // The data type does not have a corresponding
+                            // VariantType, and it serializes. This is a case
+                            // where we should fail. It means that we may need
+                            // to implement the data type.
+                            //
+                            // There is a special exception for QDir and QFont,
+                            // because these types serialize under a few
+                            // different properties, but the properties are not
+                            // normally present in place or model files. They
+                            // are usually only present in Roblox Studio
+                            // settings files. They are not used otherwise and
+                            // can safely be ignored.
+                            (None, PropertyKind::Canonical {
+                                serialization: PropertySerialization::Serializes
+                            }) if type_name != "QDir" && type_name != "QFont"  => bail!(
+                                "Property {}.{} serializes, but its data type ({}) is unimplemented",
+                                dump_class.name, dump_property.name, type_name
+                            ),
+
+                            // The data type does not have a corresponding a
+                            // VariantType, and it does not serialize (with QDir
+                            // and QFont as exceptions, noted above). We can
+                            // safely ignore this case because rbx-dom doesn't
+                            // need to know about data types that are never
+                            // serialized.
+                            (None, _) => {
+                                ignored_properties.push((&dump_class.name, &dump_property.name, type_name));
                                 continue;
                             }
                         }
@@ -204,6 +241,12 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
             .insert(Cow::Owned(dump_class.name.clone()), class);
     }
 
+    log::debug!("Skipped the following properties because their data types are not implemented, and do not need to serialize:");
+
+    for (class_name, property_name, type_name) in ignored_properties {
+        log::debug!("{class_name}.{property_name}: {type_name}");
+    }
+
     for dump_enum in &dump.enums {
         let mut descriptor = EnumDescriptor::new(dump_enum.name.clone());
 
@@ -221,8 +264,8 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
     Ok(())
 }
 
-fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
-    Ok(Some(match value {
+fn variant_type_from_str(type_name: &str) -> Option<VariantType> {
+    Some(match type_name {
         "Axes" => VariantType::Axes,
         "BinaryString" => VariantType::BinaryString,
         "BrickColor" => VariantType::BrickColor,
@@ -261,17 +304,6 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         // ProtectedString is handled as the same as string
         "ProtectedString" => VariantType::String,
 
-        // TweenInfo is not supported by rbx_types yet
-        "TweenInfo" => return Ok(None),
-
-        // While DateTime is possible to Serialize, the only use it has as a
-        // DataType is for the TextChatMessage class, which cannot be serialized
-        // (at least not saved to file as it is locked to nil parent)
-        "DateTime" => return Ok(None),
-
-        // These types are not generally implemented right now.
-        "QDir" | "QFont" | "SystemAddress" | "CSGPropertyData" => return Ok(None),
-
-        _ => bail!("Unknown type {}", value),
-    }))
+        _ => return None,
+    })
 }
