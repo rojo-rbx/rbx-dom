@@ -214,7 +214,8 @@ A `NumberSequenceKeypoint` is stored as a struct composed of three `f32`s:
 A NumberSequence with the keypoints `0, 0, 0`, `0.5, 1, 0`, and `1, 1, 0.5` would look like this: `03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 00 00 80 3f 00 00 00 3f 00 00 80 3f 00 00 80 3f`
 
 ### ColorSequence
-**Type ID `0x17`**
+**Type ID `0x19`**
+
 The `ColorSequence` type is stored as a struct composed of a `u32` and an array of `ColorSequenceKeypoint`s:
 
 | Field Name     | Format                        | Value                                   |
