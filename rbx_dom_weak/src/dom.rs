@@ -65,6 +65,16 @@ impl WeakDom {
         self.instances.get_mut(&referent)
     }
 
+    /// Returns the [`UniqueId`] for the Instance with the provided referent, if it
+    /// exists.
+    pub fn get_unique_id(&self, referent: Ref) -> Option<UniqueId> {
+        let inst = self.instances.get(&referent)?;
+        match inst.properties.get("UniqueId") {
+            Some(Variant::UniqueId(id)) => Some(*id),
+            _ => None,
+        }
+    }
+
     /// Insert a new instance into the DOM with the given parent. The parent is allowed to
     /// be the none Ref.
     ///
