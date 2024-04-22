@@ -92,7 +92,18 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<StudioInfo> {
         Command::new("osascript")
 				.args([
 					"-e",
-					"tell application \"System Events\" to tell process \"RobloxStudio\" to set frontmost to true",
+					"tell application \"System Events\"
+                        repeat with theProcess in processes whose name is \"RobloxStudio\"
+                                tell theProcess
+                                    set windowList to windows whose name contains \"defaults-place.rbxlx - Roblox Studio\"
+                                    
+                                    if (count of windowList) > 0 then
+                                        set frontmost to true
+                                        perform action \"AXRaise\" of window 1
+                                    end if
+                                end tell
+                        end repeat
+                    end tell",
 				])
 				.output()?;
 
