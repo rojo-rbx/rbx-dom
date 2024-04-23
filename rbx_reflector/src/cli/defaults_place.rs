@@ -2,7 +2,7 @@ use std::{
     fmt::{self, Write},
     fs,
     path::PathBuf,
-    process::Command,
+    process::{Command, Stdio},
     sync::mpsc,
     time::Duration,
 };
@@ -63,6 +63,8 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<StudioInfo> {
     log::info!("Starting Roblox Studio...");
 
     let mut studio_process = Command::new(studio_install.application_path())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
         .arg(path)
         .spawn()?;
 
@@ -85,7 +87,24 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<StudioInfo> {
         }
     }
 
-    #[cfg(not(target_os = "windows"))]
+    #[cfg(target_os = "macos")]
+    {
+        let process_id = studio_process.id();
+        let script = format!(
+            r#"
+tell application "System Events"
+    set frontmost of the first process whose unix id is {process_id} to true
+    keystroke "s" using command down
+end tell
+"#
+        );
+
+        Command::new("osascript")
+            .args(["-e", script.as_str()])
+            .output()?;
+    }
+
+    #[cfg(not(any(target_os = "windows", target_os = "macos")))]
     println!("Please save the opened place in Roblox Studio (ctrl+s).");
 
     loop {
