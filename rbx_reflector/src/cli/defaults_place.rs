@@ -104,8 +104,7 @@ end tell
             .output()?;
     }
 
-    #[cfg(not(target_os = "windows"))]
-    #[cfg(not(target_os = "macos"))]
+    #[cfg(not(any(target_os = "windows", target_os = "macos")))]
     println!("Please save the opened place in Roblox Studio (ctrl+s).");
 
     loop {
