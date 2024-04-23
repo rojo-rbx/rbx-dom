@@ -89,29 +89,18 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<StudioInfo> {
 
     #[cfg(target_os = "macos")]
     {
-        Command::new("osascript")
-				.args([
-					"-e",
-					"tell application \"System Events\"
-                        repeat with theProcess in processes whose name is \"RobloxStudio\"
-                                tell theProcess
-                                    set windowList to windows whose name contains \"defaults-place.rbxlx - Roblox Studio\"
-                                    
-                                    if (count of windowList) > 0 then
-                                        set frontmost to true
-                                        perform action \"AXRaise\" of window 1
-                                    end if
-                                end tell
-                        end repeat
-                    end tell",
-				])
-				.output()?;
+        let process_id = studio_process.id();
+        let script = format!(
+            r#"
+tell application "System Events"
+    set frontmost of the first process whose unix id is {process_id} to true
+    keystroke "s" using command down
+end tell
+"#
+        );
 
         Command::new("osascript")
-            .args([
-                "-e",
-                "tell app \"System Events\" to key code 1 using command down",
-            ])
+            .args(["-e", script.as_str()])
             .output()?;
     }
 
