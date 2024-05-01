@@ -74,12 +74,26 @@ impl Attributes {
         self.data.remove(key.borrow())
     }
 
+    /// Removes all attributes.
+    #[inline]
+    pub fn clear(&mut self) {
+        self.data.clear()
+    }
+
     /// Returns an iterator of borrowed attributes.
     #[inline]
     pub fn iter(&self) -> AttributesIter<'_> {
         AttributesIter {
             iter: self.data.iter(),
         }
+    }
+
+    /// Removes all elements from the `Attributes`, returning them as an
+    /// iterator. If the iterator is dropped before being fully consumed,
+    /// it drops the remaining removed elements.
+    #[inline]
+    pub fn drain(&mut self) -> AttributesDrain<'_> {
+        AttributesDrain { inner: self }
     }
 
     /// Returns the number of attributes.
@@ -159,6 +173,28 @@ impl<'a> Iterator for AttributesIter<'a> {
     }
 }
 
+/// A draining iterator for `Attributes`.
+/// This is created by [`Attributes::drain`].
+///
+/// If dropped before fully used, all remaining values will be dropped.
+pub struct AttributesDrain<'a> {
+    inner: &'a mut Attributes,
+}
+
+impl<'a> Iterator for AttributesDrain<'a> {
+    type Item = (String, Variant);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.inner.data.pop_first()
+    }
+}
+
+impl<'a> Drop for AttributesDrain<'a> {
+    fn drop(&mut self) {
+        self.inner.clear()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -230,5 +266,26 @@ mod tests {
         let mut attributes = Attributes::new();
         attributes.insert("key".to_owned(), Variant::Bool(true));
         assert_eq!(attributes.remove("key"), Some(Variant::Bool(true)));
+    }
+
+    #[test]
+    fn attribute_drain() {
+        let mut attributes = Attributes::new();
+        attributes.extend([
+            ("string".into(), "value".into()),
+            ("float64".into(), 10.0_f64.into()),
+            ("bool".into(), true.into()),
+        ]);
+        assert!(!attributes.is_empty());
+
+        let mut map = BTreeMap::new();
+        for (key, value) in attributes.drain() {
+            map.insert(key, value);
+        }
+
+        assert_eq!(map.get("string"), Some(&Variant::String("value".into())));
+        assert_eq!(map.get("float64"), Some(&Variant::Float64(10.0)));
+        assert_eq!(map.get("bool"), Some(&Variant::Bool(true)));
+        assert!(attributes.is_empty());
     }
 }
