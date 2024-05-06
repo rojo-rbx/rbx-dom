@@ -31,7 +31,7 @@ use crate::{
     Serializer,
 };
 
-use super::error::InnerError;
+use super::{error::InnerError, LOWERED_CLASSES};
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
@@ -1246,29 +1246,40 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
         chunk.write_u8(0)?; // PRNT version 0
         chunk.write_le_u32(self.relevant_instances.len() as u32)?;
 
-        let object_referents = self
-            .relevant_instances
-            .iter()
-            .map(|id| self.id_to_referent[id]);
+        // We want certain classes to be parented after everything else to avoid
+        // problems with
+        let mut delayed = Vec::new();
+        let mut object_referents = Vec::with_capacity(self.relevant_instances.len());
+        let mut parent_referents = Vec::with_capacity(self.relevant_instances.len());
 
-        let parent_referents = self.relevant_instances.iter().map(|id| {
-            let instance = self.dom.get_by_ref(*id).unwrap();
-
-            // If there's no parent set OR our parent is not one of the
-            // instances we're serializing, we use -1 to represent a null
-            // parent.
-            if instance.parent().is_some() {
-                self.id_to_referent
-                    .get(&instance.parent())
-                    .cloned()
-                    .unwrap_or(-1)
+        for referent in &self.relevant_instances {
+            let item = self.dom.get_by_ref(*referent).unwrap();
+            if LOWERED_CLASSES.contains(item.class.as_str()) {
+                delayed.push(*referent)
             } else {
-                -1
+                object_referents.push(self.id_to_referent[referent]);
+                let parent = item.parent();
+                if parent.is_some() {
+                    parent_referents.push(self.id_to_referent.get(&parent).copied().unwrap_or(-1));
+                } else {
+                    parent_referents.push(-1);
+                }
             }
-        });
+        }
 
-        chunk.write_referent_array(object_referents)?;
-        chunk.write_referent_array(parent_referents)?;
+        for referent in delayed {
+            let item = self.dom.get_by_ref(referent).unwrap();
+            object_referents.push(self.id_to_referent[&referent]);
+            let parent = item.parent();
+            if parent.is_some() {
+                parent_referents.push(self.id_to_referent.get(&parent).copied().unwrap_or(-1));
+            } else {
+                parent_referents.push(-1);
+            }
+        }
+
+        chunk.write_referent_array(object_referents.into_iter())?;
+        chunk.write_referent_array(parent_referents.into_iter())?;
 
         chunk.dump(&mut self.output)?;
 

@@ -1,0 +1,55 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+assertion_line: 213
+expression: decoded
+---
+num_types: 3
+num_instances: 3
+chunks:
+  - Inst:
+      type_id: 1
+      type_name: Humanoid
+      object_format: 0
+      referents:
+        - 1
+  - Inst:
+      type_id: 0
+      type_name: Model
+      object_format: 0
+      referents:
+        - 0
+  - Inst:
+      type_id: 2
+      type_name: Motor6D
+      object_format: 0
+      referents:
+        - 2
+  - Prop:
+      type_id: 1
+      prop_name: Name
+      prop_type: String
+      values:
+        - Humanoid
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Model
+  - Prop:
+      type_id: 2
+      prop_name: Name
+      prop_type: String
+      values:
+        - Motor6D
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 2
+          - 1
+        - - 1
+          - 0
+  - End
+
