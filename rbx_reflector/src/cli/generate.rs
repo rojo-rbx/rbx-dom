@@ -13,6 +13,8 @@ use rbx_reflection::{
     PropertySerialization, PropertyTag, ReflectionDatabase, Scriptability,
 };
 use rbx_types::VariantType;
+use rmp_serde::Serializer;
+use serde::Serialize;
 use tempfile::tempdir;
 
 use crate::{
@@ -35,6 +37,9 @@ pub struct GenerateSubcommand {
     /// Whether to pretty-print the JSON output. This has no effect on MessagePack.
     #[clap(long)]
     pub no_pretty: bool,
+    /// Whether to serialize MessagePack in a human readable format. This has no effect on JSON.
+    #[clap(long)]
+    pub human_readable: bool,
 }
 
 impl GenerateSubcommand {
@@ -86,8 +91,21 @@ impl GenerateSubcommand {
                     result.context("Could not serialize reflection database as JSON")?;
                 }
                 Some("msgpack") => {
-                    let buf = rmp_serde::to_vec(&database)
-                        .context("Could not serialize reflection database as MessagePack")?;
+                    let buf = if self.human_readable {
+                        let mut slice = Vec::with_capacity(128);
+                        let mut serializer = Serializer::new(&mut slice)
+                            .with_human_readable()
+                            .with_struct_map();
+
+                        database.serialize(&mut serializer).context(
+                            "Could not serialize reflection database as human readable MessagePack",
+                        )?;
+
+                        slice
+                    } else {
+                        rmp_serde::to_vec(&database)
+                            .context("Could not serialize reflection database as MessagePack")?
+                    };
 
                     file.write_all(&buf)?;
                 }
