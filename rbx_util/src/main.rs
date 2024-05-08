@@ -1,119 +1,129 @@
-use std::io::{self, BufReader, BufWriter};
-use std::path::{Path, PathBuf};
+mod convert;
+mod view_binary;
+
 use std::process;
+use std::{path::Path, str::FromStr};
 
-use anyhow::{anyhow, bail, Context};
-use fs_err::File;
-use structopt::StructOpt;
+use clap::Parser;
+use convert::ConvertCommand;
 
-#[derive(Debug, StructOpt)]
+use view_binary::ViewBinaryCommand;
+
+#[derive(Debug, Parser)]
+#[clap(name = "rbx_util", about)]
 struct Options {
-    #[structopt(subcommand)]
+    #[clap(flatten)]
+    global: GlobalOptions,
+    #[clap(subcommand)]
     subcommand: Subcommand,
 }
 
-#[derive(Debug, StructOpt)]
-enum Subcommand {
-    /// Convert a model or place file in one format to another.
-    Convert { input: PathBuf, output: PathBuf },
+impl Options {
+    fn run(self) -> anyhow::Result<()> {
+        match self.subcommand {
+            Subcommand::ViewBinary(command) => command.run(),
+            Subcommand::Convert(command) => command.run(),
+        }
+    }
+}
 
-    /// View a binary file as an undefined text representation.
-    ViewBinary { input: PathBuf },
+#[derive(Debug, Parser)]
+enum Subcommand {
+    /// Displays a binary file in a text format.
+    ViewBinary(ViewBinaryCommand),
+    /// Convert between the XML and binary formats for places and models.
+    Convert(ConvertCommand),
+}
+
+#[derive(Debug, Parser, Clone, Copy)]
+struct GlobalOptions {
+    /// Sets verbosity level. Can be specified multiple times.
+    #[clap(long, short, global(true), action = clap::ArgAction::Count)]
+    verbosity: u8,
+    /// Set color behavior. Valid values are auto, always, and never.
+    #[clap(long, global(true), default_value = "auto")]
+    color: ColorChoice,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum ModelKind {
+pub enum ModelKind {
     Binary,
     Xml,
 }
 
 impl ModelKind {
-    fn from_path(path: &Path) -> anyhow::Result<ModelKind> {
+    pub fn from_path(path: &Path) -> anyhow::Result<ModelKind> {
         match path.extension().and_then(|ext| ext.to_str()) {
             Some("rbxm") | Some("rbxl") => Ok(ModelKind::Binary),
             Some("rbxmx") | Some("rbxlx") => Ok(ModelKind::Xml),
 
-            _ => Err(anyhow!(
-                "not a Roblox model or place file: {}",
-                path.display()
-            )),
+            _ => anyhow::bail!("not a Roblox model or place file: {}", path.display()),
         }
     }
-}
-
-fn run(options: Options) -> anyhow::Result<()> {
-    match options.subcommand {
-        Subcommand::Convert { input, output } => convert(&input, &output)?,
-        Subcommand::ViewBinary { input } => view_binary(&input)?,
-    }
-
-    Ok(())
-}
-
-fn convert(input_path: &Path, output_path: &Path) -> anyhow::Result<()> {
-    let input_kind = ModelKind::from_path(input_path)?;
-    let output_kind = ModelKind::from_path(output_path)?;
-
-    let input_file = BufReader::new(File::open(input_path)?);
-
-    let dom = match input_kind {
-        ModelKind::Xml => {
-            let options = rbx_xml::DecodeOptions::new()
-                .property_behavior(rbx_xml::DecodePropertyBehavior::ReadUnknown);
-
-            rbx_xml::from_reader(input_file, options)
-                .with_context(|| format!("Failed to read {}", input_path.display()))?
-        }
-
-        ModelKind::Binary => rbx_binary::from_reader(input_file)
-            .with_context(|| format!("Failed to read {}", input_path.display()))?,
-    };
-
-    let root_ids = dom.root().children();
-
-    let output_file = BufWriter::new(File::create(output_path)?);
-
-    match output_kind {
-        ModelKind::Xml => {
-            let options = rbx_xml::EncodeOptions::new()
-                .property_behavior(rbx_xml::EncodePropertyBehavior::WriteUnknown);
-
-            rbx_xml::to_writer(output_file, &dom, root_ids, options)
-                .with_context(|| format!("Failed to write {}", output_path.display()))?;
-        }
-
-        ModelKind::Binary => {
-            rbx_binary::to_writer(output_file, &dom, root_ids)
-                .with_context(|| format!("Failed to write {}", output_path.display()))?;
-        }
-    }
-
-    Ok(())
-}
-
-fn view_binary(input_path: &Path) -> anyhow::Result<()> {
-    let input_kind = ModelKind::from_path(input_path)?;
-
-    if input_kind != ModelKind::Binary {
-        bail!("not a binary model or place file: {}", input_path.display());
-    }
-
-    let input_file = BufReader::new(File::open(input_path)?);
-
-    let model = rbx_binary::text_format::DecodedModel::from_reader(input_file);
-
-    let stdout = io::stdout();
-    let output = BufWriter::new(stdout.lock());
-    serde_yaml::to_writer(output, &model)?;
-
-    Ok(())
 }
 
 fn main() {
-    let options = Options::from_args();
+    let options = Options::parse();
 
-    if let Err(err) = run(options) {
+    let log_filter = match options.global.verbosity {
+        0 => "info",
+        1 => "info,rbx_binary=debug,rbx_xml=debug,rbx_util=debug",
+        2 => "debug,rbx_binary=trace,rbx_xml=trace,rbx_util=trace",
+        _ => "trace",
+    };
+
+    let log_env = env_logger::Env::default().default_filter_or(log_filter);
+    env_logger::Builder::from_env(log_env)
+        .format_module_path(false)
+        .format_timestamp(None)
+        .format_indent(Some(8))
+        .write_style(options.global.color.into())
+        .init();
+
+    if let Err(err) = options.run() {
         eprintln!("{:?}", err);
         process::exit(1);
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum ColorChoice {
+    Auto,
+    Always,
+    Never,
+}
+
+impl FromStr for ColorChoice {
+    type Err = anyhow::Error;
+
+    fn from_str(source: &str) -> Result<Self, Self::Err> {
+        match source {
+            "auto" => Ok(ColorChoice::Auto),
+            "always" => Ok(ColorChoice::Always),
+            "never" => Ok(ColorChoice::Never),
+            _ => anyhow::bail!(
+                "Invalid color choice '{source}'. Valid values are: auto, always, never"
+            ),
+        }
+    }
+}
+
+impl From<ColorChoice> for clap::ColorChoice {
+    fn from(value: ColorChoice) -> Self {
+        match value {
+            ColorChoice::Auto => clap::ColorChoice::Auto,
+            ColorChoice::Always => clap::ColorChoice::Always,
+            ColorChoice::Never => clap::ColorChoice::Never,
+        }
+    }
+}
+
+impl From<ColorChoice> for env_logger::WriteStyle {
+    fn from(value: ColorChoice) -> Self {
+        match value {
+            ColorChoice::Auto => env_logger::WriteStyle::Auto,
+            ColorChoice::Always => env_logger::WriteStyle::Always,
+            ColorChoice::Never => env_logger::WriteStyle::Never,
+        }
     }
 }

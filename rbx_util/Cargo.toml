@@ -1,6 +1,6 @@
 [package]
 name = "rbx_util"
-version = "0.1.0"
+version = "0.2.0"
 description = "Utilities for working with Roblox model and place files"
 license = "MIT"
 documentation = "https://docs.rs/rbx_util"
@@ -20,9 +20,12 @@ path = "src/main.rs"
 name = "rbx-util"
 
 [dependencies]
-anyhow = "1.0.57"
-fs-err = "2.7.0"
 rbx_binary = { path = "../rbx_binary", features = ["unstable_text_format"] }
 rbx_xml = { path = "../rbx_xml" }
+
 serde_yaml = "0.8.24"
-structopt = "0.3.26"
+clap = { version = "4.5.4", features = ["derive"] }
+
+fs-err = "2.7.0"
+anyhow = "1.0.57"
+env_logger = "0.11.3"
