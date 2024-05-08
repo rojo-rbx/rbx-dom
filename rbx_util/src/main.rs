@@ -53,6 +53,7 @@ pub enum ModelKind {
 
 impl ModelKind {
     pub fn from_path(path: &Path) -> anyhow::Result<ModelKind> {
+        log::trace!("Resolving type of file for path {}", path.display());
         match path.extension().and_then(|ext| ext.to_str()) {
             Some("rbxm") | Some("rbxl") => Ok(ModelKind::Binary),
             Some("rbxmx") | Some("rbxlx") => Ok(ModelKind::Xml),

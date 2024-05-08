@@ -25,6 +25,7 @@ impl ConvertCommand {
 
         let input_file = BufReader::new(File::open(&self.input_path)?);
 
+        log::debug!("Reading file into WeakDom");
         let dom = match input_kind {
             ModelKind::Xml => {
                 let options = rbx_xml::DecodeOptions::new()
@@ -42,6 +43,7 @@ impl ConvertCommand {
 
         let output_file = BufWriter::new(File::create(&self.output_path)?);
 
+        log::debug!("Writing into new file at {}", self.output_path.display());
         match output_kind {
             ModelKind::Xml => {
                 let options = rbx_xml::EncodeOptions::new()
