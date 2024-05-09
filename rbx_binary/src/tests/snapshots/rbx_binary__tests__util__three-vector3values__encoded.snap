@@ -1,5 +1,6 @@
 ---
 source: rbx_binary/src/tests/util.rs
+assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -62,11 +63,11 @@ chunks:
   - Prnt:
       version: 0
       links:
-        - - 0
+        - - 2
           - -1
         - - 1
           - -1
-        - - 2
+        - - 0
           - -1
   - End
 
