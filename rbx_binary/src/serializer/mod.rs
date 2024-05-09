@@ -1,7 +1,7 @@
 mod error;
 mod state;
 
-use std::{collections::HashSet, io::Write};
+use std::io::Write;
 
 use rbx_dom_weak::{types::Ref, WeakDom};
 use rbx_reflection::ReflectionDatabase;
@@ -9,13 +9,6 @@ use rbx_reflection::ReflectionDatabase;
 use self::state::SerializerState;
 
 pub use self::error::Error;
-
-lazy_static::lazy_static! {
-    /// A list of classes that should be parented last in files to prevent them
-    /// potentially loading before their descendants do, which can cause
-    /// problems like reported in https://github.com/rojo-rbx/rbx-dom/issues/406.
-    pub static ref LOWERED_CLASSES: HashSet<&'static str> = ["Humanoid"].into();
-}
 
 /// A configurable serializer for Roblox binary models and places.
 ///

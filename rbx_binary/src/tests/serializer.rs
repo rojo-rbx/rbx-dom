@@ -193,22 +193,3 @@ fn default_shared_string() {
     let decoded = DecodedModel::from_reader(buf.as_slice());
     insta::assert_yaml_snapshot!(decoded);
 }
-
-/// Test to assure that Humanoid links are generated last in the PRNT chunk.
-#[test]
-fn parent_humanoid_last() {
-    let mut tree = WeakDom::new(InstanceBuilder::new("Model"));
-    let humanoid = InstanceBuilder::new("Humanoid");
-    let humanoid_ref = tree.insert(Ref::none(), humanoid);
-    let descendant = InstanceBuilder::new("Motor6D");
-    let desc_ref = tree.insert(Ref::none(), descendant);
-
-    tree.transfer_within(humanoid_ref, tree.root_ref());
-    tree.transfer_within(desc_ref, humanoid_ref);
-
-    let mut buf = Vec::new();
-    to_writer(&mut buf, &tree, &[tree.root_ref()]).unwrap();
-
-    let decoded = DecodedModel::from_reader(buf.as_slice());
-    insta::assert_yaml_snapshot!(decoded);
-}
