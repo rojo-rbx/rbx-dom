@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+* Within `PRNT` chunks, parent-child links are now generated depth-first so that parents always come after their children in the chunk. ([#411])
+
+[#411]: https://github.com/rojo-rbx/rbx-dom/pull/411
+
 ## 0.7.4 (2024-01-16)
 * Add the ability to specify a `ReflectionDatabase` to use for serializing and deserializing. This takes the form of `Deserializer::reflection_database` and `Serializer::reflection_database`. ([#375])
 

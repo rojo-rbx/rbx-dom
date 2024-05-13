@@ -73,9 +73,9 @@ chunks:
   - Prnt:
       version: 0
       links:
-        - - 0
-          - -1
         - - 1
+          - -1
+        - - 0
           - -1
   - End
 
