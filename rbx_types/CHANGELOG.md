@@ -4,9 +4,11 @@
 * Implement `IntoIterator` for `&Attributes`. ([#386])
 * Implement `Extend<(String, Variant)>` for `Attributes`. ([#386])
 * Implement `clear` and `drain` for `Attributes`. ([#409])
+* Implement `Serialize` and `Deserialize` for `SharedString` ([#414])
 
 [#386]: https://github.com/rojo-rbx/rbx-dom/pull/386
 [#409]: https://github.com/rojo-rbx/rbx-dom/pull/409
+[#414]: https://github.com/rojo-rbx/rbx-dom/pull/414
 
 ## 1.8.0 (2024-01-16)
 * Add `len` and `is_empty` methods to `Attributes` struct. ([#377])
