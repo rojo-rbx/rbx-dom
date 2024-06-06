@@ -30,8 +30,6 @@ expression: decoded_viewed
       Float32: 196.2
     HumanoidOnlySetCollisionsOnStateChange:
       Enum: 0
-    InterpolationThrottling:
-      Enum: 0
     LevelOfDetail:
       Enum: 0
     MeshPartHeadsAndAccessories:
