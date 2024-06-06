@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 60
@@ -4078,12 +4077,6 @@ chunks:
   - Prop:
       type_id: 0
       prop_name: HumanoidOnlySetCollisionsOnStateChange
-      prop_type: Enum
-      values:
-        - 0
-  - Prop:
-      type_id: 0
-      prop_name: InterpolationThrottling
       prop_type: Enum
       values:
         - 0
