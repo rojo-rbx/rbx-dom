@@ -58,6 +58,9 @@ impl<'a> ReflectionDatabase<'a> {
         Some(list)
     }
 
+    /// Finds the default value of a property given its name and a class that
+    /// contains or inherits the property. Returns `Some(&Variant)` if a default
+    /// value exists, None otherwise.
     pub fn find_default_property(
         &'a self,
         mut class: &'a ClassDescriptor<'a>,
