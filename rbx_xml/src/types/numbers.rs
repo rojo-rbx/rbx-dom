@@ -16,9 +16,9 @@ macro_rules! float_type {
                 &self,
                 writer: &mut XmlEventWriter<W>,
             ) -> Result<(), EncodeError> {
-                if *self == std::$rust_type::INFINITY {
+                if *self == $rust_type::INFINITY {
                     writer.write_characters("INF")
-                } else if *self == std::$rust_type::NEG_INFINITY {
+                } else if *self == $rust_type::NEG_INFINITY {
                     writer.write_characters("-INF")
                 } else if self.is_nan() {
                     writer.write_characters("NAN")
@@ -31,9 +31,9 @@ macro_rules! float_type {
                 let contents = reader.read_characters()?;
 
                 Ok(match contents.as_str() {
-                    "INF" => std::$rust_type::INFINITY,
-                    "-INF" => std::$rust_type::NEG_INFINITY,
-                    "NAN" => std::$rust_type::NAN,
+                    "INF" => $rust_type::INFINITY,
+                    "-INF" => $rust_type::NEG_INFINITY,
+                    "NAN" => $rust_type::NAN,
                     number => number.parse().map_err(|e| reader.error(e))?,
                 })
             }
@@ -99,12 +99,9 @@ mod test {
 
     #[test]
     fn test_inf_and_nan_deserialize() {
-        test_util::test_xml_deserialize(r#"<float name="foo">INF</float>"#, &std::f32::INFINITY);
+        test_util::test_xml_deserialize(r#"<float name="foo">INF</float>"#, &f32::INFINITY);
 
-        test_util::test_xml_deserialize(
-            r#"<float name="foo">-INF</float>"#,
-            &std::f32::NEG_INFINITY,
-        );
+        test_util::test_xml_deserialize(r#"<float name="foo">-INF</float>"#, &f32::NEG_INFINITY);
 
         // Can't just use test_util::test_xml_deserialize, because NaN != NaN!
 
@@ -119,10 +116,10 @@ mod test {
 
     #[test]
     fn test_inf_and_nan_serialize() {
-        test_util::test_xml_serialize(r#"<float name="foo">INF</float>"#, &std::f32::INFINITY);
+        test_util::test_xml_serialize(r#"<float name="foo">INF</float>"#, &f32::INFINITY);
 
-        test_util::test_xml_serialize(r#"<float name="foo">-INF</float>"#, &std::f32::NEG_INFINITY);
+        test_util::test_xml_serialize(r#"<float name="foo">-INF</float>"#, &f32::NEG_INFINITY);
 
-        test_util::test_xml_serialize(r#"<float name="foo">NAN</float>"#, &std::f32::NAN);
+        test_util::test_xml_serialize(r#"<float name="foo">NAN</float>"#, &f32::NAN);
     }
 }
