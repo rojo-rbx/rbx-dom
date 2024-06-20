@@ -126,7 +126,7 @@ mod test {
         let thirty = Ref(NonZeroU128::new(30));
         assert_eq!(thirty.to_string(), "0000000000000000000000000000001e");
 
-        let max = Ref(NonZeroU128::new(u128::max_value()));
+        let max = Ref(NonZeroU128::new(u128::MAX));
         assert_eq!(max.to_string(), "ffffffffffffffffffffffffffffffff");
     }
 
@@ -144,7 +144,7 @@ mod test {
 
         assert_eq!(
             Ref::from_str("ffffffffffffffffffffffffffffffff").unwrap(),
-            Ref(NonZeroU128::new(u128::max_value()))
+            Ref(NonZeroU128::new(u128::MAX))
         );
     }
 
