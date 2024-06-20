@@ -22,6 +22,8 @@ pub struct DumpClass {
 
 #[derive(Debug, Deserialize)]
 #[serde(tag = "MemberType")]
+// We're using this with Serde, it's ok that there's unused struct members.
+#[allow(dead_code)]
 pub enum DumpClassMember {
     Property(DumpClassProperty),
 
@@ -95,6 +97,8 @@ pub struct PropertySecurity {
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase")]
+// We're using this with Serde, it's ok that there's unused struct members.
+#[allow(dead_code)]
 pub struct Serialization {
     pub can_save: bool,
     pub can_load: bool,
@@ -116,6 +120,8 @@ pub struct DumpEnumItem {
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
+// We're using this with Serde, it's ok that there's unused struct members.
+#[allow(dead_code)]
 pub enum Tag {
     Regular(String),
     Named(HashMap<String, String>),
