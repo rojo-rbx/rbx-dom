@@ -1,6 +1,7 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Implicit lossy conversion of non-UTF-8 `Instance.Name` and `*Script.Source` properties when decoding.  The previous behaviour was returning an error. ([#380])
 
 * Within `PRNT` chunks, parent-child links are now generated depth-first so that parents always come after their children in the chunk. ([#411])
 
