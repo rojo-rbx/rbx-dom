@@ -2,6 +2,7 @@
 
 ## Unreleased Changes
 * Add `superclasses` method to `ReflectionDatabase` to get a set of superclasses for a given class. ([#402])
+* Added method `ReflectionDatabase::find_default_property`, which finds the default value of a property given its name and a class that inherits it
 
 [#402]: https://github.com/rojo-rbx/rbx-dom/pull/402
 

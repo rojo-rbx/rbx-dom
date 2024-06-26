@@ -57,6 +57,27 @@ impl<'a> ReflectionDatabase<'a> {
 
         Some(list)
     }
+
+    /// Finds the default value of a property given its name and a class that
+    /// contains or inherits the property. Returns `Some(&Variant)` if a default
+    /// value exists, None otherwise.
+    pub fn find_default_property(
+        &'a self,
+        mut class: &'a ClassDescriptor<'a>,
+        property_name: &str,
+    ) -> Option<&'a Variant> {
+        loop {
+            match class.default_properties.get(property_name) {
+                None => {
+                    class = self
+                        .classes
+                        .get(class.superclass.as_ref()?)
+                        .expect("superclass that is Some should exist in reflection database")
+                }
+                default_value => return default_value,
+            }
+        }
+    }
 }
 
 /// Describes a class of Instance, its properties, and its relation to other
