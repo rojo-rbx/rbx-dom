@@ -41,8 +41,7 @@ impl<'a> ReflectionDatabase<'a> {
     }
 
     /// Returns a list of superclasses for the provided ClassDescriptor. This
-    /// list will start with the provided class and end with `Instance` if the
-    /// class exists.
+    /// list will start with the provided class and end with `Instance`.
     pub fn superclasses(
         &'a self,
         descriptor: &'a ClassDescriptor<'a>,
