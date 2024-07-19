@@ -1,12 +1,14 @@
 mod convert;
+mod remove_prop;
 mod view_binary;
 
 use std::process;
 use std::{path::Path, str::FromStr};
 
 use clap::Parser;
-use convert::ConvertCommand;
 
+use convert::ConvertCommand;
+use remove_prop::RemovePropCommand;
 use view_binary::ViewBinaryCommand;
 
 #[derive(Debug, Parser)]
@@ -23,6 +25,7 @@ impl Options {
         match self.subcommand {
             Subcommand::ViewBinary(command) => command.run(),
             Subcommand::Convert(command) => command.run(),
+            Subcommand::RemoveProp(command) => command.run(),
         }
     }
 }
@@ -33,6 +36,8 @@ enum Subcommand {
     ViewBinary(ViewBinaryCommand),
     /// Convert between the XML and binary formats for places and models.
     Convert(ConvertCommand),
+    /// Removes a specific property from a specific class within a Roblox file.
+    RemoveProp(RemovePropCommand),
 }
 
 #[derive(Debug, Parser, Clone, Copy)]
