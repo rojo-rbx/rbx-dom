@@ -1,6 +1,6 @@
 # Changelog
 
-## Versuin 0.2.1
+## Version 0.2.1
 
 - Added `remove-prop` command to strip a property from a file
 
