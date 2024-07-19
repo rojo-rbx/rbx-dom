@@ -12,7 +12,7 @@ use remove_prop::RemovePropCommand;
 use view_binary::ViewBinaryCommand;
 
 #[derive(Debug, Parser)]
-#[clap(name = "rbx_util", about)]
+#[clap(name = "rbx_util", about, version)]
 struct Options {
     #[clap(flatten)]
     global: GlobalOptions,
