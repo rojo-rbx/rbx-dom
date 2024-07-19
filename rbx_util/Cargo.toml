@@ -1,6 +1,6 @@
 [package]
 name = "rbx_util"
-version = "0.2.0"
+version = "0.2.1"
 description = "Utilities for working with Roblox model and place files"
 license = "MIT"
 documentation = "https://docs.rs/rbx_util"
