@@ -3,7 +3,6 @@ use std::{
     collections::{BTreeMap, BTreeSet, HashMap, HashSet, VecDeque},
     convert::TryInto,
     io::Write,
-    u32,
 };
 
 use rbx_dom_weak::{
