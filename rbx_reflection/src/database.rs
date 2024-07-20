@@ -40,15 +40,16 @@ impl<'a> ReflectionDatabase<'a> {
         }
     }
 
-    /// Returns a list of superclasses for the provided class name. This list
-    /// will start with the provided class and end with `Instance` if the class
-    /// exists.
-    pub fn superclasses(&self, class_name: &str) -> Option<Vec<&ClassDescriptor>> {
+    /// Returns a list of superclasses for the provided ClassDescriptor. This
+    /// list will start with the provided class and end with `Instance`.
+    pub fn superclasses(
+        &'a self,
+        descriptor: &'a ClassDescriptor<'a>,
+    ) -> Option<Vec<&ClassDescriptor>> {
         // As of the time of writing (14 March 2024), the class with the most
         // superclasses has 6 of them.
         let mut list = Vec::with_capacity(6);
-        let mut current_class = self.classes.get(class_name);
-        current_class?;
+        let mut current_class = Some(descriptor);
 
         while let Some(class) = current_class {
             list.push(class);
