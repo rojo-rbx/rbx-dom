@@ -397,9 +397,8 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 let default_value = type_info
                     .class_descriptor
                     .and_then(|class| {
-                        class
-                            .default_properties
-                            .get(&canonical_name)
+                        database
+                            .find_default_property(class, &canonical_name)
                             .map(Cow::Borrowed)
                     })
                     .or_else(|| Self::fallback_default_value(serialized_ty).map(Cow::Owned))
