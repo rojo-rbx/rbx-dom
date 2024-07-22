@@ -147,7 +147,8 @@ fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Resul
             | "Bone"
             | "BaseWrap"
             | "WrapLayer"
-            | "WrapTarget" => continue,
+            | "WrapTarget"
+            | "WrapDeformer" => continue,
 
             "StarterPlayer" => {
                 instance.add_child(Instance::new("StarterPlayerScripts"));
@@ -168,6 +169,7 @@ fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Resul
                 instance.add_child(Instance::new("BaseWrap"));
                 instance.add_child(Instance::new("WrapLayer"));
                 instance.add_child(Instance::new("WrapTarget"));
+                instance.add_child(Instance::new("WrapDeformer"));
             }
 
             _ => {}
