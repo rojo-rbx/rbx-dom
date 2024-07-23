@@ -1,6 +1,8 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+
+## 2.8.0 (2024-07-23)
 * Added `InstanceBuilder::with_referent` that allows building instance with predefined `Ref` ([#400])
 * Added `WeakDom::get_unique_id` to get the UniqueId for a provided referent. ([#405])
 
