@@ -1,6 +1,8 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+
+## 1.9.0 (2024-07-23)
 * Implement `IntoIterator` for `&Attributes`. ([#386])
 * Implement `Extend<(String, Variant)>` for `Attributes`. ([#386])
 * Implement `clear` and `drain` for `Attributes`. ([#409])
