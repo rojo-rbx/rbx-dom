@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+## 0.7.5 (2024-07-23)
 * Within `PRNT` chunks, parent-child links are now generated depth-first so that parents always come after their children in the chunk. ([#411])
 
 [#411]: https://github.com/rojo-rbx/rbx-dom/pull/411
