@@ -1247,10 +1247,9 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
         let object_referents = self
             .relevant_instances
             .iter()
-            .rev()
             .map(|id| self.id_to_referent[id]);
 
-        let parent_referents = self.relevant_instances.iter().rev().map(|id| {
+        let parent_referents = self.relevant_instances.iter().map(|id| {
             let instance = self.dom.get_by_ref(*id).unwrap();
 
             // If there's no parent set OR our parent is not one of the
