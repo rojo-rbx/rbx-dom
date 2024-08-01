@@ -787,4 +787,28 @@ mod test {
             panic!("UniqueId property must exist and contain a Variant::UniqueId")
         };
     }
+
+    #[test]
+    fn descendants() {
+        let mut dom = WeakDom::new(InstanceBuilder::new("ROOT"));
+
+        let child_1 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
+        let sibling_1 = dom.insert(child_1, InstanceBuilder::new("Folder"));
+        let child_2 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
+        let sibling_2 = dom.insert(child_1, InstanceBuilder::new("Folder"));
+
+        let mut descendants = dom.descendants();
+        assert_eq!(descendants.next().unwrap().referent(), dom.root_ref());
+        assert_eq!(descendants.next().unwrap().referent(), child_1);
+        assert_eq!(descendants.next().unwrap().referent(), child_2);
+        assert_eq!(descendants.next().unwrap().referent(), sibling_1);
+        assert_eq!(descendants.next().unwrap().referent(), sibling_2);
+        assert!(descendants.next().is_none());
+
+        let mut descendants_2 = dom.descendants_of(child_1);
+        assert_eq!(descendants_2.next().unwrap().referent(), child_1);
+        assert_eq!(descendants_2.next().unwrap().referent(), sibling_1);
+        assert_eq!(descendants_2.next().unwrap().referent(), sibling_2);
+        assert!(descendants_2.next().is_none());
+    }
 }
