@@ -75,6 +75,33 @@ impl WeakDom {
         }
     }
 
+    /// Returns an iterator that goes through every descendant Instance of the
+    /// root referent.
+    ///
+    /// The descendants are guaranteed to be top-down such that children come
+    /// after their parents.
+    #[inline]
+    pub fn descendants(&self) -> WeakDomDescendants {
+        self.descendants_of(self.root_ref)
+    }
+
+    /// Returns an iterator that goes through the descendants of a particular
+    /// [`Ref`]. The passed `Ref` *must* be a part of this `WeakDom`.
+    ///
+    /// ## Panics
+    ///
+    /// Panics if `referent` is not a member of this DOM.
+    #[inline]
+    pub fn descendants_of(&self, referent: Ref) -> WeakDomDescendants {
+        if !self.instances.contains_key(&referent) {
+            panic!("the referent provided to `descendants_of` must be a part of the DOM")
+        }
+        WeakDomDescendants {
+            dom: self,
+            queue: [referent].into(),
+        }
+    }
+
     /// Insert a new instance into the DOM with the given parent. The parent is allowed to
     /// be the none Ref.
     ///
@@ -353,6 +380,29 @@ impl WeakDom {
         }
 
         instance
+    }
+}
+
+/// A struct for iterating through the descendants of an Instance in a
+/// [`WeakDom`].
+///
+/// See: [`WeakDom::descendants`] and [`WeakDom::descendants_of`].
+#[derive(Debug)]
+pub struct WeakDomDescendants<'a> {
+    dom: &'a WeakDom,
+    queue: VecDeque<Ref>,
+}
+
+impl<'a> Iterator for WeakDomDescendants<'a> {
+    type Item = &'a Instance;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let instance = self
+            .queue
+            .pop_front()
+            .and_then(|r| self.dom.get_by_ref(r))?;
+        self.queue.extend(instance.children());
+        Some(instance)
     }
 }
 
