@@ -1,6 +1,9 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased Changes
+* Added `WeakDom::descendants` and `WeakDom::descendants_of` to support iterating through the descendants of a DOM. ([#431])
+
+[#431]: https://github.com/rojo-rbx/rbx-dom/pull/431
 
 ## 2.8.0 (2024-07-23)
 * Added `InstanceBuilder::with_referent` that allows building instance with predefined `Ref` ([#400])
