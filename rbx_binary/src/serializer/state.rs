@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{BTreeMap, BTreeSet, HashMap, HashSet, VecDeque},
+    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
     convert::TryInto,
     io::Write,
 };
@@ -247,19 +247,39 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     /// serialization with this serializer.
     #[profiling::function]
     pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
-        let mut to_visit = VecDeque::new();
-        to_visit.extend(referents);
+        let mut to_visit = Vec::new();
+        let mut last_visited_child = None;
 
-        while let Some(referent) = to_visit.pop_front() {
+        to_visit.extend(referents.iter().rev());
+
+        while let Some(referent) = to_visit.last() {
             let instance = self
                 .dom
-                .get_by_ref(referent)
-                .ok_or(InnerError::InvalidInstanceId { referent })?;
+                .get_by_ref(*referent)
+                .ok_or(InnerError::InvalidInstanceId {
+                    referent: *referent,
+                })?;
 
-            self.relevant_instances.push(referent);
-            self.collect_type_info(instance)?;
+            to_visit.extend(instance.children().iter().rev());
 
-            to_visit.extend(instance.children());
+            while let Some(referent) = to_visit.last() {
+                let instance =
+                    self.dom
+                        .get_by_ref(*referent)
+                        .ok_or(InnerError::InvalidInstanceId {
+                            referent: *referent,
+                        })?;
+
+                if !instance.children().is_empty()
+                    && instance.children().last() != last_visited_child.as_ref()
+                {
+                    break;
+                }
+
+                self.relevant_instances.push(*referent);
+                self.collect_type_info(instance)?;
+                last_visited_child = to_visit.pop();
+            }
         }
 
         // Sort shared_strings by their hash, to ensure they are deterministically added
