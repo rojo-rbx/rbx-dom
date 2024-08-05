@@ -6,219 +6,219 @@ num_types: 5
 num_instances: 6
 chunks:
   - Inst:
-      type_id: 0
-      type_name: Folder
-      object_format: 0
-      referents:
-        - 0
-  - Inst:
-      type_id: 1
-      type_name: ScreenGui
-      object_format: 0
-      referents:
-        - 1
-        - 2
-  - Inst:
       type_id: 4
-      type_name: TextBox
+      type_name: Folder
       object_format: 0
       referents:
         - 5
   - Inst:
-      type_id: 3
-      type_name: TextButton
+      type_id: 0
+      type_name: ScreenGui
       object_format: 0
       referents:
+        - 0
         - 4
   - Inst:
-      type_id: 2
-      type_name: TextLabel
+      type_id: 3
+      type_name: TextBox
       object_format: 0
       referents:
         - 3
+  - Inst:
+      type_id: 2
+      type_name: TextButton
+      object_format: 0
+      referents:
+        - 2
+  - Inst:
+      type_id: 1
+      type_name: TextLabel
+      object_format: 0
+      referents:
+        - 1
   - Prop:
-      type_id: 0
+      type_id: 4
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 0
+      type_id: 4
       prop_name: Name
       prop_type: String
       values:
         - Folder
   - Prop:
-      type_id: 0
+      type_id: 4
       prop_name: SourceAssetId
       prop_type: Int64
       values:
         - -1
   - Prop:
-      type_id: 0
+      type_id: 4
       prop_name: Tags
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
         - ""
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: AutoLocalize
       prop_type: Bool
       values:
         - true
         - true
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: ClipToDeviceSafeArea
       prop_type: Bool
       values:
         - true
         - true
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: DisplayOrder
       prop_type: Int32
       values:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Enabled
       prop_type: Bool
       values:
         - true
         - true
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Name
       prop_type: String
       values:
         - "IgnoreGuiInset: true"
         - "IgnoreGuiInset: false"
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: ResetOnSpawn
       prop_type: Bool
       values:
         - true
         - true
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: RootLocalizationTable
       prop_type: Ref
       values:
         - -1
         - -1
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: SafeAreaCompatibility
       prop_type: Enum
       values:
         - 1
         - 1
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: ScreenInsets
       prop_type: Enum
       values:
         - 1
         - 2
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: SelectionBehaviorDown
       prop_type: Enum
       values:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: SelectionBehaviorLeft
       prop_type: Enum
       values:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: SelectionBehaviorRight
       prop_type: Enum
       values:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: SelectionBehaviorUp
       prop_type: Enum
       values:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: SelectionGroup
       prop_type: Bool
       values:
         - false
         - false
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: SourceAssetId
       prop_type: Int64
       values:
         - -1
         - -1
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Tags
       prop_type: String
       values:
         - ""
         - ""
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: ZIndexBehavior
       prop_type: Enum
       values:
         - 1
         - 1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Active
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: AnchorPoint
       prop_type: Vector2
       values:
         - - 0
           - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: AutoLocalize
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: AutomaticSize
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: BackgroundColor3
       prop_type: Color3
       values:
@@ -226,13 +226,13 @@ chunks:
           - 1
           - 1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: BackgroundTransparency
       prop_type: Float32
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: BorderColor3
       prop_type: Color3
       values:
@@ -240,37 +240,37 @@ chunks:
           - 0.16470589
           - 0.20784315
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: BorderMode
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: BorderSizePixel
       prop_type: Int32
       values:
         - 1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: ClearTextOnFocus
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: ClipsDescendants
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Draggable
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: FontFace
       prop_type: Font
       values:
@@ -279,61 +279,61 @@ chunks:
           style: Italic
           cachedFaceId: ~
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: LayoutOrder
       prop_type: Int32
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: LineHeight
       prop_type: Float32
       values:
         - 1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: MaxVisibleGraphemes
       prop_type: Int32
       values:
         - -1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: MultiLine
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Name
       prop_type: String
       values:
         - TextBox
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: NextSelectionDown
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: NextSelectionLeft
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: NextSelectionRight
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: NextSelectionUp
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: PlaceholderColor3
       prop_type: Color3
       values:
@@ -341,13 +341,13 @@ chunks:
           - 0.7
           - 0.7
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: PlaceholderText
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Position
       prop_type: UDim2
       values:
@@ -356,79 +356,79 @@ chunks:
           - - 0
             - 110
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: RichText
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: RootLocalizationTable
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Rotation
       prop_type: Float32
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Selectable
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: SelectionBehaviorDown
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: SelectionBehaviorLeft
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: SelectionBehaviorRight
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: SelectionBehaviorUp
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: SelectionGroup
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: SelectionImageObject
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: SelectionOrder
       prop_type: Int32
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: ShowNativeInput
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Size
       prop_type: UDim2
       values:
@@ -437,31 +437,31 @@ chunks:
           - - 0
             - 50
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: SizeConstraint
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: SourceAssetId
       prop_type: Int64
       values:
         - -1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Tags
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Text
       prop_type: String
       values:
         - TextBox
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextColor3
       prop_type: Color3
       values:
@@ -469,25 +469,25 @@ chunks:
           - 0
           - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextEditable
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextScaled
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextSize
       prop_type: Float32
       values:
         - 14
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextStrokeColor3
       prop_type: Color3
       values:
@@ -495,92 +495,92 @@ chunks:
           - 0
           - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextStrokeTransparency
       prop_type: Float32
       values:
         - 1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextTransparency
       prop_type: Float32
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextTruncate
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextWrapped
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextXAlignment
       prop_type: Enum
       values:
         - 2
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: TextYAlignment
       prop_type: Enum
       values:
         - 1
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: Visible
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 4
+      type_id: 3
       prop_name: ZIndex
       prop_type: Int32
       values:
         - 1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Active
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: AnchorPoint
       prop_type: Vector2
       values:
         - - 0
           - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: AutoButtonColor
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: AutoLocalize
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: AutomaticSize
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: BackgroundColor3
       prop_type: Color3
       values:
@@ -588,13 +588,13 @@ chunks:
           - 1
           - 1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: BackgroundTransparency
       prop_type: Float32
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: BorderColor3
       prop_type: Color3
       values:
@@ -602,31 +602,31 @@ chunks:
           - 0.16470589
           - 0.20784315
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: BorderMode
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: BorderSizePixel
       prop_type: Int32
       values:
         - 1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: ClipsDescendants
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Draggable
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: FontFace
       prop_type: Font
       values:
@@ -635,61 +635,61 @@ chunks:
           style: Normal
           cachedFaceId: ~
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: LayoutOrder
       prop_type: Int32
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: LineHeight
       prop_type: Float32
       values:
         - 1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: MaxVisibleGraphemes
       prop_type: Int32
       values:
         - -1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Modal
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Name
       prop_type: String
       values:
         - TextButton
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: NextSelectionDown
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: NextSelectionLeft
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: NextSelectionRight
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: NextSelectionUp
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Position
       prop_type: UDim2
       values:
@@ -698,79 +698,79 @@ chunks:
           - - 0
             - 55
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: RichText
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: RootLocalizationTable
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Rotation
       prop_type: Float32
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Selectable
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Selected
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: SelectionBehaviorDown
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: SelectionBehaviorLeft
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: SelectionBehaviorRight
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: SelectionBehaviorUp
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: SelectionGroup
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: SelectionImageObject
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: SelectionOrder
       prop_type: Int32
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Size
       prop_type: UDim2
       values:
@@ -779,37 +779,37 @@ chunks:
           - - 0
             - 50
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: SizeConstraint
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: SourceAssetId
       prop_type: Int64
       values:
         - -1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Style
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Tags
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Text
       prop_type: String
       values:
         - Button
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextColor3
       prop_type: Color3
       values:
@@ -817,19 +817,19 @@ chunks:
           - 0
           - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextScaled
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextSize
       prop_type: Float32
       values:
         - 14
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextStrokeColor3
       prop_type: Color3
       values:
@@ -837,86 +837,86 @@ chunks:
           - 0
           - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextStrokeTransparency
       prop_type: Float32
       values:
         - 1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextTransparency
       prop_type: Float32
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextTruncate
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextWrapped
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextXAlignment
       prop_type: Enum
       values:
         - 2
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: TextYAlignment
       prop_type: Enum
       values:
         - 1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Visible
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: ZIndex
       prop_type: Int32
       values:
         - 1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Active
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: AnchorPoint
       prop_type: Vector2
       values:
         - - 0
           - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: AutoLocalize
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: AutomaticSize
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: BackgroundColor3
       prop_type: Color3
       values:
@@ -924,13 +924,13 @@ chunks:
           - 1
           - 1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: BackgroundTransparency
       prop_type: Float32
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: BorderColor3
       prop_type: Color3
       values:
@@ -938,31 +938,31 @@ chunks:
           - 0.16470589
           - 0.20784315
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: BorderMode
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: BorderSizePixel
       prop_type: Int32
       values:
         - 1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: ClipsDescendants
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Draggable
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: FontFace
       prop_type: Font
       values:
@@ -971,55 +971,55 @@ chunks:
           style: Normal
           cachedFaceId: ~
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: LayoutOrder
       prop_type: Int32
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: LineHeight
       prop_type: Float32
       values:
         - 1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: MaxVisibleGraphemes
       prop_type: Int32
       values:
         - -1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Name
       prop_type: String
       values:
         - TextLabel
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: NextSelectionDown
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: NextSelectionLeft
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: NextSelectionRight
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: NextSelectionUp
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Position
       prop_type: UDim2
       values:
@@ -1028,73 +1028,73 @@ chunks:
           - - 0
             - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: RichText
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: RootLocalizationTable
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Rotation
       prop_type: Float32
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Selectable
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: SelectionBehaviorDown
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: SelectionBehaviorLeft
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: SelectionBehaviorRight
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: SelectionBehaviorUp
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: SelectionGroup
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: SelectionImageObject
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: SelectionOrder
       prop_type: Int32
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Size
       prop_type: UDim2
       values:
@@ -1103,31 +1103,31 @@ chunks:
           - - 0
             - 50
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: SizeConstraint
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: SourceAssetId
       prop_type: Int64
       values:
         - -1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Tags
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Text
       prop_type: String
       values:
         - Label
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextColor3
       prop_type: Color3
       values:
@@ -1135,19 +1135,19 @@ chunks:
           - 0
           - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextScaled
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextSize
       prop_type: Float32
       values:
         - 14
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextStrokeColor3
       prop_type: Color3
       values:
@@ -1155,49 +1155,49 @@ chunks:
           - 0
           - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextStrokeTransparency
       prop_type: Float32
       values:
         - 1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextTransparency
       prop_type: Float32
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextTruncate
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextWrapped
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextXAlignment
       prop_type: Enum
       values:
         - 2
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: TextYAlignment
       prop_type: Enum
       values:
         - 1
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Visible
       prop_type: Bool
       values:
         - true
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: ZIndex
       prop_type: Int32
       values:
@@ -1206,16 +1206,15 @@ chunks:
       version: 0
       links:
         - - 0
-          - -1
+          - 5
         - - 1
-          - 0
+          - 4
         - - 2
-          - 0
+          - 4
         - - 3
-          - 2
+          - 4
         - - 4
-          - 2
+          - 5
         - - 5
-          - 2
+          - -1
   - End
-

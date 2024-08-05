@@ -6,11 +6,11 @@ num_types: 3
 num_instances: 4
 chunks:
   - Inst:
-      type_id: 0
+      type_id: 2
       type_name: Folder
       object_format: 0
       referents:
-        - 0
+        - 3
   - Inst:
       type_id: 1
       type_name: Part
@@ -19,31 +19,31 @@ chunks:
         - 1
         - 2
   - Inst:
-      type_id: 2
+      type_id: 0
       type_name: WeldConstraint
       object_format: 0
       referents:
-        - 3
+        - 0
   - Prop:
-      type_id: 0
+      type_id: 2
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 0
+      type_id: 2
       prop_name: Name
       prop_type: String
       values:
         - Folder
   - Prop:
-      type_id: 0
+      type_id: 2
       prop_name: SourceAssetId
       prop_type: Int64
       values:
         - -1
   - Prop:
-      type_id: 0
+      type_id: 2
       prop_name: Tags
       prop_type: String
       values:
@@ -460,13 +460,13 @@ chunks:
           - 0
           - 0
   - Prop:
-      type_id: 2
+      type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 2
+      type_id: 0
       prop_name: CFrame0
       prop_type: CFrame
       values:
@@ -485,37 +485,37 @@ chunks:
               - 0
               - 1
   - Prop:
-      type_id: 2
+      type_id: 0
       prop_name: Name
       prop_type: String
       values:
         - WeldConstraint
   - Prop:
-      type_id: 2
+      type_id: 0
       prop_name: Part0Internal
       prop_type: Ref
       values:
         - 1
   - Prop:
-      type_id: 2
+      type_id: 0
       prop_name: Part1Internal
       prop_type: Ref
       values:
         - 2
   - Prop:
-      type_id: 2
+      type_id: 0
       prop_name: SourceAssetId
       prop_type: Int64
       values:
         - -1
   - Prop:
-      type_id: 2
+      type_id: 0
       prop_name: State
       prop_type: Int32
       values:
         - 3
   - Prop:
-      type_id: 2
+      type_id: 0
       prop_name: Tags
       prop_type: String
       values:
@@ -524,12 +524,11 @@ chunks:
       version: 0
       links:
         - - 0
-          - -1
-        - - 1
-          - 0
-        - - 2
-          - 0
-        - - 3
           - 1
+        - - 1
+          - 3
+        - - 2
+          - 3
+        - - 3
+          - -1
   - End
-
