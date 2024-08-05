@@ -95,7 +95,7 @@ pub(crate) fn write_attributes<W: Write>(
                 write_string(&mut writer, &font.family)?;
                 write_string(
                     &mut writer,
-                    &font.cached_face_id.clone().unwrap_or_default(),
+                    font.cached_face_id.as_deref().unwrap_or_default(),
                 )?;
             }
 

@@ -798,7 +798,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 chunk.write_le_u16(value.weight.as_u16())?;
                                 chunk.write_u8(value.style.as_u8())?;
                                 chunk.write_string(
-                                    &value.cached_face_id.clone().unwrap_or_default(),
+                                    value.cached_face_id.as_deref().unwrap_or_default(),
                                 )?;
                             } else {
                                 return type_mismatch(i, &rbx_value, "Font");
