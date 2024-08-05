@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{BTreeMap, BTreeSet, HashMap, HashSet, VecDeque},
+    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
     convert::TryInto,
     io::Write,
 };
@@ -247,19 +247,52 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     /// serialization with this serializer.
     #[profiling::function]
     pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
-        let mut to_visit = VecDeque::new();
-        to_visit.extend(referents);
+        // Populate relevant_instances with a depth-first post-order traversal over the
+        // tree(s). This is important to ensure that the order of the PRNT chunk (later
+        // written by SerializerState::serialize_parents) is correct.
 
-        while let Some(referent) = to_visit.pop_front() {
+        // The implementation here slightly deviates from Roblox. Roblox writes the PRNT
+        // in depth-first post-order, numbers referents in depth-first pre-order, and
+        // generates type infos in lexical order by class name. See
+        // https://github.com/rojo-rbx/rbx-dom/pull/411#issuecomment-2103713517
+
+        // Since it seems only the PRNT chunk has important semantics related to its
+        // ordering, we do one tree traversal in this function, thereby numbering
+        // referents, generating type infos, and writing the PRNT chunk all in depth-first
+        // post-order.
+        let mut to_visit = Vec::new();
+        let mut last_visited_child = None;
+
+        to_visit.extend(referents.iter().rev());
+
+        while let Some(referent) = to_visit.last() {
             let instance = self
                 .dom
-                .get_by_ref(referent)
-                .ok_or(InnerError::InvalidInstanceId { referent })?;
+                .get_by_ref(*referent)
+                .ok_or(InnerError::InvalidInstanceId {
+                    referent: *referent,
+                })?;
 
-            self.relevant_instances.push(referent);
-            self.collect_type_info(instance)?;
+            to_visit.extend(instance.children().iter().rev());
 
-            to_visit.extend(instance.children());
+            while let Some(referent) = to_visit.last() {
+                let instance =
+                    self.dom
+                        .get_by_ref(*referent)
+                        .ok_or(InnerError::InvalidInstanceId {
+                            referent: *referent,
+                        })?;
+
+                if !instance.children().is_empty()
+                    && instance.children().last() != last_visited_child.as_ref()
+                {
+                    break;
+                }
+
+                self.relevant_instances.push(*referent);
+                self.collect_type_info(instance)?;
+                last_visited_child = to_visit.pop();
+            }
         }
 
         // Sort shared_strings by their hash, to ensure they are deterministically added
@@ -1247,10 +1280,9 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
         let object_referents = self
             .relevant_instances
             .iter()
-            .rev()
             .map(|id| self.id_to_referent[id]);
 
-        let parent_referents = self.relevant_instances.iter().rev().map(|id| {
+        let parent_referents = self.relevant_instances.iter().map(|id| {
             let instance = self.dom.get_by_ref(*id).unwrap();
 
             // If there's no parent set OR our parent is not one of the

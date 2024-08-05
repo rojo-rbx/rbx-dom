@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 1
@@ -27,9 +26,9 @@ chunks:
       prop_name: Name
       prop_type: String
       values:
-        - Grandparent
-        - Parent
         - Child
+        - Parent
+        - Grandparent
   - Prop:
       type_id: 0
       prop_name: Tags
@@ -41,11 +40,10 @@ chunks:
   - Prnt:
       version: 0
       links:
-        - - 2
+        - - 0
           - 1
         - - 1
-          - 0
-        - - 0
+          - 2
+        - - 2
           - -1
   - End
-

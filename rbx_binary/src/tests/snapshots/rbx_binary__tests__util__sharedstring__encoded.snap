@@ -21,16 +21,17 @@ chunks:
         - len: 8350
           hash: fb095154e907fd5daaca93bae5bf68ca6400ee1c213e897c65cbf95c65fb4463
   - Inst:
-      type_id: 0
+      type_id: 1
       type_name: Model
       object_format: 0
       referents:
-        - 0
+        - 8
   - Inst:
-      type_id: 1
+      type_id: 0
       type_name: UnionOperation
       object_format: 0
       referents:
+        - 0
         - 1
         - 2
         - 3
@@ -38,21 +39,20 @@ chunks:
         - 5
         - 6
         - 7
-        - 8
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: AttributesSerialize
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: LevelOfDetail
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: ModelMeshCFrame
       prop_type: CFrame
       values:
@@ -71,13 +71,13 @@ chunks:
               - 0
               - 1
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: ModelMeshData
       prop_type: SharedString
       values:
         - 3
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: ModelMeshSize
       prop_type: Vector3
       values:
@@ -85,49 +85,49 @@ chunks:
           - 0
           - 0
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: ModelStreamingMode
       prop_type: Enum
       values:
         - 0
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: Name
       prop_type: String
       values:
         - Parts
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: NeedsPivotMigration
       prop_type: Bool
       values:
         - false
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: PrimaryPart
       prop_type: Ref
       values:
         - -1
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: ScaleFactor
       prop_type: Float32
       values:
         - 1
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: SourceAssetId
       prop_type: Int64
       values:
         - -1
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: Tags
       prop_type: String
       values:
         - ""
   - Prop:
-      type_id: 0
+      type_id: 1
       prop_name: WorldPivotData
       prop_type: OptionalCFrame
       values:
@@ -146,7 +146,7 @@ chunks:
               - 0.021851815
               - 0.10633871
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Anchored
       prop_type: Bool
       values:
@@ -159,7 +159,7 @@ chunks:
         - false
         - false
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: AssetId
       prop_type: String
       values:
@@ -172,7 +172,7 @@ chunks:
         - ""
         - "https://www.roblox.com//asset/?id=2892119179"
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
       values:
@@ -185,7 +185,7 @@ chunks:
         - ""
         - ""
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: BackParamA
       prop_type: Float32
       values:
@@ -198,7 +198,7 @@ chunks:
         - -0.5
         - -0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: BackParamB
       prop_type: Float32
       values:
@@ -211,7 +211,7 @@ chunks:
         - 0.5
         - 0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: BackSurface
       prop_type: Enum
       values:
@@ -224,7 +224,7 @@ chunks:
         - 10
         - 10
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: BackSurfaceInput
       prop_type: Enum
       values:
@@ -237,7 +237,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: BottomParamA
       prop_type: Float32
       values:
@@ -250,7 +250,7 @@ chunks:
         - -0.5
         - -0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: BottomParamB
       prop_type: Float32
       values:
@@ -263,7 +263,7 @@ chunks:
         - 0.5
         - 0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: BottomSurface
       prop_type: Enum
       values:
@@ -276,7 +276,7 @@ chunks:
         - 10
         - 10
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: BottomSurfaceInput
       prop_type: Enum
       values:
@@ -289,7 +289,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: CFrame
       prop_type: CFrame
       values:
@@ -406,7 +406,7 @@ chunks:
               - 0.02185183
               - -0.10633907
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: CanCollide
       prop_type: Bool
       values:
@@ -419,7 +419,7 @@ chunks:
         - false
         - false
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: CanQuery
       prop_type: Bool
       values:
@@ -432,7 +432,7 @@ chunks:
         - true
         - true
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: CanTouch
       prop_type: Bool
       values:
@@ -445,7 +445,7 @@ chunks:
         - true
         - true
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: CastShadow
       prop_type: Bool
       values:
@@ -458,7 +458,7 @@ chunks:
         - true
         - true
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: ChildData
       prop_type: String
       values:
@@ -471,7 +471,7 @@ chunks:
         - ""
         - ""
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: ChildData2
       prop_type: SharedString
       values:
@@ -484,7 +484,7 @@ chunks:
         - 3
         - 3
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: CollisionGroup
       prop_type: String
       values:
@@ -497,7 +497,7 @@ chunks:
         - Default
         - Default
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: CollisionGroupId
       prop_type: Int32
       values:
@@ -510,7 +510,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Color3uint8
       prop_type: Color3uint8
       values:
@@ -539,7 +539,7 @@ chunks:
           - 161
           - 172
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: CustomPhysicalProperties
       prop_type: PhysicalProperties
       values:
@@ -552,7 +552,7 @@ chunks:
         - Default
         - Default
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: FormFactor
       prop_type: Enum
       values:
@@ -565,7 +565,7 @@ chunks:
         - 3
         - 3
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: FrontParamA
       prop_type: Float32
       values:
@@ -578,7 +578,7 @@ chunks:
         - -0.5
         - -0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: FrontParamB
       prop_type: Float32
       values:
@@ -591,7 +591,7 @@ chunks:
         - 0.5
         - 0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: FrontSurface
       prop_type: Enum
       values:
@@ -604,7 +604,7 @@ chunks:
         - 10
         - 10
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: FrontSurfaceInput
       prop_type: Enum
       values:
@@ -617,7 +617,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: InitialSize
       prop_type: Vector3
       values:
@@ -646,7 +646,7 @@ chunks:
           - 18
           - 31.000004
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: LeftParamA
       prop_type: Float32
       values:
@@ -659,7 +659,7 @@ chunks:
         - -0.5
         - -0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: LeftParamB
       prop_type: Float32
       values:
@@ -672,7 +672,7 @@ chunks:
         - 0.5
         - 0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: LeftSurface
       prop_type: Enum
       values:
@@ -685,7 +685,7 @@ chunks:
         - 10
         - 10
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: LeftSurfaceInput
       prop_type: Enum
       values:
@@ -698,7 +698,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Locked
       prop_type: Bool
       values:
@@ -711,7 +711,7 @@ chunks:
         - false
         - false
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Massless
       prop_type: Bool
       values:
@@ -724,7 +724,7 @@ chunks:
         - false
         - false
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Material
       prop_type: Enum
       values:
@@ -737,7 +737,7 @@ chunks:
         - 1088
         - 272
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: MaterialVariantSerialized
       prop_type: String
       values:
@@ -750,7 +750,7 @@ chunks:
         - ""
         - ""
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: MeshData
       prop_type: String
       values:
@@ -763,7 +763,7 @@ chunks:
         - ""
         - ""
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: MeshData2
       prop_type: SharedString
       values:
@@ -776,7 +776,7 @@ chunks:
         - 0
         - 3
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Name
       prop_type: String
       values:
@@ -789,7 +789,7 @@ chunks:
         - Union
         - Union
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: PhysicalConfigData
       prop_type: SharedString
       values:
@@ -802,7 +802,7 @@ chunks:
         - 2
         - 5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: PhysicsData
       prop_type: String
       values:
@@ -815,7 +815,7 @@ chunks:
         - ""
         - ""
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: PivotOffset
       prop_type: CFrame
       values:
@@ -932,7 +932,7 @@ chunks:
               - 0
               - 1
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Reflectance
       prop_type: Float32
       values:
@@ -945,7 +945,7 @@ chunks:
         - 0.2
         - 0.1
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: RenderFidelity
       prop_type: Enum
       values:
@@ -958,7 +958,7 @@ chunks:
         - 1
         - 1
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: RightParamA
       prop_type: Float32
       values:
@@ -971,7 +971,7 @@ chunks:
         - -0.5
         - -0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: RightParamB
       prop_type: Float32
       values:
@@ -984,7 +984,7 @@ chunks:
         - 0.5
         - 0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: RightSurface
       prop_type: Enum
       values:
@@ -997,7 +997,7 @@ chunks:
         - 10
         - 10
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: RightSurfaceInput
       prop_type: Enum
       values:
@@ -1010,7 +1010,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: RootPriority
       prop_type: Int32
       values:
@@ -1023,7 +1023,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: RotVelocity
       prop_type: Vector3
       values:
@@ -1052,7 +1052,7 @@ chunks:
           - 0
           - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: size
       prop_type: Vector3
       values:
@@ -1081,7 +1081,7 @@ chunks:
           - 0.36000717
           - 0.62001246
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: SmoothingAngle
       prop_type: Float32
       values:
@@ -1094,7 +1094,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: SourceAssetId
       prop_type: Int64
       values:
@@ -1107,7 +1107,7 @@ chunks:
         - -1
         - -1
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Tags
       prop_type: String
       values:
@@ -1120,7 +1120,7 @@ chunks:
         - ""
         - ""
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: TopParamA
       prop_type: Float32
       values:
@@ -1133,7 +1133,7 @@ chunks:
         - -0.5
         - -0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: TopParamB
       prop_type: Float32
       values:
@@ -1146,7 +1146,7 @@ chunks:
         - 0.5
         - 0.5
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: TopSurface
       prop_type: Enum
       values:
@@ -1159,7 +1159,7 @@ chunks:
         - 10
         - 10
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: TopSurfaceInput
       prop_type: Enum
       values:
@@ -1172,7 +1172,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Transparency
       prop_type: Float32
       values:
@@ -1185,7 +1185,7 @@ chunks:
         - 0
         - 0
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: UsePartColor
       prop_type: Bool
       values:
@@ -1198,7 +1198,7 @@ chunks:
         - false
         - true
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Velocity
       prop_type: Vector3
       values:
@@ -1229,23 +1229,22 @@ chunks:
   - Prnt:
       version: 0
       links:
-        - - 8
-          - 0
-        - - 7
-          - 0
-        - - 6
-          - 0
-        - - 5
-          - 0
-        - - 4
-          - 0
-        - - 3
-          - 0
-        - - 2
-          - 0
-        - - 1
-          - 0
         - - 0
+          - 8
+        - - 1
+          - 8
+        - - 2
+          - 8
+        - - 3
+          - 8
+        - - 4
+          - 8
+        - - 5
+          - 8
+        - - 6
+          - 8
+        - - 7
+          - 8
+        - - 8
           - -1
   - End
-
