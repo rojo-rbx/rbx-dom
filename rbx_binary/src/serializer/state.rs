@@ -247,6 +247,19 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     /// serialization with this serializer.
     #[profiling::function]
     pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
+        // Populate relevant_instances with a depth-first post-order traversal over the
+        // tree(s). This is important to ensure that the order of the PRNT chunk (later
+        // written by SerializerState::serialize_parents) is correct.
+
+        // The implementation here slightly deviates from Roblox. Roblox writes the PRNT
+        // in depth-first post-order, numbers referents in depth-first pre-order, and
+        // generates type infos in lexical order by class name. See
+        // https://github.com/rojo-rbx/rbx-dom/pull/411#issuecomment-2103713517
+
+        // Since it seems only the PRNT chunk has important semantics related to its
+        // ordering, we do one tree traversal in this function, thereby numbering
+        // referents, generating type infos, and writing the PRNT chunk all in depth-first
+        // post-order.
         let mut to_visit = Vec::new();
         let mut last_visited_child = None;
 
