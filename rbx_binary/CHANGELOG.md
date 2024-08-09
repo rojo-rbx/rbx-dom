@@ -1,6 +1,7 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Implicit lossy conversion of non-UTF-8 `Instance.Name` and `*Script.Source` properties when decoding.  The previous behaviour was returning an error. ([#380])
 
 ## 0.7.6 (2024-08-06)
 * Changed the way instances are added to the serializer to a depth-first post-order traversal. ([#432])
