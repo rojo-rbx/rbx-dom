@@ -3,6 +3,7 @@ use std::{
     mem,
 };
 
+use rbx_dom_weak::Ustr;
 use rbx_reflection::{
     ClassDescriptor, PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase,
 };
@@ -345,10 +346,10 @@ pub struct PropertyDescriptors<'db> {
 /// class and property name pair. These might be the same descriptor!
 pub fn find_property_descriptors<'db>(
     database: &'db ReflectionDatabase<'db>,
-    class_name: &str,
-    property_name: &str,
+    class_name: Ustr,
+    property_name: Ustr,
 ) -> Option<PropertyDescriptors<'db>> {
-    let mut class_descriptor = database.classes.get(class_name)?;
+    let mut class_descriptor = database.classes.get(class_name.as_str())?;
 
     // We need to find the canonical property descriptor associated with
     // the property we're working with.
@@ -360,7 +361,7 @@ pub fn find_property_descriptors<'db>(
     loop {
         // If this class descriptor knows about this property name, we're pretty
         // much done!
-        if let Some(property_descriptor) = class_descriptor.properties.get(property_name) {
+        if let Some(property_descriptor) = class_descriptor.properties.get(property_name.as_str()) {
             match &property_descriptor.kind {
                 // This property descriptor is the canonical form of this
                 // logical property. That means we've found one of the two

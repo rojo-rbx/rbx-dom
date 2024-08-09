@@ -29,7 +29,10 @@ fn with_bool() {
 
     assert_eq!(child.name, "BoolValue");
     assert_eq!(child.class, "BoolValue");
-    assert_eq!(child.properties.get("Value"), Some(&Variant::Bool(true)));
+    assert_eq!(
+        child.properties.get(&"Value".into()),
+        Some(&Variant::Bool(true))
+    );
 }
 
 #[test]
@@ -53,7 +56,10 @@ fn read_tags() {
     tags.push("Hello");
     tags.push("World");
 
-    assert_eq!(folder.properties.get("Tags"), Some(&Variant::Tags(tags)));
+    assert_eq!(
+        folder.properties.get(&"Tags".into()),
+        Some(&Variant::Tags(tags))
+    );
 }
 
 #[test]
@@ -109,8 +115,8 @@ fn read_attributes() {
     let dom = crate::from_str_default(document).unwrap();
     let folder = dom.get_by_ref(dom.root().children()[0]).unwrap();
 
-    assert_eq!(folder.properties.get("AttributesSerialize"), None);
-    let folder_attributes = match folder.properties.get("Attributes") {
+    assert_eq!(folder.properties.get(&"AttributesSerialize".into()), None);
+    let folder_attributes = match folder.properties.get(&"Attributes".into()) {
         Some(Variant::Attributes(attrs)) => attrs,
         Some(other) => panic!(
             "Attributes property was not Attributes, it was: {:?}",
@@ -220,7 +226,8 @@ fn read_material_colors() {
     let dom = crate::from_str_default(document).unwrap();
     let terrain = dom.get_by_ref(dom.root().children()[0]).unwrap();
 
-    if let Some(Variant::MaterialColors(colors)) = terrain.properties.get("MaterialColors") {
+    if let Some(Variant::MaterialColors(colors)) = terrain.properties.get(&"MaterialColors".into())
+    {
         // There are tests to ensure competency in the actual MaterialColors
         // implementation, so these are just basic "are you ok" checks.
         assert_eq!(
@@ -238,7 +245,7 @@ fn read_material_colors() {
     } else {
         panic!(
             "MaterialColors was not Some(Variant::MaterialColors(_)) and was instead {:?}",
-            terrain.properties.get("MaterialColors")
+            terrain.properties.get(&"MaterialColors".into())
         )
     }
 }
@@ -276,7 +283,7 @@ fn read_unique_id() {
     assert_eq!(child.class, "Workspace");
 
     assert_eq!(
-        child.properties.get("UniqueId"),
+        child.properties.get(&"UniqueId".into()),
         Some(&Variant::UniqueId(UniqueId::new(
             0x0048_15fc,
             0x02e9_c68d,
@@ -307,13 +314,13 @@ fn number_widening() {
     let int_value = tree.get_by_ref(tree.root().children()[0]).unwrap();
     assert_eq!(int_value.class, "IntValue");
     assert_eq!(
-        int_value.properties.get("Value"),
+        int_value.properties.get(&"Value".into()),
         Some(&Variant::Int64(194))
     );
     let float_value = tree.get_by_ref(tree.root().children()[1]).unwrap();
     assert_eq!(float_value.class, "NumberValue");
     assert_eq!(
-        float_value.properties.get("Value"),
+        float_value.properties.get(&"Value".into()),
         Some(&Variant::Float64(1337.0))
     );
 }

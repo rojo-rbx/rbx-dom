@@ -34,7 +34,7 @@
 //! let number_value = model.get_by_ref(number_value_ref).unwrap();
 //!
 //! assert_eq!(
-//!     number_value.properties.get("Value"),
+//!     number_value.properties.get(&"Value".into()),
 //!     Some(&Variant::Float64(12345.0)),
 //! );
 //! # Ok::<(), Box<dyn std::error::Error>>(())
