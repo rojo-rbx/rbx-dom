@@ -1,15 +1,12 @@
 Change:
   Instance:
-    # UniqueId properties might be random everytime Studio saves a place file
-    # and don't have a use right now outside of packages, which Rojo doesn't
-    # account for anyway. They generate diff noise, so we shouldn't serialize
-    # them until we have to.
+    # We want to keep UniqueId when (de)serializing files but we don't want to
+    # store a default for it. The same is true of HistoryId, in principle at
+    # least.
     UniqueId:
-      Serialization:
-        Type: DoesNotSerialize
+      HasDefault: false
     HistoryId:
-      Serialization:
-        Type: DoesNotSerialize
+      HasDefault: false
 
     archivable:
       AliasFor: Archivable
