@@ -27,7 +27,7 @@ impl Patches {
         Ok(Self { change })
     }
 
-    pub fn apply(self, database: &mut ReflectionDatabase) -> anyhow::Result<()> {
+    pub fn apply_pre_default(&self, database: &mut ReflectionDatabase) -> anyhow::Result<()> {
         for (class_name, class_changes) in &self.change {
             let class = database
                 .classes
@@ -88,6 +88,10 @@ impl Patches {
             }
         }
 
+        Ok(())
+    }
+
+    pub fn apply_post_default(&self, _database: &mut ReflectionDatabase) -> anyhow::Result<()> {
         Ok(())
     }
 }

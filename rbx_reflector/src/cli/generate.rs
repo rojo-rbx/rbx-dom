@@ -66,12 +66,21 @@ impl GenerateSubcommand {
 
         apply_dump(&mut database, &dump)?;
 
-        if let Some(patches_path) = &self.patches {
-            let patches = Patches::load(patches_path)?;
-            patches.apply(&mut database)?;
+        let patches = if let Some(patches_path) = &self.patches {
+            Some(Patches::load(patches_path)?)
+        } else {
+            None
+        };
+
+        if let Some(patches) = &patches {
+            patches.apply_pre_default(&mut database)?;
         }
 
         apply_defaults(&mut database, &defaults_place_path)?;
+
+        if let Some(patches) = &patches {
+            patches.apply_post_default(&mut database)?;
+        }
 
         database.version = studio_info.version;
 
