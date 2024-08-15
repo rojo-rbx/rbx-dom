@@ -2,6 +2,9 @@
 
 ## Unreleased Changes
 
+* Updated to Roblox version 638
+* `Instance.UniqueId` and `Instance.HistoryId` now serialize again but do not store their defaults.
+
 # 0.2.11+roblox-634 (2024-07-23)
 * Updated to Roblox version 634
 
@@ -17,7 +20,7 @@
 
 ## 0.2.7+roblox-588
 * Updated to Roblox version 588.
-* `Instance.UniqueId`, `Instance.HistoryId`, and `LuaSourceContainer` are now marked as `DoesNotSerialize` ([#327])
+* `Instance.UniqueId`, `Instance.HistoryId`, and `LuaSourceContainer.ScriptGuid` are now marked as `DoesNotSerialize` ([#327])
 
 [#327]: https://github.com/rojo-rbx/rbx-dom/pull/327
 
