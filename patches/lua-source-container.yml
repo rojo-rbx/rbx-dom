@@ -1,8 +1,10 @@
 Change:
   LuaSourceContainer:
     # ScriptGuid is randomly generated everytime a script is saved from Studio
-    # so geting the default value from Studio doesn't work. So, we set it to be
-    # an empty string by default.
+    # which means that its default would change every time a database was
+    # generated. To get around this, we need to override the default. Roblox
+    # generates a new ScriptGuid if the one in a file is an empty string, so
+    # setting the default to be an empty string is a reasonable default. 
     ScriptGuid:
       DefaultValue:
         String: ""

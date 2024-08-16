@@ -2,7 +2,8 @@ Change:
   Instance:
     # UniqueId is randomized per Studio load, but that's not a useful default.
     # Rather than getting the default from Studio, we manually specify it here
-    # instead.
+    # instead. The all-zero UniqueId can appear in files multiple times so it's
+    # the only default value that makes sense.
     UniqueId:
       DefaultValue:
         UniqueId: "00000000000000000000000000000000"
