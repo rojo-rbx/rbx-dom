@@ -28,6 +28,8 @@ expression: decoded_viewed
         - 0
     Gravity:
       Float32: 196.2
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     HumanoidOnlySetCollisionsOnStateChange:
       Enum: 0
     LevelOfDetail:
@@ -93,6 +95,8 @@ expression: decoded_viewed
       Bool: true
     TouchesUseCollisionGroups:
       Bool: false
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d004815fc
     WorldPivotData:
       OptionalCFrame:
         position:
@@ -159,10 +163,14 @@ expression: decoded_viewed
           Bool: true
         HeadScale:
           Float32: 1
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         SourceAssetId:
           Int64: -1
         Tags:
           Tags: []
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d004831f8
       children: []
     - referent: referent-2
       name: Baseplate
@@ -233,6 +241,8 @@ expression: decoded_viewed
           Enum: 0
         FrontSurfaceInput:
           Enum: 0
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         LeftParamA:
           Float32: -0.5
         LeftParamB:
@@ -303,6 +313,8 @@ expression: decoded_viewed
           Enum: 0
         Transparency:
           Float32: 0
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d004831fd
         Velocity:
           Vector3:
             - 0
@@ -322,6 +334,8 @@ expression: decoded_viewed
                 - 0
             Face:
               Enum: 1
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
             OffsetStudsU:
               Float32: 0
             OffsetStudsV:
@@ -338,6 +352,8 @@ expression: decoded_viewed
               Content: "rbxassetid://6372755229"
             Transparency:
               Float32: 0.8
+            UniqueId:
+              UniqueId: 44b188dace632b4702e9c68d00483207
             ZIndex:
               Int32: 1
           children: []
@@ -412,6 +428,8 @@ expression: decoded_viewed
           Enum: 0
         FrontSurfaceInput:
           Enum: 0
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         LeftParamA:
           Float32: -0.5
         LeftParamB:
@@ -574,6 +592,8 @@ expression: decoded_viewed
           Enum: 0
         Transparency:
           Float32: 0
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d00483205
         Velocity:
           Vector3:
             - 0
@@ -668,6 +688,8 @@ expression: decoded_viewed
           Enum: 0
         FrontSurfaceInput:
           Enum: 0
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         LeftParamA:
           Float32: -0.5
         LeftParamB:
@@ -742,6 +764,8 @@ expression: decoded_viewed
           Enum: 0
         Transparency:
           Float32: 0
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d004831ff
         Velocity:
           Vector3:
             - 0
@@ -761,6 +785,8 @@ expression: decoded_viewed
                 - 1
             Face:
               Enum: 1
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
             SourceAssetId:
               Int64: -1
             Tags:
@@ -769,6 +795,8 @@ expression: decoded_viewed
               Content: "rbxasset://textures/SpawnLocation.png"
             Transparency:
               Float32: 0
+            UniqueId:
+              UniqueId: 44b188dace632b4702e9c68d004831fa
             ZIndex:
               Int32: 1
           children: []
@@ -784,6 +812,8 @@ expression: decoded_viewed
       Float32: 3.33
     DopplerScale:
       Float32: 1
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     RespectFilteringEnabled:
       Bool: true
     RolloffScale:
@@ -792,6 +822,8 @@ expression: decoded_viewed
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048304f
     VolumetricAudio:
       Enum: 1
   children: []
@@ -801,10 +833,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048305b
   children: []
 - referent: referent-9
   name: CSGDictionaryService
@@ -812,10 +848,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048305c
   children: []
 - referent: referent-10
   name: Chat
@@ -825,12 +865,16 @@ expression: decoded_viewed
       Attributes: {}
     BubbleChatEnabled:
       Bool: true
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     LoadDefaultChat:
       Bool: true
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483061
   children: []
 - referent: referent-11
   name: Instance
@@ -838,10 +882,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483062
   children: []
 - referent: referent-12
   name: Players
@@ -851,6 +899,8 @@ expression: decoded_viewed
       Attributes: {}
     CharacterAutoLoads:
       Bool: true
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     MaxPlayers:
       Int32: 30
     PreferredPlayers:
@@ -861,6 +911,8 @@ expression: decoded_viewed
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483064
     UseStrafingAnimations:
       Bool: false
   children: []
@@ -870,10 +922,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483068
   children: []
 - referent: referent-14
   name: TweenService
@@ -881,10 +937,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048306a
   children: []
 - referent: referent-15
   name: MaterialService
@@ -920,6 +980,8 @@ expression: decoded_viewed
       String: Grass
     GroundName:
       String: Ground
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     IceName:
       String: Ice
     LeafyGrassName:
@@ -956,6 +1018,8 @@ expression: decoded_viewed
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048306b
     Use2022MaterialsXml:
       Bool: true
     WoodName:
@@ -969,10 +1033,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048306f
   children: []
 - referent: referent-17
   name: PlayerEmulatorService
@@ -986,6 +1054,8 @@ expression: decoded_viewed
       String: ""
     EmulatedGameLocale:
       String: ""
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     PlayerEmulationEnabled:
       Bool: false
     SerializedEmulatedPolicyInfo:
@@ -994,6 +1064,8 @@ expression: decoded_viewed
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483071
   children: []
 - referent: referent-18
   name: StudioData
@@ -1003,10 +1075,14 @@ expression: decoded_viewed
       Attributes: {}
     EnableScriptCollabByDefaultOnLoad:
       Bool: false
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483074
   children: []
 - referent: referent-19
   name: StarterPlayer
@@ -1094,6 +1170,8 @@ expression: decoded_viewed
         - 1
     HealthDisplayDistance:
       Float32: 100
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     HumanoidStateMachineMode:
       Enum: 0
     LoadCharacterAppearance:
@@ -1106,6 +1184,8 @@ expression: decoded_viewed
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483075
     UserEmotesEnabled:
       Bool: true
   children:
@@ -1115,10 +1195,14 @@ expression: decoded_viewed
       properties:
         Attributes:
           Attributes: {}
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         SourceAssetId:
           Int64: -1
         Tags:
           Tags: []
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d00483201
       children: []
     - referent: referent-21
       name: StarterCharacterScripts
@@ -1126,10 +1210,14 @@ expression: decoded_viewed
       properties:
         Attributes:
           Attributes: {}
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         SourceAssetId:
           Int64: -1
         Tags:
           Tags: []
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d00483200
       children: []
 - referent: referent-22
   name: StarterPack
@@ -1137,10 +1225,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483076
   children: []
 - referent: referent-23
   name: StarterGui
@@ -1148,6 +1240,8 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     ResetPlayerGuiOnSpawn:
       Bool: true
     RtlTextSupport:
@@ -1160,6 +1254,8 @@ expression: decoded_viewed
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483077
     VirtualCursorMode:
       Enum: 0
   children: []
@@ -1169,10 +1265,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483079
   children: []
 - referent: referent-25
   name: Teleport Service
@@ -1180,10 +1280,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048307d
   children: []
 - referent: referent-26
   name: CollectionService
@@ -1191,10 +1295,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048307f
   children: []
 - referent: referent-27
   name: PhysicsService
@@ -1202,10 +1310,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483080
   children: []
 - referent: referent-28
   name: Geometry
@@ -1213,10 +1325,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483082
   children: []
 - referent: referent-29
   name: InsertService
@@ -1228,10 +1344,14 @@ expression: decoded_viewed
       Bool: false
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483084
   children:
     - referent: referent-30
       name: InsertionHash
@@ -1239,10 +1359,14 @@ expression: decoded_viewed
       properties:
         Attributes:
           Attributes: {}
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         SourceAssetId:
           Int64: -1
         Tags:
           Tags: []
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d00483202
         Value:
           String: "{27DB7157-ECC3-47DA-9A78-AF69D482E6A5}"
       children: []
@@ -1252,10 +1376,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483085
   children: []
 - referent: referent-32
   name: Debris
@@ -1263,12 +1391,16 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     MaxItems:
       Int32: 1000
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483086
   children: []
 - referent: referent-33
   name: CookiesService
@@ -1276,10 +1408,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483087
   children: []
 - referent: referent-34
   name: VRService
@@ -1287,10 +1423,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483091
   children: []
 - referent: referent-35
   name: ContextActionService
@@ -1298,10 +1438,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483093
   children: []
 - referent: referent-36
   name: Instance
@@ -1309,10 +1453,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483095
   children: []
 - referent: referent-37
   name: AssetService
@@ -1320,10 +1468,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483096
   children: []
 - referent: referent-38
   name: TouchInputService
@@ -1331,10 +1483,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483097
   children: []
 - referent: referent-39
   name: AnalyticsService
@@ -1344,10 +1500,14 @@ expression: decoded_viewed
       String: ""
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048309a
   children: []
 - referent: referent-40
   name: FilteredSelection
@@ -1355,10 +1515,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 3152d93110d773a904200e490000773a
   children: []
 - referent: referent-41
   name: Selection
@@ -1366,10 +1530,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048309d
   children: []
 - referent: referent-42
   name: ServerScriptService
@@ -1377,12 +1545,16 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     LoadStringEnabled:
       Bool: false
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048309e
   children: []
 - referent: referent-43
   name: ServerStorage
@@ -1390,10 +1562,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d0048309f
   children: []
 - referent: referent-44
   name: ReplicatedStorage
@@ -1401,10 +1577,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d004830a0
   children: []
 - referent: referent-45
   name: Instance
@@ -1412,10 +1592,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d004830a7
   children: []
 - referent: referent-46
   name: ProcessInstancePhysicsService
@@ -1423,10 +1607,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d004830a8
   children: []
 - referent: referent-47
   name: LanguageService
@@ -1434,10 +1622,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d004831f0
   children: []
 - referent: referent-48
   name: Lighting
@@ -1483,6 +1675,8 @@ expression: decoded_viewed
       Float32: 0
     GlobalShadows:
       Bool: true
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     OutdoorAmbient:
       Color3:
         - 0.27450982
@@ -1500,6 +1694,8 @@ expression: decoded_viewed
       Enum: 3
     TimeOfDay:
       String: "14:30:00"
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d004830cd
   children:
     - referent: referent-49
       name: Sky
@@ -1509,6 +1705,8 @@ expression: decoded_viewed
           Attributes: {}
         CelestialBodiesShown:
           Bool: true
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         MoonAngularSize:
           Float32: 11
         MoonTextureId:
@@ -1535,6 +1733,8 @@ expression: decoded_viewed
           Content: "rbxassetid://6196665106"
         Tags:
           Tags: []
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d004831fe
       children: []
     - referent: referent-50
       name: SunRays
@@ -1544,6 +1744,8 @@ expression: decoded_viewed
           Attributes: {}
         Enabled:
           Bool: true
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         Intensity:
           Float32: 0.01
         SourceAssetId:
@@ -1552,6 +1754,8 @@ expression: decoded_viewed
           Float32: 0.1
         Tags:
           Tags: []
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d00483203
       children: []
     - referent: referent-51
       name: Atmosphere
@@ -1575,12 +1779,16 @@ expression: decoded_viewed
           Float32: 0
         Haze:
           Float32: 0
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         Offset:
           Float32: 0.25
         SourceAssetId:
           Int64: -1
         Tags:
           Tags: []
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d004831f6
       children: []
     - referent: referent-52
       name: Bloom
@@ -1590,6 +1798,8 @@ expression: decoded_viewed
           Attributes: {}
         Enabled:
           Bool: true
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         Intensity:
           Float32: 1
         Size:
@@ -1600,6 +1810,8 @@ expression: decoded_viewed
           Tags: []
         Threshold:
           Float32: 2
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d004831f7
       children: []
     - referent: referent-53
       name: DepthOfField
@@ -1613,6 +1825,8 @@ expression: decoded_viewed
           Float32: 0.1
         FocusDistance:
           Float32: 0.05
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
         InFocusRadius:
           Float32: 30
         NearIntensity:
@@ -1621,6 +1835,8 @@ expression: decoded_viewed
           Int64: -1
         Tags:
           Tags: []
+        UniqueId:
+          UniqueId: 44b188dace632b4702e9c68d004831fb
       children: []
 - referent: referent-54
   name: Instance
@@ -1628,10 +1844,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d004830d0
   children: []
 - referent: referent-55
   name: DataStoreService
@@ -1641,12 +1861,16 @@ expression: decoded_viewed
       Attributes: {}
     AutomaticRetry:
       Bool: true
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     LegacyNamingScheme:
       Bool: false
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d004831f9
   children: []
 - referent: referent-56
   name: HttpService
@@ -1654,12 +1878,16 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     HttpEnabled:
       Bool: false
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d004831fc
   children: []
 - referent: referent-57
   name: Teams
@@ -1667,10 +1895,14 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483204
   children: []
 - referent: referent-58
   name: TestService
@@ -1684,6 +1916,8 @@ expression: decoded_viewed
       String: ""
     ExecuteWithStudioRun:
       Bool: false
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     IsSleepAllowed:
       Bool: true
     NumberOfPlayers:
@@ -1696,6 +1930,8 @@ expression: decoded_viewed
       Tags: []
     Timeout:
       Float64: 10
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483206
   children: []
 - referent: referent-59
   name: VirtualInputManager
@@ -1703,9 +1939,13 @@ expression: decoded_viewed
   properties:
     Attributes:
       Attributes: {}
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
     SourceAssetId:
       Int64: -1
     Tags:
       Tags: []
+    UniqueId:
+      UniqueId: 44b188dace632b4702e9c68d00483208
   children: []
 

@@ -31,6 +31,12 @@ chunks:
         - ModuleScript
   - Prop:
       type_id: 0
+      prop_name: ScriptGuid
+      prop_type: String
+      values:
+        - "{27E39FEB-27B7-43EC-9398-04115CF856B2}"
+  - Prop:
+      type_id: 0
       prop_name: Source
       prop_type: String
       values:
