@@ -1,10 +1,11 @@
 Change:
   LuaSourceContainer:
     # ScriptGuid is randomly generated everytime a script is saved from Studio
-    # and it makes no sense for us to write it ourselves at this moment.
+    # so geting the default value from Studio doesn't work. So, we set it to be
+    # an empty string by default.
     ScriptGuid:
-      Serialization:
-        Type: DoesNotSerialize
+      DefaultValue:
+        String: ""
 
   Script:
     Source:
