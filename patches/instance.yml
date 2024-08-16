@@ -1,15 +1,14 @@
 Change:
   Instance:
-    # UniqueId properties might be random everytime Studio saves a place file
-    # and don't have a use right now outside of packages, which Rojo doesn't
-    # account for anyway. They generate diff noise, so we shouldn't serialize
-    # them until we have to.
+    # UniqueId is randomized per Studio load, but that's not a useful default.
+    # Rather than getting the default from Studio, we manually specify it here
+    # instead.
     UniqueId:
-      Serialization:
-        Type: DoesNotSerialize
+      DefaultValue:
+        UniqueId: "00000000000000000000000000000000"
     HistoryId:
-      Serialization:
-        Type: DoesNotSerialize
+      DefaultValue:
+        UniqueId: "00000000000000000000000000000000"
 
     archivable:
       AliasFor: Archivable
@@ -17,6 +16,9 @@ Change:
       Serialization:
         Type: SerializesAs
         As: archivable
+      # Archivable has no default value recorded but we need it to be true
+      DefaultValue:
+        Bool: true
 
     # Attributes serialize as a BinaryString with a strange name, but we want to
     # refer to them with a different name.
