@@ -5,7 +5,7 @@ use rbx_reflection::{
     DataType, PropertyKind, PropertyMigration, PropertySerialization, ReflectionDatabase,
     Scriptability,
 };
-use rbx_types::Variant;
+use rbx_types::{Variant, VariantType};
 use serde::Deserialize;
 
 pub struct Patches {
@@ -110,22 +110,40 @@ impl Patches {
 
         for (class_name, class_changes) in &self.change {
             for (prop_name, prop_change) in class_changes {
-                if let Some(default) = &prop_change.default_value {
-                    let subclass_list = subclass_map.get(class_name).ok_or_else(|| {
-                        anyhow!(
-                            "Class {} modified in patch file does not exist in database",
-                            class_name
-                        )
-                    })?;
-                    for descendant in subclass_list {
-                        let class = database
-                            .classes
-                            .get_mut(descendant.as_str())
-                            .expect("class listed in subclass map should exist");
-                        class
-                            .default_properties
-                            .insert(prop_name.clone().into(), default.clone());
+                let default_value = match &prop_change.default_value {
+                    Some(value) => value,
+                    None => continue,
+                };
+                let prop_data = database
+                    .classes
+                    .get(class_name.as_str())
+                    // This is already validated pre-default application, so unwrap is fine
+                    .unwrap()
+                    .properties
+                    .get(prop_name.as_str());
+                if let Some(prop_data) = prop_data {
+                    match (&prop_data.data_type, default_value.ty()) {
+                        (DataType::Enum(_), VariantType::Enum) => {},
+                        (DataType::Value(existing), new) if *existing == new => {},
+                        (existing, new) => bail!(
+                            "Property {class_name}.{prop_name}'s value type is being changed by a DefaultValue patch.\n\
+                            Existing: {existing:?}, new: {new:?}")
                     }
+                }
+                let subclass_list = subclass_map.get(class_name).ok_or_else(|| {
+                    anyhow!(
+                        "Class {} modified in patch file does not exist in database",
+                        class_name
+                    )
+                })?;
+                for descendant in subclass_list {
+                    let class = database
+                        .classes
+                        .get_mut(descendant.as_str())
+                        .expect("class listed in subclass map should exist");
+                    class
+                        .default_properties
+                        .insert(prop_name.clone().into(), default_value.clone());
                 }
             }
         }
