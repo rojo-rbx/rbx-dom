@@ -123,11 +123,12 @@ impl Patches {
                     .get(prop_name.as_str());
                 if let Some(prop_data) = prop_data {
                     match (&prop_data.data_type, default_value.ty()) {
-                        (DataType::Enum(_), VariantType::Enum) => {},
-                        (DataType::Value(existing), new) if *existing == new => {},
-                        (existing, new) => bail!(
-                            "Property {class_name}.{prop_name}'s value type is being changed by a DefaultValue patch.\n\
-                            Existing: {existing:?}, new: {new:?}")
+                        (DataType::Enum(_), VariantType::Enum) => {}
+                        (DataType::Value(existing), new) if *existing == new => {}
+                        (expected, actual) => bail!(
+                            "Bad type given for {class_name}.{prop_name}'s DefaultValue patch.\n\
+                            Expected {expected:?}, got {actual:?}"
+                        ),
                     }
                 }
                 let subclass_list = subclass_map.get(class_name).ok_or_else(|| {
