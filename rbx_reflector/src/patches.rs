@@ -5,6 +5,7 @@ use rbx_reflection::{
     DataType, PropertyKind, PropertyMigration, PropertySerialization, ReflectionDatabase,
     Scriptability,
 };
+use rbx_types::Variant;
 use serde::Deserialize;
 
 pub struct Patches {
@@ -91,7 +92,44 @@ impl Patches {
         Ok(())
     }
 
-    pub fn apply_post_default(&self, _database: &mut ReflectionDatabase) -> anyhow::Result<()> {
+    pub fn apply_post_default(&self, database: &mut ReflectionDatabase) -> anyhow::Result<()> {
+        // A map of every class to all subclasses, by name. This uses `String`
+        // rather than some borrowed variant to get around borrowing `database`
+        // as both mutable and immutable
+        let mut subclass_map: HashMap<String, Vec<String>> =
+            HashMap::with_capacity(database.classes.len());
+
+        for (class_name, class_descriptor) in &database.classes {
+            for superclass in database.superclasses(class_descriptor).unwrap() {
+                subclass_map
+                    .entry(superclass.name.to_string())
+                    .or_default()
+                    .push(class_name.to_string());
+            }
+        }
+
+        for (class_name, class_changes) in &self.change {
+            for (prop_name, prop_change) in class_changes {
+                if let Some(default) = &prop_change.default_value {
+                    let subclass_list = subclass_map.get(class_name).ok_or_else(|| {
+                        anyhow!(
+                            "Class {} modified in patch file does not exist in database",
+                            class_name
+                        )
+                    })?;
+                    for descendant in subclass_list {
+                        let class = database
+                            .classes
+                            .get_mut(descendant.as_str())
+                            .expect("class listed in subclass map should exist");
+                        class
+                            .default_properties
+                            .insert(prop_name.clone().into(), default.clone());
+                    }
+                }
+            }
+        }
+
         Ok(())
     }
 }
@@ -110,6 +148,7 @@ struct PropertyChange {
     alias_for: Option<String>,
     serialization: Option<Serialization>,
     scriptability: Option<Scriptability>,
+    default_value: Option<Variant>,
 }
 
 impl PropertyChange {
