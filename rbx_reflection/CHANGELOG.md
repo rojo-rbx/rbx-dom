@@ -2,7 +2,11 @@
 
 ## Unreleased Changes
 
+## 4.7.0 (2024-08-22)
+* Update to rbx_types 1.10
+
 ## 4.6.0 (2024-07-23)
+* Update to rbx_types 1.9
 * Add `superclasses` method to `ReflectionDatabase` to get a set of superclasses for a given class. ([#402])
 * Added method `ReflectionDatabase::find_default_property`, which finds the default value of a property given its name and a class that inherits it. ([#420])
 
