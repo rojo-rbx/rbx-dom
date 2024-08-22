@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 0.7.7 (2024-08-22)
+* Updated rbx-dom dependencies
+
 ## 0.7.6 (2024-08-06)
 * Changed the way instances are added to the serializer to a depth-first post-order traversal. ([#432])
 
