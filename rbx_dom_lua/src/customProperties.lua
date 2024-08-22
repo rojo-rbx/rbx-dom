@@ -38,7 +38,7 @@ end
 local function isAttributeNameReserved(attributeName)
 	-- For SetAttribute to succeed, attribute names must not use the RBX
 	-- prefix, which is reserved by Roblox.
-	return attributeName:sub(1, 3) ~= "RBX"
+	return attributeName:sub(1, 3) == "RBX"
 end
 
 -- Defines how to read and write properties that aren't directly scriptable.
