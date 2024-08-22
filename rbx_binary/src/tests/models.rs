@@ -65,4 +65,5 @@ binary_tests! {
     folder_with_cframe_attributes,
     folder_with_font_attribute,
     number_values_with_security_capabilities,
+    lighting_with_int32_attribute,
 }

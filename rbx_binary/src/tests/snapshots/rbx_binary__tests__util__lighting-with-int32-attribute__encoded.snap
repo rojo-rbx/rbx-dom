@@ -1,0 +1,168 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: Lighting
+      object_format: 1
+      referents:
+        - 0
+      remaining: "01"
+  - Prop:
+      type_id: 0
+      prop_name: Ambient
+      prop_type: Color3
+      values:
+        - - 0.27450982
+          - 0.27450982
+          - 0.27450982
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - "\u0001\u0000\u0000\u0000 \u0000\u0000\u0000RBX_OriginalTechnologyOnFileLoad\u0004\u0003\u0000\u0000\u0000"
+  - Prop:
+      type_id: 0
+      prop_name: Brightness
+      prop_type: Float32
+      values:
+        - 3
+  - Prop:
+      type_id: 0
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: ColorShift_Bottom
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 0
+      prop_name: ColorShift_Top
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 0
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: EnvironmentDiffuseScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: EnvironmentSpecularScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 0
+      prop_name: ExposureCompensation
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: FogColor
+      prop_type: Color3
+      values:
+        - - 0.75294125
+          - 0.75294125
+          - 0.75294125
+  - Prop:
+      type_id: 0
+      prop_name: FogEnd
+      prop_type: Float32
+      values:
+        - 100000
+  - Prop:
+      type_id: 0
+      prop_name: FogStart
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: GeographicLatitude
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: GlobalShadows
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Lighting
+  - Prop:
+      type_id: 0
+      prop_name: OutdoorAmbient
+      prop_type: Color3
+      values:
+        - - 0.27450982
+          - 0.27450982
+          - 0.27450982
+  - Prop:
+      type_id: 0
+      prop_name: Outlines
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: ShadowSoftness
+      prop_type: Float32
+      values:
+        - 0.2
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Technology
+      prop_type: Enum
+      values:
+        - 3
+  - Prop:
+      type_id: 0
+      prop_name: TimeOfDay
+      prop_type: String
+      values:
+        - "14:30:00"
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End
