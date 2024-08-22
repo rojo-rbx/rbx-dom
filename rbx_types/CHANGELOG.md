@@ -1,6 +1,9 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Add `len` and `is_empty` to `Tags` ([#438])
+
+[#438]: https://github.com/rojo-rbx/rbx-dom/pull/438
 
 ## 1.9.0 (2024-07-23)
 * Implement `IntoIterator` for `&Attributes`. ([#386])
