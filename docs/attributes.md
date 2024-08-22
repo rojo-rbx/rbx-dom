@@ -70,6 +70,10 @@ The `Bool` type is stored as a single byte. If the byte is `0x00`, the bool is `
 
 It is worth noting that Roblox Studio will interpret any non-zero value as `true`.
 
+### Int32
+**Type ID `0x04`**
+The `Int32` type is stored as a little-endian 32-bit integer.
+
 ### Float32
 **Type ID `0x05`**
 

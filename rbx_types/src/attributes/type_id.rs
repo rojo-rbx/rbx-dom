@@ -24,7 +24,7 @@ type_ids! {
     // ??? => 0x01,
     BinaryString => 0x02,
     Bool => 0x03,
-    // ??? => 0x04,
+    Int32 => 0x04,
     Float32 => 0x05,
     Float64 => 0x06,
     // ??? => 0x07,
