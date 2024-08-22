@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 0.13.5 (2024-08-22)
+* Updated rbx-dom dependencies
+
 ## 0.13.4 (2024-07-23)
 * Updated rbx-dom dependencies
 
