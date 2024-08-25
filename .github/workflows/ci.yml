@@ -10,6 +10,17 @@ on:
     - master
 
 jobs:
+  validate:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ok-nick/setup-aftman@v0.4.2
+
+      - name: Validate Crate Versions
+        run: lune run validate-crate-versions
+
   build:
 
     runs-on: ubuntu-latest
