@@ -4,3 +4,7 @@ Change:
       DataType:
         Value: "MaterialColors"
       Scriptability: Custom
+    SmoothGrid:
+      DataType:
+        Value: "SmoothGrid"
+      Scriptability: Custom
