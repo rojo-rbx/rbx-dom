@@ -30,6 +30,7 @@ mod rect;
 mod referent;
 mod security_capabilities;
 mod shared_string;
+mod smooth_grid;
 mod strings;
 mod tags;
 mod udims;
@@ -60,6 +61,7 @@ use self::{
     net_asset_ref::{read_net_asset_ref, write_net_asset_ref},
     referent::{read_ref, write_ref},
     shared_string::{read_shared_string, write_shared_string},
+    smooth_grid::write_smooth_grid,
     tags::write_tags,
 };
 
@@ -122,6 +124,7 @@ macro_rules! declare_rbx_types {
                 Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
                 Variant::MaterialColors(value) => write_material_colors(writer, xml_property_name, value),
                 Variant::NetAssetRef(value) => write_net_asset_ref(writer, xml_property_name, value, state),
+                Variant::SmoothGrid(value) => write_smooth_grid(writer, xml_property_name, value),
 
                 unknown => {
                     Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.ty())))

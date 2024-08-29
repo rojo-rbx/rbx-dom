@@ -7,8 +7,8 @@ use rbx_dom_weak::{
         ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, Faces, Font,
         FontStyle, FontWeight, MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities,
-        SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
-        Vector3int16,
+        SharedString, SmoothGrid, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2,
+        Vector3, Vector3int16,
     },
     InstanceBuilder, Ustr, WeakDom,
 };
@@ -498,6 +498,30 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             Err(err) => {
                                 log::warn!(
                                     "Failed to parse MaterialColors on {} because {:?}; falling back to BinaryString.
+
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
+                                    type_info.type_name,
+                                    err
+                                );
+
+                                add_property(
+                                    instance,
+                                    &property,
+                                    BinaryString::from(buffer).into(),
+                                );
+                            }
+                        }
+                    }
+                }
+                VariantType::SmoothGrid => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let buffer = chunk.read_binary_string()?;
+                        match SmoothGrid::decode(&buffer) {
+                            Ok(value) => add_property(instance, &property, value.into()),
+                            Err(err) => {
+                                log::warn!(
+                                    "Failed to parse SmoothGrid on {} because {:?}; falling back to BinaryString.
 
 rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
                                     type_info.type_name,
