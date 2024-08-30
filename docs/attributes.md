@@ -8,6 +8,7 @@ This document describes the Attribute binary format. In this format there is no 
 - [Data Types](#data-types)
     - [String](#string)
     - [Bool](#bool)
+    - [Int32](#int32)
     - [Float32](#float32)
     - [Float64](#float64)
     - [UDim](#udim)
