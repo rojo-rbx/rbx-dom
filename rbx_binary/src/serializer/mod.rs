@@ -48,7 +48,7 @@ impl<'db> Serializer<'db> {
     /// Create a new `Serializer` with the default settings.
     pub fn new() -> Self {
         Serializer {
-            database: rbx_reflection_database::get(),
+            database: rbx_reflection_database::get().unwrap(),
         }
     }
 
