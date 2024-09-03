@@ -1,5 +1,5 @@
-use std::path::PathBuf;
 use std::process::Command;
+use std::{path::PathBuf, process::Stdio};
 
 use anyhow::{bail, Context};
 use clap::Parser;
@@ -22,6 +22,8 @@ impl DumpSubcommand {
             RobloxStudio::locate().context("Could not locate Roblox Studio install")?;
 
         Command::new(studio_install.application_path())
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
             .arg("-FullAPI")
             .arg(&self.output)
             .status()?;

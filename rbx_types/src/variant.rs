@@ -114,10 +114,6 @@ make_variant! {
     Ref(Ref),
     Region3(Region3),
     Region3int16(Region3int16),
-    #[cfg_attr(
-        feature = "serde",
-        serde(with = "crate::shared_string::variant_serialization"),
-    )]
     SharedString(SharedString),
     String(String),
     UDim(UDim),

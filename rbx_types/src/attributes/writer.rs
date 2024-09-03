@@ -42,6 +42,7 @@ pub(crate) fn write_attributes<W: Write>(
                     write_color3(&mut writer, keypoint.color)?;
                 }
             }
+            Variant::Int32(int) => write_i32(&mut writer, *int)?,
             Variant::Float32(float) => write_f32(&mut writer, *float)?,
             Variant::Float64(float) => write_f64(&mut writer, *float)?,
             Variant::NumberRange(range) => {
@@ -95,7 +96,7 @@ pub(crate) fn write_attributes<W: Write>(
                 write_string(&mut writer, &font.family)?;
                 write_string(
                     &mut writer,
-                    &font.cached_face_id.clone().unwrap_or_default(),
+                    font.cached_face_id.as_deref().unwrap_or_default(),
                 )?;
             }
 
@@ -104,6 +105,10 @@ pub(crate) fn write_attributes<W: Write>(
     }
 
     Ok(())
+}
+
+fn write_i32<W: Write>(mut writer: W, n: i32) -> io::Result<()> {
+    writer.write_all(&n.to_le_bytes()[..])
 }
 
 fn write_f32<W: Write>(mut writer: W, n: f32) -> io::Result<()> {

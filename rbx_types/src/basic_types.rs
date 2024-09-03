@@ -79,9 +79,9 @@ pub struct Vector3 {
 }
 
 fn approx_unit_or_zero(value: f32) -> Option<i32> {
-    if value.abs() <= std::f32::EPSILON {
+    if value.abs() <= f32::EPSILON {
         Some(0)
-    } else if value.abs() - 1.0 <= std::f32::EPSILON {
+    } else if value.abs() - 1.0 <= f32::EPSILON {
         Some(1.0f32.copysign(value) as i32)
     } else {
         None
@@ -409,9 +409,9 @@ impl Color3uint8 {
 impl From<Color3> for Color3uint8 {
     fn from(value: Color3) -> Self {
         Self {
-            r: ((value.r.max(0.0).min(1.0)) * 255.0).round() as u8,
-            g: ((value.g.max(0.0).min(1.0)) * 255.0).round() as u8,
-            b: ((value.b.max(0.0).min(1.0)) * 255.0).round() as u8,
+            r: (value.r.clamp(0.0, 1.0) * 255.0).round() as u8,
+            g: (value.g.clamp(0.0, 1.0) * 255.0).round() as u8,
+            b: (value.b.clamp(0.0, 1.0) * 255.0).round() as u8,
         }
     }
 }

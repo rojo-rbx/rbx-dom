@@ -1,6 +1,21 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+## 0.7.7 (2024-08-22)
+* Updated rbx-dom dependencies
+
+## 0.7.6 (2024-08-06)
+* Changed the way instances are added to the serializer to a depth-first post-order traversal. ([#432])
+
+[#432]: https://github.com/rojo-rbx/rbx-dom/pull/432
+
+## 0.7.5 (2024-07-23)
+* Within `PRNT` chunks, parent-child links are now generated depth-first so that parents always come after their children in the chunk. ([#411])
+
+[#411]: https://github.com/rojo-rbx/rbx-dom/pull/411
+
+## 0.7.4 (2024-01-16)
 * Add the ability to specify a `ReflectionDatabase` to use for serializing and deserializing. This takes the form of `Deserializer::reflection_database` and `Serializer::reflection_database`. ([#375])
 
 [#375]: https://github.com/rojo-rbx/rbx-dom/pull/375

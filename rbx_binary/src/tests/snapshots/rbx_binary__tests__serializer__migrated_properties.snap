@@ -6,41 +6,41 @@ num_types: 4
 num_instances: 8
 chunks:
   - Inst:
-      type_id: 0
+      type_id: 3
       type_name: Folder
       object_format: 0
       referents:
-        - 0
+        - 7
   - Inst:
-      type_id: 2
+      type_id: 1
       type_name: Part
       object_format: 0
       referents:
+        - 2
         - 3
         - 4
-        - 5
   - Inst:
-      type_id: 1
+      type_id: 0
       type_name: ScreenGui
       object_format: 0
       referents:
+        - 0
         - 1
-        - 2
   - Inst:
-      type_id: 3
+      type_id: 2
       type_name: TextLabel
       object_format: 0
       referents:
+        - 5
         - 6
-        - 7
   - Prop:
-      type_id: 0
+      type_id: 3
       prop_name: Name
       prop_type: String
       values:
         - Folder
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Color3uint8
       prop_type: Color3uint8
       values:
@@ -54,7 +54,7 @@ chunks:
           - 128
           - 255
   - Prop:
-      type_id: 2
+      type_id: 1
       prop_name: Name
       prop_type: String
       values:
@@ -62,21 +62,21 @@ chunks:
         - Part
         - Part
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: Name
       prop_type: String
       values:
         - ScreenGui
         - ScreenGui
   - Prop:
-      type_id: 1
+      type_id: 0
       prop_name: ScreenInsets
       prop_type: Enum
       values:
         - 0
         - 1
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: FontFace
       prop_type: Font
       values:
@@ -89,7 +89,7 @@ chunks:
           style: Normal
           cachedFaceId: ~
   - Prop:
-      type_id: 3
+      type_id: 2
       prop_name: Name
       prop_type: String
       values:
@@ -99,20 +99,19 @@ chunks:
       version: 0
       links:
         - - 0
-          - -1
+          - 7
         - - 1
-          - 0
+          - 7
         - - 2
-          - 0
+          - 7
         - - 3
-          - 0
+          - 7
         - - 4
-          - 0
+          - 7
         - - 5
-          - 0
+          - 7
         - - 6
-          - 0
+          - 7
         - - 7
-          - 0
+          - -1
   - End
-

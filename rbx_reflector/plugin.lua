@@ -1,3 +1,7 @@
+if game.Name ~= "defaults-place.rbxlx" then
+	return
+end
+
 local HttpService = game:GetService("HttpService")
 
 local SERVER_URL = "http://localhost:22073"

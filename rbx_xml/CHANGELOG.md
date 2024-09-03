@@ -1,6 +1,14 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 0.13.5 (2024-08-22)
+* Updated rbx-dom dependencies
+
+## 0.13.4 (2024-07-23)
+* Updated rbx-dom dependencies
+
+## 0.13.3 (2024-01-16)
 * Add the ability to specify a `ReflectionDatabase` to use for serializing and deserializing. This takes the form of `DecodeOptions::reflection_database` and `EncodeOptions::reflection_database`. ([#375])
 
 [#375]: https://github.com/rojo-rbx/rbx-dom/pull/375

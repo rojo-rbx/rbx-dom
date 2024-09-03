@@ -148,29 +148,35 @@ impl fmt::Display for SharedStringHash {
 }
 
 #[cfg(feature = "serde")]
-pub(crate) mod variant_serialization {
+pub(crate) mod serde_impl {
     use super::*;
 
-    use serde::de::Error as _;
-    use serde::ser::Error as _;
-    use serde::{Deserializer, Serializer};
+    use serde::{de::Error as _, Deserialize, Deserializer, Serialize, Serializer};
 
-    pub fn serialize<S>(_value: &SharedString, _serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        Err(S::Error::custom(
-            "SharedString cannot be serialized as part of a Variant",
-        ))
+    impl Serialize for SharedString {
+        fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+            if serializer.is_human_readable() {
+                let encoded = base64::encode(self.data());
+
+                serializer.serialize_str(&encoded)
+            } else {
+                self.data().serialize(serializer)
+            }
+        }
     }
 
-    pub fn deserialize<'de, D>(_deserializer: D) -> Result<SharedString, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        Err(D::Error::custom(
-            "SharedString cannot be deserialized as part of a Variant",
-        ))
+    impl<'de> Deserialize<'de> for SharedString {
+        fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+            if deserializer.is_human_readable() {
+                let encoded = <&str>::deserialize(deserializer)?;
+                let buffer = base64::decode(encoded).map_err(D::Error::custom)?;
+
+                Ok(SharedString::new(buffer))
+            } else {
+                let buffer = <Vec<u8>>::deserialize(deserializer)?;
+                Ok(SharedString::new(buffer))
+            }
+        }
     }
 }
 
@@ -198,5 +204,42 @@ mod test {
         {
             let _y = SharedString::new(vec![5, 6, 7, 1]);
         }
+    }
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn serde_human() {
+        let sstr = SharedString::new(b"a test string".to_vec());
+        let serialized = serde_json::to_string(&sstr).unwrap();
+
+        assert_eq!(serialized, r#""YSB0ZXN0IHN0cmluZw==""#);
+
+        let deserialized: SharedString = serde_json::from_str(&serialized).unwrap();
+
+        assert_eq!(sstr, deserialized);
+    }
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn serde_non_human() {
+        use std::{io::Write, mem};
+
+        let sstr = SharedString::new(b"a test string".to_vec());
+        let data = sstr.data();
+        let serialized = bincode::serialize(&sstr).unwrap();
+
+        // Write the length of the string as little-endian u64 followed by the
+        // bytes of the string. This is analoglous to how bincode does.
+        let mut expected = Vec::with_capacity(mem::size_of::<u64>() + data.len());
+        expected
+            .write_all(&(data.len() as u64).to_le_bytes())
+            .unwrap();
+        expected.write_all(data).unwrap();
+
+        assert_eq!(serialized, expected);
+
+        let deserialized: SharedString = bincode::deserialize(&serialized).unwrap();
+
+        assert_eq!(sstr, deserialized);
     }
 }

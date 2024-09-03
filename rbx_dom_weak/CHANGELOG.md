@@ -2,6 +2,23 @@
 
 ## Unreleased Changes
 
+## 2.9.0 (2024-08-22)
+* Added `WeakDom::descendants` and `WeakDom::descendants_of` to support iterating through the descendants of a DOM. ([#431])
+
+[#431]: https://github.com/rojo-rbx/rbx-dom/pull/431
+
+## 2.8.0 (2024-07-23)
+* Added `InstanceBuilder::with_referent` that allows building instance with predefined `Ref` ([#400])
+* Added `WeakDom::get_unique_id` to get the UniqueId for a provided referent. ([#405])
+
+[#400]: https://github.com/rojo-rbx/rbx-dom/pull/400
+[#405]: https://github.com/rojo-rbx/rbx-dom/pull/405
+
+## 2.7.0 (2024-01-16)
+* Implemented `Default` for `WeakDom`, useful when using Serde or creating an empty `WeakDom` ([#379])
+
+[#379]: https://github.com/rojo-rbx/rbx-dom/pull/379
+
 ## 2.6.0 (2023-10-03)
 * Added `WeakDom::clone_multiple_into_external` that allows cloning multiple subtrees all at once into a given `WeakDom`, useful for preserving `Ref` properties that point across cloned subtrees ([#364])
 

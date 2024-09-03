@@ -1,12 +1,23 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
-* Updated to Roblox version 597
 * The database may now be loaded dynamically from the local file system.
 
     The location is OS-dependent but it will only be loaded if one exists. The location may also be manually specified using the `RBX_DATABASE` environment variable.
 
 	`get` is unchanged in use, but will return a locally stored database if it exists, and the bundled one if not. Two new methods were added: `get_bundled` will only fetch the local database and `get_local` will only fetch a locally stored one.
+
+## 0.2.12+roblox-638 (2024-08-22)
+* Update to Roblox version 638.
+* `Instance.UniqueId`, `Instance.HistoryId`, and `LuaSourceContainer.ScriptGuid` are marked as `Serializes` again ([#437])
+
+[#437]: https://github.com/rojo-rbx/rbx-dom/pull/437
+
+# 0.2.11+roblox-634 (2024-07-23)
+* Updated to Roblox version 634
+
+## 0.2.10+roblox-607 (2024-01-16)
+* Updated to Roblox version 607
 
 ## 0.2.9+roblox-596 (2023-10-03)
 ## 0.2.8+roblox-296 (incorrect metadata)
@@ -17,7 +28,7 @@
 
 ## 0.2.7+roblox-588
 * Updated to Roblox version 588.
-* `Instance.UniqueId`, `Instance.HistoryId`, and `LuaSourceContainer` are now marked as `DoesNotSerialize` ([#327])
+* `Instance.UniqueId`, `Instance.HistoryId`, and `LuaSourceContainer.ScriptGuid` are now marked as `DoesNotSerialize` ([#327])
 
 [#327]: https://github.com/rojo-rbx/rbx-dom/pull/327
 

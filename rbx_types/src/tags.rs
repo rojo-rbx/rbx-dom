@@ -50,6 +50,16 @@ impl Tags {
     pub fn encode(&self) -> Vec<u8> {
         self.members.join("\0").into_bytes()
     }
+
+    /// Returns the number of strings stored within this `Tags`.
+    pub fn len(&self) -> usize {
+        self.members.len()
+    }
+
+    /// Returns `true` if this `Tags` contains no strings.
+    pub fn is_empty(&self) -> bool {
+        self.members.is_empty()
+    }
 }
 
 impl From<Vec<String>> for Tags {

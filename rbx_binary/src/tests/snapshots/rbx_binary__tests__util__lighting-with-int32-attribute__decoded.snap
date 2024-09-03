@@ -1,0 +1,70 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Lighting
+  class: Lighting
+  properties:
+    Ambient:
+      Color3:
+        - 0.27450982
+        - 0.27450982
+        - 0.27450982
+    Attributes:
+      Attributes:
+        RBX_OriginalTechnologyOnFileLoad:
+          Int32: 3
+    Brightness:
+      Float32: 3
+    Capabilities:
+      SecurityCapabilities: 0
+    ColorShift_Bottom:
+      Color3:
+        - 0
+        - 0
+        - 0
+    ColorShift_Top:
+      Color3:
+        - 0
+        - 0
+        - 0
+    DefinesCapabilities:
+      Bool: false
+    EnvironmentDiffuseScale:
+      Float32: 1
+    EnvironmentSpecularScale:
+      Float32: 1
+    ExposureCompensation:
+      Float32: 0
+    FogColor:
+      Color3:
+        - 0.75294125
+        - 0.75294125
+        - 0.75294125
+    FogEnd:
+      Float32: 100000
+    FogStart:
+      Float32: 0
+    GeographicLatitude:
+      Float32: 0
+    GlobalShadows:
+      Bool: true
+    OutdoorAmbient:
+      Color3:
+        - 0.27450982
+        - 0.27450982
+        - 0.27450982
+    Outlines:
+      Bool: false
+    ShadowSoftness:
+      Float32: 0.2
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Technology:
+      Enum: 3
+    TimeOfDay:
+      String: "14:30:00"
+  children: []

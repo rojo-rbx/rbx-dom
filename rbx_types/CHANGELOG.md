@@ -2,6 +2,28 @@
 
 ## Unreleased Changes
 
+# 1.10.0 (2024-08-22)
+* Add support for `Int32` values within `Attributes` ([#439])
+* Add `len` and `is_empty` to `Tags` ([#438])
+
+[#438]: https://github.com/rojo-rbx/rbx-dom/pull/438
+[#439]: https://github.com/rojo-rbx/rbx-dom/pull/439
+
+## 1.9.0 (2024-07-23)
+* Implement `IntoIterator` for `&Attributes`. ([#386])
+* Implement `Extend<(String, Variant)>` for `Attributes`. ([#386])
+* Implement `clear` and `drain` for `Attributes`. ([#409])
+* Implement `Serialize` and `Deserialize` for `SharedString` ([#414])
+
+[#386]: https://github.com/rojo-rbx/rbx-dom/pull/386
+[#409]: https://github.com/rojo-rbx/rbx-dom/pull/409
+[#414]: https://github.com/rojo-rbx/rbx-dom/pull/414
+
+## 1.8.0 (2024-01-16)
+* Add `len` and `is_empty` methods to `Attributes` struct. ([#377])
+
+[#377]: https://github.com/rojo-rbx/rbx-dom/pull/377
+
 ## 1.7.0 (2023-10-03)
 * Implemented `FromStr` for `TerrainMaterials`. ([#354])
 * `MaterialColorsError` and `UniqueIdError` are no longer publicly exposed. ([#355])

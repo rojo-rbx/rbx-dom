@@ -74,9 +74,44 @@ impl Attributes {
         self.data.remove(key.borrow())
     }
 
+    /// Removes all attributes.
+    #[inline]
+    pub fn clear(&mut self) {
+        self.data.clear()
+    }
+
     /// Returns an iterator of borrowed attributes.
-    pub fn iter(&self) -> impl Iterator<Item = (&String, &Variant)> {
-        self.data.iter()
+    #[inline]
+    pub fn iter(&self) -> AttributesIter<'_> {
+        AttributesIter {
+            iter: self.data.iter(),
+        }
+    }
+
+    /// Removes all elements from the `Attributes`, returning them as an
+    /// iterator. If the iterator is dropped before being fully consumed,
+    /// it drops the remaining removed elements.
+    #[inline]
+    pub fn drain(&mut self) -> AttributesDrain<'_> {
+        AttributesDrain { inner: self }
+    }
+
+    /// Returns the number of attributes.
+    #[inline]
+    pub fn len(&self) -> usize {
+        self.data.len()
+    }
+
+    /// Returns true if the struct contains no attributes.
+    #[inline]
+    pub fn is_empty(&self) -> bool {
+        self.data.is_empty()
+    }
+}
+
+impl Extend<(String, Variant)> for Attributes {
+    fn extend<T: IntoIterator<Item = (String, Variant)>>(&mut self, iter: T) {
+        self.data.extend(iter)
     }
 }
 
@@ -87,6 +122,17 @@ impl IntoIterator for Attributes {
     fn into_iter(self) -> Self::IntoIter {
         AttributesIntoIter {
             iter: self.data.into_iter(),
+        }
+    }
+}
+
+impl<'a> IntoIterator for &'a Attributes {
+    type IntoIter = AttributesIter<'a>;
+    type Item = (&'a String, &'a Variant);
+
+    fn into_iter(self) -> Self::IntoIter {
+        AttributesIter {
+            iter: self.data.iter(),
         }
     }
 }
@@ -110,6 +156,42 @@ impl Iterator for AttributesIntoIter {
 
     fn next(&mut self) -> Option<Self::Item> {
         self.iter.next()
+    }
+}
+
+/// A borrowed iterator over the entries of an `Attributes`.
+/// This is created by [`Attributes::iter`].
+pub struct AttributesIter<'a> {
+    iter: btree_map::Iter<'a, String, Variant>,
+}
+
+impl<'a> Iterator for AttributesIter<'a> {
+    type Item = (&'a String, &'a Variant);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.iter.next()
+    }
+}
+
+/// A draining iterator for `Attributes`.
+/// This is created by [`Attributes::drain`].
+///
+/// If dropped before fully used, all remaining values will be dropped.
+pub struct AttributesDrain<'a> {
+    inner: &'a mut Attributes,
+}
+
+impl<'a> Iterator for AttributesDrain<'a> {
+    type Item = (String, Variant);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.inner.data.pop_first()
+    }
+}
+
+impl<'a> Drop for AttributesDrain<'a> {
+    fn drop(&mut self) {
+        self.inner.clear()
     }
 }
 
@@ -184,5 +266,26 @@ mod tests {
         let mut attributes = Attributes::new();
         attributes.insert("key".to_owned(), Variant::Bool(true));
         assert_eq!(attributes.remove("key"), Some(Variant::Bool(true)));
+    }
+
+    #[test]
+    fn attribute_drain() {
+        let mut attributes = Attributes::new();
+        attributes.extend([
+            ("string".into(), "value".into()),
+            ("float64".into(), 10.0_f64.into()),
+            ("bool".into(), true.into()),
+        ]);
+        assert!(!attributes.is_empty());
+
+        let mut map = BTreeMap::new();
+        for (key, value) in attributes.drain() {
+            map.insert(key, value);
+        }
+
+        assert_eq!(map.get("string"), Some(&Variant::String("value".into())));
+        assert_eq!(map.get("float64"), Some(&Variant::Float64(10.0)));
+        assert_eq!(map.get("bool"), Some(&Variant::Bool(true)));
+        assert!(attributes.is_empty());
     }
 }

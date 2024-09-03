@@ -71,6 +71,10 @@ pub(crate) fn read_attributes<R: Read>(
                 ColorSequence { keypoints }.into()
             }
 
+            VariantType::Int32 => read_i32(&mut value)
+                .map_err(|_| AttributeError::ReadType("int32"))?
+                .into(),
+
             VariantType::Float32 => read_f32(&mut value)
                 .map_err(|_| AttributeError::ReadType("float32"))?
                 .into(),

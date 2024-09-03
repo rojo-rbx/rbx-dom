@@ -139,6 +139,14 @@ impl ValuesSubcommand {
             ])
             .into(),
         );
+        values.insert("OptionalCFrame-None", Variant::OptionalCFrame(None));
+        values.insert(
+            "OptionalCFrame-Some",
+            Variant::OptionalCFrame(Some(CFrame::new(
+                Vector3::new(0.0, 0.0, 0.0),
+                Matrix3::identity(),
+            ))),
+        );
         values.insert(
             "PhysicalProperties-Custom",
             PhysicalProperties::Custom(CustomPhysicalProperties {
