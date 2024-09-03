@@ -9,6 +9,8 @@ use crate::{
     serializer::CompressionType,
 };
 
+const ZSTD_MAGIC_NUMBER: &[u8] = &[0x28, 0xb5, 0x2f, 0xfd];
+
 /// Represents one chunk from a binary model file.
 #[derive(Debug)]
 pub struct Chunk {
@@ -24,6 +26,7 @@ impl Chunk {
         log::trace!("{}", header);
 
         let data = if header.compressed_len == 0 {
+            log::trace!("No compression");
             let mut data = Vec::with_capacity(header.len as usize);
             reader.take(header.len as u64).read_to_end(&mut data)?;
             data
@@ -33,7 +36,13 @@ impl Chunk {
                 .take(header.compressed_len as u64)
                 .read_to_end(&mut compressed_data)?;
 
-            lz4::block::decompress(&compressed_data, Some(header.len as i32))?
+            if &compressed_data[0..4] == ZSTD_MAGIC_NUMBER {
+                log::trace!("ZSTD compression");
+                zstd::bulk::decompress(&compressed_data, header.len as usize)?
+            } else {
+                log::trace!("LZ4 compression");
+                lz4::block::decompress(&compressed_data, Some(header.len as i32))?
+            }
         };
 
         assert_eq!(data.len(), header.len as usize);
@@ -89,7 +98,17 @@ impl ChunkBuilder {
 
                 writer.write_all(&self.buffer)?;
             }
-            CompressionType::Zstd => todo!("ZSTD compression is not yet implemented"),
+            CompressionType::Zstd => {
+                let compressed = zstd::bulk::compress(&self.buffer, 0)?;
+
+                writer.write_le_u32(compressed.len() as u32)?;
+                writer.write_le_u32(self.buffer.len() as u32)?;
+                writer.write_le_u32(0)?;
+
+                // ZSTD includes the magic number when compressing so we don't
+                // have to write it manually
+                writer.write_all(&compressed)?;
+            }
         }
 
         Ok(())
