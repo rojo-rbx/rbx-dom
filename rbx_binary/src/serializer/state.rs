@@ -507,7 +507,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 .insert(*id, next_referent.try_into().unwrap());
         }
 
-        log::trace!("Referents constructed: {:#?}", self.id_to_referent);
+        log::debug!("Collected {} referents", self.id_to_referent.len());
     }
 
     pub fn write_header(&mut self) -> Result<(), InnerError> {
