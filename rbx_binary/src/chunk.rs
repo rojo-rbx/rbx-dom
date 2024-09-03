@@ -4,7 +4,10 @@ use std::{
     str,
 };
 
-use crate::core::{RbxReadExt, RbxWriteExt};
+use crate::{
+    core::{RbxReadExt, RbxWriteExt},
+    serializer::CompressionType,
+};
 
 /// Represents one chunk from a binary model file.
 #[derive(Debug)]
@@ -42,16 +45,6 @@ impl Chunk {
     }
 }
 
-/// The compression format of a chunk in the binary model format.
-#[derive(Debug, Clone, Copy)]
-pub enum ChunkCompression {
-    /// The contents of the chunk should be LZ4 compressed.
-    Compressed,
-
-    /// The contents of the chunk should be uncompressed.
-    Uncompressed,
-}
-
 /// Holds a chunk that is currently being written.
 ///
 /// This type intended to be written into via io::Write and then dumped into the
@@ -60,14 +53,14 @@ pub enum ChunkCompression {
 #[must_use]
 pub struct ChunkBuilder {
     chunk_name: &'static [u8],
-    compression: ChunkCompression,
+    compression: CompressionType,
     buffer: Vec<u8>,
 }
 
 impl ChunkBuilder {
     /// Creates a new `ChunkBuilder` with the given name and compression
     /// setting.
-    pub fn new(chunk_name: &'static [u8], compression: ChunkCompression) -> Self {
+    pub fn new(chunk_name: &'static [u8], compression: CompressionType) -> Self {
         ChunkBuilder {
             chunk_name,
             compression,
@@ -80,7 +73,7 @@ impl ChunkBuilder {
         writer.write_all(self.chunk_name)?;
 
         match self.compression {
-            ChunkCompression::Compressed => {
+            CompressionType::Lz4 => {
                 let compressed = lz4::block::compress(&self.buffer, None, false)?;
 
                 writer.write_le_u32(compressed.len() as u32)?;
@@ -89,13 +82,14 @@ impl ChunkBuilder {
 
                 writer.write_all(&compressed)?;
             }
-            ChunkCompression::Uncompressed => {
+            CompressionType::None => {
                 writer.write_le_u32(0)?;
                 writer.write_le_u32(self.buffer.len() as u32)?;
                 writer.write_le_u32(0)?;
 
                 writer.write_all(&self.buffer)?;
             }
+            CompressionType::Zstd => todo!("ZSTD compression is not yet implemented"),
         }
 
         Ok(())
