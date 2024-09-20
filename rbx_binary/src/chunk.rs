@@ -4,7 +4,12 @@ use std::{
     str,
 };
 
-use crate::core::{RbxReadExt, RbxWriteExt};
+use crate::{
+    core::{RbxReadExt, RbxWriteExt},
+    serializer::CompressionType,
+};
+
+const ZSTD_MAGIC_NUMBER: &[u8] = &[0x28, 0xb5, 0x2f, 0xfd];
 
 /// Represents one chunk from a binary model file.
 #[derive(Debug)]
@@ -21,6 +26,7 @@ impl Chunk {
         log::trace!("{}", header);
 
         let data = if header.compressed_len == 0 {
+            log::trace!("No compression");
             let mut data = Vec::with_capacity(header.len as usize);
             reader.take(header.len as u64).read_to_end(&mut data)?;
             data
@@ -30,7 +36,13 @@ impl Chunk {
                 .take(header.compressed_len as u64)
                 .read_to_end(&mut compressed_data)?;
 
-            lz4::block::decompress(&compressed_data, Some(header.len as i32))?
+            if &compressed_data[0..4] == ZSTD_MAGIC_NUMBER {
+                log::trace!("ZSTD compression");
+                zstd::bulk::decompress(&compressed_data, header.len as usize)?
+            } else {
+                log::trace!("LZ4 compression");
+                lz4::block::decompress(&compressed_data, Some(header.len as i32))?
+            }
         };
 
         assert_eq!(data.len(), header.len as usize);
@@ -42,16 +54,6 @@ impl Chunk {
     }
 }
 
-/// The compression format of a chunk in the binary model format.
-#[derive(Debug, Clone, Copy)]
-pub enum ChunkCompression {
-    /// The contents of the chunk should be LZ4 compressed.
-    Compressed,
-
-    /// The contents of the chunk should be uncompressed.
-    Uncompressed,
-}
-
 /// Holds a chunk that is currently being written.
 ///
 /// This type intended to be written into via io::Write and then dumped into the
@@ -60,14 +62,14 @@ pub enum ChunkCompression {
 #[must_use]
 pub struct ChunkBuilder {
     chunk_name: &'static [u8],
-    compression: ChunkCompression,
+    compression: CompressionType,
     buffer: Vec<u8>,
 }
 
 impl ChunkBuilder {
     /// Creates a new `ChunkBuilder` with the given name and compression
     /// setting.
-    pub fn new(chunk_name: &'static [u8], compression: ChunkCompression) -> Self {
+    pub fn new(chunk_name: &'static [u8], compression: CompressionType) -> Self {
         ChunkBuilder {
             chunk_name,
             compression,
@@ -80,7 +82,7 @@ impl ChunkBuilder {
         writer.write_all(self.chunk_name)?;
 
         match self.compression {
-            ChunkCompression::Compressed => {
+            CompressionType::Lz4 => {
                 let compressed = lz4::block::compress(&self.buffer, None, false)?;
 
                 writer.write_le_u32(compressed.len() as u32)?;
@@ -89,12 +91,23 @@ impl ChunkBuilder {
 
                 writer.write_all(&compressed)?;
             }
-            ChunkCompression::Uncompressed => {
+            CompressionType::None => {
                 writer.write_le_u32(0)?;
                 writer.write_le_u32(self.buffer.len() as u32)?;
                 writer.write_le_u32(0)?;
 
                 writer.write_all(&self.buffer)?;
+            }
+            CompressionType::Zstd => {
+                let compressed = zstd::bulk::compress(&self.buffer, 0)?;
+
+                writer.write_le_u32(compressed.len() as u32)?;
+                writer.write_le_u32(self.buffer.len() as u32)?;
+                writer.write_le_u32(0)?;
+
+                // ZSTD includes the magic number when compressing so we don't
+                // have to write it manually
+                writer.write_all(&compressed)?;
             }
         }
 

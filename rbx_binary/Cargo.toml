@@ -23,6 +23,7 @@ lz4 = "1.23.3"
 thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }
 profiling = "1.0.6"
+zstd = "0.13.2"
 
 [dev-dependencies]
 criterion = "0.3.5"

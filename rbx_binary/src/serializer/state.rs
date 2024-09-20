@@ -22,7 +22,7 @@ use rbx_reflection::{
 };
 
 use crate::{
-    chunk::{ChunkBuilder, ChunkCompression},
+    chunk::ChunkBuilder,
     core::{
         find_property_descriptors, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
     },
@@ -31,6 +31,7 @@ use crate::{
 };
 
 use super::error::InnerError;
+use super::CompressionType;
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
@@ -506,7 +507,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 .insert(*id, next_referent.try_into().unwrap());
         }
 
-        log::trace!("Referents constructed: {:#?}", self.id_to_referent);
+        log::debug!("Collected {} referents", self.id_to_referent.len());
     }
 
     pub fn write_header(&mut self) -> Result<(), InnerError> {
@@ -542,7 +543,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             return Ok(());
         }
 
-        let mut chunk = ChunkBuilder::new(b"SSTR", ChunkCompression::Compressed);
+        let mut chunk = ChunkBuilder::new(b"SSTR", self.serializer.compression);
 
         chunk.write_le_u32(0)?; // SSTR version number
         chunk.write_le_u32(self.shared_strings.len() as u32)?;
@@ -571,7 +572,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 type_info.instances.len()
             );
 
-            let mut chunk = ChunkBuilder::new(b"INST", ChunkCompression::Compressed);
+            let mut chunk = ChunkBuilder::new(b"INST", self.serializer.compression);
 
             chunk.write_le_u32(type_info.type_id)?;
             chunk.write_string(type_name)?;
@@ -629,7 +630,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     prop_info.prop_type
                 );
 
-                let mut chunk = ChunkBuilder::new(b"PROP", ChunkCompression::Compressed);
+                let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
 
                 chunk.write_le_u32(type_info.type_id)?;
                 chunk.write_string(&prop_info.serialized_name)?;
@@ -1272,7 +1273,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     pub fn serialize_parents(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing parent relationships");
 
-        let mut chunk = ChunkBuilder::new(b"PRNT", ChunkCompression::Compressed);
+        let mut chunk = ChunkBuilder::new(b"PRNT", self.serializer.compression);
 
         chunk.write_u8(0)?; // PRNT version 0
         chunk.write_le_u32(self.relevant_instances.len() as u32)?;
@@ -1313,7 +1314,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     pub fn serialize_end(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing file end");
 
-        let mut end = ChunkBuilder::new(b"END\0", ChunkCompression::Uncompressed);
+        let mut end = ChunkBuilder::new(b"END\0", CompressionType::None);
         end.write_all(FILE_FOOTER)?;
         end.dump(&mut self.output)?;
 

@@ -1,6 +1,10 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Added the ability to specify what type of compression to use for serializing. This takes the form of `Serializer::compression_type`. ([#446])
+* Added support for ZSTD compressed files ([#446])
+
+[#446]: https://github.com/rojo-rbx/rbx-dom/pull/446
 
 ## 0.7.7 (2024-08-22)
 * Updated rbx-dom dependencies
