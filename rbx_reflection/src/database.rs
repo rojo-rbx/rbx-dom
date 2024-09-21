@@ -34,12 +34,17 @@ pub struct SuperClassIter<'a> {
     database: &'a ReflectionDatabase<'a>,
     descriptor: Option<&'a ClassDescriptor<'a>>,
 }
+impl<'a> SuperClassIter<'a>{
+	fn next_descriptor(&self)->Option<&'a ClassDescriptor<'a>>{
+		let superclass = self.descriptor?.superclass.as_ref()?;
+		self.database.classes.get(superclass)
+	}
+}
 impl<'a> Iterator for SuperClassIter<'a> {
     type Item = &'a ClassDescriptor<'a>;
     fn next(&mut self) -> Option<Self::Item> {
-        let superclass = self.descriptor?.superclass.as_ref()?;
-        let next_descriptor = self.database.classes.get(superclass)?;
-        self.descriptor.replace(next_descriptor)
+    	let next_descriptor = self.next_descriptor();
+		std::mem::replace(&mut self.descriptor, next_descriptor)
     }
 }
 
