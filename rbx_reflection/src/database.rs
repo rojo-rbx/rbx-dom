@@ -37,13 +37,9 @@ pub struct SuperClassIter<'a> {
 impl<'a> Iterator for SuperClassIter<'a> {
     type Item = &'a ClassDescriptor<'a>;
     fn next(&mut self) -> Option<Self::Item> {
-        let next_descriptor = self.descriptor.and_then(|descriptor| {
-            descriptor
-                .superclass
-                .as_ref()
-                .and_then(|class_name| self.database.classes.get(class_name))
-        });
-        core::mem::replace(&mut self.descriptor, next_descriptor)
+        let superclass = self.descriptor?.superclass.as_ref()?;
+        let next_descriptor = self.database.classes.get(superclass)?;
+        self.descriptor.replace(next_descriptor)
     }
 }
 
