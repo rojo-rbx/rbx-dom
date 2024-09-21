@@ -28,18 +28,18 @@ mod test {
         let database = get();
         let part_class_descriptor = database.classes.get("Part");
         let mut iter = database.superclasses_iter(part_class_descriptor.unwrap());
-        fn class_descriptor_eq(lhs:Option<&ClassDescriptor>,rhs:Option<&ClassDescriptor>){
-			match (lhs,rhs){
-				(Some(lhs),Some(rhs))=>assert_eq!(lhs.name,rhs.name),
-				(None,None)=>assert!(true),
-				_=>assert!(false),
-			}
+        fn class_descriptor_eq(lhs: Option<&ClassDescriptor>, rhs: Option<&ClassDescriptor>) {
+            match (lhs, rhs) {
+                (Some(lhs), Some(rhs)) => assert_eq!(lhs.name, rhs.name),
+                (None, None) => assert!(true),
+                _ => assert!(false),
+            }
         }
-        class_descriptor_eq(iter.next(),part_class_descriptor);
-        class_descriptor_eq(iter.next(),database.classes.get("FormFactorPart"));
-        class_descriptor_eq(iter.next(),database.classes.get("BasePart"));
-        class_descriptor_eq(iter.next(),database.classes.get("PVInstance"));
-        class_descriptor_eq(iter.next(),database.classes.get("Instance"));
-        class_descriptor_eq(iter.next(),None);
+        class_descriptor_eq(iter.next(), part_class_descriptor);
+        class_descriptor_eq(iter.next(), database.classes.get("FormFactorPart"));
+        class_descriptor_eq(iter.next(), database.classes.get("BasePart"));
+        class_descriptor_eq(iter.next(), database.classes.get("PVInstance"));
+        class_descriptor_eq(iter.next(), database.classes.get("Instance"));
+        class_descriptor_eq(iter.next(), None);
     }
 }
