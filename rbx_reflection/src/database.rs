@@ -77,7 +77,7 @@ impl<'a> ReflectionDatabase<'a> {
     pub fn superclasses_iter(&'a self, descriptor: &'a ClassDescriptor<'a>) -> SuperClassIter {
         SuperClassIter {
             database: self,
-            descriptor,
+            descriptor: Some(descriptor),
         }
     }
 
