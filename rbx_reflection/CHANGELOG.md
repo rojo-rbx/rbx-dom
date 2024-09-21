@@ -1,6 +1,7 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+* Added `ReflectionDatabase::superclasses_iter`
 
 ## 4.7.0 (2024-08-22)
 * Update to rbx_types 1.10
