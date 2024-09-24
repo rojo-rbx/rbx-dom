@@ -1,6 +1,10 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+* Update to Roblox version 644.
+* `Model.WorldPivotData`'s default value is now `null`. ([#450])
+
+[#450]: https://github.com/rojo-rbx/rbx-dom/pull/450
 
 ## 0.2.12+roblox-638 (2024-08-22)
 * Update to Roblox version 638.
