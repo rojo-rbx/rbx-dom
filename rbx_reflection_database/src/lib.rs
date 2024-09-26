@@ -29,11 +29,11 @@ mod test {
         let part_class_descriptor = database.classes.get("Part");
         let mut iter = database.superclasses_iter(part_class_descriptor.unwrap());
         fn class_descriptor_eq(lhs: Option<&ClassDescriptor>, rhs: Option<&ClassDescriptor>) {
-            match (lhs, rhs) {
-                (Some(lhs), Some(rhs)) => assert_eq!(lhs.name, rhs.name),
-                (None, None) => assert!(true),
-                _ => assert!(false),
-            }
+            assert!(match (lhs, rhs) {
+                (Some(lhs), Some(rhs)) => std::ptr::addr_eq(lhs, rhs),
+                (None, None) => true,
+                _ => false,
+            })
         }
         class_descriptor_eq(iter.next(), part_class_descriptor);
         class_descriptor_eq(iter.next(), database.classes.get("FormFactorPart"));
