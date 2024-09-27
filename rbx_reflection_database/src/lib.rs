@@ -30,7 +30,7 @@ mod test {
         let mut iter = database.superclasses_iter(part_class_descriptor.unwrap());
         fn class_descriptor_eq(lhs: Option<&ClassDescriptor>, rhs: Option<&ClassDescriptor>) {
             assert!(match (lhs, rhs) {
-                (Some(lhs), Some(rhs)) => std::ptr::addr_eq(lhs, rhs),
+                (Some(lhs), Some(rhs)) => lhs.name == rhs.name,
                 (None, None) => true,
                 _ => false,
             })
