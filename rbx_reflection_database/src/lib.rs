@@ -29,11 +29,12 @@ mod test {
         let part_class_descriptor = database.classes.get("Part");
         let mut iter = database.superclasses_iter(part_class_descriptor.unwrap());
         fn class_descriptor_eq(lhs: Option<&ClassDescriptor>, rhs: Option<&ClassDescriptor>) {
-            assert!(match (lhs, rhs) {
+            let eq = match (lhs, rhs) {
                 (Some(lhs), Some(rhs)) => lhs.name == rhs.name,
                 (None, None) => true,
                 _ => false,
-            })
+            };
+            assert!(eq, "{:?} != {:?}", lhs, rhs);
         }
         class_descriptor_eq(iter.next(), part_class_descriptor);
         class_descriptor_eq(iter.next(), database.classes.get("FormFactorPart"));
