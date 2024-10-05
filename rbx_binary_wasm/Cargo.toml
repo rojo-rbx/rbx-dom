@@ -10,13 +10,15 @@ crate-type = ["cdylib", "rlib"]
 default = ["console_error_panic_hook"]
 
 [dependencies]
-wasm-bindgen = "0.2.84"
 serde-wasm-bindgen = "0.4"
-getrandom = { version = "0.2", features = ["js"] }
+tsify = "0.4.5"
+wasm-bindgen = "0.2.84"
+
 
 rbx_dom_weak = { version = "2.9.0", path = "../rbx_dom_weak" }
 rbx_binary = { version = "0.7.7", path = "../rbx_binary" }
 
+getrandom = { version = "0.2", features = ["js"] }
 console_error_panic_hook = { version = "0.1.7", optional = true }
 
 [profile.release]

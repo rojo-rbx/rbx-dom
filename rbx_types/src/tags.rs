@@ -1,10 +1,12 @@
 use std::string::FromUtf8Error;
 
+use tsify::Tsify;
+
 /// Contains a list of tags that can be applied to an instance.
 ///
 /// This object does not ensure that tags are unique; there may be duplicate
 /// values in the list of tags.
-#[derive(Default, Clone, Debug, Eq, PartialEq)]
+#[derive(Tsify, Default, Clone, Debug, Eq, PartialEq)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),

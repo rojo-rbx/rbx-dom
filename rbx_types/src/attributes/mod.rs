@@ -15,6 +15,8 @@ use std::{
     iter::FromIterator,
 };
 
+use tsify::Tsify;
+
 use crate::{Error, Variant};
 
 use self::reader::read_attributes;
@@ -22,7 +24,7 @@ use self::writer::write_attributes;
 
 pub(crate) use self::error::AttributeError;
 
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Tsify, Debug, Default, Clone, PartialEq)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),

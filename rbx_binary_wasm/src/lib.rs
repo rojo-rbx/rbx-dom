@@ -1,16 +1,24 @@
 mod utils;
 
+use rbx_dom_weak::WeakDom;
 use utils::set_panic_hook;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-pub fn decode_file(binary_file: Vec<u8>) -> JsValue {
+pub fn decode_file(binary_file: Vec<u8>) -> WeakDom {
     set_panic_hook();
 
-    let dom = rbx_binary::from_reader(&binary_file[..]);
+    let dom = rbx_binary::from_reader(&binary_file[..]).expect("deserialization fail :(");
 
-    match dom {
-        Ok(val) => serde_wasm_bindgen::to_value(&val).unwrap(),
-        Err(_) => wasm_bindgen::throw_str("deserialization fail :("),
-    }
+    dom
+}
+
+#[wasm_bindgen]
+pub fn encode_file(dom: WeakDom) -> Vec<u8> {
+    let mut binary_file = Vec::new();
+
+    rbx_binary::to_writer(&mut binary_file, &dom, &[dom.root_ref()])
+        .expect("serialization fail :(");
+
+    binary_file
 }

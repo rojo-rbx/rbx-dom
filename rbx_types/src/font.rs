@@ -1,4 +1,6 @@
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
+use tsify::Tsify;
+
+#[derive(Tsify, Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FontWeight {
     Thin,
@@ -43,7 +45,7 @@ impl FontWeight {
     }
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
+#[derive(Tsify, Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FontStyle {
     #[default]
@@ -69,7 +71,7 @@ impl FontStyle {
 }
 
 /// A font face consisting of a typeface and other style properties.
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Tsify, Debug, Clone, PartialEq, Eq, Hash)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),

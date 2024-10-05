@@ -5,6 +5,8 @@ use crate::{
     UniqueId, Vector2, Vector2int16, Vector3, Vector3int16,
 };
 
+use tsify::Tsify;
+
 /// Reduces boilerplate from listing different values of Variant by wrapping
 /// them into a macro.
 macro_rules! make_variant {
@@ -21,7 +23,7 @@ macro_rules! make_variant {
         ///
         /// New variants may be added to `Variant` in minor releases. As
         /// such, it is marked `#[non_exhaustive]`.
-        #[derive(Debug, Clone, PartialEq)]
+        #[derive(Tsify, Debug, Clone, PartialEq)]
         #[non_exhaustive]
         #[cfg_attr(
             feature = "serde",

@@ -2,6 +2,8 @@ use std::fmt;
 
 use crate::Color3uint8;
 
+use tsify::Tsify;
+
 macro_rules! make_brick_color {
     ({
         $([
@@ -17,7 +19,7 @@ macro_rules! make_brick_color {
         ///
         /// Parts no longer use BrickColor, but we have conversions here to
         /// support older models.
-        #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+        #[derive(Tsify, Debug, Clone, Copy, PartialEq, Eq)]
         #[repr(u16)]
         #[non_exhaustive]
         pub enum BrickColor {

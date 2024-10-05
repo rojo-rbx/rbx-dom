@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use rbx_types::{Ref, Variant};
 use serde::{Deserialize, Serialize};
+use tsify::Tsify;
 
 /**
 Represents an instance that can be turned into a new
@@ -184,7 +185,7 @@ impl InstanceBuilder {
 ///
 /// Operations that could affect other instances contained in the
 /// [`WeakDom`][crate::WeakDom] cannot be performed on an `Instance` correctly.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Tsify, Debug, Serialize, Deserialize)]
 pub struct Instance {
     pub(crate) referent: Ref,
     pub(crate) children: Vec<Ref>,
