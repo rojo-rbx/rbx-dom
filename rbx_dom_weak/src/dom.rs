@@ -1,6 +1,7 @@
 use std::collections::{HashMap, HashSet, VecDeque};
 
 use rbx_types::{Ref, UniqueId, Variant};
+use serde::{Deserialize, Serialize};
 
 use crate::instance::{Instance, InstanceBuilder};
 
@@ -11,7 +12,7 @@ use crate::instance::{Instance, InstanceBuilder};
 ///
 /// When constructing instances, you'll want to create [`InstanceBuilder`]
 /// objects and insert them into the tree.
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct WeakDom {
     instances: HashMap<Ref, Instance>,
     root_ref: Ref,
