@@ -86,6 +86,17 @@ impl<'a> ReflectionDatabase<'a> {
         }
     }
 
+    /// Walks the class tree, checking if superclass matches
+    /// any class names the class inherits from
+    pub fn class_is_a(
+        &'a self,
+        descriptor: &'a ClassDescriptor<'a>,
+        superclass_descriptor: &'a ClassDescriptor<'a>,
+    ) -> bool {
+        self.superclasses_iter(descriptor)
+            .any(|class_descriptor| class_descriptor.name == superclass_descriptor.name)
+    }
+
     /// Finds the default value of a property given its name and a class that
     /// contains or inherits the property. Returns `Some(&Variant)` if a default
     /// value exists, None otherwise.
