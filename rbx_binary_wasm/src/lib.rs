@@ -8,7 +8,7 @@ use wasm_bindgen::prelude::*;
 pub fn decode_file(binary_file: Vec<u8>) -> WeakDom {
     set_panic_hook();
 
-    let dom = rbx_binary::from_reader(&binary_file[..]).expect("deserialization fail :(");
+    let dom = rbx_binary::from_reader(&binary_file[..]).expect("Failed to deserialize binary file.");
 
     dom
 }
@@ -18,7 +18,7 @@ pub fn encode_file(dom: WeakDom) -> Vec<u8> {
     let mut binary_file = Vec::new();
 
     rbx_binary::to_writer(&mut binary_file, &dom, &[dom.root_ref()])
-        .expect("serialization fail :(");
+        .expect("Failed to serialize from DOM");
 
     binary_file
 }
