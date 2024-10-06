@@ -46,7 +46,7 @@ mod test {
     #[test]
     fn class_is_a_test() {
         let database = get();
-        assert_eq!(database.class_is_a("Part", "Instance"), true);
-        assert_eq!(database.class_is_a("Instance", "Part"), false);
+        assert!(database.class_is_a("Part", "Instance"));
+        assert!(!database.class_is_a("Instance", "Part"));
     }
 }
