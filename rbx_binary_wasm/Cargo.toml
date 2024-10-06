@@ -2,6 +2,9 @@
 name = "rbx_binary_wasm"
 version = "0.1.0"
 edition = "2018"
+description = "WebAssembly build of rbx_binary for decoding and encoding binary Roblox files."
+repository = "https://github.com/rojo-rbx/rbx-dom"
+license = "MIT"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
