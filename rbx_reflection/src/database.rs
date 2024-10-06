@@ -84,13 +84,9 @@ impl<'a> ReflectionDatabase<'a> {
 
     /// This mimics the behavior of the Roblox Lua Instance:IsA(ClassName) method.
     /// Returns whether superclass_descriptor is a superclass of descriptor.
-    pub fn class_is_a(
-        &'a self,
-        descriptor: &'a ClassDescriptor<'a>,
-        superclass_descriptor: &'a ClassDescriptor<'a>,
-    ) -> bool {
-        self.superclasses_iter(descriptor)
-            .any(|class_descriptor| class_descriptor.name == superclass_descriptor.name)
+    pub fn class_is_a(&'a self, class_name: &'a str, superclass_name: &'a str) -> bool {
+        self.superclasses_iter(class_name)
+            .any(|class_descriptor| class_descriptor.name == superclass_name)
     }
 
     /// Finds the default value of a property given its name and a class that

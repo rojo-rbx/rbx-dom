@@ -46,15 +46,7 @@ mod test {
     #[test]
     fn class_is_a_test() {
         let database = get();
-        let part_class_descriptor = database.classes.get("Part").unwrap();
-        let instance_class_descriptor = database.classes.get("Instance").unwrap();
-        assert_eq!(
-            database.class_is_a(part_class_descriptor, instance_class_descriptor),
-            true
-        );
-        assert_eq!(
-            database.class_is_a(instance_class_descriptor, part_class_descriptor),
-            false
-        );
+        assert_eq!(database.class_is_a("Part", "Instance"), true);
+        assert_eq!(database.class_is_a("Instance", "Part"), false);
     }
 }
