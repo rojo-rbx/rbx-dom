@@ -1,5 +1,5 @@
 [package]
-name = "rbx_binary_wasm"
+name = "rbx-binary"
 version = "0.1.0"
 edition = "2018"
 description = "WebAssembly build of rbx_binary for decoding and encoding binary Roblox files."
@@ -16,7 +16,6 @@ default = ["console_error_panic_hook"]
 serde-wasm-bindgen = "0.4"
 tsify = "0.4.5"
 wasm-bindgen = "0.2.84"
-
 
 rbx_dom_weak = { version = "2.9.0", path = "../rbx_dom_weak" }
 rbx_binary = { version = "0.7.7", path = "../rbx_binary" }
