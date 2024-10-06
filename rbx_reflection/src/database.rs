@@ -32,19 +32,15 @@ pub struct ReflectionDatabase<'a> {
 
 pub struct SuperClassIter<'a> {
     database: &'a ReflectionDatabase<'a>,
-    descriptor: Option<&'a ClassDescriptor<'a>>,
-}
-impl<'a> SuperClassIter<'a> {
-    fn next_descriptor(&self) -> Option<&'a ClassDescriptor<'a>> {
-        let superclass = self.descriptor?.superclass.as_ref()?;
-        self.database.classes.get(superclass)
-    }
+    class_name: &'a str,
 }
 impl<'a> Iterator for SuperClassIter<'a> {
     type Item = &'a ClassDescriptor<'a>;
     fn next(&mut self) -> Option<Self::Item> {
-        let next_descriptor = self.next_descriptor();
-        std::mem::replace(&mut self.descriptor, next_descriptor)
+        let next_descriptor = self.database.classes.get(self.class_name)?;
+        // abuse empty string to create a non-class
+        self.class_name = next_descriptor.superclass.as_deref().unwrap_or("");
+        Some(next_descriptor)
     }
 }
 
@@ -79,10 +75,10 @@ impl<'a> ReflectionDatabase<'a> {
 
     /// Returns an iterator of superclasses for the provided ClassDescriptor. This
     /// iterator will start with the provided class and end with `Instance`.
-    pub fn superclasses_iter(&'a self, descriptor: &'a ClassDescriptor<'a>) -> SuperClassIter {
+    pub fn superclasses_iter(&'a self, class_name: &'a str) -> SuperClassIter {
         SuperClassIter {
             database: self,
-            descriptor: Some(descriptor),
+            class_name,
         }
     }
 

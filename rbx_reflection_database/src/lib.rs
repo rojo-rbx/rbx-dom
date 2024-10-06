@@ -26,8 +26,7 @@ mod test {
     #[test]
     fn superclasses_iter_test() {
         let database = get();
-        let part_class_descriptor = database.classes.get("Part");
-        let mut iter = database.superclasses_iter(part_class_descriptor.unwrap());
+        let mut iter = database.superclasses_iter("Part");
         fn class_descriptor_eq(lhs: Option<&ClassDescriptor>, rhs: Option<&ClassDescriptor>) {
             let eq = match (lhs, rhs) {
                 (Some(lhs), Some(rhs)) => lhs.name == rhs.name,
@@ -36,7 +35,7 @@ mod test {
             };
             assert!(eq, "{:?} != {:?}", lhs, rhs);
         }
-        class_descriptor_eq(iter.next(), part_class_descriptor);
+        class_descriptor_eq(iter.next(), database.classes.get("Part"));
         class_descriptor_eq(iter.next(), database.classes.get("FormFactorPart"));
         class_descriptor_eq(iter.next(), database.classes.get("BasePart"));
         class_descriptor_eq(iter.next(), database.classes.get("PVInstance"));
