@@ -48,5 +48,7 @@ mod test {
         let database = get();
         assert!(database.class_is_a("Part", "Instance"));
         assert!(!database.class_is_a("Instance", "Part"));
+        assert!(!database.class_is_a("Invalid", "Part"));
+        assert!(!database.class_is_a("Part", "Invalid"));
     }
 }
