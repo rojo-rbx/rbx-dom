@@ -300,7 +300,7 @@ fn variant_type_from_str(type_name: &str) -> Option<VariantType> {
         "Color3" => VariantType::Color3,
         "Color3uint8" => VariantType::Color3uint8,
         "ColorSequence" => VariantType::ColorSequence,
-        "Content" => VariantType::Content,
+        "ContentId" => VariantType::Content,
         "Faces" => VariantType::Faces,
         "Font" => VariantType::Font,
         "Instance" => VariantType::Ref,
