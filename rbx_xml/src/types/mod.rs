@@ -83,6 +83,10 @@ macro_rules! declare_rbx_types {
                     let value = self::strings::ProtectedStringDummy::read_outer_xml(reader)?;
                     Ok(Some(Variant::String(value.0)))
                 },
+                self::content::ContentDummy::XML_TAG_NAME => {
+                    let value = self::content::ContentDummy::read_outer_xml(reader)?;
+                    Ok(Some(Variant::Content(value.0)))
+                }
 
                 self::referent::XML_TAG_NAME => Ok(Some(Variant::Ref(read_ref(reader, instance_id, property_name, state)?))),
                 self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state).map(Some),
