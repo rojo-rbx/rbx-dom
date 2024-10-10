@@ -1,7 +1,7 @@
-mod defaults_place;
-mod dump;
-mod generate;
-mod values;
+pub(crate) mod defaults_place;
+pub(crate) mod dump;
+pub(crate) mod generate;
+pub(crate) mod values;
 
 use clap::Parser;
 
