@@ -1,5 +1,6 @@
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
+use tsify::Tsify;
 
 /// Represents the physical properties that parts can have.
 ///
@@ -8,7 +9,7 @@ use serde::{Deserialize, Deserializer, Serialize, Serializer};
 /// that `PhysicalProperties` can have.
 ///
 /// [PhysicalProperties]: https://developer.roblox.com/en-us/api-reference/datatype/PhysicalProperties
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Tsify, Debug, Clone, Copy, PartialEq)]
 pub enum PhysicalProperties {
     Default,
     Custom(CustomPhysicalProperties),
@@ -26,7 +27,7 @@ impl From<CustomPhysicalProperties> for PhysicalProperties {
 /// [`PhysicalProperties`][PhysicalProperties] DevHub documentation.
 ///
 /// [PhysicalProperties]: https://developer.roblox.com/en-us/api-reference/datatype/PhysicalProperties
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Tsify, Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "serde", serde(rename_all = "camelCase"))]
 pub struct CustomPhysicalProperties {
