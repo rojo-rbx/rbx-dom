@@ -1,6 +1,9 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* `Content` data now serializes with `ContentId`, reflecting Roblox's changes. ([#455])
+
+[#455]: https://github.com/rojo-rbx/rbx-dom/pull/455
 
 ## 0.13.5 (2024-08-22)
 * Updated rbx-dom dependencies
