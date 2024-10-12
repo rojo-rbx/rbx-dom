@@ -73,3 +73,10 @@ As an example, an `Instance` that had the tags `Hello`, `from`, and `Rojo` would
 `48 65 6C 6C 6F 00 66 72 6F 6D 00 52 6F 6A 6F`
 
 [CollectionService]: https://create.roblox.com/docs/reference/engine/classes/CollectionService
+
+### SmoothGrid
+**Used By:** `Terrain.SmoothGrid`
+
+This blob is used to serialize [`Terrain`][Terrain] voxel data. Due to the complexity of the format, a specification is located [here](smooth-grid.md).
+
+[Terrain]: https://create.roblox.com/docs/reference/engine/classes/Terrain
