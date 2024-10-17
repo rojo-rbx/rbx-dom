@@ -33,9 +33,6 @@ Change:
     AttributesSerialize:
       AliasFor: Attributes
 
-    className:
-      AliasFor: ClassName
-
     Tags:
       DataType:
         Value: "Tags"
