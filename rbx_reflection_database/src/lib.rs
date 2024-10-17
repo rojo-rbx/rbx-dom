@@ -36,11 +36,17 @@ mod test {
             };
             assert!(eq, "{:?} != {:?}", lhs, rhs);
         }
+
         class_descriptor_eq(iter.next(), part_class_descriptor);
-        class_descriptor_eq(iter.next(), database.classes.get("FormFactorPart"));
-        class_descriptor_eq(iter.next(), database.classes.get("BasePart"));
-        class_descriptor_eq(iter.next(), database.classes.get("PVInstance"));
-        class_descriptor_eq(iter.next(), database.classes.get("Instance"));
+
+        let mut current_class_descriptor = part_class_descriptor.unwrap();
+        while let Some(superclass) = current_class_descriptor.superclass.as_ref() {
+            println!("{}", superclass);
+            let superclass_descriptor = database.classes.get(superclass.as_ref());
+            class_descriptor_eq(iter.next(), superclass_descriptor);
+            current_class_descriptor = superclass_descriptor.unwrap();
+        }
+
         class_descriptor_eq(iter.next(), None);
     }
 }
