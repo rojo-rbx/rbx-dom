@@ -41,7 +41,6 @@ mod test {
 
         let mut current_class_descriptor = part_class_descriptor.unwrap();
         while let Some(superclass) = current_class_descriptor.superclass.as_ref() {
-            println!("{}", superclass);
             let superclass_descriptor = database.classes.get(superclass.as_ref());
             class_descriptor_eq(iter.next(), superclass_descriptor);
             current_class_descriptor = superclass_descriptor.unwrap();
