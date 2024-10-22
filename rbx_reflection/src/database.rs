@@ -86,8 +86,8 @@ impl<'a> ReflectionDatabase<'a> {
         }
     }
 
-    /// This mimics the behavior of the Roblox Lua Instance:IsA(ClassName) method.
-    /// Returns whether superclass_descriptor is a superclass of descriptor.
+    /// This mimics the behavior of the Roblox method `Instance:IsA(ClassName)` method.
+    /// Returns whether `superclass_descriptor` is a superclass of `descriptor`.
     pub fn class_is_a(
         &self,
         descriptor: &ClassDescriptor,
