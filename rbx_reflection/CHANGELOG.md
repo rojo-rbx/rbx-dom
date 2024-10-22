@@ -2,7 +2,7 @@
 
 ## Unreleased Changes
 * Added `ReflectionDatabase::superclasses_iter`
-* Added `ReflectionDatabase::class_is_a` like the Roblox method `Instance:IsA(ClassName)`
+* Added `ReflectionDatabase::has_superclass`, like `Instance:IsA(ClassName)`
 
 ## 4.7.0 (2024-08-22)
 * Update to rbx_types 1.10
