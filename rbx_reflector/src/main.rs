@@ -1,11 +1,6 @@
-mod api_dump;
-mod cli;
-mod defaults;
-mod patches;
-
 use clap::Parser;
 
-use crate::cli::Args;
+use rbx_reflector::cli::Args;
 
 fn main() {
     let args = Args::parse();
