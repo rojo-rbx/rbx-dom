@@ -3,7 +3,9 @@
 ## Unreleased Changes
 * Update to Roblox version 647.
 * `Model.WorldPivotData`'s default value is now `null`. ([#450])
+* `SharedString` properties now have default values. ([#458])
 
+[#458]: https://github.com/rojo-rbx/rbx-dom/pull/458
 [#450]: https://github.com/rojo-rbx/rbx-dom/pull/450
 
 ## 0.2.12+roblox-638 (2024-08-22)

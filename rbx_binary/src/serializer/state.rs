@@ -449,7 +449,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 // There's no assurance that the default SharedString value
                 // will actually get serialized inside of the SSTR chunk, so we
                 // check here just to make sure.
-                if let Cow::Owned(Variant::SharedString(sstr)) = &default_value {
+                if let Variant::SharedString(sstr) = default_value.borrow() {
                     if !self.shared_string_ids.contains_key(sstr) {
                         self.shared_string_ids.insert(sstr.clone(), 0);
                         self.shared_strings.push(sstr.clone());
