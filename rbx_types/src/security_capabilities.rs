@@ -1,4 +1,6 @@
-#[derive(Clone, Copy, Default, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+use tsify::Tsify;
+
+#[derive(Tsify, Clone, Copy, Default, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),

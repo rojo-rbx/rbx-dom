@@ -7,6 +7,7 @@ use std::{
 };
 
 use blake3::Hash as Blake3Hash;
+use tsify::Tsify;
 
 lazy_static::lazy_static! {
     static ref STRING_CACHE: Arc<Mutex<HashMap<Blake3Hash, Weak<Vec<u8>>>>> = {
@@ -17,9 +18,10 @@ lazy_static::lazy_static! {
 /// A version of `BinaryString` used for data that's commonly repeated.
 /// `rbx_types` automatically deduplicates data as it's loaded into
 /// `SharedString` values.
-#[derive(Debug, Clone)]
+#[derive(Tsify, Debug, Clone)]
 pub struct SharedString {
     data: Option<Arc<Vec<u8>>>,
+    #[tsify(type = "Uint8Array")]
     hash: Blake3Hash,
 }
 

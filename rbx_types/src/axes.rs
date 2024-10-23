@@ -1,8 +1,11 @@
 use std::fmt;
 
+use tsify::Tsify;
+
 use crate::lister::Lister;
 
 bitflags::bitflags! {
+    #[derive(Tsify)]
     struct AxisFlags: u8 {
         const X = 1;
         const Y = 2;
@@ -14,7 +17,7 @@ bitflags::bitflags! {
 ///
 /// ## See Also
 /// * [Axes on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Axes)
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Tsify, Clone, Copy, PartialEq, Eq)]
 pub struct Axes {
     flags: AxisFlags,
 }
