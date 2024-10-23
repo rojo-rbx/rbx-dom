@@ -511,6 +511,9 @@
             ]
           }
         },
+        "ModelMeshData": {
+          "SharedString": ""
+        },
         "ModelMeshSize": {
           "Vector3": [
             0.0,
@@ -22232,6 +22235,9 @@
             ]
           }
         },
+        "ModelMeshData": {
+          "SharedString": ""
+        },
         "ModelMeshSize": {
           "Vector3": [
             0.0,
@@ -27034,6 +27040,9 @@
             ]
           }
         },
+        "ModelMeshData": {
+          "SharedString": ""
+        },
         "ModelMeshSize": {
           "Vector3": [
             0.0,
@@ -30797,6 +30806,9 @@
       "Superclass": "PartOperation",
       "Properties": {},
       "DefaultProperties": {
+        "AeroMeshData": {
+          "SharedString": ""
+        },
         "Anchored": {
           "Bool": false
         },
@@ -30877,6 +30889,9 @@
         "ChildData": {
           "BinaryString": ""
         },
+        "ChildData2": {
+          "SharedString": ""
+        },
         "CollisionGroup": {
           "String": "Default"
         },
@@ -30953,6 +30968,12 @@
         },
         "MeshData": {
           "BinaryString": ""
+        },
+        "MeshData2": {
+          "SharedString": ""
+        },
+        "PhysicalConfigData": {
+          "SharedString": ""
         },
         "PhysicsData": {
           "BinaryString": ""
@@ -35598,6 +35619,9 @@
         }
       },
       "DefaultProperties": {
+        "AeroMeshData": {
+          "SharedString": ""
+        },
         "Anchored": {
           "Bool": false
         },
@@ -35761,6 +35785,9 @@
         },
         "MeshId": {
           "Content": ""
+        },
+        "PhysicalConfigData": {
+          "SharedString": ""
         },
         "PhysicsData": {
           "BinaryString": ""
@@ -36533,6 +36560,9 @@
               ]
             ]
           }
+        },
+        "ModelMeshData": {
+          "SharedString": ""
         },
         "ModelMeshSize": {
           "Vector3": [
@@ -37314,6 +37344,9 @@
       "Superclass": "PartOperation",
       "Properties": {},
       "DefaultProperties": {
+        "AeroMeshData": {
+          "SharedString": ""
+        },
         "Anchored": {
           "Bool": true
         },
@@ -37394,6 +37427,9 @@
         "ChildData": {
           "BinaryString": ""
         },
+        "ChildData2": {
+          "SharedString": ""
+        },
         "CollisionGroup": {
           "String": "Default"
         },
@@ -37470,6 +37506,12 @@
         },
         "MeshData": {
           "BinaryString": ""
+        },
+        "MeshData2": {
+          "SharedString": ""
+        },
+        "PhysicalConfigData": {
+          "SharedString": ""
         },
         "PhysicsData": {
           "BinaryString": ""
@@ -39644,6 +39686,9 @@
         }
       },
       "DefaultProperties": {
+        "AeroMeshData": {
+          "SharedString": ""
+        },
         "Anchored": {
           "Bool": false
         },
@@ -39724,6 +39769,9 @@
         "ChildData": {
           "BinaryString": ""
         },
+        "ChildData2": {
+          "SharedString": ""
+        },
         "CollisionGroup": {
           "String": "Default"
         },
@@ -39800,6 +39848,12 @@
         },
         "MeshData": {
           "BinaryString": ""
+        },
+        "MeshData2": {
+          "SharedString": ""
+        },
+        "PhysicalConfigData": {
+          "SharedString": ""
         },
         "PhysicsData": {
           "BinaryString": ""
@@ -65305,6 +65359,9 @@
             ]
           }
         },
+        "ModelMeshData": {
+          "SharedString": ""
+        },
         "ModelMeshSize": {
           "Vector3": [
             0.0,
@@ -68951,6 +69008,9 @@
       "Superclass": "PartOperation",
       "Properties": {},
       "DefaultProperties": {
+        "AeroMeshData": {
+          "SharedString": ""
+        },
         "Anchored": {
           "Bool": false
         },
@@ -69031,6 +69091,9 @@
         "ChildData": {
           "BinaryString": ""
         },
+        "ChildData2": {
+          "SharedString": ""
+        },
         "CollisionGroup": {
           "String": "Default"
         },
@@ -69107,6 +69170,12 @@
         },
         "MeshData": {
           "BinaryString": ""
+        },
+        "MeshData2": {
+          "SharedString": ""
+        },
+        "PhysicalConfigData": {
+          "SharedString": ""
         },
         "PhysicsData": {
           "BinaryString": ""
@@ -74842,6 +74911,9 @@
             ]
           }
         },
+        "ModelMeshData": {
+          "SharedString": ""
+        },
         "ModelMeshSize": {
           "Vector3": [
             0.0,
@@ -75024,6 +75096,9 @@
             ]
           }
         },
+        "ModelMeshData": {
+          "SharedString": ""
+        },
         "ModelMeshSize": {
           "Vector3": [
             0.0,
@@ -75127,6 +75202,12 @@
         },
         "HSRAssetId": {
           "Content": ""
+        },
+        "HSRData": {
+          "SharedString": ""
+        },
+        "HSRMeshIdData": {
+          "SharedString": ""
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -75422,6 +75503,12 @@
         "HSRAssetId": {
           "Content": ""
         },
+        "HSRData": {
+          "SharedString": ""
+        },
+        "HSRMeshIdData": {
+          "SharedString": ""
+        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -75601,6 +75688,12 @@
         },
         "HSRAssetId": {
           "Content": ""
+        },
+        "HSRData": {
+          "SharedString": ""
+        },
+        "HSRMeshIdData": {
+          "SharedString": ""
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
