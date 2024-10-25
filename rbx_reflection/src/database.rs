@@ -86,6 +86,17 @@ impl<'a> ReflectionDatabase<'a> {
         }
     }
 
+    /// This mimics the behavior of the Roblox method `Instance:IsA(ClassName)`.
+    /// Returns whether `superclass_descriptor` is a superclass of `descriptor`.
+    pub fn has_superclass(
+        &self,
+        descriptor: &ClassDescriptor,
+        superclass_descriptor: &ClassDescriptor,
+    ) -> bool {
+        self.superclasses_iter(descriptor)
+            .any(|class_descriptor| class_descriptor.name == superclass_descriptor.name)
+    }
+
     /// Finds the default value of a property given its name and a class that
     /// contains or inherits the property. Returns `Some(&Variant)` if a default
     /// value exists, None otherwise.

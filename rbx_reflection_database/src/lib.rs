@@ -48,4 +48,13 @@ mod test {
 
         class_descriptor_eq(iter.next(), None);
     }
+
+    #[test]
+    fn has_superclass_test() {
+        let database = get();
+        let part_class_descriptor = database.classes.get("Part").unwrap();
+        let instance_class_descriptor = database.classes.get("Instance").unwrap();
+        assert!(database.has_superclass(part_class_descriptor, instance_class_descriptor));
+        assert!(!database.has_superclass(instance_class_descriptor, part_class_descriptor));
+    }
 }
