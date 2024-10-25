@@ -56,12 +56,6 @@ chunks:
           - 0
   - Prop:
       type_id: 0
-      prop_name: DefinesCapabilities
-      prop_type: Bool
-      values:
-        - false
-  - Prop:
-      type_id: 0
       prop_name: EnvironmentDiffuseScale
       prop_type: Float32
       values:
@@ -132,6 +126,12 @@ chunks:
         - false
   - Prop:
       type_id: 0
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
       prop_name: ShadowSoftness
       prop_type: Float32
       values:
@@ -166,3 +166,4 @@ chunks:
         - - 0
           - -1
   - End
+
