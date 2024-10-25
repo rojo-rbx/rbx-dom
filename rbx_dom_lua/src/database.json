@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    647,
+    648,
     0,
-    6470717
+    6480781
   ],
   "Classes": {
     "Accessory": {
@@ -64,11 +64,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -220,9 +220,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -248,6 +245,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Scale": {
           "Vector3": [
@@ -423,11 +423,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -476,9 +476,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -525,6 +522,9 @@
           "Enum": 0
         },
         "NeedsPivotMigration": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "Scale": {
@@ -854,9 +854,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -871,6 +868,9 @@
         },
         "MoveSpeedFactor": {
           "Float32": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -1099,9 +1099,6 @@
         "Color": {
           "BrickColor": 23
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -1127,6 +1124,9 @@
           "Float32": 10.0
         },
         "RigidityEnabled": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SourceAssetId": {
@@ -1308,9 +1308,6 @@
         "Color": {
           "BrickColor": 194
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -1353,6 +1350,9 @@
           "Float32": 10.0
         },
         "RigidityEnabled": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SourceAssetId": {
@@ -1503,9 +1503,6 @@
         "Color": {
           "BrickColor": 23
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -1520,6 +1517,9 @@
         },
         "RelativeTo": {
           "Enum": 2
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -1567,11 +1567,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -1828,9 +1828,6 @@
         "Color": {
           "BrickColor": 23
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -1845,6 +1842,9 @@
         },
         "MaxTorque": {
           "Float32": 10000.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -1901,11 +1901,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -1936,11 +1936,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -2106,11 +2106,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -2500,14 +2500,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "PreferLodEnabled": {
           "Bool": true
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -2928,11 +2928,11 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -3173,11 +3173,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -3317,9 +3317,6 @@
             0.0549
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Density": {
           "Float32": 0.395
         },
@@ -3334,6 +3331,9 @@
         },
         "Offset": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -3394,11 +3394,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -3656,11 +3656,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -3737,11 +3737,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -3828,9 +3828,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Depth": {
           "Float32": 0.45
         },
@@ -3842,6 +3839,9 @@
         },
         "Rate": {
           "Float32": 5.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -3954,9 +3954,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -3968,6 +3965,9 @@
         },
         "Release": {
           "Float32": 0.1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4117,13 +4117,13 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "Muted": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SourceAssetId": {
@@ -4169,11 +4169,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4231,14 +4231,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "Level": {
           "Float32": 0.5
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4335,9 +4335,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DelayTime": {
           "Float32": 1.0
         },
@@ -4349,6 +4346,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4369,6 +4369,19 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {
+        "AngleAttenuation": {
+          "Name": "AngleAttenuation",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "BinaryString"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "AudioInteractionGroup": {
           "Name": "AudioInteractionGroup",
           "Scriptability": "ReadWrite",
@@ -4397,6 +4410,9 @@
         }
       },
       "DefaultProperties": {
+        "AngleAttenuation": {
+          "BinaryString": "AA=="
+        },
         "Archivable": {
           "Bool": true
         },
@@ -4409,14 +4425,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DistanceAttenuation": {
           "BinaryString": "AA=="
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4528,9 +4544,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HighGain": {
           "Float32": 0.0
         },
@@ -4548,6 +4561,9 @@
             400.0,
             4000.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4605,11 +4621,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4724,9 +4740,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FilterType": {
           "Enum": 0
         },
@@ -4741,6 +4754,9 @@
         },
         "Q": {
           "Float32": 0.707
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4824,9 +4840,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Depth": {
           "Float32": 0.45
         },
@@ -4838,6 +4851,9 @@
         },
         "Rate": {
           "Float32": 5.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4929,9 +4945,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -4940,6 +4953,9 @@
         },
         "Release": {
           "Float32": 0.01
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -4957,6 +4973,19 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {
+        "AngleAttenuation": {
+          "Name": "AngleAttenuation",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "BinaryString"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "AudioInteractionGroup": {
           "Name": "AudioInteractionGroup",
           "Scriptability": "ReadWrite",
@@ -4985,6 +5014,9 @@
         }
       },
       "DefaultProperties": {
+        "AngleAttenuation": {
+          "BinaryString": "AA=="
+        },
         "Archivable": {
           "Bool": true
         },
@@ -4997,14 +5029,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DistanceAttenuation": {
           "BinaryString": "AA=="
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -5082,14 +5114,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "Pitch": {
           "Float32": 1.25
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -5289,9 +5321,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -5312,6 +5341,9 @@
         },
         "PlaybackSpeed": {
           "Float64": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -5524,9 +5556,6 @@
         "DecayTime": {
           "Float32": 1.5
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Density": {
           "Float32": 1.0
         },
@@ -5556,6 +5585,9 @@
         },
         "ReferenceFrequency": {
           "Float32": 5000.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -5858,11 +5890,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -6071,9 +6103,6 @@
         "Color": {
           "BrickColor": 1009
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -6091,6 +6120,9 @@
         },
         "Restitution": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -8016,9 +8048,6 @@
         "CurveSize1": {
           "Float32": 0.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -8033,6 +8062,9 @@
         },
         "LightInfluence": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Segments": {
           "Int32": 10
@@ -8423,9 +8455,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DistanceLowerLimit": {
           "Float32": 0.0
         },
@@ -8463,6 +8492,9 @@
         },
         "ResetOnSpawn": {
           "Bool": true
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SelectionBehaviorDown": {
           "Enum": 0
@@ -8557,11 +8589,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -8592,11 +8624,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -8624,11 +8656,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -8665,9 +8697,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -8677,6 +8706,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Scale": {
           "Vector3": [
@@ -8758,9 +8790,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -8769,6 +8798,9 @@
         },
         "Intensity": {
           "Float32": 0.4
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Float32": 24.0
@@ -8816,14 +8848,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Float32": 24.0
@@ -8935,9 +8967,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -8950,6 +8979,9 @@
         },
         "P": {
           "Float32": 1250.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -9134,9 +9166,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HeadColor3": {
           "Color3": [
             0.9921569,
@@ -9174,6 +9203,9 @@
             0.41176474,
             0.6745098
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -9240,9 +9272,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Force": {
           "Vector3": [
             0.0,
@@ -9252,6 +9281,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -9395,9 +9427,6 @@
         "D": {
           "Float32": 500.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -9410,6 +9439,9 @@
         },
         "P": {
           "Float32": 3000.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -9523,11 +9555,11 @@
             0.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -9645,9 +9677,6 @@
         "D": {
           "Float32": 1250.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -9667,6 +9696,9 @@
             50.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -9755,9 +9787,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Force": {
           "Vector3": [
             0.0,
@@ -9774,6 +9803,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -9875,9 +9907,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -9890,6 +9919,9 @@
         },
         "P": {
           "Float32": 1250.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -9999,11 +10031,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -10048,11 +10080,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -10136,11 +10168,11 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector3": [
@@ -10407,11 +10439,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -10695,9 +10727,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -10730,6 +10759,9 @@
         },
         "MinimizeDistance": {
           "Float32": 40.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -10852,11 +10884,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -10932,14 +10964,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FullySubmerged": {
           "Bool": false
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -10987,11 +11019,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -11047,11 +11079,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -11365,9 +11397,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FieldOfView": {
           "Float32": 70.0
         },
@@ -11408,6 +11437,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -11519,9 +11551,6 @@
         "ClipsDescendants": {
           "Bool": true
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -11561,6 +11590,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Selectable": {
           "Bool": false
@@ -11710,9 +11742,6 @@
         "Channel": {
           "Int32": 1
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -11721,6 +11750,9 @@
         },
         "Priority": {
           "Int32": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -11923,9 +11955,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": false
         },
@@ -11946,6 +11975,9 @@
             0.49019608,
             0.49019608
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SelectedTabTextColor3": {
           "Color3": [
@@ -12078,9 +12110,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -12089,6 +12118,9 @@
         },
         "OverlayTextureId": {
           "Int64": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -12150,14 +12182,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "LoadDefaultChat": {
           "Bool": true
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -12463,9 +12495,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -12489,6 +12518,9 @@
             0.69803923,
             0.69803923
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -12767,9 +12799,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -12789,6 +12818,9 @@
         },
         "HorizontalAlignment": {
           "Enum": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -13001,9 +13033,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Depth": {
           "Float32": 0.15
         },
@@ -13021,6 +13050,9 @@
         },
         "Rate": {
           "Float32": 0.5
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -13078,14 +13110,14 @@
         "CursorIcon": {
           "Content": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "MaxActivationDistance": {
           "Float32": 32.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -13198,9 +13230,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -13209,6 +13238,9 @@
         },
         "MoveSpeedFactor": {
           "Float32": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -13407,9 +13439,6 @@
         "Cover": {
           "Float32": 0.5
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Density": {
           "Float32": 0.7
         },
@@ -13418,6 +13447,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -13645,11 +13677,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -13691,11 +13723,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -13789,14 +13821,14 @@
         "Contrast": {
           "Float32": 0.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Saturation": {
           "Float32": 0.0
@@ -13848,14 +13880,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -14169,9 +14201,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -14189,6 +14218,9 @@
         },
         "Release": {
           "Float32": 0.1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -14285,9 +14317,6 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Height": {
           "Float32": 2.0
         },
@@ -14296,6 +14325,9 @@
         },
         "Radius": {
           "Float32": 0.5
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SizeRelativeOffset": {
           "Vector3": [
@@ -14339,11 +14371,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -14587,11 +14619,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -14824,9 +14856,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FacingDirection": {
           "Vector3": [
             0.0,
@@ -14843,6 +14872,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -14943,9 +14975,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -14981,6 +15010,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SearchDistance": {
           "Float32": 0.0
@@ -15081,11 +15113,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -15330,9 +15362,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -15425,6 +15454,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector3": [
@@ -15543,9 +15575,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "GuidBinaryString": {
           "BinaryString": "AAAAAAAAAAAAAAAAAAAAAA=="
         },
@@ -15557,6 +15586,9 @@
         },
         "Priority": {
           "Enum": 2
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -15603,14 +15635,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "PersistedCurrentValue": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -15654,11 +15686,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -15800,9 +15832,6 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Height": {
           "Float32": 1.0
         },
@@ -15814,6 +15843,9 @@
         },
         "Radius": {
           "Float32": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SizeRelativeOffset": {
           "Vector3": [
@@ -15868,9 +15900,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -15880,6 +15909,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Scale": {
           "Vector3": [
@@ -16175,9 +16207,6 @@
         "Color": {
           "BrickColor": 1009
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -16215,6 +16244,9 @@
           "Float32": 0.0
         },
         "RotationAxisVisible": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "ServoMaxForce": {
@@ -17230,13 +17262,13 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "LegacyNamingScheme": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SourceAssetId": {
@@ -17323,14 +17355,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "MaxItems": {
           "Int32": 1000
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -18191,14 +18223,14 @@
             1.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Face": {
           "Enum": 5
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -18288,9 +18320,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -18308,6 +18337,9 @@
         },
         "NearIntensity": {
           "Float32": 0.75
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -18493,9 +18525,6 @@
         "ConversationDistance": {
           "Float32": 25.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "GoodbyeChoiceActive": {
           "Bool": true
         },
@@ -18510,6 +18539,9 @@
         },
         "Purpose": {
           "Enum": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -18603,9 +18635,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "GoodbyeChoiceActive": {
           "Bool": true
         },
@@ -18617,6 +18646,9 @@
         },
         "ResponseDialog": {
           "String": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -18661,9 +18693,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -18675,6 +18704,9 @@
         },
         "Priority": {
           "Int32": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -18815,9 +18847,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -18826,6 +18855,9 @@
         },
         "MinValue": {
           "Float64": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -19297,9 +19329,6 @@
         "CursorIcon": {
           "Content": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DragFrame": {
           "CFrame": {
             "position": [
@@ -19373,7 +19402,7 @@
         "Orientation": {
           "Vector3": [
             -0.0,
-            179.99998,
+            180.0,
             90.0
           ]
         },
@@ -19387,6 +19416,9 @@
           "Float32": 10.0
         },
         "RunLocally": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SourceAssetId": {
@@ -19837,9 +19869,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Delay": {
           "Float32": 1.0
         },
@@ -19858,6 +19887,9 @@
         "Priority": {
           "Int32": 0
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -19875,7 +19907,7 @@
     "EditableImage": {
       "Name": "EditableImage",
       "Tags": [],
-      "Superclass": "Instance",
+      "Superclass": "Object",
       "Properties": {
         "ImageData": {
           "Name": "ImageData",
@@ -19912,35 +19944,44 @@
         },
         "Size": {
           "Name": "Size",
-          "Scriptability": "ReadWrite",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "Vector2"
           },
-          "Tags": [],
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": "DoesNotSerialize"
             }
           }
         }
       },
-      "DefaultProperties": {
-        "Archivable": {
-          "Bool": true
-        },
-        "HistoryId": {
-          "UniqueId": "00000000000000000000000000000000"
-        },
-        "UniqueId": {
-          "UniqueId": "00000000000000000000000000000000"
-        }
-      }
+      "DefaultProperties": {}
     },
     "EditableMesh": {
       "Name": "EditableMesh",
       "Tags": [],
-      "Superclass": "DataModelMesh",
+      "Superclass": "Object",
       "Properties": {
+        "FixedSize": {
+          "Name": "FixedSize",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "IsReplicatedCopy": {
           "Name": "IsReplicatedCopy",
           "Scriptability": "None",
@@ -19988,17 +20029,7 @@
           }
         }
       },
-      "DefaultProperties": {
-        "Archivable": {
-          "Bool": true
-        },
-        "HistoryId": {
-          "UniqueId": "00000000000000000000000000000000"
-        },
-        "UniqueId": {
-          "UniqueId": "00000000000000000000000000000000"
-        }
-      }
+      "DefaultProperties": {}
     },
     "EditableService": {
       "Name": "EditableService",
@@ -20112,9 +20143,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -20132,6 +20160,9 @@
         },
         "Priority": {
           "Int32": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -20173,14 +20204,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "RotationOrder": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -20345,11 +20376,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -20656,9 +20687,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DestroyJointRadiusPercent": {
           "Float32": 1.0
         },
@@ -20674,6 +20702,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -21544,11 +21575,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -21881,9 +21912,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -21896,6 +21924,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Scale": {
           "Vector3": [
@@ -22098,9 +22129,6 @@
             0.27450982
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -22109,6 +22137,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SecondaryColor": {
           "Color3": [
@@ -22167,9 +22198,6 @@
         },
         "Capabilities": {
           "SecurityCapabilities": 0
-        },
-        "DefinesCapabilities": {
-          "Bool": false
         },
         "Enabled": {
           "Bool": true
@@ -22253,6 +22281,9 @@
         },
         "RequiresHandle": {
           "Bool": true
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Scale": {
           "Float32": 1.0
@@ -22392,9 +22423,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -22490,6 +22518,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Shape": {
           "Enum": 1
@@ -22612,9 +22643,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Depth": {
           "Float32": 0.45
         },
@@ -22632,6 +22660,9 @@
         },
         "Rate": {
           "Float32": 5.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -22692,11 +22723,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -22844,11 +22875,11 @@
         "CycleOffset": {
           "Float32": 0.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -22951,11 +22982,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -22988,11 +23019,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -23037,11 +23068,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -23083,11 +23114,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -23244,9 +23275,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -23273,6 +23301,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Selectable": {
           "Bool": false
@@ -23485,9 +23516,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Description": {
           "String": "?"
         },
@@ -23496,6 +23524,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -23526,11 +23557,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -23954,9 +23985,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -23990,6 +24018,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -24217,9 +24248,6 @@
         "DecelerationTime": {
           "Float32": 0.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Friction": {
           "Float32": 2.0
         },
@@ -24234,6 +24262,9 @@
         },
         "MoveSpeedFactor": {
           "Float32": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -24903,9 +24934,6 @@
         "ClipToDeviceSafeArea": {
           "Bool": true
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DisplayOrder": {
           "Int32": 0
         },
@@ -24920,6 +24948,9 @@
         },
         "SafeAreaCompatibility": {
           "Enum": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScreenInsets": {
           "Enum": 2
@@ -25988,9 +26019,6 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Faces": {
           "Faces": [
             "Right",
@@ -26003,6 +26031,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -26124,9 +26155,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -26143,6 +26171,9 @@
         "Radius": {
           "Float32": 3.0
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -26150,7 +26181,7 @@
           "Tags": []
         },
         "Type": {
-          "Enum": 1
+          "Enum": 2
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -26221,11 +26252,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -26328,9 +26359,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HSRData": {
           "BinaryString": ""
         },
@@ -26339,6 +26367,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -26488,9 +26519,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DepthMode": {
           "Enum": 0
         },
@@ -26519,6 +26547,9 @@
         },
         "OutlineTransparency": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -26762,9 +26793,6 @@
         "Color": {
           "BrickColor": 1009
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -26788,6 +26816,9 @@
         },
         "Restitution": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ServoMaxTorque": {
           "Float32": 0.0
@@ -26832,11 +26863,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -26869,9 +26900,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FaceId": {
           "Enum": 0
         },
@@ -26883,6 +26911,9 @@
         },
         "LeftRight": {
           "Enum": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -27005,9 +27036,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -27054,6 +27082,9 @@
           "Enum": 0
         },
         "NeedsPivotMigration": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "Scale": {
@@ -27147,13 +27178,13 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "HttpEnabled": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SourceAssetId": {
@@ -27938,9 +27969,6 @@
         "CollisionType": {
           "Enum": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DisplayDistanceType": {
           "Enum": 0
         },
@@ -27999,6 +28027,9 @@
         "RigType": {
           "Enum": 0
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -28031,11 +28062,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -28701,9 +28732,6 @@
         "ClimbAnimation": {
           "Int64": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DepthScale": {
           "Float32": 1.0
         },
@@ -28748,6 +28776,9 @@
         },
         "RunAnimation": {
           "Int64": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Shirt": {
           "Int64": 0
@@ -28931,9 +28962,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -28994,6 +29022,9 @@
         },
         "Priority": {
           "Int32": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SmoothTime": {
           "Float32": 0.05
@@ -29305,9 +29336,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -29371,6 +29399,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScaleType": {
           "Enum": 0
@@ -29542,14 +29573,14 @@
             0.95294124
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "Image": {
           "Content": "rbxasset://textures/SurfacesDefault.png"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector2": [
@@ -29804,9 +29835,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -29861,6 +29889,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScaleType": {
           "Enum": 0
@@ -30174,11 +30205,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -30309,8 +30340,8 @@
             "NotScriptable"
           ],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "Sandboxed"
             }
           }
         },
@@ -30403,7 +30434,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "DefinesCapabilities"
+              }
             }
           }
         },
@@ -30624,9 +30657,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -30635,6 +30665,9 @@
         },
         "MinValue": {
           "Int64": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -30679,11 +30712,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -30908,9 +30941,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -31031,6 +31061,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector3": [
@@ -31330,11 +31363,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -31379,11 +31412,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -31433,9 +31466,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "GuidBinaryString": {
           "BinaryString": "AAAAAAAAAAAAAAAAAAAAAA=="
         },
@@ -31447,6 +31477,9 @@
         },
         "Priority": {
           "Enum": 2
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -32015,9 +32048,6 @@
             0.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnvironmentDiffuseScale": {
           "Float32": 0.0
         },
@@ -32064,6 +32094,9 @@
         },
         "Quality": {
           "Enum": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ShadowSoftness": {
           "Float32": 0.5
@@ -32172,9 +32205,6 @@
         "Color": {
           "BrickColor": 23
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -32191,6 +32221,9 @@
           "Float32": null
         },
         "ReactionForceEnabled": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SourceAssetId": {
@@ -32288,14 +32321,14 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "Length": {
           "Float32": 5.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SizeRelativeOffset": {
           "Vector3": [
@@ -32515,9 +32548,6 @@
         "Color": {
           "BrickColor": 26
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -32571,6 +32601,9 @@
         },
         "RelativeTo": {
           "Enum": 2
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SecondaryTangentAxis": {
           "Vector3": [
@@ -32696,9 +32729,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Disabled": {
           "Bool": false
         },
@@ -32710,6 +32740,9 @@
         },
         "RunContext": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScriptGuid": {
           "String": ""
@@ -32928,11 +32961,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -33043,11 +33076,11 @@
         "Contents": {
           "String": "[]"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -33182,11 +33215,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -33452,11 +33485,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -33559,14 +33592,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -33668,14 +33701,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -33736,11 +33769,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -34591,9 +34624,6 @@
         "CrackedLavaName": {
           "String": "CrackedLava"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DiamondPlateName": {
           "String": "DiamondPlate"
         },
@@ -34665,6 +34695,9 @@
         },
         "SandName": {
           "String": "Sand"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SandstoneName": {
           "String": "Sandstone"
@@ -34877,9 +34910,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -34894,6 +34924,9 @@
         },
         "RoughnessMap": {
           "Content": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -35030,11 +35063,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -35712,9 +35745,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DoubleSided": {
           "Bool": false
         },
@@ -35846,6 +35876,9 @@
             0.0
           ]
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "Size": {
           "Vector3": [
             4.0,
@@ -35947,11 +35980,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -36217,9 +36250,6 @@
         "ContinueExecution": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -36233,6 +36263,9 @@
           "String": ""
         },
         "RemoveOnHit": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "Script": {
@@ -36287,11 +36320,11 @@
         "ContextDataInternal": {
           "String": "0 1 2 "
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -36526,9 +36559,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -36575,6 +36605,9 @@
           "Enum": 0
         },
         "NeedsPivotMigration": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "Scale": {
@@ -36655,14 +36688,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "LinkedSource": {
           "Content": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScriptGuid": {
           "String": ""
@@ -36806,9 +36839,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DesiredAngle": {
           "Float32": 0.0
         },
@@ -36820,6 +36850,9 @@
         },
         "MaxVelocity": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -36982,9 +37015,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DesiredAngle": {
           "Float32": 0.0
         },
@@ -36996,6 +37026,9 @@
         },
         "MaxVelocity": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -37025,9 +37058,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FaceId": {
           "Enum": 0
         },
@@ -37039,6 +37069,9 @@
         },
         "LeftRight": {
           "Enum": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -37446,9 +37479,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -37569,6 +37599,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector3": [
@@ -37986,14 +38019,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -38069,11 +38102,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -38201,9 +38234,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EasingDirection": {
           "Enum": 0
         },
@@ -38212,6 +38242,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -38259,11 +38292,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -38352,11 +38385,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -38429,11 +38462,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -38461,11 +38494,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -38962,14 +38995,14 @@
             1.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "PantsTemplate": {
           "Content": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -39080,11 +39113,11 @@
             0.95294124
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -39251,9 +39284,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -39349,6 +39379,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Shape": {
           "Enum": 1
@@ -39788,9 +39821,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -39911,6 +39941,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector3": [
@@ -40034,14 +40067,14 @@
         "ChildData": {
           "BinaryString": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "MeshData": {
           "BinaryString": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -40563,9 +40596,6 @@
             ]
           }
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Drag": {
           "Float32": 0.0
         },
@@ -40628,6 +40658,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Shape": {
           "Enum": 0
@@ -40980,14 +41013,14 @@
             0.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "PropertiesSerialize": {
           "BinaryString": "AAAAAA=="
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -41080,9 +41113,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -41091,6 +41121,9 @@
         },
         "Label": {
           "String": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -41145,9 +41178,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -41155,6 +41185,9 @@
           "String": ""
         },
         "PassThrough": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SourceAssetId": {
@@ -41372,11 +41405,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -41407,11 +41440,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -42101,9 +42134,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -42115,6 +42145,9 @@
         },
         "Priority": {
           "Int32": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -42189,14 +42222,14 @@
         "Color": {
           "BrickColor": 194
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -42230,14 +42263,14 @@
         "Color": {
           "BrickColor": 194
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -43316,9 +43349,6 @@
         "CustomPoliciesEnabled": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EmulatedCountryCode": {
           "String": ""
         },
@@ -43332,6 +43362,9 @@
           "Bool": false
         },
         "PseudolocalizationEnabled": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SerializedEmulatedPolicyInfo": {
@@ -43758,9 +43791,6 @@
         "CharacterAutoLoads": {
           "Bool": true
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -43772,6 +43802,9 @@
         },
         "RespawnTime": {
           "Float32": 5.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -44080,14 +44113,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "Manifest": {
           "String": "{\"Metadata\":{\"TargetDataModels\": [\"Edit\", \"Server\", \"Client\"]},\"Permissions\":{}}"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -44535,9 +44568,6 @@
             1.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -44546,6 +44576,9 @@
         },
         "Range": {
           "Float32": 8.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Shadows": {
           "Bool": false
@@ -44705,9 +44738,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EasingDirection": {
           "Enum": 0
         },
@@ -44716,6 +44746,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -44844,9 +44877,6 @@
         "Color": {
           "BrickColor": 1009
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -44870,6 +44900,9 @@
         },
         "Restitution": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ServoMaxForce": {
           "Float32": 0.0
@@ -44924,11 +44957,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -45148,9 +45181,6 @@
         "ClickablePrompt": {
           "Bool": true
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -45177,6 +45207,9 @@
         },
         "RequiresLineOfSight": {
           "Bool": true
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -45243,9 +45276,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -45254,6 +45284,9 @@
         },
         "MaxPromptsVisible": {
           "Int32": 16
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -45437,11 +45470,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -45503,11 +45536,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -45535,11 +45568,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -45648,9 +45681,6 @@
         "Constraint": {
           "String": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Deprecated": {
           "Bool": false
         },
@@ -45683,6 +45713,9 @@
         },
         "PropertyOrder": {
           "Int32": 5000
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScriptContext": {
           "String": ""
@@ -45731,11 +45764,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -45775,9 +45808,6 @@
         "Constraint": {
           "String": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Deprecated": {
           "Bool": false
         },
@@ -45798,6 +45828,9 @@
         },
         "PropertyOrder": {
           "Int32": 5000
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScriptContext": {
           "String": ""
@@ -45855,9 +45888,6 @@
         "Constraint": {
           "String": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Deprecated": {
           "Bool": false
         },
@@ -45878,6 +45908,9 @@
         },
         "PropertyOrder": {
           "Int32": 5000
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScriptContext": {
           "String": ""
@@ -45923,11 +45956,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -45955,11 +45988,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -45987,11 +46020,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -46259,9 +46292,6 @@
         "Constraint": {
           "String": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Deprecated": {
           "Bool": false
         },
@@ -46282,6 +46312,9 @@
         },
         "PropertyOrder": {
           "Int32": 5000
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScriptContext": {
           "String": ""
@@ -46327,11 +46360,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -46359,11 +46392,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -46453,11 +46486,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -46485,11 +46518,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -46974,9 +47007,6 @@
         "ComparisonPsnrThreshold": {
           "Float32": 50.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Description": {
           "String": ""
         },
@@ -46997,6 +47027,9 @@
         },
         "RenderingTestFrameCount": {
           "Int32": 120
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ShouldSkip": {
           "Bool": false
@@ -47036,11 +47069,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -47071,11 +47104,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -47172,9 +47205,6 @@
         "DecayTime": {
           "Float32": 1.5
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Density": {
           "Float32": 1.0
         },
@@ -47192,6 +47222,9 @@
         },
         "Priority": {
           "Int32": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -47246,14 +47279,14 @@
         "Color": {
           "BrickColor": 194
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -47266,142 +47299,6 @@
         },
         "Visible": {
           "Bool": false
-        }
-      }
-    },
-    "RobloxEditableImage": {
-      "Name": "RobloxEditableImage",
-      "Tags": [],
-      "Superclass": "EditableImage",
-      "Properties": {
-        "ImageDataSerialize": {
-          "Name": "ImageDataSerialize",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "BinaryString"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated",
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {
-        "Archivable": {
-          "Bool": true
-        },
-        "Attributes": {
-          "Attributes": {}
-        },
-        "Capabilities": {
-          "SecurityCapabilities": 0
-        },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
-        "HistoryId": {
-          "UniqueId": "00000000000000000000000000000000"
-        },
-        "ImageDataSerialize": {
-          "BinaryString": ""
-        },
-        "Size": {
-          "Vector2": [
-            512.0,
-            512.0
-          ]
-        },
-        "SourceAssetId": {
-          "Int64": -1
-        },
-        "Tags": {
-          "Tags": []
-        },
-        "UniqueId": {
-          "UniqueId": "00000000000000000000000000000000"
-        }
-      }
-    },
-    "RobloxEditableMesh": {
-      "Name": "RobloxEditableMesh",
-      "Tags": [],
-      "Superclass": "EditableMesh",
-      "Properties": {
-        "MeshDataSerialize": {
-          "Name": "MeshDataSerialize",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "BinaryString"
-          },
-          "Tags": [
-            "Hidden",
-            "NotReplicated",
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
-      "DefaultProperties": {
-        "Archivable": {
-          "Bool": true
-        },
-        "Attributes": {
-          "Attributes": {}
-        },
-        "Capabilities": {
-          "SecurityCapabilities": 0
-        },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
-        "HistoryId": {
-          "UniqueId": "00000000000000000000000000000000"
-        },
-        "MeshDataSerialize": {
-          "BinaryString": ""
-        },
-        "Offset": {
-          "Vector3": [
-            0.0,
-            0.0,
-            0.0
-          ]
-        },
-        "Scale": {
-          "Vector3": [
-            1.0,
-            1.0,
-            1.0
-          ]
-        },
-        "SkinningEnabled": {
-          "Bool": false
-        },
-        "SourceAssetId": {
-          "Int64": -1
-        },
-        "Tags": {
-          "Tags": []
-        },
-        "UniqueId": {
-          "UniqueId": "00000000000000000000000000000000"
-        },
-        "VertexColor": {
-          "Vector3": [
-            1.0,
-            1.0,
-            1.0
-          ]
         }
       }
     },
@@ -47441,6 +47338,58 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "RobloxSerializableInstance": {
+      "Name": "RobloxSerializableInstance",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "Data": {
+          "Name": "Data",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "BinaryString"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Capabilities": {
+          "SecurityCapabilities": 0
+        },
+        "Data": {
+          "BinaryString": ""
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -47648,9 +47597,6 @@
         "CartoonFactor": {
           "Float32": 0.7
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -47666,6 +47612,9 @@
             400000.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -47800,9 +47749,6 @@
         "Color": {
           "BrickColor": 26
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -47821,6 +47767,9 @@
         "LimitsEnabled": {
           "Bool": false
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -47835,6 +47784,26 @@
         },
         "Visible": {
           "Bool": false
+        }
+      }
+    },
+    "RomarkRbxAnalyticsService": {
+      "Name": "RomarkRbxAnalyticsService",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
         }
       }
     },
@@ -48349,9 +48318,6 @@
         "Color": {
           "BrickColor": 25
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -48363,6 +48329,9 @@
         },
         "Restitution": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -48465,14 +48434,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -48557,14 +48526,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -48649,14 +48618,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -48717,11 +48686,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -49030,9 +48999,6 @@
         "ClipToDeviceSafeArea": {
           "Bool": true
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DisplayOrder": {
           "Int32": 0
         },
@@ -49047,6 +49013,9 @@
         },
         "SafeAreaCompatibility": {
           "Enum": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScreenInsets": {
           "Enum": 2
@@ -49269,9 +49238,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Disabled": {
           "Bool": false
         },
@@ -49283,6 +49249,9 @@
         },
         "RunContext": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScriptGuid": {
           "String": ""
@@ -49678,11 +49647,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -50070,9 +50039,6 @@
         "ClipsDescendants": {
           "Bool": true
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -50108,6 +50074,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScrollBarImageColor3": {
           "Color3": [
@@ -50316,9 +50285,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Disabled": {
           "Bool": false
         },
@@ -50417,6 +50383,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Shape": {
           "Enum": 1
@@ -50580,11 +50549,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -50691,14 +50660,14 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "LineThickness": {
           "Float32": 0.15
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -50821,11 +50790,11 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -50882,9 +50851,6 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -50894,6 +50860,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -50978,11 +50947,11 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -51100,13 +51069,13 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "LoadStringEnabled": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "SourceAssetId": {
@@ -51139,11 +51108,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -51221,14 +51190,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HiddenServices": {
           "BinaryString": "AAAAAA=="
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -51321,11 +51290,11 @@
             1.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ShirtTemplate": {
           "Content": ""
@@ -51390,14 +51359,14 @@
             1.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Graphic": {
           "Content": ""
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -51479,11 +51448,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -51682,9 +51651,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -51781,6 +51747,9 @@
             0.0
           ]
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "Shape": {
           "Enum": 1
         },
@@ -51864,11 +51833,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SkinColor": {
           "BrickColor": 226
@@ -52059,9 +52028,6 @@
         "CelestialBodiesShown": {
           "Bool": true
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -52070,6 +52036,9 @@
         },
         "MoonTextureId": {
           "Content": "rbxasset://sky/moon.jpg"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SkyboxBk": {
           "Content": "rbxasset://textures/sky/sky512_bk.tex"
@@ -52506,9 +52475,6 @@
             1.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -52520,6 +52486,9 @@
         },
         "RiseVelocity": {
           "Float32": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Float32": 1.0
@@ -52628,14 +52597,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -53012,9 +52981,7 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [
-            "NotReplicated"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": {
@@ -53029,9 +52996,7 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [
-            "NotReplicated"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": {
@@ -53219,9 +53184,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -53260,6 +53222,9 @@
         },
         "RollOffMode": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SoundId": {
           "Content": ""
@@ -53356,11 +53321,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -53494,9 +53459,6 @@
         "DefaultListenerLocation": {
           "Enum": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DistanceFactor": {
           "Float32": 3.33
         },
@@ -53511,6 +53473,9 @@
         },
         "RolloffScale": {
           "Float32": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -53613,14 +53578,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -53808,9 +53773,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Duration": {
           "Int32": 10
         },
@@ -53916,6 +53878,9 @@
             0.0
           ]
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "Shape": {
           "Enum": 1
         },
@@ -54011,9 +53976,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -54029,6 +53991,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Scale": {
           "Vector3": [
@@ -54126,14 +54091,14 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "Radius": {
           "Float32": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SizeRelativeOffset": {
           "Vector3": [
@@ -54230,9 +54195,6 @@
             1.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -54244,6 +54206,9 @@
         },
         "Range": {
           "Float32": 16.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Shadows": {
           "Bool": false
@@ -54430,9 +54395,6 @@
         "Damping": {
           "Float32": 0.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -54456,6 +54418,9 @@
         },
         "Radius": {
           "Float32": 0.4
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -54666,11 +54631,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -54741,11 +54706,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -54773,11 +54738,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -54896,9 +54861,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -54907,6 +54869,9 @@
         },
         "RtlTextSupport": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScreenOrientation": {
           "Enum": 2
@@ -54946,11 +54911,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -55643,9 +55608,6 @@
         "CharacterWalkSpeed": {
           "Float32": 16.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DevCameraOcclusionMode": {
           "Enum": 0
         },
@@ -55751,6 +55713,9 @@
         "NameDisplayDistance": {
           "Float32": 100.0
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -55782,11 +55747,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -56132,11 +56097,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -58520,14 +58485,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableScriptCollabByDefaultOnLoad": {
           "Bool": false
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -59135,14 +59100,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "Index": {
           "Int32": -1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -59184,11 +59149,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -59291,9 +59256,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -59302,6 +59264,9 @@
         },
         "PropertiesSerialize": {
           "BinaryString": "AAAAAA=="
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Selector": {
           "String": ""
@@ -59332,11 +59297,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -59412,9 +59377,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -59423,6 +59385,9 @@
         },
         "Intensity": {
           "Float32": 0.25
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -59558,9 +59523,6 @@
         "ColorMap": {
           "Content": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -59572,6 +59534,9 @@
         },
         "RoughnessMap": {
           "Content": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -59784,9 +59749,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -59807,6 +59769,9 @@
         },
         "ResetOnSpawn": {
           "Bool": true
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SelectionBehaviorDown": {
           "Enum": 0
@@ -59973,9 +59938,6 @@
             1.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -59987,6 +59949,9 @@
         },
         "Range": {
           "Float32": 16.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Shadows": {
           "Bool": false
@@ -60038,11 +60003,11 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -60151,9 +60116,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -60171,6 +60133,9 @@
         },
         "RollSpeedFactor": {
           "Float32": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -60445,11 +60410,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -60561,11 +60526,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -60685,14 +60650,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "ReservedServerAccessCode": {
           "String": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ServerInstanceId": {
           "String": ""
@@ -60746,11 +60711,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -61203,9 +61168,6 @@
         "Decoration": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -61414,6 +61376,9 @@
             0.0
           ]
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "ShorelinesUpgraded": {
           "Bool": false
         },
@@ -61608,9 +61573,6 @@
         "ColorMap": {
           "Content": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Face": {
           "Enum": 1
         },
@@ -61628,6 +61590,9 @@
         },
         "RoughnessMap": {
           "Content": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -61762,9 +61727,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "ExtentsMax": {
           "Vector3int16": [
             0,
@@ -61781,6 +61743,9 @@
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SmoothGrid": {
           "BinaryString": "AQU="
@@ -61982,9 +61947,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Description": {
           "String": ""
         },
@@ -62005,6 +61967,9 @@
         },
         "NumberOfPlayers": {
           "Int32": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SimulateSecondsLag": {
           "Float64": 0.0
@@ -62655,9 +62620,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -62723,6 +62685,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Selectable": {
           "Bool": true
@@ -63328,9 +63293,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -63386,6 +63348,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Selectable": {
           "Bool": true
@@ -63505,11 +63470,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -63593,9 +63558,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -63604,6 +63566,9 @@
         },
         "PrimaryAlias": {
           "String": ""
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SecondaryAlias": {
           "String": ""
@@ -63844,11 +63809,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -63981,11 +63946,11 @@
         "CreateDefaultTextChannels": {
           "Bool": true
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -64549,9 +64514,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -64604,6 +64566,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Selectable": {
           "Bool": false
@@ -64863,9 +64828,6 @@
             1.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Face": {
           "Enum": 5
         },
@@ -64877,6 +64839,9 @@
         },
         "OffsetStudsV": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -65093,11 +65058,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -65292,9 +65257,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -65378,6 +65340,9 @@
         "RequiresHandle": {
           "Bool": true
         },
+        "Sandboxed": {
+          "Bool": false
+        },
         "Scale": {
           "Float32": 1.0
         },
@@ -65446,9 +65411,6 @@
         "Color": {
           "BrickColor": 23
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -65457,6 +65419,9 @@
         },
         "RelativeTo": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -65640,9 +65605,6 @@
         "Damping": {
           "Float32": 0.01
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -65666,6 +65628,9 @@
         },
         "Restitution": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -65721,11 +65686,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -66136,9 +66101,6 @@
             ]
           }
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -66162,6 +66124,9 @@
         },
         "MinLength": {
           "Float32": 0.1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -66307,9 +66272,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Depth": {
           "Float32": 1.0
         },
@@ -66327,6 +66289,9 @@
         },
         "Priority": {
           "Int32": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -66641,9 +66606,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -66736,6 +66698,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector3": [
@@ -66833,11 +66798,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -66905,11 +66870,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -66940,11 +66905,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -67039,14 +67004,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DominantAxis": {
           "Enum": 0
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -67151,11 +67116,11 @@
             8
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -67455,9 +67420,6 @@
         "CursorIcon": {
           "Content": ""
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DragAxis": {
           "Vector2": [
             1.0,
@@ -67526,6 +67488,9 @@
         },
         "ResponseStyle": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SelectionModeDragSpeed": {
           "UDim2": [
@@ -67645,9 +67610,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FlexMode": {
           "Enum": 0
         },
@@ -67659,6 +67621,9 @@
         },
         "ItemLineAlignment": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ShrinkRatio": {
           "Float32": 0.0
@@ -67777,9 +67742,6 @@
             ]
           }
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -67794,6 +67756,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -67946,9 +67911,6 @@
             ]
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FillDirection": {
           "Enum": 0
         },
@@ -67960,6 +67922,9 @@
         },
         "HorizontalAlignment": {
           "Enum": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SortOrder": {
           "Enum": 0
@@ -68202,9 +68167,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FillDirection": {
           "Enum": 1
         },
@@ -68225,6 +68187,9 @@
             0.0,
             0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SortOrder": {
           "Enum": 0
@@ -68317,9 +68282,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -68346,6 +68308,9 @@
             0.0,
             0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -68513,9 +68478,6 @@
         "Circular": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EasingDirection": {
           "Enum": 1
         },
@@ -68539,6 +68501,9 @@
             0.0,
             0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ScrollWheelInputEnabled": {
           "Bool": true
@@ -68595,11 +68560,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Scale": {
           "Float32": 1.0
@@ -68657,9 +68622,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -68674,6 +68636,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -68790,9 +68755,6 @@
             0.0
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -68801,6 +68763,9 @@
         },
         "LineJoinMode": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -68887,9 +68852,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FillDirection": {
           "Enum": 1
         },
@@ -68919,6 +68881,9 @@
               0
             ]
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SortOrder": {
           "Enum": 0
@@ -68979,9 +68944,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -68990,6 +68952,9 @@
         },
         "MinTextSize": {
           "Int32": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -69109,9 +69074,6 @@
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
-        },
-        "DefinesCapabilities": {
-          "Bool": false
         },
         "EnableFluidForces": {
           "Bool": true
@@ -69233,6 +69195,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector3": [
@@ -69375,9 +69340,6 @@
         "Color": {
           "BrickColor": 1009
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -69395,6 +69357,9 @@
         },
         "Restitution": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -69425,11 +69390,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -69480,11 +69445,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -71239,9 +71204,6 @@
         "ControllerModels": {
           "Enum": 1
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "FadeOutViewOnCollision": {
           "Bool": true
         },
@@ -71250,6 +71212,9 @@
         },
         "LaserPointer": {
           "Enum": 1
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -71316,11 +71281,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -71362,11 +71327,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -71447,9 +71412,6 @@
         "Color": {
           "BrickColor": 23
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -71465,6 +71427,9 @@
         },
         "RelativeTo": {
           "Enum": 0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -71495,11 +71460,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -71762,9 +71727,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Disabled": {
           "Bool": false
         },
@@ -71866,6 +71828,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector3": [
@@ -72048,9 +72013,6 @@
         "CurrentAngle": {
           "Float32": 0.0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DesiredAngle": {
           "Float32": 0.0
         },
@@ -72062,6 +72024,9 @@
         },
         "MaxVelocity": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -72177,11 +72142,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -72475,9 +72440,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -72510,6 +72472,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Selectable": {
           "Bool": false
@@ -72591,11 +72556,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -72829,9 +72794,6 @@
         "ClipsDescendants": {
           "Bool": false
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Draggable": {
           "Bool": false
         },
@@ -72882,6 +72844,9 @@
         },
         "Rotation": {
           "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Selectable": {
           "Bool": false
@@ -72970,11 +72935,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -73104,14 +73069,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": false
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -73172,14 +73137,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": false
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -73253,11 +73218,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -73405,14 +73370,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableDefaultVoice": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -73425,6 +73390,27 @@
         },
         "UseAudioApi": {
           "Enum": 1
+        }
+      }
+    },
+    "WebViewService": {
+      "Name": "WebViewService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
         }
       }
     },
@@ -73524,9 +73510,6 @@
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "EnableFluidForces": {
           "Bool": true
         },
@@ -73622,6 +73605,9 @@
             0.0,
             0.0
           ]
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Size": {
           "Vector3": [
@@ -73730,14 +73716,14 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -73938,11 +73924,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -74042,11 +74028,11 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -74133,11 +74119,11 @@
             0.6745098
           ]
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "Scale": {
           "Vector3": [
@@ -74645,6 +74631,21 @@
             }
           }
         },
+        "SandboxedInstanceMode": {
+          "Name": "SandboxedInstanceMode",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "SandboxedInstanceMode"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "SignalBehavior": {
           "Name": "SignalBehavior",
           "Scriptability": "None",
@@ -74848,9 +74849,6 @@
         "DecreaseMinimumPartDensityMode": {
           "Enum": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "DistributedGameTime": {
           "Float64": 0.0
         },
@@ -74957,6 +74955,12 @@
         "Retargeting": {
           "Enum": 0
         },
+        "Sandboxed": {
+          "Bool": false
+        },
+        "SandboxedInstanceMode": {
+          "Enum": 0
+        },
         "Scale": {
           "Float32": 1.0
         },
@@ -75061,9 +75065,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -75110,6 +75111,9 @@
           "Enum": 0
         },
         "NeedsPivotMigration": {
+          "Bool": false
+        },
+        "Sandboxed": {
           "Bool": false
         },
         "Scale": {
@@ -75197,9 +75201,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HSRAssetId": {
           "Content": ""
         },
@@ -75237,6 +75238,9 @@
               ]
             ]
           }
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -75494,9 +75498,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "Enabled": {
           "Bool": true
         },
@@ -75572,6 +75573,9 @@
               ]
             ]
           }
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "ShrinkFactor": {
           "Float32": 0.0
@@ -75683,9 +75687,6 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "DefinesCapabilities": {
-          "Bool": false
-        },
         "HSRAssetId": {
           "Content": ""
         },
@@ -75723,6 +75724,9 @@
               ]
             ]
           }
+        },
+        "Sandboxed": {
+          "Bool": false
         },
         "SourceAssetId": {
           "Int64": -1
@@ -75842,7 +75846,9 @@
         "CloseButtonClicked": 5,
         "FullscreenButtonClicked": 2,
         "PauseButtonClicked": 4,
+        "PauseEventTriggered": 8,
         "PlayButtonClicked": 3,
+        "PlayEventTriggered": 7,
         "VolumeButtonClicked": 1,
         "WhyThisAdClicked": 6
       }
@@ -76723,13 +76729,15 @@
         "ClientServerBoundaryViolation": 9,
         "CommandLinePermissions": 4,
         "Deprecated": 1,
+        "ElideLeftOverride": 12,
         "IncorrectIndexType": 2,
         "Invalidated": 10,
         "PluginPermissions": 3,
         "PutCursorBeforeEnd": 11,
         "PutCursorInParens": 7,
         "RobloxPermissions": 5,
-        "TypeCorrect": 8
+        "TypeCorrect": 8,
+        "UseTextEditForAutocompleteScore": 13
       }
     },
     "CompletionTriggerKind": {
@@ -77600,11 +77608,11 @@
     "HapticEffectType": {
       "name": "HapticEffectType",
       "items": {
-        "GameplayCollision": 4,
-        "GameplayExplosion": 3,
-        "UIClick": 1,
-        "UIHover": 0,
-        "UINotification": 2
+        "GameplayCollision": 5,
+        "GameplayExplosion": 4,
+        "UIClick": 2,
+        "UIHover": 1,
+        "UINotification": 3
       }
     },
     "HighlightDepthMode": {
@@ -79240,6 +79248,13 @@
         "All": 1,
         "Collectibles": 2,
         "Premium": 3
+      }
+    },
+    "SandboxedInstanceMode": {
+      "name": "SandboxedInstanceMode",
+      "items": {
+        "Default": 0,
+        "Experimental": 1
       }
     },
     "SaveAvatarThumbnailCustomizationFailure": {
