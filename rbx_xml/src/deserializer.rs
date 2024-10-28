@@ -1,5 +1,5 @@
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{hash_map::Entry, HashMap, HashSet},
     io::Read,
 };
 
@@ -518,8 +518,7 @@ fn deserialize_properties<R: Read>(
         .tree
         .get_by_ref(instance_id)
         .expect("Couldn't find instance to deserialize properties into")
-        .class
-        .clone();
+        .class;
 
     log::trace!(
         "Deserializing properties for instance {:?}, whose ClassName is {}",
@@ -633,13 +632,13 @@ fn deserialize_properties<R: Read>(
                     let new_property_name = &migration.new_property_name;
                     let old_property_name = &descriptor.name;
 
-                    if !props.contains_key(&new_property_name.into()) {
+                    if let Entry::Vacant(entry) = props.entry(new_property_name.into()) {
                         log::trace!(
                             "Attempting to migrate property {old_property_name} to {new_property_name}"
                         );
                         match migration.perform(&value) {
                             Ok(migrated_value) => {
-                                props.insert(new_property_name.into(), migrated_value);
+                                entry.insert(migrated_value);
                                 log::trace!(
                                     "Successfully migrated property {old_property_name} to {new_property_name}"
                                 );

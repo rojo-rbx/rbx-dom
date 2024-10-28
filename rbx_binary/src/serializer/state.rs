@@ -641,14 +641,14 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
                         // Most properties will be stored on instances using the
                         // property's canonical name, so we'll try that first.
-                        if let Some(property) = instance.properties.get(&((*prop_name).into())) {
+                        if let Some(property) = instance.properties.get(prop_name) {
                             return Cow::Borrowed(property);
                         }
 
                         // If there were any known aliases for this property
                         // used as part of this file, we can check those next.
                         for alias in &prop_info.aliases {
-                            if let Some(property) = instance.properties.get(&((*alias).into())) {
+                            if let Some(property) = instance.properties.get(alias) {
                                 return Cow::Borrowed(property);
                             }
                         }

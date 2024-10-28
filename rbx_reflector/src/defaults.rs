@@ -37,7 +37,7 @@ pub fn apply_defaults(
             continue;
         }
 
-        found_classes.insert(instance.class.clone());
+        found_classes.insert(instance.class);
 
         apply_instance_defaults(database, instance);
     }
