@@ -30,6 +30,16 @@ pub fn de_modulescripts_100_lines_100(c: &mut Criterion) {
     });
 }
 
+pub fn de_parts_10000(c: &mut Criterion) {
+    static BUFFER: &[u8] = include_bytes!("../bench-files/parts-10000.rbxm");
+
+    c.bench_function("Deserialize 10,000 Parts", |b| {
+        b.iter(|| {
+            deserialize_bench(BUFFER);
+        });
+    });
+}
+
 #[inline(always)]
 fn deserialize_bench(buffer: &[u8]) {
     rbx_binary::from_reader(buffer).unwrap();
@@ -39,6 +49,7 @@ criterion_group!(
     deserializer,
     de_folders_100,
     de_deep_folders_100,
-    de_modulescripts_100_lines_100
+    de_modulescripts_100_lines_100,
+    de_parts_10000
 );
 criterion_main!(deserializer);
