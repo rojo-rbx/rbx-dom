@@ -1,6 +1,7 @@
 use lazy_static::lazy_static;
 use rand::{thread_rng, Rng};
 use thiserror::Error;
+use tsify::Tsify;
 
 use std::{
     convert::TryFrom,
@@ -38,7 +39,7 @@ pub(crate) enum UniqueIdError {
 }
 
 /// Represents a UUID with a custom epoch of midnight January 1st 2021.
-#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
+#[derive(Tsify, Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub struct UniqueId {
     index: u32,
     time: u32,

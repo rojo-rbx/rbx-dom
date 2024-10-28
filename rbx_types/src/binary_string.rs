@@ -1,9 +1,11 @@
+use tsify::Tsify;
+
 /// Container for untyped binary data.
 ///
 /// `BinaryString` is used in cases where the type of the underlying data is
 /// unknown or unimplemented. Where possible, stronger types that interpret the
 /// underlying bytes should be preferred.
-#[derive(Debug, Clone, Default, PartialEq, Eq, Hash)]
+#[derive(Tsify, Debug, Clone, Default, PartialEq, Eq, Hash)]
 pub struct BinaryString {
     buffer: Vec<u8>,
 }

@@ -15,5 +15,8 @@ rbx_types = { version = "1.10.0", path = "../rbx_types", features = ["serde"] }
 
 serde = "1.0.137"
 
+tsify = "0.4.5"
+wasm-bindgen = "0.2.84"
+
 [dev-dependencies]
 insta = { version = "1.14.1", features = ["yaml"] }

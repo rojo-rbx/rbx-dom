@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
 	"rbx_binary",
+	"rbx_binary_wasm",
 	"rbx_dom_weak",
 	"rbx_reflector",
 	"rbx_reflection",

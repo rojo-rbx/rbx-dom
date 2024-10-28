@@ -1,0 +1,24 @@
+[package]
+name = "rbx-binary"
+version = "0.1.0"
+edition = "2018"
+description = "WebAssembly build of rbx_binary for decoding and encoding binary Roblox files."
+repository = "https://github.com/rojo-rbx/rbx-dom"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["console_error_panic_hook"]
+
+[dependencies]
+serde-wasm-bindgen = "0.4"
+tsify = "0.4.5"
+wasm-bindgen = "0.2.84"
+
+rbx_dom_weak = { version = "2.9.0", path = "../rbx_dom_weak" }
+rbx_binary = { version = "0.7.7", path = "../rbx_binary" }
+
+getrandom = { version = "0.2", features = ["js"] }
+console_error_panic_hook = { version = "0.1.7", optional = true }
