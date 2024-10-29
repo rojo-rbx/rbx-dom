@@ -153,13 +153,13 @@ pub struct ParseState<'dom, 'db> {
 
 struct ReferentRewrite {
     id: Ref,
-    property_name: String,
+    property_name: Ustr,
     referent_value: String,
 }
 
 struct SharedStringRewrite {
     id: Ref,
-    property_name: String,
+    property_name: Ustr,
     shared_string_hash: String,
 }
 
@@ -199,7 +199,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     /// have a complete view of how referents map to Ref values.
     ///
     /// This is used to deserialize non-null Ref values correctly.
-    pub fn add_referent_rewrite(&mut self, id: Ref, property_name: String, referent_value: String) {
+    pub fn add_referent_rewrite(&mut self, id: Ref, property_name: Ustr, referent_value: String) {
         self.referent_rewrites.push(ReferentRewrite {
             id,
             property_name,
@@ -214,7 +214,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     pub fn add_shared_string_rewrite(
         &mut self,
         id: Ref,
-        property_name: String,
+        property_name: Ustr,
         shared_string_hash: String,
     ) {
         self.shared_string_rewrites.push(SharedStringRewrite {
