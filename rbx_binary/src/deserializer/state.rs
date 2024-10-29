@@ -216,12 +216,14 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         deserializer: &'db Deserializer<'db>,
         mut input: R,
     ) -> Result<Self, InnerError> {
-        let tree = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
         let header = FileHeader::decode(&mut input)?;
 
         let type_infos = HashMap::with_capacity(header.num_types as usize);
         let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
+
+        tree.reserve(header.num_instances as usize);
 
         Ok(DeserializerState {
             deserializer,
