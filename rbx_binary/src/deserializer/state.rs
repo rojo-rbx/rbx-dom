@@ -155,7 +155,7 @@ fn find_canonical_property<'de>(
             );
 
             Some(CanonicalProperty {
-                name: canonical_name.clone().into(),
+                name: canonical_name.as_ref().into(),
                 ty: canonical_type,
                 migration,
             })
