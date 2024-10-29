@@ -14,7 +14,7 @@
 //! pass in custom options.
 //!
 //! ```
-//! use rbx_dom_weak::{Ustr, types::Variant};
+//! use rbx_dom_weak::{ustr, types::Variant};
 //!
 //! let model_file = r#"
 //! <roblox version="4">
@@ -34,7 +34,7 @@
 //! let number_value = model.get_by_ref(number_value_ref).unwrap();
 //!
 //! assert_eq!(
-//!     number_value.properties.get(&Ustr::from("Value")),
+//!     number_value.properties.get(&ustr("Value")),
 //!     Some(&Variant::Float64(12345.0)),
 //! );
 //! # Ok::<(), Box<dyn std::error::Error>>(())
