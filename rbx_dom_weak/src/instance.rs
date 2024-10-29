@@ -1,6 +1,8 @@
 use rbx_types::{Ref, Variant};
 use ustr::{Ustr, UstrMap};
 
+use crate::UstrMapExt;
+
 /**
 Represents an instance that can be turned into a new
 [`WeakDom`][crate::WeakDom], or inserted into an existing one.
@@ -50,7 +52,7 @@ impl InstanceBuilder {
             referent: Ref::new(),
             name,
             class,
-            properties: UstrMap::default(),
+            properties: UstrMap::new(),
             children: Vec::new(),
         }
     }
@@ -61,7 +63,7 @@ impl InstanceBuilder {
             referent: Ref::new(),
             name: String::new(),
             class: Ustr::default(),
-            properties: UstrMap::default(),
+            properties: UstrMap::new(),
             children: Vec::new(),
         }
     }

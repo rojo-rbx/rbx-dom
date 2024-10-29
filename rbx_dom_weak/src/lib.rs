@@ -54,3 +54,23 @@ pub use crate::{
     instance::{Instance, InstanceBuilder},
     viewer::{DomViewer, ViewedInstance},
 };
+
+/// Helper trait that provides convenience methods for `UstrMap`.
+pub trait UstrMapExt {
+    /// Creates an empty `UstrMap` using the default value for its hasher.
+    fn new() -> Self;
+
+    /// Creates an empty `UstrMap` with at least the specified capacity using
+    /// the default value for its hasher.
+    fn with_capacity(capacity: usize) -> Self;
+}
+
+impl<V> UstrMapExt for UstrMap<V> {
+    fn new() -> Self {
+        UstrMap::default()
+    }
+
+    fn with_capacity(capacity: usize) -> Self {
+        UstrMap::with_capacity_and_hasher(capacity, Default::default())
+    }
+}
