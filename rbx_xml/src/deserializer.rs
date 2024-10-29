@@ -447,7 +447,15 @@ fn deserialize_instance<R: Read>(
 
     trace!("Class {} with referent {:?}", class_name, referent);
 
-    let builder = InstanceBuilder::new(class_name);
+    let prop_capacity = state
+        .options
+        .database
+        .classes
+        .get(class_name.as_str())
+        .and_then(|class| Some(class.default_properties.len()))
+        .unwrap_or(0);
+
+    let builder = InstanceBuilder::with_property_capacity(class_name, prop_capacity);
     let instance_id = state.tree.insert(parent_id, builder);
 
     if let Some(referent) = referent {

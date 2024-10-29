@@ -57,6 +57,21 @@ impl InstanceBuilder {
         }
     }
 
+    /// Create a new `InstanceBuilder` with the given ClassName and with a
+    /// property table with at least enough space for the given capacity.
+    pub fn with_property_capacity<S: Into<Ustr>>(class: S, capacity: usize) -> Self {
+        let class = class.into();
+        let name = class.to_string();
+
+        InstanceBuilder {
+            referent: Ref::new(),
+            name,
+            class,
+            properties: UstrMap::with_capacity(capacity),
+            children: Vec::new(),
+        }
+    }
+
     /// Create a new `InstanceBuilder` with all values set to empty.
     pub fn empty() -> Self {
         InstanceBuilder {

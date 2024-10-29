@@ -298,10 +298,21 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         // TODO: Check object_format and check for service markers if it's 1?
 
         for &referent in &referents {
+            let prop_capacity = self
+                .deserializer
+                .database
+                .classes
+                .get(type_name.as_str())
+                .and_then(|class| Some(class.default_properties.len()))
+                .unwrap_or(0);
+
             self.instances_by_ref.insert(
                 referent,
                 Instance {
-                    builder: InstanceBuilder::new(&type_name),
+                    builder: InstanceBuilder::with_property_capacity(
+                        type_name.as_str(),
+                        prop_capacity,
+                    ),
                     children: Vec::new(),
                 },
             );
