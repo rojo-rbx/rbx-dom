@@ -109,16 +109,13 @@ impl WeakDom {
     /// ## Panics
     /// Panics if `parent_ref` is some and does not refer to an instance in the DOM.
     pub fn insert(&mut self, parent_ref: Ref, root_builder: InstanceBuilder) -> Ref {
-        let root_referent = root_builder.referent;
-
-        // Rather than performing this movement recursively, we instead use a
-        // queue that we load the children of each `InstanceBuilder` into.
-        // Then we can just iter through that.
-        let mut queue = VecDeque::with_capacity(1);
-        queue.push_back((parent_ref, root_builder));
-
-        while let Some((parent, builder)) = queue.pop_front() {
-            self.inner_insert(
+        fn insert(
+            dom: &mut WeakDom,
+            builder: InstanceBuilder,
+            parent: Ref,
+            queue: Option<&mut VecDeque<(Ref, InstanceBuilder)>>,
+        ) {
+            dom.inner_insert(
                 builder.referent,
                 Instance {
                     referent: builder.referent,
@@ -131,15 +128,36 @@ impl WeakDom {
             );
 
             if parent.is_some() {
-                self.instances
+                dom.instances
                     .get_mut(&parent)
                     .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"))
                     .children
                     .push(builder.referent);
             }
 
-            for child in builder.children {
-                queue.push_back((builder.referent, child));
+            if let Some(queue) = queue {
+                for child in builder.children {
+                    queue.push_back((builder.referent, child));
+                }
+            }
+        }
+
+        let root_referent = root_builder.referent;
+
+        // Fast path: if the builder does not have any children, then we don't have to
+        // construct a queue to keep track of descendants for insertion, avoiding a heap
+        // allocation.
+        if root_builder.children.is_empty() {
+            insert(self, root_builder, parent_ref, None);
+        } else {
+            // Rather than performing this movement recursively, we instead use a
+            // queue that we load the children of each `InstanceBuilder` into.
+            // Then we can just iter through that.
+            let mut queue = VecDeque::with_capacity(1);
+            queue.push_back((parent_ref, root_builder));
+
+            while let Some((parent, builder)) = queue.pop_front() {
+                insert(self, builder, parent, Some(&mut queue));
             }
         }
 
