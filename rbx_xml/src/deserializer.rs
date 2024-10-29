@@ -452,7 +452,7 @@ fn deserialize_instance<R: Read>(
         .database
         .classes
         .get(class_name.as_str())
-        .and_then(|class| Some(class.default_properties.len()))
+        .map(|class| class.default_properties.len())
         .unwrap_or(0);
 
     let builder = InstanceBuilder::with_property_capacity(class_name, prop_capacity);

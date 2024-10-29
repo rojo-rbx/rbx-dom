@@ -303,7 +303,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 .database
                 .classes
                 .get(type_name.as_str())
-                .and_then(|class| Some(class.default_properties.len()))
+                .map(|class| class.default_properties.len())
                 .unwrap_or(0);
 
             self.instances_by_ref.insert(
