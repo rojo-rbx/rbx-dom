@@ -51,11 +51,11 @@ pub fn add_property<K: Into<Ustr>, V: Into<Variant>>(&mut self, key: K, value: V
 ```
 * Changed the signature of `InstanceBuilder::has_property` from
 ```rust
-pub fn has_property<K: Into<String>>(&mut self, key: K) -> bool
+pub fn has_property<K: Into<String>>(&self, key: K) -> bool
 ```
 to
 ```rust
-pub fn has_property<K: Into<Ustr>>(&mut self, key: K) -> bool
+pub fn has_property<K: Into<Ustr>>(&self, key: K) -> bool
 ```
 * Changed the signature of `InstanceBuilder::with_properties` from
 ```rust
