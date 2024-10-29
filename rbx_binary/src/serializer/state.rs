@@ -177,8 +177,8 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(&mut self, class: &Ustr) -> &mut TypeInfo<'dom, 'db> {
-        if !self.values.contains_key(class) {
+    fn get_or_create(&mut self, class: Ustr) -> &mut TypeInfo<'dom, 'db> {
+        if !self.values.contains_key(&class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
@@ -212,7 +212,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
             );
 
             self.values.insert(
-                *class,
+                class,
                 TypeInfo {
                     type_id,
                     is_service,
@@ -226,7 +226,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 
         // This unwrap will not panic because we always insert this key into
         // type_infos in this function.
-        self.values.get_mut(class).unwrap()
+        self.values.get_mut(&class).unwrap()
     }
 }
 
@@ -318,7 +318,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     #[allow(clippy::map_entry)]
     #[profiling::function]
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
-        let type_info = self.type_infos.get_or_create(&instance.class);
+        let type_info = self.type_infos.get_or_create(instance.class);
         type_info.instances.push(instance);
 
         for (prop_name, prop_value) in &instance.properties {
