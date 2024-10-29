@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
+    collections::{btree_map, BTreeMap, BTreeSet, HashMap, HashSet},
     convert::TryInto,
     io::Write,
 };
@@ -178,7 +178,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
     fn get_or_create(&mut self, class: Ustr) -> &mut TypeInfo<'dom, 'db> {
-        if !self.values.contains_key(&class) {
+        if let btree_map::Entry::Vacant(entry) = self.values.entry(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
@@ -211,17 +211,14 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
                 },
             );
 
-            self.values.insert(
-                class,
-                TypeInfo {
-                    type_id,
-                    is_service,
-                    instances: Vec::new(),
-                    properties,
-                    class_descriptor,
-                    properties_visited: HashSet::new(),
-                },
-            );
+            entry.insert(TypeInfo {
+                type_id,
+                is_service,
+                instances: Vec::new(),
+                properties,
+                class_descriptor,
+                properties_visited: HashSet::new(),
+            });
         }
 
         // This unwrap will not panic because we always insert this key into
