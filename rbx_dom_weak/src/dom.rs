@@ -147,7 +147,7 @@ impl WeakDom {
         // Fast path: if the builder does not have any children, then we don't have to
         // construct a queue to keep track of descendants for insertion, avoiding a heap
         // allocation.
-        if root_builder.children.len() == 0 {
+        if root_builder.children.is_empty() {
             insert(self, root_builder, parent_ref, None);
         } else {
             // Rather than performing this movement recursively, we instead use a
