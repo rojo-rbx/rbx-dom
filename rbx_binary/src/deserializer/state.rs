@@ -13,7 +13,7 @@ use rbx_dom_weak::{
         PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
         UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
-    InstanceBuilder, WeakDom,
+    InstanceBuilder, Ustr, WeakDom,
 };
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
@@ -68,7 +68,7 @@ struct TypeInfo {
     type_id: u32,
 
     /// The common name for this type like `Folder` or `UserInputService`.
-    type_name: String,
+    type_name: Ustr,
 
     /// A list of the instances described by this file that are this type.
     referents: Vec<i32>,
@@ -92,7 +92,7 @@ struct Instance {
 /// others (like Font, which has been superceded by FontFace).
 #[derive(Debug)]
 struct CanonicalProperty<'db> {
-    name: &'db str,
+    name: Ustr,
     ty: VariantType,
     migration: Option<&'db PropertySerialization<'db>>,
 }
@@ -100,8 +100,8 @@ struct CanonicalProperty<'db> {
 fn find_canonical_property<'de>(
     database: &'de ReflectionDatabase,
     binary_type: Type,
-    class_name: &str,
-    prop_name: &'de str,
+    class_name: Ustr,
+    prop_name: Ustr,
 ) -> Option<CanonicalProperty<'de>> {
     match find_property_descriptors(database, class_name, prop_name) {
         Some(descriptors) => {
@@ -155,7 +155,7 @@ fn find_canonical_property<'de>(
             );
 
             Some(CanonicalProperty {
-                name: canonical_name,
+                name: canonical_name.as_ref().into(),
                 ty: canonical_type,
                 migration,
             })
@@ -311,7 +311,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             type_id,
             TypeInfo {
                 type_id,
-                type_name,
+                type_name: type_name.into(),
                 referents,
             },
         );
@@ -398,8 +398,8 @@ This may cause unexpected or broken behavior in your final results if you rely o
         let property = if let Some(property) = find_canonical_property(
             self.deserializer.database,
             binary_type,
-            &type_info.type_name,
-            &prop_name,
+            type_info.type_name,
+            prop_name.as_str().into(),
         ) {
             property
         } else {
@@ -452,7 +452,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
 
                         let value = Tags::decode(buffer.as_ref()).map_err(|_| {
                             InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "a list of valid null-delimited UTF-8 strings",
                                 actual_value: "invalid UTF-8".to_string(),
@@ -499,7 +499,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "String, Content, Tags, Attributes, or BinaryString",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -516,7 +516,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Bool",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -548,7 +548,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Int32",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -567,7 +567,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Float32",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -597,7 +597,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Float64",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -624,7 +624,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "UDim",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -663,7 +663,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "UDim2",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -695,7 +695,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Ray",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -709,7 +709,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                         let value = chunk.read_u8()?;
                         let faces =
                             Faces::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "less than 63",
                                 actual_value: value.to_string(),
@@ -720,7 +720,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Faces",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -735,7 +735,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
 
                         let axes =
                             Axes::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "less than 7",
                                 actual_value: value.to_string(),
@@ -746,7 +746,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Axes",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -765,7 +765,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                             .ok()
                             .and_then(BrickColor::from_number)
                             .ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "a valid BrickColor",
                                 actual_value: value.to_string(),
@@ -776,7 +776,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "BrickColor",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -806,7 +806,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Color3",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -830,7 +830,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Vector2",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -860,7 +860,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Vector3",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -896,7 +896,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name,
                                 id,
                             });
@@ -926,7 +926,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "CFrame",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -945,7 +945,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Enum",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -970,7 +970,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Ref",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -995,7 +995,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Vector3int16",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1033,7 +1033,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Font",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1060,7 +1060,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "NumberSequence",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1093,7 +1093,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "ColorSequence",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1113,7 +1113,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "NumberRange",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1146,7 +1146,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Rect",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1176,7 +1176,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "PhysicalProperties",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1207,7 +1207,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Color3",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1226,7 +1226,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Int64",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1242,7 +1242,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                         let shared_string =
                             self.shared_strings.get(value as usize).ok_or_else(|| {
                                 InnerError::InvalidPropData {
-                                    type_name: type_info.type_name.clone(),
+                                    type_name: type_info.type_name.to_string(),
                                     prop_name: prop_name.clone(),
                                     valid_value: "a valid SharedString",
                                     actual_value: format!("{:?}", value),
@@ -1256,7 +1256,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "SharedString",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1304,7 +1304,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name,
                                 id,
                             });
@@ -1352,7 +1352,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "OptionalCFrame",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1382,7 +1382,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "UniqueId",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1407,7 +1407,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "SecurityCapabilities",
                         actual_type_name: format!("{:?}", invalid_type),

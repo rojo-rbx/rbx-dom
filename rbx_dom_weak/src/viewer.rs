@@ -8,6 +8,7 @@ use crate::{
     WeakDom,
 };
 use serde::{Deserialize, Serialize};
+use ustr::Ustr;
 
 /// Contains state for viewing and redacting nondeterministic portions of
 /// WeakDom objects, making them suitable for usage in snapshot tests.
@@ -81,7 +82,6 @@ impl DomViewer {
             .properties
             .iter()
             .map(|(key, value)| {
-                let key = key.clone();
                 let new_value = match value {
                     Variant::Ref(referent) => {
                         if referent.is_some() {
@@ -111,14 +111,14 @@ impl DomViewer {
                     other => ViewedValue::Other(other.clone()),
                 };
 
-                (key, new_value)
+                (*key, new_value)
             })
             .collect();
 
         ViewedInstance {
             referent: self.referent_to_id.get(&referent).unwrap().clone(),
             name: instance.name.clone(),
-            class: instance.class.clone(),
+            class: instance.class,
             properties,
             children,
         }
@@ -137,8 +137,8 @@ impl Default for DomViewer {
 pub struct ViewedInstance {
     referent: String,
     name: String,
-    class: String,
-    properties: BTreeMap<String, ViewedValue>,
+    class: Ustr,
+    properties: BTreeMap<Ustr, ViewedValue>,
     children: Vec<ViewedInstance>,
 }
 

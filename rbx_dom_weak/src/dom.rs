@@ -1,6 +1,7 @@
 use std::collections::{HashMap, HashSet, VecDeque};
 
 use rbx_types::{Ref, UniqueId, Variant};
+use ustr::ustr;
 
 use crate::instance::{Instance, InstanceBuilder};
 
@@ -69,7 +70,7 @@ impl WeakDom {
     /// exists.
     pub fn get_unique_id(&self, referent: Ref) -> Option<UniqueId> {
         let inst = self.instances.get(&referent)?;
-        match inst.properties.get("UniqueId") {
+        match inst.properties.get(&ustr("UniqueId")) {
             Some(Variant::UniqueId(id)) => Some(*id),
             _ => None,
         }
@@ -350,7 +351,7 @@ impl WeakDom {
 
         // Unwrap is safe because we just inserted this referent into the instance map
         let instance = self.instances.get_mut(&referent).unwrap();
-        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get(&ustr("UniqueId")) {
             if self.unique_ids.contains(unique_id) {
                 // We found a collision! We need to replace the UniqueId property with
                 // a new value.
@@ -362,7 +363,7 @@ impl WeakDom {
                 self.unique_ids.insert(new_unique_id);
                 instance
                     .properties
-                    .insert("UniqueId".to_string(), Variant::UniqueId(new_unique_id));
+                    .insert(ustr("UniqueId"), Variant::UniqueId(new_unique_id));
             } else {
                 self.unique_ids.insert(*unique_id);
             };
@@ -375,7 +376,7 @@ impl WeakDom {
             .remove(&referent)
             .unwrap_or_else(|| panic!("cannot remove an instance that does not exist"));
 
-        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(unique_id)) = instance.properties.get(&ustr("UniqueId")) {
             self.unique_ids.remove(unique_id);
         }
 
@@ -474,7 +475,7 @@ impl CloneContext {
             .get_by_ref(original_ref)
             .expect("Cannot clone an instance that does not exist");
 
-        let builder = InstanceBuilder::new(instance.class.to_string())
+        let builder = InstanceBuilder::new(instance.class)
             .with_name(instance.name.to_string())
             .with_properties(instance.properties.clone());
 
@@ -698,7 +699,7 @@ mod test {
         );
 
         let child = dom.get_by_ref(child_ref).unwrap();
-        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get(&ustr("UniqueId")) {
             assert_ne!(
                 unique_id,
                 *actual_unique_id,
@@ -725,7 +726,7 @@ mod test {
         );
 
         let child = dom.get_by_ref(child_ref).unwrap();
-        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get(&ustr("UniqueId")) {
             assert_ne!(
                 unique_id,
                 *actual_unique_id,
@@ -747,7 +748,7 @@ mod test {
         );
 
         let child = dom.get_by_ref(child_ref).unwrap();
-        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(actual_unique_id)) = child.properties.get(&ustr("UniqueId")) {
             assert_eq!(
                 unique_id,
                 *actual_unique_id,
@@ -778,7 +779,8 @@ mod test {
         dom.transfer(folder_ref, &mut other_dom, other_root_ref);
 
         let folder = other_dom.get_by_ref(folder_ref).unwrap();
-        if let Some(Variant::UniqueId(actual_unique_id)) = folder.properties.get("UniqueId") {
+        if let Some(Variant::UniqueId(actual_unique_id)) = folder.properties.get(&ustr("UniqueId"))
+        {
             assert_ne!(
                 unique_id, *actual_unique_id,
                 "WeakDom::transfer caused a UniqueId collision."

@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
+    collections::{btree_map, BTreeMap, BTreeSet, HashMap, HashSet},
     convert::TryInto,
     io::Write,
 };
@@ -13,7 +13,7 @@ use rbx_dom_weak::{
         SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType,
         Vector2, Vector3, Vector3int16,
     },
-    Instance, WeakDom,
+    Instance, Ustr, WeakDom,
 };
 
 use rbx_reflection::{
@@ -89,7 +89,7 @@ struct TypeInfo<'dom, 'db> {
     ///
     /// Stored in a sorted map to try to ensure that we write out properties in
     /// a deterministic order.
-    properties: BTreeMap<Cow<'db, str>, PropInfo<'db>>,
+    properties: BTreeMap<Ustr, PropInfo<'db>>,
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
@@ -98,7 +98,7 @@ struct TypeInfo<'dom, 'db> {
     /// A set containing the properties that we have seen so far in the file and
     /// processed. This helps us avoid traversing the reflection database
     /// multiple times if there are many copies of the same kind of instance.
-    properties_visited: HashSet<(Cow<'db, str>, VariantType)>,
+    properties_visited: HashSet<(Ustr, VariantType)>,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -121,14 +121,14 @@ struct PropInfo<'db> {
     /// The serialized name for this property. This is the name that is actually
     /// written as part of the PROP chunk and may not line up with the canonical
     /// name for the property.
-    serialized_name: Cow<'db, str>,
+    serialized_name: Ustr,
 
     /// A set containing the names of all aliases discovered while preparing to
     /// serialize this property. Ideally, this set will remain empty (and not
     /// allocate) in most cases. However, if an instance is missing a property
     /// from its canonical name, but does have another variant, we can use this
     /// set to recover and map those values.
-    aliases: BTreeSet<String>,
+    aliases: BTreeSet<Ustr>,
 
     /// The default value for this property that should be used if any instances
     /// are missing this property.
@@ -159,7 +159,7 @@ struct TypeInfos<'dom, 'db> {
     ///
     /// These are stored sorted so that we naturally iterate over them in order
     /// and improve our chances of being deterministic.
-    values: BTreeMap<String, TypeInfo<'dom, 'db>>,
+    values: BTreeMap<Ustr, TypeInfo<'dom, 'db>>,
 
     /// The next type ID that should be assigned if a type is discovered and
     /// added to the serializer.
@@ -177,12 +177,12 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(&mut self, class: &str) -> &mut TypeInfo<'dom, 'db> {
-        if !self.values.contains_key(class) {
+    fn get_or_create(&mut self, class: Ustr) -> &mut TypeInfo<'dom, 'db> {
+        if let btree_map::Entry::Vacant(entry) = self.values.entry(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let class_descriptor = self.database.classes.get(class);
+            let class_descriptor = self.database.classes.get(class.as_str());
 
             let is_service = if let Some(descriptor) = &class_descriptor {
                 descriptor.tags.contains(&ClassTag::Service)
@@ -201,32 +201,29 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
             // We can use a dummy default_value here because instances from
             // rbx_dom_weak always have a name set.
             properties.insert(
-                Cow::Borrowed("Name"),
+                "Name".into(),
                 PropInfo {
                     prop_type: Type::String,
-                    serialized_name: Cow::Borrowed("Name"),
+                    serialized_name: "Name".into(),
                     aliases: BTreeSet::new(),
                     default_value: Cow::Owned(Variant::String(String::new())),
                     migration: None,
                 },
             );
 
-            self.values.insert(
-                class.to_owned(),
-                TypeInfo {
-                    type_id,
-                    is_service,
-                    instances: Vec::new(),
-                    properties,
-                    class_descriptor,
-                    properties_visited: HashSet::new(),
-                },
-            );
+            entry.insert(TypeInfo {
+                type_id,
+                is_service,
+                instances: Vec::new(),
+                properties,
+                class_descriptor,
+                properties_visited: HashSet::new(),
+            });
         }
 
         // This unwrap will not panic because we always insert this key into
         // type_infos in this function.
-        self.values.get_mut(class).unwrap()
+        self.values.get_mut(&class).unwrap()
     }
 }
 
@@ -318,7 +315,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     #[allow(clippy::map_entry)]
     #[profiling::function]
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
-        let type_info = self.type_infos.get_or_create(&instance.class);
+        let type_info = self.type_infos.get_or_create(instance.class);
         type_info.instances.push(instance);
 
         for (prop_name, prop_value) in &instance.properties {
@@ -335,7 +332,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             // Skip this property+value type pair if we've already seen it.
             if type_info
                 .properties_visited
-                .contains(&(Cow::Borrowed(prop_name), prop_value.ty()))
+                .contains(&(*prop_name, prop_value.ty()))
             {
                 continue;
             }
@@ -344,7 +341,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             // it.
             type_info
                 .properties_visited
-                .insert((Cow::Owned(prop_name.clone()), prop_value.ty()));
+                .insert((*prop_name, prop_value.ty()));
 
             let canonical_name;
             let serialized_name;
@@ -352,7 +349,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             let mut migration = None;
 
             let database = self.serializer.database;
-            match find_property_descriptors(database, &instance.class, prop_name) {
+            match find_property_descriptors(database, instance.class, *prop_name) {
                 Some(descriptors) => {
                     // For any properties that do not serialize, we can skip
                     // adding them to the set of type_infos.
@@ -369,8 +366,8 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 // serialize
                                 let new_descriptors = find_property_descriptors(
                                     database,
-                                    &instance.class,
-                                    &prop_migration.new_property_name,
+                                    instance.class,
+                                    prop_migration.new_property_name.as_str().into(),
                                 );
 
                                 migration = Some(prop_migration);
@@ -378,7 +375,8 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 match new_descriptors {
                                     Some(descriptor) => match descriptor.serialized {
                                         Some(serialized) => {
-                                            canonical_name = descriptor.canonical.name.clone();
+                                            canonical_name =
+                                                descriptor.canonical.name.as_ref().into();
                                             serialized
                                         }
                                         None => continue,
@@ -386,14 +384,14 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     None => continue,
                                 }
                             } else {
-                                canonical_name = descriptors.canonical.name.clone();
+                                canonical_name = descriptors.canonical.name.as_ref().into();
                                 descriptor
                             }
                         }
                         None => continue,
                     };
 
-                    serialized_name = serialized.name.clone();
+                    serialized_name = serialized.name.as_ref().into();
 
                     serialized_ty = match &serialized.data_type {
                         DataType::Value(ty) => *ty,
@@ -403,8 +401,8 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                             // rbx_binary is not new enough to handle this kind
                             // of property, whatever it is.
                             return Err(InnerError::UnsupportedPropType {
-                                type_name: instance.class.clone(),
-                                prop_name: prop_name.clone(),
+                                type_name: instance.class.to_string(),
+                                prop_name: prop_name.to_string(),
                                 prop_type: format!("{:?}", unknown_ty),
                             });
                         }
@@ -412,20 +410,11 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 }
 
                 None => {
-                    canonical_name = Cow::Owned(prop_name.clone());
-                    serialized_name = Cow::Owned(prop_name.clone());
+                    canonical_name = *prop_name;
+                    serialized_name = *prop_name;
                     serialized_ty = prop_value.ty();
                 }
             }
-
-            // In order to prevent cloning canonical_name in a rare branch,
-            // we conditionally clone here if we'll need canonical_name after
-            // it's inserted into type_info.properties.
-            let canonical_name_if_different = if prop_name != &canonical_name {
-                Some(canonical_name.clone())
-            } else {
-                None
-            };
 
             if !type_info.properties.contains_key(&canonical_name) {
                 let default_value = type_info
@@ -440,7 +429,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         // Since we don't know how to generate the default value
                         // for this property, we consider it unsupported.
                         InnerError::UnsupportedPropType {
-                            type_name: instance.class.clone(),
+                            type_name: instance.class.to_string(),
                             prop_name: canonical_name.to_string(),
                             prop_type: format!("{:?}", serialized_ty),
                         }
@@ -461,7 +450,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     // binary type value for it. rbx_binary might be out of
                     // date?
                     InnerError::UnsupportedPropType {
-                        type_name: instance.class.clone(),
+                        type_name: instance.class.to_string(),
                         prop_name: serialized_name.to_string(),
                         prop_type: format!("{:?}", serialized_ty),
                     }
@@ -482,11 +471,11 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             // If the property we found on this instance is different than the
             // canonical name for this property, stash it into the set of known
             // aliases for this PropInfo.
-            if let Some(canonical_name) = canonical_name_if_different {
+            if *prop_name != canonical_name {
                 let prop_info = type_info.properties.get_mut(&canonical_name).unwrap();
 
                 if !prop_info.aliases.contains(prop_name) {
-                    prop_info.aliases.insert(prop_name.clone());
+                    prop_info.aliases.insert(*prop_name);
                 }
 
                 prop_info.migration = migration;
@@ -643,13 +632,13 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         // We store the Name property in a different field for
                         // convenience, but when serializing to the binary model
                         // format we need to handle it just like other properties.
-                        if prop_name == "Name" {
+                        if *prop_name == "Name" {
                             return Cow::Owned(Variant::String(instance.name.clone()));
                         }
 
                         // Most properties will be stored on instances using the
                         // property's canonical name, so we'll try that first.
-                        if let Some(property) = instance.properties.get(prop_name.as_ref()) {
+                        if let Some(property) = instance.properties.get(prop_name) {
                             return Cow::Borrowed(property);
                         }
 
@@ -684,7 +673,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 let type_mismatch =
                     |i: usize, bad_value: &Variant, valid_type_names: &'static str| {
                         Err(InnerError::PropTypeMismatch {
-                            type_name: type_name.clone(),
+                            type_name: type_name.to_string(),
                             prop_name: prop_name.to_string(),
                             valid_type_names,
                             actual_type_name: format!("{:?}", bad_value.ty()),
@@ -695,7 +684,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
                 let invalid_value = |i: usize, bad_value: &Variant| InnerError::InvalidPropValue {
                     instance_full_name: self.full_name_for(type_info.instances[i].referent()),
-                    type_name: type_name.clone(),
+                    type_name: type_name.to_string(),
                     prop_name: prop_name.to_string(),
                     prop_type: format!("{:?}", bad_value.ty()),
                 };

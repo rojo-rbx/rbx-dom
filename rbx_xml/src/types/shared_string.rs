@@ -42,7 +42,7 @@ pub fn read_shared_string<R: Read>(
 ) -> Result<Variant, DecodeError> {
     let contents = reader.read_tag_contents(XML_TAG_NAME)?;
 
-    state.add_shared_string_rewrite(referent, property_name.to_owned(), contents);
+    state.add_shared_string_rewrite(referent, property_name.into(), contents);
 
     // The value we actually pick here doesn't matter, it'll be overwritten
     // later.

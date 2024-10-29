@@ -1,6 +1,7 @@
-use std::collections::HashMap;
-
 use rbx_types::{Ref, Variant};
+use ustr::{Ustr, UstrMap};
+
+use crate::UstrMapExt;
 
 /**
 Represents an instance that can be turned into a new
@@ -35,23 +36,23 @@ let dom = WeakDom::new(data_model);
 pub struct InstanceBuilder {
     pub(crate) referent: Ref,
     pub(crate) name: String,
-    pub(crate) class: String,
-    pub(crate) properties: HashMap<String, Variant>,
+    pub(crate) class: Ustr,
+    pub(crate) properties: UstrMap<Variant>,
     pub(crate) children: Vec<InstanceBuilder>,
 }
 
 impl InstanceBuilder {
     /// Create a new `InstanceBuilder` with the given ClassName. This is also
     /// used as the instance's Name, unless overwritten later.
-    pub fn new<S: Into<String>>(class: S) -> Self {
+    pub fn new<S: Into<Ustr>>(class: S) -> Self {
         let class = class.into();
-        let name = class.clone();
+        let name = class.to_string();
 
         InstanceBuilder {
             referent: Ref::new(),
             name,
             class,
-            properties: HashMap::new(),
+            properties: UstrMap::new(),
             children: Vec::new(),
         }
     }
@@ -61,8 +62,8 @@ impl InstanceBuilder {
         InstanceBuilder {
             referent: Ref::new(),
             name: String::new(),
-            class: String::new(),
-            properties: HashMap::new(),
+            class: Ustr::default(),
+            properties: UstrMap::new(),
             children: Vec::new(),
         }
     }
@@ -94,7 +95,7 @@ impl InstanceBuilder {
     }
 
     /// Change the class of the `InstanceBuilder`.
-    pub fn with_class<S: Into<String>>(self, class: S) -> Self {
+    pub fn with_class<S: Into<Ustr>>(self, class: S) -> Self {
         Self {
             class: class.into(),
             ..self
@@ -102,30 +103,30 @@ impl InstanceBuilder {
     }
 
     /// Change the class of the `InstanceBuilder`.
-    pub fn set_class<S: Into<String>>(&mut self, class: S) {
+    pub fn set_class<S: Into<Ustr>>(&mut self, class: S) {
         self.class = class.into();
     }
 
     /// Add a new property to the `InstanceBuilder`.
-    pub fn with_property<K: Into<String>, V: Into<Variant>>(mut self, key: K, value: V) -> Self {
+    pub fn with_property<K: Into<Ustr>, V: Into<Variant>>(mut self, key: K, value: V) -> Self {
         self.properties.insert(key.into(), value.into());
         self
     }
 
     /// Add a new property to the `InstanceBuilder`.
-    pub fn add_property<K: Into<String>, V: Into<Variant>>(&mut self, key: K, value: V) {
+    pub fn add_property<K: Into<Ustr>, V: Into<Variant>>(&mut self, key: K, value: V) {
         self.properties.insert(key.into(), value.into());
     }
 
     /// Check if the `InstanceBuilder` already has a property with the given key.
-    pub fn has_property<K: Into<String>>(&self, key: K) -> bool {
+    pub fn has_property<K: Into<Ustr>>(&self, key: K) -> bool {
         self.properties.contains_key(&key.into())
     }
 
     /// Add multiple properties to the `InstanceBuilder` at once.
     pub fn with_properties<K, V, I>(mut self, props: I) -> Self
     where
-        K: Into<String>,
+        K: Into<Ustr>,
         V: Into<Variant>,
         I: IntoIterator<Item = (K, V)>,
     {
@@ -138,7 +139,7 @@ impl InstanceBuilder {
     /// Add multiple properties to the `InstanceBuilder` at once.
     pub fn add_properties<K, V, I>(&mut self, props: I)
     where
-        K: Into<String>,
+        K: Into<Ustr>,
         V: Into<Variant>,
         I: IntoIterator<Item = (K, V)>,
     {
@@ -193,10 +194,10 @@ pub struct Instance {
     pub name: String,
 
     /// The instance's class, corresponding to the `ClassName` property.
-    pub class: String,
+    pub class: Ustr,
 
     /// Any properties stored on the object that are not `Name` or `ClassName`.
-    pub properties: HashMap<String, Variant>,
+    pub properties: UstrMap<Variant>,
 }
 
 impl Instance {

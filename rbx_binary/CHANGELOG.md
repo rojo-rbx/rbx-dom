@@ -1,11 +1,14 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Dramatically improved performance of serializer and deserializer by using `Ustr` to represent property and class names ([#462]).
 * Added the ability to specify what type of compression to use for serializing. This takes the form of `Serializer::compression_type`. ([#446])
 * Added support for ZSTD compressed files ([#446])
 * Implicit lossy conversion of non-UTF-8 `Instance.Name` and `*Script.Source` properties when decoding.  The previous behaviour was returning an error. ([#380])
 
+[#462]: https://github.com/rojo-rbx/rbx-dom/pull/462
 [#446]: https://github.com/rojo-rbx/rbx-dom/pull/446
+[#380]: https://github.com/rojo-rbx/rbx-dom/pull/380
 
 ## 0.7.7 (2024-08-22)
 * Updated rbx-dom dependencies
