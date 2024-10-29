@@ -47,7 +47,7 @@ mod viewer;
 
 pub use rbx_types as types;
 
-pub use ustr::{Ustr, UstrMap, UstrSet};
+pub use ustr::{ustr, Ustr, UstrMap, UstrSet};
 
 pub use crate::{
     dom::WeakDom,
