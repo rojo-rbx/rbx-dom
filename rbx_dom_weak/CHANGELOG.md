@@ -89,7 +89,7 @@ where
     V: Into<Variant>,
     I: IntoIterator<Item = (K, V)>,
 ```
-* Started using [ahash](https://docs.rs/ustr/latest/ustr/) for hash maps, consequently changing the signature of `WeakDom::into_raw` from
+* Started using [ahash](https://docs.rs/ahash/latest/ahash/) for hash maps, consequently changing the signature of `WeakDom::into_raw` from
 ```rust
 pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance, RandomState>) {
 ```
