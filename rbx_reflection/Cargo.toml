@@ -13,6 +13,5 @@ edition = "2018"
 [dependencies]
 rbx_types = { version = "1.10.0", path = "../rbx_types", features = ["serde"] }
 
-ahash = "0.8.11"
 serde = { version = "1.0.137", features = ["derive"] }
 thiserror = "1.0.31"

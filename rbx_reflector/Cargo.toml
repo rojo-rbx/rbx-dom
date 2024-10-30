@@ -16,7 +16,6 @@ rbx_reflection = { path = "../rbx_reflection" }
 rbx_types = { path = "../rbx_types", features = ["serde"] }
 rbx_xml = { path = "../rbx_xml" }
 
-ahash = "0.8.11"
 anyhow = "1.0.57"
 clap = { version = "4.1.4", features = ["derive"] }
 env_logger = "0.10.0"
