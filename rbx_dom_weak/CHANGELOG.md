@@ -94,7 +94,9 @@ where
 * Added `UstrMapExt`, a helper trait providing convenience methods `UstrMap::new` and `UstrMap::with_capacity`.
 * Added re-exports for `ustr` (a convenience function for creating `Ustr`s), `Ustr`, `UstrMap`, and `UstrSet`.
 * Added `InstanceBuilder::with_property_capacity`, which can preallocate an `InstanceBuilder`'s property table. [#464]
+* Added `WeakDom::reserve`, which can preallocate additional space for instances in the `WeakDom`. [#465]
 
+[#465]: https://github.com/rojo-rbx/rbx-dom/pull/465
 [#464]: https://github.com/rojo-rbx/rbx-dom/pull/464
 
 ## 2.9.0 (2024-08-22)

@@ -32,6 +32,12 @@ impl WeakDom {
         dom
     }
 
+    /// Reserve at least enough space for `additional` number of instances in
+    /// the WeakDom.
+    pub fn reserve(&mut self, additional: usize) {
+        self.instances.reserve(additional);
+    }
+
     /// Consumes the WeakDom, returning its underlying root ref and backing
     /// storage. This method is useful when tree-preserving operations are too
     /// slow.
