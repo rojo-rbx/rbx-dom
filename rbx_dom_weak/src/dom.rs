@@ -36,7 +36,6 @@ impl WeakDom {
     /// the WeakDom.
     pub fn reserve(&mut self, additional: usize) {
         self.instances.reserve(additional);
-        self.unique_ids.reserve(additional);
     }
 
     /// Consumes the WeakDom, returning its underlying root ref and backing
