@@ -29,8 +29,6 @@ expression: decoded_viewed
         - 0
         - 0
         - 0
-    DefinesCapabilities:
-      Bool: false
     EnvironmentDiffuseScale:
       Float32: 1
     EnvironmentSpecularScale:
@@ -57,6 +55,8 @@ expression: decoded_viewed
         - 0.27450982
     Outlines:
       Bool: false
+    Sandboxed:
+      Bool: false
     ShadowSoftness:
       Float32: 0.2
     SourceAssetId:
@@ -68,3 +68,4 @@ expression: decoded_viewed
     TimeOfDay:
       String: "14:30:00"
   children: []
+

@@ -1,12 +1,14 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
-* Update to Roblox version 647.
+* Update to Roblox version 648.
 * `Model.WorldPivotData`'s default value is now `null`. ([#450])
 * `SharedString` properties now have default values. ([#458])
+* `Instance.DefinesCapabilities` is now an alias for `Instance.Sandboxed` ([#459])
 
 [#458]: https://github.com/rojo-rbx/rbx-dom/pull/458
 [#450]: https://github.com/rojo-rbx/rbx-dom/pull/450
+[#459]: https://github.com/rojo-rbx/rbx-dom/pull/459
 
 ## 0.2.12+roblox-638 (2024-08-22)
 * Update to Roblox version 638.
