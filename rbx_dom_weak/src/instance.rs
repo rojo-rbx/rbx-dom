@@ -134,7 +134,7 @@ impl InstanceBuilder {
     /// Check if the `InstanceBuilder` already has a property with the given key.
     pub fn has_property<K: Into<Ustr>>(&self, key: K) -> bool {
         let key = key.into();
-        self.properties.iter().find(|(k, _)| *k == key).is_some()
+        self.properties.iter().any(|(k, _)| *k == key)
     }
 
     /// Add multiple properties to the `InstanceBuilder` at once.
