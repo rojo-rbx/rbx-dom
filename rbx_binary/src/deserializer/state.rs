@@ -1,10 +1,6 @@
-use std::{
-    borrow::Cow,
-    collections::{HashMap, HashSet, VecDeque},
-    convert::TryInto,
-    io::Read,
-};
+use std::{borrow::Cow, collections::VecDeque, convert::TryInto, io::Read};
 
+use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,

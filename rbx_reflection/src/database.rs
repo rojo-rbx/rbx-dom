@@ -2,11 +2,9 @@
 // for most cases.
 #![allow(clippy::new_without_default)]
 
-use std::{
-    borrow::Cow,
-    collections::{HashMap, HashSet},
-};
+use std::borrow::Cow;
 
+use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use rbx_types::{Variant, VariantType};
 use serde::{Deserialize, Serialize};
 

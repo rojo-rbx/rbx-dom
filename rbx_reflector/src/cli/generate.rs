@@ -1,11 +1,11 @@
 use std::{
     borrow::Cow,
-    collections::{HashMap, HashSet},
     fs::{self, File},
     io::{BufWriter, Write},
     path::PathBuf,
 };
 
+use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use anyhow::{bail, Context};
 use clap::Parser;
 use rbx_reflection::{

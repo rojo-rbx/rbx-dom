@@ -1,5 +1,6 @@
-use std::collections::{HashMap, HashSet, VecDeque};
+use std::collections::VecDeque;
 
+use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use rbx_types::{Ref, UniqueId, Variant};
 use ustr::ustr;
 
