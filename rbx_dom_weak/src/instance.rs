@@ -1,8 +1,6 @@
 use rbx_types::{Ref, Variant};
 use ustr::{Ustr, UstrMap};
 
-use crate::UstrMapExt;
-
 /**
 Represents an instance that can be turned into a new
 [`WeakDom`][crate::WeakDom], or inserted into an existing one.
@@ -37,7 +35,7 @@ pub struct InstanceBuilder {
     pub(crate) referent: Ref,
     pub(crate) name: String,
     pub(crate) class: Ustr,
-    pub(crate) properties: UstrMap<Variant>,
+    pub(crate) properties: Vec<(Ustr, Variant)>,
     pub(crate) children: Vec<InstanceBuilder>,
 }
 
@@ -52,7 +50,7 @@ impl InstanceBuilder {
             referent: Ref::new(),
             name,
             class,
-            properties: UstrMap::new(),
+            properties: Vec::new(),
             children: Vec::new(),
         }
     }
@@ -67,7 +65,7 @@ impl InstanceBuilder {
             referent: Ref::new(),
             name,
             class,
-            properties: UstrMap::with_capacity(capacity),
+            properties: Vec::with_capacity(capacity),
             children: Vec::new(),
         }
     }
@@ -78,7 +76,7 @@ impl InstanceBuilder {
             referent: Ref::new(),
             name: String::new(),
             class: Ustr::default(),
-            properties: UstrMap::new(),
+            properties: Vec::new(),
             children: Vec::new(),
         }
     }
@@ -124,18 +122,19 @@ impl InstanceBuilder {
 
     /// Add a new property to the `InstanceBuilder`.
     pub fn with_property<K: Into<Ustr>, V: Into<Variant>>(mut self, key: K, value: V) -> Self {
-        self.properties.insert(key.into(), value.into());
+        self.properties.push((key.into(), value.into()));
         self
     }
 
     /// Add a new property to the `InstanceBuilder`.
     pub fn add_property<K: Into<Ustr>, V: Into<Variant>>(&mut self, key: K, value: V) {
-        self.properties.insert(key.into(), value.into());
+        self.properties.push((key.into(), value.into()));
     }
 
     /// Check if the `InstanceBuilder` already has a property with the given key.
     pub fn has_property<K: Into<Ustr>>(&self, key: K) -> bool {
-        self.properties.contains_key(&key.into())
+        let key = key.into();
+        self.properties.iter().any(|(k, _)| *k == key)
     }
 
     /// Add multiple properties to the `InstanceBuilder` at once.
