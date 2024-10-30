@@ -1,8 +1,6 @@
-use std::{
-    collections::{hash_map::Entry, HashMap, HashSet},
-    io::Read,
-};
+use std::{collections::hash_map::Entry, io::Read};
 
+use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
