@@ -1,6 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
-    collections::{btree_map, BTreeMap, BTreeSet},
+    collections::{btree_map, BTreeMap},
     convert::TryInto,
     io::Write,
 };
@@ -129,7 +129,7 @@ struct PropInfo<'db> {
     /// allocate) in most cases. However, if an instance is missing a property
     /// from its canonical name, but does have another variant, we can use this
     /// set to recover and map those values.
-    aliases: BTreeSet<Ustr>,
+    aliases: UstrSet,
 
     /// The default value for this property that should be used if any instances
     /// are missing this property.
@@ -206,7 +206,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
                 PropInfo {
                     prop_type: Type::String,
                     serialized_name: "Name".into(),
-                    aliases: BTreeSet::new(),
+                    aliases: UstrSet::new(),
                     default_value: Cow::Owned(Variant::String(String::new())),
                     migration: None,
                 },
@@ -457,7 +457,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     PropInfo {
                         prop_type: ser_type,
                         serialized_name,
-                        aliases: BTreeSet::new(),
+                        aliases: UstrSet::new(),
                         default_value,
                         migration,
                     },
