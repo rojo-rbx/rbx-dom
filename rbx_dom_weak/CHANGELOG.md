@@ -89,6 +89,14 @@ where
     V: Into<Variant>,
     I: IntoIterator<Item = (K, V)>,
 ```
+* Started using [ahash](https://docs.rs/ahash/latest/ahash/) for hash maps, consequently changing the signature of `WeakDom::into_raw` from
+```rust
+pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance, RandomState>) {
+```
+to
+```rust
+pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance, ahash::RandomState>) {
+```
 
 ### Other changes
 * Added `UstrMapExt`, a helper trait providing convenience methods `UstrMap::new` and `UstrMap::with_capacity`.

@@ -1,9 +1,6 @@
-use std::{
-    borrow::Cow,
-    collections::{BTreeMap, HashMap},
-    io::Write,
-};
+use std::{borrow::Cow, collections::BTreeMap, io::Write};
 
+use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
     types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
     WeakDom,
