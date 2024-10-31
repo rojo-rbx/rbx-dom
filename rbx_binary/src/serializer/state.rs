@@ -5,7 +5,7 @@ use std::{
     io::Write,
 };
 
-use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
+use ahash::{HashMap, HashMapExt, HashSetExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
@@ -14,7 +14,7 @@ use rbx_dom_weak::{
         SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType,
         Vector2, Vector3, Vector3int16,
     },
-    Instance, Ustr, WeakDom,
+    Instance, Ustr, UstrSet, WeakDom,
 };
 
 use rbx_reflection::{
@@ -99,7 +99,7 @@ struct TypeInfo<'dom, 'db> {
     /// A set containing the properties that we have seen so far in the file and
     /// processed. This helps us avoid traversing the reflection database
     /// multiple times if there are many copies of the same kind of instance.
-    properties_visited: HashSet<(Ustr, VariantType)>,
+    properties_visited: UstrSet,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -218,7 +218,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
                 instances: Vec::new(),
                 properties,
                 class_descriptor,
-                properties_visited: HashSet::new(),
+                properties_visited: UstrSet::new(),
             });
         }
 
@@ -330,19 +330,14 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 }
             }
 
-            // Skip this property+value type pair if we've already seen it.
-            if type_info
-                .properties_visited
-                .contains(&(*prop_name, prop_value.ty()))
-            {
+            // Skip this property if we've already seen it.
+            if type_info.properties_visited.contains(prop_name) {
                 continue;
             }
 
             // ...but add it to the set of visited properties if we haven't seen
             // it.
-            type_info
-                .properties_visited
-                .insert((*prop_name, prop_value.ty()));
+            type_info.properties_visited.insert(*prop_name);
 
             let canonical_name;
             let serialized_name;
