@@ -1,13 +1,10 @@
-use criterion::{measurement::Measurement, BatchSize, BenchmarkGroup, Criterion};
+use criterion::{measurement::Measurement, BatchSize, BenchmarkGroup};
 use rbx_dom_weak::WeakDom;
 
-pub(crate) fn bench(c: &mut Criterion, name: &str, bench_file: &'static [u8]) {
-    let mut group = c.benchmark_group(name);
+pub(crate) fn bench<T: Measurement>(group: &mut BenchmarkGroup<T>, bench_file: &'static [u8]) {
     let tree = rbx_binary::from_reader(bench_file).unwrap();
-
-    serialize_bench(&mut group, &tree);
-    deserialize_bench(&mut group, bench_file);
-    group.finish();
+    serialize_bench(group, &tree);
+    deserialize_bench(group, bench_file);
 }
 
 fn serialize_bench<T: Measurement>(group: &mut BenchmarkGroup<T>, tree: &WeakDom) {
