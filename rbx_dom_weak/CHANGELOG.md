@@ -103,7 +103,9 @@ pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance, ahash::RandomState>) {
 * Added re-exports for `ustr` (a convenience function for creating `Ustr`s), `Ustr`, `UstrMap`, and `UstrSet`.
 * Added `InstanceBuilder::with_property_capacity`, which can preallocate an `InstanceBuilder`'s property table. [#464]
 * Added `WeakDom::reserve`, which can preallocate additional space for instances in the `WeakDom`. [#465]
+* Added support for `EnumItem` attributes. [#470]
 
+[#470]: https://github.com/rojo-rbx/rbx-dom/pull/470
 [#465]: https://github.com/rojo-rbx/rbx-dom/pull/465
 [#464]: https://github.com/rojo-rbx/rbx-dom/pull/464
 
