@@ -4,10 +4,10 @@ use anyhow::bail;
 use clap::Parser;
 use rbx_types::{
     Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-    ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, MaterialColors,
-    Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect,
-    Region3int16, Tags, TerrainMaterials, UDim, UDim2, Variant, VariantType, Vector2, Vector2int16,
-    Vector3, Vector3int16,
+    ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, EnumItem, Faces, Font,
+    MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+    PhysicalProperties, Ray, Rect, Region3int16, Tags, TerrainMaterials, UDim, UDim2, Variant,
+    VariantType, Vector2, Vector2int16, Vector3, Vector3int16,
 };
 use serde::Serialize;
 
@@ -80,6 +80,14 @@ impl ValuesSubcommand {
         );
         values.insert("Content", Content::from("rbxassetid://12345").into());
         values.insert("Enum", Enum::from_u32(1234).into());
+        values.insert(
+            "EnumItem",
+            EnumItem {
+                ty: "Material".into(),
+                value: 256,
+            }
+            .into(),
+        );
         values.insert("Faces", Faces::all().into());
         values.insert("Float32", 15.0f32.into());
         values.insert("Float64", 15123.0f64.into());

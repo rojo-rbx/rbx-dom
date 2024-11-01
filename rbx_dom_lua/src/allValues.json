@@ -182,6 +182,15 @@
     },
     "ty": "Enum"
   },
+  "EnumItem": {
+    "value": {
+      "EnumItem": {
+        "type": "Material",
+        "value": 256
+      }
+    },
+    "ty": "EnumItem"
+  },
   "Faces": {
     "value": {
       "Faces": [
