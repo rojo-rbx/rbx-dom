@@ -1,0 +1,23 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: Folder
+  class: Folder
+  properties:
+    Attributes:
+      Attributes:
+        AnEnumValue:
+          EnumItem:
+            type: Material
+            value: 512
+    Capabilities:
+      SecurityCapabilities: 0
+    Sandboxed:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
