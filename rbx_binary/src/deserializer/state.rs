@@ -481,11 +481,19 @@ This may cause unexpected or broken behavior in your final results if you rely o
                                 add_property(instance, &property, value.into());
                             }
                             Err(err) => {
-                                return Err(InnerError::BadPropertyValue {
-                                    source: err,
-                                    class_name: type_info.type_name.to_string(),
-                                    prop_name,
-                                })
+                                log::warn!(
+                                    "Failed to parse Attributes on {} because {:?}; falling back to BinaryString.
+
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
+                                    type_info.type_name,
+                                    err
+                                );
+
+                                add_property(
+                                    instance,
+                                    &property,
+                                    BinaryString::from(buffer).into(),
+                                );
                             }
                         }
                     }
@@ -497,11 +505,19 @@ This may cause unexpected or broken behavior in your final results if you rely o
                         match MaterialColors::decode(&buffer) {
                             Ok(value) => add_property(instance, &property, value.into()),
                             Err(err) => {
-                                return Err(InnerError::BadPropertyValue {
-                                    source: err,
-                                    class_name: type_info.type_name.to_string(),
-                                    prop_name,
-                                })
+                                log::warn!(
+                                    "Failed to parse MaterialColors on {} because {:?}; falling back to BinaryString.
+
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
+                                    type_info.type_name,
+                                    err
+                                );
+
+                                add_property(
+                                    instance,
+                                    &property,
+                                    BinaryString::from(buffer).into(),
+                                );
                             }
                         }
                     }
