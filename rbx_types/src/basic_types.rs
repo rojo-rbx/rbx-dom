@@ -2,13 +2,13 @@ use thiserror::Error;
 
 use crate::Error;
 
-/// Represents any Roblox enum value.
+/// Represents any Roblox EnumItem.
 ///
 /// Roblox enums are not strongly typed, so the meaning of a value depends on
 /// where they're assigned.
 ///
 /// A list of all enums and their values are available [on the Roblox Developer
-/// Hub](https://developer.roblox.com/en-us/api-reference/enum).
+/// Hub](https://create.roblox.com/docs/reference/engine/enums).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(
     feature = "serde",
@@ -29,6 +29,10 @@ impl Enum {
     }
 }
 
+/// Represents a specific Roblox EnumItem.
+///
+/// A list of all enums and their values are available [on the Roblox Developer
+/// Hub](https://create.roblox.com/docs/reference/engine/enums).
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize,))]
 pub struct EnumItem {
