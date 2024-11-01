@@ -5,7 +5,7 @@ use std::borrow::{Borrow, Cow};
 use std::convert::TryInto;
 
 use rbx_dom_weak::types::{
-    Attributes, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType,
+    Attributes, BrickColor, Color3uint8, Enum, MaterialColors, Tags, Variant, VariantType,
 };
 
 pub trait ConvertVariant: Clone + Sized {
@@ -69,6 +69,9 @@ impl ConvertVariant for Variant {
                     .map_err(|_| "invalid MaterialColors value")?
                     .into(),
             )),
+            (Variant::EnumItem(enum_item), VariantType::Enum) => {
+                Ok(Cow::Owned(Enum::from_u32(enum_item.value).into()))
+            }
             (_, _) => Ok(value),
         }
     }
