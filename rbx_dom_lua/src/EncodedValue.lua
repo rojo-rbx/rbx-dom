@@ -208,20 +208,11 @@ types = {
 	EnumItem = {
 		fromPod = function(pod)
 			local enum = Enum[pod.type]
-			local enumItems = enum:GetEnumItems()
-			local chosenEnumItem = enumItems[1]
 
-			for _, item in enumItems do
-				if item.Value == pod.value then
-					-- If we're not able to find the given enum item here, then that's
-					-- pretty weird, but we'll just end up with the first one in the
-					-- EnumItems list
-					chosenEnumItem = item
-					break
-				end
-			end
-
-			return chosenEnumItem
+			-- If the given EnumItem value is not valid for this Enum, then
+			-- that's pretty weird, but we'll just return the first one in the
+			-- list instead
+			return enum:FromValue(pod.value) or enum:GetEnumItems()[1]
 		end,
 
 		toPod = function(roblox)
