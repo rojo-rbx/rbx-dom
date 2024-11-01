@@ -1,4 +1,5 @@
 #!/bin/sh
 
+cargo run --bin rbx_reflector values ./src/allValues.json
 rojo build test-place.project.json -o TestPlace.rbxlx
 run-in-roblox --script run-tests.lua --place TestPlace.rbxlx
