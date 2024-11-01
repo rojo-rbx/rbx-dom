@@ -29,6 +29,22 @@ impl Enum {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize,))]
+pub struct EnumItem {
+    #[serde(rename = "type")]
+    pub ty: String,
+    pub value: u32,
+}
+
+impl From<EnumItem> for Enum {
+    fn from(enum_item: EnumItem) -> Self {
+        Self {
+            value: enum_item.value,
+        }
+    }
+}
+
 /// The standard 2D vector type used in Roblox.
 ///
 /// ## See Also
@@ -716,6 +732,17 @@ mod serde_test {
                 z: Vector3::new(7.0, 8.0, 9.0),
             },
             "[[1.0,2.0,3.0],[4.0,5.0,6.0],[7.0,8.0,9.0]]",
+        );
+    }
+
+    #[test]
+    fn tagged_enum_json() {
+        test_ser(
+            EnumItem {
+                ty: "PlayTag".to_string(),
+                value: 3,
+            },
+            r#"{"type":"PlayTag","value":3}"#,
         );
     }
 }
