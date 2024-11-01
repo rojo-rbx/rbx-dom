@@ -9,8 +9,8 @@ use ahash::{HashMap, HashMapExt, HashSetExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, Enum, Faces, Font, MaterialColors, Matrix3, NumberRange,
-        NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
+        ColorSequenceKeypoint, Content, Enum, EnumItem, Faces, Font, MaterialColors, Matrix3,
+        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
         SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType,
         Vector2, Vector3, Vector3int16,
     },
@@ -970,10 +970,10 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut buf = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Enum(value) = rbx_value.as_ref() {
-                                buf.push(value.to_u32());
-                            } else {
-                                return type_mismatch(i, &rbx_value, "Enum");
+                            match rbx_value.as_ref() {
+                                Variant::Enum(value) => buf.push(value.to_u32()),
+                                Variant::EnumItem(EnumItem { value, .. }) => buf.push(*value),
+                                _ => return type_mismatch(i, &rbx_value, "Enum or EnumItem"),
                             }
                         }
 
