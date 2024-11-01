@@ -4,6 +4,7 @@
 use std::borrow::{Borrow, Cow};
 use std::convert::TryInto;
 
+use rbx_dom_weak::types::Enum;
 use rbx_dom_weak::{
     types::{Attributes, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType},
     Ustr,
@@ -95,6 +96,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         Ok(Cow::Owned(value.clone().into()))
                     }
                 }
+            }
+            (Variant::EnumItem(enum_item), VariantType::Enum) => {
+                Ok(Cow::Owned(Enum::from_u32(enum_item.value).into()))
             }
             (_, _) => Ok(value),
         }

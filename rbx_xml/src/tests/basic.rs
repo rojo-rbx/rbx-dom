@@ -2,11 +2,11 @@
 
 use rbx_dom_weak::types::{
     Attributes, BinaryString, BrickColor, Color3, Color3uint8, ColorSequence,
-    ColorSequenceKeypoint, Enum, Font, MaterialColors, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, Rect, Tags, TerrainMaterials, UDim, UDim2, UniqueId, Variant, Vector2,
-    Vector3,
+    ColorSequenceKeypoint, Enum, EnumItem, Font, MaterialColors, NumberRange, NumberSequence,
+    NumberSequenceKeypoint, Rect, Tags, TerrainMaterials, UDim, UDim2, UniqueId, Variant,
+    VariantType, Vector2, Vector3,
 };
-use rbx_dom_weak::{InstanceBuilder, WeakDom};
+use rbx_dom_weak::{ustr, InstanceBuilder, WeakDom};
 
 #[test]
 fn with_bool() {
@@ -351,4 +351,29 @@ fn bad_migrated_property() {
     let mut encoded = Vec::new();
     crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
+}
+
+#[test]
+fn enum_item_to_enum() {
+    let tree = WeakDom::new(InstanceBuilder::new("Part").with_property(
+        "Material",
+        EnumItem {
+            ty: "Material".into(),
+            value: 256,
+        },
+    ));
+
+    let mut encoded = Vec::new();
+    crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
+
+    let decoded = crate::from_reader_default(encoded.as_slice()).unwrap();
+    let prop_type = decoded
+        .get_by_ref(*decoded.root().children().first().unwrap())
+        .unwrap()
+        .properties
+        .get(&ustr("Material"))
+        .unwrap()
+        .ty();
+
+    assert_eq!(prop_type, VariantType::Enum);
 }

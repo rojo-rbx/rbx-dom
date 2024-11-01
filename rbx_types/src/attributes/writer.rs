@@ -99,6 +99,10 @@ pub(crate) fn write_attributes<W: Write>(
                     font.cached_face_id.as_deref().unwrap_or_default(),
                 )?;
             }
+            Variant::EnumItem(enum_item) => {
+                write_string(&mut writer, &enum_item.ty)?;
+                write_u32(&mut writer, enum_item.value)?;
+            }
 
             other_variant => unreachable!("variant {:?} was not implemented", other_variant),
         }
