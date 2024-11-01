@@ -207,10 +207,10 @@ types = {
 
 	EnumItem = {
 		fromPod = function(pod)
-			local enumType = Enum[pod.type]
+			local enum = Enum[pod.type]
 			local enumItem = 0
 
-			for _, item in enumType:GetEnumItems() do
+			for _, item in enum:GetEnumItems() do
 				if item.Value == pod.value then
 					enumItem = item
 					break
