@@ -45,6 +45,13 @@ impl ValuesSubcommand {
                     "TestUDim2",
                     UDim2::new(UDim::new(1.0, 2), UDim::new(3.0, 4)),
                 )
+                .with(
+                    "TestEnumItem",
+                    EnumItem {
+                        ty: "Material".into(),
+                        value: 256,
+                    },
+                )
                 .into(),
         );
         values.insert("Axes", Axes::all().into());
