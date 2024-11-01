@@ -205,6 +205,29 @@ types = {
 		end,
 	},
 
+	EnumItem = {
+		fromPod = function(pod)
+			local enumType = Enum[pod.type]
+			local enumItem = 0
+
+			for _, item in enumType:GetEnumItems() do
+				if item.Value == pod.value then
+					enumItem = item
+					break
+				end
+			end
+
+			return enumItem
+		end,
+
+		toPod = function(roblox)
+			return {
+				type = roblox.EnumType,
+				value = roblox.Value,
+			}
+		end,
+	},
+
 	Faces = {
 		fromPod = function(pod)
 			local faces = {}
