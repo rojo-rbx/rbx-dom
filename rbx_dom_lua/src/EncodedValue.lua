@@ -226,7 +226,7 @@ types = {
 
 		toPod = function(roblox)
 			return {
-				type = roblox.EnumType,
+				type = tostring(roblox.EnumType),
 				value = roblox.Value,
 			}
 		end,
