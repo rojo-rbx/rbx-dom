@@ -207,12 +207,7 @@ types = {
 
 	EnumItem = {
 		fromPod = function(pod)
-			local enum = Enum[pod.type]
-
-			-- If the given EnumItem value is not valid for this Enum, then
-			-- that's pretty weird, but we'll just return the first one in the
-			-- list instead
-			return enum:FromValue(pod.value) or enum:GetEnumItems()[1]
+			return Enum[pod.type]:FromValue(pod.value)
 		end,
 
 		toPod = function(roblox)
