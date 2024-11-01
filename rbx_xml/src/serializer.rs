@@ -210,7 +210,7 @@ fn serialize_instance<'dom, W: Write>(
 
             let mut serialized_name = serialized_descriptor.name.as_ref();
 
-            let mut converted_value = match value.try_convert_ref(data_type) {
+            let mut converted_value = match value.try_convert_ref(instance.class, data_type) {
                 Ok(value) => value,
                 Err(message) => {
                     return Err(

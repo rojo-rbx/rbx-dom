@@ -613,7 +613,7 @@ fn deserialize_properties<R: Read>(
             };
             log::trace!("property's read type: {xml_ty:?}, canonical type: {expected_type:?}");
 
-            let value = match value.try_convert(expected_type) {
+            let value = match value.try_convert(class_name, expected_type) {
                 Ok(value) => value,
 
                 // The property descriptor disagreed, and there was no
