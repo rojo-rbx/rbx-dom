@@ -4,7 +4,7 @@ use std::{
 };
 
 use crate::{
-    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, Font,
+    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font,
     FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, Rect,
     UDim, UDim2, Variant, VariantType, Vector2, Vector3,
 };
@@ -198,6 +198,17 @@ pub(crate) fn read_attributes<R: Read>(
                     weight: FontWeight::from_u16(weight).unwrap_or_default(),
                     style: FontStyle::from_u8(style).unwrap_or_default(),
                     cached_face_id,
+                }
+            }
+            .into(),
+
+            VariantType::EnumItem => {
+                let enum_type = read_string(&mut value)?;
+                let value = read_u32(&mut value)?;
+
+                EnumItem {
+                    ty: String::from_utf8(enum_type)?,
+                    value,
                 }
             }
             .into(),
