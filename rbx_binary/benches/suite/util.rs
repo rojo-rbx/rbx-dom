@@ -12,6 +12,11 @@ fn serialize_bench<T: Measurement>(group: &mut BenchmarkGroup<T>, buffer: &[u8])
 
     rbx_binary::to_writer(&mut buffer, &tree, &[root_ref]).unwrap();
     let buffer_len = buffer.len();
+    let batch_size = if buffer_len > 1024 {
+        BatchSize::LargeInput
+    } else {
+        BatchSize::SmallInput
+    };
 
     group
         .throughput(Throughput::Bytes(buffer_len as u64))
@@ -21,7 +26,7 @@ fn serialize_bench<T: Measurement>(group: &mut BenchmarkGroup<T>, buffer: &[u8])
                 |mut buffer: Vec<u8>| {
                     rbx_binary::to_writer(&mut buffer, &tree, &[root_ref]).unwrap();
                 },
-                BatchSize::SmallInput,
+                batch_size,
             )
         });
 }
