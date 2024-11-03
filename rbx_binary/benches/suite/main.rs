@@ -32,12 +32,21 @@ pub fn parts_1000(c: &mut Criterion) {
     )
 }
 
+pub fn miners_haven(c: &mut Criterion) {
+    bench(
+        c.benchmark_group("Miner's Haven")
+            .sampling_mode(SamplingMode::Flat),
+        include_bytes!("../files/miners-haven.rbxl"),
+    )
+}
+
 criterion_group!(
     bench_suite,
     folders_100,
     deep_folders_100,
     modulescripts_100_lines_100,
     parts_1000,
+    miners_haven,
 );
 
 criterion_main!(bench_suite);
