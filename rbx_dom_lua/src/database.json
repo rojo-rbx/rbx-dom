@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    648,
+    649,
     0,
-    6480781
+    6490878
   ],
   "Classes": {
     "Accessory": {
@@ -2681,6 +2681,22 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "AnnotationsVisible": {
+          "Name": "AnnotationsVisible",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "Hovered": {
           "Name": "Hovered",
           "Scriptability": "None",
@@ -6979,7 +6995,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "MaterialVariantSerialized"
+              }
             }
           }
         },
@@ -6994,8 +7012,8 @@
             "NotScriptable"
           ],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "MaterialVariant"
             }
           }
         },
@@ -15401,7 +15419,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -19402,7 +19420,7 @@
         "Orientation": {
           "Vector3": [
             -0.0,
-            180.0,
+            179.99998,
             90.0
           ]
         },
@@ -19906,7 +19924,9 @@
     },
     "EditableImage": {
       "Name": "EditableImage",
-      "Tags": [],
+      "Tags": [
+        "NotCreatable"
+      ],
       "Superclass": "Object",
       "Properties": {
         "ImageData": {
@@ -19921,7 +19941,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": "Serializes"
             }
           }
         },
@@ -19963,7 +19983,9 @@
     },
     "EditableMesh": {
       "Name": "EditableMesh",
-      "Tags": [],
+      "Tags": [
+        "NotCreatable"
+      ],
       "Superclass": "Object",
       "Properties": {
         "FixedSize": {
@@ -20011,7 +20033,7 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": "Serializes"
             }
           }
         },
@@ -22465,7 +22487,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -22918,9 +22940,7 @@
     },
     "FluidForceSensor": {
       "Name": "FluidForceSensor",
-      "Tags": [
-        "NotBrowsable"
-      ],
+      "Tags": [],
       "Superclass": "SensorBase",
       "Properties": {
         "CenterOfPressure": {
@@ -30993,7 +31013,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshData": {
@@ -35810,7 +35830,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshId": {
@@ -37531,7 +37551,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshData": {
@@ -38651,9 +38671,7 @@
           "DataType": {
             "Value": "Bool"
           },
-          "Tags": [
-            "NotScriptable"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -38707,6 +38725,23 @@
             }
           }
         },
+        "HasNewVersion": {
+          "Name": "HasNewVersion",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "ModifiedState": {
           "Name": "ModifiedState",
           "Scriptability": "None",
@@ -38714,8 +38749,7 @@
             "Value": "Int32"
           },
           "Tags": [
-            "Hidden",
-            "NotScriptable"
+            "Hidden"
           ],
           "Kind": {
             "Canonical": {
@@ -39326,7 +39360,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -39873,7 +39907,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshData": {
@@ -50330,7 +50364,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -51693,7 +51727,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -53821,7 +53855,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "Neutral": {
@@ -55841,6 +55875,38 @@
             }
           }
         },
+        "FrameTime": {
+          "Name": "FrameTime",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "HeartbeatTime": {
+          "Name": "HeartbeatTime",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "HeartbeatTimeMs": {
           "Name": "HeartbeatTimeMs",
           "Scriptability": "Read",
@@ -55848,6 +55914,7 @@
             "Value": "Float32"
           },
           "Tags": [
+            "Deprecated",
             "NotReplicated",
             "ReadOnly"
           ],
@@ -55921,8 +55988,8 @@
             }
           }
         },
-        "PhysicsStepTimeMs": {
-          "Name": "PhysicsStepTimeMs",
+        "PhysicsStepTime": {
+          "Name": "PhysicsStepTime",
           "Scriptability": "Read",
           "DataType": {
             "Value": "Float32"
@@ -55937,8 +56004,185 @@
             }
           }
         },
+        "PhysicsStepTimeMs": {
+          "Name": "PhysicsStepTimeMs",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "Deprecated",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "PrimitivesCount": {
           "Name": "PrimitivesCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "RenderCPUFrameTime": {
+          "Name": "RenderCPUFrameTime",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "RenderGPUFrameTime": {
+          "Name": "RenderGPUFrameTime",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "SceneDrawcallCount": {
+          "Name": "SceneDrawcallCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "SceneTriangleCount": {
+          "Name": "SceneTriangleCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ShadowsDrawcallCount": {
+          "Name": "ShadowsDrawcallCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "ShadowsTriangleCount": {
+          "Name": "ShadowsTriangleCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "UI2DDrawcallCount": {
+          "Name": "UI2DDrawcallCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "UI2DTriangleCount": {
+          "Name": "UI2DTriangleCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "UI3DDrawcallCount": {
+          "Name": "UI3DDrawcallCount",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "UI3DTriangleCount": {
+          "Name": "UI3DTriangleCount",
           "Scriptability": "Read",
           "DataType": {
             "Value": "Int32"
@@ -61319,7 +61563,7 @@
             ]
           }
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PhysicsGrid": {
@@ -66645,7 +66889,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -67135,9 +67379,7 @@
     },
     "UIDragDetector": {
       "Name": "UIDragDetector",
-      "Tags": [
-        "NotBrowsable"
-      ],
+      "Tags": [],
       "Superclass": "UIComponent",
       "Properties": {
         "ActivatedCursorIcon": {
@@ -69127,7 +69369,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshData": {
@@ -71772,7 +72014,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MaxSpeed": {
@@ -73552,7 +73794,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -74303,21 +74545,6 @@
             }
           }
         },
-        "DecreaseMinimumPartDensityMode": {
-          "Name": "DecreaseMinimumPartDensityMode",
-          "Scriptability": "None",
-          "DataType": {
-            "Enum": "DecreaseMinimumPartDensityMode"
-          },
-          "Tags": [
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "DistributedGameTime": {
           "Name": "DistributedGameTime",
           "Scriptability": "ReadWrite",
@@ -74829,7 +75056,11 @@
           "Bool": true
         },
         "Attributes": {
-          "Attributes": {}
+          "Attributes": {
+            "LogLevel": {
+              "BinaryString": "V2FybmluZw=="
+            }
+          }
         },
         "AvatarUnificationMode": {
           "Enum": 0
@@ -74845,9 +75076,6 @@
         },
         "CollisionGroupData": {
           "BinaryString": "AQEABP////8HRGVmYXVsdA=="
-        },
-        "DecreaseMinimumPartDensityMode": {
-          "Enum": 0
         },
         "DistributedGameTime": {
           "Float64": 0.0
@@ -75022,11 +75250,11 @@
             }
           }
         },
-        "Position": {
-          "Name": "Position",
+        "AdorneeOffset": {
+          "Name": "AdorneeOffset",
           "Scriptability": "None",
           "DataType": {
-            "Value": "CFrame"
+            "Value": "Vector3"
           },
           "Tags": [
             "Hidden"
@@ -76997,14 +77225,6 @@
         "RpcError": 6,
         "Success": 0,
         "Timeout": 1
-      }
-    },
-    "DecreaseMinimumPartDensityMode": {
-      "name": "DecreaseMinimumPartDensityMode",
-      "items": {
-        "Default": 0,
-        "Disabled": 1,
-        "Enabled": 2
       }
     },
     "DevCameraOcclusionMode": {
@@ -79365,6 +79585,7 @@
         "DataStore": 9,
         "Environment": 18,
         "Input": 17,
+        "LegacySound": 20,
         "LoadString": 4,
         "Network": 10,
         "Physics": 11,
