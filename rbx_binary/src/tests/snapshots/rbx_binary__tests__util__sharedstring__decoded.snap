@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: Parts
+  name:
+    Utf8:
+      - Parts
   class: Model
   properties:
     Attributes:
@@ -63,7 +65,9 @@ expression: decoded_viewed
             - 0.10633871
   children:
     - referent: referent-1
-      name: Union
+      name:
+        Utf8:
+          - Union
       class: UnionOperation
       properties:
         Anchored:
@@ -234,7 +238,9 @@ expression: decoded_viewed
             - 0
       children: []
     - referent: referent-2
-      name: Union
+      name:
+        Utf8:
+          - Union
       class: UnionOperation
       properties:
         Anchored:
@@ -405,7 +411,9 @@ expression: decoded_viewed
             - 0
       children: []
     - referent: referent-3
-      name: Union
+      name:
+        Utf8:
+          - Union
       class: UnionOperation
       properties:
         Anchored:
@@ -576,7 +584,9 @@ expression: decoded_viewed
             - 0
       children: []
     - referent: referent-4
-      name: Union
+      name:
+        Utf8:
+          - Union
       class: UnionOperation
       properties:
         Anchored:
@@ -747,7 +757,9 @@ expression: decoded_viewed
             - 0
       children: []
     - referent: referent-5
-      name: Union
+      name:
+        Utf8:
+          - Union
       class: UnionOperation
       properties:
         Anchored:
@@ -918,7 +930,9 @@ expression: decoded_viewed
             - 0
       children: []
     - referent: referent-6
-      name: Union
+      name:
+        Utf8:
+          - Union
       class: UnionOperation
       properties:
         Anchored:
@@ -1089,7 +1103,9 @@ expression: decoded_viewed
             - 0
       children: []
     - referent: referent-7
-      name: Union
+      name:
+        Utf8:
+          - Union
       class: UnionOperation
       properties:
         Anchored:
@@ -1260,7 +1276,9 @@ expression: decoded_viewed
             - 0
       children: []
     - referent: referent-8
-      name: Union
+      name:
+        Utf8:
+          - Union
       class: UnionOperation
       properties:
         Anchored:
@@ -1430,4 +1448,3 @@ expression: decoded_viewed
             - 0
             - 0
       children: []
-

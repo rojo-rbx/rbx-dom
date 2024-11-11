@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: ParticleEmitter
+  name:
+    Utf8:
+      - ParticleEmitter
   class: ParticleEmitter
   properties:
     Acceleration:
@@ -99,7 +101,9 @@ expression: decoded_viewed
       Float32: 0
   children: []
 - referent: referent-1
-  name: ParticleEmitter
+  name:
+    Utf8:
+      - ParticleEmitter
   class: ParticleEmitter
   properties:
     Acceleration:
@@ -194,4 +198,3 @@ expression: decoded_viewed
     ZOffset:
       Float32: 0
   children: []
-
