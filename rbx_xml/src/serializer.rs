@@ -2,7 +2,7 @@ use std::{borrow::Cow, collections::BTreeMap, io::Write};
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
-    types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
+    types::{Ref, RobloxString, SharedString, SharedStringHash, Variant, VariantType},
     WeakDom,
 };
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
@@ -178,12 +178,12 @@ fn serialize_instance<'dom, W: Write>(
 
     writer.write(XmlWriteEvent::start_element("Properties"))?;
 
-    write_value_xml(
-        writer,
-        state,
-        "Name",
-        &Variant::String(instance.name.clone()),
-    )?;
+    let name_as_string = match &instance.name {
+        RobloxString::Binary(buffer) => String::from_utf8_lossy(buffer.as_slice()).to_string(),
+        RobloxString::Utf8(string) => string.to_string(),
+    };
+
+    write_value_xml(writer, state, "Name", &Variant::String(name_as_string))?;
 
     // Move references to our properties into property_buffer so we can sort
     // them and iterate them in order.
