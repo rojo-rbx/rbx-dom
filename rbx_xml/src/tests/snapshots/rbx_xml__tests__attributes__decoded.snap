@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: Folder
+  name:
+    Utf8:
+      - Folder
   class: Folder
   properties:
     Attributes:
@@ -89,4 +91,3 @@ expression: "DomViewer::new().view_children(&decoded)"
     Tags:
       Tags: []
   children: []
-

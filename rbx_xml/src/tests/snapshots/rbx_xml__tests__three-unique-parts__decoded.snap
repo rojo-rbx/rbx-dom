@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: Brush your teeth
+  name:
+    Utf8:
+      - Brush your teeth
   class: Part
   properties:
     Anchored:
@@ -124,7 +126,9 @@ expression: "DomViewer::new().view_children(&decoded)"
         - 0
   children: []
 - referent: referent-1
-  name: Eat your greens
+  name:
+    Utf8:
+      - Eat your greens
   class: Part
   properties:
     Anchored:
@@ -250,7 +254,9 @@ expression: "DomViewer::new().view_children(&decoded)"
         - 0
   children: []
 - referent: referent-2
-  name: Live wildly
+  name:
+    Utf8:
+      - Live wildly
   class: Part
   properties:
     Anchored:
@@ -375,4 +381,3 @@ expression: "DomViewer::new().view_children(&decoded)"
         - 0
         - 0
   children: []
-

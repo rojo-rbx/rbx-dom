@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: Ref Target
+  name:
+    Utf8:
+      - Ref Target
   class: Folder
   properties:
     Attributes:
@@ -12,7 +14,9 @@ expression: "DomViewer::new().view_children(&decoded)"
       Tags: []
   children: []
 - referent: referent-1
-  name: Value
+  name:
+    Utf8:
+      - Value
   class: ObjectValue
   properties:
     Attributes:
@@ -21,4 +25,3 @@ expression: "DomViewer::new().view_children(&decoded)"
       Tags: []
     Value: referent-0
   children: []
-

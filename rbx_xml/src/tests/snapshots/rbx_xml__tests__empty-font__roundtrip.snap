@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Bold Denk
+  name:
+    Utf8:
+      - Bold Denk
   class: TextLabel
   properties:
     Active:
@@ -125,4 +127,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     ZIndex:
       Int32: 1
   children: []
-

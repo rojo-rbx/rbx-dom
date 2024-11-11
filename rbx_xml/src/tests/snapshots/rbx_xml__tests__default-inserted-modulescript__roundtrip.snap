@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: ModuleScript
+  name:
+    Utf8:
+      - ModuleScript
   class: ModuleScript
   properties:
     Attributes:
@@ -17,4 +19,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Tags:
       Tags: []
   children: []
-
