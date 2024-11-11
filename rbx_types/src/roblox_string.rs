@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-///
+/// TODO
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum RobloxString {
     Binary(Vec<u8>),
