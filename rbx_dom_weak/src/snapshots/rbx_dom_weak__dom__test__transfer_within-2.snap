@@ -3,22 +3,30 @@ source: rbx_dom_weak/src/dom.rs
 expression: viewer.view_children(&dom)
 ---
 - referent: referent-0
-  name: Source
+  name:
+    Utf8:
+      - Source
   class: Folder
   properties: {}
   children: []
 - referent: referent-3
-  name: Dest
+  name:
+    Utf8:
+      - Dest
   class: Folder
   properties: {}
   children:
     - referent: referent-1
-      name: Root
+      name:
+        Utf8:
+          - Root
       class: Folder
       properties: {}
       children:
         - referent: referent-2
-          name: SpawnLocation
+          name:
+            Utf8:
+              - SpawnLocation
           class: SpawnLocation
           properties: {}
           children: []

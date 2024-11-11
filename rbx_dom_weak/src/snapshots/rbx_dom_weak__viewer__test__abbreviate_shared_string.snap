@@ -3,7 +3,9 @@ source: rbx_dom_weak/src/viewer.rs
 expression: "DomViewer::new().view(&dom)"
 ---
 referent: referent-0
-name: Root
+name:
+  Utf8:
+    - Root
 class: UnionOperation
 properties:
   PhysicalConfigData:
