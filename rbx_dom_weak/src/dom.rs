@@ -501,7 +501,7 @@ impl CloneContext {
             .expect("Cannot clone an instance that does not exist");
 
         let builder = InstanceBuilder::new(instance.class)
-            .with_name(instance.name.to_string())
+            .with_name(instance.name.clone())
             .with_properties(instance.properties.clone());
 
         let new_ref = builder.referent;
