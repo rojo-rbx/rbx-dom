@@ -95,11 +95,12 @@ pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance, RandomState>) {
 ```
 to
 ```rust
-pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance, ahash::RandomState>) {
+pub fn into_raw(self) -> (Ref, AHashMap<Ref, Instance>) {
 ```
 
 ### Other changes
-* Added `UstrMapExt`, a helper trait providing convenience methods `UstrMap::new` and `UstrMap::with_capacity`.
+* Added `HashMapExt`, a helper trait providing convenience methods `UstrMap::new`, `UstrMap::with_capacity`, `AHashMap::new`, and `AHashMap::with_capacity`.
+* Added re-exports for `AHashMap`.
 * Added re-exports for `ustr` (a convenience function for creating `Ustr`s), `Ustr`, `UstrMap`, and `UstrSet`.
 * Added `InstanceBuilder::with_property_capacity`, which can preallocate an `InstanceBuilder`'s property table. [#464]
 * Added `WeakDom::reserve`, which can preallocate additional space for instances in the `WeakDom`. [#465]
