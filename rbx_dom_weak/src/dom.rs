@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 
-use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
+use ahash::{AHashMap, AHashSet};
 use rbx_types::{Ref, UniqueId, Variant};
 use ustr::ustr;
 
@@ -15,18 +15,18 @@ use crate::instance::{Instance, InstanceBuilder};
 /// objects and insert them into the tree.
 #[derive(Debug)]
 pub struct WeakDom {
-    instances: HashMap<Ref, Instance>,
+    instances: AHashMap<Ref, Instance>,
     root_ref: Ref,
-    unique_ids: HashSet<UniqueId>,
+    unique_ids: AHashSet<UniqueId>,
 }
 
 impl WeakDom {
     /// Construct a new `WeakDom` described by the given [`InstanceBuilder`].
     pub fn new(builder: InstanceBuilder) -> WeakDom {
         let mut dom = WeakDom {
-            instances: HashMap::new(),
+            instances: AHashMap::new(),
             root_ref: builder.referent,
-            unique_ids: HashSet::new(),
+            unique_ids: AHashSet::new(),
         };
 
         dom.insert(Ref::none(), builder);
@@ -42,7 +42,7 @@ impl WeakDom {
     /// Consumes the WeakDom, returning its underlying root ref and backing
     /// storage. This method is useful when tree-preserving operations are too
     /// slow.
-    pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance>) {
+    pub fn into_raw(self) -> (Ref, AHashMap<Ref, Instance>) {
         (self.root_ref, self.instances)
     }
 
@@ -435,9 +435,9 @@ impl<'a> Iterator for WeakDomDescendants<'a> {
 impl Default for WeakDom {
     fn default() -> WeakDom {
         WeakDom {
-            instances: HashMap::new(),
+            instances: AHashMap::new(),
             root_ref: Ref::none(),
-            unique_ids: HashSet::new(),
+            unique_ids: AHashSet::new(),
         }
     }
 }
@@ -445,14 +445,14 @@ impl Default for WeakDom {
 #[derive(Debug, Default)]
 struct CloneContext {
     queue: VecDeque<(Ref, Ref)>,
-    ref_rewrites: HashMap<Ref, Ref>,
+    ref_rewrites: AHashMap<Ref, Ref>,
 }
 
 impl CloneContext {
     /// On any instances cloned during the operation, rewrite any Ref properties that
     /// point to instances that were also cloned.
     fn rewrite_refs(self, dest: &mut WeakDom) {
-        let mut existing_dest_refs = HashSet::new();
+        let mut existing_dest_refs = AHashSet::new();
 
         for (_, new_ref) in self.ref_rewrites.iter() {
             let instance = dest
