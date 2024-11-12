@@ -95,7 +95,7 @@ pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance, RandomState>) {
 ```
 to
 ```rust
-pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance, ahash::RandomState>) {
+pub fn into_raw(self) -> (Ref, AHashMap<Ref, Instance>) {
 ```
 
 ### Other changes
