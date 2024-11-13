@@ -497,14 +497,14 @@ fn deserialize_instance<R: Read>(
 
     instance.name = match properties.remove(&"Name".into()) {
         Some(value) => match value {
-            Variant::String(value) => value,
+            Variant::String(value) => value.into(),
             _ => return Err(reader.error(DecodeErrorKind::NameMustBeString(value.ty()))),
         },
 
         // TODO: Use reflection to get default name instead. This should only
         // matter for ValueBase instances in files created by tools other than
         // Roblox Studio.
-        None => instance.class.to_string(),
+        None => instance.class.as_str().into(),
     };
 
     instance.properties = properties.into_iter().collect();

@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: Region 1
+  name:
+    Utf8:
+      - Region 1
   class: TerrainRegion
   properties:
     Attributes:
@@ -26,7 +28,9 @@ expression: "DomViewer::new().view_children(&decoded)"
       Tags: []
   children: []
 - referent: referent-1
-  name: Region 2
+  name:
+    Utf8:
+      - Region 2
   class: TerrainRegion
   properties:
     Attributes:
@@ -48,4 +52,3 @@ expression: "DomViewer::new().view_children(&decoded)"
     Tags:
       Tags: []
   children: []
-

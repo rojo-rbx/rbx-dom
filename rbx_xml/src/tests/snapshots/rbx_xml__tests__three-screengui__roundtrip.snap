@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: DisplayOrder0
+  name:
+    Utf8:
+      - DisplayOrder0
   class: ScreenGui
   properties:
     Attributes:
@@ -25,7 +27,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Enum: 1
   children: []
 - referent: referent-1
-  name: DisplayOrder1
+  name:
+    Utf8:
+      - DisplayOrder1
   class: ScreenGui
   properties:
     Attributes:
@@ -47,7 +51,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Enum: 1
   children: []
 - referent: referent-2
-  name: DisplayOrder2
+  name:
+    Utf8:
+      - DisplayOrder2
   class: ScreenGui
   properties:
     Attributes:
@@ -68,4 +74,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     ZIndexBehavior:
       Enum: 1
   children: []
-

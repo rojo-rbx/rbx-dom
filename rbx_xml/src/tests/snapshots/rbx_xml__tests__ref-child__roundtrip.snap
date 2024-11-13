@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Value
+  name:
+    Utf8:
+      - Value
   class: ObjectValue
   properties:
     Attributes:
@@ -13,7 +15,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Value: referent-1
   children:
     - referent: referent-1
-      name: Ref Target
+      name:
+        Utf8:
+          - Ref Target
       class: Folder
       properties:
         Attributes:
@@ -21,4 +25,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         Tags:
           Tags: []
       children: []
-

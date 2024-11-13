@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: ImageButton
+  name:
+    Utf8:
+      - ImageButton
   class: ImageButton
   properties:
     Active:
@@ -119,7 +121,9 @@ expression: decoded_viewed
       Int32: 1
   children: []
 - referent: referent-1
-  name: ImageButton
+  name:
+    Utf8:
+      - ImageButton
   class: ImageButton
   properties:
     Active:
@@ -234,4 +238,3 @@ expression: decoded_viewed
     ZIndex:
       Int32: 1
   children: []
-

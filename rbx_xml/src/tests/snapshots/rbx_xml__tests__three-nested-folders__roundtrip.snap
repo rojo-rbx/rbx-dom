@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Grandparent
+  name:
+    Utf8:
+      - Grandparent
   class: Folder
   properties:
     Attributes:
@@ -12,7 +14,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Tags: []
   children:
     - referent: referent-1
-      name: Parent
+      name:
+        Utf8:
+          - Parent
       class: Folder
       properties:
         Attributes:
@@ -21,7 +25,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
           Tags: []
       children:
         - referent: referent-2
-          name: Child
+          name:
+            Utf8:
+              - Child
           class: Folder
           properties:
             Attributes:
@@ -29,4 +35,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
             Tags:
               Tags: []
           children: []
-

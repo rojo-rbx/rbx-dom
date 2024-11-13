@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: UIGradient
+  name:
+    Utf8:
+      - UIGradient
   class: UIGradient
   properties:
     Attributes:
@@ -53,7 +55,9 @@ expression: "DomViewer::new().view_children(&decoded)"
             envelope: 0
   children: []
 - referent: referent-1
-  name: UIGradient
+  name:
+    Utf8:
+      - UIGradient
   class: UIGradient
   properties:
     Attributes:
@@ -97,7 +101,9 @@ expression: "DomViewer::new().view_children(&decoded)"
             envelope: 0
   children: []
 - referent: referent-2
-  name: UIGradient
+  name:
+    Utf8:
+      - UIGradient
   class: UIGradient
   properties:
     Attributes:
@@ -137,4 +143,3 @@ expression: "DomViewer::new().view_children(&decoded)"
             value: 0
             envelope: 0
   children: []
-

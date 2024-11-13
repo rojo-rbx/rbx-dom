@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: Red Union 1
+  name:
+    Utf8:
+      - Red Union 1
   class: UnionOperation
   properties:
     Anchored:
@@ -144,7 +146,9 @@ expression: "DomViewer::new().view_children(&decoded)"
         - 0
   children: []
 - referent: referent-1
-  name: Red Union 2
+  name:
+    Utf8:
+      - Red Union 2
   class: UnionOperation
   properties:
     Anchored:
@@ -285,7 +289,9 @@ expression: "DomViewer::new().view_children(&decoded)"
         - 0
   children: []
 - referent: referent-2
-  name: Blue Union
+  name:
+    Utf8:
+      - Blue Union
   class: UnionOperation
   properties:
     Anchored:
@@ -425,4 +431,3 @@ expression: "DomViewer::new().view_children(&decoded)"
         - 0
         - 0
   children: []
-

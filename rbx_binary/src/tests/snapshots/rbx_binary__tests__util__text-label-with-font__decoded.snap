@@ -1,10 +1,11 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: TextLabel
+  name:
+    Utf8:
+      - TextLabel
   class: TextLabel
   properties:
     Active:
@@ -126,4 +127,3 @@ expression: decoded_viewed
     ZIndex:
       Int32: 1
   children: []
-

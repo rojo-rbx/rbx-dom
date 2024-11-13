@@ -27,7 +27,7 @@ fn with_bool() {
     let root = tree.root();
     let child = tree.get_by_ref(root.children()[0]).unwrap();
 
-    assert_eq!(child.name, "BoolValue");
+    assert_eq!(child.name, "BoolValue".into());
     assert_eq!(child.class, "BoolValue");
     assert_eq!(
         child.properties.get(&"Value".into()),
@@ -279,7 +279,7 @@ fn read_unique_id() {
     let root = tree.root();
     let child = tree.get_by_ref(root.children()[0]).unwrap();
 
-    assert_eq!(child.name, "Workspace");
+    assert_eq!(child.name, "Workspace".into());
     assert_eq!(child.class, "Workspace");
 
     assert_eq!(
