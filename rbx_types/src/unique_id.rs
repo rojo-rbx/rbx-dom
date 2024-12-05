@@ -179,7 +179,7 @@ mod serde_impl {
     struct HumanVisitor;
     struct NonHumanVisitor;
 
-    impl<'de> de::Visitor<'de> for HumanVisitor {
+    impl de::Visitor<'_> for HumanVisitor {
         type Value = UniqueId;
 
         fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
@@ -194,7 +194,7 @@ mod serde_impl {
         }
     }
 
-    impl<'de> de::Visitor<'de> for NonHumanVisitor {
+    impl de::Visitor<'_> for NonHumanVisitor {
         type Value = UniqueId;
 
         fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {

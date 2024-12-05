@@ -63,7 +63,7 @@ impl<'a> ReflectionDatabase<'a> {
     pub fn superclasses(
         &'a self,
         descriptor: &'a ClassDescriptor<'a>,
-    ) -> Option<Vec<&ClassDescriptor>> {
+    ) -> Option<Vec<&'a ClassDescriptor<'a>>> {
         // As of the time of writing (14 March 2024), the class with the most
         // superclasses has 6 of them.
         let mut list = Vec::with_capacity(6);
@@ -79,7 +79,7 @@ impl<'a> ReflectionDatabase<'a> {
 
     /// Returns an iterator of superclasses for the provided ClassDescriptor. This
     /// iterator will start with the provided class and end with `Instance`.
-    pub fn superclasses_iter(&'a self, descriptor: &'a ClassDescriptor<'a>) -> SuperClassIter {
+    pub fn superclasses_iter(&'a self, descriptor: &'a ClassDescriptor<'a>) -> SuperClassIter<'a> {
         SuperClassIter {
             database: self,
             descriptor: Some(descriptor),

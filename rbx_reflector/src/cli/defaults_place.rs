@@ -267,7 +267,7 @@ impl<'a> PluginInjector<'a> {
     }
 }
 
-impl<'a> Drop for PluginInjector<'a> {
+impl Drop for PluginInjector<'_> {
     fn drop(&mut self) {
         log::info!("Uninstalling Studio plugin");
 
