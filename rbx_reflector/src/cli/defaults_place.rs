@@ -135,6 +135,11 @@ fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Resul
             | "ScriptDebugger" | "PackageLink" | "Ad" | "AdPortal" | "AdGui"
             | "InternalSyncItem" => continue,
 
+            // Settings singletons cannot be put into a DataModel. This changed
+            // in release 653.
+            "DebugSettings" | "GameSettings" | "LuaSettings" | "NetworkSettings"
+            | "PhysicsSettings" | "RenderSettings" | "Studio" | "TaskScheduler" => continue,
+
             // This class will cause studio to crash on close.
             "VoiceSource" => continue,
 
