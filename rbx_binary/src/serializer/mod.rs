@@ -94,7 +94,7 @@ impl<'db> Serializer<'db> {
     }
 }
 
-impl<'db> Default for Serializer<'db> {
+impl Default for Serializer<'_> {
     fn default() -> Self {
         Self::new()
     }
