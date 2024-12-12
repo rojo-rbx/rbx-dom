@@ -56,7 +56,7 @@ impl WeakDom {
         for inst in instances.values() {
             match inst.properties.get(&ustr("UniqueId")) {
                 Some(Variant::UniqueId(id)) => {
-                    if unique_ids.insert(*id) {
+                    if !unique_ids.insert(*id) {
                         panic!(
                             "UniqueId {} is duplicated in the provided `instances` map",
                             id
