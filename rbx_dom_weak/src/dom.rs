@@ -33,6 +33,51 @@ impl WeakDom {
         dom
     }
 
+    /// Constructs a new `WeakDom` that contains the provides `instances` with
+    /// `root_ref` at the root. The `root_ref` must be included in `instances`.
+    ///
+    /// It is possible to make orphaned Instances using this constructor! You
+    /// must ensure that all Instances are descendants of the `root_ref` to
+    /// avoid this.
+    ///
+    /// # Panics
+    ///
+    /// If `root_ref` is not inside `instances`, it will cause a panic.
+    ///
+    /// If an Instance has a `UniqueId` property that is either duplicated in
+    /// `instances` or not a `Variant::UniqueId`, this function will panic.
+    #[must_use]
+    pub fn from_raw(root_ref: Ref, instances: AHashMap<Ref, Instance>) -> WeakDom {
+        assert!(
+            instances.contains_key(&root_ref),
+            "the provided `instances` map does not contain the `root_ref`"
+        );
+        let mut unique_ids = AHashSet::with_capacity(instances.len());
+        for inst in instances.values() {
+            match inst.properties.get(&ustr("UniqueId")) {
+                Some(Variant::UniqueId(id)) => {
+                    if unique_ids.insert(*id) {
+                        panic!(
+                            "UniqueId {} is duplicated in the provided `instances` map",
+                            id
+                        );
+                    }
+                }
+                None => {}
+                Some(val) => panic!(
+                    "expected property UniqueId to be a UniqueId but it was instead a {:?}",
+                    val.ty()
+                ),
+            }
+        }
+
+        WeakDom {
+            instances,
+            root_ref,
+            unique_ids,
+        }
+    }
+
     /// Reserve at least enough space for `additional` number of instances in
     /// the WeakDom.
     pub fn reserve(&mut self, additional: usize) {
@@ -837,5 +882,94 @@ mod test {
         assert_eq!(descendants_2.next().unwrap().referent(), sibling_1);
         assert_eq!(descendants_2.next().unwrap().referent(), sibling_2);
         assert!(descendants_2.next().is_none());
+    }
+
+    #[test]
+    fn from_raw() {
+        let mut dom = WeakDom::new(InstanceBuilder::new("ROOT"));
+
+        let parent = dom.insert(dom.root_ref, InstanceBuilder::new("Folder"));
+        let child_1 = dom.insert(
+            parent,
+            InstanceBuilder::new("ObjectValue").with_property("Value", parent),
+        );
+        let child_2 = dom.insert(
+            parent,
+            InstanceBuilder::new("ObjectValue").with_property("Value", child_1),
+        );
+
+        let (old_root, tree) = dom.into_raw();
+        let dom = WeakDom::from_raw(parent, tree);
+
+        assert!(
+            dom.get_by_ref(old_root).is_some(),
+            "old root was not preserved in `tree` map"
+        );
+        assert_eq!(
+            dom.root_ref(),
+            parent,
+            "new root was not respected by from_raw"
+        );
+        assert_eq!(
+            dom.root().children()[0],
+            child_1,
+            "new root's children do not match their refs from old dom"
+        );
+        assert_eq!(
+            dom.root().children()[1],
+            child_2,
+            "new root's children do not match their refs from old dom"
+        );
+
+        let Variant::Ref(child_1_value) = dom
+            .get_by_ref(child_1)
+            .unwrap()
+            .properties
+            .get(&ustr("Value"))
+            .unwrap()
+        else {
+            panic!("child_1.Value was not a Ref. How did this happen?")
+        };
+        let Variant::Ref(child_2_value) = dom
+            .get_by_ref(child_2)
+            .unwrap()
+            .properties
+            .get(&ustr("Value"))
+            .unwrap()
+        else {
+            panic!("child_1.Value was not a Ref. How did this happen?")
+        };
+
+        assert_eq!(
+            *child_1_value, parent,
+            "value of ref property was not preserved in new dom"
+        );
+        assert_eq!(
+            *child_2_value, child_1,
+            "value of ref property was not preserved in new dom"
+        );
+    }
+
+    #[test]
+    #[should_panic = "UniqueId 123456789abcdef09abcdef012345678 is duplicated in the provided `instances` map"]
+    fn from_raw_duplicate_unique_id() {
+        let mut dom = WeakDom::new(InstanceBuilder::new("ROOT"));
+
+        let inst_ref_1 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
+        let inst_ref_2 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
+        let (root, mut tree) = dom.into_raw();
+
+        // Deterministic for the panic above
+        let id = UniqueId::new(0x1234_5678, 0x9abc_def0, 0x1234_5678_9abc_def0);
+        tree.get_mut(&inst_ref_1)
+            .unwrap()
+            .properties
+            .insert(ustr("UniqueId"), id.into());
+        tree.get_mut(&inst_ref_2)
+            .unwrap()
+            .properties
+            .insert(ustr("UniqueId"), id.into());
+
+        let _ = WeakDom::from_raw(root, tree);
     }
 }
