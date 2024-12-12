@@ -972,4 +972,24 @@ mod test {
 
         let _ = WeakDom::from_raw(root, tree);
     }
+
+    #[test]
+    fn from_raw_normal_unique_id() {
+        let mut dom = WeakDom::new(InstanceBuilder::new("ROOT"));
+
+        let inst_ref_1 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
+        let inst_ref_2 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
+        let (root, mut tree) = dom.into_raw();
+
+        tree.get_mut(&inst_ref_1)
+            .unwrap()
+            .properties
+            .insert(ustr("UniqueId"), UniqueId::now().unwrap().into());
+        tree.get_mut(&inst_ref_2)
+            .unwrap()
+            .properties
+            .insert(ustr("UniqueId"), UniqueId::now().unwrap().into());
+
+        let _ = WeakDom::from_raw(root, tree);
+    }
 }
