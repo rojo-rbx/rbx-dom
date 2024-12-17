@@ -5,7 +5,9 @@
 # 1.10.0 (2024-08-22)
 * Add support for `Int32` values within `Attributes` ([#439])
 * Add `len` and `is_empty` to `Tags` ([#438])
+* Added support for `EnumItem` attributes. [#470]
 
+[#470]: https://github.com/rojo-rbx/rbx-dom/pull/470
 [#438]: https://github.com/rojo-rbx/rbx-dom/pull/438
 [#439]: https://github.com/rojo-rbx/rbx-dom/pull/439
 

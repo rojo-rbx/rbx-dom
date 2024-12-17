@@ -18,7 +18,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [Vector2](#vector2)
     - [Vector3](#vector3)
     - [CFrame](#cframe)
-	- [EnumItem](#EnumItem)
+	- [EnumItem](#enumitem)
     - [NumberSequence](#numbersequence)
     - [ColorSequence](#colorsequence)
     - [NumberRange](#numberrange)
@@ -27,7 +27,7 @@ This document describes the Attribute binary format. In this format there is no 
 
 ## Document Conventions
 
-This document assumes a basic understanding of Rust's convention for numeric types. For example: 
+This document assumes a basic understanding of Rust's convention for numeric types. For example:
 
 - `u32` is an unsigned 32-bit integer
 - `f32` is a 32-bit floating point
@@ -189,7 +189,7 @@ Demonstrating the axis-aligned rotation matrix case, a `CFrame` with the value `
 ### EnumItem
 **Type ID `0x15`**
 
-The `EnumItem` type is composed of two parts: 
+The `EnumItem` type is composed of two parts:
 
 | Field Name | Format              | Value                                                  |
 |:-----------|:--------------------|:-------------------------------------------------------|

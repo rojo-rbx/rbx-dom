@@ -4,20 +4,28 @@
 use std::borrow::{Borrow, Cow};
 use std::convert::TryInto;
 
-use rbx_dom_weak::types::{
-    Attributes, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType,
+use rbx_dom_weak::types::Enum;
+use rbx_dom_weak::{
+    types::{Attributes, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType},
+    Ustr,
 };
 
 pub trait ConvertVariant: Clone + Sized {
-    fn try_convert(self, target_type: VariantType) -> Result<Self, String> {
-        Self::try_convert_cow(Cow::Owned(self), target_type).map(|value| value.into_owned())
+    fn try_convert(self, class_name: Ustr, target_type: VariantType) -> Result<Self, String> {
+        Self::try_convert_cow(class_name, Cow::Owned(self), target_type)
+            .map(|value| value.into_owned())
     }
 
-    fn try_convert_ref(&self, target_type: VariantType) -> Result<Cow<'_, Self>, String> {
-        Self::try_convert_cow(Cow::Borrowed(self), target_type)
+    fn try_convert_ref(
+        &self,
+        class_name: Ustr,
+        target_type: VariantType,
+    ) -> Result<Cow<'_, Self>, String> {
+        Self::try_convert_cow(class_name, Cow::Borrowed(self), target_type)
     }
 
     fn try_convert_cow(
+        class_name: Ustr,
         value: Cow<'_, Self>,
         target_type: VariantType,
     ) -> Result<Cow<'_, Self>, String>;
@@ -25,6 +33,7 @@ pub trait ConvertVariant: Clone + Sized {
 
 impl ConvertVariant for Variant {
     fn try_convert_cow(
+        class_name: Ustr,
         value: Cow<'_, Self>,
         target_type: VariantType,
     ) -> Result<Cow<'_, Self>, String> {
@@ -57,18 +66,40 @@ impl ConvertVariant for Variant {
             )),
             (Variant::BinaryString(value), VariantType::Attributes) => {
                 let bytes: &[u8] = value.as_ref();
+                match Attributes::from_reader(bytes) {
+                    Ok(attributes) => Ok(Cow::Owned(attributes.into())),
+                    Err(err) => {
+                        log::warn!(
+                            "Failed to parse Attributes on {} because {:?}; falling back to BinaryString.
 
-                Ok(Cow::Owned(
-                    Attributes::from_reader(bytes)
-                        .map_err(|_| "Unknown or invalid Attributes")?
-                        .into(),
-                ))
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
+                             class_name,
+                             err
+                        );
+
+                        Ok(Cow::Owned(value.clone().into()))
+                    }
+                }
             }
-            (Variant::BinaryString(value), VariantType::MaterialColors) => Ok(Cow::Owned(
-                MaterialColors::decode(value.as_ref())
-                    .map_err(|_| "invalid MaterialColors value")?
-                    .into(),
-            )),
+            (Variant::BinaryString(value), VariantType::MaterialColors) => {
+                match MaterialColors::decode(value.as_ref()) {
+                    Ok(material_colors) => Ok(Cow::Owned(material_colors.into())),
+                    Err(err) => {
+                        log::warn!(
+                            "Failed to parse MaterialColors on {} because {:?}; falling back to BinaryString.
+
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
+                            class_name,
+                            err
+                        );
+
+                        Ok(Cow::Owned(value.clone().into()))
+                    }
+                }
+            }
+            (Variant::EnumItem(enum_item), VariantType::Enum) => {
+                Ok(Cow::Owned(Enum::from_u32(enum_item.value).into()))
+            }
             (_, _) => Ok(value),
         }
     }

@@ -9,11 +9,11 @@ use crate::{
     serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
-// A Content type is serialized as either:
+// A ContentId type is serialized as either:
 // <null></null>, which indicates an empty content value
 // <url>something</url>, where 'something' is a URL to use for content.
 impl XmlType for Content {
-    const XML_TAG_NAME: &'static str = "Content";
+    const XML_TAG_NAME: &'static str = "ContentId";
 
     fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
         // FIXME: Content should have a method for this
@@ -66,6 +66,28 @@ impl XmlType for Content {
     }
 }
 
+/// In release 645, Roblox changed `Content` to serialize as `ContentId`.
+/// However, we still need to deserialize older models, so we have to support
+/// `Content`.
+///
+/// This may need to be replaced in the future if Roblox implements a new
+/// `Content` type, but right now they haven't.
+#[derive(Debug, PartialEq, Eq)]
+pub struct ContentDummy(pub Content);
+
+impl XmlType for ContentDummy {
+    const XML_TAG_NAME: &'static str = "Content";
+
+    fn write_xml<W: Write>(&self, _writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
+        panic!("Content values are only read, never written.");
+    }
+
+    fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
+        // We just want to use the same deserializer as ContentId
+        Content::read_xml(reader).map(ContentDummy)
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -86,9 +108,9 @@ mod test {
     fn deserialize_content_url() {
         test_util::test_xml_deserialize(
             r#"
-                <Content name="something">
+                <ContentId name="something">
                     <url>Some URL</url>
-                </Content>
+                </ContentId>
             "#,
             &Content::from("Some URL"),
         );
@@ -98,9 +120,9 @@ mod test {
     fn deserialize_content_null() {
         test_util::test_xml_deserialize(
             r#"
-                <Content name="something">
+                <ContentId name="something">
                     <null></null>
-                </Content>
+                </ContentId>
             "#,
             &Content::new(),
         );
@@ -110,9 +132,9 @@ mod test {
     fn serialize_content_url() {
         test_util::test_xml_serialize(
             r#"
-                <Content name="foo">
+                <ContentId name="foo">
                     <url>Some URL</url>
-                </Content>
+                </ContentId>
             "#,
             &Content::from("Some URL"),
         );
@@ -122,9 +144,9 @@ mod test {
     fn serialize_content_null() {
         test_util::test_xml_serialize(
             r#"
-                <Content name="foo">
+                <ContentId name="foo">
                     <null></null>
-                </Content>
+                </ContentId>
             "#,
             &Content::new(),
         );

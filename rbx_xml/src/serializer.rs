@@ -1,9 +1,6 @@
-use std::{
-    borrow::Cow,
-    collections::{BTreeMap, HashMap},
-    io::Write,
-};
+use std::{borrow::Cow, collections::BTreeMap, io::Write};
 
+use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
     types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
     WeakDom,
@@ -168,7 +165,7 @@ fn serialize_instance<'dom, W: Write>(
     state: &mut EmitState,
     tree: &'dom WeakDom,
     id: Ref,
-    property_buffer: &mut Vec<(&'dom String, &'dom Variant)>,
+    property_buffer: &mut Vec<(&'dom str, &'dom Variant)>,
 ) -> Result<(), NewEncodeError> {
     let instance = tree.get_by_ref(id).unwrap();
     let mapped_id = state.map_id(id);
@@ -190,7 +187,7 @@ fn serialize_instance<'dom, W: Write>(
 
     // Move references to our properties into property_buffer so we can sort
     // them and iterate them in order.
-    property_buffer.extend(&instance.properties);
+    property_buffer.extend(instance.properties.iter().map(|(k, v)| (k.as_str(), v)));
     property_buffer.sort_unstable_by_key(|(key, _)| *key);
 
     for (property_name, value) in property_buffer.drain(..) {
@@ -213,12 +210,12 @@ fn serialize_instance<'dom, W: Write>(
 
             let mut serialized_name = serialized_descriptor.name.as_ref();
 
-            let mut converted_value = match value.try_convert_ref(data_type) {
+            let mut converted_value = match value.try_convert_ref(instance.class, data_type) {
                 Ok(value) => value,
                 Err(message) => {
                     return Err(
                         writer.error(EncodeErrorKind::UnsupportedPropertyConversion {
-                            class_name: instance.class.clone(),
+                            class_name: instance.class.to_string(),
                             property_name: property_name.to_string(),
                             expected_type: data_type,
                             actual_type: value.ty(),
@@ -253,8 +250,8 @@ fn serialize_instance<'dom, W: Write>(
                 }
                 EncodePropertyBehavior::ErrorOnUnknown => {
                     return Err(writer.error(EncodeErrorKind::UnknownProperty {
-                        class_name: instance.class.clone(),
-                        property_name: property_name.clone(),
+                        class_name: instance.class.to_string(),
+                        property_name: property_name.to_string(),
                     }));
                 }
             }

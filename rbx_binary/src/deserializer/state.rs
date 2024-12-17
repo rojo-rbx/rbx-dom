@@ -1,9 +1,6 @@
-use std::{
-    collections::{HashMap, HashSet, VecDeque},
-    convert::TryInto,
-    io::Read,
-};
+use std::{borrow::Cow, collections::VecDeque, convert::TryInto, io::Read};
 
+use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
@@ -12,7 +9,7 @@ use rbx_dom_weak::{
         PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
         UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
-    InstanceBuilder, WeakDom,
+    InstanceBuilder, Ustr, WeakDom,
 };
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
@@ -67,7 +64,7 @@ struct TypeInfo {
     type_id: u32,
 
     /// The common name for this type like `Folder` or `UserInputService`.
-    type_name: String,
+    type_name: Ustr,
 
     /// A list of the instances described by this file that are this type.
     referents: Vec<i32>,
@@ -91,7 +88,7 @@ struct Instance {
 /// others (like Font, which has been superceded by FontFace).
 #[derive(Debug)]
 struct CanonicalProperty<'db> {
-    name: &'db str,
+    name: Ustr,
     ty: VariantType,
     migration: Option<&'db PropertySerialization<'db>>,
 }
@@ -99,8 +96,8 @@ struct CanonicalProperty<'db> {
 fn find_canonical_property<'de>(
     database: &'de ReflectionDatabase,
     binary_type: Type,
-    class_name: &str,
-    prop_name: &'de str,
+    class_name: Ustr,
+    prop_name: Ustr,
 ) -> Option<CanonicalProperty<'de>> {
     match find_property_descriptors(database, class_name, prop_name) {
         Some(descriptors) => {
@@ -154,7 +151,7 @@ fn find_canonical_property<'de>(
             );
 
             Some(CanonicalProperty {
-                name: canonical_name,
+                name: canonical_name.as_ref().into(),
                 ty: canonical_type,
                 migration,
             })
@@ -215,12 +212,14 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         deserializer: &'db Deserializer<'db>,
         mut input: R,
     ) -> Result<Self, InnerError> {
-        let tree = WeakDom::new(InstanceBuilder::new("DataModel"));
+        let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
         let header = FileHeader::decode(&mut input)?;
 
         let type_infos = HashMap::with_capacity(header.num_types as usize);
         let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
+
+        tree.reserve(header.num_instances as usize);
 
         Ok(DeserializerState {
             deserializer,
@@ -294,13 +293,24 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let mut referents = vec![0; number_instances as usize];
         chunk.read_referent_array(&mut referents)?;
 
+        let prop_capacity = self
+            .deserializer
+            .database
+            .classes
+            .get(type_name.as_str())
+            .map(|class| class.default_properties.len())
+            .unwrap_or(0);
+
         // TODO: Check object_format and check for service markers if it's 1?
 
         for &referent in &referents {
             self.instances_by_ref.insert(
                 referent,
                 Instance {
-                    builder: InstanceBuilder::new(&type_name),
+                    builder: InstanceBuilder::with_property_capacity(
+                        type_name.as_str(),
+                        prop_capacity,
+                    ),
                     children: Vec::new(),
                 },
             );
@@ -310,7 +320,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             type_id,
             TypeInfo {
                 type_id,
-                type_name,
+                type_name: type_name.into(),
                 referents,
             },
         );
@@ -374,7 +384,20 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
             for referent in &type_info.referents {
                 let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                let value = chunk.read_string()?;
+                let binary_string = chunk.read_binary_string()?;
+                let value = match std::str::from_utf8(&binary_string) {
+                    Ok(value) => Cow::Borrowed(value),
+                    Err(_) => {
+                        log::warn!(
+                            "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
+This may cause unexpected or broken behavior in your final results if you rely on this property being non UTF-8.",
+                            type_info.type_name,
+                            prop_name
+                        );
+
+                        String::from_utf8_lossy(binary_string.as_ref())
+                    }
+                };
                 instance.builder.set_name(value);
             }
 
@@ -384,8 +407,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let property = if let Some(property) = find_canonical_property(
             self.deserializer.database,
             binary_type,
-            &type_info.type_name,
-            &prop_name,
+            type_info.type_name,
+            prop_name.as_str().into(),
         ) {
             property
         } else {
@@ -399,8 +422,22 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 VariantType::String => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = chunk.read_string()?;
-                        add_property(instance, &property, value.into());
+                        let binary_string = chunk.read_binary_string()?;
+                        let value = match std::str::from_utf8(&binary_string) {
+                            Ok(value) => Cow::Borrowed(value),
+                            Err(_) => {
+                                log::warn!(
+                            "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
+This may cause unexpected or broken behavior in your final results if you rely on this property being non UTF-8.",
+                                    type_info.type_name,
+                                    property.name
+                                );
+
+                                String::from_utf8_lossy(&binary_string)
+                            }
+                        };
+
+                        add_property(instance, &property, value.as_ref().into());
                     }
                 }
                 VariantType::Content => {
@@ -424,7 +461,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
                         let value = Tags::decode(buffer.as_ref()).map_err(|_| {
                             InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "a list of valid null-delimited UTF-8 strings",
                                 actual_value: "invalid UTF-8".to_string(),
@@ -444,11 +481,19 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                                 add_property(instance, &property, value.into());
                             }
                             Err(err) => {
-                                return Err(InnerError::BadPropertyValue {
-                                    source: err,
-                                    class_name: type_info.type_name.to_string(),
-                                    prop_name,
-                                })
+                                log::warn!(
+                                    "Failed to parse Attributes on {} because {:?}; falling back to BinaryString.
+
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
+                                    type_info.type_name,
+                                    err
+                                );
+
+                                add_property(
+                                    instance,
+                                    &property,
+                                    BinaryString::from(buffer).into(),
+                                );
                             }
                         }
                     }
@@ -460,18 +505,26 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                         match MaterialColors::decode(&buffer) {
                             Ok(value) => add_property(instance, &property, value.into()),
                             Err(err) => {
-                                return Err(InnerError::BadPropertyValue {
-                                    source: err,
-                                    class_name: type_info.type_name.to_string(),
-                                    prop_name,
-                                })
+                                log::warn!(
+                                    "Failed to parse MaterialColors on {} because {:?}; falling back to BinaryString.
+
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
+                                    type_info.type_name,
+                                    err
+                                );
+
+                                add_property(
+                                    instance,
+                                    &property,
+                                    BinaryString::from(buffer).into(),
+                                );
                             }
                         }
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "String, Content, Tags, Attributes, or BinaryString",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -488,7 +541,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Bool",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -520,7 +573,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Int32",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -539,7 +592,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Float32",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -569,7 +622,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Float64",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -596,7 +649,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "UDim",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -635,7 +688,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "UDim2",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -667,7 +720,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Ray",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -681,7 +734,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                         let value = chunk.read_u8()?;
                         let faces =
                             Faces::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "less than 63",
                                 actual_value: value.to_string(),
@@ -692,7 +745,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Faces",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -707,7 +760,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
                         let axes =
                             Axes::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "less than 7",
                                 actual_value: value.to_string(),
@@ -718,7 +771,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Axes",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -737,7 +790,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                             .ok()
                             .and_then(BrickColor::from_number)
                             .ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "a valid BrickColor",
                                 actual_value: value.to_string(),
@@ -748,7 +801,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "BrickColor",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -778,7 +831,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Color3",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -802,7 +855,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Vector2",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -832,7 +885,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Vector3",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -868,7 +921,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name,
                                 id,
                             });
@@ -898,7 +951,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "CFrame",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -917,7 +970,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Enum",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -942,7 +995,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Ref",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -967,7 +1020,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Vector3int16",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1005,7 +1058,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Font",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1032,7 +1085,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "NumberSequence",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1065,7 +1118,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "ColorSequence",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1085,7 +1138,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "NumberRange",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1118,7 +1171,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Rect",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1148,7 +1201,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "PhysicalProperties",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1179,7 +1232,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Color3",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1198,7 +1251,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "Int64",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1214,7 +1267,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                         let shared_string =
                             self.shared_strings.get(value as usize).ok_or_else(|| {
                                 InnerError::InvalidPropData {
-                                    type_name: type_info.type_name.clone(),
+                                    type_name: type_info.type_name.to_string(),
                                     prop_name: prop_name.clone(),
                                     valid_value: "a valid SharedString",
                                     actual_value: format!("{:?}", value),
@@ -1228,7 +1281,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "SharedString",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1276,7 +1329,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
-                                type_name: type_info.type_name.clone(),
+                                type_name: type_info.type_name.to_string(),
                                 prop_name,
                                 id,
                             });
@@ -1324,7 +1377,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "OptionalCFrame",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1354,7 +1407,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "UniqueId",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -1379,7 +1432,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.clone(),
+                        type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "SecurityCapabilities",
                         actual_type_name: format!("{:?}", invalid_type),

@@ -21,6 +21,15 @@ Change:
       DefaultValue:
         Bool: true
 
+    # DefinesCapabilities is exposed as `Sandboxed` in Roblox Studio, so we want
+    # it as an alias.
+    DefinesCapabilities:
+      AliasFor: Sandboxed
+    Sandboxed:
+      Serialization:
+        Type: SerializesAs
+        As: DefinesCapabilities
+
     # Attributes serialize as a BinaryString with a strange name, but we want to
     # refer to them with a different name.
     Attributes:
@@ -32,9 +41,6 @@ Change:
       Scriptability: Custom
     AttributesSerialize:
       AliasFor: Attributes
-
-    className:
-      AliasFor: ClassName
 
     Tags:
       DataType:

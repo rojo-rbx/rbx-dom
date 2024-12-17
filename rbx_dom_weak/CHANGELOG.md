@@ -2,6 +2,114 @@
 
 ## Unreleased Changes
 
+This version contains a number of breaking changes to achieve dramatically improved performance by interning property and class names with [ustr](https://docs.rs/ustr/latest/ustr/).
+
+Because `Ustr` implements conversions to and from Rust's string types, no action is required in many cases. However, for improved performance, we recommend passing instances of `Ustr` to `InstanceBuilder`'s methods, rather than instances of `String` or `&str`. Refer to [ustr's documentation](https://docs.rs/ustr/latest/ustr/) for details.
+
+### Breaking changes
+* Changed the type of `Instance.class` from `String` to `Ustr`.
+* Changed the type of `Instance.properties` from `HashMap<String, Variant>` to `UstrMap<Variant>`.
+* Changed the signature of `InstanceBuilder::new` from
+```rust
+pub fn new<S: Into<String>>(class: S) -> Self
+```
+to
+```rust
+pub fn new<S: Into<Ustr>>(class: S) -> Self
+```
+* Changed the signature of `InstanceBuilder::with_class` from
+```rust
+pub fn with_class<S: Into<String>>(self, class: S) -> Self
+```
+to
+```rust
+pub fn with_class<S: Into<Ustr>>(self, class: S) -> Self
+```
+* Changed the signature of `InstanceBuilder::set_class` from
+```rust
+pub fn set_class<S: Into<String>>(&mut self, class: S)
+```
+to
+```rust
+pub fn set_class<S: Into<Ustr>>(&mut self, class: S)
+```
+* Changed the signature of `InstanceBuilder::with_property` from
+```rust
+pub fn with_property<K: Into<String>, V: Into<Variant>>(mut self, key: K, value: V) -> Self
+```
+to
+```rust
+pub fn with_property<K: Into<Ustr>, V: Into<Variant>>(mut self, key: K, value: V) -> Self
+```
+* Changed the signature of `InstanceBuilder::add_property` from
+```rust
+pub fn add_property<K: Into<String>, V: Into<Variant>>(&mut self, key: K, value: V) -> Self
+```
+to
+```rust
+pub fn add_property<K: Into<Ustr>, V: Into<Variant>>(&mut self, key: K, value: V) -> Self
+```
+* Changed the signature of `InstanceBuilder::has_property` from
+```rust
+pub fn has_property<K: Into<String>>(&self, key: K) -> bool
+```
+to
+```rust
+pub fn has_property<K: Into<Ustr>>(&self, key: K) -> bool
+```
+* Changed the signature of `InstanceBuilder::with_properties` from
+```rust
+pub fn with_properties<K, V, I>(mut self, props: I) -> Self
+where
+    K: Into<String>,
+    V: Into<Variant>,
+    I: IntoIterator<Item = (K, V)>,
+```
+to
+```rust
+pub fn with_properties<K, V, I>(mut self, props: I) -> Self
+where
+    K: Into<Ustr>,
+    V: Into<Variant>,
+    I: IntoIterator<Item = (K, V)>,
+```
+* Changed the signature of `InstanceBuilder::add_properties` from
+```rust
+pub fn add_properties<K, V, I>(&mut self, props: I) -> Self
+where
+    K: Into<String>,
+    V: Into<Variant>,
+    I: IntoIterator<Item = (K, V)>,
+```
+to
+```rust
+pub fn add_properties<K, V, I>(&mut self, props: I) -> Self
+where
+    K: Into<Ustr>,
+    V: Into<Variant>,
+    I: IntoIterator<Item = (K, V)>,
+```
+* Started using [ahash](https://docs.rs/ahash/latest/ahash/) for hash maps, consequently changing the signature of `WeakDom::into_raw` from
+```rust
+pub fn into_raw(self) -> (Ref, HashMap<Ref, Instance, RandomState>) {
+```
+to
+```rust
+pub fn into_raw(self) -> (Ref, AHashMap<Ref, Instance>) {
+```
+
+### Other changes
+* Added `HashMapExt`, a helper trait providing convenience methods `UstrMap::new`, `UstrMap::with_capacity`, `AHashMap::new`, and `AHashMap::with_capacity`.
+* Added re-exports for `AHashMap`.
+* Added re-exports for `ustr` (a convenience function for creating `Ustr`s), `Ustr`, `UstrMap`, and `UstrSet`.
+* Added `InstanceBuilder::with_property_capacity`, which can preallocate an `InstanceBuilder`'s property table. ([#464])
+* Added `WeakDom::reserve`, which can preallocate additional space for instances in the `WeakDom`. ([#465])
+* Added `WeakDom::from_raw` to provide the inverse for `WeakDom::into_raw`. ([#482])
+
+[#465]: https://github.com/rojo-rbx/rbx-dom/pull/465
+[#464]: https://github.com/rojo-rbx/rbx-dom/pull/464
+[#482]: https://github.com/rojo-rbx/rbx-dom/pull/482
+
 ## 2.9.0 (2024-08-22)
 * Added `WeakDom::descendants` and `WeakDom::descendants_of` to support iterating through the descendants of a DOM. ([#431])
 

@@ -181,7 +181,7 @@ pub struct AttributesDrain<'a> {
     inner: &'a mut Attributes,
 }
 
-impl<'a> Iterator for AttributesDrain<'a> {
+impl Iterator for AttributesDrain<'_> {
     type Item = (String, Variant);
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -189,7 +189,7 @@ impl<'a> Iterator for AttributesDrain<'a> {
     }
 }
 
-impl<'a> Drop for AttributesDrain<'a> {
+impl Drop for AttributesDrain<'_> {
     fn drop(&mut self) {
         self.inner.clear()
     }

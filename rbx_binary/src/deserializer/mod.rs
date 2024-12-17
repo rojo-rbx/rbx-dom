@@ -95,7 +95,7 @@ impl<'db> Deserializer<'db> {
     }
 }
 
-impl<'db> Default for Deserializer<'db> {
+impl Default for Deserializer<'_> {
     fn default() -> Self {
         Self::new()
     }

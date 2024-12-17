@@ -48,7 +48,7 @@ impl RemovePropCommand {
             let inst = dom.get_by_ref_mut(referent).unwrap();
             if inst.class == self.class_name {
                 log::trace!("Removed property {}.{}", inst.name, self.prop_name);
-                inst.properties.remove(&self.prop_name);
+                inst.properties.remove(&self.prop_name.as_str().into());
             }
             queue.extend_from_slice(inst.children());
         }

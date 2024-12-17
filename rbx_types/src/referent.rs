@@ -84,7 +84,7 @@ mod serde_impl {
 
     struct RefVisitor;
 
-    impl<'de> Visitor<'de> for RefVisitor {
+    impl Visitor<'_> for RefVisitor {
         type Value = Ref;
 
         fn expecting(&self, out: &mut fmt::Formatter) -> fmt::Result {

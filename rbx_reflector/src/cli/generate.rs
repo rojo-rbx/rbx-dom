@@ -227,12 +227,18 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
                             // are usually only present in Roblox Studio
                             // settings files. They are not used otherwise and
                             // can safely be ignored.
-                            (None, PropertyKind::Canonical {
-                                serialization: PropertySerialization::Serializes
-                            }) if type_name != "QDir" && type_name != "QFont"  => bail!(
+                            (
+                                None,
+                                PropertyKind::Canonical {
+                                    serialization: PropertySerialization::Serializes,
+                                },
+                            ) if type_name != "QDir" && type_name != "QFont" => {
+                                log::warn!(
                                 "Property {}.{} serializes, but its data type ({}) is unimplemented",
                                 dump_class.name, dump_property.name, type_name
-                            ),
+                            );
+                                continue;
+                            }
 
                             // The data type does not have a corresponding a
                             // VariantType, and it does not serialize (with QDir
@@ -241,7 +247,11 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
                             // need to know about data types that are never
                             // serialized.
                             (None, _) => {
-                                ignored_properties.push((&dump_class.name, &dump_property.name, type_name));
+                                ignored_properties.push((
+                                    &dump_class.name,
+                                    &dump_property.name,
+                                    type_name,
+                                ));
                                 continue;
                             }
                         }
@@ -300,7 +310,7 @@ fn variant_type_from_str(type_name: &str) -> Option<VariantType> {
         "Color3" => VariantType::Color3,
         "Color3uint8" => VariantType::Color3uint8,
         "ColorSequence" => VariantType::ColorSequence,
-        "Content" => VariantType::Content,
+        "ContentId" => VariantType::Content,
         "Faces" => VariantType::Faces,
         "Font" => VariantType::Font,
         "Instance" => VariantType::Ref,

@@ -205,6 +205,19 @@ types = {
 		end,
 	},
 
+	EnumItem = {
+		fromPod = function(pod)
+			return Enum[pod.type]:FromValue(pod.value)
+		end,
+
+		toPod = function(roblox)
+			return {
+				type = tostring(roblox.EnumType),
+				value = roblox.Value,
+			}
+		end,
+	},
+
 	Faces = {
 		fromPod = function(pod)
 			local faces = {}

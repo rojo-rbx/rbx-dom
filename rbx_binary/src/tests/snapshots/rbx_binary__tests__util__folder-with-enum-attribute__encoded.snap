@@ -1,0 +1,55 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - "\u0001\u0000\u0000\u0000\u000b\u0000\u0000\u0000AnEnumValue\u0015\b\u0000\u0000\u0000Material\u0000\u0002\u0000\u0000"
+  - Prop:
+      type_id: 0
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Folder
+  - Prop:
+      type_id: 0
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End

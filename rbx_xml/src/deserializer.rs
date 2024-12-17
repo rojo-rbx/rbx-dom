@@ -1,12 +1,10 @@
-use std::{
-    collections::{HashMap, HashSet},
-    io::Read,
-};
+use std::{collections::hash_map::Entry, io::Read};
 
+use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
-    InstanceBuilder, WeakDom,
+    InstanceBuilder, Ustr, WeakDom,
 };
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
@@ -153,13 +151,13 @@ pub struct ParseState<'dom, 'db> {
 
 struct ReferentRewrite {
     id: Ref,
-    property_name: String,
+    property_name: Ustr,
     referent_value: String,
 }
 
 struct SharedStringRewrite {
     id: Ref,
-    property_name: String,
+    property_name: Ustr,
     shared_string_hash: String,
 }
 
@@ -199,7 +197,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     /// have a complete view of how referents map to Ref values.
     ///
     /// This is used to deserialize non-null Ref values correctly.
-    pub fn add_referent_rewrite(&mut self, id: Ref, property_name: String, referent_value: String) {
+    pub fn add_referent_rewrite(&mut self, id: Ref, property_name: Ustr, referent_value: String) {
         self.referent_rewrites.push(ReferentRewrite {
             id,
             property_name,
@@ -214,7 +212,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     pub fn add_shared_string_rewrite(
         &mut self,
         id: Ref,
-        property_name: String,
+        property_name: Ustr,
         shared_string_hash: String,
     ) {
         self.shared_string_rewrites.push(SharedStringRewrite {
@@ -237,9 +235,10 @@ fn apply_referent_rewrites(state: &mut ParseState) {
             .get_by_ref_mut(rewrite.id)
             .expect("rbx_xml bug: had ID in referent rewrite list that didn't end up in the tree");
 
-        instance
-            .properties
-            .insert(rewrite.property_name.clone(), Variant::Ref(new_value));
+        instance.properties.insert(
+            rewrite.property_name.as_str().into(),
+            Variant::Ref(new_value),
+        );
     }
 }
 
@@ -255,7 +254,7 @@ fn apply_shared_string_rewrites(state: &mut ParseState) {
         );
 
         instance.properties.insert(
-            rewrite.property_name.clone(),
+            rewrite.property_name.as_str().into(),
             Variant::SharedString(new_value),
         );
     }
@@ -446,14 +445,22 @@ fn deserialize_instance<R: Read>(
 
     trace!("Class {} with referent {:?}", class_name, referent);
 
-    let builder = InstanceBuilder::new(class_name);
+    let prop_capacity = state
+        .options
+        .database
+        .classes
+        .get(class_name.as_str())
+        .map(|class| class.default_properties.len())
+        .unwrap_or(0);
+
+    let builder = InstanceBuilder::with_property_capacity(class_name, prop_capacity);
     let instance_id = state.tree.insert(parent_id, builder);
 
     if let Some(referent) = referent {
         state.referents_to_ids.insert(referent, instance_id);
     }
 
-    let mut properties: HashMap<String, Variant> = HashMap::new();
+    let mut properties: HashMap<Ustr, Variant> = HashMap::new();
 
     loop {
         match reader.expect_peek()? {
@@ -488,7 +495,7 @@ fn deserialize_instance<R: Read>(
 
     let instance = state.tree.get_by_ref_mut(instance_id).unwrap();
 
-    instance.name = match properties.remove("Name") {
+    instance.name = match properties.remove(&"Name".into()) {
         Some(value) => match value {
             Variant::String(value) => value,
             _ => return Err(reader.error(DecodeErrorKind::NameMustBeString(value.ty()))),
@@ -497,10 +504,10 @@ fn deserialize_instance<R: Read>(
         // TODO: Use reflection to get default name instead. This should only
         // matter for ValueBase instances in files created by tools other than
         // Roblox Studio.
-        None => instance.class.clone(),
+        None => instance.class.to_string(),
     };
 
-    instance.properties = properties;
+    instance.properties = properties.into_iter().collect();
 
     Ok(())
 }
@@ -509,7 +516,7 @@ fn deserialize_properties<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     instance_id: Ref,
-    props: &mut HashMap<String, Variant>,
+    props: &mut HashMap<Ustr, Variant>,
 ) -> Result<(), DecodeError> {
     reader.expect_start_with_name("Properties")?;
 
@@ -517,8 +524,7 @@ fn deserialize_properties<R: Read>(
         .tree
         .get_by_ref(instance_id)
         .expect("Couldn't find instance to deserialize properties into")
-        .class
-        .clone();
+        .class;
 
     log::trace!(
         "Deserializing properties for instance {:?}, whose ClassName is {}",
@@ -607,7 +613,7 @@ fn deserialize_properties<R: Read>(
             };
             log::trace!("property's read type: {xml_ty:?}, canonical type: {expected_type:?}");
 
-            let value = match value.try_convert(expected_type) {
+            let value = match value.try_convert(class_name, expected_type) {
                 Ok(value) => value,
 
                 // The property descriptor disagreed, and there was no
@@ -615,7 +621,7 @@ fn deserialize_properties<R: Read>(
                 Err(message) => {
                     return Err(
                         reader.error(DecodeErrorKind::UnsupportedPropertyConversion {
-                            class_name: class_name.clone(),
+                            class_name: class_name.to_string(),
                             property_name: descriptor.name.to_string(),
                             expected_type,
                             actual_type: xml_ty,
@@ -632,13 +638,13 @@ fn deserialize_properties<R: Read>(
                     let new_property_name = &migration.new_property_name;
                     let old_property_name = &descriptor.name;
 
-                    if !props.contains_key(new_property_name) {
+                    if let Entry::Vacant(entry) = props.entry(new_property_name.into()) {
                         log::trace!(
                             "Attempting to migrate property {old_property_name} to {new_property_name}"
                         );
                         match migration.perform(&value) {
                             Ok(migrated_value) => {
-                                props.insert(new_property_name.to_string(), migrated_value);
+                                entry.insert(migrated_value);
                                 log::trace!(
                                     "Successfully migrated property {old_property_name} to {new_property_name}"
                                 );
@@ -650,7 +656,7 @@ fn deserialize_properties<R: Read>(
                     }
                 }
                 _ => {
-                    props.insert(descriptor.name.to_string(), value);
+                    props.insert(descriptor.name.as_ref().into(), value);
                 }
             };
         } else {
@@ -681,11 +687,11 @@ fn deserialize_properties<R: Read>(
                         Some(value) => value,
                         None => continue,
                     };
-                    props.insert(xml_property_name, value);
+                    props.insert(xml_property_name.into(), value);
                 }
                 DecodePropertyBehavior::ErrorOnUnknown => {
                     return Err(reader.error(DecodeErrorKind::UnknownProperty {
-                        class_name,
+                        class_name: class_name.to_string(),
                         property_name: xml_property_name,
                     }));
                 }
