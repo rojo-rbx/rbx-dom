@@ -165,7 +165,7 @@ mod test {
 
     #[test]
     fn superclasses_iter_test() {
-        let database = get();
+        let database = get_bundled();
         let part_class_descriptor = database.classes.get("Part");
         let mut iter = database.superclasses_iter(part_class_descriptor.unwrap());
         fn class_descriptor_eq(lhs: Option<&ClassDescriptor>, rhs: Option<&ClassDescriptor>) {
@@ -191,7 +191,7 @@ mod test {
 
     #[test]
     fn has_superclass_test() {
-        let database = get();
+        let database = get_bundled();
         let part_class_descriptor = database.classes.get("Part").unwrap();
         let instance_class_descriptor = database.classes.get("Instance").unwrap();
         assert!(database.has_superclass(part_class_descriptor, instance_class_descriptor));
