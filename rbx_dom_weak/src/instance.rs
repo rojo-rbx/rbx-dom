@@ -1,4 +1,4 @@
-use rbx_types::{Ref, Variant};
+use rbx_types::{Ref, RobloxString, Variant};
 use ustr::{Ustr, UstrMap};
 
 /**
@@ -33,7 +33,7 @@ let dom = WeakDom::new(data_model);
 #[derive(Debug)]
 pub struct InstanceBuilder {
     pub(crate) referent: Ref,
-    pub(crate) name: String,
+    pub(crate) name: RobloxString,
     pub(crate) class: Ustr,
     pub(crate) properties: Vec<(Ustr, Variant)>,
     pub(crate) children: Vec<InstanceBuilder>,
@@ -44,7 +44,7 @@ impl InstanceBuilder {
     /// used as the instance's Name, unless overwritten later.
     pub fn new<S: Into<Ustr>>(class: S) -> Self {
         let class = class.into();
-        let name = class.to_string();
+        let name = class.as_str().into();
 
         InstanceBuilder {
             referent: Ref::new(),
@@ -59,7 +59,7 @@ impl InstanceBuilder {
     /// property table with at least enough space for the given capacity.
     pub fn with_property_capacity<S: Into<Ustr>>(class: S, capacity: usize) -> Self {
         let class = class.into();
-        let name = class.to_string();
+        let name = class.as_str().into();
 
         InstanceBuilder {
             referent: Ref::new(),
@@ -74,7 +74,7 @@ impl InstanceBuilder {
     pub fn empty() -> Self {
         InstanceBuilder {
             referent: Ref::new(),
-            name: String::new(),
+            name: RobloxString::new(),
             class: Ustr::default(),
             properties: Vec::new(),
             children: Vec::new(),
@@ -95,7 +95,7 @@ impl InstanceBuilder {
     }
 
     /// Change the name of the `InstanceBuilder`.
-    pub fn with_name<S: Into<String>>(self, name: S) -> Self {
+    pub fn with_name<S: Into<RobloxString>>(self, name: S) -> Self {
         Self {
             name: name.into(),
             ..self
@@ -103,7 +103,7 @@ impl InstanceBuilder {
     }
 
     /// Change the name of the `InstanceBuilder`.
-    pub fn set_name<S: Into<String>>(&mut self, name: S) {
+    pub fn set_name<S: Into<RobloxString>>(&mut self, name: S) {
         self.name = name.into();
     }
 
@@ -205,7 +205,7 @@ pub struct Instance {
     pub(crate) parent: Ref,
 
     /// The instance's name, corresponding to the `Name` property.
-    pub name: String,
+    pub name: RobloxString,
 
     /// The instance's class, corresponding to the `ClassName` property.
     pub class: Ustr,

@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: Folder
+  name:
+    Utf8:
+      - Folder
   class: Folder
   properties:
     Attributes:
@@ -413,4 +415,3 @@ expression: decoded_viewed
     Tags:
       Tags: []
   children: []
-

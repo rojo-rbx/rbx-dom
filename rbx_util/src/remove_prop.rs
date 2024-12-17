@@ -6,6 +6,7 @@ use std::{
 use anyhow::Context as _;
 use clap::Parser;
 use fs_err::File;
+use rbx_dom_weak::types::RobloxString;
 
 use crate::ModelKind;
 
@@ -47,7 +48,14 @@ impl RemovePropCommand {
         while let Some(referent) = queue.pop() {
             let inst = dom.get_by_ref_mut(referent).unwrap();
             if inst.class == self.class_name {
-                log::trace!("Removed property {}.{}", inst.name, self.prop_name);
+                let name_as_string = match &inst.name {
+                    RobloxString::Binary(buffer) => {
+                        String::from_utf8_lossy(buffer.as_slice()).to_string()
+                    }
+                    RobloxString::Utf8(string) => string.to_string(),
+                };
+
+                log::trace!("Removed property {}.{}", name_as_string, self.prop_name);
                 inst.properties.remove(&self.prop_name.as_str().into());
             }
             queue.extend_from_slice(inst.children());

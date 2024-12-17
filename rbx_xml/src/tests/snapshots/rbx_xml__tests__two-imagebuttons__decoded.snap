@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: ImageButton
+  name:
+    Utf8:
+      - ImageButton
   class: ImageButton
   properties:
     Active:
@@ -119,7 +121,9 @@ expression: "DomViewer::new().view_children(&decoded)"
       Int32: 1
   children: []
 - referent: referent-1
-  name: ImageButton
+  name:
+    Utf8:
+      - ImageButton
   class: ImageButton
   properties:
     Active:
@@ -234,4 +238,3 @@ expression: "DomViewer::new().view_children(&decoded)"
     ZIndex:
       Int32: 1
   children: []
-

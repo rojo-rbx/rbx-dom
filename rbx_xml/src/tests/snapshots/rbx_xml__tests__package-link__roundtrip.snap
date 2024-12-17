@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Model
+  name:
+    Utf8:
+      - Model
   class: Model
   properties:
     Attributes:
@@ -45,7 +47,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       OptionalCFrame: ~
   children:
     - referent: referent-1
-      name: PackageLink
+      name:
+        Utf8:
+          - PackageLink
       class: PackageLink
       properties:
         Attributes:
@@ -61,4 +65,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         VersionIdSerialize:
           Int64: 1
       children: []
-

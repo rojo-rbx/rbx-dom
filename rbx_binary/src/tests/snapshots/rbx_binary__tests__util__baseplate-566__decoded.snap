@@ -1,10 +1,11 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: Workspace
+  name:
+    Utf8:
+      - Workspace
   class: Workspace
   properties:
     AllowThirdPartySales:
@@ -116,7 +117,9 @@ expression: decoded_viewed
             - 1
   children:
     - referent: referent-1
-      name: Camera
+      name:
+        Utf8:
+          - Camera
       class: Camera
       properties:
         Attributes:
@@ -174,7 +177,9 @@ expression: decoded_viewed
           UniqueId: 44b188dace632b4702e9c68d004831f8
       children: []
     - referent: referent-2
-      name: Baseplate
+      name:
+        Utf8:
+          - Baseplate
       class: Part
       properties:
         Anchored:
@@ -323,7 +328,9 @@ expression: decoded_viewed
             - 0
       children:
         - referent: referent-3
-          name: Texture
+          name:
+            Utf8:
+              - Texture
           class: Texture
           properties:
             Attributes:
@@ -359,7 +366,9 @@ expression: decoded_viewed
               Int32: 1
           children: []
     - referent: referent-4
-      name: Terrain
+      name:
+        Utf8:
+          - Terrain
       class: Terrain
       properties:
         AcquisitionMethod:
@@ -615,7 +624,9 @@ expression: decoded_viewed
           Float32: 10
       children: []
     - referent: referent-5
-      name: SpawnLocation
+      name:
+        Utf8:
+          - SpawnLocation
       class: SpawnLocation
       properties:
         AllowTeamChangeOnTouch:
@@ -774,7 +785,9 @@ expression: decoded_viewed
             - 0
       children:
         - referent: referent-6
-          name: Decal
+          name:
+            Utf8:
+              - Decal
           class: Decal
           properties:
             Attributes:
@@ -802,7 +815,9 @@ expression: decoded_viewed
               Int32: 1
           children: []
 - referent: referent-7
-  name: SoundService
+  name:
+    Utf8:
+      - SoundService
   class: SoundService
   properties:
     AmbientReverb:
@@ -829,7 +844,9 @@ expression: decoded_viewed
       Enum: 1
   children: []
 - referent: referent-8
-  name: NonReplicatedCSGDictionaryService
+  name:
+    Utf8:
+      - NonReplicatedCSGDictionaryService
   class: NonReplicatedCSGDictionaryService
   properties:
     Attributes:
@@ -844,7 +861,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048305b
   children: []
 - referent: referent-9
-  name: CSGDictionaryService
+  name:
+    Utf8:
+      - CSGDictionaryService
   class: CSGDictionaryService
   properties:
     Attributes:
@@ -859,7 +878,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048305c
   children: []
 - referent: referent-10
-  name: Chat
+  name:
+    Utf8:
+      - Chat
   class: Chat
   properties:
     Attributes:
@@ -878,7 +899,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483061
   children: []
 - referent: referent-11
-  name: Instance
+  name:
+    Utf8:
+      - Instance
   class: TimerService
   properties:
     Attributes:
@@ -893,7 +916,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483062
   children: []
 - referent: referent-12
-  name: Players
+  name:
+    Utf8:
+      - Players
   class: Players
   properties:
     Attributes:
@@ -918,7 +943,9 @@ expression: decoded_viewed
       Bool: false
   children: []
 - referent: referent-13
-  name: ReplicatedFirst
+  name:
+    Utf8:
+      - ReplicatedFirst
   class: ReplicatedFirst
   properties:
     Attributes:
@@ -933,7 +960,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483068
   children: []
 - referent: referent-14
-  name: TweenService
+  name:
+    Utf8:
+      - TweenService
   class: TweenService
   properties:
     Attributes:
@@ -948,7 +977,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048306a
   children: []
 - referent: referent-15
-  name: MaterialService
+  name:
+    Utf8:
+      - MaterialService
   class: MaterialService
   properties:
     AsphaltName:
@@ -1029,7 +1060,9 @@ expression: decoded_viewed
       String: WoodPlanks
   children: []
 - referent: referent-16
-  name: PermissionsService
+  name:
+    Utf8:
+      - PermissionsService
   class: PermissionsService
   properties:
     Attributes:
@@ -1044,7 +1077,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048306f
   children: []
 - referent: referent-17
-  name: PlayerEmulatorService
+  name:
+    Utf8:
+      - PlayerEmulatorService
   class: PlayerEmulatorService
   properties:
     Attributes:
@@ -1069,7 +1104,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483071
   children: []
 - referent: referent-18
-  name: StudioData
+  name:
+    Utf8:
+      - StudioData
   class: StudioData
   properties:
     Attributes:
@@ -1086,7 +1123,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483074
   children: []
 - referent: referent-19
-  name: StarterPlayer
+  name:
+    Utf8:
+      - StarterPlayer
   class: StarterPlayer
   properties:
     AllowCustomAnimations:
@@ -1191,7 +1230,9 @@ expression: decoded_viewed
       Bool: true
   children:
     - referent: referent-20
-      name: StarterPlayerScripts
+      name:
+        Utf8:
+          - StarterPlayerScripts
       class: StarterPlayerScripts
       properties:
         Attributes:
@@ -1206,7 +1247,9 @@ expression: decoded_viewed
           UniqueId: 44b188dace632b4702e9c68d00483201
       children: []
     - referent: referent-21
-      name: StarterCharacterScripts
+      name:
+        Utf8:
+          - StarterCharacterScripts
       class: StarterCharacterScripts
       properties:
         Attributes:
@@ -1221,7 +1264,9 @@ expression: decoded_viewed
           UniqueId: 44b188dace632b4702e9c68d00483200
       children: []
 - referent: referent-22
-  name: StarterPack
+  name:
+    Utf8:
+      - StarterPack
   class: StarterPack
   properties:
     Attributes:
@@ -1236,7 +1281,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483076
   children: []
 - referent: referent-23
-  name: StarterGui
+  name:
+    Utf8:
+      - StarterGui
   class: StarterGui
   properties:
     Attributes:
@@ -1261,7 +1308,9 @@ expression: decoded_viewed
       Enum: 0
   children: []
 - referent: referent-24
-  name: LocalizationService
+  name:
+    Utf8:
+      - LocalizationService
   class: LocalizationService
   properties:
     Attributes:
@@ -1276,7 +1325,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483079
   children: []
 - referent: referent-25
-  name: Teleport Service
+  name:
+    Utf8:
+      - Teleport Service
   class: TeleportService
   properties:
     Attributes:
@@ -1291,7 +1342,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048307d
   children: []
 - referent: referent-26
-  name: CollectionService
+  name:
+    Utf8:
+      - CollectionService
   class: CollectionService
   properties:
     Attributes:
@@ -1306,7 +1359,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048307f
   children: []
 - referent: referent-27
-  name: PhysicsService
+  name:
+    Utf8:
+      - PhysicsService
   class: PhysicsService
   properties:
     Attributes:
@@ -1321,7 +1376,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483080
   children: []
 - referent: referent-28
-  name: Geometry
+  name:
+    Utf8:
+      - Geometry
   class: Geometry
   properties:
     Attributes:
@@ -1336,7 +1393,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483082
   children: []
 - referent: referent-29
-  name: InsertService
+  name:
+    Utf8:
+      - InsertService
   class: InsertService
   properties:
     AllowClientInsertModels:
@@ -1355,7 +1414,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483084
   children:
     - referent: referent-30
-      name: InsertionHash
+      name:
+        Utf8:
+          - InsertionHash
       class: StringValue
       properties:
         Attributes:
@@ -1372,7 +1433,9 @@ expression: decoded_viewed
           String: "{27DB7157-ECC3-47DA-9A78-AF69D482E6A5}"
       children: []
 - referent: referent-31
-  name: GamePassService
+  name:
+    Utf8:
+      - GamePassService
   class: GamePassService
   properties:
     Attributes:
@@ -1387,7 +1450,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483085
   children: []
 - referent: referent-32
-  name: Debris
+  name:
+    Utf8:
+      - Debris
   class: Debris
   properties:
     Attributes:
@@ -1404,7 +1469,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483086
   children: []
 - referent: referent-33
-  name: CookiesService
+  name:
+    Utf8:
+      - CookiesService
   class: CookiesService
   properties:
     Attributes:
@@ -1419,7 +1486,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483087
   children: []
 - referent: referent-34
-  name: VRService
+  name:
+    Utf8:
+      - VRService
   class: VRService
   properties:
     Attributes:
@@ -1434,7 +1503,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483091
   children: []
 - referent: referent-35
-  name: ContextActionService
+  name:
+    Utf8:
+      - ContextActionService
   class: ContextActionService
   properties:
     Attributes:
@@ -1449,7 +1520,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483093
   children: []
 - referent: referent-36
-  name: Instance
+  name:
+    Utf8:
+      - Instance
   class: ScriptService
   properties:
     Attributes:
@@ -1464,7 +1537,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483095
   children: []
 - referent: referent-37
-  name: AssetService
+  name:
+    Utf8:
+      - AssetService
   class: AssetService
   properties:
     Attributes:
@@ -1479,7 +1554,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483096
   children: []
 - referent: referent-38
-  name: TouchInputService
+  name:
+    Utf8:
+      - TouchInputService
   class: TouchInputService
   properties:
     Attributes:
@@ -1494,7 +1571,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483097
   children: []
 - referent: referent-39
-  name: AnalyticsService
+  name:
+    Utf8:
+      - AnalyticsService
   class: AnalyticsService
   properties:
     ApiKey:
@@ -1511,7 +1590,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048309a
   children: []
 - referent: referent-40
-  name: FilteredSelection
+  name:
+    Utf8:
+      - FilteredSelection
   class: Instance
   properties:
     Attributes:
@@ -1526,7 +1607,9 @@ expression: decoded_viewed
       UniqueId: 3152d93110d773a904200e490000773a
   children: []
 - referent: referent-41
-  name: Selection
+  name:
+    Utf8:
+      - Selection
   class: Selection
   properties:
     Attributes:
@@ -1541,7 +1624,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048309d
   children: []
 - referent: referent-42
-  name: ServerScriptService
+  name:
+    Utf8:
+      - ServerScriptService
   class: ServerScriptService
   properties:
     Attributes:
@@ -1558,7 +1643,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048309e
   children: []
 - referent: referent-43
-  name: ServerStorage
+  name:
+    Utf8:
+      - ServerStorage
   class: ServerStorage
   properties:
     Attributes:
@@ -1573,7 +1660,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d0048309f
   children: []
 - referent: referent-44
-  name: ReplicatedStorage
+  name:
+    Utf8:
+      - ReplicatedStorage
   class: ReplicatedStorage
   properties:
     Attributes:
@@ -1588,7 +1677,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d004830a0
   children: []
 - referent: referent-45
-  name: Instance
+  name:
+    Utf8:
+      - Instance
   class: LuaWebService
   properties:
     Attributes:
@@ -1603,7 +1694,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d004830a7
   children: []
 - referent: referent-46
-  name: ProcessInstancePhysicsService
+  name:
+    Utf8:
+      - ProcessInstancePhysicsService
   class: ProcessInstancePhysicsService
   properties:
     Attributes:
@@ -1618,7 +1711,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d004830a8
   children: []
 - referent: referent-47
-  name: LanguageService
+  name:
+    Utf8:
+      - LanguageService
   class: LanguageService
   properties:
     Attributes:
@@ -1633,7 +1728,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d004831f0
   children: []
 - referent: referent-48
-  name: Lighting
+  name:
+    Utf8:
+      - Lighting
   class: Lighting
   properties:
     Ambient:
@@ -1699,7 +1796,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d004830cd
   children:
     - referent: referent-49
-      name: Sky
+      name:
+        Utf8:
+          - Sky
       class: Sky
       properties:
         Attributes:
@@ -1738,7 +1837,9 @@ expression: decoded_viewed
           UniqueId: 44b188dace632b4702e9c68d004831fe
       children: []
     - referent: referent-50
-      name: SunRays
+      name:
+        Utf8:
+          - SunRays
       class: SunRaysEffect
       properties:
         Attributes:
@@ -1759,7 +1860,9 @@ expression: decoded_viewed
           UniqueId: 44b188dace632b4702e9c68d00483203
       children: []
     - referent: referent-51
-      name: Atmosphere
+      name:
+        Utf8:
+          - Atmosphere
       class: Atmosphere
       properties:
         Attributes:
@@ -1792,7 +1895,9 @@ expression: decoded_viewed
           UniqueId: 44b188dace632b4702e9c68d004831f6
       children: []
     - referent: referent-52
-      name: Bloom
+      name:
+        Utf8:
+          - Bloom
       class: BloomEffect
       properties:
         Attributes:
@@ -1815,7 +1920,9 @@ expression: decoded_viewed
           UniqueId: 44b188dace632b4702e9c68d004831f7
       children: []
     - referent: referent-53
-      name: DepthOfField
+      name:
+        Utf8:
+          - DepthOfField
       class: DepthOfFieldEffect
       properties:
         Attributes:
@@ -1840,7 +1947,9 @@ expression: decoded_viewed
           UniqueId: 44b188dace632b4702e9c68d004831fb
       children: []
 - referent: referent-54
-  name: Instance
+  name:
+    Utf8:
+      - Instance
   class: LodDataService
   properties:
     Attributes:
@@ -1855,7 +1964,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d004830d0
   children: []
 - referent: referent-55
-  name: DataStoreService
+  name:
+    Utf8:
+      - DataStoreService
   class: DataStoreService
   properties:
     Attributes:
@@ -1874,7 +1985,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d004831f9
   children: []
 - referent: referent-56
-  name: HttpService
+  name:
+    Utf8:
+      - HttpService
   class: HttpService
   properties:
     Attributes:
@@ -1891,7 +2004,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d004831fc
   children: []
 - referent: referent-57
-  name: Teams
+  name:
+    Utf8:
+      - Teams
   class: Teams
   properties:
     Attributes:
@@ -1906,7 +2021,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483204
   children: []
 - referent: referent-58
-  name: TestService
+  name:
+    Utf8:
+      - TestService
   class: TestService
   properties:
     Attributes:
@@ -1939,7 +2056,9 @@ expression: decoded_viewed
       UniqueId: 44b188dace632b4702e9c68d00483206
   children: []
 - referent: referent-59
-  name: VirtualInputManager
+  name:
+    Utf8:
+      - VirtualInputManager
   class: VirtualInputManager
   properties:
     Attributes:
@@ -1953,4 +2072,3 @@ expression: decoded_viewed
     UniqueId:
       UniqueId: 44b188dace632b4702e9c68d00483208
   children: []
-

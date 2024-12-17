@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: None
+  name:
+    Utf8:
+      - None
   class: Model
   properties:
     Attributes:
@@ -45,7 +47,9 @@ expression: "DomViewer::new().view_children(&decoded)"
       OptionalCFrame: ~
   children: []
 - referent: referent-1
-  name: Some
+  name:
+    Utf8:
+      - Some
   class: Model
   properties:
     Attributes:
@@ -101,7 +105,9 @@ expression: "DomViewer::new().view_children(&decoded)"
             - -0.34241003
   children: []
 - referent: referent-2
-  name: SomeInfNaN
+  name:
+    Utf8:
+      - SomeInfNaN
   class: Model
   properties:
     Attributes:
@@ -156,4 +162,3 @@ expression: "DomViewer::new().view_children(&decoded)"
             - 0
             - 1
   children: []
-

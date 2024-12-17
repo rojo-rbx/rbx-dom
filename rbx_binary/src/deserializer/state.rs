@@ -385,20 +385,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             for referent in &type_info.referents {
                 let instance = self.instances_by_ref.get_mut(referent).unwrap();
                 let binary_string = chunk.read_binary_string()?;
-                let value = match std::str::from_utf8(&binary_string) {
-                    Ok(value) => Cow::Borrowed(value),
-                    Err(_) => {
-                        log::warn!(
-                            "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
-This may cause unexpected or broken behavior in your final results if you rely on this property being non UTF-8.",
-                            type_info.type_name,
-                            prop_name
-                        );
-
-                        String::from_utf8_lossy(binary_string.as_ref())
-                    }
-                };
-                instance.builder.set_name(value);
+                instance.builder.set_name(binary_string);
             }
 
             return Ok(());

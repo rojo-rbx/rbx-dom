@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: Lighting
+  name:
+    Utf8:
+      - Lighting
   class: Lighting
   properties:
     Ambient:
@@ -68,4 +70,3 @@ expression: decoded_viewed
     TimeOfDay:
       String: "14:30:00"
   children: []
-

@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: ""
+  name:
+    Utf8:
+      - ""
   class: ArcHandles
   properties:
     Adornee: "null"
@@ -24,7 +26,9 @@ expression: decoded_viewed
       Bool: true
   children: []
 - referent: referent-1
-  name: X
+  name:
+    Utf8:
+      - X
   class: ArcHandles
   properties:
     Adornee: "null"
@@ -46,7 +50,9 @@ expression: decoded_viewed
       Bool: true
   children: []
 - referent: referent-2
-  name: "X, Y"
+  name:
+    Utf8:
+      - "X, Y"
   class: ArcHandles
   properties:
     Adornee: "null"
@@ -69,7 +75,9 @@ expression: decoded_viewed
       Bool: true
   children: []
 - referent: referent-3
-  name: "X, Y, Z"
+  name:
+    Utf8:
+      - "X, Y, Z"
   class: ArcHandles
   properties:
     Adornee: "null"
@@ -93,7 +101,9 @@ expression: decoded_viewed
       Bool: true
   children: []
 - referent: referent-4
-  name: "X, Z"
+  name:
+    Utf8:
+      - "X, Z"
   class: ArcHandles
   properties:
     Adornee: "null"
@@ -116,7 +126,9 @@ expression: decoded_viewed
       Bool: true
   children: []
 - referent: referent-5
-  name: Y
+  name:
+    Utf8:
+      - Y
   class: ArcHandles
   properties:
     Adornee: "null"
@@ -138,7 +150,9 @@ expression: decoded_viewed
       Bool: true
   children: []
 - referent: referent-6
-  name: "Y, Z"
+  name:
+    Utf8:
+      - "Y, Z"
   class: ArcHandles
   properties:
     Adornee: "null"
@@ -161,7 +175,9 @@ expression: decoded_viewed
       Bool: true
   children: []
 - referent: referent-7
-  name: Z
+  name:
+    Utf8:
+      - Z
   class: ArcHandles
   properties:
     Adornee: "null"
@@ -182,4 +198,3 @@ expression: decoded_viewed
     Visible:
       Bool: true
   children: []
-
