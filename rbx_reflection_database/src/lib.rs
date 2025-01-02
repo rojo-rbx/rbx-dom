@@ -125,17 +125,23 @@ pub fn get_local_location() -> Option<PathBuf> {
         log::debug!("Using environment variable {OVERRIDE_PATH_VAR} to fetch reflection database");
         Some(PathBuf::from(location))
     } else {
-        // Due to concerns about the local data directory existing
-        // on Linux, we use the home directory instead.
-        #[cfg(target_os = "linux")]
-        let mut home = dirs::home_dir()?;
-        #[cfg(not(target_os = "linux"))]
-        let mut home = dirs::data_local_dir()?;
-
-        home.push(LOCAL_DIR_NAME);
-        home.push("database.msgpack");
-        Some(home)
+        get_local_location_no_var()
     }
+}
+
+/// Returns the default local location for the reflection database, without
+/// considering the env variable.
+fn get_local_location_no_var() -> Option<PathBuf> {
+    // Due to concerns about the local data directory existing
+    // on Linux, we use the home directory instead.
+    #[cfg(target_os = "linux")]
+    let mut home = dirs::home_dir()?;
+    #[cfg(not(target_os = "linux"))]
+    let mut home = dirs::data_local_dir()?;
+
+    home.push(LOCAL_DIR_NAME);
+    home.push("database.msgpack");
+    Some(home)
 }
 
 #[cfg(test)]
@@ -157,7 +163,6 @@ mod test {
         unsafe { env::set_var(OVERRIDE_PATH_VAR, &test_path) };
         let empty_db = get().unwrap();
         assert!(empty_db.version == [0, 0, 0, 0]);
-        unsafe { env::set_var(OVERRIDE_PATH_VAR, "") }
     }
 
     #[test]
@@ -194,13 +199,7 @@ mod test {
         let mut local_expected = home_from_env.join(LOCAL_DIR_NAME);
         local_expected.push("database.msgpack");
 
-        assert_eq!(get_local_location().unwrap(), local_expected);
-
-        unsafe {
-            env::set_var(OVERRIDE_PATH_VAR, &home_from_env);
-        }
-        assert_eq!(get_local_location().unwrap(), home_from_env);
-        unsafe { env::set_var(OVERRIDE_PATH_VAR, "") }
+        assert_eq!(get_local_location_no_var().unwrap(), local_expected);
     }
 
     #[test]
