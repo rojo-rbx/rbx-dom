@@ -164,6 +164,10 @@ mod test {
     fn local_location() {
         #[allow(unused_mut, reason = "this path needs to be mutated on macos")]
         let mut home_from_env;
+        #[allow(
+            clippy::unnecessary_operation,
+            reason = "attributes on statements are currently unstable so this cannot be reduced"
+        )]
         #[cfg(target_os = "windows")]
         {
             home_from_env = PathBuf::from(env!("LOCALAPPDATA"));
