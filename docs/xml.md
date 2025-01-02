@@ -616,8 +616,8 @@ The following table maps each bit in the field to a corresponding capability:
 | 62               | Assistant            | Required to access `StreamingService` and all of its members.                                       |
 | 63               | Restricted           |                                                                                                     |
 
-- The `SecurityCapabilities` property is an experimental feature in beta and may undergo changes. Use caution when implementing features relying on these values.
-- Not all Capabilities are mapped to the `Enum.SecurityCapability`.
+- `SecurityCapabilities` is an experimental feature in beta and may undergo changes. Use caution when implementing features relying on these values.
+- Not all Capabilities are mapped to the [Enum.SecurityCapability](https://create.roblox.com/docs/reference/engine/enums/SecurityCapability).
 
 Encoders SHOULD treat unknown, unmapped or default values as 0 (meaning no capabilities are set).
 
