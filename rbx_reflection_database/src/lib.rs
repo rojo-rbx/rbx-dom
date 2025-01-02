@@ -154,10 +154,10 @@ mod test {
         let mut test_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         test_path.push("empty.msgpack");
 
-        env::set_var(OVERRIDE_PATH_VAR, &test_path);
+        unsafe { env::set_var(OVERRIDE_PATH_VAR, &test_path) };
         let empty_db = get().unwrap();
-        println!("{:?}", empty_db.version);
         assert!(empty_db.version == [0, 0, 0, 0]);
+        unsafe { env::set_var(OVERRIDE_PATH_VAR, "") }
     }
 
     #[test]
@@ -187,13 +187,11 @@ mod test {
 
         assert_eq!(get_local_location().unwrap(), local_expected);
 
-        // We don't run this test due to safety concerns.
-        // See: https://doc.rust-lang.org/std/env/fn.set_var.html#safety
-
-        // unsafe {
-        // env::set_var(OVERRIDE_PATH_VAR, &home_from_env);
-        // }
-        // assert_eq!(get_local_location().unwrap(), home_from_env);
+        unsafe {
+            env::set_var(OVERRIDE_PATH_VAR, &home_from_env);
+        }
+        assert_eq!(get_local_location().unwrap(), home_from_env);
+        unsafe { env::set_var(OVERRIDE_PATH_VAR, "") }
     }
 
     #[test]
