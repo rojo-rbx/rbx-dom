@@ -34,7 +34,7 @@ mod error;
 
 use rbx_reflection::ReflectionDatabase;
 
-use std::{env, fs, path::PathBuf, sync::OnceLock};
+use std::{env, fs, path::PathBuf, sync::LazyLock};
 
 pub use error::Error;
 
@@ -54,14 +54,23 @@ pub const OVERRIDE_PATH_VAR: &str = "RBX_DATABASE";
 /// the home directory on Linux.
 pub const LOCAL_DIR_NAME: &str = ".rbxreflection";
 
-lazy_static::lazy_static! {
-    static ref BUNDLED_DATABASE: ReflectionDatabase<'static> = {
-        log::debug!("Loading bundled reflection database");
-        rmp_serde::decode::from_slice(ENCODED_DATABASE).unwrap_or_else(|e| panic!("could not decode reflection database because: {}", e))
-    };
-}
+static BUNDLED_DATABASE: LazyLock<ReflectionDatabase<'static>> = LazyLock::new(|| {
+    log::debug!("Loading bundled reflection database");
+    rmp_serde::decode::from_slice(ENCODED_DATABASE)
+        .unwrap_or_else(|e| panic!("could not decode reflection database because: {}", e))
+});
 
-static LOCAL_DATABASE: OnceLock<ResultOption<ReflectionDatabase<'static>>> = OnceLock::new();
+static LOCAL_DATABASE: LazyLock<ResultOption<ReflectionDatabase<'static>>> = LazyLock::new(|| {
+    let Some(path) = get_local_location() else {
+        return Ok(None);
+    };
+    if path.exists() {
+        let database: ReflectionDatabase<'static> = rmp_serde::from_slice(&fs::read(path)?)?;
+        Ok(Some(database))
+    } else {
+        Ok(None)
+    }
+});
 
 /// Returns a populated [`ReflectionDatabase`]. This will attempt to load one locally and
 /// if one can't be found, it will return one that is bundled with this crate.
@@ -94,20 +103,8 @@ pub fn get() -> Result<&'static ReflectionDatabase<'static>, Error> {
 /// Errors if the file specified by `RBX_DATABASE` or in the default location
 /// exists but is invalid MessagePack.
 pub fn get_local() -> ResultOption<&'static ReflectionDatabase<'static>> {
-    let inner = LOCAL_DATABASE.get_or_init(|| {
-        if let Some(path) = get_local_location() {
-            if path.exists() {
-                let database: ReflectionDatabase<'static> =
-                    rmp_serde::from_slice(&fs::read(path)?)?;
-                Ok(Some(database))
-            } else {
-                Ok(None)
-            }
-        } else {
-            Ok(None)
-        }
-    });
-    match inner {
+    let local_database: &ResultOption<ReflectionDatabase<'static>> = &LOCAL_DATABASE;
+    match local_database {
         Ok(opt) => Ok(opt.as_ref()),
         // This clone could be avoided because these references are static,
         // but it'd involve some indirection and these errors are rare anyway.
