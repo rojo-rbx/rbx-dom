@@ -161,6 +161,38 @@ mod test {
     }
 
     #[test]
+    fn local_location() {
+        #[allow(unused_mut, reason = "this path needs to be mutated on macos")]
+        let mut home_from_env;
+        #[cfg(target_os = "windows")]
+        {
+            home_from_env = PathBuf::from(env!("LOCALAPPDATA"));
+        }
+        #[cfg(target_os = "macos")]
+        {
+            home_from_env = PathBuf::from(env!("HOME"));
+            home_from_env.push("Library");
+            home_from_env.push("Application Support");
+        }
+        #[cfg(not(any(target_os = "windows", target_os = "macos")))]
+        {
+            home_from_env = PathBuf::from(env!("HOME"))
+        };
+        let mut local_expected = home_from_env.join(LOCAL_DIR_NAME);
+        local_expected.push("database.msgpack");
+
+        assert_eq!(get_local_location().unwrap(), local_expected);
+
+        // We don't run this test due to safety concerns.
+        // See: https://doc.rust-lang.org/std/env/fn.set_var.html#safety
+
+        // unsafe {
+        // env::set_var(OVERRIDE_PATH_VAR, &home_from_env);
+        // }
+        // assert_eq!(get_local_location().unwrap(), home_from_env);
+    }
+
+    #[test]
     fn superclasses_iter_test() {
         let database = get_bundled();
         let part_class_descriptor = database.classes.get("Part");
