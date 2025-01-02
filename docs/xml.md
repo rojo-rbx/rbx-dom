@@ -40,6 +40,7 @@ The XML model format has generally been replaced by the newer, more efficient [b
 	- [Ray](#ray)
 	- [Rect2D](#rect2d)
 	- [Ref](#ref) (Referent)
+	- [SecurityCapabilities](#securitycapabilities)
 	- [SharedString][SharedString-use] (property type)
 	- [string](#string)
 	- [token](#token) (Enum)
@@ -560,6 +561,65 @@ A `Ref` value pointing to an `Item` with a `referent` of `RBX466F72207262782D646
 ```xml
 <Ref name="Example">RBX466F72207262782D646F6D21203A2D29</Ref>
 ```
+
+### SecurityCapabilities
+
+The `SecurityCapabilities` data type represents a set of permissions or capabilities, encoded as a bit field, that dictate whether a script can perform specific actions within the Roblox environment. Each bit in the field corresponds to a particular capability.
+
+Roblox uses this type to manage script capabilities for certain instances like `Folder`, `Model`, and `Script`. Although the property is present on all instances, its functionality is only exposed for specific classes. The encoding of `SecurityCapabilities` as a bit field aligns with the permissions previously managed by identity permissions in the lowest 8 bits.
+
+A `SecurityCapabilities` value with no capabilities set appears as follows:
+
+```xml
+<SecurityCapabilities name="Example">0</SecurityCapabilities>
+```
+
+A `SecurityCapabilities` value with `RunClientScript` (2 ^ 8 = 256) & `RunServerScript` (2 ^ 9 = 512) capabilities set appears as follows:
+
+```xml
+<SecurityCapabilities name="Example">768</SecurityCapabilities>
+```
+
+The following table maps each bit in the field to a corresponding capability:
+
+| **Bit Position** | **Capability**       | **Description**                                                                                     |
+|------------------|----------------------|-----------------------------------------------------------------------------------------------------|
+| 0                | Plugin               | Provides access to instances related to plugins.                                                    |
+| 1                | LocalUser            | Members with this security are usually intended for internal usage, but developers are allowed to access it through the command bar. |
+| 2                | WritePlayer          | Enables writing to `Player` class instances.                                                        |
+| 3                | RobloxScript         | Indicates a Roblox internal script.                                                                 |
+| 4                | RobloxEngine         | Accesses engine-level features.                                                                     |
+| 5                | NotAccessible        | Members with this security are intended to only be written to outside of a running game.            |
+| 8                | RunClientScript      | [Allows execution of LocalScript or Script with a RunContext value of Client on the client.](https://create.roblox.com/docs/scripting/capabilities#execution-control) |
+| 9                | RunServerScript      | [Allows execution of Script with a RunContext value of Server on the server.](https://create.roblox.com/docs/scripting/capabilities#execution-control) |
+| 11               | AccessOutsideWrite   | [Allows fetching and receiving instances from outside the sandboxed container.](https://create.roblox.com/docs/scripting/capabilities#instance-access-control) |
+| 15               | Unassigned           | Used for members that have not been assigned a security.                                            |
+| 16               | AssetRequire         | Enables loading assets via `require()`.                                                             |
+| 17               | LoadString           | Enables `loadstring()` functionality.                                                               |
+| 18               | ScriptGlobals        | Enables access to `_G` and `shared`.                                                                |
+| 19               | CreateInstances      | Allows creating new instances using `Instance.new`, `Instance.fromExisting`, or `Instance:Clone()`. |
+| 20               | Basic                | Provides access to simple instances and essential building blocks.                                  |
+| 21               | Audio                | Provides access to instances related to audio APIs.                                                 |
+| 22               | DataStore            | Provides access to data store and memory store APIs.                                                |
+| 23               | Network              | Provides access to HTTP networking APIs.                                                            |
+| 24               | Physics              | Provides access to instances related to physics.                                                    |
+| 25               | UI                   | Provides access to instances related to user interfaces.                                            |
+| 26               | CSG                  | Provides access to instances and functions related to constructive solid geometry (CSG).            |
+| 27               | Chat                 | Provides access to instances related to in-experience chat.                                         |
+| 28               | Animation            | Provides access to instances related to animations.                                                 |
+| 29               | Avatar               | Provides access to instances related to avatars.                                                    |
+| 30               | Input                | Provides access to instances related to user input.                                                 |
+| 31               | Environment          | Provides access to instances related to controlling how the environment is displayed.               |
+| 32               | RemoteEvent          | Provides access to instances for internal networking operations.                                    |
+| 33               | LegacySound          | (No description provided.)                                                                          |
+| 61               | PluginOrOpenCloud    | Sum capability for Plugin and OpenCloud.                                                            |
+| 62               | Assistant            | Required to access `StreamingService` and all of its members.                                       |
+| 63               | Restricted           |                                                                                                     |
+
+- The `SecurityCapabilities` property is an experimental feature in beta and may undergo changes. Use caution when implementing features relying on these values.
+- Not all Capabilities are mapped to the `Enum.SecurityCapability`.
+
+Encoders SHOULD treat unknown, unmapped or default values as 0 (meaning no capabilities are set).
 
 ### SharedString
 [SharedString-use]: #sharedstring-1
