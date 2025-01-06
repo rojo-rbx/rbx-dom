@@ -9,6 +9,8 @@ use crate::Vector3;
 
 use crate::Error as CrateError;
 
+use super::TerrainMaterials;
+
 /// Size of a chunk. Chunks are cubes, so this is the length/width/height.
 const CHUNK_SIZE: i32 = 2i32.pow(5);
 
@@ -101,7 +103,7 @@ impl ChunkCoordinates {
 #[repr(u8)]
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub enum Material {
+enum TerrainGridMaterial {
     #[default]
     Air = 0x00,
     Water = 0x01,
@@ -128,11 +130,43 @@ pub enum Material {
     Pavement = 0x16,
 }
 
-impl TryFrom<u8> for Material {
+impl From<TerrainMaterials> for TerrainGridMaterial {
+    fn from(value: TerrainMaterials) -> Self {
+        use TerrainGridMaterial::*;
+
+        match value {
+            TerrainMaterials::Air => Air,
+            TerrainMaterials::Water => Water,
+            TerrainMaterials::Grass => Grass,
+            TerrainMaterials::Slate => Slate,
+            TerrainMaterials::Concrete => Concrete,
+            TerrainMaterials::Brick => Brick,
+            TerrainMaterials::Sand => Sand,
+            TerrainMaterials::WoodPlanks => WoodPlanks,
+            TerrainMaterials::Rock => Rock,
+            TerrainMaterials::Glacier => Glacier,
+            TerrainMaterials::Snow => Snow,
+            TerrainMaterials::Sandstone => Sandstone,
+            TerrainMaterials::Mud => Mud,
+            TerrainMaterials::Basalt => Basalt,
+            TerrainMaterials::Ground => Ground,
+            TerrainMaterials::CrackedLava => CrackedLava,
+            TerrainMaterials::Asphalt => Asphalt,
+            TerrainMaterials::Cobblestone => Cobblestone,
+            TerrainMaterials::Ice => Ice,
+            TerrainMaterials::LeafyGrass => LeafyGrass,
+            TerrainMaterials::Salt => Salt,
+            TerrainMaterials::Limestone => Limestone,
+            TerrainMaterials::Pavement => Pavement,
+        }
+    }
+}
+
+impl TryFrom<u8> for TerrainGridMaterial {
     type Error = CrateError;
 
     fn try_from(value: u8) -> Result<Self, Self::Error> {
-        use Material::*;
+        use TerrainGridMaterial::*;
 
         Ok(match value {
             0x00 => Air,
@@ -167,8 +201,8 @@ impl TryFrom<u8> for Material {
 #[derive(Debug, Error)]
 pub(crate) enum SmoothGridError {
     /// The argument provided to `try_from<u8>` did not correspond to a known
-    /// Material.
-    #[error("cannot convert `{0}` into Material")]
+    /// TerrainGridMaterial.
+    #[error("cannot convert `{0}` into TerrainGridMaterial")]
     UnknownMaterial(u8),
 }
 
@@ -178,16 +212,16 @@ pub(crate) enum SmoothGridError {
 pub struct Voxel {
     solid_occupancy: f32,
     water_occupancy: f32,
-    material: Material,
+    material: TerrainGridMaterial,
 }
 
 impl Voxel {
     /// Constructs a new `Voxel` with a material and occupancy percentage.
     /// Equivalent to data writeable from Roblox's `Terrain:WriteVoxels`.
     /// Occupancy values are between `0.0` and `1.0`, as a percentage of the voxel.
-    pub fn new(material: Material, solid_occupancy: f32) -> Self {
+    pub fn new(material: TerrainMaterials, solid_occupancy: f32) -> Self {
         let mut voxel = Self {
-            material,
+            material: material.into(),
             ..Default::default()
         };
         voxel.set_occupancy(solid_occupancy, 0.0);
@@ -199,9 +233,13 @@ impl Voxel {
     /// occupancy percentage.
     /// Equivalent to data writeable from Roblox's `Terrain:WriteVoxelChannels`.
     /// Occupancy values are between `0.0` and `1.0`, as a percentage of the voxel.
-    pub fn new_with_water(material: Material, solid_occupancy: f32, water_occupancy: f32) -> Self {
+    pub fn new_with_water(
+        material: TerrainMaterials,
+        solid_occupancy: f32,
+        water_occupancy: f32,
+    ) -> Self {
         let mut voxel = Self {
-            material,
+            material: material.into(),
             ..Default::default()
         };
         voxel.set_occupancy(solid_occupancy, water_occupancy);
@@ -272,15 +310,17 @@ impl Voxel {
         if solid_occupancy == 0.0 && water_occupancy == 0.0 {
             self.solid_occupancy = 1.0;
             self.water_occupancy = 0.0;
-            self.material = Material::Air;
+            self.material = TerrainGridMaterial::Air;
             return;
         }
 
         // We should encode water as a normal, non-shorelines voxel if there's no solids.
-        if (solid_occupancy == 0.0 || self.material == Material::Air) && water_occupancy > 0.0 {
+        if (solid_occupancy == 0.0 || self.material == TerrainGridMaterial::Air)
+            && water_occupancy > 0.0
+        {
             self.solid_occupancy = water_occupancy;
             self.water_occupancy = 0.0;
-            self.material = Material::Water;
+            self.material = TerrainGridMaterial::Water;
             return;
         }
 
@@ -294,8 +334,8 @@ impl Voxel {
         }
     }
 
-    pub fn set_material(&mut self, material: Material) {
-        self.material = material;
+    pub fn set_material(&mut self, material: TerrainMaterials) {
+        self.material = material.into();
 
         // Occupancy determination depends on material.
         self.set_occupancy(self.solid_occupancy, self.water_occupancy)
@@ -308,27 +348,33 @@ impl Voxel {
 pub struct Chunk {
     grid: HashMap<VoxelCoordinates, Voxel>,
     /// For all empty voxels in the chunk, we will write this material
-    /// at 100% occupancy. Defaults to `Material::Air`.
-    pub base_material: Material,
+    /// at 100% occupancy. Defaults to `TerrainGridMaterial::Air`.
+    base_material: TerrainGridMaterial,
 }
 
 impl Chunk {
-    /// Constructs a new `Chunk` with a base material of `Material::Air`.
+    /// Constructs a new `Chunk` with a base material of `TerrainGridMaterial::Air`.
     #[inline]
     pub fn new() -> Self {
         Self {
             grid: HashMap::new(),
-            base_material: Material::Air,
+            base_material: TerrainGridMaterial::Air,
         }
     }
 
     /// Constructs a new `Chunk` with a user-provided base material.
     #[inline]
-    pub fn new_with_base(base_material: Material) -> Self {
+    pub fn new_with_base(base_material: TerrainMaterials) -> Self {
         Self {
             grid: HashMap::new(),
-            base_material,
+            base_material: base_material.into(),
         }
+    }
+
+    /// Changes the base material of a `Chunk` to a user-provided base material.
+    #[inline]
+    pub fn set_base(&mut self, base_material: TerrainMaterials) {
+        self.base_material = base_material.into();
     }
 
     /// Finds a `Voxel` at the given position in this `Chunk`,
@@ -527,10 +573,10 @@ mod test {
     #[test]
     fn encode_default() {
         let mut terr = SmoothGrid::new();
-        let mut chunk = Chunk::new_with_base(Material::Air);
-        let mut voxel = Voxel::new_with_water(Material::Grass, 1.0, 0.5);
+        let mut chunk = Chunk::new_with_base(TerrainGridMaterial::Air);
+        let mut voxel = Voxel::new_with_water(TerrainGridMaterial::Grass, 1.0, 0.5);
         for m in 2..=22 {
-            voxel.set_material(Material::try_from(m as u8).unwrap());
+            voxel.set_material(TerrainGridMaterial::try_from(m as u8).unwrap());
             chunk.write_voxel(&VoxelCoordinates::new(m - 2, 0, 0), voxel);
         }
         terr.write_chunk(&ChunkCoordinates::default(), chunk.clone());
