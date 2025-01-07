@@ -1,8 +1,9 @@
-use std::{collections::BTreeMap, str::FromStr};
+use std::{collections::BTreeMap, convert::TryFrom, convert::TryInto, str::FromStr};
 
 use thiserror::Error;
 
 use crate::Color3uint8;
+use crate::TerrainMaterials;
 
 use crate::Error as CrateError;
 
@@ -32,7 +33,12 @@ impl MaterialColors {
     /// Retrieves the set color for the given material, or the default if
     /// none is set.
     #[inline]
-    pub fn get_color(&self, material: TerrainColorMaterial) -> Color3uint8 {
+    pub fn get_color(&self, material: TerrainMaterials) -> Result<Color3uint8, CrateError> {
+        Ok(self.get_color_internal(material.try_into()?))
+    }
+
+    #[inline]
+    fn get_color_internal(&self, material: TerrainColorMaterial) -> Color3uint8 {
         if let Some(color) = self.inner.get(&material) {
             *color
         } else {
@@ -42,7 +48,16 @@ impl MaterialColors {
 
     /// Sets the color for the given material.
     #[inline]
-    pub fn set_color(&mut self, material: TerrainColorMaterial, color: Color3uint8) {
+    pub fn set_color(
+        &mut self,
+        material: TerrainMaterials,
+        color: Color3uint8,
+    ) -> Result<(), CrateError> {
+        self.set_color_internal(material.try_into()?, color);
+        Ok(())
+    }
+
+    fn set_color_internal(&mut self, material: TerrainColorMaterial, color: Color3uint8) {
         self.inner.insert(material, color);
     }
 
@@ -54,7 +69,7 @@ impl MaterialColors {
         buffer.extend_from_slice(&[0; 6]);
 
         for color in MATERIAL_ORDER {
-            let color = self.get_color(color);
+            let color = self.get_color_internal(color);
             buffer.extend_from_slice(&[color.r, color.g, color.b])
         }
 
@@ -79,11 +94,20 @@ impl MaterialColors {
 
 impl<T> From<T> for MaterialColors
 where
-    T: Into<BTreeMap<TerrainColorMaterial, Color3uint8>>,
+    T: Into<BTreeMap<TerrainMaterials, Color3uint8>>,
 {
     fn from(value: T) -> Self {
         Self {
-            inner: value.into(),
+            inner: value
+                .into()
+                .iter()
+                .filter_map(|x| {
+                    let Ok(material) = TerrainColorMaterial::try_from(*x.0) else {
+                        return None;
+                    };
+                    Some((material, *x.1))
+                })
+                .collect(),
         }
     }
 }
@@ -96,9 +120,9 @@ pub(crate) enum MaterialColorsError {
         "MaterialColors blob was the wrong length (expected it to be 69 bytes, it was {0} bytes)"
     )]
     WrongLength(usize),
-    /// The argument provided to `from_str` did not correspond to a known
-    /// TerrainMaterial.
-    #[error("cannot convert `{0}` into TerrainMaterial")]
+    /// The argument provided to `from_str`, or the argument for conversion
+    /// from `TerrainMaterials`, did not correspond to a known TerrainColorMaterial.
+    #[error("cannot convert `{0}` into TerrainColorMaterial")]
     UnknownMaterial(String),
 }
 
@@ -131,7 +155,7 @@ macro_rules! material_colors {
         }
 
         impl TerrainColorMaterial {
-            /// Returns the default color for the given `TerrainMaterial`.
+            /// Returns the default color for the given `TerrainColorMaterial`.
             pub fn default_color(&self) -> Color3uint8 {
                 match self {
                     $(
@@ -149,6 +173,20 @@ macro_rules! material_colors {
                     stringify!($name) => Ok(Self::$name),
                 )*
                     _ => Err(MaterialColorsError::UnknownMaterial(s.to_string()).into()),
+                }
+            }
+        }
+
+        impl TryFrom<TerrainMaterials> for TerrainColorMaterial {
+            type Error = CrateError;
+
+            fn try_from(value: TerrainMaterials) -> Result<Self, Self::Error> {
+                use TerrainMaterials::*;
+                match value {
+                    $(
+                        $name => Ok(Self::$name),
+                    )*
+                    _ => Err(MaterialColorsError::UnknownMaterial(value.to_string()).into())
                 }
             }
         }
@@ -193,16 +231,16 @@ mod test {
         let expected: MaterialColors = serde_json::from_str(serialized).unwrap();
 
         assert_eq!(
-            expected.get_color(TerrainColorMaterial::Grass),
+            expected.get_color(TerrainMaterials::Grass).unwrap(),
             Color3uint8::new(10, 20, 30),
         );
         assert_eq!(
-            expected.get_color(TerrainColorMaterial::Mud),
+            expected.get_color(TerrainMaterials::Mud).unwrap(),
             Color3uint8::new(255, 0, 127),
         );
 
         assert_eq!(
-            expected.get_color(TerrainColorMaterial::Brick),
+            expected.get_color(TerrainMaterials::Brick).unwrap(),
             TerrainColorMaterial::Brick.default_color()
         );
     }
@@ -211,8 +249,12 @@ mod test {
     #[cfg(feature = "serde")]
     fn serialize() {
         let mut colors = MaterialColors::new();
-        colors.set_color(TerrainColorMaterial::Grass, Color3uint8::new(10, 20, 30));
-        colors.set_color(TerrainColorMaterial::Mud, Color3uint8::new(255, 0, 127));
+        colors
+            .set_color(TerrainMaterials::Grass, Color3uint8::new(10, 20, 30))
+            .unwrap();
+        colors
+            .set_color(TerrainMaterials::Mud, Color3uint8::new(255, 0, 127))
+            .unwrap();
 
         assert_eq!(
             serde_json::to_string(&colors).unwrap(),
@@ -228,7 +270,7 @@ mod test {
 
         for color in MATERIAL_ORDER {
             assert_eq!(
-                colors.get_color(color),
+                colors.get_color_internal(color),
                 color.default_color(),
                 "{color:?} did not match"
             )
@@ -249,7 +291,7 @@ mod test {
             let g = u8::try_from(n * 3 + 2).unwrap();
             let b = u8::try_from(n * 3 + 3).unwrap();
             assert_eq!(
-                colors.get_color(*color),
+                colors.get_color_internal(*color),
                 Color3uint8::new(r, g, b),
                 "{color:?} did not match"
             );
@@ -275,7 +317,7 @@ mod test {
             let g = u8::try_from(n * 3 + 2).unwrap();
             let b = u8::try_from(n * 3 + 3).unwrap();
 
-            colors.set_color(*color, Color3uint8::new(r, g, b))
+            colors.set_color_internal(*color, Color3uint8::new(r, g, b))
         }
         let blob = base64::encode(colors.encode());
 

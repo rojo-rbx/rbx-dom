@@ -8,6 +8,8 @@ mod smooth_grid;
 pub use self::material_colors::*;
 pub use self::smooth_grid::*;
 
+use std::fmt;
+
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
 pub enum TerrainMaterials {
     Air,
@@ -33,4 +35,10 @@ pub enum TerrainMaterials {
     Salt,
     Limestone,
     Pavement,
+}
+
+impl fmt::Display for TerrainMaterials {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
 }

@@ -18,7 +18,7 @@ const CHUNK_SIZE: i32 = 2i32.pow(5);
 // Can't use Vector3int16; we need a 32 bit integer.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, PartialOrd, Ord, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct TerrainVec {
+struct TerrainVec {
     pub x: i32,
     pub y: i32,
     pub z: i32,
@@ -573,16 +573,17 @@ mod test {
     #[test]
     fn encode_default() {
         let mut terr = SmoothGrid::new();
-        let mut chunk = Chunk::new_with_base(TerrainGridMaterial::Air);
-        let mut voxel = Voxel::new_with_water(TerrainGridMaterial::Grass, 1.0, 0.5);
-        for m in 2..=22 {
-            voxel.set_material(TerrainGridMaterial::try_from(m as u8).unwrap());
-            chunk.write_voxel(&VoxelCoordinates::new(m - 2, 0, 0), voxel);
-        }
+        let mut chunk = Chunk::new_with_base(TerrainMaterials::Air);
+
+        let mut voxel = Voxel::new_with_water(TerrainMaterials::Water, 1.0, 0.5);
+        chunk.write_voxel(&VoxelCoordinates::new(0, 0, 0), voxel);
+        voxel.set_material(TerrainMaterials::Pavement);
+        chunk.write_voxel(&VoxelCoordinates::new(1, 0, 0), voxel);
+
         terr.write_chunk(&ChunkCoordinates::default(), chunk.clone());
         terr.write_chunk(&ChunkCoordinates::new(1, 0, 0), chunk.clone());
 
         let encoded = base64::encode(terr.encode());
-        println!("{}", encoded);
+        assert_eq!(encoded, "AQUAAAAAAAAAAAAAAAABFoD/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP0AAAAAAAAAAAABAAABFoD/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP0=")
     }
 }
