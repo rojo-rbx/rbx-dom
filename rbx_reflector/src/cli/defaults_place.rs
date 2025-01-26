@@ -136,9 +136,10 @@ fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Resul
             | "InternalSyncItem" => continue,
 
             // Settings singletons cannot be put into a DataModel. This changed
-            // in release 653.
+            // in release 653 and 657.
             "DebugSettings" | "GameSettings" | "LuaSettings" | "NetworkSettings"
-            | "PhysicsSettings" | "RenderSettings" | "Studio" | "TaskScheduler" => continue,
+            | "PhysicsSettings" | "RenderSettings" | "Studio" | "TaskScheduler"
+            | "UserGameSettings" => continue,
 
             // This class will cause studio to crash on close.
             "VoiceSource" => continue,
