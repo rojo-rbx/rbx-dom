@@ -51,10 +51,12 @@ pub use ahash::AHashMap;
 pub use ustr::{ustr, Ustr, UstrMap, UstrSet};
 
 pub use crate::{
-    dom::WeakDom,
+    dom::WeakDom as GenericWeakDom,
     instance::{Instance, InstanceBuilder},
     viewer::{DomViewer, ViewedInstance},
 };
+/// Convenience type of GenericWeakDom<Instance>
+pub type WeakDom = GenericWeakDom<Instance>;
 
 /// Helper trait that provides convenience methods for `AHashMap` and `UstrMap`.
 pub trait HashMapExt {

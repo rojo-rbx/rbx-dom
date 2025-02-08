@@ -237,3 +237,14 @@ impl Instance {
         self.parent
     }
 }
+
+impl AsRef<Instance> for Instance {
+    fn as_ref(&self) -> &Instance {
+        self
+    }
+}
+impl AsMut<Instance> for Instance {
+    fn as_mut(&mut self) -> &mut Instance {
+        self
+    }
+}
