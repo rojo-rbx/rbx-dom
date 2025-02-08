@@ -1,6 +1,6 @@
 use rbx_dom_weak::{
     types::{BrickColor, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Vector3},
-    InstanceBuilder, WeakDom,
+    Instance, InstanceBuilder, WeakDom,
 };
 
 use crate::{text_deserializer::DecodedModel, to_writer};
@@ -21,7 +21,7 @@ fn just_folder() {
 /// without will correctly fall back to (some) default value.
 #[test]
 fn partially_present() {
-    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children(vec![
+    let tree = WeakDom::<Instance>::new(InstanceBuilder::new("Folder").with_children(vec![
         // This instance's `Value` property should be preserved.
         InstanceBuilder::new("StringValue").with_property("Value", "Hello"),
         // This instance's `Value` property should be the empty string.
