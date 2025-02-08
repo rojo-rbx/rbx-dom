@@ -14,7 +14,7 @@ use crate::instance::{Instance, InstanceBuilder};
 /// When constructing instances, you'll want to create [`InstanceBuilder`]
 /// objects and insert them into the tree.
 #[derive(Debug)]
-pub struct WeakDom<I = Instance> {
+pub struct WeakDom<I> {
     instances: AHashMap<Ref, I>,
     root_ref: Ref,
     unique_ids: AHashSet<UniqueId>,
@@ -607,10 +607,9 @@ impl CloneContext {
 #[cfg(test)]
 mod test {
     use super::*;
-    use super::WeakDom as GenericWeakDom;
-    type WeakDom = GenericWeakDom<Instance>;
 
     use crate::DomViewer;
+    use crate::WeakDom;
     use rbx_types::{UniqueId, Variant};
 
     #[test]
