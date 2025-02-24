@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 60
@@ -4401,12 +4400,6 @@ chunks:
       prop_type: UniqueId
       values:
         - "00000000000000000000000000000000"
-  - Prop:
-      type_id: 58
-      prop_name: Is30FpsThrottleEnabled
-      prop_type: Bool
-      values:
-        - true
   - Prop:
       type_id: 58
       prop_name: IsPhysicsEnvironmentalThrottled

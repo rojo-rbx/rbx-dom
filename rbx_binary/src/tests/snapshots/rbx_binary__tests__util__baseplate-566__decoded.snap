@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -1919,8 +1918,6 @@ expression: decoded_viewed
       Bool: false
     HistoryId:
       UniqueId: "00000000000000000000000000000000"
-    Is30FpsThrottleEnabled:
-      Bool: true
     IsPhysicsEnvironmentalThrottled:
       Bool: true
     IsSleepAllowed:
