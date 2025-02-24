@@ -231,15 +231,15 @@ fn read_material_colors() {
         // There are tests to ensure competency in the actual MaterialColors
         // implementation, so these are just basic "are you ok" checks.
         assert_eq!(
-            colors.get_color(TerrainMaterials::Grass),
+            colors.get_color(TerrainMaterials::Grass).unwrap(),
             Color3uint8::new(1, 2, 3)
         );
         assert_eq!(
-            colors.get_color(TerrainMaterials::CrackedLava),
+            colors.get_color(TerrainMaterials::CrackedLava).unwrap(),
             Color3uint8::new(40, 41, 42)
         );
         assert_eq!(
-            colors.get_color(TerrainMaterials::Limestone),
+            colors.get_color(TerrainMaterials::Limestone).unwrap(),
             Color3uint8::new(58, 59, 60)
         );
     } else {
