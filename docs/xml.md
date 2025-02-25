@@ -580,7 +580,7 @@ A `SecurityCapabilities` value with `RunClientScript` (2 ^ 8 = 256) & `RunServer
 <SecurityCapabilities name="Example">768</SecurityCapabilities>
 ```
 
-The following table maps each bit in the field to a corresponding capability:
+The following table maps each bit in the field to a corresponding capability, bit 0 being the least-significant bit:
 
 | **Bit Position** | **Capability**       | **Description**                                                                                     |
 |------------------|----------------------|-----------------------------------------------------------------------------------------------------|
@@ -590,9 +590,9 @@ The following table maps each bit in the field to a corresponding capability:
 | 3                | RobloxScript         | Indicates a Roblox internal script.                                                                 |
 | 4                | RobloxEngine         | Accesses engine-level features.                                                                     |
 | 5                | NotAccessible        | Members with this security are intended to only be written to outside of a running game.            |
-| 8                | RunClientScript      | [Allows execution of LocalScript or Script with a RunContext value of Client on the client.](https://create.roblox.com/docs/scripting/capabilities#execution-control) |
-| 9                | RunServerScript      | [Allows execution of Script with a RunContext value of Server on the server.](https://create.roblox.com/docs/scripting/capabilities#execution-control) |
-| 11               | AccessOutsideWrite   | [Allows fetching and receiving instances from outside the sandboxed container.](https://create.roblox.com/docs/scripting/capabilities#instance-access-control) |
+| 8                | RunClientScript      | [Allows execution of LocalScript or Script with a RunContext value of Client on the client.]        |
+| 9                | RunServerScript      | [Allows execution of Script with a RunContext value of Server on the server.]                       |
+| 11               | AccessOutsideWrite   | [Allows fetching and receiving instances from outside the sandboxed container.]                     |
 | 15               | Unassigned           | Used for members that have not been assigned a security.                                            |
 | 16               | AssetRequire         | Enables loading assets via `require()`.                                                             |
 | 17               | LoadString           | Enables `loadstring()` functionality.                                                               |
@@ -620,6 +620,10 @@ The following table maps each bit in the field to a corresponding capability:
 - Not all Capabilities are mapped to the [Enum.SecurityCapability](https://create.roblox.com/docs/reference/engine/enums/SecurityCapability).
 
 Encoders SHOULD treat unknown, unmapped or default values as 0 (meaning no capabilities are set).
+
+[Allows execution of LocalScript or Script with a RunContext value of Client on the client.]: https://create.roblox.com/docs/scripting/capabilities#execution-control
+[Allows execution of Script with a RunContext value of Server on the server.]: https://create.roblox.com/docs/scripting/capabilities#execution-control
+[Allows fetching and receiving instances from outside the sandboxed container.]: https://create.roblox.com/docs/scripting/capabilities#instance-access-control
 
 ### SharedString
 [SharedString-use]: #sharedstring-1
