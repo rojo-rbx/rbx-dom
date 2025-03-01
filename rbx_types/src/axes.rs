@@ -256,6 +256,9 @@ mod mlua_impl {
     use mlua::{prelude::*, Variadic};
 
     impl fmt::Display for Axes {
+        // This is not correct right now, because the `Lister` utility is not
+        // working as intended, but if PR #491 gets merged, this will then
+        // be accurate to the Roblox `tostring()`.
         fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
             let mut list = Lister::new();
 
