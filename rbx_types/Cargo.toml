@@ -18,6 +18,7 @@ lazy_static = "1.4.0"
 rand = "0.8.5"
 thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }
+mlua = { version = "0.10.3", features = ["luau"], optional = true }
 
 [dev-dependencies]
 insta = { version = "1.14.1", features = ["yaml"] }
