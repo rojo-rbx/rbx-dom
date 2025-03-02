@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Folder
+  name:
+    Utf8:
+      - Folder
   class: Folder
   properties:
     Attributes:

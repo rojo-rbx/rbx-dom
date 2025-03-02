@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: "0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0"
+  name:
+    Utf8:
+      - "0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0"
   class: CFrameValue
   properties:
     Attributes:
@@ -30,7 +32,9 @@ expression: decoded_viewed
             - 0
   children: []
 - referent: referent-1
-  name: "0.15625, -0.15625, 0.1, -0.1, 0, 0, 1337, -1337, inf, -inf, nan, nan"
+  name:
+    Utf8:
+      - "0.15625, -0.15625, 0.1, -0.1, 0, 0, 1337, -1337, inf, -inf, nan, nan"
   class: CFrameValue
   properties:
     Attributes:
@@ -56,4 +60,3 @@ expression: decoded_viewed
             - NaN
             - NaN
   children: []
-

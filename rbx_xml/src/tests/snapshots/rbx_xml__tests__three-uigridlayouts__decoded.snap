@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: UIGridLayout
+  name:
+    Utf8:
+      - UIGridLayout
   class: UIGridLayout
   properties:
     Attributes:
@@ -36,7 +38,9 @@ expression: "DomViewer::new().view_children(&decoded)"
       Enum: 1
   children: []
 - referent: referent-1
-  name: UIGridLayout
+  name:
+    Utf8:
+      - UIGridLayout
   class: UIGridLayout
   properties:
     Attributes:
@@ -69,7 +73,9 @@ expression: "DomViewer::new().view_children(&decoded)"
       Enum: 1
   children: []
 - referent: referent-2
-  name: UIGridLayout
+  name:
+    Utf8:
+      - UIGridLayout
   class: UIGridLayout
   properties:
     Attributes:
@@ -101,4 +107,3 @@ expression: "DomViewer::new().view_children(&decoded)"
     VerticalAlignment:
       Enum: 1
   children: []
-

@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: "{1, 2, 3}, {-4, -5, -6}"
+  name:
+    Utf8:
+      - "{1, 2, 3}, {-4, -5, -6}"
   class: RayValue
   properties:
     Attributes:
@@ -24,7 +26,9 @@ expression: "DomViewer::new().view_children(&decoded)"
           - -6
   children: []
 - referent: referent-1
-  name: "{inf, -inf, nan}, {0.5, 0.15625, 0.1}"
+  name:
+    Utf8:
+      - "{inf, -inf, nan}, {0.5, 0.15625, 0.1}"
   class: RayValue
   properties:
     Attributes:
@@ -44,4 +48,3 @@ expression: "DomViewer::new().view_children(&decoded)"
           - 0.15625
           - 0.1
   children: []
-

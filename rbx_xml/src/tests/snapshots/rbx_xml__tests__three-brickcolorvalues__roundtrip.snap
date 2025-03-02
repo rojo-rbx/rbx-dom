@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Value
+  name:
+    Utf8:
+      - Value
   class: BrickColorValue
   properties:
     Attributes:
@@ -14,7 +16,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       BrickColor: 1004
   children: []
 - referent: referent-1
-  name: Value
+  name:
+    Utf8:
+      - Value
   class: BrickColorValue
   properties:
     Attributes:
@@ -25,7 +29,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       BrickColor: 37
   children: []
 - referent: referent-2
-  name: Value
+  name:
+    Utf8:
+      - Value
   class: BrickColorValue
   properties:
     Attributes:
@@ -35,4 +41,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Value:
       BrickColor: 1010
   children: []
-

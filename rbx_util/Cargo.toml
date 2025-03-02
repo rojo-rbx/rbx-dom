@@ -21,6 +21,7 @@ name = "rbx-util"
 
 [dependencies]
 rbx_binary = { path = "../rbx_binary", features = ["unstable_text_format"] }
+rbx_dom_weak = { path = "../rbx_dom_weak" }
 rbx_xml = { path = "../rbx_xml" }
 
 serde_yaml = "0.8.24"

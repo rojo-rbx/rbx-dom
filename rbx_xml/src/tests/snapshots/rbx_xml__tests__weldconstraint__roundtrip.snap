@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Folder
+  name:
+    Utf8:
+      - Folder
   class: Folder
   properties:
     Attributes:
@@ -14,7 +16,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Tags: []
   children:
     - referent: referent-1
-      name: A
+      name:
+        Utf8:
+          - A
       class: Part
       properties:
         Anchored:
@@ -155,7 +159,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
             - 0
       children:
         - referent: referent-2
-          name: WeldConstraint
+          name:
+            Utf8:
+              - WeldConstraint
           class: WeldConstraint
           properties:
             Attributes:
@@ -186,7 +192,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
               Tags: []
           children: []
     - referent: referent-3
-      name: B
+      name:
+        Utf8:
+          - B
       class: Part
       properties:
         Anchored:
@@ -326,4 +334,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
             - 0
             - 0
       children: []
-

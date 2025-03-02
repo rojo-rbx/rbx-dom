@@ -1,10 +1,11 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: UIPadding
+  name:
+    Utf8:
+      - UIPadding
   class: UIPadding
   properties:
     Attributes:
@@ -28,4 +29,3 @@ expression: decoded_viewed
     Tags:
       Tags: []
   children: []
-

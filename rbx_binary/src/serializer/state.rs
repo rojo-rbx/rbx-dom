@@ -11,8 +11,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, Enum, EnumItem, Faces, Font, MaterialColors, Matrix3,
         NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
-        SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType,
-        Vector2, Vector3, Vector3int16,
+        RobloxString, SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Variant,
+        VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, Ustr, UstrSet, WeakDom,
 };
@@ -629,7 +629,14 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         // convenience, but when serializing to the binary model
                         // format we need to handle it just like other properties.
                         if *prop_name == "Name" {
-                            return Cow::Owned(Variant::String(instance.name.clone()));
+                            let name_as_string = match &instance.name {
+                                RobloxString::Binary(buffer) => {
+                                    String::from_utf8_lossy(buffer.as_slice()).to_string()
+                                }
+                                RobloxString::Utf8(string) => string.to_string(),
+                            };
+
+                            return Cow::Owned(Variant::String(name_as_string));
                         }
 
                         // Most properties will be stored on instances using the
@@ -1313,7 +1320,14 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
         while current_id.is_some() {
             let instance = self.dom.get_by_ref(current_id).unwrap();
-            components.push(instance.name.as_str());
+            let name_as_string = match &instance.name {
+                RobloxString::Binary(buffer) => {
+                    String::from_utf8_lossy(buffer.as_slice()).to_string()
+                }
+                RobloxString::Utf8(string) => string.to_string(),
+            };
+
+            components.push(name_as_string);
             current_id = instance.parent();
         }
 

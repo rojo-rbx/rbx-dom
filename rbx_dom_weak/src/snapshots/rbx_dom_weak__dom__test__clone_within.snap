@@ -3,32 +3,41 @@ source: rbx_dom_weak/src/dom.rs
 expression: viewer.view(&dom)
 ---
 referent: referent-0
-name: Root
+name:
+  Utf8:
+    - Root
 class: Folder
 properties: {}
 children:
   - referent: referent-1
-    name: Child1
+    name:
+      Utf8:
+        - Child1
     class: Part
     properties:
       RefProp: referent-0
     children:
       - referent: referent-2
-        name: Child2
+        name:
+          Utf8:
+            - Child2
         class: Part
         properties:
           RefProp: referent-1
         children: []
   - referent: referent-3
-    name: Child1
+    name:
+      Utf8:
+        - Child1
     class: Part
     properties:
       RefProp: referent-0
     children:
       - referent: referent-4
-        name: Child2
+        name:
+          Utf8:
+            - Child2
         class: Part
         properties:
           RefProp: referent-3
         children: []
-

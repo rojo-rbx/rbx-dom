@@ -1,10 +1,11 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: Bloom
+  name:
+    Utf8:
+      - Bloom
   class: BloomEffect
   properties:
     Attributes:
@@ -20,4 +21,3 @@ expression: decoded_viewed
     Threshold:
       Float32: 2.285
   children: []
-

@@ -3,12 +3,16 @@ source: rbx_dom_weak/src/dom.rs
 expression: viewer.view_children(&source)
 ---
 - referent: referent-0
-  name: Target
+  name:
+    Utf8:
+      - Target
   class: Folder
   properties: {}
   children:
     - referent: referent-1
-      name: Some Child
+      name:
+        Utf8:
+          - Some Child
       class: Part
       properties: {}
       children: []

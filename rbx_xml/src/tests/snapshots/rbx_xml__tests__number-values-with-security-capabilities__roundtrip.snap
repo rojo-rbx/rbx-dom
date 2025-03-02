@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Hmmm
+  name:
+    Utf8:
+      - Hmmm
   class: NumberValue
   properties:
     Attributes:
@@ -20,7 +22,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Float64: 2.71828182846
   children: []
 - referent: referent-1
-  name: WhereIs
+  name:
+    Utf8:
+      - WhereIs
   class: NumberValue
   properties:
     Attributes:
@@ -36,4 +40,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Value:
       Float64: 2.71828182846
   children: []
-

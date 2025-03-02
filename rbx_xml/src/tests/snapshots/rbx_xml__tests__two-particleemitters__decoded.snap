@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: ParticleEmitter
+  name:
+    Utf8:
+      - ParticleEmitter
   class: ParticleEmitter
   properties:
     Acceleration:
@@ -99,7 +101,9 @@ expression: "DomViewer::new().view_children(&decoded)"
       Float32: 0
   children: []
 - referent: referent-1
-  name: ParticleEmitter
+  name:
+    Utf8:
+      - ParticleEmitter
   class: ParticleEmitter
   properties:
     Acceleration:
@@ -194,4 +198,3 @@ expression: "DomViewer::new().view_children(&decoded)"
     ZOffset:
       Float32: 0
   children: []
-
