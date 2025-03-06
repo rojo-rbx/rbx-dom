@@ -709,11 +709,9 @@ The `Content` type is a struct composed of the following fields:
 
 `Uris` is an array `UriCount` elements long which contains a sequential list of every `Uri` included in `SourceTypes`.
 
-`ObjectRefs` is a [referent array](#referent) that is `ObjectCount` elements long and contains a list of referents pointing to [`Object`][Object-class]s that can be used for `Content`, such as `EditableImage`.
+`ObjectRefs` is a [referent array](#referent) that is `ObjectCount` elements long and contains a list of referents pointing to [`Object`][Object-class]s that can be used for `Content`, such as `EditableImage`. `ObjectRefs` are not populated outside of copy-and-pasting within Studio, but this may change in the future.
 
-`ExternalObjectRefs` is similar in purpose to `ObjectRefs` but contains a list of referents that are external to this file. This is used internally by Roblox to support copy and pasting. Both `ExternalObjectCount` and `ExternalObjectRefs` are generally not applicable to implementors, because referents are not static outside of files. They are included for completeness's sake, but implementing support for them is impossible for most people.
-
-Note that `Object`s are not included in the DataModel and thus serialization of them is generally not possible. It is presumably included for future-proofing.
+`ExternalObjectRefs` is similar in purpose to `ObjectRefs` but contains a list of referents that are external to this file. This is used internally by Roblox to minimize memory overhead when copy-and-pasting. Both `ExternalObjectCount` and `ExternalObjectRefs` are not applicable to implementors because referents are not static outside of files. They are included for completeness's sake.
 
 [Content-type]: https://create.roblox.com/docs/reference/engine/datatypes/Content
 [Object-class]: https://create.roblox.com/docs/reference/engine/classes/Object
