@@ -47,7 +47,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Tags:
       Tags: []
     Texture:
-      Content: ""
+      Content:
+        value: None
     TextureLength:
       Float32: 1
     TextureMode:
@@ -110,7 +111,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Tags:
       Tags: []
     Texture:
-      Content: ""
+      Content:
+        value: None
     TextureLength:
       Float32: 1
     TextureMode:
@@ -178,7 +180,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Tags:
       Tags: []
     Texture:
-      Content: ""
+      Content:
+        value: None
     TextureLength:
       Float32: 1
     TextureMode:

@@ -49,9 +49,12 @@ expression: "DomViewer::new().view_children(&de)"
               - 0.5
               - 0
     TestContent1:
-      Content: Wow!
+      Content:
+        value:
+          Uri: Wow!
     TestContent2:
-      Content: ""
+      Content:
+        value: None
   children:
     - referent: referent-1
       name: TestClass

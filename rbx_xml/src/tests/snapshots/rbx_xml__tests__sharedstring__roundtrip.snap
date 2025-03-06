@@ -69,7 +69,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          Content:
+            value:
+              Uri: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -240,7 +242,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          Content:
+            value:
+              Uri: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -411,7 +415,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         Anchored:
           Bool: false
         AssetId:
-          Content: ""
+          Content:
+            value: None
         Attributes:
           Attributes: {}
         BackParamA:
@@ -582,7 +587,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          Content:
+            value:
+              Uri: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -753,7 +760,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          Content:
+            value:
+              Uri: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -924,7 +933,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          Content:
+            value:
+              Uri: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -1095,7 +1106,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         Anchored:
           Bool: false
         AssetId:
-          Content: ""
+          Content:
+            value: None
         Attributes:
           Attributes: {}
         BackParamA:
@@ -1266,7 +1278,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          Content:
+            value:
+              Uri: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:

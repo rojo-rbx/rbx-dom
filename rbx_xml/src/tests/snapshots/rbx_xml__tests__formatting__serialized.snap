@@ -1,6 +1,5 @@
 ---
 source: rbx_xml/src/tests/formatting.rs
-assertion_line: 174
 expression: ser_str
 ---
 <roblox version="4">
@@ -32,13 +31,13 @@ expression: ser_str
         <B>125600</B>
       </Color3>
       <ColorSequence name="TestColorSequence">0 0 0.5 1 0 1 1 0.5 0 0 </ColorSequence>
-      <ContentId name="TestContent1">
-        <url>Wow!</url>
-      </ContentId>
-      <ContentId name="TestContent2">
+      <Content name="TestContent1">
+        <uri>Wow!</uri>
+      </Content>
+      <Content name="TestContent2">
         <null>
         </null>
-      </ContentId>
+      </Content>
     </Properties>
     <Item class="TestClass" referent="1">
       <Properties>

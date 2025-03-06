@@ -9,7 +9,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Anchored:
       Bool: false
     AssetId:
-      Content: ""
+      Content:
+        value: None
     Attributes:
       Attributes: {}
     BackParamA:
@@ -150,7 +151,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Anchored:
       Bool: false
     AssetId:
-      Content: ""
+      Content:
+        value: None
     Attributes:
       Attributes: {}
     BackParamA:
@@ -291,7 +293,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Anchored:
       Bool: false
     AssetId:
-      Content: ""
+      Content:
+        value: None
     Attributes:
       Attributes: {}
     BackParamA:
