@@ -24,7 +24,7 @@ The XML model format has generally been replaced by the newer, more efficient [b
 	- [Color3](#color3)
 	- [Color3uint8](#color3uint8)
 	- [ColorSequence](#colorsequence)
-	- [Content](#content)
+	- [ContentId](#contentid)
 	- [CoordinateFrame](#coordinateframe)
 	- [double](#double) (Float64)
 	- [Faces](#faces)
@@ -272,24 +272,26 @@ A `ColorSequence` with the value `[0, 96, 64, 32] [1, 5, 10, 15]` appears as fol
 <ColorSequence name="ColorSequenceExample">0 0.376471 0.25098 0.12549 0 1 0.0196078 0.0392157 0.0588235 0 </ColorSequence>
 ```
 
-### Content
+### ContentId
 
-The `Content` data type is represented by a single element with one of several child elements. Currently, the name of this child element MUST be either `url` or `null`. Historically, it could also be named `binary` or `hash`. This child element is not nillable and MUST include an opening and closing tag.
+Note: This type should not be confused with the `Content` type. This type was renamed from `Content` to `ContentId` in Roblox release 645.
 
-If the child element is `url`, then the value of it is the `Content`'s URI. If the element is `null`, it indicates the `Content` is empty. When the child element is `null`, it MUST be empty. 
+The `ContentId` data type is represented by an element with one of several child elements. Currently, the name of this child element MUST be either `url` or `null`. Historically, it could also be named `binary` or `hash`. This child element is not nillable and MUST include an opening and closing tag.
 
-If the child element is either `binary` or `hash`, the contents SHOULD be disregarded and the `Content` should be viewed as empty. These tags MUST NOT be written by encoders.
+If the child element is `url`, then the value of it is the `ContentId`'s URI. If the element is `null`, it indicates the `ContentId` is empty. When the child element is `null`, it MUST be empty. 
 
-A `Content` with the value `rbxasset://textures/face.png` appears as follows:
+If the child element is either `binary` or `hash`, the contents SHOULD be disregarded and the `ContentId` should be viewed as empty. These tags MUST NOT be written by encoders.
+
+A `ContentId` with the value `rbxasset://textures/face.png` appears as follows:
 
 ```xml
-<Content name="ContentExample"><url>rbxasset://textures/face.png</url></Content>
+<ContentId name="ContentExample"><url>rbxasset://textures/face.png</url></ContentId>
 ```
 
-Additionally, a `Content` with no value would appear as follows:
+Additionally, a `ContentId` with no value would appear as follows:
 
 ```xml
-<Content name="ContentExample"><null></null></Content>
+<ContentId name="ContentExample"><null></null></ContentId>
 ```
 
 ### CoordinateFrame
