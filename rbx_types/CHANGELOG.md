@@ -1,6 +1,7 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+* Changed `Content` to more closely align with Roblox's new `Content` type. This is a breaking change.
 
 # 1.10.0 (2024-08-22)
 * Add support for `Int32` values within `Attributes` ([#439])

@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    661,
+    663,
     0,
-    6610708
+    6630659
   ],
   "Classes": {
     "Accessory": {
@@ -1576,7 +1576,9 @@
       },
       "DefaultProperties": {
         "AnimationId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Archivable": {
           "Bool": true
@@ -2575,6 +2577,22 @@
             }
           }
         },
+        "ChannelId": {
+          "Name": "ChannelId",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "Contents": {
           "Name": "Contents",
           "Scriptability": "None",
@@ -2628,6 +2646,22 @@
           },
           "Tags": [
             "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "MessageId": {
+          "Name": "MessageId",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotScriptable"
           ],
           "Kind": {
             "Canonical": {
@@ -5559,7 +5593,9 @@
           "Bool": true
         },
         "Asset": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Attributes": {
           "Attributes": {}
@@ -8083,6 +8119,21 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "CageMeshContent": {
+          "Name": "CageMeshContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "CageMeshId": {
           "Name": "CageMeshId",
           "Scriptability": "ReadWrite",
@@ -8584,7 +8635,9 @@
           "Tags": []
         },
         "Texture": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "TextureLength": {
           "Float32": 1.0
@@ -12176,6 +12229,16 @@
         }
       }
     },
+    "Capture": {
+      "Name": "Capture",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Object",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "CaptureService": {
       "Name": "CaptureService",
       "Tags": [
@@ -13655,7 +13718,9 @@
           "SecurityCapabilities": 0
         },
         "CursorIcon": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -17019,6 +17084,22 @@
             }
           }
         },
+        "MatchmakingType": {
+          "Name": "MatchmakingType",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "MatchmakingType"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "PlaceId": {
           "Name": "PlaceId",
           "Scriptability": "Read",
@@ -18749,6 +18830,21 @@
             }
           }
         },
+        "TextureContent": {
+          "Name": "TextureContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Transparency": {
           "Name": "Transparency",
           "Scriptability": "ReadWrite",
@@ -18809,7 +18905,9 @@
           "Tags": []
         },
         "Texture": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Transparency": {
           "Float32": 0.0
@@ -19882,7 +19980,9 @@
       },
       "DefaultProperties": {
         "ActivatedCursorIcon": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "ApplyAtCenterOfMass": {
           "Bool": false
@@ -19897,7 +19997,9 @@
           "SecurityCapabilities": 0
         },
         "CursorIcon": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "DragFrame": {
           "CFrame": {
@@ -22531,7 +22633,9 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "MeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Offset": {
           "Vector3": [
@@ -22557,7 +22661,9 @@
           "Tags": []
         },
         "TextureId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -22913,7 +23019,9 @@
           "BrickColor": 194
         },
         "TextureId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "ToolTip": {
           "String": ""
@@ -23509,7 +23617,9 @@
           "Tags": []
         },
         "Texture": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "TextureSize": {
           "Vector2": [
@@ -26066,6 +26176,23 @@
             }
           }
         },
+        "SelectionRect2D": {
+          "Name": "SelectionRect2D",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Rect"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "Size": {
           "Name": "Size",
           "Scriptability": "ReadWrite",
@@ -27754,7 +27881,9 @@
           "Tags": []
         },
         "TextureId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -29441,6 +29570,2415 @@
         }
       }
     },
+    "HumanoidRigDescription": {
+      "Name": "HumanoidRigDescription",
+      "Tags": [],
+      "Superclass": "Instance",
+      "Properties": {
+        "Chest": {
+          "Name": "Chest",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ChestRangeMax": {
+          "Name": "ChestRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ChestRangeMin": {
+          "Name": "ChestRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ChestSize": {
+          "Name": "ChestSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ChestTposeAdjustment": {
+          "Name": "ChestTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Head": {
+          "Name": "Head",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "HeadRangeMax": {
+          "Name": "HeadRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "HeadRangeMin": {
+          "Name": "HeadRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "HeadSize": {
+          "Name": "HeadSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "HeadTposeAdjustment": {
+          "Name": "HeadTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftAnkle": {
+          "Name": "LeftAnkle",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftAnkleRangeMax": {
+          "Name": "LeftAnkleRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftAnkleRangeMin": {
+          "Name": "LeftAnkleRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftAnkleSize": {
+          "Name": "LeftAnkleSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftAnkleTposeAdjustment": {
+          "Name": "LeftAnkleTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftClavicle": {
+          "Name": "LeftClavicle",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftClavicleRangeMax": {
+          "Name": "LeftClavicleRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftClavicleRangeMin": {
+          "Name": "LeftClavicleRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftClavicleSize": {
+          "Name": "LeftClavicleSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftClavicleTposeAdjustment": {
+          "Name": "LeftClavicleTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftElbow": {
+          "Name": "LeftElbow",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftElbowRangeMax": {
+          "Name": "LeftElbowRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftElbowRangeMin": {
+          "Name": "LeftElbowRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftElbowSize": {
+          "Name": "LeftElbowSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftElbowTposeAdjustment": {
+          "Name": "LeftElbowTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftHip": {
+          "Name": "LeftHip",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftHipRangeMax": {
+          "Name": "LeftHipRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftHipRangeMin": {
+          "Name": "LeftHipRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftHipSize": {
+          "Name": "LeftHipSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftHipTposeAdjustment": {
+          "Name": "LeftHipTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftKnee": {
+          "Name": "LeftKnee",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftKneeRangeMax": {
+          "Name": "LeftKneeRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftKneeRangeMin": {
+          "Name": "LeftKneeRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftKneeSize": {
+          "Name": "LeftKneeSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftKneeTposeAdjustment": {
+          "Name": "LeftKneeTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftShoulder": {
+          "Name": "LeftShoulder",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftShoulderRangeMax": {
+          "Name": "LeftShoulderRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftShoulderRangeMin": {
+          "Name": "LeftShoulderRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftShoulderSize": {
+          "Name": "LeftShoulderSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftShoulderTposeAdjustment": {
+          "Name": "LeftShoulderTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftToes": {
+          "Name": "LeftToes",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftToesRangeMax": {
+          "Name": "LeftToesRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftToesRangeMin": {
+          "Name": "LeftToesRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftToesSize": {
+          "Name": "LeftToesSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftToesTposeAdjustment": {
+          "Name": "LeftToesTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftWrist": {
+          "Name": "LeftWrist",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftWristRangeMax": {
+          "Name": "LeftWristRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftWristRangeMin": {
+          "Name": "LeftWristRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftWristSize": {
+          "Name": "LeftWristSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "LeftWristTposeAdjustment": {
+          "Name": "LeftWristTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Neck": {
+          "Name": "Neck",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "NeckRangeMax": {
+          "Name": "NeckRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "NeckRangeMin": {
+          "Name": "NeckRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "NeckSize": {
+          "Name": "NeckSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "NeckTposeAdjustment": {
+          "Name": "NeckTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Pelvis": {
+          "Name": "Pelvis",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PelvisRangeMax": {
+          "Name": "PelvisRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PelvisRangeMin": {
+          "Name": "PelvisRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PelvisSize": {
+          "Name": "PelvisSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PelvisTposeAdjustment": {
+          "Name": "PelvisTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightAnkle": {
+          "Name": "RightAnkle",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightAnkleRangeMax": {
+          "Name": "RightAnkleRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightAnkleRangeMin": {
+          "Name": "RightAnkleRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightAnkleSize": {
+          "Name": "RightAnkleSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightAnkleTposeAdjustment": {
+          "Name": "RightAnkleTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightClavicle": {
+          "Name": "RightClavicle",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightClavicleRangeMax": {
+          "Name": "RightClavicleRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightClavicleRangeMin": {
+          "Name": "RightClavicleRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightClavicleSize": {
+          "Name": "RightClavicleSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightClavicleTposeAdjustment": {
+          "Name": "RightClavicleTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightElbow": {
+          "Name": "RightElbow",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightElbowRangeMax": {
+          "Name": "RightElbowRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightElbowRangeMin": {
+          "Name": "RightElbowRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightElbowSize": {
+          "Name": "RightElbowSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightElbowTposeAdjustment": {
+          "Name": "RightElbowTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightHip": {
+          "Name": "RightHip",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightHipRangeMax": {
+          "Name": "RightHipRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightHipRangeMin": {
+          "Name": "RightHipRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightHipSize": {
+          "Name": "RightHipSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightHipTposeAdjustment": {
+          "Name": "RightHipTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightKnee": {
+          "Name": "RightKnee",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightKneeRangeMax": {
+          "Name": "RightKneeRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightKneeRangeMin": {
+          "Name": "RightKneeRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightKneeSize": {
+          "Name": "RightKneeSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightKneeTposeAdjustment": {
+          "Name": "RightKneeTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightShoulder": {
+          "Name": "RightShoulder",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightShoulderRangeMax": {
+          "Name": "RightShoulderRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightShoulderRangeMin": {
+          "Name": "RightShoulderRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightShoulderSize": {
+          "Name": "RightShoulderSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightShoulderTposeAdjustment": {
+          "Name": "RightShoulderTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightToes": {
+          "Name": "RightToes",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightToesRangeMax": {
+          "Name": "RightToesRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightToesRangeMin": {
+          "Name": "RightToesRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightToesSize": {
+          "Name": "RightToesSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightToesTposeAdjustment": {
+          "Name": "RightToesTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightWrist": {
+          "Name": "RightWrist",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightWristRangeMax": {
+          "Name": "RightWristRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightWristRangeMin": {
+          "Name": "RightWristRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightWristSize": {
+          "Name": "RightWristSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RightWristTposeAdjustment": {
+          "Name": "RightWristTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Root": {
+          "Name": "Root",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RootRangeMax": {
+          "Name": "RootRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RootRangeMin": {
+          "Name": "RootRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RootSize": {
+          "Name": "RootSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "RootTposeAdjustment": {
+          "Name": "RootTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Waist": {
+          "Name": "Waist",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WaistRangeMax": {
+          "Name": "WaistRangeMax",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WaistRangeMin": {
+          "Name": "WaistRangeMin",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Vector3"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WaistSize": {
+          "Name": "WaistSize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "WaistTposeAdjustment": {
+          "Name": "WaistTposeAdjustment",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Capabilities": {
+          "SecurityCapabilities": 0
+        },
+        "ChestRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "ChestRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "ChestSize": {
+          "Float32": 0.0
+        },
+        "ChestTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "HeadRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "HeadRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "HeadSize": {
+          "Float32": 0.0
+        },
+        "HeadTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "LeftAnkleRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftAnkleRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftAnkleSize": {
+          "Float32": 0.0
+        },
+        "LeftAnkleTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "LeftClavicleRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftClavicleRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftClavicleSize": {
+          "Float32": 0.0
+        },
+        "LeftClavicleTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "LeftElbowRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftElbowRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftElbowSize": {
+          "Float32": 0.0
+        },
+        "LeftElbowTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "LeftHipRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftHipRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftHipSize": {
+          "Float32": 0.0
+        },
+        "LeftHipTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "LeftKneeRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftKneeRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftKneeSize": {
+          "Float32": 0.0
+        },
+        "LeftKneeTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "LeftShoulderRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftShoulderRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftShoulderSize": {
+          "Float32": 0.0
+        },
+        "LeftShoulderTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "LeftToesRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftToesRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftToesSize": {
+          "Float32": 0.0
+        },
+        "LeftToesTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "LeftWristRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftWristRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LeftWristSize": {
+          "Float32": 0.0
+        },
+        "LeftWristTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "NeckRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "NeckRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "NeckSize": {
+          "Float32": 0.0
+        },
+        "NeckTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "PelvisRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "PelvisRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "PelvisSize": {
+          "Float32": 0.0
+        },
+        "PelvisTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "RightAnkleRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightAnkleRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightAnkleSize": {
+          "Float32": 0.0
+        },
+        "RightAnkleTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "RightClavicleRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightClavicleRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightClavicleSize": {
+          "Float32": 0.0
+        },
+        "RightClavicleTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "RightElbowRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightElbowRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightElbowSize": {
+          "Float32": 0.0
+        },
+        "RightElbowTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "RightHipRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightHipRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightHipSize": {
+          "Float32": 0.0
+        },
+        "RightHipTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "RightKneeRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightKneeRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightKneeSize": {
+          "Float32": 0.0
+        },
+        "RightKneeTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "RightShoulderRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightShoulderRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightShoulderSize": {
+          "Float32": 0.0
+        },
+        "RightShoulderTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "RightToesRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightToesRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightToesSize": {
+          "Float32": 0.0
+        },
+        "RightToesTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "RightWristRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightWristRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RightWristSize": {
+          "Float32": 0.0
+        },
+        "RightWristTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "RootRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RootRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "RootSize": {
+          "Float32": 0.0
+        },
+        "RootTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "Sandboxed": {
+          "Bool": false
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "WaistRangeMax": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "WaistRangeMin": {
+          "Vector3": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "WaistSize": {
+          "Float32": 0.0
+        },
+        "WaistTposeAdjustment": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
     "IKControl": {
       "Name": "IKControl",
       "Tags": [],
@@ -29786,6 +32324,21 @@
             }
           }
         },
+        "ImageContent": {
+          "Name": "ImageContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ImageRectOffset": {
           "Name": "ImageRectOffset",
           "Scriptability": "ReadWrite",
@@ -29981,10 +32534,14 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "HoverImage": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Image": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "ImageColor3": {
           "Color3": [
@@ -30030,7 +32587,9 @@
           ]
         },
         "PressedImage": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "ResampleMode": {
           "Enum": 0
@@ -30215,7 +32774,11 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "Image": {
-          "Content": "rbxasset://textures/SurfacesDefault.png"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/SurfacesDefault.png"
+            }
+          }
         },
         "Sandboxed": {
           "Bool": false
@@ -30295,6 +32858,21 @@
             "Value": "Color3"
           },
           "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ImageContent": {
+          "Name": "ImageContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -30480,7 +33058,9 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "Image": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "ImageColor3": {
           "Color3": [
@@ -31701,7 +34281,9 @@
           "Bool": true
         },
         "AssetId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Attributes": {
           "Attributes": {}
@@ -33629,7 +36211,9 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "LinkedSource": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "RunContext": {
           "Enum": 0
@@ -35819,7 +38403,9 @@
           "SecurityCapabilities": 0
         },
         "ColorMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -35831,13 +38417,19 @@
           "Enum": 0
         },
         "MetalnessMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "NormalMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "RoughnessMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Sandboxed": {
           "Bool": false
@@ -35852,7 +38444,9 @@
           "Tags": []
         },
         "TexturePack": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -36457,6 +39051,21 @@
             }
           }
         },
+        "MeshContent": {
+          "Name": "MeshContent",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "MeshID": {
           "Name": "MeshID",
           "Scriptability": "None",
@@ -36532,6 +39141,21 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "TextureContent": {
+          "Name": "TextureContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -36731,7 +39355,9 @@
           "String": ""
         },
         "MeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "PhysicalConfigData": {
           "SharedString": ""
@@ -36810,7 +39436,9 @@
           "Tags": []
         },
         "TextureID": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "TopParamA": {
           "Float32": -0.5
@@ -37609,7 +40237,9 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "LinkedSource": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Sandboxed": {
           "Bool": false
@@ -38304,7 +40934,9 @@
           "Bool": true
         },
         "AssetId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Attributes": {
           "Attributes": {}
@@ -39933,7 +42565,9 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "PantsTemplate": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Sandboxed": {
           "Bool": false
@@ -40666,7 +43300,9 @@
           "Bool": true
         },
         "AssetId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Attributes": {
           "Attributes": {}
@@ -41665,7 +44301,11 @@
           "Tags": []
         },
         "Texture": {
-          "Content": "rbxasset://textures/particles/sparkles_main.dds"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/particles/sparkles_main.dds"
+            }
+          }
         },
         "TimeScale": {
           "Float32": 1.0
@@ -44011,6 +46651,19 @@
             }
           }
         },
+        "StepIdOffset": {
+          "Name": "StepIdOffset",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "SuperSafeChatReplicate": {
           "Name": "SuperSafeChatReplicate",
           "Scriptability": "None",
@@ -44084,6 +46737,22 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "ThirdPartyTextChatRestrictionStatus": {
+          "Name": "ThirdPartyTextChatRestrictionStatus",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "ChatRestrictionStatus"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -45191,6 +47860,19 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "IsDebuggable": {
+          "Name": "IsDebuggable",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -50358,6 +53040,16 @@
         }
       }
     },
+    "ScreenshotCapture": {
+      "Name": "ScreenshotCapture",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Capture",
+      "Properties": {},
+      "DefaultProperties": {}
+    },
     "ScreenshotHud": {
       "Name": "ScreenshotHud",
       "Tags": [
@@ -50554,7 +53246,9 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "LinkedSource": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "RunContext": {
           "Enum": 0
@@ -51339,7 +54033,11 @@
           "Int32": 1
         },
         "BottomImage": {
-          "Content": "rbxasset://textures/ui/Scroll/scroll-bottom.png"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/ui/Scroll/scroll-bottom.png"
+            }
+          }
         },
         "CanvasPosition": {
           "Vector2": [
@@ -51384,7 +54082,11 @@
           "Int32": 0
         },
         "MidImage": {
-          "Content": "rbxasset://textures/ui/Scroll/scroll-middle.png"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/ui/Scroll/scroll-middle.png"
+            }
+          }
         },
         "Position": {
           "UDim2": [
@@ -51466,7 +54168,11 @@
           "Tags": []
         },
         "TopImage": {
-          "Content": "rbxasset://textures/ui/Scroll/scroll-top.png"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/ui/Scroll/scroll-top.png"
+            }
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -52626,7 +55332,9 @@
           "Bool": false
         },
         "ShirtTemplate": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "SourceAssetId": {
           "Int64": -1
@@ -52689,7 +55397,9 @@
           ]
         },
         "Graphic": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -53367,28 +56077,56 @@
           "Float32": 11.0
         },
         "MoonTextureId": {
-          "Content": "rbxasset://sky/moon.jpg"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://sky/moon.jpg"
+            }
+          }
         },
         "Sandboxed": {
           "Bool": false
         },
         "SkyboxBk": {
-          "Content": "rbxasset://textures/sky/sky512_bk.tex"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/sky/sky512_bk.tex"
+            }
+          }
         },
         "SkyboxDn": {
-          "Content": "rbxasset://textures/sky/sky512_dn.tex"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/sky/sky512_dn.tex"
+            }
+          }
         },
         "SkyboxFt": {
-          "Content": "rbxasset://textures/sky/sky512_ft.tex"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/sky/sky512_ft.tex"
+            }
+          }
         },
         "SkyboxLf": {
-          "Content": "rbxasset://textures/sky/sky512_lf.tex"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/sky/sky512_lf.tex"
+            }
+          }
         },
         "SkyboxRt": {
-          "Content": "rbxasset://textures/sky/sky512_rt.tex"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/sky/sky512_rt.tex"
+            }
+          }
         },
         "SkyboxUp": {
-          "Content": "rbxasset://textures/sky/sky512_up.tex"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://textures/sky/sky512_up.tex"
+            }
+          }
         },
         "SourceAssetId": {
           "Int64": -1
@@ -53400,7 +56138,11 @@
           "Float32": 21.0
         },
         "SunTextureId": {
-          "Content": "rbxasset://sky/sun.jpg"
+          "Content": {
+            "value": {
+              "Uri": "rbxasset://sky/sun.jpg"
+            }
+          }
         },
         "Tags": {
           "Tags": []
@@ -54559,7 +57301,9 @@
           "Bool": false
         },
         "SoundId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "SourceAssetId": {
           "Int64": -1
@@ -55367,7 +58111,9 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "MeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "MeshType": {
           "Enum": 0
@@ -55396,7 +58142,9 @@
           "Tags": []
         },
         "TextureId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -61197,19 +63945,27 @@
           ]
         },
         "ColorMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "MetalnessMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "NormalMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "RoughnessMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Sandboxed": {
           "Bool": false
@@ -61221,7 +63977,9 @@
           "Tags": []
         },
         "TexturePack": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -63272,7 +66030,9 @@
           "SecurityCapabilities": 0
         },
         "ColorMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Face": {
           "Enum": 1
@@ -63284,13 +66044,19 @@
           "Enum": 0
         },
         "MetalnessMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "NormalMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "RoughnessMap": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Sandboxed": {
           "Bool": false
@@ -63305,7 +66071,9 @@
           "Tags": []
         },
         "TexturePack": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -64019,6 +66787,19 @@
             }
           }
         },
+        "ShouldEmitReturnEvents": {
+          "Name": "ShouldEmitReturnEvents",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "ShouldEmitUpAndDownArrowEvents": {
           "Name": "ShouldEmitUpAndDownArrowEvents",
           "Scriptability": "None",
@@ -64439,6 +67220,9 @@
         },
         "SelectionOrder": {
           "Int32": 0
+        },
+        "ShouldEmitReturnEvents": {
+          "Bool": false
         },
         "ShouldEmitUpAndDownArrowEvents": {
           "Bool": false
@@ -66641,7 +69425,9 @@
           "Tags": []
         },
         "Texture": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Transparency": {
           "Float32": 0.0
@@ -67138,7 +69924,9 @@
           "Tags": []
         },
         "TextureId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "ToolTip": {
           "String": ""
@@ -67920,7 +70708,9 @@
           "Tags": []
         },
         "Texture": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "TextureLength": {
           "Float32": 1.0
@@ -69189,7 +71979,9 @@
       },
       "DefaultProperties": {
         "ActivatedCursorIcon": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Archivable": {
           "Bool": true
@@ -69204,7 +71996,9 @@
           "SecurityCapabilities": 0
         },
         "CursorIcon": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "DragAxis": {
           "Vector2": [
@@ -70769,7 +73563,9 @@
           "Bool": true
         },
         "AssetId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Attributes": {
           "Attributes": {}
@@ -74611,7 +77407,9 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "Video": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Visible": {
           "Bool": true
@@ -74789,7 +77587,9 @@
           "Bool": true
         },
         "Asset": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "Attributes": {
           "Attributes": {}
@@ -74819,7 +77619,9 @@
           "Tags": []
         },
         "Thumbnail": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "TimePosition": {
           "Float64": 0.0
@@ -76807,6 +79609,21 @@
             }
           }
         },
+        "PhysicsImprovedSleep": {
+          "Name": "PhysicsImprovedSleep",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "RolloutState"
+          },
+          "Tags": [
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "PhysicsSteppingMethod": {
           "Name": "PhysicsSteppingMethod",
           "Scriptability": "None",
@@ -77225,6 +80042,9 @@
         "PathfindingUseImprovedSearch": {
           "Enum": 0
         },
+        "PhysicsImprovedSleep": {
+          "Enum": 0
+        },
         "PhysicsSteppingMethod": {
           "Enum": 0
         },
@@ -77462,7 +80282,9 @@
           "Attributes": {}
         },
         "CageMeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "CageOrigin": {
           "CFrame": {
@@ -77494,7 +80316,9 @@
           "SecurityCapabilities": 0
         },
         "HSRAssetId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "HSRData": {
           "SharedString": ""
@@ -77541,7 +80365,9 @@
           "Tags": []
         },
         "TemporaryCageMeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -77644,6 +80470,21 @@
             "Value": "Float32"
           },
           "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ReferenceMeshContent": {
+          "Name": "ReferenceMeshContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -77759,7 +80600,9 @@
           }
         },
         "CageMeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "CageOrigin": {
           "CFrame": {
@@ -77794,7 +80637,9 @@
           "Bool": true
         },
         "HSRAssetId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "HSRData": {
           "SharedString": ""
@@ -77838,7 +80683,9 @@
           "Float32": 1.0
         },
         "ReferenceMeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "ReferenceOrigin": {
           "CFrame": {
@@ -77879,10 +80726,14 @@
           "Tags": []
         },
         "TemporaryCageMeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "TemporaryReferenceId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -77948,7 +80799,9 @@
           "Attributes": {}
         },
         "CageMeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "CageOrigin": {
           "CFrame": {
@@ -77980,7 +80833,9 @@
           "SecurityCapabilities": 0
         },
         "HSRAssetId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "HSRData": {
           "SharedString": ""
@@ -78030,7 +80885,9 @@
           "Tags": []
         },
         "TemporaryCageMeshId": {
-          "Content": ""
+          "Content": {
+            "value": "None"
+          }
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -78829,6 +81686,14 @@
         "Watch": 2
       }
     },
+    "CaptureUIHideMode": {
+      "name": "CaptureUIHideMode",
+      "items": {
+        "All": 0,
+        "Core": 2,
+        "None": 1
+      }
+    },
     "CatalogCategoryFilter": {
       "name": "CatalogCategoryFilter",
       "items": {
@@ -79115,6 +81980,8 @@
     "ConnectionError": {
       "name": "ConnectionError",
       "items": {
+        "AndroidAnticheatKick": 304,
+        "AndroidEmulatorKick": 305,
         "DisconnectBadhash": 257,
         "DisconnectBlockedIP": 282,
         "DisconnectBySecurityPolicy": 281,
@@ -80712,6 +83579,14 @@
       "items": {
         "Markdown": 1,
         "PlainText": 0
+      }
+    },
+    "MatchmakingType": {
+      "name": "MatchmakingType",
+      "items": {
+        "Default": 1,
+        "PlayStationOnly": 3,
+        "XboxOnly": 2
       }
     },
     "Material": {
