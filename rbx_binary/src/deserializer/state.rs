@@ -443,8 +443,13 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::Content => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value: Content = chunk.read_string()?.into();
-                        add_property(instance, &property, value.into());
+                        let value = chunk.read_string()?;
+                        let content = if value.is_empty() {
+                            Content::none()
+                        } else {
+                            Content::from_uri(value)
+                        };
+                        add_property(instance, &property, content.into());
                     }
                 }
                 VariantType::BinaryString => {
@@ -1435,6 +1440,57 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         type_name: type_info.type_name.to_string(),
                         prop_name,
                         valid_type_names: "SecurityCapabilities",
+                        actual_type_name: format!("{:?}", invalid_type),
+                    });
+                }
+            },
+            Type::Content => match canonical_type {
+                VariantType::Content => {
+                    let mut source_types = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_i32_array(&mut source_types)?;
+
+                    let uri_count = chunk.read_le_u32()? as usize;
+                    let mut uris = VecDeque::with_capacity(uri_count);
+                    for _ in 0..uri_count {
+                        uris.push_front(chunk.read_string()?);
+                    }
+
+                    let object_count = chunk.read_le_u32()? as usize;
+                    let mut objects: VecDeque<i32> = vec![0; object_count].into();
+                    chunk.read_referent_array(objects.make_contiguous())?;
+
+                    let external_count = chunk.read_le_u32().unwrap() as usize;
+                    // We are advised by Roblox to just ignore this, as it's
+                    // meant for internal use. If we want to use it in the
+                    // future, it's a referent array.
+                    let mut bytes = vec![0; external_count * 4];
+                    chunk.read_to_end(&mut bytes)?;
+
+                    for (referent, ty) in type_info.referents.iter().zip(source_types) {
+                        let value = match ty {
+                            0 => Content::none(),
+                            1 => Content::from_uri(uris.pop_back().unwrap()),
+                            2 => {
+                                let read_value = objects.pop_back().unwrap();
+                                Content::from_referent(
+                                    if let Some(instance) = self.instances_by_ref.get(&read_value) {
+                                        instance.builder.referent()
+                                    } else {
+                                        Ref::none()
+                                    },
+                                )
+                            }
+                            n => return Err(InnerError::BadContentType(n)),
+                        };
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        add_property(instance, &property, value.into())
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_info.type_name.to_string(),
+                        prop_name,
+                        valid_type_names: "Content",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }

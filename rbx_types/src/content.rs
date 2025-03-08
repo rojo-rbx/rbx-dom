@@ -38,6 +38,14 @@ impl Content {
         }
     }
 
+    /// Constructs a `Content` from the provided referent.
+    #[inline]
+    pub fn from_referent(referent: Ref) -> Self {
+        Self {
+            value: ContentType::Object(referent),
+        }
+    }
+
     #[inline]
     pub fn value(&self) -> &ContentType {
         &self.value
