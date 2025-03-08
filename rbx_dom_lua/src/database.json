@@ -599,7 +599,7 @@
           "Name": "FallbackImage",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -1564,7 +1564,7 @@
           "Name": "AnimationId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -5425,7 +5425,7 @@
           "Name": "Asset",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -6449,7 +6449,7 @@
           "Name": "TextureId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -8072,7 +8072,7 @@
           "Name": "LinkedSource",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Deprecated"
@@ -8138,7 +8138,7 @@
           "Name": "CageMeshId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -8180,7 +8180,7 @@
           "Name": "HSRAssetId",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "NotScriptable"
@@ -8272,7 +8272,7 @@
           "Name": "TemporaryCageMeshId",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Hidden",
@@ -8465,7 +8465,7 @@
           "Name": "Texture",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -13684,7 +13684,7 @@
           "Name": "CursorIcon",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -13889,7 +13889,7 @@
           "Name": "Outfit1",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Hidden",
@@ -13906,7 +13906,7 @@
           "Name": "Outfit2",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Hidden",
@@ -18821,7 +18821,7 @@
           "Name": "Texture",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -19571,7 +19571,7 @@
           "Name": "ActivatedCursorIcon",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -22596,7 +22596,7 @@
           "Name": "MeshId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -22609,7 +22609,7 @@
           "Name": "TextureId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -23519,7 +23519,7 @@
           "Name": "Texture",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -32289,7 +32289,7 @@
           "Name": "HoverImage",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -32302,7 +32302,7 @@
           "Name": "Image",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -32398,7 +32398,7 @@
           "Name": "PressedImage",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -32538,17 +32538,17 @@
             "value": "None"
           }
         },
-        "Image": {
-          "Content": {
-            "value": "None"
-          }
-        },
         "ImageColor3": {
           "Color3": [
             1.0,
             1.0,
             1.0
           ]
+        },
+        "ImageContent": {
+          "Content": {
+            "value": "None"
+          }
         },
         "ImageRectOffset": {
           "Vector2": [
@@ -32698,7 +32698,7 @@
           "Name": "Image",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -32842,7 +32842,7 @@
           "Name": "Image",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -33057,17 +33057,17 @@
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
-        "Image": {
-          "Content": {
-            "value": "None"
-          }
-        },
         "ImageColor3": {
           "Color3": [
             1.0,
             1.0,
             1.0
           ]
+        },
+        "ImageContent": {
+          "Content": {
+            "value": "None"
+          }
         },
         "ImageRectOffset": {
           "Vector2": [
@@ -38285,7 +38285,7 @@
           "Name": "ColorMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -38324,7 +38324,7 @@
           "Name": "MetalnessMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -38337,7 +38337,7 @@
           "Name": "NormalMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -38350,7 +38350,7 @@
           "Name": "RoughnessMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -38376,7 +38376,7 @@
           "Name": "TexturePack",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Hidden",
@@ -39070,7 +39070,7 @@
           "Name": "MeshID",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Deprecated",
@@ -39088,7 +39088,7 @@
           "Name": "MeshId",
           "Scriptability": "Read",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -39163,7 +39163,7 @@
           "Name": "TextureID",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -39354,7 +39354,7 @@
         "MaterialVariantSerialized": {
           "String": ""
         },
-        "MeshId": {
+        "MeshContent": {
           "Content": {
             "value": "None"
           }
@@ -39435,7 +39435,7 @@
         "Tags": {
           "Tags": []
         },
-        "TextureID": {
+        "TextureContent": {
           "Content": {
             "value": "None"
           }
@@ -40198,7 +40198,7 @@
           "Name": "LinkedSource",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Deprecated"
@@ -40661,7 +40661,7 @@
           "Name": "Icon",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -42326,7 +42326,7 @@
           "Name": "PackageId",
           "Scriptability": "Read",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "NotReplicated",
@@ -42344,7 +42344,7 @@
           "Name": "PackageIdSerialize",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Hidden",
@@ -42534,7 +42534,7 @@
           "Name": "PantsTemplate",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -43039,7 +43039,7 @@
           "Name": "AssetId",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Hidden",
@@ -44039,7 +44039,7 @@
           "Name": "Texture",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -48474,7 +48474,7 @@
           "Name": "Icon",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "NotReplicated"
@@ -53062,7 +53062,7 @@
           "Name": "CameraButtonIcon",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -53721,7 +53721,7 @@
           "Name": "BottomImage",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -53837,7 +53837,7 @@
           "Name": "MidImage",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -53931,7 +53931,7 @@
           "Name": "TopImage",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -55298,7 +55298,7 @@
           "Name": "ShirtTemplate",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -55369,7 +55369,7 @@
           "Name": "Graphic",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -55930,7 +55930,7 @@
           "Name": "MoonTextureId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -55943,7 +55943,7 @@
           "Name": "SkyboxBk",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -55956,7 +55956,7 @@
           "Name": "SkyboxDn",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -55969,7 +55969,7 @@
           "Name": "SkyboxFt",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -55982,7 +55982,7 @@
           "Name": "SkyboxLf",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -55995,7 +55995,7 @@
           "Name": "SkyboxRt",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -56008,7 +56008,7 @@
           "Name": "SkyboxUp",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -56047,7 +56047,7 @@
           "Name": "SunTextureId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -57109,7 +57109,7 @@
           "Name": "SoundId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -63862,7 +63862,7 @@
           "Name": "ColorMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -63875,7 +63875,7 @@
           "Name": "MetalnessMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -63888,7 +63888,7 @@
           "Name": "NormalMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -63901,7 +63901,7 @@
           "Name": "RoughnessMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -63914,7 +63914,7 @@
           "Name": "TexturePack",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -65915,7 +65915,7 @@
           "Name": "ColorMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -65954,7 +65954,7 @@
           "Name": "MetalnessMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -65967,7 +65967,7 @@
           "Name": "NormalMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -65980,7 +65980,7 @@
           "Name": "RoughnessMap",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -66006,7 +66006,7 @@
           "Name": "TexturePack",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Hidden",
@@ -70577,7 +70577,7 @@
           "Name": "Texture",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -71720,7 +71720,7 @@
           "Name": "ActivatedCursorIcon",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -71759,7 +71759,7 @@
           "Name": "CursorIcon",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -75261,7 +75261,7 @@
           "Name": "MouseIcon",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -77248,7 +77248,7 @@
           "Name": "Video",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -77433,7 +77433,7 @@
           "Name": "Asset",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -77530,7 +77530,7 @@
           "Name": "Thumbnail",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -80281,7 +80281,7 @@
         "Attributes": {
           "Attributes": {}
         },
-        "CageMeshId": {
+        "CageMeshContent": {
           "Content": {
             "value": "None"
           }
@@ -80495,7 +80495,7 @@
           "Name": "ReferenceMeshId",
           "Scriptability": "ReadWrite",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [],
           "Kind": {
@@ -80550,7 +80550,7 @@
           "Name": "TemporaryReferenceId",
           "Scriptability": "None",
           "DataType": {
-            "Value": "Content"
+            "Value": "ContentId"
           },
           "Tags": [
             "Hidden",
@@ -80599,7 +80599,7 @@
             ]
           }
         },
-        "CageMeshId": {
+        "CageMeshContent": {
           "Content": {
             "value": "None"
           }
@@ -80682,7 +80682,7 @@
         "Puffiness": {
           "Float32": 1.0
         },
-        "ReferenceMeshId": {
+        "ReferenceMeshContent": {
           "Content": {
             "value": "None"
           }
@@ -80798,7 +80798,7 @@
         "Attributes": {
           "Attributes": {}
         },
-        "CageMeshId": {
+        "CageMeshContent": {
           "Content": {
             "value": "None"
           }
