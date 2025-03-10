@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{Content, ContentType};
+use rbx_dom_weak::types::{Content, ContentId, ContentType};
 
 use crate::{
     core::XmlType,
@@ -75,19 +75,54 @@ impl XmlType for Content {
 /// In release 645, Roblox changed `Content` to serialize as `ContentId`.
 /// At some point since then, they changed it back. We need to support this, so
 /// we have a dummy value as well.
-#[derive(Debug, PartialEq, Eq)]
-pub struct ContentDummy(pub Content);
-
-impl XmlType for ContentDummy {
+impl XmlType for ContentId {
     const XML_TAG_NAME: &'static str = "ContentId";
 
-    fn write_xml<W: Write>(&self, _writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
-        panic!("Content values are only read, never written.");
+    fn write_xml<W: Write>(&self, writer: &mut XmlEventWriter<W>) -> Result<(), EncodeError> {
+        let url: &str = self.as_ref();
+        if url.is_empty() {
+            writer.write(XmlWriteEvent::start_element("null"))?;
+        } else {
+            writer.write(XmlWriteEvent::start_element("url"))?;
+            writer.write_string(url)?;
+        }
+
+        writer.write(XmlWriteEvent::end_element())?;
+
+        Ok(())
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        // We just want to use the same deserializer as ContentId
-        Content::read_xml(reader).map(ContentDummy)
+        let value = match reader.expect_next()? {
+            XmlReadEvent::StartElement {
+                name,
+                attributes,
+                namespace,
+            } => match name.local_name.as_str() {
+                "null" => {
+                    reader.expect_end_with_name("null")?;
+
+                    ContentId::new()
+                }
+                "url" => {
+                    let value = reader.read_characters()?;
+                    reader.expect_end_with_name("url")?;
+
+                    ContentId::from(value)
+                }
+                _ => {
+                    let event = XmlReadEvent::StartElement {
+                        name,
+                        attributes,
+                        namespace,
+                    };
+                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
+                }
+            },
+            unexpected => return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(unexpected))),
+        };
+
+        Ok(value)
     }
 }
 
@@ -175,7 +210,7 @@ mod test {
                     <url>Some URL</url>
                 </ContentId>
             "#,
-            &ContentDummy(Content::from_uri("Some URL")),
+            &ContentId::from("Some URL"),
         );
     }
 
@@ -187,7 +222,7 @@ mod test {
                     <null></null>
                 </ContentId>
             "#,
-            &ContentDummy(Content::none()),
+            &ContentId::new(),
         );
     }
 }

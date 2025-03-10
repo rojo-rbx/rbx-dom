@@ -51,6 +51,7 @@ impl Type {
             // These types all serialize the same way in the binary format.
             VariantType::String => Type::String,
             VariantType::BinaryString => Type::String,
+            VariantType::ContentId => Type::String,
             VariantType::Tags => Type::String,
             VariantType::MaterialColors => Type::String,
 

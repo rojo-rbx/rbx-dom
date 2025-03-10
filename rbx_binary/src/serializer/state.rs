@@ -9,10 +9,10 @@ use ahash::{HashMap, HashMapExt, HashSetExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, ContentType, Enum, EnumItem, Faces, Font, MaterialColors,
-        Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray,
-        Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Variant,
-        VariantType, Vector2, Vector3, Vector3int16,
+        ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
+        MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
+        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, Ustr, UstrSet, WeakDom,
 };
@@ -692,6 +692,9 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 Variant::String(value) => {
                                     chunk.write_string(value)?;
                                 }
+                                Variant::ContentId(value) => {
+                                    chunk.write_string(value.as_ref())?;
+                                }
                                 Variant::BinaryString(value) => {
                                     chunk.write_binary_string(value.as_ref())?;
                                 }
@@ -715,7 +718,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     return type_mismatch(
                                         i,
                                         &rbx_value,
-                                        "String, Content, Tags, Attributes, MaterialColors, or BinaryString",
+                                        "String, ContentId, Tags, Attributes, MaterialColors, or BinaryString",
                                     );
                                 }
                             }
@@ -1416,7 +1419,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             VariantType::SharedString => Variant::SharedString(SharedString::new(Vec::new())),
             VariantType::OptionalCFrame => Variant::OptionalCFrame(None),
             VariantType::Tags => Variant::Tags(Tags::new()),
-            VariantType::Content => Variant::Content(Content::none()),
+            VariantType::ContentId => Variant::ContentId(ContentId::new()),
             VariantType::Attributes => Variant::Attributes(Attributes::new()),
             VariantType::UniqueId => Variant::UniqueId(UniqueId::nil()),
             VariantType::Font => Variant::Font(Font::default()),
@@ -1424,6 +1427,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             VariantType::SecurityCapabilities => {
                 Variant::SecurityCapabilities(SecurityCapabilities::default())
             }
+            VariantType::Content => Variant::Content(Content::none()),
             _ => return None,
         })
     }

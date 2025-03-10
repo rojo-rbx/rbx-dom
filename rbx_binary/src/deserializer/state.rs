@@ -4,10 +4,11 @@ use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, Faces, Font, FontStyle,
-        FontWeight, MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
-        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, Faces, Font,
+        FontStyle, FontWeight, MaterialColors, Matrix3, NumberRange, NumberSequence,
+        NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities,
+        SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
+        Vector3int16,
     },
     InstanceBuilder, Ustr, WeakDom,
 };
@@ -440,6 +441,13 @@ This may cause unexpected or broken behavior in your final results if you rely o
                         add_property(instance, &property, value.as_ref().into());
                     }
                 }
+                VariantType::ContentId => {
+                    for referent in &type_info.referents {
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                        let value = chunk.read_string()?;
+                        add_property(instance, &property, ContentId::from(value).into());
+                    }
+                }
                 VariantType::Content => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
@@ -531,7 +539,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
                         prop_name,
-                        valid_type_names: "String, Content, Tags, Attributes, or BinaryString",
+                        valid_type_names:
+                            "String, ContentId, Content, Tags, Attributes, or BinaryString",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
                 }
