@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -48,8 +47,7 @@ expression: decoded_viewed
         - 1
     ImageContent:
       Content:
-        value:
-          Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+        Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageRectOffset:
       Vector2:
         - 0
@@ -174,8 +172,7 @@ expression: decoded_viewed
         - 1
     ImageContent:
       Content:
-        value:
-          Uri: "rbxasset://textures/SpawnLocation.png"
+        Uri: "rbxasset://textures/SpawnLocation.png"
     ImageRectOffset:
       Vector2:
         - 0
@@ -299,8 +296,7 @@ expression: decoded_viewed
         - 1
         - 1
     ImageContent:
-      Content:
-        value: None
+      Content: None
     ImageRectOffset:
       Vector2:
         - 0

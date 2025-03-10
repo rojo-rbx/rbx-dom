@@ -32520,9 +32520,7 @@
           ]
         },
         "ImageContent": {
-          "Content": {
-            "value": "None"
-          }
+          "Content": "None"
         },
         "ImageRectOffset": {
           "Vector2": [
@@ -33033,9 +33031,7 @@
           ]
         },
         "ImageContent": {
-          "Content": {
-            "value": "None"
-          }
+          "Content": "None"
         },
         "ImageRectOffset": {
           "Vector2": [
@@ -39309,9 +39305,7 @@
           "String": ""
         },
         "MeshContent": {
-          "Content": {
-            "value": "None"
-          }
+          "Content": "None"
         },
         "PhysicalConfigData": {
           "SharedString": ""
@@ -39390,9 +39384,7 @@
           "Tags": []
         },
         "TextureContent": {
-          "Content": {
-            "value": "None"
-          }
+          "Content": "None"
         },
         "TopParamA": {
           "Float32": -0.5
@@ -80130,9 +80122,7 @@
           "Attributes": {}
         },
         "CageMeshContent": {
-          "Content": {
-            "value": "None"
-          }
+          "Content": "None"
         },
         "CageOrigin": {
           "CFrame": {
@@ -80444,9 +80434,7 @@
           }
         },
         "CageMeshContent": {
-          "Content": {
-            "value": "None"
-          }
+          "Content": "None"
         },
         "CageOrigin": {
           "CFrame": {
@@ -80525,9 +80513,7 @@
           "Float32": 1.0
         },
         "ReferenceMeshContent": {
-          "Content": {
-            "value": "None"
-          }
+          "Content": "None"
         },
         "ReferenceOrigin": {
           "CFrame": {
@@ -80637,9 +80623,7 @@
           "Attributes": {}
         },
         "CageMeshContent": {
-          "Content": {
-            "value": "None"
-          }
+          "Content": "None"
         },
         "CageOrigin": {
           "CFrame": {

@@ -102,8 +102,7 @@ expression: decoded_viewed
         - 1
         - 1
     ImageContent:
-      Content:
-        value: None
+      Content: None
     ImageRectOffset:
       Vector2:
         - 0
@@ -228,8 +227,7 @@ expression: decoded_viewed
         - 1
     ImageContent:
       Content:
-        value:
-          Uri: "rbxasset://textures/SpawnLocation.png"
+        Uri: "rbxasset://textures/SpawnLocation.png"
     ImageRectOffset:
       Vector2:
         - 0

@@ -184,18 +184,14 @@
   },
   "Content_None": {
     "value": {
-      "Content": {
-        "value": "None"
-      }
+      "Content": "None"
     },
     "ty": "Content"
   },
   "Content_Uri": {
     "value": {
       "Content": {
-        "value": {
-          "Uri": "rbxasset://abc/123.rojo"
-        }
+        "Uri": "rbxasset://abc/123.rojo"
       }
     },
     "ty": "Content"

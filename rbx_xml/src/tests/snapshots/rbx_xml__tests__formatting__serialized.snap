@@ -31,12 +31,19 @@ expression: ser_str
         <B>125600</B>
       </Color3>
       <ColorSequence name="TestColorSequence">0 0 0.5 1 0 1 1 0.5 0 0 </ColorSequence>
-      <Content name="TestContent1">
-        <uri>Wow!</uri>
-      </Content>
-      <Content name="TestContent2">
+      <ContentId name="TestContentId_None">
         <null>
         </null>
+      </ContentId>
+      <ContentId name="TestContentId_Url">
+        <url>Wow!</url>
+      </ContentId>
+      <Content name="TestContent_None">
+        <null>
+        </null>
+      </Content>
+      <Content name="TestContent_Url">
+        <uri>Wow!</uri>
       </Content>
     </Properties>
     <Item class="TestClass" referent="1">
