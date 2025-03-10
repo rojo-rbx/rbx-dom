@@ -2,8 +2,8 @@ use crate::Ref;
 
 /// A reference to a Roblox asset.
 ///
-/// This is exposed in Roblox as either a string or the `Content` type depending
-/// upon the property.
+/// This is exposed in Roblox the `Content` type. For the legacy type equivalent
+/// to a string, see `ContentId`.
 #[derive(Debug, Clone, Default, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Content {
@@ -46,11 +46,13 @@ impl Content {
         }
     }
 
+    /// Returns the underlying value of the `Content`.
     #[inline]
     pub fn value(&self) -> &ContentType {
         &self.value
     }
 
+    /// Returns a mutable reference to the underlying value of the `Content`.
     #[inline]
     pub fn value_mut(&mut self) -> &mut ContentType {
         &mut self.value
@@ -74,7 +76,8 @@ impl From<&'_ str> for Content {
 }
 /// A reference to a Roblox asset.
 ///
-/// When exposed to Lua, this is just a string.
+/// When exposed to Lua, this is just a string. For the modern userdata type,
+/// see `Content`.
 #[derive(Debug, Clone, Default, PartialEq, Eq, Hash)]
 #[cfg_attr(
     feature = "serde",
@@ -87,11 +90,19 @@ pub struct ContentId {
 }
 
 impl ContentId {
+    /// Constructs an empty new `ContentId`.
     #[inline]
     pub fn new() -> Self {
         ContentId { url: String::new() }
     }
 
+    /// Returns the `ContentId`'s value as a `&str`.
+    #[inline]
+    pub fn as_str(&self) -> &str {
+        &self.url
+    }
+
+    /// Converts this `ContentId` into a `String`.
     #[inline]
     pub fn into_string(self) -> String {
         self.url
