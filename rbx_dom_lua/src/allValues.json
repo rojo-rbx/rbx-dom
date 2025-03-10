@@ -176,9 +176,27 @@
     },
     "ty": "ColorSequence"
   },
-  "Content": {
+  "ContentId": {
     "value": {
-      "Content": "rbxassetid://12345"
+      "ContentId": "rbxassetid://12345"
+    },
+    "ty": "ContentId"
+  },
+  "Content_None": {
+    "value": {
+      "Content": {
+        "value": "None"
+      }
+    },
+    "ty": "Content"
+  },
+  "Content_Uri": {
+    "value": {
+      "Content": {
+        "value": {
+          "Uri": "rbxasset://abc/123.rojo"
+        }
+      }
     },
     "ty": "Content"
   },

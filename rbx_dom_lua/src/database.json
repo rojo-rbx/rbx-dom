@@ -1576,9 +1576,7 @@
       },
       "DefaultProperties": {
         "AnimationId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Archivable": {
           "Bool": true
@@ -5593,9 +5591,7 @@
           "Bool": true
         },
         "Asset": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Attributes": {
           "Attributes": {}
@@ -8635,9 +8631,7 @@
           "Tags": []
         },
         "Texture": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "TextureLength": {
           "Float32": 1.0
@@ -13718,9 +13712,7 @@
           "SecurityCapabilities": 0
         },
         "CursorIcon": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -18905,9 +18897,7 @@
           "Tags": []
         },
         "Texture": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -19980,9 +19970,7 @@
       },
       "DefaultProperties": {
         "ActivatedCursorIcon": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "ApplyAtCenterOfMass": {
           "Bool": false
@@ -19997,9 +19985,7 @@
           "SecurityCapabilities": 0
         },
         "CursorIcon": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "DragFrame": {
           "CFrame": {
@@ -22633,9 +22619,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "MeshId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Offset": {
           "Vector3": [
@@ -22661,9 +22645,7 @@
           "Tags": []
         },
         "TextureId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -23019,9 +23001,7 @@
           "BrickColor": 194
         },
         "TextureId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "ToolTip": {
           "String": ""
@@ -23617,9 +23597,7 @@
           "Tags": []
         },
         "Texture": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "TextureSize": {
           "Vector2": [
@@ -27881,9 +27859,7 @@
           "Tags": []
         },
         "TextureId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -32534,9 +32510,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "HoverImage": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "ImageColor3": {
           "Color3": [
@@ -32587,9 +32561,7 @@
           ]
         },
         "PressedImage": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "ResampleMode": {
           "Enum": 0
@@ -32774,11 +32746,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "Image": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/SurfacesDefault.png"
-            }
-          }
+          "ContentId": "rbxasset://textures/SurfacesDefault.png"
         },
         "Sandboxed": {
           "Bool": false
@@ -34281,9 +34249,7 @@
           "Bool": true
         },
         "AssetId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Attributes": {
           "Attributes": {}
@@ -36211,9 +36177,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "LinkedSource": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "RunContext": {
           "Enum": 0
@@ -38403,9 +38367,7 @@
           "SecurityCapabilities": 0
         },
         "ColorMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -38417,19 +38379,13 @@
           "Enum": 0
         },
         "MetalnessMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "NormalMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "RoughnessMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Sandboxed": {
           "Bool": false
@@ -38444,9 +38400,7 @@
           "Tags": []
         },
         "TexturePack": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -40237,9 +40191,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "LinkedSource": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Sandboxed": {
           "Bool": false
@@ -40934,9 +40886,7 @@
           "Bool": true
         },
         "AssetId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Attributes": {
           "Attributes": {}
@@ -42565,9 +42515,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "PantsTemplate": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Sandboxed": {
           "Bool": false
@@ -43300,9 +43248,7 @@
           "Bool": true
         },
         "AssetId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Attributes": {
           "Attributes": {}
@@ -44301,11 +44247,7 @@
           "Tags": []
         },
         "Texture": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/particles/sparkles_main.dds"
-            }
-          }
+          "ContentId": "rbxasset://textures/particles/sparkles_main.dds"
         },
         "TimeScale": {
           "Float32": 1.0
@@ -53246,9 +53188,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "LinkedSource": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "RunContext": {
           "Enum": 0
@@ -54033,11 +53973,7 @@
           "Int32": 1
         },
         "BottomImage": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/ui/Scroll/scroll-bottom.png"
-            }
-          }
+          "ContentId": "rbxasset://textures/ui/Scroll/scroll-bottom.png"
         },
         "CanvasPosition": {
           "Vector2": [
@@ -54082,11 +54018,7 @@
           "Int32": 0
         },
         "MidImage": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/ui/Scroll/scroll-middle.png"
-            }
-          }
+          "ContentId": "rbxasset://textures/ui/Scroll/scroll-middle.png"
         },
         "Position": {
           "UDim2": [
@@ -54168,11 +54100,7 @@
           "Tags": []
         },
         "TopImage": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/ui/Scroll/scroll-top.png"
-            }
-          }
+          "ContentId": "rbxasset://textures/ui/Scroll/scroll-top.png"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -55332,9 +55260,7 @@
           "Bool": false
         },
         "ShirtTemplate": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "SourceAssetId": {
           "Int64": -1
@@ -55397,9 +55323,7 @@
           ]
         },
         "Graphic": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -56077,56 +56001,28 @@
           "Float32": 11.0
         },
         "MoonTextureId": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://sky/moon.jpg"
-            }
-          }
+          "ContentId": "rbxasset://sky/moon.jpg"
         },
         "Sandboxed": {
           "Bool": false
         },
         "SkyboxBk": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/sky/sky512_bk.tex"
-            }
-          }
+          "ContentId": "rbxasset://textures/sky/sky512_bk.tex"
         },
         "SkyboxDn": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/sky/sky512_dn.tex"
-            }
-          }
+          "ContentId": "rbxasset://textures/sky/sky512_dn.tex"
         },
         "SkyboxFt": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/sky/sky512_ft.tex"
-            }
-          }
+          "ContentId": "rbxasset://textures/sky/sky512_ft.tex"
         },
         "SkyboxLf": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/sky/sky512_lf.tex"
-            }
-          }
+          "ContentId": "rbxasset://textures/sky/sky512_lf.tex"
         },
         "SkyboxRt": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/sky/sky512_rt.tex"
-            }
-          }
+          "ContentId": "rbxasset://textures/sky/sky512_rt.tex"
         },
         "SkyboxUp": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://textures/sky/sky512_up.tex"
-            }
-          }
+          "ContentId": "rbxasset://textures/sky/sky512_up.tex"
         },
         "SourceAssetId": {
           "Int64": -1
@@ -56138,11 +56034,7 @@
           "Float32": 21.0
         },
         "SunTextureId": {
-          "Content": {
-            "value": {
-              "Uri": "rbxasset://sky/sun.jpg"
-            }
-          }
+          "ContentId": "rbxasset://sky/sun.jpg"
         },
         "Tags": {
           "Tags": []
@@ -57301,9 +57193,7 @@
           "Bool": false
         },
         "SoundId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "SourceAssetId": {
           "Int64": -1
@@ -58111,9 +58001,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "MeshId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "MeshType": {
           "Enum": 0
@@ -58142,9 +58030,7 @@
           "Tags": []
         },
         "TextureId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -63945,27 +63831,19 @@
           ]
         },
         "ColorMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
         "MetalnessMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "NormalMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "RoughnessMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Sandboxed": {
           "Bool": false
@@ -63977,9 +63855,7 @@
           "Tags": []
         },
         "TexturePack": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -66030,9 +65906,7 @@
           "SecurityCapabilities": 0
         },
         "ColorMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Face": {
           "Enum": 1
@@ -66044,19 +65918,13 @@
           "Enum": 0
         },
         "MetalnessMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "NormalMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "RoughnessMap": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Sandboxed": {
           "Bool": false
@@ -66071,9 +65939,7 @@
           "Tags": []
         },
         "TexturePack": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -69425,9 +69291,7 @@
           "Tags": []
         },
         "Texture": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Transparency": {
           "Float32": 0.0
@@ -69924,9 +69788,7 @@
           "Tags": []
         },
         "TextureId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "ToolTip": {
           "String": ""
@@ -70708,9 +70570,7 @@
           "Tags": []
         },
         "Texture": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "TextureLength": {
           "Float32": 1.0
@@ -71979,9 +71839,7 @@
       },
       "DefaultProperties": {
         "ActivatedCursorIcon": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Archivable": {
           "Bool": true
@@ -71996,9 +71854,7 @@
           "SecurityCapabilities": 0
         },
         "CursorIcon": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "DragAxis": {
           "Vector2": [
@@ -73563,9 +73419,7 @@
           "Bool": true
         },
         "AssetId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Attributes": {
           "Attributes": {}
@@ -77407,9 +77261,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "Video": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Visible": {
           "Bool": true
@@ -77587,9 +77439,7 @@
           "Bool": true
         },
         "Asset": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "Attributes": {
           "Attributes": {}
@@ -77619,9 +77469,7 @@
           "Tags": []
         },
         "Thumbnail": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "TimePosition": {
           "Float64": 0.0
@@ -80316,9 +80164,7 @@
           "SecurityCapabilities": 0
         },
         "HSRAssetId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "HSRData": {
           "SharedString": ""
@@ -80365,9 +80211,7 @@
           "Tags": []
         },
         "TemporaryCageMeshId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -80637,9 +80481,7 @@
           "Bool": true
         },
         "HSRAssetId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "HSRData": {
           "SharedString": ""
@@ -80726,14 +80568,10 @@
           "Tags": []
         },
         "TemporaryCageMeshId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "TemporaryReferenceId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -80833,9 +80671,7 @@
           "SecurityCapabilities": 0
         },
         "HSRAssetId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "HSRData": {
           "SharedString": ""
@@ -80885,9 +80721,7 @@
           "Tags": []
         },
         "TemporaryCageMeshId": {
-          "Content": {
-            "value": "None"
-          }
+          "ContentId": ""
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
