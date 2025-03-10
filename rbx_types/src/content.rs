@@ -6,9 +6,7 @@ use crate::Ref;
 /// to a string, see `ContentId`.
 #[derive(Debug, Clone, Default, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct Content {
-    value: ContentType,
-}
+pub struct Content(ContentType);
 
 /// An enum representing what type a `Content` is. Roblox may add new values to
 /// this enum unexpectedly, so it is marked as `non_exhaustive`.
@@ -26,52 +24,42 @@ impl Content {
     /// Constructs an empty `Content`.
     #[inline]
     pub fn none() -> Self {
-        Self {
-            value: ContentType::None,
-        }
+        Self(ContentType::None)
     }
 
     /// Constructs a `Content` from the provided URI.
     pub fn from_uri<S: Into<String>>(uri: S) -> Self {
-        Self {
-            value: ContentType::Uri(uri.into()),
-        }
+        Self(ContentType::Uri(uri.into()))
     }
 
     /// Constructs a `Content` from the provided referent.
     #[inline]
     pub fn from_referent(referent: Ref) -> Self {
-        Self {
-            value: ContentType::Object(referent),
-        }
+        Self(ContentType::Object(referent))
     }
 
     /// Returns the underlying value of the `Content`.
     #[inline]
     pub fn value(&self) -> &ContentType {
-        &self.value
+        &self.0
     }
 
     /// Returns a mutable reference to the underlying value of the `Content`.
     #[inline]
     pub fn value_mut(&mut self) -> &mut ContentType {
-        &mut self.value
+        &mut self.0
     }
 }
 
 impl From<String> for Content {
     fn from(url: String) -> Self {
-        Self {
-            value: ContentType::Uri(url),
-        }
+        Self(ContentType::Uri(url))
     }
 }
 
 impl From<&'_ str> for Content {
     fn from(url: &str) -> Self {
-        Self {
-            value: ContentType::Uri(url.to_owned()),
-        }
+        Self(ContentType::Uri(url.to_owned()))
     }
 }
 /// A reference to a Roblox asset.
