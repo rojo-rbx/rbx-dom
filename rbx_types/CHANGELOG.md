@@ -2,6 +2,8 @@
 
 ## Unreleased Changes
 * Changed `Content` to more closely align with Roblox's new `Content` type. This is a breaking change.
+* Renamed the old `Content` to `ContentId` to reflect Roblox's API changes.
+* Alongside the previous two changes, `Variant::Content` now refers to the new `Content` type and `Variant::ContentId` exists.
 
 # 1.10.0 (2024-08-22)
 * Add support for `Int32` values within `Attributes` ([#439])
