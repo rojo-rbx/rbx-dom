@@ -9,8 +9,7 @@ expression: "DomViewer::new().view_children(&decoded)"
     Attributes:
       Attributes: {}
     LinkedSource:
-      Content:
-        value: None
+      ContentId: ""
     ScriptGuid:
       String: "{27E39FEB-27B7-43EC-9398-04115CF856B2}"
     Source:

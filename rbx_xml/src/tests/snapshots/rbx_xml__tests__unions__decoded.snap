@@ -9,8 +9,7 @@ expression: "DomViewer::new().view_children(&decoded)"
     Anchored:
       Bool: false
     AssetId:
-      Content:
-        value: None
+      ContentId: ""
     Attributes:
       Attributes: {}
     BackParamA:
@@ -151,8 +150,7 @@ expression: "DomViewer::new().view_children(&decoded)"
     Anchored:
       Bool: false
     AssetId:
-      Content:
-        value: None
+      ContentId: ""
     Attributes:
       Attributes: {}
     BackParamA:
@@ -293,8 +291,7 @@ expression: "DomViewer::new().view_children(&decoded)"
     Anchored:
       Bool: false
     AssetId:
-      Content:
-        value: None
+      ContentId: ""
     Attributes:
       Attributes: {}
     BackParamA:

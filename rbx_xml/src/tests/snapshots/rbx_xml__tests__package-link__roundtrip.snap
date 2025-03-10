@@ -53,9 +53,7 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         AutoUpdate:
           Bool: false
         PackageId:
-          Content:
-            value:
-              Uri: "rbxassetid://9111823334"
+          ContentId: "rbxassetid://9111823334"
         SourceAssetId:
           Int64: -1
         Tags:

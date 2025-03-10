@@ -41,12 +41,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Draggable:
       Bool: false
     HoverImage:
-      Content:
-        value: None
+      ContentId: ""
     Image:
-      Content:
-        value:
-          Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+      ContentId: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageColor3:
       Color3:
         - 1
@@ -77,8 +74,7 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - - 0
           - 0
     PressedImage:
-      Content:
-        value: None
+      ContentId: ""
     RootLocalizationTable: "null"
     Rotation:
       Float32: 0
@@ -161,12 +157,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Draggable:
       Bool: false
     HoverImage:
-      Content:
-        value: None
+      ContentId: ""
     Image:
-      Content:
-        value:
-          Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+      ContentId: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageColor3:
       Color3:
         - 1
@@ -197,8 +190,7 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - - 0
           - 0
     PressedImage:
-      Content:
-        value: None
+      ContentId: ""
     RootLocalizationTable: "null"
     Rotation:
       Float32: 0
