@@ -83,7 +83,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Texture:
-      Content: "rbxasset://textures/particles/sparkles_main.dds"
+      ContentId: "rbxasset://textures/particles/sparkles_main.dds"
     Transparency:
       NumberSequence:
         keypoints:
@@ -179,7 +179,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Texture:
-      Content: "rbxasset://textures/particles/sparkles_main.dds"
+      ContentId: "rbxasset://textures/particles/sparkles_main.dds"
     Transparency:
       NumberSequence:
         keypoints:

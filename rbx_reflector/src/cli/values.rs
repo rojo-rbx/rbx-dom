@@ -4,8 +4,8 @@ use anyhow::bail;
 use clap::Parser;
 use rbx_types::{
     Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-    ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, EnumItem, Faces, Font,
-    MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+    ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, EnumItem, Faces,
+    Font, MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
     PhysicalProperties, Ray, Rect, Region3int16, Tags, TerrainMaterials, UDim, UDim2, Variant,
     VariantType, Vector2, Vector2int16, Vector3, Vector3int16,
 };
@@ -85,7 +85,12 @@ impl ValuesSubcommand {
             }
             .into(),
         );
-        values.insert("Content", Content::from("rbxassetid://12345").into());
+        values.insert("Content_None", Content::none().into());
+        values.insert(
+            "Content_Uri",
+            Content::from_uri("rbxasset://abc/123.rojo").into(),
+        );
+        values.insert("ContentId", ContentId::from("rbxassetid://12345").into());
         values.insert("Enum", Enum::from_u32(1234).into());
         values.insert(
             "EnumItem",

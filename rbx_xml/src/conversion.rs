@@ -4,7 +4,7 @@
 use std::borrow::{Borrow, Cow};
 use std::convert::TryInto;
 
-use rbx_dom_weak::types::Enum;
+use rbx_dom_weak::types::{ContentId, ContentType, Enum};
 use rbx_dom_weak::{
     types::{Attributes, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType},
     Ustr,
@@ -100,6 +100,16 @@ rbx-dom may require changes to fully support this property. Please open an issue
             (Variant::EnumItem(enum_item), VariantType::Enum) => {
                 Ok(Cow::Owned(Enum::from_u32(enum_item.value).into()))
             }
+            (Variant::Content(content), VariantType::ContentId) => match content.value() {
+                ContentType::None => Ok(Cow::Owned(ContentId::new().into())),
+                ContentType::Uri(uri) => Ok(Cow::Owned(ContentId::from(uri.as_str()).into())),
+                ContentType::Object(_) => {
+                    Err(String::from("Objects cannot be converted into a ContentId"))
+                }
+                _ => Err(String::from(
+                    "Unknown type of Content cannot be converted into a ContentId",
+                )),
+            },
             (_, _) => Ok(value),
         }
     }

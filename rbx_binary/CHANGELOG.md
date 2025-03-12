@@ -5,10 +5,12 @@
 * Added the ability to specify what type of compression to use for serializing. This takes the form of `Serializer::compression_type`. ([#446])
 * Added support for ZSTD compressed files ([#446])
 * Implicit lossy conversion of non-UTF-8 `Instance.Name` and `*Script.Source` properties when decoding.  The previous behaviour was returning an error. ([#380])
+* Implement support for serializing and deserializing the `Content` type. ([#495])
 
 [#462]: https://github.com/rojo-rbx/rbx-dom/pull/462
 [#446]: https://github.com/rojo-rbx/rbx-dom/pull/446
 [#380]: https://github.com/rojo-rbx/rbx-dom/pull/380
+[#495]: https://github.com/rojo-rbx/rbx-dom/pull/495
 
 ## 0.7.7 (2024-08-22)
 * Updated rbx-dom dependencies

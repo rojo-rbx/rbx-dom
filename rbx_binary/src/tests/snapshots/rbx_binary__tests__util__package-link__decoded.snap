@@ -53,7 +53,7 @@ expression: decoded_viewed
         AutoUpdate:
           Bool: false
         PackageId:
-          Content: "rbxassetid://9111823334"
+          ContentId: "rbxassetid://9111823334"
         SourceAssetId:
           Int64: -1
         Tags:
