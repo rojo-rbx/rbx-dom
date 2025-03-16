@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: Frame1
+  name:
+    Utf8:
+      - Frame1
   class: Frame
   properties:
     Active:
@@ -72,7 +74,9 @@ expression: decoded_viewed
       Int32: 1
   children: []
 - referent: referent-1
-  name: Frame2
+  name:
+    Utf8:
+      - Frame2
   class: Frame
   properties:
     Active:
@@ -141,7 +145,9 @@ expression: decoded_viewed
       Int32: 1
   children: []
 - referent: referent-2
-  name: Frame3
+  name:
+    Utf8:
+      - Frame3
   class: Frame
   properties:
     Active:
@@ -209,4 +215,3 @@ expression: decoded_viewed
     ZIndex:
       Int32: 1
   children: []
-

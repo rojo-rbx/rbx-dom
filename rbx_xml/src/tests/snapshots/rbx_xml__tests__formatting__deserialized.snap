@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/formatting.rs
 expression: "DomViewer::new().view_children(&de)"
 ---
 - referent: referent-0
-  name: TestClass
+  name:
+    Utf8:
+      - TestClass
   class: TestClass
   properties:
     TestAxes:
@@ -54,7 +56,9 @@ expression: "DomViewer::new().view_children(&de)"
       Content: ""
   children:
     - referent: referent-1
-      name: TestClass
+      name:
+        Utf8:
+          - TestClass
       class: TestClass
       properties:
         TestDouble:
@@ -78,7 +82,9 @@ expression: "DomViewer::new().view_children(&de)"
           Int64: 8675309
       children: []
     - referent: referent-2
-      name: TestClass
+      name:
+        Utf8:
+          - TestClass
       class: TestClass
       properties:
         TestNumberRange:
@@ -114,7 +120,9 @@ expression: "DomViewer::new().view_children(&de)"
                 - -inf
       children:
         - referent: referent-3
-          name: TestClass
+          name:
+            Utf8:
+              - TestClass
           class: TestClass
           properties:
             TestEnum:
@@ -182,4 +190,3 @@ expression: "DomViewer::new().view_children(&de)"
                 - 0
                 - 10
           children: []
-

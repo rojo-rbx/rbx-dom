@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: UIGridLayout
+  name:
+    Utf8:
+      - UIGridLayout
   class: UIGridLayout
   properties:
     Attributes:
@@ -36,7 +38,9 @@ expression: decoded_viewed
       Enum: 1
   children: []
 - referent: referent-1
-  name: UIGridLayout
+  name:
+    Utf8:
+      - UIGridLayout
   class: UIGridLayout
   properties:
     Attributes:
@@ -69,7 +73,9 @@ expression: decoded_viewed
       Enum: 1
   children: []
 - referent: referent-2
-  name: UIGridLayout
+  name:
+    Utf8:
+      - UIGridLayout
   class: UIGridLayout
   properties:
     Attributes:
@@ -101,4 +107,3 @@ expression: decoded_viewed
     VerticalAlignment:
       Enum: 1
   children: []
-

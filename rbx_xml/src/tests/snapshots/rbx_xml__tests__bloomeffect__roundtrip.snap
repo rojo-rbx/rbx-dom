@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
-  name: Bloom
+  name:
+    Utf8:
+      - Bloom
   class: BloomEffect
   properties:
     Attributes:
@@ -19,4 +21,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Threshold:
       Float32: 2.285
   children: []
-

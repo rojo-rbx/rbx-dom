@@ -1,10 +1,11 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: Grandparent
+  name:
+    Utf8:
+      - Grandparent
   class: Folder
   properties:
     Attributes:
@@ -13,7 +14,9 @@ expression: decoded_viewed
       Tags: []
   children:
     - referent: referent-1
-      name: Parent
+      name:
+        Utf8:
+          - Parent
       class: Folder
       properties:
         Attributes:
@@ -22,7 +25,9 @@ expression: decoded_viewed
           Tags: []
       children:
         - referent: referent-2
-          name: Child
+          name:
+            Utf8:
+              - Child
           class: Folder
           properties:
             Attributes:
@@ -30,4 +35,3 @@ expression: decoded_viewed
             Tags:
               Tags: []
           children: []
-

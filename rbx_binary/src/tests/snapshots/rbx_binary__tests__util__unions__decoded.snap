@@ -3,7 +3,9 @@ source: rbx_binary/src/tests/util.rs
 expression: decoded_viewed
 ---
 - referent: referent-0
-  name: Red Union 1
+  name:
+    Utf8:
+      - Red Union 1
   class: UnionOperation
   properties:
     Anchored:
@@ -146,7 +148,9 @@ expression: decoded_viewed
         - 0
   children: []
 - referent: referent-1
-  name: Red Union 2
+  name:
+    Utf8:
+      - Red Union 2
   class: UnionOperation
   properties:
     Anchored:
@@ -289,7 +293,9 @@ expression: decoded_viewed
         - 0
   children: []
 - referent: referent-2
-  name: Blue Union
+  name:
+    Utf8:
+      - Blue Union
   class: UnionOperation
   properties:
     Anchored:
@@ -431,4 +437,3 @@ expression: decoded_viewed
         - 0
         - 0
   children: []
-

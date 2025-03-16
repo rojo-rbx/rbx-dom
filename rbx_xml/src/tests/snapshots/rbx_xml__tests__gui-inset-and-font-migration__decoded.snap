@@ -3,7 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: Folder
+  name:
+    Utf8:
+      - Folder
   class: Folder
   properties:
     Attributes:
@@ -14,7 +16,9 @@ expression: "DomViewer::new().view_children(&decoded)"
       Tags: []
   children:
     - referent: referent-1
-      name: "IgnoreGuiInset: true"
+      name:
+        Utf8:
+          - "IgnoreGuiInset: true"
       class: ScreenGui
       properties:
         Attributes:
@@ -52,7 +56,9 @@ expression: "DomViewer::new().view_children(&decoded)"
           Enum: 1
       children: []
     - referent: referent-2
-      name: "IgnoreGuiInset: false"
+      name:
+        Utf8:
+          - "IgnoreGuiInset: false"
       class: ScreenGui
       properties:
         Attributes:
@@ -90,7 +96,9 @@ expression: "DomViewer::new().view_children(&decoded)"
           Enum: 1
       children:
         - referent: referent-3
-          name: TextLabel
+          name:
+            Utf8:
+              - TextLabel
           class: TextLabel
           properties:
             Active:
@@ -213,7 +221,9 @@ expression: "DomViewer::new().view_children(&decoded)"
               Int32: 1
           children: []
         - referent: referent-4
-          name: TextButton
+          name:
+            Utf8:
+              - TextButton
           class: TextButton
           properties:
             Active:
@@ -344,7 +354,9 @@ expression: "DomViewer::new().view_children(&decoded)"
               Int32: 1
           children: []
         - referent: referent-5
-          name: TextBox
+          name:
+            Utf8:
+              - TextBox
           class: TextBox
           properties:
             Active:
@@ -481,4 +493,3 @@ expression: "DomViewer::new().view_children(&decoded)"
             ZIndex:
               Int32: 1
           children: []
-

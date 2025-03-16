@@ -7,6 +7,7 @@ use crate::{
     types::{Ref, Variant},
     WeakDom,
 };
+use rbx_types::RobloxString;
 use serde::{Deserialize, Serialize};
 use ustr::Ustr;
 
@@ -136,7 +137,7 @@ impl Default for DomViewer {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ViewedInstance {
     referent: String,
-    name: String,
+    name: RobloxString,
     class: Ustr,
     properties: BTreeMap<Ustr, ViewedValue>,
     children: Vec<ViewedInstance>,

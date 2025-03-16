@@ -3,8 +3,9 @@ source: rbx_xml/src/tests/mod.rs
 expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: A NumberValue
+  name:
+    Utf8:
+      - A NumberValue
   class: NumberValue
   properties: {}
   children: []
-
