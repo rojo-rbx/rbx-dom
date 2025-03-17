@@ -42,13 +42,14 @@ expression: "DomViewer::new().view_children(&decoded)"
       Bool: false
     HoverImage:
       ContentId: ""
-    Image:
-      ContentId: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageColor3:
       Color3:
         - 1
         - 1
         - 1
+    ImageContent:
+      Content:
+        Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageRectOffset:
       Vector2:
         - 0
@@ -158,13 +159,14 @@ expression: "DomViewer::new().view_children(&decoded)"
       Bool: false
     HoverImage:
       ContentId: ""
-    Image:
-      ContentId: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageColor3:
       Color3:
         - 1
         - 1
         - 1
+    ImageContent:
+      Content:
+        Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageRectOffset:
       Vector2:
         - 0

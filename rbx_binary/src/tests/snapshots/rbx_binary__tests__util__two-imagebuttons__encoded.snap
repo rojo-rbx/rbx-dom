@@ -122,13 +122,6 @@ chunks:
         - ""
   - Prop:
       type_id: 0
-      prop_name: Image
-      prop_type: String
-      values:
-        - "rbxasset://textures/ui/GuiImagePlaceholder.png"
-        - "rbxasset://textures/ui/GuiImagePlaceholder.png"
-  - Prop:
-      type_id: 0
       prop_name: ImageColor3
       prop_type: Color3
       values:
@@ -138,6 +131,13 @@ chunks:
         - - 1
           - 1
           - 1
+  - Prop:
+      type_id: 0
+      prop_name: ImageContent
+      prop_type: Content
+      values:
+        - Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+        - Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
   - Prop:
       type_id: 0
       prop_name: ImageRectOffset
