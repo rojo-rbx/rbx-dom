@@ -86,6 +86,7 @@ pub enum Security {
     RobloxScriptSecurity,
     NotAccessibleSecurity,
     RobloxSecurity,
+    WritePlayerSecurity,
 }
 
 #[derive(Debug, Deserialize)]
