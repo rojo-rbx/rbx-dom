@@ -1,0 +1,13 @@
+Change:
+  ImageButton:
+    Image:
+      Serialization:
+        Type: Migrate
+        To: ImageContent
+        Migration: ContentIdToContent
+  ImageLabel:
+    Image:
+      Serialization:
+        Type: Migrate
+        To: ImageContent
+        Migration: ContentIdToContent

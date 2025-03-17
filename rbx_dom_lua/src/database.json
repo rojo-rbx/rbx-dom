@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    663,
+    664,
     0,
-    6630659
+    6640713
   ],
   "Classes": {
     "Accessory": {
@@ -6024,6 +6024,212 @@
         }
       }
     },
+    "AudioTextToSpeech": {
+      "Name": "AudioTextToSpeech",
+      "Tags": [],
+      "Superclass": "Instance",
+      "Properties": {
+        "IsLoaded": {
+          "Name": "IsLoaded",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "IsPlaying": {
+          "Name": "IsPlaying",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Looping": {
+          "Name": "Looping",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Pitch": {
+          "Name": "Pitch",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PlaybackSpeed": {
+          "Name": "PlaybackSpeed",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Speed": {
+          "Name": "Speed",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Text": {
+          "Name": "Text",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TimeLength": {
+          "Name": "TimeLength",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "TimePosition": {
+          "Name": "TimePosition",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float64"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "VoiceId": {
+          "Name": "VoiceId",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Volume": {
+          "Name": "Volume",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "Capabilities": {
+          "SecurityCapabilities": 0
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "Looping": {
+          "Bool": false
+        },
+        "Pitch": {
+          "Float32": 0.0
+        },
+        "PlaybackSpeed": {
+          "Float32": 1.0
+        },
+        "Sandboxed": {
+          "Bool": false
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Speed": {
+          "Float32": 1.0
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "Text": {
+          "String": ""
+        },
+        "TimePosition": {
+          "Float64": 0.0
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "VoiceId": {
+          "String": ""
+        },
+        "Volume": {
+          "Float32": 1.0
+        }
+      }
+    },
     "AuroraScript": {
       "Name": "AuroraScript",
       "Tags": [
@@ -8121,9 +8327,7 @@
           "DataType": {
             "Value": "Content"
           },
-          "Tags": [
-            "Hidden"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -8139,7 +8343,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "CageMeshContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -18828,9 +19037,7 @@
           "DataType": {
             "Value": "Content"
           },
-          "Tags": [
-            "Hidden"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -32283,7 +32490,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "ImageContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -32306,9 +32518,7 @@
           "DataType": {
             "Value": "Content"
           },
-          "Tags": [
-            "Hidden"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -32813,7 +33023,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "ImageContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -32836,9 +33051,7 @@
           "DataType": {
             "Value": "Content"
           },
-          "Tags": [
-            "Hidden"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -37267,6 +37480,27 @@
         }
       }
     },
+    "MatchmakingService": {
+      "Name": "MatchmakingService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
     "MaterialGenerationService": {
       "Name": "MaterialGenerationService",
       "Tags": [
@@ -39007,9 +39241,7 @@
           "DataType": {
             "Value": "Content"
           },
-          "Tags": [
-            "Hidden"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -39043,7 +39275,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "MeshContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -39100,9 +39337,7 @@
           "DataType": {
             "Value": "Content"
           },
-          "Tags": [
-            "Hidden"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -39118,7 +39353,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "MeshContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -39382,9 +39622,6 @@
         },
         "Tags": {
           "Tags": []
-        },
-        "TextureContent": {
-          "Content": "None"
         },
         "TopParamA": {
           "Float32": -0.5
@@ -46500,6 +46737,22 @@
         "OsPlatform": {
           "Name": "OsPlatform",
           "Scriptability": "None",
+          "DataType": {
+            "Value": "String"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "PartyId": {
+          "Name": "PartyId",
+          "Scriptability": "Read",
           "DataType": {
             "Value": "String"
           },
@@ -58842,6 +59095,21 @@
             "Value": "Bool"
           },
           "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "StudioDefaultStyleSheet": {
+          "Name": "StudioDefaultStyleSheet",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -78250,21 +78518,6 @@
             }
           }
         },
-        "UseRME": {
-          "Name": "UseRME",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "Hidden"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
         "VoiceChatEnabledForPlaceOnRcc": {
           "Name": "VoiceChatEnabledForPlaceOnRcc",
           "Scriptability": "None",
@@ -80316,9 +80569,7 @@
           "DataType": {
             "Value": "Content"
           },
-          "Tags": [
-            "Hidden"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -80334,7 +80585,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "ReferenceMeshContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -80991,6 +81247,7 @@
       "name": "AnnotationRequestResult",
       "items": {
         "ErrorInternalFailure": 1,
+        "ErrorModerated": 3,
         "ErrorNotFound": 2,
         "Success": 0
       }
@@ -84463,6 +84720,7 @@
         "LoadString": 4,
         "Network": 10,
         "Physics": 11,
+        "Players": 21,
         "RemoteEvent": 19,
         "RunClientScript": 0,
         "RunServerScript": 1,
