@@ -448,18 +448,6 @@ This may cause unexpected or broken behavior in your final results if you rely o
                         add_property(instance, &property, ContentId::from(value).into());
                     }
                 }
-                VariantType::Content => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = chunk.read_string()?;
-                        let content = if value.is_empty() {
-                            Content::none()
-                        } else {
-                            Content::from_uri(value)
-                        };
-                        add_property(instance, &property, content.into());
-                    }
-                }
                 VariantType::BinaryString => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
