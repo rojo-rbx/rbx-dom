@@ -9,6 +9,7 @@ This document is based on:
 - [rbxfile by Anaminus](https://github.com/RobloxAPI/rbxfile)
 - [Roblox-File-Format by CloneTrooper1019](https://github.com/CloneTrooper1019/Roblox-File-Format)
 - Observing `rbxm` and `rbxl` output from Roblox Studio
+- Information directly communicated by Roblox when necessary
 
 ## Contents
 - [Document Conventions](#document-conventions)
@@ -52,6 +53,7 @@ This document is based on:
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
 	- [UniqueId](#uniqueid)
 	- [Font](#font)
+	- [Content](#content)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
@@ -679,6 +681,40 @@ The `Font` type is a struct composed of two `String` values, a `u8`, and a `u16`
 The `Weight` and `Style` fields are stored as little-endian unsigned integers. These are usually treated like enums, and to assign them in Roblox Studio an Enum is used. Interestingly, the `Weight` is *always* stored as a number in binary and XML, but `Style` is stored as a number in binary and as text in XML.
 
 The `CachedFaceId` field is always present, but is allowed to be an empty string (a string of length `0`). When represented in XML, this property will be omitted if it is an empty string. This property is not visible via any user APIs in Roblox Studio.
+
+### Content
+**Type ID `0x22`**
+
+Note that the [`Content`][Content-type] type should not be confused with the legacy `ContentId` type, which was renamed from `Content` in Roblox release 645.
+
+The `Content` type is a struct composed of the following fields:
+
+| Field Name          | Format          | Value                                                                                        |
+|:--------------------|:----------------|:---------------------------------------------------------------------------------------------|
+| SourceTypes         | Array(`Enum`)   | A list of types for items in this chunk                                                      |
+| UriCount            | `u32`           | Indicates how many items in this chunk are `Uri`s                                            |
+| Uris                | Array(`String`) | A list of the `URI`s for items in this chunk with that type                                  |
+| ObjectCount         | `u32`           | Indicates how many items in this chunk are `Object`s                                         |
+| ObjectRefs          | Array(`Ref`)    | A list of referents for `Object`s for items in this chunk                                    |
+| ExternalObjectCount | `u32`           | Indicates how many items in this chunk are `Objects` that are **external** to this file      |
+| ExternalObjectRefs  | Array(`Ref`)    | A list of referents for `Object`s for items in this chunk that are **external** to this file |
+
+`SourceTypes` is a series of values representing a type for a given `Content`. At this moment it can have one of three values:
+
+| Name    | Value |
+|:--------|:------|
+| `None`  | `0`   |
+| `Uri`   | `1`   |
+| `Object`| `2`   |
+
+`Uris` is an array `UriCount` elements long which contains a sequential list of every `Uri` included in `SourceTypes`.
+
+`ObjectRefs` is a [referent array](#referent) that is `ObjectCount` elements long and contains a list of referents pointing to [`Object`][Object-class]s that can be used for `Content`, such as `EditableImage`. `ObjectRefs` are not populated outside of copy-and-pasting within Studio, but this may change in the future.
+
+`ExternalObjectRefs` is similar in purpose to `ObjectRefs` but contains a list of referents that are external to this file. This is used internally by Roblox to minimize memory overhead when copy-and-pasting. Both `ExternalObjectCount` and `ExternalObjectRefs` are not applicable to implementors because referents are not static outside of files. They are included for completeness's sake.
+
+[Content-type]: https://create.roblox.com/docs/reference/engine/datatypes/Content
+[Object-class]: https://create.roblox.com/docs/reference/engine/classes/Object
 
 ## Data Storage Notes
 
