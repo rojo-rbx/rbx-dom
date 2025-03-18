@@ -25,6 +25,7 @@ The XML model format has generally been replaced by the newer, more efficient [b
 	- [Color3uint8](#color3uint8)
 	- [ColorSequence](#colorsequence)
 	- [Content](#content)
+	- [ContentId](#contentid)
 	- [CoordinateFrame](#coordinateframe)
 	- [double](#double) (Float64)
 	- [Faces](#faces)
@@ -274,22 +275,40 @@ A `ColorSequence` with the value `[0, 96, 64, 32] [1, 5, 10, 15]` appears as fol
 
 ### Content
 
-The `Content` data type is represented by a single element with one of several child elements. Currently, the name of this child element MUST be either `url` or `null`. Historically, it could also be named `binary` or `hash`. This child element is not nillable and MUST include an opening and closing tag.
+Note: This type should not be confused with the legacy [`ContentId`](#contentid) that used to have the name `Content` until Roblox release 645.
 
-If the child element is `url`, then the value of it is the `Content`'s URI. If the element is `null`, it indicates the `Content` is empty. When the child element is `null`, it MUST be empty. 
+The [`Content`][Content-type] type is represented by an element with one of several child elements. The name of this child element MUST be one of: `null`, `uri`, or `Ref`. This child element is not nillable and MUST include an opening and closing tag.
 
-If the child element is either `binary` or `hash`, the contents SHOULD be disregarded and the `Content` should be viewed as empty. These tags MUST NOT be written by encoders.
+If the child element is `null`, it represents a `Content` with the [`ContentSourceType`][ContentSourceType-enum] of `None`. The `null` element MUST be empty.
 
-A `Content` with the value `rbxasset://textures/face.png` appears as follows:
+If the child element is `uri`, it represents a `Content` with the `ContentSourceType` of `Uri`. The contents of the child element represents the `Content`'s URI in this case.
+
+If the child element is `Ref` (note the capital R), it represents a `Content` with the `ContentSourceType` of `Object`. In this case, the contents of the child element is a [referent](#ref) that points to an [`Object`][Object-class] somewhere else in the file. As of the time of writing, no `Object`s serialize regularly, so this type of `Content` is for future-proofing and MAY be ignored by implementors until it's relevant.
+
+[Content-type]: https://create.roblox.com/docs/reference/engine/datatypes/Content
+[ContentSourceType-enum]: https://create.roblox.com/docs/reference/engine/enums/ContentSourceType
+[Object-class]: https://create.roblox.com/docs/reference/engine/classes/Object
+
+### ContentId
+
+Note: This type should not be confused with the [`Content`](#content) type. This type was renamed from `Content` to `ContentId` in Roblox release 645.
+
+The `ContentId` data type is represented by an element with one of several child elements. Currently, the name of this child element MUST be either `url` or `null`. Historically, it could also be named `binary` or `hash`. This child element is not nillable and MUST include an opening and closing tag.
+
+If the child element is `url`, then the value of it is the `ContentId`'s URI. If the element is `null`, it indicates the `ContentId` is empty. When the child element is `null`, it MUST be empty. 
+
+If the child element is either `binary` or `hash`, the contents SHOULD be disregarded and the `ContentId` should be viewed as empty. These tags MUST NOT be written by encoders.
+
+A `ContentId` with the value `rbxasset://textures/face.png` appears as follows:
 
 ```xml
-<Content name="ContentExample"><url>rbxasset://textures/face.png</url></Content>
+<ContentId name="ContentExample"><url>rbxasset://textures/face.png</url></ContentId>
 ```
 
-Additionally, a `Content` with no value would appear as follows:
+Additionally, a `ContentId` with no value would appear as follows:
 
 ```xml
-<Content name="ContentExample"><null></null></Content>
+<ContentId name="ContentExample"><null></null></ContentId>
 ```
 
 ### CoordinateFrame
