@@ -1,0 +1,5 @@
+base: roblox
+name: roblox-patch
+globals:
+  Content.none:
+    property: read-only
