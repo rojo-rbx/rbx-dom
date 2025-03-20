@@ -1,4 +1,4 @@
-use rbx_types::{Enum, Font, FontStyle, FontWeight, Variant};
+use rbx_types::{Content, Enum, Font, FontStyle, FontWeight, Variant};
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
@@ -34,6 +34,7 @@ pub enum MigrationOperation {
     IgnoreGuiInsetToScreenInsets,
     FontToFontFace,
     BrickColorToColor,
+    ContentIdToContent,
 }
 
 impl PropertyMigration {
@@ -160,6 +161,22 @@ impl PropertyMigration {
                     Err(MigrationError::InvalidTypeForMigration {
                         migration: MigrationOperation::BrickColorToColor,
                         expected: "BrickColor",
+                        actual: input.clone(),
+                    })
+                }
+            }
+            MigrationOperation::ContentIdToContent => {
+                if let Variant::ContentId(uri) = input {
+                    let uri = uri.as_str();
+                    if uri.is_empty() {
+                        Ok(Content::none().into())
+                    } else {
+                        Ok(Content::from_uri(uri).into())
+                    }
+                } else {
+                    Err(MigrationError::InvalidTypeForMigration {
+                        migration: MigrationOperation::ContentIdToContent,
+                        expected: "ContentId",
                         actual: input.clone(),
                     })
                 }

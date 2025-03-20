@@ -1,21 +1,75 @@
 ---
-source: rbx_binary/src/tests/util.rs
-expression: decoded_viewed
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
 ---
 - referent: referent-0
-  name: ImageButton
-  class: ImageButton
+  name: Decal_None
+  class: Decal
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    Color3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    Face:
+      Enum: 5
+    Sandboxed:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Texture:
+      ContentId: ""
+    Transparency:
+      Float32: 0
+    ZIndex:
+      Int32: 1
+  children: []
+- referent: referent-1
+  name: Decal_SpawnLocation
+  class: Decal
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    Color3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    Face:
+      Enum: 5
+    Sandboxed:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Texture:
+      ContentId: "rbxasset://textures/SpawnLocation.png"
+    Transparency:
+      Float32: 0
+    ZIndex:
+      Int32: 1
+  children: []
+- referent: referent-2
+  name: ImageLabel_None
+  class: ImageLabel
   properties:
     Active:
-      Bool: true
+      Bool: false
     AnchorPoint:
       Vector2:
         - 0
         - 0
     Attributes:
       Attributes: {}
-    AutoButtonColor:
-      Bool: true
     AutoLocalize:
       Bool: true
     AutomaticSize:
@@ -29,27 +83,26 @@ expression: decoded_viewed
       Float32: 0
     BorderColor3:
       Color3:
-        - 0.10588236
-        - 0.16470589
-        - 0.20784315
+        - 0
+        - 0
+        - 0
     BorderMode:
       Enum: 0
     BorderSizePixel:
-      Int32: 1
+      Int32: 0
+    Capabilities:
+      SecurityCapabilities: 0
     ClipsDescendants:
       Bool: false
     Draggable:
       Bool: false
-    HoverImage:
-      ContentId: ""
     ImageColor3:
       Color3:
         - 1
         - 1
         - 1
     ImageContent:
-      Content:
-        Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+      Content: None
     ImageRectOffset:
       Vector2:
         - 0
@@ -60,10 +113,10 @@ expression: decoded_viewed
         - 0
     ImageTransparency:
       Float32: 0
+    Interactable:
+      Bool: true
     LayoutOrder:
       Int32: 0
-    Modal:
-      Bool: false
     NextSelectionDown: "null"
     NextSelectionLeft: "null"
     NextSelectionRight: "null"
@@ -74,18 +127,30 @@ expression: decoded_viewed
           - 0
         - - 0
           - 0
-    PressedImage:
-      ContentId: ""
+    ResampleMode:
+      Enum: 0
     RootLocalizationTable: "null"
     Rotation:
       Float32: 0
+    Sandboxed:
+      Bool: false
     ScaleType:
-      Enum: 1
+      Enum: 0
     Selectable:
-      Bool: true
-    Selected:
+      Bool: false
+    SelectionBehaviorDown:
+      Enum: 0
+    SelectionBehaviorLeft:
+      Enum: 0
+    SelectionBehaviorRight:
+      Enum: 0
+    SelectionBehaviorUp:
+      Enum: 0
+    SelectionGroup:
       Bool: false
     SelectionImageObject: "null"
+    SelectionOrder:
+      Int32: 0
     Size:
       UDim2:
         - - 0
@@ -96,16 +161,14 @@ expression: decoded_viewed
       Enum: 0
     SliceCenter:
       Rect:
-        - - -1
-          - -10
-        - - 8
-          - 9
+        - - 0
+          - 0
+        - - 0
+          - 0
     SliceScale:
       Float32: 1
     SourceAssetId:
       Int64: -1
-    Style:
-      Enum: 0
     Tags:
       Tags: []
     TileSize:
@@ -119,20 +182,18 @@ expression: decoded_viewed
     ZIndex:
       Int32: 1
   children: []
-- referent: referent-1
-  name: ImageButton
-  class: ImageButton
+- referent: referent-3
+  name: ImageLabel_SpawnLocation
+  class: ImageLabel
   properties:
     Active:
-      Bool: true
+      Bool: false
     AnchorPoint:
       Vector2:
         - 0
         - 0
     Attributes:
       Attributes: {}
-    AutoButtonColor:
-      Bool: true
     AutoLocalize:
       Bool: true
     AutomaticSize:
@@ -146,19 +207,19 @@ expression: decoded_viewed
       Float32: 0
     BorderColor3:
       Color3:
-        - 0.10588236
-        - 0.16470589
-        - 0.20784315
+        - 0
+        - 0
+        - 0
     BorderMode:
       Enum: 0
     BorderSizePixel:
-      Int32: 1
+      Int32: 0
+    Capabilities:
+      SecurityCapabilities: 0
     ClipsDescendants:
       Bool: false
     Draggable:
       Bool: false
-    HoverImage:
-      ContentId: ""
     ImageColor3:
       Color3:
         - 1
@@ -166,7 +227,7 @@ expression: decoded_viewed
         - 1
     ImageContent:
       Content:
-        Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+        Uri: "rbxasset://textures/SpawnLocation.png"
     ImageRectOffset:
       Vector2:
         - 0
@@ -177,10 +238,10 @@ expression: decoded_viewed
         - 0
     ImageTransparency:
       Float32: 0
+    Interactable:
+      Bool: true
     LayoutOrder:
       Int32: 0
-    Modal:
-      Bool: false
     NextSelectionDown: "null"
     NextSelectionLeft: "null"
     NextSelectionRight: "null"
@@ -191,18 +252,30 @@ expression: decoded_viewed
           - 0
         - - 0
           - 0
-    PressedImage:
-      ContentId: ""
+    ResampleMode:
+      Enum: 0
     RootLocalizationTable: "null"
     Rotation:
       Float32: 0
+    Sandboxed:
+      Bool: false
     ScaleType:
-      Enum: 1
+      Enum: 0
     Selectable:
-      Bool: true
-    Selected:
+      Bool: false
+    SelectionBehaviorDown:
+      Enum: 0
+    SelectionBehaviorLeft:
+      Enum: 0
+    SelectionBehaviorRight:
+      Enum: 0
+    SelectionBehaviorUp:
+      Enum: 0
+    SelectionGroup:
       Bool: false
     SelectionImageObject: "null"
+    SelectionOrder:
+      Int32: 0
     Size:
       UDim2:
         - - 0
@@ -214,15 +287,13 @@ expression: decoded_viewed
     SliceCenter:
       Rect:
         - - 0
-          - 1
-        - - 5
-          - 6
+          - 0
+        - - 0
+          - 0
     SliceScale:
       Float32: 1
     SourceAssetId:
       Int64: -1
-    Style:
-      Enum: 0
     Tags:
       Tags: []
     TileSize:

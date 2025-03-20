@@ -38,9 +38,10 @@ mod vectors;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
-    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, Enum, Faces, Font,
-    NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, UDim,
-    UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3, Vector3int16,
+    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, ContentId, Enum,
+    Faces, Font, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref,
+    SecurityCapabilities, UDim, UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3,
+    Vector3int16,
 };
 
 use crate::{
@@ -83,10 +84,6 @@ macro_rules! declare_rbx_types {
                     let value = self::strings::ProtectedStringDummy::read_outer_xml(reader)?;
                     Ok(Some(Variant::String(value.0)))
                 },
-                self::content::ContentDummy::XML_TAG_NAME => {
-                    let value = self::content::ContentDummy::read_outer_xml(reader)?;
-                    Ok(Some(Variant::Content(value.0)))
-                }
 
                 self::referent::XML_TAG_NAME => Ok(Some(Variant::Ref(read_ref(reader, instance_id, property_name, state)?))),
                 self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state).map(Some),
@@ -139,6 +136,7 @@ declare_rbx_types! {
     Color3uint8: Color3uint8,
     ColorSequence: ColorSequence,
     Content: Content,
+    ContentId: ContentId,
     Enum: Enum,
     Faces: Faces,
     Float32: f32,
