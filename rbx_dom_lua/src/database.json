@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    664,
+    665,
     0,
-    6640713
+    6650685
   ],
   "Classes": {
     "Accessory": {
@@ -6026,7 +6026,9 @@
     },
     "AudioTextToSpeech": {
       "Name": "AudioTextToSpeech",
-      "Tags": [],
+      "Tags": [
+        "NotBrowsable"
+      ],
       "Superclass": "Instance",
       "Properties": {
         "IsLoaded": {
@@ -6378,34 +6380,6 @@
               "Serialization": "Serializes"
             }
           }
-        },
-        "LocalFrameId": {
-          "Name": "LocalFrameId",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Int32"
-          },
-          "Tags": [
-            "NotReplicated"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
-        },
-        "RemoteFrameId": {
-          "Name": "RemoteFrameId",
-          "Scriptability": "Read",
-          "DataType": {
-            "Value": "Int32"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
-            }
-          }
         }
       },
       "DefaultProperties": {
@@ -6428,21 +6402,7 @@
         "Service"
       ],
       "Superclass": "Instance",
-      "Properties": {
-        "RollbackEnabled": {
-          "Name": "RollbackEnabled",
-          "Scriptability": "ReadWrite",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        }
-      },
+      "Properties": {},
       "DefaultProperties": {
         "Archivable": {
           "Bool": true
@@ -25676,6 +25636,19 @@
             }
           }
         },
+        "HoverHapticEffect": {
+          "Name": "HoverHapticEffect",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Modal": {
           "Name": "Modal",
           "Scriptability": "ReadWrite",
@@ -25782,6 +25755,19 @@
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "PressHapticEffect": {
+          "Name": "PressHapticEffect",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
             }
           }
         },
@@ -27025,7 +27011,9 @@
     },
     "HapticEffect": {
       "Name": "HapticEffect",
-      "Tags": [],
+      "Tags": [
+        "NotBrowsable"
+      ],
       "Superclass": "Instance",
       "Properties": {
         "Looped": {
@@ -33545,6 +33533,45 @@
             }
           }
         },
+        "PressedThreshold": {
+          "Name": "PressedThreshold",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ReleasedThreshold": {
+          "Name": "ReleasedThreshold",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Scale": {
+          "Name": "Scale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "UIButton": {
           "Name": "UIButton",
           "Scriptability": "ReadWrite",
@@ -33575,8 +33602,17 @@
         "KeyCode": {
           "Enum": 0
         },
+        "PressedThreshold": {
+          "Float32": 0.5
+        },
+        "ReleasedThreshold": {
+          "Float32": 0.2
+        },
         "Sandboxed": {
           "Bool": false
+        },
+        "Scale": {
+          "Float32": 1.0
         },
         "SourceAssetId": {
           "Int64": -1
@@ -54070,6 +54106,22 @@
             }
           }
         },
+        "ScrollRate": {
+          "Name": "ScrollRate",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "ScrollVelocity": {
           "Name": "ScrollVelocity",
           "Scriptability": "None",
@@ -54109,6 +54161,22 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "SmoothScroll": {
+          "Name": "SmoothScroll",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -78582,6 +78650,64 @@
         }
       }
     },
+    "WebSocketClient": {
+      "Name": "WebSocketClient",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {
+        "ConnectionState": {
+          "Name": "ConnectionState",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "WebSocketState"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "WebSocketService": {
+      "Name": "WebSocketService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
     "WebViewService": {
       "Name": "WebViewService",
       "Tags": [
@@ -81131,6 +81257,7 @@
       "name": "AlphaMode",
       "items": {
         "Overlay": 0,
+        "TintMask": 2,
         "Transparency": 1
       }
     },
@@ -81759,14 +81886,6 @@
         "Scriptable": 6,
         "Track": 3,
         "Watch": 2
-      }
-    },
-    "CaptureUIHideMode": {
-      "name": "CaptureUIHideMode",
-      "items": {
-        "All": 0,
-        "Core": 2,
-        "None": 1
       }
     },
     "CatalogCategoryFilter": {
@@ -84163,7 +84282,8 @@
       "items": {
         "FlushFailed": 1,
         "LoadFailed": 0,
-        "None": 2
+        "None": 3,
+        "ReleaseFailed": 2
       }
     },
     "PlayerDataLoadFailureBehavior": {
@@ -84868,6 +84988,19 @@
         "BottomRight": 3,
         "TopLeft": 0,
         "TopRight": 1
+      }
+    },
+    "StateObjectFieldType": {
+      "name": "StateObjectFieldType",
+      "items": {
+        "Boolean": 0,
+        "CFrame": 1,
+        "Float": 2,
+        "INVALID": 7,
+        "Instance": 3,
+        "Random": 4,
+        "Vector2": 5,
+        "Vector3": 6
       }
     },
     "Status": {
@@ -85581,6 +85714,14 @@
         "Completed": 1
       }
     },
+    "UICaptureMode": {
+      "name": "UICaptureMode",
+      "items": {
+        "All": 0,
+        "None": 1,
+        "PlayerGui": 2
+      }
+    },
     "UIDragDetectorBoundingBehavior": {
       "name": "UIDragDetectorBoundingBehavior",
       "items": {
@@ -85929,6 +86070,15 @@
         "None": 0,
         "Small": 1,
         "Strong": 3
+      }
+    },
+    "WebSocketState": {
+      "name": "WebSocketState",
+      "items": {
+        "Closed": 3,
+        "Closing": 2,
+        "Connecting": 0,
+        "Open": 1
       }
     },
     "WeldConstraintPreserve": {

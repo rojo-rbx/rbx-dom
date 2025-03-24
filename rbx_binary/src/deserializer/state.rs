@@ -194,10 +194,7 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
                     );
                 }
                 Err(e) => {
-                    log::warn!(
-                        "Failed to migrate property {old_property_name} to {new_property_name} because: {}",
-                        e.to_string()
-                    );
+                    log::warn!("Failed to migrate property {old_property_name} to {new_property_name} because: {e}");
                 }
             };
         }
