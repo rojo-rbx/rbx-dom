@@ -82,7 +82,7 @@ impl<'db> EncodeOptions<'db> {
     pub fn new() -> Self {
         EncodeOptions {
             property_behavior: EncodePropertyBehavior::IgnoreUnknown,
-            database: rbx_reflection_database::get(),
+            database: rbx_reflection_database::get().unwrap(),
         }
     }
 
