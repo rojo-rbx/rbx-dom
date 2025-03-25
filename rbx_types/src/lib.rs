@@ -43,8 +43,4 @@ pub use unique_id::*;
 pub use variant::*;
 
 #[cfg(feature = "mlua")]
-pub trait Global: Sized {
-    const GLOBAL_NAME: &'static str;
-
-    fn create_global(lua: &mlua::Lua) -> mlua::Result<mlua::Value>;
-}
+pub use mlua_impl::Global;
