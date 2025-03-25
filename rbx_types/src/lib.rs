@@ -41,3 +41,10 @@ pub use shared_string::*;
 pub use tags::*;
 pub use unique_id::*;
 pub use variant::*;
+
+#[cfg(feature = "mlua")]
+pub trait Global: Sized {
+    const GLOBAL_NAME: &'static str;
+
+    fn create_global(lua: &mlua::Lua) -> mlua::Result<mlua::Value>;
+}
