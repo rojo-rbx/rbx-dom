@@ -21,6 +21,9 @@ mod tags;
 mod unique_id;
 mod variant;
 
+#[cfg(feature = "mlua")]
+mod mlua_impl;
+
 pub use attributes::*;
 pub use axes::*;
 pub use basic_types::*;
