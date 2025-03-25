@@ -2,7 +2,7 @@ use mlua::{prelude::*, Variadic};
 
 use std::fmt;
 
-use crate::{lister::Lister, Axes};
+use crate::{mlua_impl::util_lister::Lister, Axes};
 
 impl Axes {
     /// Creates a new [`Axes`] using list of axes and/or faces. NormalIds
@@ -52,9 +52,6 @@ impl Axes {
 }
 
 impl fmt::Display for Axes {
-    // This is not correct right now, because the `Lister` utility is not
-    // working as intended, but if PR #491 gets merged, this will then
-    // be accurate to the Roblox `tostring()`.
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
         let mut list = Lister::new();
 
