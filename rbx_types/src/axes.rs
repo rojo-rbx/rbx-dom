@@ -66,7 +66,7 @@ impl Axes {
     /// Whether the X axis, left face, and right face are enabled/included.
     #[cfg(feature = "mlua")]
     #[must_use]
-    #[doc(alias = "X", alias = "Left", alias = "Right")]
+    #[doc(alias("X", "Left", "Right"))]
     pub const fn x(self) -> bool {
         self.contains(Self::X)
     }
@@ -74,7 +74,7 @@ impl Axes {
     /// Whether the Y axis, top face, and bottom face are enabled/included.
     #[cfg(feature = "mlua")]
     #[must_use]
-    #[doc(alias = "Y", alias = "Top", alias = "Bottom")]
+    #[doc(alias("Y", "Top", "Bottom"))]
     pub const fn y(self) -> bool {
         self.contains(Self::Y)
     }
@@ -82,7 +82,7 @@ impl Axes {
     /// Whether the Z axis, back face, and front face are enabled/included.
     #[cfg(feature = "mlua")]
     #[must_use]
-    #[doc(alias = "Z", alias = "Back", alias = "Front")]
+    #[doc(alias("Z", "Back", "Front"))]
     pub const fn z(self) -> bool {
         self.contains(Self::Z)
     }
