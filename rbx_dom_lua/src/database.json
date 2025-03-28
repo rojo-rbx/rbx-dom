@@ -7685,7 +7685,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "MaterialVariantSerialized"
+              }
             }
           }
         },
@@ -7700,8 +7702,8 @@
             "NotScriptable"
           ],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "MaterialVariant"
             }
           }
         },
@@ -16177,7 +16179,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -20227,7 +20229,7 @@
         "Orientation": {
           "Vector3": [
             -0.0,
-            180.0,
+            179.99998,
             90.0
           ]
         },
@@ -23338,7 +23340,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -34641,7 +34643,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshData": {
@@ -39577,7 +39579,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshContent": {
@@ -41298,7 +41300,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshData": {
@@ -43110,7 +43112,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -43660,7 +43662,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshData": {
@@ -54606,7 +54608,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -55972,7 +55974,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -58155,7 +58157,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "Neutral": {
@@ -65982,7 +65984,7 @@
             ]
           }
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PhysicsGrid": {
@@ -71411,7 +71413,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -73894,7 +73896,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MeshData": {
@@ -76563,7 +76565,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "MaxSpeed": {
@@ -78870,7 +78872,7 @@
         "Material": {
           "Enum": 256
         },
-        "MaterialVariantSerialized": {
+        "MaterialVariant": {
           "String": ""
         },
         "PivotOffset": {
@@ -80159,7 +80161,11 @@
           "Bool": true
         },
         "Attributes": {
-          "Attributes": {}
+          "Attributes": {
+            "LogLevel": {
+              "BinaryString": "V2FybmluZw=="
+            }
+          }
         },
         "AvatarUnificationMode": {
           "Enum": 0
