@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    665,
-    0,
-    6650685
+    666,
+    1,
+    6660608
   ],
   "Classes": {
     "Accessory": {
@@ -3843,9 +3843,7 @@
     },
     "AudioChannelMixer": {
       "Name": "AudioChannelMixer",
-      "Tags": [
-        "NotBrowsable"
-      ],
+      "Tags": [],
       "Superclass": "Instance",
       "Properties": {
         "Layout": {
@@ -3894,9 +3892,7 @@
     },
     "AudioChannelSplitter": {
       "Name": "AudioChannelSplitter",
-      "Tags": [
-        "NotBrowsable"
-      ],
+      "Tags": [],
       "Superclass": "Instance",
       "Properties": {
         "Layout": {
@@ -15131,6 +15127,70 @@
         }
       }
     },
+    "ConfigService": {
+      "Name": "ConfigService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "ConfigSnapshot": {
+      "Name": "ConfigSnapshot",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Object",
+      "Properties": {
+        "Error": {
+          "Name": "Error",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "ConfigSnapshotErrorState"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Outdated": {
+          "Name": "Outdated",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {}
+    },
     "Configuration": {
       "Name": "Configuration",
       "Tags": [],
@@ -20229,7 +20289,7 @@
         "Orientation": {
           "Vector3": [
             -0.0,
-            179.99998,
+            180.0,
             90.0
           ]
         },
@@ -80161,11 +80221,7 @@
           "Bool": true
         },
         "Attributes": {
-          "Attributes": {
-            "LogLevel": {
-              "BinaryString": "V2FybmluZw=="
-            }
-          }
+          "Attributes": {}
         },
         "AvatarUnificationMode": {
           "Enum": 0
@@ -82175,6 +82231,13 @@
         "ClickToMove": 2,
         "Default": 0,
         "KeyboardMouse": 1
+      }
+    },
+    "ConfigSnapshotErrorState": {
+      "name": "ConfigSnapshotErrorState",
+      "items": {
+        "LoadFailed": 1,
+        "None": 0
       }
     },
     "ConnectionError": {
