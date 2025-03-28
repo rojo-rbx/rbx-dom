@@ -1,13 +1,15 @@
 # rbx_types Changelog
 
 ## Unreleased Changes
+
+## 2.0.0 (2025-03-28)
 * Changed `Content` to more closely align with Roblox's new `Content` type. This is a breaking change. ([#495])
 * Renamed the old `Content` to `ContentId` to reflect Roblox's API changes. ([#495])
 * Alongside the previous two changes, `Variant::Content` now refers to the new `Content` type and `Variant::ContentId` exists. ([#495])
 
 [#495]: https://github.com/rojo-rbx/rbx-dom/pull/495
 
-# 1.10.0 (2024-08-22)
+## 1.10.0 (2024-08-22)
 * Add support for `Int32` values within `Attributes` ([#439])
 * Add `len` and `is_empty` to `Tags` ([#438])
 * Added support for `EnumItem` attributes. [#470]
