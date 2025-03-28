@@ -257,7 +257,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 256
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         PivotOffset:
           CFrame:
@@ -530,7 +530,7 @@ expression: decoded_viewed
               - 143
               - 144
               - 135
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         PhysicsGrid:
           BinaryString: AgMAAAAAAAAAAAAAAAA=
@@ -704,7 +704,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 256
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         Neutral:
           Bool: true
@@ -1950,4 +1950,3 @@ expression: decoded_viewed
     UniqueId:
       UniqueId: 44b188dace632b4702e9c68d00483208
   children: []
-
