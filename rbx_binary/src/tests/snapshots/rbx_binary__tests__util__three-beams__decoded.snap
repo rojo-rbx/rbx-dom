@@ -47,7 +47,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Texture:
-      Content: ""
+      ContentId: ""
     TextureLength:
       Float32: 1
     TextureMode:
@@ -110,7 +110,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Texture:
-      Content: ""
+      ContentId: ""
     TextureLength:
       Float32: 1
     TextureMode:
@@ -178,7 +178,7 @@ expression: decoded_viewed
     Tags:
       Tags: []
     Texture:
-      Content: ""
+      ContentId: ""
     TextureLength:
       Float32: 1
     TextureMode:

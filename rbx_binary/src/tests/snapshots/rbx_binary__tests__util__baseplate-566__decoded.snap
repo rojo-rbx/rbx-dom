@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -350,7 +349,7 @@ expression: decoded_viewed
             Tags:
               Tags: []
             Texture:
-              Content: "rbxassetid://6372755229"
+              ContentId: "rbxassetid://6372755229"
             Transparency:
               Float32: 0.8
             UniqueId:
@@ -793,7 +792,7 @@ expression: decoded_viewed
             Tags:
               Tags: []
             Texture:
-              Content: "rbxasset://textures/SpawnLocation.png"
+              ContentId: "rbxasset://textures/SpawnLocation.png"
             Transparency:
               Float32: 0
             UniqueId:
@@ -1711,19 +1710,19 @@ expression: decoded_viewed
         MoonAngularSize:
           Float32: 11
         MoonTextureId:
-          Content: "rbxassetid://6444320592"
+          ContentId: "rbxassetid://6444320592"
         SkyboxBk:
-          Content: "rbxassetid://6444884337"
+          ContentId: "rbxassetid://6444884337"
         SkyboxDn:
-          Content: "rbxassetid://6444884785"
+          ContentId: "rbxassetid://6444884785"
         SkyboxFt:
-          Content: "rbxassetid://6444884337"
+          ContentId: "rbxassetid://6444884337"
         SkyboxLf:
-          Content: "rbxassetid://6444884337"
+          ContentId: "rbxassetid://6444884337"
         SkyboxRt:
-          Content: "rbxassetid://6444884337"
+          ContentId: "rbxassetid://6444884337"
         SkyboxUp:
-          Content: "rbxassetid://6412503613"
+          ContentId: "rbxassetid://6412503613"
         SourceAssetId:
           Int64: 332039975
         StarCount:
@@ -1731,7 +1730,7 @@ expression: decoded_viewed
         SunAngularSize:
           Float32: 11
         SunTextureId:
-          Content: "rbxassetid://6196665106"
+          ContentId: "rbxassetid://6196665106"
         Tags:
           Tags: []
         UniqueId:
@@ -1919,8 +1918,6 @@ expression: decoded_viewed
       Bool: false
     HistoryId:
       UniqueId: "00000000000000000000000000000000"
-    Is30FpsThrottleEnabled:
-      Bool: true
     IsPhysicsEnvironmentalThrottled:
       Bool: true
     IsSleepAllowed:

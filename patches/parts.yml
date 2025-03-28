@@ -50,3 +50,15 @@ Change:
         As: shape
     shape:
       AliasFor: Shape
+
+  MeshPart:
+    MeshId:
+      Serialization:
+        Type: Migrate
+        To: MeshContent
+        Migration: ContentIdToContent
+    TextureID:
+      Serialization:
+        Type: Migrate
+        To: MeshContent
+        Migration: ContentIdToContent

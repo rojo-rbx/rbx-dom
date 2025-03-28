@@ -188,6 +188,38 @@ types = {
 	},
 
 	Content = {
+		fromPod = function(pod): Content
+			if type(pod) == "string" then
+				if pod == "None" then
+					return Content.none
+				else
+					error(`unexpected Content value '{pod}'`)
+				end
+			else
+				local ty, value = next(pod)
+				if ty == "Uri" then
+					return Content.fromUri(value)
+				elseif ty == "Object" then
+					error("Object deserializing is not currently implemented")
+				else
+					error(`Unknown Content type '{ty}' (could not deserialize)`)
+				end
+			end
+		end,
+		toPod = function(roblox: Content)
+			if roblox.SourceType == Enum.ContentSourceType.None then
+				return "None"
+			elseif roblox.SourceType == Enum.ContentSourceType.Uri then
+				return { Uri = roblox.Uri }
+			elseif roblox.SourceType == Enum.ContentSourceType.Object then
+				error("Object serializing is not currently implemented")
+			else
+				error(`Unknown Content type '{roblox.SourceType} (could not serialize)`)
+			end
+		end,
+	},
+
+	ContentId = {
 		fromPod = identity,
 		toPod = identity,
 	},

@@ -79,4 +79,7 @@ pub(crate) enum InnerError {
         expected_type_id: u8,
         actual_type_id: u8,
     },
+
+    #[error("'Content' type {0} is not implemented")]
+    BadContentType(i32),
 }

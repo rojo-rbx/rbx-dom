@@ -133,7 +133,13 @@ fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Resul
             // These classes can't be put into place files by default.
             "DebuggerWatch" | "DebuggerBreakpoint" | "AdvancedDragger" | "Dragger"
             | "ScriptDebugger" | "PackageLink" | "Ad" | "AdPortal" | "AdGui"
-            | "InternalSyncItem" => continue,
+            | "InternalSyncItem" | "AuroraScript" => continue,
+
+            // Settings singletons cannot be put into a DataModel. This changed
+            // in release 653 and 657.
+            "DebugSettings" | "GameSettings" | "LuaSettings" | "NetworkSettings"
+            | "PhysicsSettings" | "RenderSettings" | "Studio" | "TaskScheduler"
+            | "UserGameSettings" => continue,
 
             // This class will cause studio to crash on close.
             "VoiceSource" => continue,
@@ -262,7 +268,7 @@ impl<'a> PluginInjector<'a> {
     }
 }
 
-impl<'a> Drop for PluginInjector<'a> {
+impl Drop for PluginInjector<'_> {
     fn drop(&mut self) {
         log::info!("Uninstalling Studio plugin");
 

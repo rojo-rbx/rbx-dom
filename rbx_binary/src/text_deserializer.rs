@@ -4,7 +4,12 @@
 
 #![allow(missing_docs)]
 
-use std::{collections::HashMap, convert::TryInto, fmt::Write, io::Read};
+use std::{
+    collections::{HashMap, VecDeque},
+    convert::TryInto,
+    fmt::Write,
+    io::Read,
+};
 
 use rbx_dom_weak::types::{
     Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
@@ -225,6 +230,7 @@ pub enum DecodedValues {
     UniqueId(Vec<UniqueId>),
     Font(Vec<Font>),
     SecurityCapabilities(Vec<SecurityCapabilities>),
+    Content(Vec<SerializedContentType>),
 }
 
 impl DecodedValues {
@@ -725,6 +731,41 @@ impl DecodedValues {
 
                 Some(DecodedValues::SecurityCapabilities(values))
             }
+            Type::Content => {
+                let mut values = vec![SerializedContentType::None; prop_count];
+
+                let mut source_types = vec![0; prop_count];
+                reader
+                    .read_interleaved_i32_array(&mut source_types)
+                    .unwrap();
+
+                let uri_count = reader.read_le_u32().unwrap() as usize;
+                let mut uris = VecDeque::with_capacity(uri_count);
+                for _ in 0..uri_count {
+                    uris.push_front(reader.read_string().unwrap());
+                }
+
+                let object_count = reader.read_le_u32().unwrap() as usize;
+                let mut objects: VecDeque<i32> = vec![0; object_count].into();
+                reader
+                    .read_referent_array(objects.make_contiguous())
+                    .unwrap();
+
+                let external_count = reader.read_le_u32().unwrap() as usize;
+                let mut external_objects = vec![0; external_count * 4];
+                reader.read_to_end(&mut external_objects).unwrap();
+
+                for (v, ty) in values.iter_mut().zip(source_types) {
+                    *v = match ty {
+                        0 => SerializedContentType::None,
+                        1 => SerializedContentType::Uri(uris.pop_back().unwrap()),
+                        2 => SerializedContentType::Object(objects.pop_back().unwrap()),
+                        n => SerializedContentType::Unknown(n),
+                    }
+                }
+
+                Some(DecodedValues::Content(values))
+            }
         }
     }
 }
@@ -838,6 +879,14 @@ where
     }
 
     state.end()
+}
+
+#[derive(Debug, Serialize, Clone)]
+pub enum SerializedContentType {
+    None,
+    Uri(String),
+    Object(i32),
+    Unknown(i32),
 }
 
 /// Contains data that we haven't decoded for a chunk. Using `unknown_buffer`

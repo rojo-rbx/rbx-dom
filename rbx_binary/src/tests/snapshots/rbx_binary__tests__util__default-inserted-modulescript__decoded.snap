@@ -9,7 +9,7 @@ expression: decoded_viewed
     Attributes:
       Attributes: {}
     LinkedSource:
-      Content: ""
+      ContentId: ""
     ScriptGuid:
       String: "{27E39FEB-27B7-43EC-9398-04115CF856B2}"
     Source:

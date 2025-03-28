@@ -41,14 +41,15 @@ expression: decoded_viewed
     Draggable:
       Bool: false
     HoverImage:
-      Content: ""
-    Image:
-      Content: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+      ContentId: ""
     ImageColor3:
       Color3:
         - 1
         - 1
         - 1
+    ImageContent:
+      Content:
+        Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageRectOffset:
       Vector2:
         - 0
@@ -74,7 +75,7 @@ expression: decoded_viewed
         - - 0
           - 0
     PressedImage:
-      Content: ""
+      ContentId: ""
     RootLocalizationTable: "null"
     Rotation:
       Float32: 0
@@ -157,14 +158,15 @@ expression: decoded_viewed
     Draggable:
       Bool: false
     HoverImage:
-      Content: ""
-    Image:
-      Content: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+      ContentId: ""
     ImageColor3:
       Color3:
         - 1
         - 1
         - 1
+    ImageContent:
+      Content:
+        Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
     ImageRectOffset:
       Vector2:
         - 0
@@ -190,7 +192,7 @@ expression: decoded_viewed
         - - 0
           - 0
     PressedImage:
-      Content: ""
+      ContentId: ""
     RootLocalizationTable: "null"
     Rotation:
       Float32: 0
