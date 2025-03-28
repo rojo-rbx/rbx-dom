@@ -1,8 +1,11 @@
 # rbx_reflection Changelog
 
 ## Unreleased Changes
+
+## 5.0.0 (2025-03-28)
 * Added `ReflectionDatabase::superclasses_iter`
 * Added `ReflectionDatabase::has_superclass`, like `Instance:IsA(ClassName)`
+* Updated rbx_types to 2.0.0, which includes breaking changes to how a `ReflectionDatabase` serializes
 
 ## 4.7.0 (2024-08-22)
 * Update to rbx_types 1.10
