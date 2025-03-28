@@ -157,7 +157,7 @@ expression: "DomViewer::new().view_children(&decoded)"
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -328,7 +328,7 @@ expression: "DomViewer::new().view_children(&decoded)"
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -499,7 +499,7 @@ expression: "DomViewer::new().view_children(&decoded)"
           Bool: false
         Material:
           Enum: 1088
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -670,7 +670,7 @@ expression: "DomViewer::new().view_children(&decoded)"
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -841,7 +841,7 @@ expression: "DomViewer::new().view_children(&decoded)"
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -1012,7 +1012,7 @@ expression: "DomViewer::new().view_children(&decoded)"
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -1183,7 +1183,7 @@ expression: "DomViewer::new().view_children(&decoded)"
           Bool: false
         Material:
           Enum: 1088
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -1354,7 +1354,7 @@ expression: "DomViewer::new().view_children(&decoded)"
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -1430,4 +1430,3 @@ expression: "DomViewer::new().view_children(&decoded)"
             - 0
             - 0
       children: []
-
