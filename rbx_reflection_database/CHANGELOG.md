@@ -2,6 +2,11 @@
 
 ## Unreleased Changes
 
+## 1.0.1+roblox-666 (2025-03-31)
+* Corrected the serialization of `MeshPart.TextureID` to migrate to `MeshPart.TextureContent` ([#505])
+
+[#505]: https://github.com/rojo-rbx/rbx-dom/pull/505
+
 ## 1.0.0+roblox-666 (2025-03-28)
 * Update to Roblox version 666.
 * `Model.WorldPivotData`'s default value is now `null`. ([#450])
