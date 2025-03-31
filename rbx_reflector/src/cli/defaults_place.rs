@@ -94,6 +94,13 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<StudioInfo> {
             r#"
 tell application "System Events"
     set frontmost of the first process whose unix id is {process_id} to true
+
+    delay 0.5
+
+    repeat 5 times
+		key code 53 -- Escape key
+	end repeat
+
     keystroke "s" using command down
 end tell
 "#
