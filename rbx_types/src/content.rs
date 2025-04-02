@@ -49,6 +49,12 @@ impl Content {
     pub fn value_mut(&mut self) -> &mut ContentType {
         &mut self.0
     }
+
+    /// Consumes this `Content` and returns the underlying value.
+    #[inline]
+    pub fn into_value(self) -> ContentType {
+        self.0
+    }
 }
 
 impl From<String> for Content {
@@ -72,7 +78,6 @@ impl From<&'_ str> for Content {
     derive(serde::Serialize, serde::Deserialize),
     serde(transparent)
 )]
-
 pub struct ContentId {
     url: String,
 }
