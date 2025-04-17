@@ -43,6 +43,7 @@ use rbx_dom_weak::types::{
     SecurityCapabilities, UDim, UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3,
     Vector3int16,
 };
+use rbx_dom_weak::Instance;
 
 use crate::{
     core::XmlType,
@@ -69,9 +70,9 @@ macro_rules! declare_rbx_types {
 
         /// Reads a Roblox property value with the given type from the XML event
         /// stream.
-        pub fn read_value_xml<R: Read>(
+        pub fn read_value_xml<R: Read,I:AsRef<Instance>>(
             reader: &mut XmlEventReader<R>,
-            state: &mut ParseState,
+            state: &mut ParseState<'_,'_,I>,
             xml_type_name: &str,
             instance_id: Ref,
             property_name: &str,

@@ -4,7 +4,7 @@ use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
-    InstanceBuilder, Ustr, WeakDom,
+    GenericWeakDom, Instance, InstanceBuilder, Ustr,
 };
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
@@ -17,8 +17,14 @@ use crate::{
 
 use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 
-pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
-    let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
+pub fn decode_internal<R: Read, I>(
+    source: R,
+    options: DecodeOptions,
+) -> Result<GenericWeakDom<I>, DecodeError>
+where
+    I: AsRef<Instance> + AsMut<Instance> + From<Instance>,
+{
+    let mut tree = GenericWeakDom::new(InstanceBuilder::new("DataModel"));
 
     let root_id = tree.root_ref();
 
@@ -113,8 +119,8 @@ impl<'db> Default for DecodeOptions<'db> {
 }
 
 /// The state needed to deserialize an XML model into an `WeakDom`.
-pub struct ParseState<'dom, 'db> {
-    tree: &'dom mut WeakDom,
+pub struct ParseState<'dom, 'db, I> {
+    tree: &'dom mut GenericWeakDom<I>,
 
     options: DecodeOptions<'db>,
 
@@ -161,8 +167,8 @@ struct SharedStringRewrite {
     shared_string_hash: String,
 }
 
-impl<'dom, 'db> ParseState<'dom, 'db> {
-    fn new(tree: &'dom mut WeakDom, options: DecodeOptions<'db>) -> ParseState<'dom, 'db> {
+impl<'dom, 'db, I> ParseState<'dom, 'db, I> {
+    fn new(tree: &'dom mut GenericWeakDom<I>, options: DecodeOptions<'db>) -> Self {
         ParseState {
             tree,
             options,
@@ -176,13 +182,16 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     }
 
     /// Called when the deserializer encounters an unknown property type.
-    pub fn unknown_type_visited(&mut self, id: Ref, property_name: &str, type_name: &str) {
+    pub fn unknown_type_visited(&mut self, id: Ref, property_name: &str, type_name: &str)
+    where
+        I: AsRef<Instance>,
+    {
         if self.unknown_type_names.contains(type_name) {
             return;
         }
 
         self.unknown_type_names.insert(type_name.to_owned());
-        let instance = self.tree.get_by_ref(id).unwrap();
+        let instance = self.tree.get_by_ref(id).unwrap().as_ref();
 
         log::warn!(
             "Unknown value type name \"{name}\" in Roblox XML model file. \
@@ -223,7 +232,10 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     }
 }
 
-fn apply_referent_rewrites(state: &mut ParseState) {
+fn apply_referent_rewrites<I>(state: &mut ParseState<'_, '_, I>)
+where
+    I: AsMut<Instance>,
+{
     for rewrite in &state.referent_rewrites {
         let new_value = match state.referents_to_ids.get(&rewrite.referent_value) {
             Some(id) => *id,
@@ -233,7 +245,8 @@ fn apply_referent_rewrites(state: &mut ParseState) {
         let instance = state
             .tree
             .get_by_ref_mut(rewrite.id)
-            .expect("rbx_xml bug: had ID in referent rewrite list that didn't end up in the tree");
+            .expect("rbx_xml bug: had ID in referent rewrite list that didn't end up in the tree")
+            .as_mut();
 
         instance.properties.insert(
             rewrite.property_name.as_str().into(),
@@ -242,16 +255,23 @@ fn apply_referent_rewrites(state: &mut ParseState) {
     }
 }
 
-fn apply_shared_string_rewrites(state: &mut ParseState) {
+fn apply_shared_string_rewrites<I>(state: &mut ParseState<'_, '_, I>)
+where
+    I: AsMut<Instance>,
+{
     for rewrite in &state.shared_string_rewrites {
         let new_value = match state.known_shared_strings.get(&rewrite.shared_string_hash) {
             Some(v) => v.clone(),
             None => continue,
         };
 
-        let instance = state.tree.get_by_ref_mut(rewrite.id).expect(
-            "rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree",
-        );
+        let instance = state
+            .tree
+            .get_by_ref_mut(rewrite.id)
+            .expect(
+                "rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree",
+            )
+            .as_mut();
 
         instance.properties.insert(
             rewrite.property_name.as_str().into(),
@@ -260,11 +280,14 @@ fn apply_shared_string_rewrites(state: &mut ParseState) {
     }
 }
 
-fn deserialize_root<R: Read>(
+fn deserialize_root<R: Read, I>(
     reader: &mut XmlEventReader<R>,
-    state: &mut ParseState,
+    state: &mut ParseState<'_, '_, I>,
     parent_id: Ref,
-) -> Result<(), DecodeError> {
+) -> Result<(), DecodeError>
+where
+    I: AsRef<Instance> + AsMut<Instance> + From<Instance>,
+{
     match reader.expect_next()? {
         XmlReadEvent::StartDocument { .. } => {}
         _ => unreachable!(),
@@ -331,9 +354,9 @@ fn deserialize_root<R: Read>(
     Ok(())
 }
 
-fn deserialize_metadata<R: Read>(
+fn deserialize_metadata<R: Read, I>(
     reader: &mut XmlEventReader<R>,
-    state: &mut ParseState,
+    state: &mut ParseState<'_, '_, I>,
 ) -> Result<(), DecodeError> {
     let name = {
         let attributes = reader.expect_start_with_name("Meta")?;
@@ -356,9 +379,9 @@ fn deserialize_metadata<R: Read>(
     Ok(())
 }
 
-fn deserialize_shared_string_dict<R: Read>(
+fn deserialize_shared_string_dict<R: Read, I>(
     reader: &mut XmlEventReader<R>,
-    state: &mut ParseState,
+    state: &mut ParseState<'_, '_, I>,
 ) -> Result<(), DecodeError> {
     reader.expect_start_with_name("SharedStrings")?;
 
@@ -391,9 +414,9 @@ fn deserialize_shared_string_dict<R: Read>(
     Ok(())
 }
 
-fn deserialize_shared_string<R: Read>(
+fn deserialize_shared_string<R: Read, I>(
     reader: &mut XmlEventReader<R>,
-    state: &mut ParseState,
+    state: &mut ParseState<'_, '_, I>,
 ) -> Result<(), DecodeError> {
     let attributes = reader.expect_start_with_name("SharedString")?;
 
@@ -418,11 +441,14 @@ fn deserialize_shared_string<R: Read>(
     Ok(())
 }
 
-fn deserialize_instance<R: Read>(
+fn deserialize_instance<R: Read, I>(
     reader: &mut XmlEventReader<R>,
-    state: &mut ParseState,
+    state: &mut ParseState<'_, '_, I>,
     parent_id: Ref,
-) -> Result<(), DecodeError> {
+) -> Result<(), DecodeError>
+where
+    I: AsRef<Instance> + AsMut<Instance> + From<Instance>,
+{
     let (class_name, referent) = {
         let attributes = reader.expect_start_with_name("Item")?;
 
@@ -493,7 +519,7 @@ fn deserialize_instance<R: Read>(
         }
     }
 
-    let instance = state.tree.get_by_ref_mut(instance_id).unwrap();
+    let instance = state.tree.get_by_ref_mut(instance_id).unwrap().as_mut();
 
     instance.name = match properties.remove(&"Name".into()) {
         Some(value) => match value {
@@ -512,18 +538,22 @@ fn deserialize_instance<R: Read>(
     Ok(())
 }
 
-fn deserialize_properties<R: Read>(
+fn deserialize_properties<R: Read, I>(
     reader: &mut XmlEventReader<R>,
-    state: &mut ParseState,
+    state: &mut ParseState<'_, '_, I>,
     instance_id: Ref,
     props: &mut HashMap<Ustr, Variant>,
-) -> Result<(), DecodeError> {
+) -> Result<(), DecodeError>
+where
+    I: AsRef<Instance>,
+{
     reader.expect_start_with_name("Properties")?;
 
     let class_name = state
         .tree
         .get_by_ref(instance_id)
         .expect("Couldn't find instance to deserialize properties into")
+        .as_ref()
         .class;
 
     log::trace!(

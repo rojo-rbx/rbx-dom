@@ -125,7 +125,7 @@ mod tests;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{types::Ref, WeakDom};
+use rbx_dom_weak::{types::Ref, GenericWeakDom, Instance, WeakDom};
 
 use crate::{deserializer::decode_internal, serializer::encode_internal};
 
@@ -138,6 +138,18 @@ pub use crate::{
 /// Decodes an XML-format model or place from something that implements the
 /// `std::io::Read` trait.
 pub fn from_reader<R: Read>(reader: R, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
+    decode_internal(reader, options)
+}
+
+/// Decodes an XML-format model or place from something that implements the
+/// `std::io::Read` trait.  Decodes to a GenericWeakDom.
+pub fn from_reader_generic<R: Read, I>(
+    reader: R,
+    options: DecodeOptions,
+) -> Result<GenericWeakDom<I>, DecodeError>
+where
+    I: AsRef<Instance> + AsMut<Instance> + From<Instance>,
+{
     decode_internal(reader, options)
 }
 
@@ -163,6 +175,17 @@ pub fn from_str_default<S: AsRef<str>>(reader: S) -> Result<WeakDom, DecodeError
 pub fn to_writer<W: Write>(
     writer: W,
     tree: &WeakDom,
+    ids: &[Ref],
+    options: EncodeOptions,
+) -> Result<(), EncodeError> {
+    encode_internal(writer, tree, ids, options)
+}
+
+/// Serializes a subset of the given tree to an XML format model or place,
+/// writing to something that implements the `std::io::Write` trait.
+pub fn to_writer_generic<W: Write, I: AsRef<Instance>>(
+    writer: W,
+    tree: &GenericWeakDom<I>,
     ids: &[Ref],
     options: EncodeOptions,
 ) -> Result<(), EncodeError> {

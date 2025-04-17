@@ -34,11 +34,11 @@ pub fn write_shared_string<W: Write>(
     Ok(())
 }
 
-pub fn read_shared_string<R: Read>(
+pub fn read_shared_string<R: Read, I>(
     reader: &mut XmlEventReader<R>,
     referent: Ref,
     property_name: &str,
-    state: &mut ParseState,
+    state: &mut ParseState<'_, '_, I>,
 ) -> Result<Variant, DecodeError> {
     let contents = reader.read_tag_contents(XML_TAG_NAME)?;
 

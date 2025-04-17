@@ -12,6 +12,7 @@
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::Ref;
+use rbx_dom_weak::Instance;
 
 use crate::{
     deserializer::ParseState,
@@ -42,11 +43,11 @@ pub fn write_ref<W: Write>(
     Ok(())
 }
 
-pub fn read_ref<R: Read>(
+pub fn read_ref<R: Read, I: AsRef<Instance>>(
     reader: &mut XmlEventReader<R>,
     id: Ref,
     property_name: &str,
-    state: &mut ParseState,
+    state: &mut ParseState<'_, '_, I>,
 ) -> Result<Ref, DecodeError> {
     let ref_contents = reader.read_tag_contents(XML_TAG_NAME)?;
 

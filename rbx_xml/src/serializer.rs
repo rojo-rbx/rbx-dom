@@ -3,7 +3,7 @@ use std::{borrow::Cow, collections::BTreeMap, io::Write};
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
     types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
-    WeakDom,
+    GenericWeakDom, Instance,
 };
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
@@ -16,9 +16,9 @@ use crate::{
 
 use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
 
-pub fn encode_internal<W: Write>(
+pub fn encode_internal<W: Write, I: AsRef<Instance>>(
     output: W,
-    tree: &WeakDom,
+    tree: &GenericWeakDom<I>,
     ids: &[Ref],
     options: EncodeOptions,
 ) -> Result<(), NewEncodeError> {
@@ -160,14 +160,14 @@ impl<'db> EmitState<'db> {
 ///
 /// `property_buffer` is a Vec that can be reused between calls to
 /// serialize_instance to make sorting properties more efficient.
-fn serialize_instance<'dom, W: Write>(
+fn serialize_instance<'dom, W: Write, I: AsRef<Instance>>(
     writer: &mut XmlEventWriter<W>,
     state: &mut EmitState,
-    tree: &'dom WeakDom,
+    tree: &'dom GenericWeakDom<I>,
     id: Ref,
     property_buffer: &mut Vec<(&'dom str, &'dom Variant)>,
 ) -> Result<(), NewEncodeError> {
-    let instance = tree.get_by_ref(id).unwrap();
+    let instance = tree.get_by_ref(id).unwrap().as_ref();
     let mapped_id = state.map_id(id);
 
     writer.write(

@@ -22,7 +22,7 @@ fn with_bool() {
         </roblox>
     "#;
 
-    let tree = crate::from_str_default(document).unwrap();
+    let tree: WeakDom = crate::from_str_default(document).unwrap();
 
     let root = tree.root();
     let child = tree.get_by_ref(root.children()[0]).unwrap();
@@ -49,7 +49,7 @@ fn read_tags() {
         </roblox>
     "#;
 
-    let dom = crate::from_str_default(document).unwrap();
+    let dom: WeakDom = crate::from_str_default(document).unwrap();
     let folder = dom.get_by_ref(dom.root().children()[0]).unwrap();
 
     let mut tags = Tags::new();
@@ -112,7 +112,7 @@ fn read_attributes() {
         </roblox>
     "#;
 
-    let dom = crate::from_str_default(document).unwrap();
+    let dom: WeakDom = crate::from_str_default(document).unwrap();
     let folder = dom.get_by_ref(dom.root().children()[0]).unwrap();
 
     assert_eq!(folder.properties.get(&"AttributesSerialize".into()), None);
@@ -223,7 +223,7 @@ fn read_material_colors() {
         </roblox>
     "#;
 
-    let dom = crate::from_str_default(document).unwrap();
+    let dom: WeakDom = crate::from_str_default(document).unwrap();
     let terrain = dom.get_by_ref(dom.root().children()[0]).unwrap();
 
     if let Some(Variant::MaterialColors(colors)) = terrain.properties.get(&"MaterialColors".into())
@@ -266,7 +266,7 @@ fn read_unique_id() {
         </roblox>
     "#;
 
-    let tree = crate::from_str(
+    let tree: WeakDom = crate::from_str(
         document,
         crate::DecodeOptions::new()
             // This is necessary at the moment because we do not actually
@@ -309,7 +309,7 @@ fn number_widening() {
             </Item>
         </roblox>
     "#;
-    let tree = crate::from_str_default(document).unwrap();
+    let tree: WeakDom = crate::from_str_default(document).unwrap();
 
     let int_value = tree.get_by_ref(tree.root().children()[0]).unwrap();
     assert_eq!(int_value.class, "IntValue");
@@ -366,7 +366,7 @@ fn enum_item_to_enum() {
     let mut encoded = Vec::new();
     crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
 
-    let decoded = crate::from_reader_default(encoded.as_slice()).unwrap();
+    let decoded: WeakDom = crate::from_reader_default(encoded.as_slice()).unwrap();
     let prop_type = decoded
         .get_by_ref(*decoded.root().children().first().unwrap())
         .unwrap()
