@@ -10,7 +10,7 @@ use rbx_dom_weak::{
         SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
         Vector3int16,
     },
-    InstanceBuilder, Ustr, WeakDom,
+    GenericWeakDom, InstanceBuilder, Ustr,
 };
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
@@ -22,7 +22,7 @@ use crate::{
 
 use super::{error::InnerError, header::FileHeader, Deserializer};
 
-pub(super) struct DeserializerState<'db, R> {
+pub(super) struct DeserializerState<'db, R, I> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
 
@@ -31,7 +31,7 @@ pub(super) struct DeserializerState<'db, R> {
 
     /// The tree that instances should be written into. Eventually returned to
     /// the user.
-    tree: WeakDom,
+    tree: GenericWeakDom<I>,
 
     /// The metadata contained in the file, which affects how some constructs
     /// are interpreted by Roblox.
@@ -205,12 +205,15 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
     }
 }
 
-impl<'db, R: Read> DeserializerState<'db, R> {
+impl<'db, R: Read, I> DeserializerState<'db, R, I> {
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
         mut input: R,
-    ) -> Result<Self, InnerError> {
-        let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
+    ) -> Result<Self, InnerError>
+    where
+        I: AsMut<rbx_dom_weak::Instance> + From<rbx_dom_weak::Instance>,
+    {
+        let mut tree = GenericWeakDom::new(InstanceBuilder::new("DataModel"));
 
         let header = FileHeader::decode(&mut input)?;
 
@@ -1541,7 +1544,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     #[profiling::function]
-    pub(super) fn finish(mut self) -> WeakDom {
+    pub(super) fn finish(mut self) -> GenericWeakDom<I>
+    where
+        I: AsMut<rbx_dom_weak::Instance> + From<rbx_dom_weak::Instance>,
+    {
         log::trace!("Constructing tree from deserialized data");
 
         // Track all the instances we need to construct. Order of construction

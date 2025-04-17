@@ -1,6 +1,6 @@
 use std::{fs, path::Path};
 
-use rbx_dom_weak::DomViewer;
+use rbx_dom_weak::{DomViewer, WeakDom};
 
 use crate::{from_reader, text_deserializer::DecodedModel, to_writer};
 
@@ -51,5 +51,5 @@ pub fn run_model_base_suite(model_path: impl AsRef<Path>) {
     // We don't make any assertions about the result right now, as our format
     // support is still lacking. In the future, we should assert that this is
     // the same as the original decoding of the test file.
-    from_reader(encoded.as_slice()).unwrap();
+    let _: WeakDom = from_reader(encoded.as_slice()).unwrap();
 }

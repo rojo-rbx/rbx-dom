@@ -67,7 +67,7 @@ mod tests;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{types::Ref, WeakDom};
+use rbx_dom_weak::{types::Ref, GenericWeakDom, Instance};
 
 /// An unstable textual format that can be used to debug binary models.
 #[cfg(feature = "unstable_text_format")]
@@ -81,12 +81,37 @@ pub use crate::{
 };
 
 /// Deserialize a Roblox binary model or place from a stream.
-pub fn from_reader<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
+pub fn from_reader<R: Read>(reader: R) -> Result<GenericWeakDom<Instance>, DecodeError> {
+    Deserializer::new().deserialize(reader)
+}
+
+/// Deserialize a Roblox binary model or place from a stream.  Deserializes to a GenericWeakDom.
+pub fn from_reader_generic<R: Read, I>(reader: R) -> Result<GenericWeakDom<I>, DecodeError>
+where
+    I: AsMut<Instance> + From<Instance>,
+{
     Deserializer::new().deserialize(reader)
 }
 
 /// Serializes a subset of the given DOM to a binary format model or place,
 /// writing to something that implements the `std::io::Write` trait.
-pub fn to_writer<W: Write>(writer: W, dom: &WeakDom, refs: &[Ref]) -> Result<(), EncodeError> {
+pub fn to_writer<W: Write>(
+    writer: W,
+    dom: &GenericWeakDom<Instance>,
+    refs: &[Ref],
+) -> Result<(), EncodeError> {
+    Serializer::new().serialize(writer, dom, refs)
+}
+
+/// Serializes a subset of the given DOM to a binary format model or place,
+/// writing to something that implements the `std::io::Write` trait.
+pub fn to_writer_generic<W: Write, I>(
+    writer: W,
+    dom: &GenericWeakDom<I>,
+    refs: &[Ref],
+) -> Result<(), EncodeError>
+where
+    I: AsRef<Instance>,
+{
     Serializer::new().serialize(writer, dom, refs)
 }

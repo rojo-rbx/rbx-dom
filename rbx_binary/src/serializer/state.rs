@@ -14,7 +14,7 @@ use rbx_dom_weak::{
         PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
         UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
-    Instance, Ustr, UstrSet, WeakDom,
+    GenericWeakDom, Instance, Ustr, UstrSet,
 };
 
 use rbx_reflection::{
@@ -39,11 +39,11 @@ static FILE_FOOTER: &[u8] = b"</roblox>";
 /// Represents all of the state during a single serialization session. A new
 /// `BinarySerializer` object should be created every time we want to serialize
 /// a binary model file.
-pub(super) struct SerializerState<'dom, 'db, W> {
+pub(super) struct SerializerState<'dom, 'db, W, I> {
     serializer: &'db Serializer<'db>,
 
     /// The dom containing all of the instances that we're serializing.
-    dom: &'dom WeakDom,
+    dom: &'dom GenericWeakDom<I>,
 
     /// Where the binary output should be written.
     output: W,
@@ -228,8 +228,8 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
     }
 }
 
-impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
-    pub fn new(serializer: &'db Serializer<'db>, dom: &'dom WeakDom, output: W) -> Self {
+impl<'dom, 'db, W: Write, I> SerializerState<'dom, 'db, W, I> {
+    pub fn new(serializer: &'db Serializer<'db>, dom: &'dom GenericWeakDom<I>, output: W) -> Self {
         SerializerState {
             serializer,
             dom,
@@ -245,7 +245,10 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     /// Mark the given instance IDs and all of their descendants as intended for
     /// serialization with this serializer.
     #[profiling::function]
-    pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
+    pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError>
+    where
+        I: AsRef<Instance>,
+    {
         // Populate relevant_instances with a depth-first post-order traversal over the
         // tree(s). This is important to ensure that the order of the PRNT chunk (later
         // written by SerializerState::serialize_parents) is correct.
@@ -270,17 +273,19 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 .get_by_ref(*referent)
                 .ok_or(InnerError::InvalidInstanceId {
                     referent: *referent,
-                })?;
+                })?
+                .as_ref();
 
             to_visit.extend(instance.children().iter().rev());
 
             while let Some(referent) = to_visit.last() {
-                let instance =
-                    self.dom
-                        .get_by_ref(*referent)
-                        .ok_or(InnerError::InvalidInstanceId {
-                            referent: *referent,
-                        })?;
+                let instance = self
+                    .dom
+                    .get_by_ref(*referent)
+                    .ok_or(InnerError::InvalidInstanceId {
+                        referent: *referent,
+                    })?
+                    .as_ref();
 
                 if !instance.children().is_empty()
                     && instance.children().last() != last_visited_child.as_ref()
@@ -602,7 +607,10 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     /// previously defined in the INST chunks. Property data is contained in
     /// chunks named PROP.
     #[profiling::function]
-    pub fn serialize_properties(&mut self) -> Result<(), InnerError> {
+    pub fn serialize_properties(&mut self) -> Result<(), InnerError>
+    where
+        I: AsRef<Instance>,
+    {
         log::trace!("Writing properties");
 
         for (type_name, type_info) in &self.type_infos.values {
@@ -1294,7 +1302,10 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     /// Write out the hierarchical relations between instances, stored in a
     /// chunk named PRNT.
     #[profiling::function]
-    pub fn serialize_parents(&mut self) -> Result<(), InnerError> {
+    pub fn serialize_parents(&mut self) -> Result<(), InnerError>
+    where
+        I: AsRef<Instance>,
+    {
         log::trace!("Writing parent relationships");
 
         let mut chunk = ChunkBuilder::new(b"PRNT", self.serializer.compression);
@@ -1308,7 +1319,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             .map(|id| self.id_to_referent[id]);
 
         let parent_referents = self.relevant_instances.iter().map(|id| {
-            let instance = self.dom.get_by_ref(*id).unwrap();
+            let instance = self.dom.get_by_ref(*id).unwrap().as_ref();
 
             // If there's no parent set OR our parent is not one of the
             // instances we're serializing, we use -1 to represent a null
@@ -1346,12 +1357,15 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     }
 
     /// Equivalent to Instance:GetFullName() from Roblox.
-    fn full_name_for(&self, subject_ref: Ref) -> String {
+    fn full_name_for(&self, subject_ref: Ref) -> String
+    where
+        I: AsRef<Instance>,
+    {
         let mut components = Vec::new();
         let mut current_id = subject_ref;
 
         while current_id.is_some() {
-            let instance = self.dom.get_by_ref(current_id).unwrap();
+            let instance = self.dom.get_by_ref(current_id).unwrap().as_ref();
             components.push(instance.name.as_str());
             current_id = instance.parent();
         }

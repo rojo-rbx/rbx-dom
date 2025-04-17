@@ -4,7 +4,7 @@ mod state;
 
 use std::{io::Read, str};
 
-use rbx_dom_weak::WeakDom;
+use rbx_dom_weak::{GenericWeakDom, Instance};
 use rbx_reflection::ReflectionDatabase;
 
 use self::state::DeserializerState;
@@ -66,7 +66,10 @@ impl<'db> Deserializer<'db> {
 
     /// Deserialize a Roblox binary model or place from the given stream using
     /// this deserializer.
-    pub fn deserialize<R: Read>(&self, reader: R) -> Result<WeakDom, Error> {
+    pub fn deserialize<R: Read, I>(&self, reader: R) -> Result<GenericWeakDom<I>, Error>
+    where
+        I: AsMut<Instance> + From<Instance>,
+    {
         profiling::scope!("rbx_binary::deserialize");
 
         let mut deserializer = DeserializerState::new(self, reader)?;
