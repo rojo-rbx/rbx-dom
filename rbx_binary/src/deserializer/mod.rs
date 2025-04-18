@@ -21,11 +21,12 @@ pub use self::error::Error;
 /// use std::io::BufReader;
 ///
 /// use rbx_binary::Deserializer;
+/// use rbx_dom_weak::WeakDom;
 ///
 /// let input = BufReader::new(File::open("File.rbxm")?);
 ///
 /// let deserializer = Deserializer::new();
-/// let dom = deserializer.deserialize(input)?;
+/// let dom: WeakDom = deserializer.deserialize(input)?;
 ///
 /// // rbx_binary always returns a DOM with a DataModel at the top level.
 /// // To get to the instances from our file, we need to go one level deeper.
