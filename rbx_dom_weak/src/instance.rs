@@ -212,6 +212,10 @@ pub struct Instance {
 
     /// Any properties stored on the object that are not `Name` or `ClassName`.
     pub properties: UstrMap<Variant>,
+
+    /// Userdata owned by this instance (custom RBX script signal for example)
+    #[cfg(feature = "instance-userdata")]
+    pub userdata: UstrMap<mlua::AnyUserData>,
 }
 
 impl Instance {
