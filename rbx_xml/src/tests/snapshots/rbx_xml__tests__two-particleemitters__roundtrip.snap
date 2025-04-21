@@ -83,7 +83,7 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Tags:
       Tags: []
     Texture:
-      Content: "rbxasset://textures/particles/sparkles_main.dds"
+      ContentId: "rbxasset://textures/particles/sparkles_main.dds"
     Transparency:
       NumberSequence:
         keypoints:
@@ -179,7 +179,7 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     Tags:
       Tags: []
     Texture:
-      Content: "rbxasset://textures/particles/sparkles_main.dds"
+      ContentId: "rbxasset://textures/particles/sparkles_main.dds"
     Transparency:
       NumberSequence:
         keypoints:

@@ -9,10 +9,10 @@ use ahash::{HashMap, HashMapExt, HashSetExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, Enum, EnumItem, Faces, Font, MaterialColors, Matrix3,
-        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
-        SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType,
-        Vector2, Vector3, Vector3int16,
+        ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
+        MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
+        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, Ustr, UstrSet, WeakDom,
 };
@@ -692,7 +692,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 Variant::String(value) => {
                                     chunk.write_string(value)?;
                                 }
-                                Variant::Content(value) => {
+                                Variant::ContentId(value) => {
                                     chunk.write_string(value.as_ref())?;
                                 }
                                 Variant::BinaryString(value) => {
@@ -718,7 +718,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     return type_mismatch(
                                         i,
                                         &rbx_value,
-                                        "String, Content, Tags, Attributes, MaterialColors, or BinaryString",
+                                        "String, ContentId, Tags, Attributes, MaterialColors, or BinaryString",
                                     );
                                 }
                             }
@@ -1243,6 +1243,45 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
                         chunk.write_interleaved_i64_array(capabilities.into_iter())?;
                     }
+                    Type::Content => {
+                        let mut source_types = Vec::with_capacity(values.len());
+                        let mut uris = Vec::with_capacity(values.len());
+                        let mut objects = Vec::new();
+                        for (i, rbx_value) in values {
+                            if let Variant::Content(content) = rbx_value.as_ref() {
+                                source_types.push(match content.value() {
+                                    ContentType::None => 0,
+                                    ContentType::Uri(uri) => {
+                                        uris.push(uri.clone());
+                                        1
+                                    }
+                                    ContentType::Object(referent) => {
+                                        if let Some(id) = self.id_to_referent.get(referent) {
+                                            objects.push(*id);
+                                        } else {
+                                            objects.push(-1);
+                                        }
+                                        2
+                                    }
+                                    _ => return Err(invalid_value(i, &rbx_value)),
+                                });
+                            } else {
+                                return type_mismatch(i, &rbx_value, "Content");
+                            }
+                        }
+                        chunk.write_interleaved_i32_array(source_types.into_iter())?;
+
+                        chunk.write_le_u32(uris.len() as u32)?;
+                        for uri in uris {
+                            chunk.write_string(&uri)?;
+                        }
+                        chunk.write_le_u32(objects.len() as u32)?;
+                        chunk.write_referent_array(objects.into_iter())?;
+
+                        // If we ever need to support the external referents,
+                        // we will need to add it here.
+                        chunk.write_le_u32(0)?;
+                    }
                 }
 
                 chunk.dump(&mut self.output)?;
@@ -1380,7 +1419,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             VariantType::SharedString => Variant::SharedString(SharedString::new(Vec::new())),
             VariantType::OptionalCFrame => Variant::OptionalCFrame(None),
             VariantType::Tags => Variant::Tags(Tags::new()),
-            VariantType::Content => Variant::Content(Content::new()),
+            VariantType::ContentId => Variant::ContentId(ContentId::new()),
             VariantType::Attributes => Variant::Attributes(Attributes::new()),
             VariantType::UniqueId => Variant::UniqueId(UniqueId::nil()),
             VariantType::Font => Variant::Font(Font::default()),
@@ -1388,6 +1427,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             VariantType::SecurityCapabilities => {
                 Variant::SecurityCapabilities(SecurityCapabilities::default())
             }
+            VariantType::Content => Variant::Content(Content::none()),
             _ => return None,
         })
     }

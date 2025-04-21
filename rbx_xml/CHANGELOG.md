@@ -1,11 +1,14 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+## 1.0.0 (2025-03-28)
 * Improved performance of serializer and deserializer by using `Ustr` to represent property and class names ([#462]).
-* `Content` data now serializes with `ContentId`, reflecting Roblox's changes. ([#455])
+* Implement support for serializing and deserializing the `Content` type. ([#495])
+* Updated rbx-dom dependencies, which results in breaking changes to `WeakDom` and `Variant`.
 
 [#462]: https://github.com/rojo-rbx/rbx-dom/pull/462
-[#455]: https://github.com/rojo-rbx/rbx-dom/pull/455
+[#495]: https://github.com/rojo-rbx/rbx-dom/pull/495
 
 ## 0.13.5 (2024-08-22)
 * Updated rbx-dom dependencies

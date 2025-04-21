@@ -26,6 +26,13 @@ Change:
     size:
       AliasFor: Size
 
+    MaterialVariant:
+      Serialization:
+        Type: SerializesAs
+        As: MaterialVariantSerialized
+    MaterialVariantSerialized:
+      AliasFor: MaterialVariant
+
   FormFactorPart:
     FormFactor:
       Serialization:
@@ -43,3 +50,15 @@ Change:
         As: shape
     shape:
       AliasFor: Shape
+
+  MeshPart:
+    MeshId:
+      Serialization:
+        Type: Migrate
+        To: MeshContent
+        Migration: ContentIdToContent
+    TextureID:
+      Serialization:
+        Type: Migrate
+        To: TextureContent
+        Migration: ContentIdToContent

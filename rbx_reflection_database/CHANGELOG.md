@@ -1,20 +1,30 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
-* Update to Roblox version 653.
-* `Model.WorldPivotData`'s default value is now `null`. ([#450])
-* `SharedString` properties now have default values. ([#458])
-* `Instance.DefinesCapabilities` is now an alias for `Instance.Sandboxed` ([#459])
 - The database may now be loaded dynamically from the local file system. ([#376])
-
   The location is OS-dependent but it will only be loaded if one exists. The location may also be manually specified using the `RBX_DATABASE` environment variable.
 
   `get` is unchanged in use, but will return a locally stored database if it exists, and the bundled one if not. Two new methods were added: `get_bundled` will only fetch the local database and `get_local` will only fetch a locally stored one.
 
 [#376]: https://github.com/rojo-rbx/rbx-dom/pull/376
+
+## 1.0.1+roblox-666 (2025-03-31)
+* Corrected the serialization of `MeshPart.TextureID` to migrate to `MeshPart.TextureContent` ([#505])
+
+[#505]: https://github.com/rojo-rbx/rbx-dom/pull/505
+
+## 1.0.0+roblox-666 (2025-03-28)
+* Update to Roblox version 666.
+* `Model.WorldPivotData`'s default value is now `null`. ([#450])
+* `SharedString` properties now have default values. ([#458])
+* `Instance.DefinesCapabilities` is now an alias for `Instance.Sandboxed` ([#459])
+* `BasePart.MaterialVariant` is now an alias for `BasePart.MaterialVariantSerialized` ([#474])
+* Updated other rbx_dom dependencies, which results in a breaking change to `Variant`
+
 [#458]: https://github.com/rojo-rbx/rbx-dom/pull/458
 [#450]: https://github.com/rojo-rbx/rbx-dom/pull/450
 [#459]: https://github.com/rojo-rbx/rbx-dom/pull/459
+[#474]: https://github.com/rojo-rbx/rbx-dom/pull/474
 
 ## 0.2.12+roblox-638 (2024-08-22)
 * Update to Roblox version 638.

@@ -2,6 +2,7 @@
 
 ## Unreleased Changes
 
+## 3.0.0 (2025-03-28)
 This version contains a number of breaking changes to achieve dramatically improved performance by interning property and class names with [ustr](https://docs.rs/ustr/latest/ustr/).
 
 Because `Ustr` implements conversions to and from Rust's string types, no action is required in many cases. However, for improved performance, we recommend passing instances of `Ustr` to `InstanceBuilder`'s methods, rather than instances of `String` or `&str`. Refer to [ustr's documentation](https://docs.rs/ustr/latest/ustr/) for details.
@@ -97,6 +98,7 @@ to
 ```rust
 pub fn into_raw(self) -> (Ref, AHashMap<Ref, Instance>) {
 ```
+* Updated rbx_types to v2.0.0, which is features breaking changes to `Variant`
 
 ### Other changes
 * Added `HashMapExt`, a helper trait providing convenience methods `UstrMap::new`, `UstrMap::with_capacity`, `AHashMap::new`, and `AHashMap::with_capacity`.

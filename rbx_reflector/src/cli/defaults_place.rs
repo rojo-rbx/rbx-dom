@@ -93,8 +93,30 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<StudioInfo> {
         let script = format!(
             r#"
 tell application "System Events"
-    set frontmost of the first process whose unix id is {process_id} to true
-    keystroke "s" using command down
+    set robloxStudio to the first process whose unix id is {process_id}
+
+    -- The generated defaults place can cause Roblox Studio to create modal
+    -- dialogs that prevent command + S from saving the place. To work around
+    -- this, we need to repeatedly press escape then command + S until the Roblox
+    -- Studio process only has one window.
+
+    -- This could be hazardous - for example, escape may not close every modal,
+    -- or Roblox Studio could one day gain more windows. So, we'll also cap the 
+    -- number of times this loop can execute to 100.
+    set attemptCount to 0
+    repeat until count of windows of robloxStudio is 1 or attemptCount >= 100
+        set frontmost of robloxStudio to true
+
+        -- We should avoid making any keystrokes when Roblox Studio is not the
+        -- frontmost application. We just set it frontmost, but who knows what
+        -- the user is doing and how it could interact with AppleScript here...
+        if frontmost of robloxStudio then
+            key code 53
+            keystroke "s" using command down
+        end if
+
+        set attemptCount to attemptCount + 1
+    end repeat
 end tell
 "#
         );
@@ -133,12 +155,13 @@ fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Resul
             // These classes can't be put into place files by default.
             "DebuggerWatch" | "DebuggerBreakpoint" | "AdvancedDragger" | "Dragger"
             | "ScriptDebugger" | "PackageLink" | "Ad" | "AdPortal" | "AdGui"
-            | "InternalSyncItem" => continue,
+            | "InternalSyncItem" | "AuroraScript" => continue,
 
             // Settings singletons cannot be put into a DataModel. This changed
-            // in release 653.
+            // in release 653 and 657.
             "DebugSettings" | "GameSettings" | "LuaSettings" | "NetworkSettings"
-            | "PhysicsSettings" | "RenderSettings" | "Studio" | "TaskScheduler" => continue,
+            | "PhysicsSettings" | "RenderSettings" | "Studio" | "TaskScheduler"
+            | "UserGameSettings" => continue,
 
             // This class will cause studio to crash on close.
             "VoiceSource" => continue,
