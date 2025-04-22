@@ -18,19 +18,19 @@ impl Ref {
 
     /// Generate a `Ref` that points to nothing.
     #[inline]
-    pub fn none() -> Self {
+    pub const fn none() -> Self {
         Ref(None)
     }
 
     /// Tells whether this `Ref` points to something.
     #[inline]
-    pub fn is_some(&self) -> bool {
+    pub const fn is_some(&self) -> bool {
         self.0.is_some()
     }
 
     /// Tells whether this `Ref` points to nothing.
     #[inline]
-    pub fn is_none(&self) -> bool {
+    pub const fn is_none(&self) -> bool {
         self.0.is_none()
     }
 
@@ -51,6 +51,7 @@ impl fmt::Display for Ref {
 impl FromStr for Ref {
     type Err = std::num::ParseIntError;
 
+    #[inline]
     fn from_str(input: &str) -> Result<Self, Self::Err> {
         let value = u128::from_str_radix(input, 16)?;
 
