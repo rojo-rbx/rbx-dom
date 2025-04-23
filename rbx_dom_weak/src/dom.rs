@@ -155,13 +155,19 @@ impl WeakDom {
         }
     }
 
-    /// Returns an iterator that goes through the ancestors of a particular [`Instance`].
+    /// Returns an iterator that goes through the ancestors of a particular
+    /// [`Ref`]. The passed `Ref` *must* be a part of this `WeakDom`.
+    ///
+    /// ## Panics
+    ///
+    /// Panics if `referent` is not a member of this DOM.
     #[inline]
-    pub fn ancestors_of<'a>(
-        &'a self,
-        some_instance: &'a Instance,
-    ) -> impl Iterator<Item = &'a Instance> {
-        std::iter::successors(Some(some_instance), move |&instance| {
+    pub fn ancestors_of(&self, referent: Ref) -> impl Iterator<Item = &Instance> {
+        let initial_instance = self.get_by_ref(referent);
+        if initial_instance.is_none() {
+            panic!("the referent provided to `ancestors_of` must be a part of the DOM");
+        }
+        std::iter::successors(initial_instance, move |&instance| {
             self.get_by_ref(instance.parent())
         })
     }
