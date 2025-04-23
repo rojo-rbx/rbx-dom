@@ -348,8 +348,9 @@ expression: decoded_viewed
               Float32: 8
             Tags:
               Tags: []
-            Texture:
-              ContentId: "rbxassetid://6372755229"
+            TextureContent:
+              Content:
+                Uri: "rbxassetid://6372755229"
             Transparency:
               Float32: 0.8
             UniqueId:
@@ -791,8 +792,9 @@ expression: decoded_viewed
               Int64: -1
             Tags:
               Tags: []
-            Texture:
-              ContentId: "rbxasset://textures/SpawnLocation.png"
+            TextureContent:
+              Content:
+                Uri: "rbxasset://textures/SpawnLocation.png"
             Transparency:
               Float32: 0
             UniqueId:

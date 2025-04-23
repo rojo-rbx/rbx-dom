@@ -1,6 +1,10 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+* Updated to Roblox version 670.
+* Added a migration for `Decal.Texture` to `Decal.TextureContent` ([#518])
+
+[#518]: https://github.com/rojo-rbx/rbx-dom/pull/518
 
 ## 1.0.1+roblox-666 (2025-03-31)
 * Corrected the serialization of `MeshPart.TextureID` to migrate to `MeshPart.TextureContent` ([#505])
