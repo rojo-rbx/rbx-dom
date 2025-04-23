@@ -2,6 +2,7 @@
 
 ## Unreleased Changes
 
+* Added `Content::as_object` and `Content::as_uri` to assume the respective type (optional value). ([#511])
 * Added `Content::into_value` to support converting a `Content` into its underlying value. ([#507])
 
 [#507]: https://github.com/rojo-rbx/rbx-dom/pull/507
