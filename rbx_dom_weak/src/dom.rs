@@ -155,6 +155,17 @@ impl WeakDom {
         }
     }
 
+    /// Returns an iterator that goes through the ancestors of a particular [`Instance`].
+    #[inline]
+    pub fn ancestors_of<'a>(
+        &'a self,
+        some_instance: &'a Instance,
+    ) -> impl Iterator<Item = &'a Instance> {
+        std::iter::successors(Some(some_instance), move |&instance| {
+            self.get_by_ref(instance.parent())
+        })
+    }
+
     /// Insert a new instance into the DOM with the given parent. The parent is allowed to
     /// be the none Ref.
     ///
