@@ -59,8 +59,8 @@ impl Content {
     /// Returns Some(&str) if `Content` is a Uri.
     #[inline]
     pub fn as_uri(&self) -> Option<&str> {
-        match self {
-            Self(ContentType::Uri(uri)) => Some(uri.as_str()),
+        match self.value() {
+            ContentType::Uri(uri) => Some(uri),
             _ => None,
         }
     }
