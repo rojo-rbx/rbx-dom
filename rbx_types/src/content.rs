@@ -56,7 +56,7 @@ impl Content {
         self.0
     }
 
-    /// Returns Some(&str) if `Content` is a Uri.
+    /// If this `Content` is a URI, returns the URI. Otherwise, returns `None`.
     #[inline]
     pub fn as_uri(&self) -> Option<&str> {
         match self.value() {
