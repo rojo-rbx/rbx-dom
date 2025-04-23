@@ -32615,7 +32615,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "HoverImageContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -32740,7 +32745,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "PressedImageContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -32883,8 +32893,8 @@
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
-        "HoverImage": {
-          "ContentId": ""
+        "HoverImageContent": {
+          "Content": "None"
         },
         "ImageColor3": {
           "Color3": [
@@ -32932,8 +32942,8 @@
             ]
           ]
         },
-        "PressedImage": {
-          "ContentId": ""
+        "PressedImageContent": {
+          "Content": "None"
         },
         "ResampleMode": {
           "Enum": 0
@@ -64495,7 +64505,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "ColorMapContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -64523,7 +64538,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "MetalnessMapContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -64551,7 +64571,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "NormalMapContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -64579,7 +64604,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "RoughnessMapContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -64632,20 +64662,20 @@
             1.0
           ]
         },
-        "ColorMap": {
-          "ContentId": ""
+        "ColorMapContent": {
+          "Content": "None"
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
-        "MetalnessMap": {
-          "ContentId": ""
+        "MetalnessMapContent": {
+          "Content": "None"
         },
-        "NormalMap": {
-          "ContentId": ""
+        "NormalMapContent": {
+          "Content": "None"
         },
-        "RoughnessMap": {
-          "ContentId": ""
+        "RoughnessMapContent": {
+          "Content": "None"
         },
         "Sandboxed": {
           "Bool": false

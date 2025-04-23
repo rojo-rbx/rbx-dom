@@ -40,8 +40,8 @@ expression: "DomViewer::new().view_children(&decoded)"
       Bool: false
     Draggable:
       Bool: false
-    HoverImage:
-      ContentId: ""
+    HoverImageContent:
+      Content: None
     ImageColor3:
       Color3:
         - 1
@@ -74,8 +74,8 @@ expression: "DomViewer::new().view_children(&decoded)"
           - 0
         - - 0
           - 0
-    PressedImage:
-      ContentId: ""
+    PressedImageContent:
+      Content: None
     RootLocalizationTable: "null"
     Rotation:
       Float32: 0
@@ -157,8 +157,8 @@ expression: "DomViewer::new().view_children(&decoded)"
       Bool: false
     Draggable:
       Bool: false
-    HoverImage:
-      ContentId: ""
+    HoverImageContent:
+      Content: None
     ImageColor3:
       Color3:
         - 1
@@ -191,8 +191,8 @@ expression: "DomViewer::new().view_children(&decoded)"
           - 0
         - - 0
           - 0
-    PressedImage:
-      ContentId: ""
+    PressedImageContent:
+      Content: None
     RootLocalizationTable: "null"
     Rotation:
       Float32: 0
@@ -236,4 +236,3 @@ expression: "DomViewer::new().view_children(&decoded)"
     ZIndex:
       Int32: 1
   children: []
-
