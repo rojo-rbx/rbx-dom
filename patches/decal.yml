@@ -1,0 +1,7 @@
+Change:
+  Decal:
+    Texture:
+      Serialization:
+        Type: Migrate
+        To: TextureContent
+        Migration: ContentIdToContent
