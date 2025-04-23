@@ -58,7 +58,7 @@ impl Content {
 
     /// Returns Some(&str) if `Content` is a Uri.
     #[inline]
-    pub fn get_uri(&self) -> Option<&str> {
+    pub fn as_uri(&self) -> Option<&str> {
         match self {
             Self(ContentType::Uri(uri)) => Some(uri.as_str()),
             _ => None,
@@ -67,7 +67,7 @@ impl Content {
 
     /// Returns Some(Ref) if `Content` is an Object.
     #[inline]
-    pub fn get_object(&self) -> Option<Ref> {
+    pub fn as_object(&self) -> Option<Ref> {
         match self {
             &Self(ContentType::Object(referent)) => Some(referent),
             _ => None,
