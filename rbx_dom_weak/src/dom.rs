@@ -322,6 +322,7 @@ impl WeakDom {
 
     /// Move the instance with the given referent to a new parent within the
     /// same `WeakDom`. To move to another DOM, use [`WeakDom::transfer`].
+    /// The new parent `dest_parent_ref` is allowed to be the none Ref.
     ///
     /// This function would be called `move_within`, but `move` is a Rust
     /// keyword and consistency with `transfer` is valuable.
