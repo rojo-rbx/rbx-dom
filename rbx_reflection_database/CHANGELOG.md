@@ -2,9 +2,17 @@
 
 ## Unreleased Changes
 * Updated to Roblox version 670.
-* Added a migration for `Decal.Texture` to `Decal.TextureContent` ([#518])
+* Added a migration for ([#518], [#519]):
+  * `Decal.Texture` to `Decal.TextureContent`
+  * `SurfaceAppearance.RoughnessMap` to `SurfaceAppearance.RoughnessMapContent`
+  * `SurfaceAppearance.NormalMap` to `SurfaceAppearance.NormalMapContent`
+  * `SurfaceAppearance.MetalnessMap` to `SurfaceAppearance.MetalnessMapContent`
+  * `SurfaceAppearance.ColorMap` to `SurfaceAppearance.ColorMapContent`
+  * `ImageButton.PressedImage` to `ImageButton.PressedImageContent`
+  * `ImageButton.HoverImage` to `ImageButton.HoverImageContent`
 
 [#518]: https://github.com/rojo-rbx/rbx-dom/pull/518
+[#519]: https://github.com/rojo-rbx/rbx-dom/pull/519
 
 ## 1.0.1+roblox-666 (2025-03-31)
 * Corrected the serialization of `MeshPart.TextureID` to migrate to `MeshPart.TextureContent` ([#505])
