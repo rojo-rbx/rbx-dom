@@ -68,8 +68,8 @@ impl Content {
     /// Returns Some(Ref) if `Content` is an Object.
     #[inline]
     pub fn as_object(&self) -> Option<Ref> {
-        match self {
-            &Self(ContentType::Object(referent)) => Some(referent),
+        match self.value() {
+            ContentType::Object(referent) => Some(*referent),
             _ => None,
         }
     }
