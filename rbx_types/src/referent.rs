@@ -30,7 +30,7 @@ impl Ref {
     /// points to nothing.
     #[inline]
     pub const fn some(value: u128) -> Self {
-        Ref(Some(NonZeroU128::new(value).unwrap()))
+        Ref(Some(NonZeroU128::new(value).expect("Ref value is 0")))
     }
 
     /// Tells whether this `Ref` points to something.
