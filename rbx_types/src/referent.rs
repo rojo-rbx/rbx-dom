@@ -53,13 +53,6 @@ impl fmt::Display for Ref {
     }
 }
 
-impl From<u128> for Ref {
-    #[inline]
-    fn from(value: u128) -> Self {
-        Ref::from_value(value)
-    }
-}
-
 impl FromStr for Ref {
     type Err = std::num::ParseIntError;
 
