@@ -41,7 +41,8 @@ impl Chunk {
                 zstd::bulk::decompress(&compressed_data, header.len as usize)?
             } else {
                 log::trace!("LZ4 compression");
-                lz4_flex::block::decompress(&compressed_data, header.len as usize).unwrap()
+                lz4_flex::block::decompress(&compressed_data, header.len as usize)
+                    .map_err(io::Error::other)?
             }
         };
 
