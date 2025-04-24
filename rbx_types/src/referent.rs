@@ -22,6 +22,17 @@ impl Ref {
         Ref(None)
     }
 
+    /// Generate a `Ref` that points to something.
+    ///
+    /// ## Panics
+    /// Panics if `value` is 0. Use the Ref::none()
+    /// constructor instead to create a `Ref` that
+    /// points to nothing.
+    #[inline]
+    pub const fn some(value: u128) -> Self {
+        Ref(Some(NonZeroU128::new(value).unwrap()))
+    }
+
     /// Tells whether this `Ref` points to something.
     #[inline]
     pub const fn is_some(&self) -> bool {
@@ -32,14 +43,6 @@ impl Ref {
     #[inline]
     pub const fn is_none(&self) -> bool {
         self.0.is_none()
-    }
-
-    #[inline]
-    pub const fn from_value(value: u128) -> Option<Self> {
-        match NonZeroU128::new(value) {
-            Some(non_zero_value) => Some(Ref(Some(non_zero_value))),
-            None => None,
-        }
     }
 
     fn value(&self) -> u128 {
