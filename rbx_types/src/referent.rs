@@ -35,8 +35,11 @@ impl Ref {
     }
 
     #[inline]
-    pub const fn from_value(value: u128) -> Self {
-        Ref(NonZeroU128::new(value))
+    pub const fn from_value(value: u128) -> Option<Self> {
+        match NonZeroU128::new(value) {
+            Some(non_zero_value) => Some(Ref(Some(non_zero_value))),
+            None => None,
+        }
     }
 
     fn value(&self) -> u128 {
@@ -60,7 +63,7 @@ impl FromStr for Ref {
     fn from_str(input: &str) -> Result<Self, Self::Err> {
         let value = u128::from_str_radix(input, 16)?;
 
-        Ok(Ref::from_value(value))
+        Ok(Ref(NonZeroU128::new(value)))
     }
 }
 
