@@ -1,6 +1,8 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+
+## 1.0.2+roblox-670 (2025-04-23)
 * Updated to Roblox version 670.
 * Added a migration for ([#518], [#519]):
   * `Decal.Texture` to `Decal.TextureContent`
