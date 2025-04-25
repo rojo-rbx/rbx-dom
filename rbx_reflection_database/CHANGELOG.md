@@ -1,6 +1,8 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+
+## 1.0.3+roblox-670 (2025-04-25)
 * Set `Instance.Capabilities` to be unscriptable ([#523])
 
 [#523]: https://github.com/rojo-rbx/rbx-dom/pull/523
