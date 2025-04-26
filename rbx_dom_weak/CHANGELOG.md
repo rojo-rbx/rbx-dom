@@ -2,6 +2,8 @@
 
 ## Unreleased Changes
 
+* Add `WeakDom::ancestors_of` helper function. ([#520])
+
 ## 3.0.0 (2025-03-28)
 This version contains a number of breaking changes to achieve dramatically improved performance by interning property and class names with [ustr](https://docs.rs/ustr/latest/ustr/).
 
