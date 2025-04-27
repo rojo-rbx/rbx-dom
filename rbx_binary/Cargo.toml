@@ -20,7 +20,7 @@ rbx_reflection_database = { version = "1.0.3", path = "../rbx_reflection_databas
 
 ahash = "0.8.11"
 log = "0.4.17"
-lz4 = "1.23.3"
+lz4_flex = "0.11"
 thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }
 profiling = "1.0.6"
