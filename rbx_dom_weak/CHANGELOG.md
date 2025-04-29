@@ -2,6 +2,8 @@
 
 ## Unreleased Changes
 
+* Allow `WeakDom::transfer_within` to have the None Ref as the destination. ([#517])
+
 ## 3.0.0 (2025-03-28)
 This version contains a number of breaking changes to achieve dramatically improved performance by interning property and class names with [ustr](https://docs.rs/ustr/latest/ustr/).
 

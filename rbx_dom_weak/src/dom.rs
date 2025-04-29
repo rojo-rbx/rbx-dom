@@ -305,13 +305,13 @@ impl WeakDom {
 
     /// Move the instance with the given referent to a new parent within the
     /// same `WeakDom`. To move to another DOM, use [`WeakDom::transfer`].
+    /// The new parent `dest_parent_ref` is allowed to be the none Ref.
     ///
     /// This function would be called `move_within`, but `move` is a Rust
     /// keyword and consistency with `transfer` is valuable.
     ///
     /// ## Panics
-    /// Panics if `referent` or `dest_parent_ref` do not refer to instances in
-    /// `self`.
+    /// Panics if `referent` does not refer to an instance in `self`.
     ///
     /// Will also panic if `referent` refers to the root instance in this
     /// `WeakDom`.
@@ -336,11 +336,13 @@ impl WeakDom {
         }
 
         // Add the instance's referent to its new parent's list of children.
-        let dest_parent = self
-            .instances
-            .get_mut(&dest_parent_ref)
-            .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
-        dest_parent.children.push(referent);
+        if dest_parent_ref.is_some() {
+            let dest_parent = self
+                .instances
+                .get_mut(&dest_parent_ref)
+                .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
+            dest_parent.children.push(referent);
+        }
     }
 
     /// Clone the instance with the given `referent` and all its descendants
