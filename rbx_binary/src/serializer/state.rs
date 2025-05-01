@@ -235,7 +235,6 @@ impl<'dom> PropInfo<'dom> {
 /// self-borrowing issues from BinarySerializer getting too large.
 #[derive(Debug)]
 struct TypeInfos<'dom, 'db> {
-    database: &'db ReflectionDatabase<'db>,
     /// A map containing one entry for each unique ClassName discovered in the
     /// DOM.
     ///
@@ -249,9 +248,8 @@ struct TypeInfos<'dom, 'db> {
 }
 
 impl<'dom, 'db> TypeInfos<'dom, 'db> {
-    fn new(database: &'db ReflectionDatabase<'db>) -> Self {
+    fn new() -> Self {
         Self {
-            database,
             values: BTreeMap::new(),
             next_type_id: 0,
         }
@@ -259,12 +257,16 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(&mut self, class: Ustr) -> &mut TypeInfo<'dom, 'db> {
+    fn get_or_create(
+        &mut self,
+        database: &'db ReflectionDatabase<'db>,
+        class: Ustr,
+    ) -> &mut TypeInfo<'dom, 'db> {
         if let btree_map::Entry::Vacant(entry) = self.values.entry(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let class_descriptor = self.database.classes.get(class.as_str());
+            let class_descriptor = database.classes.get(class.as_str());
 
             let is_service = if let Some(descriptor) = &class_descriptor {
                 descriptor.tags.contains(&ClassTag::Service)
@@ -468,7 +470,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             output,
             relevant_instances: Vec::new(),
             id_to_referent: HashMap::new(),
-            type_infos: TypeInfos::new(serializer.database),
+            type_infos: TypeInfos::new(),
             shared_strings: Vec::new(),
             shared_string_ids: HashMap::new(),
         }
@@ -556,7 +558,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             ..
         } = self;
 
-        let type_info = type_infos.get_or_create(instance.class);
+        let type_info = type_infos.get_or_create(self.serializer.database, instance.class);
         // The desired length of all PropInfo.values in this TypeInfo.
         // Some instances may have missing properties, meaning the
         // corresponding PropInfo is never visited and no value is inserted.
