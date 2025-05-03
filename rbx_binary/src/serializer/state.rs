@@ -406,7 +406,9 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 }
             }
 
-            if !type_info.properties.contains_key(&canonical_name) {
+            let prop_info = match type_info.properties.entry(canonical_name) {
+                btree_map::Entry::Occupied(entry) => entry.into_mut(),
+                btree_map::Entry::Vacant(entry) => {
                 let default_value = type_info
                     .class_descriptor
                     .and_then(|class| database.find_default_property(class, &canonical_name))
@@ -442,24 +444,20 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     }
                 })?;
 
-                type_info.properties.insert(
-                    canonical_name,
-                    PropInfo {
-                        prop_type: ser_type,
-                        serialized_name,
-                        aliases: UstrSet::new(),
-                        default_value,
-                        migration,
-                    },
-                );
+                entry.insert(PropInfo {
+                    prop_type: ser_type,
+                    serialized_name,
+                    aliases: UstrSet::new(),
+                    default_value,
+                    migration,
+                })
             }
+            };
 
             // If the property we found on this instance is different than the
             // canonical name for this property, stash it into the set of known
             // aliases for this PropInfo.
             if *prop_name != canonical_name {
-                let prop_info = type_info.properties.get_mut(&canonical_name).unwrap();
-
                 if !prop_info.aliases.contains(prop_name) {
                     prop_info.aliases.insert(*prop_name);
                 }
