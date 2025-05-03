@@ -28,8 +28,7 @@ impl ConvertCommand {
         log::debug!("Reading file into WeakDom");
         let dom = match input_kind {
             ModelKind::Xml => {
-                let options = rbx_xml::DecodeOptions::new()
-                    .property_behavior(rbx_xml::DecodePropertyBehavior::ReadUnknown);
+                let options = rbx_xml::DecodeOptions::read_unknown();
 
                 rbx_xml::from_reader(input_file, options)
                     .with_context(|| format!("Failed to read {}", self.input_path.display()))?

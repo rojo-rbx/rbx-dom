@@ -17,9 +17,7 @@ pub fn apply_defaults(
 ) -> anyhow::Result<()> {
     let file = BufReader::new(File::open(defaults_place).context("Could not find defaults place")?);
 
-    let decode_options = rbx_xml::DecodeOptions::new()
-        .property_behavior(rbx_xml::DecodePropertyBehavior::IgnoreUnknown)
-        .reflection_database(database);
+    let decode_options = rbx_xml::DecodeOptions::IgnoreUnknown { database };
 
     let tree =
         rbx_xml::from_reader(file, decode_options).context("Could not decode defaults place")?;
