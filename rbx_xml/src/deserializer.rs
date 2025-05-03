@@ -446,13 +446,24 @@ fn deserialize_instance<R: Read>(
 
     trace!("Class {} with referent {:?}", class_name, referent);
 
-    let prop_capacity = state
-        .options
-        .database
-        .classes
-        .get(class_name.as_str())
-        .map(|class| class.default_properties.len())
-        .unwrap_or(0);
+    let prop_capacity = match &state.options {
+        DecodeOptions::ReadUnknown { database } | DecodeOptions::IgnoreUnknown { database } => {
+            // TODO: actually ignore unknown classes
+            database
+                .classes
+                .get(class_name.as_str())
+                .map_or(0, |class| class.default_properties.len())
+        }
+        DecodeOptions::ErrorOnUnknown { database } => {
+            let class = database.classes.get(class_name.as_str()).ok_or_else(|| {
+                reader.error(DecodeErrorKind::UnknownClassName {
+                    class_name: class_name.to_owned(),
+                })
+            })?;
+            class.default_properties.len()
+        }
+        DecodeOptions::NoReflection => 0,
+    };
 
     let builder = InstanceBuilder::with_property_capacity(class_name, prop_capacity);
     let instance_id = state.tree.insert(parent_id, builder);
