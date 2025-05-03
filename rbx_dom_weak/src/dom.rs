@@ -192,7 +192,7 @@ impl WeakDom {
                     parent,
                     name: builder.name,
                     class: builder.class,
-                    properties: builder.properties.into_iter().collect(),
+                    properties: builder.properties,
                 },
             );
 
