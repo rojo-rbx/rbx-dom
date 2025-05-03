@@ -32,17 +32,19 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Wea
     Ok(tree)
 }
 
-/// Describes the strategy that rbx_xml should use when deserializing
-/// properties.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+/// Options available for deserializing an XML-format model or place.
+#[derive(Debug)]
 #[non_exhaustive]
-pub enum DecodePropertyBehavior {
+pub enum DecodeOptions<'db> {
     /// Ignores properties that aren't known by rbx_xml.
     ///
     /// The default and safest option. With this set, properties that are newer
     /// than the reflection database rbx_xml uses won't show up when
     /// deserializing files.
-    IgnoreUnknown,
+    IgnoreUnknown {
+        /// The reflection database to use.
+        database: &'db ReflectionDatabase<'db>,
+    },
 
     /// Read properties that aren't known by rbx_xml.
     ///
@@ -50,11 +52,17 @@ pub enum DecodePropertyBehavior {
     /// reflection database will show up. It may be problematic to depend on
     /// these properties, since rbx_xml may start supporting them with
     /// non-reflection specific names at a future date.
-    ReadUnknown,
+    ReadUnknown {
+        /// The reflection database to use.
+        database: &'db ReflectionDatabase<'db>,
+    },
 
     /// Returns an error if any properties are found that aren't known by
     /// rbx_xml.
-    ErrorOnUnknown,
+    ErrorOnUnknown {
+        /// The reflection database to use.
+        database: &'db ReflectionDatabase<'db>,
+    },
 
     /// Completely turns off rbx_xml's reflection database. Property names and
     /// types will appear exactly as they are in XML.
@@ -65,50 +73,43 @@ pub enum DecodePropertyBehavior {
     NoReflection,
 }
 
-/// Options available for deserializing an XML-format model or place.
-#[derive(Debug, Clone)]
-pub struct DecodeOptions<'db> {
-    property_behavior: DecodePropertyBehavior,
-    database: &'db ReflectionDatabase<'db>,
-}
-
 impl<'db> DecodeOptions<'db> {
-    /// Constructs a `DecodeOptions` with all values set to their defaults.
+    /// Constructs a `DecodeOptions` which specifies to ignore unknown properties or classes.
     #[inline]
-    pub fn new() -> Self {
-        DecodeOptions {
-            property_behavior: DecodePropertyBehavior::IgnoreUnknown,
+    pub fn ignore_unknown() -> Self {
+        DecodeOptions::IgnoreUnknown {
             database: rbx_reflection_database::get(),
         }
     }
-
-    /// Determines how rbx_xml will deserialize properties, especially unknown
-    /// ones.
+    /// Constructs a `DecodeOptions` which specifies to read unknown properties and classes into the dom.
     #[inline]
-    pub fn property_behavior(self, property_behavior: DecodePropertyBehavior) -> Self {
-        DecodeOptions {
-            property_behavior,
-            ..self
+    pub fn read_unknown() -> Self {
+        DecodeOptions::ReadUnknown {
+            database: rbx_reflection_database::get(),
         }
     }
-
-    /// Determines what reflection database rbx_xml will use to deserialize
-    /// properties.
+    /// Constructs a `DecodeOptions` which specifies to error upon encountering an unknown property or class.
     #[inline]
-    pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
-        DecodeOptions { database, ..self }
+    pub fn error_on_unknown() -> Self {
+        DecodeOptions::ErrorOnUnknown {
+            database: rbx_reflection_database::get(),
+        }
     }
-
-    /// A utility function to determine whether or not we should reference the
-    /// reflection database at all.
-    pub(crate) fn use_reflection(&self) -> bool {
-        self.property_behavior != DecodePropertyBehavior::NoReflection
+    /// Constructs a `DecodeOptions` which uses no reflection whatsoever.
+    /// Property names and types will appear exactly as they are in XML.
+    ///
+    /// This setting is useful for debugging the model format. It leaves the
+    /// user to deal with oddities like how `Part.FormFactor` is actually
+    /// serialized as `Part.formFactorRaw`.
+    #[inline]
+    pub fn no_reflection() -> Self {
+        DecodeOptions::NoReflection
     }
 }
 
 impl<'db> Default for DecodeOptions<'db> {
     fn default() -> DecodeOptions<'db> {
-        DecodeOptions::new()
+        DecodeOptions::ignore_unknown()
     }
 }
 

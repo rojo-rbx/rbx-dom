@@ -130,7 +130,7 @@ use rbx_dom_weak::{types::Ref, WeakDom};
 use crate::{deserializer::decode_internal, serializer::encode_internal};
 
 pub use crate::{
-    deserializer::{DecodeOptions, DecodePropertyBehavior},
+    deserializer::DecodeOptions,
     error::{DecodeError, EncodeError},
     serializer::{EncodeOptions, EncodePropertyBehavior},
 };
