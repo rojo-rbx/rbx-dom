@@ -1,8 +1,4 @@
-use std::{
-    borrow::Cow,
-    collections::{btree_map, BTreeMap},
-    io::Write,
-};
+use std::{borrow::Cow, collections::BTreeMap, io::Write};
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
@@ -262,9 +258,14 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
         database: &'db ReflectionDatabase<'db>,
         class: Ustr,
     ) -> &mut TypeInfo<'dom, 'db> {
-        if let btree_map::Entry::Vacant(entry) = self.values.entry(class) {
-            let type_id = self.next_type_id;
-            self.next_type_id += 1;
+        // Split self into independent mutable references.
+        let TypeInfos {
+            values,
+            next_type_id,
+        } = self;
+        values.entry(class).or_insert_with(|| {
+            let type_id = *next_type_id;
+            *next_type_id += 1;
 
             let class_descriptor = database.classes.get(class.as_str());
 
@@ -275,19 +276,15 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
                 false
             };
 
-            entry.insert(TypeInfo {
+            TypeInfo {
                 type_id,
                 is_service,
                 instances: Vec::new(),
                 properties: Vec::new(),
                 class_descriptor,
                 properties_visited: UstrMap::new(),
-            });
-        }
-
-        // This unwrap will not panic because we always insert this key into
-        // type_infos in this function.
-        self.values.get_mut(&class).unwrap()
+            }
+        })
     }
 }
 
