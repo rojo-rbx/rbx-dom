@@ -1,9 +1,8 @@
-use std::{borrow::Cow, collections::HashMap, fs, path::Path};
+use std::{collections::HashMap, fs, path::Path};
 
 use anyhow::{anyhow, bail, Context};
 use rbx_reflection::{
-    DataType, PropertyKind, PropertyMigration, PropertySerialization, ReflectionDatabase,
-    Scriptability,
+    MigrationOperation, PropertyKind, PropertySerialization, ReflectionDatabase, Scriptability,
 };
 use rbx_types::{Variant, VariantType};
 use serde::Deserialize;
@@ -53,7 +52,7 @@ impl Patches {
                     })?;
 
                 if let Some(data_type) = &property_change.data_type {
-                    existing_property.data_type = data_type.clone();
+                    existing_property.data_type = data_type.into();
                 }
 
                 if let Some(kind) = property_change.kind() {
@@ -123,8 +122,8 @@ impl Patches {
                     .get(prop_name.as_str());
                 if let Some(prop_data) = prop_data {
                     match (&prop_data.data_type, default_value.ty()) {
-                        (DataType::Enum(_), VariantType::Enum) => {}
-                        (DataType::Value(existing), new) if *existing == new => {}
+                        (rbx_reflection::DataType::Enum(_), VariantType::Enum) => {}
+                        (rbx_reflection::DataType::Value(existing), new) if *existing == new => {}
                         (expected, actual) => bail!(
                             "Bad type given for {class_name}.{prop_name}'s DefaultValue patch.\n\
                             Expected {expected:?}, got {actual:?}"
@@ -140,11 +139,11 @@ impl Patches {
                 for descendant in subclass_list {
                     let class = database
                         .classes
-                        .get_mut(descendant.as_str())
+                        .get_mut(String::leak(descendant.clone()))
                         .expect("class listed in subclass map should exist");
                     class
                         .default_properties
-                        .insert(prop_name.clone().into(), default_value.clone());
+                        .insert(String::leak(prop_name.clone()), default_value.clone());
                 }
             }
         }
@@ -163,22 +162,40 @@ struct Patch {
 #[derive(Deserialize)]
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
 struct PropertyChange {
-    data_type: Option<DataType<'static>>,
+    data_type: Option<DataType>,
     alias_for: Option<String>,
     serialization: Option<Serialization>,
     scriptability: Option<Scriptability>,
     default_value: Option<Variant>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+#[non_exhaustive]
+pub enum DataType {
+    /// The property is a regular value of the given type.
+    Value(VariantType),
+
+    /// The property is an enum with the given name.
+    Enum(String),
+}
+impl From<&DataType> for rbx_reflection::DataType<'static> {
+    fn from(value: &DataType) -> Self {
+        match value {
+            &DataType::Value(variant_type) => rbx_reflection::DataType::Value(variant_type),
+            DataType::Enum(e) => rbx_reflection::DataType::Enum(String::leak(e.clone())),
+        }
+    }
+}
+
 impl PropertyChange {
     fn kind(&self) -> Option<PropertyKind<'static>> {
         match (&self.alias_for, &self.serialization) {
             (Some(alias), None) => Some(PropertyKind::Alias {
-                alias_for: Cow::Owned(alias.clone()),
+                alias_for: String::leak(alias.clone()),
             }),
 
             (None, Some(serialization)) => Some(PropertyKind::Canonical {
-                serialization: serialization.clone().into(),
+                serialization: serialization.into(),
             }),
 
             (None, None) => None,
@@ -201,15 +218,29 @@ pub enum Serialization {
     Migrate(PropertyMigration),
 }
 
-impl From<Serialization> for PropertySerialization<'_> {
-    fn from(value: Serialization) -> Self {
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct PropertyMigration {
+    #[serde(rename = "To")]
+    new_property_name: String,
+    migration: MigrationOperation,
+}
+
+impl From<&Serialization> for PropertySerialization<'static> {
+    fn from(value: &Serialization) -> Self {
         match value {
             Serialization::Serializes => PropertySerialization::Serializes,
             Serialization::DoesNotSerialize => PropertySerialization::DoesNotSerialize,
             Serialization::SerializesAs { serializes_as } => {
-                PropertySerialization::SerializesAs(Cow::Owned(serializes_as))
+                PropertySerialization::SerializesAs(String::leak(serializes_as.clone()))
             }
-            Serialization::Migrate(migration) => PropertySerialization::Migrate(migration),
+            &Serialization::Migrate(PropertyMigration {
+                ref new_property_name,
+                migration,
+            }) => PropertySerialization::Migrate(rbx_reflection::PropertyMigration {
+                new_property_name: String::leak(new_property_name.clone()),
+                migration,
+            }),
         }
     }
 }
