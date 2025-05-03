@@ -409,49 +409,49 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             let prop_info = match type_info.properties.entry(canonical_name) {
                 btree_map::Entry::Occupied(entry) => entry.into_mut(),
                 btree_map::Entry::Vacant(entry) => {
-                let default_value = type_info
-                    .class_descriptor
-                    .and_then(|class| database.find_default_property(class, &canonical_name))
-                    .or_else(|| fallback_default_value(serialized_ty))
-                    .ok_or_else(|| {
-                        // Since we don't know how to generate the default value
-                        // for this property, we consider it unsupported.
+                    let default_value = type_info
+                        .class_descriptor
+                        .and_then(|class| database.find_default_property(class, &canonical_name))
+                        .or_else(|| fallback_default_value(serialized_ty))
+                        .ok_or_else(|| {
+                            // Since we don't know how to generate the default value
+                            // for this property, we consider it unsupported.
+                            InnerError::UnsupportedPropType {
+                                type_name: instance.class.to_string(),
+                                prop_name: canonical_name.to_string(),
+                                prop_type: format!("{serialized_ty:?}"),
+                            }
+                        })?;
+
+                    // There's no assurance that the default SharedString value
+                    // will actually get serialized inside of the SSTR chunk, so we
+                    // check here just to make sure.
+                    if let Variant::SharedString(sstr) = default_value {
+                        if !self.shared_string_ids.contains_key(sstr) {
+                            self.shared_string_ids.insert(sstr.clone(), 0);
+                            self.shared_strings.push(sstr.clone());
+                        }
+                    }
+
+                    let ser_type = Type::from_rbx_type(serialized_ty).ok_or_else(|| {
+                        // This is a known value type, but rbx_binary doesn't have a
+                        // binary type value for it. rbx_binary might be out of
+                        // date?
                         InnerError::UnsupportedPropType {
                             type_name: instance.class.to_string(),
-                            prop_name: canonical_name.to_string(),
+                            prop_name: serialized_name.to_string(),
                             prop_type: format!("{serialized_ty:?}"),
                         }
                     })?;
 
-                // There's no assurance that the default SharedString value
-                // will actually get serialized inside of the SSTR chunk, so we
-                // check here just to make sure.
-                if let Variant::SharedString(sstr) = default_value {
-                    if !self.shared_string_ids.contains_key(sstr) {
-                        self.shared_string_ids.insert(sstr.clone(), 0);
-                        self.shared_strings.push(sstr.clone());
-                    }
+                    entry.insert(PropInfo {
+                        prop_type: ser_type,
+                        serialized_name,
+                        aliases: UstrSet::new(),
+                        default_value,
+                        migration,
+                    })
                 }
-
-                let ser_type = Type::from_rbx_type(serialized_ty).ok_or_else(|| {
-                    // This is a known value type, but rbx_binary doesn't have a
-                    // binary type value for it. rbx_binary might be out of
-                    // date?
-                    InnerError::UnsupportedPropType {
-                        type_name: instance.class.to_string(),
-                        prop_name: serialized_name.to_string(),
-                        prop_type: format!("{serialized_ty:?}"),
-                    }
-                })?;
-
-                entry.insert(PropInfo {
-                    prop_type: ser_type,
-                    serialized_name,
-                    aliases: UstrSet::new(),
-                    default_value,
-                    migration,
-                })
-            }
             };
 
             // If the property we found on this instance is different than the
