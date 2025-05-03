@@ -150,12 +150,9 @@ const INPUT: &str = r#"<roblox version="4">
 fn formatting() {
     let _ = env_logger::try_init();
 
-    let de = crate::from_str(
-        INPUT,
-        crate::DecodeOptions::new().property_behavior(crate::DecodePropertyBehavior::NoReflection),
-    )
-    .map_err(|e| panic!("cannot deserialize: {}", e))
-    .unwrap();
+    let de = crate::from_str(INPUT, crate::DecodeOptions::no_reflection())
+        .map_err(|e| panic!("cannot deserialize: {}", e))
+        .unwrap();
 
     insta::assert_yaml_snapshot!("deserialized", DomViewer::new().view_children(&de));
 

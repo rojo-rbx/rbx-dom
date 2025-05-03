@@ -268,11 +268,10 @@ fn read_unique_id() {
 
     let tree = crate::from_str(
         document,
-        crate::DecodeOptions::new()
-            // This is necessary at the moment because we do not actually
-            // have UniqueId properties in our reflection database. This may
-            // change, but it should in general be safe.
-            .property_behavior(crate::DecodePropertyBehavior::ReadUnknown),
+        // This is necessary at the moment because we do not actually
+        // have UniqueId properties in our reflection database. This may
+        // change, but it should in general be safe.
+        crate::DecodeOptions::read_unknown(),
     )
     .unwrap();
 
