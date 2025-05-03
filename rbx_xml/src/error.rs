@@ -81,6 +81,9 @@ pub(crate) enum DecodeErrorKind {
     UnexpectedEof,
     UnexpectedXmlEvent(xml::reader::XmlEvent),
     MissingAttribute(&'static str),
+    UnknownClassName {
+        class_name: String,
+    },
     UnknownProperty {
         class_name: String,
         property_name: String,
@@ -124,6 +127,9 @@ impl fmt::Display for DecodeErrorKind {
                 "Property {}.{} is unknown",
                 class_name, property_name
             ),
+            UnknownClassName { class_name } => {
+                write!(output, "ClassName {} is unknown", class_name)
+            }
             InvalidContent(explain) => write!(output, "Invalid text content: {}", explain),
             NameMustBeString(ty) => write!(
                 output,
