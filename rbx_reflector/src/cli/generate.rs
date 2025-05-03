@@ -1,5 +1,4 @@
 use std::{
-    borrow::Cow,
     collections::{HashMap, HashSet},
     fs::{self, File},
     io::{BufWriter, Write},
@@ -139,7 +138,7 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
         let superclass = if dump_class.superclass == "<<<ROOT>>>" {
             None
         } else {
-            Some(Cow::Owned(dump_class.superclass.clone()))
+            Some(String::leak(dump_class.superclass.clone()) as &'static str)
         };
 
         let mut tags = HashSet::new();
@@ -201,7 +200,7 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
 
                 let type_name = &dump_property.value_type.name;
                 let value_type = match dump_property.value_type.category {
-                    ValueCategory::Enum => DataType::Enum(type_name.clone().into()),
+                    ValueCategory::Enum => DataType::Enum(String::leak(type_name.clone())),
                     ValueCategory::Primitive | ValueCategory::DataType => {
                         // variant_type_from_str returns None when passed a
                         // type name that does not have a corresponding
@@ -259,23 +258,25 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
                     ValueCategory::Class => DataType::Value(VariantType::Ref),
                 };
 
-                let mut property = PropertyDescriptor::new(dump_property.name.clone(), value_type);
+                let property_name: &'static str = String::leak(dump_property.name.clone());
+
+                let mut property = PropertyDescriptor::new(property_name, value_type);
                 property.scriptability = scriptability;
                 property.tags = tags;
                 property.kind = kind;
 
-                properties.insert(Cow::Owned(dump_property.name.clone()), property);
+                properties.insert(property_name, property);
             }
         }
 
-        let mut class = ClassDescriptor::new(dump_class.name.clone());
+        let class_name: &'static str = String::leak(dump_class.name.clone());
+
+        let mut class = ClassDescriptor::new(class_name);
         class.superclass = superclass;
         class.tags = tags;
         class.properties = properties;
 
-        database
-            .classes
-            .insert(Cow::Owned(dump_class.name.clone()), class);
+        database.classes.insert(class_name, class);
     }
 
     log::debug!("Skipped the following properties because their data types are not implemented, and do not need to serialize:");
@@ -285,17 +286,16 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
     }
 
     for dump_enum in &dump.enums {
-        let mut descriptor = EnumDescriptor::new(dump_enum.name.clone());
+        let enum_name: &'static str = String::leak(dump_enum.name.clone());
+        let mut descriptor = EnumDescriptor::new(enum_name);
 
         for dump_item in &dump_enum.items {
             descriptor
                 .items
-                .insert(Cow::Owned(dump_item.name.clone()), dump_item.value);
+                .insert(String::leak(dump_item.name.clone()), dump_item.value);
         }
 
-        database
-            .enums
-            .insert(Cow::Owned(dump_enum.name.clone()), descriptor);
+        database.enums.insert(enum_name, descriptor);
     }
 
     Ok(())
