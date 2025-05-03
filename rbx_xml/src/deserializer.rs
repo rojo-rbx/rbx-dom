@@ -73,7 +73,7 @@ pub enum DecodeOptions<'db> {
     NoReflection,
 }
 
-impl<'db> DecodeOptions<'db> {
+impl DecodeOptions<'_> {
     /// Constructs a `DecodeOptions` which specifies to ignore unknown properties or classes.
     #[inline]
     pub fn ignore_unknown() -> Self {
