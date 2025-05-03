@@ -589,125 +589,142 @@ fn deserialize_properties<R: Read>(
             xml_type_name
         );
 
-        let maybe_descriptor = if state.options.use_reflection() {
-            find_canonical_property_descriptor(
-                &class_name,
-                &xml_property_name,
-                state.options.database,
-            )
-        } else {
-            None
+        // used in the Result::Err variant of descriptor_result in the match statement
+        enum DecodePropertyBehavior {
+            IgnoreUnknown,
+            ReadUnknown,
+        }
+
+        let (property_name, descriptor_result) = match &state.options {
+            DecodeOptions::IgnoreUnknown { database } => {
+                let maybe_descriptor = find_canonical_property_descriptor(
+                    class_name.as_str(),
+                    xml_property_name.as_str(),
+                    database,
+                );
+                match maybe_descriptor {
+                    Some(descriptor) => (descriptor.name.as_ref(), Ok(descriptor)),
+                    None => (
+                        xml_property_name.as_str(),
+                        Err(DecodePropertyBehavior::IgnoreUnknown),
+                    ),
+                }
+            }
+            DecodeOptions::ReadUnknown { database } => {
+                let maybe_descriptor = find_canonical_property_descriptor(
+                    class_name.as_str(),
+                    xml_property_name.as_str(),
+                    database,
+                );
+                match maybe_descriptor {
+                    Some(descriptor) => (descriptor.name.as_ref(), Ok(descriptor)),
+                    None => (
+                        xml_property_name.as_str(),
+                        Err(DecodePropertyBehavior::ReadUnknown),
+                    ),
+                }
+            }
+            DecodeOptions::ErrorOnUnknown { database } => {
+                let descriptor = find_canonical_property_descriptor(
+                    class_name.as_str(),
+                    xml_property_name.as_str(),
+                    database,
+                )
+                .ok_or_else(|| {
+                    reader.error(DecodeErrorKind::UnknownProperty {
+                        class_name: class_name.to_string(),
+                        property_name: xml_property_name.to_string(),
+                    })
+                })?;
+                (descriptor.name.as_ref(), Ok(descriptor))
+            }
+            DecodeOptions::NoReflection => (
+                xml_property_name.as_str(),
+                Err(DecodePropertyBehavior::ReadUnknown),
+            ),
         };
 
-        if let Some(descriptor) = maybe_descriptor {
-            let value =
-                match read_value_xml(reader, state, &xml_type_name, instance_id, &descriptor.name)?
-                {
-                    Some(value) => value,
-                    None => continue,
+        let value = match read_value_xml(reader, state, &xml_type_name, instance_id, property_name)?
+        {
+            Some(value) => value,
+            None => continue,
+        };
+
+        match descriptor_result {
+            Ok(descriptor) => {
+                let xml_ty = value.ty();
+
+                // The property descriptor might specify a different type than the
+                // one we saw in the XML.
+                //
+                // This happens when property types are upgraded or if the
+                // serialized data type is different than the canonical one.
+                //
+                // For example:
+                // - Int/Float widening from 32-bit to 64-bit
+                // - BrickColor properties turning into Color3
+                let expected_type = match &descriptor.data_type {
+                    &DataType::Value(data_type) => data_type,
+                    DataType::Enum(_enum_name) => VariantType::Enum,
+                    _ => unimplemented!(),
+                };
+                log::trace!("property's read type: {xml_ty:?}, canonical type: {expected_type:?}");
+
+                let value = match value.try_convert(class_name, expected_type) {
+                    Ok(value) => value,
+
+                    // The property descriptor disagreed, and there was no
+                    // conversion available. This is always an error.
+                    Err(message) => {
+                        return Err(
+                            reader.error(DecodeErrorKind::UnsupportedPropertyConversion {
+                                class_name: class_name.to_string(),
+                                property_name: descriptor.name.to_string(),
+                                expected_type,
+                                actual_type: xml_ty,
+                                message,
+                            }),
+                        );
+                    }
                 };
 
-            let xml_ty = value.ty();
+                match &descriptor.kind {
+                    PropertyKind::Canonical {
+                        serialization: PropertySerialization::Migrate(migration),
+                    } => {
+                        let new_property_name = migration.new_property_name.as_str();
+                        let old_property_name = descriptor.name.as_ref();
 
-            // The property descriptor might specify a different type than the
-            // one we saw in the XML.
-            //
-            // This happens when property types are upgraded or if the
-            // serialized data type is different than the canonical one.
-            //
-            // For example:
-            // - Int/Float widening from 32-bit to 64-bit
-            // - BrickColor properties turning into Color3
-            let expected_type = match &descriptor.data_type {
-                DataType::Value(data_type) => *data_type,
-                DataType::Enum(_enum_name) => VariantType::Enum,
-                _ => unimplemented!(),
-            };
-            log::trace!("property's read type: {xml_ty:?}, canonical type: {expected_type:?}");
-
-            let value = match value.try_convert(class_name, expected_type) {
-                Ok(value) => value,
-
-                // The property descriptor disagreed, and there was no
-                // conversion available. This is always an error.
-                Err(message) => {
-                    return Err(
-                        reader.error(DecodeErrorKind::UnsupportedPropertyConversion {
-                            class_name: class_name.to_string(),
-                            property_name: descriptor.name.to_string(),
-                            expected_type,
-                            actual_type: xml_ty,
-                            message,
-                        }),
-                    );
-                }
-            };
-
-            match &descriptor.kind {
-                PropertyKind::Canonical {
-                    serialization: PropertySerialization::Migrate(migration),
-                } => {
-                    let new_property_name = &migration.new_property_name;
-                    let old_property_name = &descriptor.name;
-
-                    if let Entry::Vacant(entry) = props.entry(new_property_name.into()) {
-                        log::trace!(
-                            "Attempting to migrate property {old_property_name} to {new_property_name}"
-                        );
-                        match migration.perform(&value) {
-                            Ok(migrated_value) => {
-                                entry.insert(migrated_value);
-                                log::trace!(
-                                    "Successfully migrated property {old_property_name} to {new_property_name}"
-                                );
-                            }
-                            Err(error) => {
-                                return Err(reader.error(DecodeErrorKind::MigrationError(error)));
+                        if let Entry::Vacant(entry) = props.entry(new_property_name.into()) {
+                            log::trace!(
+                                "Attempting to migrate property {old_property_name} to {new_property_name}"
+                            );
+                            match migration.perform(&value) {
+                                Ok(migrated_value) => {
+                                    entry.insert(migrated_value);
+                                    log::trace!(
+                                        "Successfully migrated property {old_property_name} to {new_property_name}"
+                                    );
+                                }
+                                Err(error) => {
+                                    return Err(
+                                        reader.error(DecodeErrorKind::MigrationError(error))
+                                    );
+                                }
                             }
                         }
                     }
-                }
-                _ => {
-                    props.insert(descriptor.name.as_ref().into(), value);
-                }
-            };
-        } else {
-            match state.options.property_behavior {
-                DecodePropertyBehavior::IgnoreUnknown => {
-                    // We don't care about this property, so we can read it and
-                    // throw it into the void.
-
-                    read_value_xml(
-                        reader,
-                        state,
-                        &xml_type_name,
-                        instance_id,
-                        &xml_property_name,
-                    )?;
-                }
-                DecodePropertyBehavior::ReadUnknown | DecodePropertyBehavior::NoReflection => {
-                    // We'll take this value as-is with no conversions on either
-                    // the name or value.
-
-                    let value = match read_value_xml(
-                        reader,
-                        state,
-                        &xml_type_name,
-                        instance_id,
-                        &xml_property_name,
-                    )? {
-                        Some(value) => value,
-                        None => continue,
-                    };
-                    props.insert(xml_property_name.into(), value);
-                }
-                DecodePropertyBehavior::ErrorOnUnknown => {
-                    return Err(reader.error(DecodeErrorKind::UnknownProperty {
-                        class_name: class_name.to_string(),
-                        property_name: xml_property_name,
-                    }));
+                    _ => {
+                        props.insert(property_name.into(), value);
+                    }
                 }
             }
+            Err(DecodePropertyBehavior::ReadUnknown) => {
+                props.insert(property_name.into(), value);
+            }
+            // We don't care about this property, so we can read it and
+            // throw it into the void.
+            Err(DecodePropertyBehavior::IgnoreUnknown) => continue,
         }
     }
 }
