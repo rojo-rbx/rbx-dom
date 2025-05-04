@@ -154,7 +154,6 @@ struct PropInfo<'db> {
 /// self-borrowing issues from BinarySerializer getting too large.
 #[derive(Debug)]
 struct TypeInfos<'dom, 'db> {
-    database: &'db ReflectionDatabase<'db>,
     /// A map containing one entry for each unique ClassName discovered in the
     /// DOM.
     ///
@@ -168,9 +167,8 @@ struct TypeInfos<'dom, 'db> {
 }
 
 impl<'dom, 'db> TypeInfos<'dom, 'db> {
-    fn new(database: &'db ReflectionDatabase<'db>) -> Self {
+    fn new() -> Self {
         Self {
-            database,
             values: BTreeMap::new(),
             next_type_id: 0,
         }
@@ -178,12 +176,21 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(&mut self, class: Ustr) -> &mut TypeInfo<'dom, 'db> {
-        if let btree_map::Entry::Vacant(entry) = self.values.entry(class) {
-            let type_id = self.next_type_id;
-            self.next_type_id += 1;
+    fn get_or_create(
+        &mut self,
+        database: &'db ReflectionDatabase<'db>,
+        class: Ustr,
+    ) -> &mut TypeInfo<'dom, 'db> {
+        // Split self into independent mutable references.
+        let TypeInfos {
+            values,
+            next_type_id,
+        } = self;
+        values.entry(class).or_insert_with(|| {
+            let type_id = *next_type_id;
+            *next_type_id += 1;
 
-            let class_descriptor = self.database.classes.get(class.as_str());
+            let class_descriptor = database.classes.get(class.as_str());
 
             let is_service = if let Some(descriptor) = &class_descriptor {
                 descriptor.tags.contains(&ClassTag::Service)
@@ -212,19 +219,15 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
                 },
             );
 
-            entry.insert(TypeInfo {
+            TypeInfo {
                 type_id,
                 is_service,
                 instances: Vec::new(),
                 properties,
                 class_descriptor,
                 properties_visited: UstrSet::new(),
-            });
-        }
-
-        // This unwrap will not panic because we always insert this key into
-        // type_infos in this function.
-        self.values.get_mut(&class).unwrap()
+            }
+        })
     }
 }
 
@@ -236,7 +239,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             output,
             relevant_instances: Vec::new(),
             id_to_referent: HashMap::new(),
-            type_infos: TypeInfos::new(serializer.database),
+            type_infos: TypeInfos::new(),
             shared_strings: Vec::new(),
             shared_string_ids: HashMap::new(),
         }
@@ -316,7 +319,9 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     #[allow(clippy::map_entry)]
     #[profiling::function]
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
-        let type_info = self.type_infos.get_or_create(instance.class);
+        let type_info = self
+            .type_infos
+            .get_or_create(self.serializer.database, instance.class);
         type_info.instances.push(instance);
 
         for (prop_name, prop_value) in &instance.properties {
@@ -412,64 +417,62 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 }
             }
 
-            if !type_info.properties.contains_key(&canonical_name) {
-                let default_value = type_info
-                    .class_descriptor
-                    .and_then(|class| {
-                        database
-                            .find_default_property(class, &canonical_name)
-                            .map(Cow::Borrowed)
-                    })
-                    .or_else(|| Self::fallback_default_value(serialized_ty).map(Cow::Owned))
-                    .ok_or_else(|| {
-                        // Since we don't know how to generate the default value
-                        // for this property, we consider it unsupported.
+            let prop_info = match type_info.properties.entry(canonical_name) {
+                btree_map::Entry::Occupied(entry) => entry.into_mut(),
+                btree_map::Entry::Vacant(entry) => {
+                    let default_value = type_info
+                        .class_descriptor
+                        .and_then(|class| {
+                            database
+                                .find_default_property(class, &canonical_name)
+                                .map(Cow::Borrowed)
+                        })
+                        .or_else(|| Self::fallback_default_value(serialized_ty).map(Cow::Owned))
+                        .ok_or_else(|| {
+                            // Since we don't know how to generate the default value
+                            // for this property, we consider it unsupported.
+                            InnerError::UnsupportedPropType {
+                                type_name: instance.class.to_string(),
+                                prop_name: canonical_name.to_string(),
+                                prop_type: format!("{:?}", serialized_ty),
+                            }
+                        })?;
+
+                    // There's no assurance that the default SharedString value
+                    // will actually get serialized inside of the SSTR chunk, so we
+                    // check here just to make sure.
+                    if let Variant::SharedString(sstr) = default_value.borrow() {
+                        if !self.shared_string_ids.contains_key(sstr) {
+                            self.shared_string_ids.insert(sstr.clone(), 0);
+                            self.shared_strings.push(sstr.clone());
+                        }
+                    }
+
+                    let ser_type = Type::from_rbx_type(serialized_ty).ok_or_else(|| {
+                        // This is a known value type, but rbx_binary doesn't have a
+                        // binary type value for it. rbx_binary might be out of
+                        // date?
                         InnerError::UnsupportedPropType {
                             type_name: instance.class.to_string(),
-                            prop_name: canonical_name.to_string(),
+                            prop_name: serialized_name.to_string(),
                             prop_type: format!("{:?}", serialized_ty),
                         }
                     })?;
 
-                // There's no assurance that the default SharedString value
-                // will actually get serialized inside of the SSTR chunk, so we
-                // check here just to make sure.
-                if let Variant::SharedString(sstr) = default_value.borrow() {
-                    if !self.shared_string_ids.contains_key(sstr) {
-                        self.shared_string_ids.insert(sstr.clone(), 0);
-                        self.shared_strings.push(sstr.clone());
-                    }
-                }
-
-                let ser_type = Type::from_rbx_type(serialized_ty).ok_or_else(|| {
-                    // This is a known value type, but rbx_binary doesn't have a
-                    // binary type value for it. rbx_binary might be out of
-                    // date?
-                    InnerError::UnsupportedPropType {
-                        type_name: instance.class.to_string(),
-                        prop_name: serialized_name.to_string(),
-                        prop_type: format!("{:?}", serialized_ty),
-                    }
-                })?;
-
-                type_info.properties.insert(
-                    canonical_name,
-                    PropInfo {
+                    entry.insert(PropInfo {
                         prop_type: ser_type,
                         serialized_name,
                         aliases: UstrSet::new(),
                         default_value,
                         migration,
-                    },
-                );
-            }
+                    })
+                }
+            };
 
             // If the property we found on this instance is different than the
             // canonical name for this property, stash it into the set of known
             // aliases for this PropInfo.
             if *prop_name != canonical_name {
-                let prop_info = type_info.properties.get_mut(&canonical_name).unwrap();
-
                 if !prop_info.aliases.contains(prop_name) {
                     prop_info.aliases.insert(*prop_name);
                 }
