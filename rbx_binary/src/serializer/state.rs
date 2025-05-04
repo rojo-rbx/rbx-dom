@@ -320,7 +320,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
         let type_info = self
             .type_infos
-            .get_or_create(&self.serializer.database, instance.class);
+            .get_or_create(self.serializer.database, instance.class);
         type_info.instances.push(instance);
 
         for (prop_name, prop_value) in &instance.properties {
