@@ -16,7 +16,7 @@ use rbx_reflection::{ClassDescriptor, PropertyKind, PropertySerialization, Refle
 
 use crate::{
     chunk::Chunk,
-    core::{find_property_descriptors, RbxReadExt},
+    core::{find_property_descriptors, read_string_slice, RbxReadExt},
     types::Type,
 };
 
@@ -270,7 +270,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
     #[profiling::function]
     pub(super) fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
-        let type_name = chunk.read_string()?;
+        let type_name = read_string_slice(&mut chunk)?;
         let object_format = chunk.read_u8()?;
         let number_instances = chunk.read_le_u32()?;
 
@@ -283,7 +283,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             .collect();
 
         let (class_descriptor, prop_capacity) =
-            if let Some(class) = self.deserializer.database.classes.get(type_name.as_str()) {
+            if let Some(class) = self.deserializer.database.classes.get(type_name) {
                 (Some(class), class.default_properties.len())
             } else {
                 (None, 0)
@@ -295,10 +295,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             self.instances_by_ref.insert(
                 referent,
                 Instance {
-                    builder: InstanceBuilder::with_property_capacity(
-                        type_name.as_str(),
-                        prop_capacity,
-                    ),
+                    builder: InstanceBuilder::with_property_capacity(type_name, prop_capacity),
                     children: Vec::new(),
                 },
             );
