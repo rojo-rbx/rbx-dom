@@ -16,7 +16,7 @@ use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDa
 
 use crate::{
     chunk::Chunk,
-    core::{find_property_descriptors, read_string_slice, RbxReadExt},
+    core::{find_property_descriptors, read_binary_string_slice, read_string_slice, RbxReadExt},
     types::Type,
 };
 
@@ -379,8 +379,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
             for referent in &type_info.referents {
                 let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                let binary_string = chunk.read_binary_string()?;
-                let value = match std::str::from_utf8(&binary_string) {
+                let binary_string = read_binary_string_slice(&mut chunk)?;
+                let value = match std::str::from_utf8(binary_string) {
                     Ok(value) => Cow::Borrowed(value),
                     Err(_) => {
                         log::warn!(
@@ -390,7 +390,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                             prop_name
                         );
 
-                        String::from_utf8_lossy(binary_string.as_ref())
+                        String::from_utf8_lossy(binary_string)
                     }
                 };
                 instance.builder.set_name(value);
@@ -417,8 +417,8 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::String => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let binary_string = chunk.read_binary_string()?;
-                        let value = match std::str::from_utf8(&binary_string) {
+                        let binary_string = read_binary_string_slice(&mut chunk)?;
+                        let value = match std::str::from_utf8(binary_string) {
                             Ok(value) => Cow::Borrowed(value),
                             Err(_) => {
                                 log::warn!(
@@ -428,7 +428,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                                     property.name
                                 );
 
-                                String::from_utf8_lossy(&binary_string)
+                                String::from_utf8_lossy(binary_string)
                             }
                         };
 
@@ -452,16 +452,15 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::Tags => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let buffer = chunk.read_binary_string()?;
+                        let buffer = read_binary_string_slice(&mut chunk)?;
 
-                        let value = Tags::decode(buffer.as_ref()).map_err(|_| {
-                            InnerError::InvalidPropData {
+                        let value =
+                            Tags::decode(buffer).map_err(|_| InnerError::InvalidPropData {
                                 type_name: type_info.type_name.to_string(),
                                 prop_name: prop_name.to_owned(),
                                 valid_value: "a list of valid null-delimited UTF-8 strings",
                                 actual_value: "invalid UTF-8".to_string(),
-                            }
-                        })?;
+                            })?;
 
                         add_property(instance, &property, value.into());
                     }
@@ -469,9 +468,9 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::Attributes => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let buffer = chunk.read_binary_string()?;
+                        let buffer = read_binary_string_slice(&mut chunk)?;
 
-                        match Attributes::from_reader(buffer.as_slice()) {
+                        match Attributes::from_reader(buffer) {
                             Ok(value) => {
                                 add_property(instance, &property, value.into());
                             }
@@ -496,8 +495,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::MaterialColors => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let buffer = chunk.read_binary_string()?;
-                        match MaterialColors::decode(&buffer) {
+                        let buffer = read_binary_string_slice(&mut chunk)?;
+                        match MaterialColors::decode(buffer) {
                             Ok(value) => add_property(instance, &property, value.into()),
                             Err(err) => {
                                 log::warn!(
