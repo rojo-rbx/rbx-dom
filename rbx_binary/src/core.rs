@@ -345,6 +345,48 @@ impl ChunkBuilder {
 
 impl<W> RbxWriteExt for W where W: Write {}
 
+/// Read a binary "string" in the format that Roblox's model files use.
+///
+/// This function is safer than read_string because Roblox generally makes
+/// no guarantees about encoding of things it calls strings. rbx_binary
+/// makes a semantic differentiation between strings and binary buffers,
+/// which makes it more strict than Roblox but more likely to be correct.
+///
+/// Unlike RbxReadExt::read_binary_string, this function only operates on a byte slice.
+pub fn read_binary_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a [u8]> {
+    let length = slice.read_le_u32()?;
+
+    let out;
+    // split_at can panic if the slice is shorter than length
+    // but we do not expect that to happen.
+    (out, *slice) = slice.split_at(length as usize);
+
+    Ok(out)
+}
+
+/// Read a UTF-8 encoded string encoded how Roblox model files encode
+/// strings. This function isn't always appropriate because Roblox's formats
+/// generally aren't dilligent about data being valid Unicode.
+///
+/// Unlike RbxReadExt::read_string, this function only operates on a byte slice.
+pub fn read_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a str> {
+    let length = slice.read_le_u32()?;
+
+    let out;
+    // split_at can panic if the slice is shorter than length
+    // but we do not expect that to happen.
+    (out, *slice) = slice.split_at(length as usize);
+
+    let Ok(str) = core::str::from_utf8(out) else {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidData,
+            "stream did not contain valid UTF-8",
+        ));
+    };
+
+    Ok(str)
+}
+
 /// Applies the 'zigzag' transformation done by Roblox to many `i32` values.
 pub fn transform_i32(value: i32) -> i32 {
     (value << 1) ^ (value >> 31)
