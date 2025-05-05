@@ -326,7 +326,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
     #[profiling::function]
     pub(super) fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
-        let prop_name = chunk.read_string()?;
+        let prop_name = read_string_slice(&mut chunk)?;
 
         let type_info = self
             .type_infos
@@ -403,7 +403,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
             self.deserializer.database,
             binary_type,
             type_info.type_name,
-            prop_name.as_str().into(),
+            prop_name.into(),
         ) {
             property
         } else {
@@ -457,7 +457,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                         let value = Tags::decode(buffer.as_ref()).map_err(|_| {
                             InnerError::InvalidPropData {
                                 type_name: type_info.type_name.to_string(),
-                                prop_name: prop_name.clone(),
+                                prop_name: prop_name.to_owned(),
                                 valid_value: "a list of valid null-delimited UTF-8 strings",
                                 actual_value: "invalid UTF-8".to_string(),
                             }
@@ -520,7 +520,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names:
                             "String, ContentId, Content, Tags, Attributes, or BinaryString",
                         actual_type_name: format!("{:?}", invalid_type),
@@ -538,7 +538,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Bool",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -570,7 +570,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Int32",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -589,7 +589,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Float32",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -619,7 +619,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Float64",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -646,7 +646,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "UDim",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -685,7 +685,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "UDim2",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -717,7 +717,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Ray",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -731,7 +731,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let faces =
                             Faces::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
                                 type_name: type_info.type_name.to_string(),
-                                prop_name: prop_name.clone(),
+                                prop_name: prop_name.to_owned(),
                                 valid_value: "less than 63",
                                 actual_value: value.to_string(),
                             })?;
@@ -742,7 +742,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Faces",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -757,7 +757,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let axes =
                             Axes::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
                                 type_name: type_info.type_name.to_string(),
-                                prop_name: prop_name.clone(),
+                                prop_name: prop_name.to_owned(),
                                 valid_value: "less than 7",
                                 actual_value: value.to_string(),
                             })?;
@@ -768,7 +768,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Axes",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -787,7 +787,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             .and_then(BrickColor::from_number)
                             .ok_or_else(|| InnerError::InvalidPropData {
                                 type_name: type_info.type_name.to_string(),
-                                prop_name: prop_name.clone(),
+                                prop_name: prop_name.to_owned(),
                                 valid_value: "a valid BrickColor",
                                 actual_value: value.to_string(),
                             })?;
@@ -798,7 +798,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "BrickColor",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -828,7 +828,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Color3",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -852,7 +852,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Vector2",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -882,7 +882,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Vector3",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -918,7 +918,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         } else {
                             return Err(InnerError::BadRotationId {
                                 type_name: type_info.type_name.to_string(),
-                                prop_name,
+                                prop_name: prop_name.to_owned(),
                                 id,
                             });
                         }
@@ -948,7 +948,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "CFrame",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -967,7 +967,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Enum",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -992,7 +992,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Ref",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1017,7 +1017,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Vector3int16",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1055,7 +1055,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Font",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1082,7 +1082,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "NumberSequence",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1115,7 +1115,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "ColorSequence",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1135,7 +1135,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "NumberRange",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1168,7 +1168,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Rect",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1198,7 +1198,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "PhysicalProperties",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1229,7 +1229,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Color3",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1248,7 +1248,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Int64",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1264,7 +1264,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             self.shared_strings.get(value as usize).ok_or_else(|| {
                                 InnerError::InvalidPropData {
                                     type_name: type_info.type_name.to_string(),
-                                    prop_name: prop_name.clone(),
+                                    prop_name: prop_name.to_owned(),
                                     valid_value: "a valid SharedString",
                                     actual_value: format!("{:?}", value),
                                 }
@@ -1278,7 +1278,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "SharedString",
                         actual_type_name: format!("{:?}", invalid_type),
                     })
@@ -1326,7 +1326,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         } else {
                             return Err(InnerError::BadRotationId {
                                 type_name: type_info.type_name.to_string(),
-                                prop_name,
+                                prop_name: prop_name.to_owned(),
                                 id,
                             });
                         }
@@ -1374,7 +1374,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "OptionalCFrame",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1404,7 +1404,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "UniqueId",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1429,7 +1429,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "SecurityCapabilities",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
@@ -1480,7 +1480,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_info.type_name.to_string(),
-                        prop_name,
+                        prop_name: prop_name.to_owned(),
                         valid_type_names: "Content",
                         actual_type_name: format!("{:?}", invalid_type),
                     });
