@@ -27,7 +27,10 @@ impl Patches {
         Ok(Self { change })
     }
 
-    pub fn apply_pre_default(&self, database: &mut ReflectionDatabase) -> anyhow::Result<()> {
+    pub fn apply_pre_default<'db>(
+        &'db self,
+        database: &mut ReflectionDatabase<'db>,
+    ) -> anyhow::Result<()> {
         for (class_name, class_changes) in &self.change {
             let class = database
                 .classes
@@ -91,7 +94,10 @@ impl Patches {
         Ok(())
     }
 
-    pub fn apply_post_default(&self, database: &mut ReflectionDatabase) -> anyhow::Result<()> {
+    pub fn apply_post_default<'db>(
+        &'db self,
+        database: &mut ReflectionDatabase<'db>,
+    ) -> anyhow::Result<()> {
         // A map of every class to all subclasses, by name. This uses `String`
         // rather than some borrowed variant to get around borrowing `database`
         // as both mutable and immutable
@@ -139,11 +145,11 @@ impl Patches {
                 for descendant in subclass_list {
                     let class = database
                         .classes
-                        .get_mut(String::leak(descendant.clone()))
+                        .get_mut(descendant.as_str())
                         .expect("class listed in subclass map should exist");
                     class
                         .default_properties
-                        .insert(String::leak(prop_name.clone()), default_value.clone());
+                        .insert(prop_name.as_str(), default_value.clone());
                 }
             }
         }
@@ -178,21 +184,19 @@ pub enum DataType {
     /// The property is an enum with the given name.
     Enum(String),
 }
-impl From<&DataType> for rbx_reflection::DataType<'static> {
-    fn from(value: &DataType) -> Self {
+impl<'db> From<&'db DataType> for rbx_reflection::DataType<'db> {
+    fn from(value: &'db DataType) -> Self {
         match value {
             &DataType::Value(variant_type) => rbx_reflection::DataType::Value(variant_type),
-            DataType::Enum(e) => rbx_reflection::DataType::Enum(String::leak(e.clone())),
+            DataType::Enum(e) => rbx_reflection::DataType::Enum(e),
         }
     }
 }
 
 impl PropertyChange {
-    fn kind(&self) -> Option<PropertyKind<'static>> {
+    fn kind(&self) -> Option<PropertyKind<'_>> {
         match (&self.alias_for, &self.serialization) {
-            (Some(alias), None) => Some(PropertyKind::Alias {
-                alias_for: String::leak(alias.clone()),
-            }),
+            (Some(alias_for), None) => Some(PropertyKind::Alias { alias_for }),
 
             (None, Some(serialization)) => Some(PropertyKind::Canonical {
                 serialization: serialization.into(),
@@ -226,19 +230,19 @@ pub struct PropertyMigration {
     migration: MigrationOperation,
 }
 
-impl From<&Serialization> for PropertySerialization<'static> {
-    fn from(value: &Serialization) -> Self {
+impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
+    fn from(value: &'db Serialization) -> Self {
         match value {
             Serialization::Serializes => PropertySerialization::Serializes,
             Serialization::DoesNotSerialize => PropertySerialization::DoesNotSerialize,
             Serialization::SerializesAs { serializes_as } => {
-                PropertySerialization::SerializesAs(String::leak(serializes_as.clone()))
+                PropertySerialization::SerializesAs(serializes_as)
             }
             &Serialization::Migrate(PropertyMigration {
                 ref new_property_name,
                 migration,
             }) => PropertySerialization::Migrate(rbx_reflection::PropertyMigration {
-                new_property_name: String::leak(new_property_name.clone()),
+                new_property_name,
                 migration,
             }),
         }
