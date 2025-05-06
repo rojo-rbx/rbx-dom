@@ -131,14 +131,14 @@ impl GenerateSubcommand {
     }
 }
 
-fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<()> {
+fn apply_dump<'db>(database: &mut ReflectionDatabase<'db>, dump: &'db Dump) -> anyhow::Result<()> {
     let mut ignored_properties = Vec::new();
 
     for dump_class in &dump.classes {
         let superclass = if dump_class.superclass == "<<<ROOT>>>" {
             None
         } else {
-            Some(String::leak(dump_class.superclass.clone()) as &'static str)
+            Some(dump_class.superclass.as_str())
         };
 
         let mut tags = HashSet::new();
@@ -200,7 +200,7 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
 
                 let type_name = &dump_property.value_type.name;
                 let value_type = match dump_property.value_type.category {
-                    ValueCategory::Enum => DataType::Enum(String::leak(type_name.clone())),
+                    ValueCategory::Enum => DataType::Enum(type_name.as_str()),
                     ValueCategory::Primitive | ValueCategory::DataType => {
                         // variant_type_from_str returns None when passed a
                         // type name that does not have a corresponding
@@ -258,25 +258,21 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
                     ValueCategory::Class => DataType::Value(VariantType::Ref),
                 };
 
-                let property_name: &'static str = String::leak(dump_property.name.clone());
-
-                let mut property = PropertyDescriptor::new(property_name, value_type);
+                let mut property = PropertyDescriptor::new(dump_property.name.as_str(), value_type);
                 property.scriptability = scriptability;
                 property.tags = tags;
                 property.kind = kind;
 
-                properties.insert(property_name, property);
+                properties.insert(dump_property.name.as_str(), property);
             }
         }
 
-        let class_name: &'static str = String::leak(dump_class.name.clone());
-
-        let mut class = ClassDescriptor::new(class_name);
+        let mut class = ClassDescriptor::new(dump_class.name.as_str());
         class.superclass = superclass;
         class.tags = tags;
         class.properties = properties;
 
-        database.classes.insert(class_name, class);
+        database.classes.insert(dump_class.name.as_str(), class);
     }
 
     log::debug!("Skipped the following properties because their data types are not implemented, and do not need to serialize:");
@@ -286,16 +282,15 @@ fn apply_dump(database: &mut ReflectionDatabase, dump: &Dump) -> anyhow::Result<
     }
 
     for dump_enum in &dump.enums {
-        let enum_name: &'static str = String::leak(dump_enum.name.clone());
-        let mut descriptor = EnumDescriptor::new(enum_name);
+        let mut descriptor = EnumDescriptor::new(dump_enum.name.as_str());
 
         for dump_item in &dump_enum.items {
             descriptor
                 .items
-                .insert(String::leak(dump_item.name.clone()), dump_item.value);
+                .insert(dump_item.name.as_str(), dump_item.value);
         }
 
-        database.enums.insert(enum_name, descriptor);
+        database.enums.insert(dump_enum.name.as_str(), descriptor);
     }
 
     Ok(())
