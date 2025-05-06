@@ -58,15 +58,13 @@ fn apply_instance_defaults(database: &mut ReflectionDatabase, instance: &Instanc
     };
 
     for (property_name, property_value) in &instance.properties {
-        let property_name = property_name.to_string();
-
         match property_value.ty() {
             // We skip the Ref type because its default value is not useful.
             VariantType::Ref => continue,
 
             _ => class
                 .default_properties
-                .insert(String::leak(property_name), property_value.clone()),
+                .insert(property_name.as_str(), property_value.clone()),
         };
     }
 }
