@@ -377,14 +377,12 @@ pub fn read_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a str> {
     // but we do not expect that to happen.
     (out, *slice) = slice.split_at(length as usize);
 
-    let Ok(str) = core::str::from_utf8(out) else {
-        return Err(io::Error::new(
+    core::str::from_utf8(out).map_err(|_| {
+        io::Error::new(
             io::ErrorKind::InvalidData,
             "stream did not contain valid UTF-8",
-        ));
-    };
-
-    Ok(str)
+        )
+    })
 }
 
 /// Applies the 'zigzag' transformation done by Roblox to many `i32` values.
