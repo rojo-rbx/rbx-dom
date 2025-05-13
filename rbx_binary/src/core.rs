@@ -352,7 +352,8 @@ impl<W> RbxWriteExt for W where W: Write {}
 /// makes a semantic differentiation between strings and binary buffers,
 /// which makes it more strict than Roblox but more likely to be correct.
 ///
-/// Unlike RbxReadExt::read_binary_string, this function only operates on a byte slice.
+/// This function is not part of RbxReadExt, and unlike
+/// RbxReadExt::read_binary_string, this function only operates on a byte slice.
 pub fn read_binary_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a [u8]> {
     let length = slice.read_le_u32()?;
 
@@ -368,7 +369,8 @@ pub fn read_binary_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a [u8]
 /// strings. This function isn't always appropriate because Roblox's formats
 /// generally aren't dilligent about data being valid Unicode.
 ///
-/// Unlike RbxReadExt::read_string, this function only operates on a byte slice.
+/// This function is not part of RbxReadExt, and unlike
+/// RbxReadExt::read_string, this function only operates on a byte slice.
 pub fn read_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a str> {
     let length = slice.read_le_u32()?;
 
