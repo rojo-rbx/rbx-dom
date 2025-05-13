@@ -372,12 +372,7 @@ pub fn read_binary_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a [u8]
 /// This function is not part of RbxReadExt, and unlike
 /// RbxReadExt::read_string, this function only operates on a byte slice.
 pub fn read_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a str> {
-    let length = slice.read_le_u32()?;
-
-    let out;
-    // split_at can panic if the slice is shorter than length
-    // but we do not expect that to happen.
-    (out, *slice) = slice.split_at(length as usize);
+    let out = read_binary_string_slice(slice)?;
 
     core::str::from_utf8(out).map_err(|_| {
         io::Error::new(
