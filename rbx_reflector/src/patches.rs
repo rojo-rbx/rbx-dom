@@ -187,7 +187,7 @@ pub enum DataType {
 impl<'db> From<&'db DataType> for rbx_reflection::DataType<'db> {
     fn from(value: &'db DataType) -> Self {
         match value {
-            &DataType::Value(variant_type) => rbx_reflection::DataType::Value(variant_type),
+            DataType::Value(variant_type) => rbx_reflection::DataType::Value(*variant_type),
             DataType::Enum(e) => rbx_reflection::DataType::Enum(e),
         }
     }
@@ -238,12 +238,12 @@ impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
             Serialization::SerializesAs { serializes_as } => {
                 PropertySerialization::SerializesAs(serializes_as)
             }
-            &Serialization::Migrate(PropertyMigration {
-                ref new_property_name,
+            Serialization::Migrate(PropertyMigration {
+                new_property_name,
                 migration,
             }) => PropertySerialization::Migrate(rbx_reflection::PropertyMigration {
                 new_property_name,
-                migration,
+                migration: *migration,
             }),
         }
     }
