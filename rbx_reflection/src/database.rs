@@ -136,9 +136,9 @@ pub struct ClassDescriptor<'a> {
 
 impl<'a> ClassDescriptor<'a> {
     /// Creates a new `ClassDescriptor` with the given name.
-    pub fn new<S: Into<&'a str>>(name: S) -> Self {
+    pub fn new(name: &'a str) -> Self {
         Self {
-            name: name.into(),
+            name,
             tags: HashSet::new(),
             superclass: None,
             properties: HashMap::new(),
@@ -172,9 +172,9 @@ pub struct PropertyDescriptor<'a> {
 
 impl<'a> PropertyDescriptor<'a> {
     /// Creates a new `PropertyDescriptor` with the given name and type.
-    pub fn new<S: Into<&'a str>>(name: S, data_type: DataType<'a>) -> Self {
+    pub fn new(name: &'a str, data_type: DataType<'a>) -> Self {
         Self {
-            name: name.into(),
+            name,
             scriptability: Scriptability::None,
             data_type,
             tags: HashSet::new(),
@@ -279,9 +279,9 @@ pub struct EnumDescriptor<'a> {
 
 impl<'a> EnumDescriptor<'a> {
     /// Create a new `EnumDescriptor` with the given name and no items.
-    pub fn new<S: Into<&'a str>>(name: S) -> Self {
+    pub fn new(name: &'a str) -> Self {
         Self {
-            name: name.into(),
+            name,
             items: HashMap::new(),
         }
     }
