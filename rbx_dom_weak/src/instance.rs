@@ -1,5 +1,5 @@
+use ahash::AHashMap;
 use rbx_types::{Ref, Variant};
-use ustr::{Ustr, UstrMap};
 
 /**
 Represents an instance that can be turned into a new
@@ -31,19 +31,18 @@ let dom = WeakDom::new(data_model);
 ```
 */
 #[derive(Debug)]
-pub struct InstanceBuilder {
+pub struct InstanceBuilder<'a> {
     pub(crate) referent: Ref,
     pub(crate) name: String,
-    pub(crate) class: Ustr,
-    pub(crate) properties: Vec<(Ustr, Variant)>,
-    pub(crate) children: Vec<InstanceBuilder>,
+    pub(crate) class: &'a str,
+    pub(crate) properties: Vec<(&'a str, Variant)>,
+    pub(crate) children: Vec<InstanceBuilder<'a>>,
 }
 
-impl InstanceBuilder {
+impl<'a> InstanceBuilder<'a> {
     /// Create a new `InstanceBuilder` with the given ClassName. This is also
     /// used as the instance's Name, unless overwritten later.
-    pub fn new<S: Into<Ustr>>(class: S) -> Self {
-        let class = class.into();
+    pub fn new(class: &'a str) -> Self {
         let name = class.to_string();
 
         InstanceBuilder {
@@ -57,8 +56,7 @@ impl InstanceBuilder {
 
     /// Create a new `InstanceBuilder` with the given ClassName and with a
     /// property table with at least enough space for the given capacity.
-    pub fn with_property_capacity<S: Into<Ustr>>(class: S, capacity: usize) -> Self {
-        let class = class.into();
+    pub fn with_property_capacity(class: &'a str, capacity: usize) -> Self {
         let name = class.to_string();
 
         InstanceBuilder {
@@ -75,7 +73,7 @@ impl InstanceBuilder {
         InstanceBuilder {
             referent: Ref::new(),
             name: String::new(),
-            class: Ustr::default(),
+            class: "",
             properties: Vec::new(),
             children: Vec::new(),
         }
@@ -108,67 +106,61 @@ impl InstanceBuilder {
     }
 
     /// Change the class of the `InstanceBuilder`.
-    pub fn with_class<S: Into<Ustr>>(self, class: S) -> Self {
-        Self {
-            class: class.into(),
-            ..self
-        }
+    pub fn with_class(self, class: &'a str) -> Self {
+        Self { class, ..self }
     }
 
     /// Change the class of the `InstanceBuilder`.
-    pub fn set_class<S: Into<Ustr>>(&mut self, class: S) {
-        self.class = class.into();
+    pub fn set_class(&mut self, class: &'a str) {
+        self.class = class;
     }
 
     /// Add a new property to the `InstanceBuilder`.
-    pub fn with_property<K: Into<Ustr>, V: Into<Variant>>(mut self, key: K, value: V) -> Self {
-        self.properties.push((key.into(), value.into()));
+    pub fn with_property<V: Into<Variant>>(mut self, key: &'a str, value: V) -> Self {
+        self.properties.push((key, value.into()));
         self
     }
 
     /// Add a new property to the `InstanceBuilder`.
-    pub fn add_property<K: Into<Ustr>, V: Into<Variant>>(&mut self, key: K, value: V) {
-        self.properties.push((key.into(), value.into()));
+    pub fn add_property<V: Into<Variant>>(&mut self, key: &'a str, value: V) {
+        self.properties.push((key, value.into()));
     }
 
     /// Check if the `InstanceBuilder` already has a property with the given key.
-    pub fn has_property<K: Into<Ustr>>(&self, key: K) -> bool {
-        let key = key.into();
+    pub fn has_property(&self, key: &'a str) -> bool {
         self.properties.iter().any(|(k, _)| *k == key)
     }
 
     /// Add multiple properties to the `InstanceBuilder` at once.
-    pub fn with_properties<K, V, I>(mut self, props: I) -> Self
+    pub fn with_properties<V, I>(mut self, props: I) -> Self
     where
-        K: Into<Ustr>,
         V: Into<Variant>,
-        I: IntoIterator<Item = (K, V)>,
+        I: IntoIterator<Item = (&'a str, V)>,
     {
-        let props = props.into_iter().map(|(k, v)| (k.into(), v.into()));
+        let props = props.into_iter().map(|(k, v)| (k, v.into()));
         self.properties.extend(props);
 
         self
     }
 
     /// Add multiple properties to the `InstanceBuilder` at once.
-    pub fn add_properties<K, V, I>(&mut self, props: I)
+    pub fn add_properties<V, I>(&mut self, props: I)
     where
-        K: Into<Ustr>,
         V: Into<Variant>,
-        I: IntoIterator<Item = (K, V)>,
+        I: IntoIterator<Item = (&'a str, V)>,
     {
-        let props = props.into_iter().map(|(k, v)| (k.into(), v.into()));
+        let props = props.into_iter().map(|(k, v)| (k, v.into()));
         self.properties.extend(props);
     }
 
     /// Add a new child to the `InstanceBuilder`.
-    pub fn with_child(mut self, child: InstanceBuilder) -> Self {
+    pub fn with_child(mut self, child: InstanceBuilder<'a>) -> Self {
         self.children.push(child);
         self
     }
 
     /// Add a new child to the `InstanceBuilder`.
-    pub fn add_child(&mut self, child: InstanceBuilder) {
+    pub fn add_child(&mut self, child: InstanceBuilder<'a>) {
         self.children.push(child);
     }
 
@@ -177,7 +169,7 @@ impl InstanceBuilder {
     /// Order of the children will be preserved.
     pub fn with_children<I>(mut self, children: I) -> Self
     where
-        I: IntoIterator<Item = InstanceBuilder>,
+        I: IntoIterator<Item = InstanceBuilder<'a>>,
     {
         self.children.extend(children);
         self
@@ -188,7 +180,7 @@ impl InstanceBuilder {
     /// Order of the children will be preserved.
     pub fn add_children<I>(&mut self, children: I)
     where
-        I: IntoIterator<Item = InstanceBuilder>,
+        I: IntoIterator<Item = InstanceBuilder<'a>>,
     {
         self.children.extend(children);
     }
@@ -199,7 +191,7 @@ impl InstanceBuilder {
 /// Operations that could affect other instances contained in the
 /// [`WeakDom`][crate::WeakDom] cannot be performed on an `Instance` correctly.
 #[derive(Debug)]
-pub struct Instance {
+pub struct Instance<'a> {
     pub(crate) referent: Ref,
     pub(crate) children: Vec<Ref>,
     pub(crate) parent: Ref,
@@ -208,13 +200,13 @@ pub struct Instance {
     pub name: String,
 
     /// The instance's class, corresponding to the `ClassName` property.
-    pub class: Ustr,
+    pub class: &'a str,
 
     /// Any properties stored on the object that are not `Name` or `ClassName`.
-    pub properties: UstrMap<Variant>,
+    pub properties: AHashMap<&'a str, Variant>,
 }
 
-impl Instance {
+impl Instance<'_> {
     /// Returns this instance's referent. It will always be non-null.
     #[inline]
     pub fn referent(&self) -> Ref {
