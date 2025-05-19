@@ -14,7 +14,7 @@ use rbx_dom_weak::{
         PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
         UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
-    Instance, Ustr, UstrMap, WeakDom,
+    Instance, WeakDom,
 };
 
 use rbx_reflection::{
@@ -43,7 +43,7 @@ pub(super) struct SerializerState<'dom, 'db, W> {
     serializer: &'db Serializer<'db>,
 
     /// The dom containing all of the instances that we're serializing.
-    dom: &'dom WeakDom,
+    dom: &'dom WeakDom<'dom>,
 
     /// Where the binary output should be written.
     output: W,
@@ -72,7 +72,7 @@ pub(super) struct SerializerState<'dom, 'db, W> {
 /// An instance class that our serializer knows about. We should have one struct
 /// per unique ClassName.
 #[derive(Debug)]
-struct TypeInfo<'dom, 'db> {
+struct TypeInfo<'dom> {
     /// The ID that this serializer will use to refer to this type of instance.
     type_id: u32,
 
@@ -82,7 +82,7 @@ struct TypeInfo<'dom, 'db> {
     is_service: bool,
 
     /// All of the instances referenced by this type.
-    instances: Vec<&'dom Instance>,
+    instances: Vec<&'dom Instance<'dom>>,
 
     /// All of the defined properties for this type found on any instance of
     /// this type. Only one entry should be present for each logical property.
@@ -93,13 +93,13 @@ struct TypeInfo<'dom, 'db> {
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
-    class_descriptor: Option<&'db ClassDescriptor<'db>>,
+    class_descriptor: Option<&'dom ClassDescriptor<'dom>>,
 
     /// A set containing the properties that we have seen so far in the file and
     /// processed. This helps us avoid traversing the reflection database
     /// multiple times if there are many copies of the same kind of instance.
     /// This acts as the key to `self.properties`.
-    properties_visited: UstrMap<usize>,
+    properties_visited: HashMap<&'dom str, usize>,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -121,12 +121,12 @@ struct PropInfo<'dom> {
 
     /// The canonical name for this property. This is used to sort the
     /// logical property list just before serialization.
-    canonical_name: Ustr,
+    canonical_name: &'dom str,
 
     /// The serialized name for this property. This is the name that is actually
     /// written as part of the PROP chunk and may not line up with the canonical
     /// name for the property.
-    serialized_name: Ustr,
+    serialized_name: &'dom str,
 
     /// References to logical property values.  May be collected from multiple
     /// property names like `BasePart.Size` and `BasePart.size`.
@@ -156,8 +156,8 @@ impl<'dom, 'db: 'dom> PropInfo<'dom> {
         type_name: &str,
         default_value: Option<&'dom Variant>,
         serialized_ty: VariantType,
-        canonical_name: Ustr,
-        serialized_name: Ustr,
+        canonical_name: &'dom str,
+        serialized_name: &'dom str,
         migration: Option<&'db PropertyMigration>,
     ) -> Result<Self, InnerError> {
         let default_value = default_value
@@ -230,14 +230,14 @@ struct TypeInfos<'dom, 'db> {
     ///
     /// These are stored sorted so that we naturally iterate over them in order
     /// and improve our chances of being deterministic.
-    values: BTreeMap<Ustr, TypeInfo<'dom, 'db>>,
+    values: BTreeMap<&'dom str, TypeInfo<'dom>>,
 
     /// The next type ID that should be assigned if a type is discovered and
     /// added to the serializer.
     next_type_id: u32,
 }
 
-impl<'dom, 'db> TypeInfos<'dom, 'db> {
+impl<'dom, 'db: 'dom> TypeInfos<'dom, 'db> {
     fn new(database: &'db ReflectionDatabase<'db>) -> Self {
         Self {
             database,
@@ -248,12 +248,12 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(&mut self, class: Ustr) -> &mut TypeInfo<'dom, 'db> {
+    fn get_or_create(&mut self, class: &'dom str) -> &mut TypeInfo<'dom> {
         if let btree_map::Entry::Vacant(entry) = self.values.entry(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let class_descriptor = self.database.classes.get(class.as_str());
+            let class_descriptor = self.database.classes.get(class);
 
             let is_service = if let Some(descriptor) = &class_descriptor {
                 descriptor.tags.contains(&ClassTag::Service)
@@ -268,7 +268,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
                 instances: Vec::new(),
                 properties: Vec::new(),
                 class_descriptor,
-                properties_visited: UstrMap::new(),
+                properties_visited: HashMap::new(),
             });
         }
 
@@ -278,7 +278,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
     }
 }
 
-impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
+impl<'dom, 'db: 'dom> TypeInfo<'dom> {
     fn get_or_create_logical_property<'a>(
         &'a mut self,
         shared_strings: &mut Vec<SharedString>,
@@ -286,7 +286,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         type_name: &str,
         database: &'db ReflectionDatabase<'db>,
         class_descriptor: Option<&'db ClassDescriptor<'db>>,
-        prop_name: Ustr,
+        prop_name: &'dom str,
         sample_value: &Variant,
     ) -> Result<&'a mut PropInfo<'dom>, InnerError> {
         // check if prop_name is already in properties_visited, return
@@ -300,9 +300,9 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         let mut serialized_name = prop_name;
         let mut serialized_ty = sample_value.ty();
         if let Some(class) = class_descriptor {
-            let class_name = class.name.into();
+            let class_name = class.name;
             if let Some(descriptors) = find_property_descriptors(database, class_name, prop_name) {
-                canonical_name = descriptors.canonical.name.into();
+                canonical_name = descriptors.canonical.name;
                 if let Some(mut serialized) = descriptors.serialized {
                     if let PropertyKind::Canonical {
                         serialization: PropertySerialization::Migrate(prop_migration),
@@ -318,17 +318,17 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                         let new_descriptors = find_property_descriptors(
                             database,
                             class_name,
-                            prop_migration.new_property_name.into(),
+                            prop_migration.new_property_name,
                         );
 
                         if let Some(new_descriptor) = new_descriptors {
                             if let Some(new_serialized) = new_descriptor.serialized {
-                                canonical_name = new_descriptor.canonical.name.into();
+                                canonical_name = new_descriptor.canonical.name;
                                 serialized = new_serialized;
                             }
                         }
                     }
-                    serialized_name = serialized.name.into();
+                    serialized_name = serialized.name;
                     serialized_ty = match &serialized.data_type {
                         rbx_reflection::DataType::Value(variant_type) => *variant_type,
                         rbx_reflection::DataType::Enum(_) => VariantType::Enum,
@@ -336,7 +336,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                     };
                 }
             };
-            default_value = database.find_default_property(class, &canonical_name);
+            default_value = database.find_default_property(class, canonical_name);
         };
         let logical_index = if canonical_name == prop_name {
             // create logical property
@@ -482,7 +482,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         let desired_len = type_info.instances.len();
         type_info.instances.push(instance);
 
-        for (prop_name, prop_value) in &instance.properties {
+        for (&prop_name, prop_value) in &instance.properties {
             // Discover and track any shared strings we come across.
             if let Variant::SharedString(shared_string) = prop_value {
                 if !self.shared_string_ids.contains_key(shared_string) {
@@ -496,10 +496,10 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             let logical_property = type_info.get_or_create_logical_property(
                 &mut self.shared_strings,
                 &mut self.shared_string_ids,
-                &instance.class,
+                instance.class,
                 self.serializer.database,
                 type_info.class_descriptor,
-                *prop_name,
+                prop_name,
                 prop_value,
             )?;
 
@@ -641,7 +641,6 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     pub fn serialize_properties(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing properties");
 
-        let name_ustr = rbx_dom_weak::ustr("Name");
         for (type_name, type_info) in &mut self.type_infos.values {
             // Sort logical properties by canonical name
             type_info.properties.sort_by_key(|info| info.canonical_name);
@@ -649,7 +648,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             // Locate the index where "Name" could be inserted
             let Err(name_index) = type_info
                 .properties
-                .binary_search_by_key(&name_ustr, |prop_info| prop_info.canonical_name)
+                .binary_search_by_key(&"Name", |prop_info| prop_info.canonical_name)
             else {
                 panic!("Name property should not exist in Instance.properties");
             };
@@ -726,7 +725,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 let mut chunk = ChunkBuilder::new(b"PROP", compression);
 
                 chunk.write_le_u32(type_id)?;
-                chunk.write_string(&prop_info.serialized_name)?;
+                chunk.write_string(prop_info.serialized_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
                 // Helper to generate a type mismatch error with context from

@@ -1,6 +1,7 @@
 mod error;
 mod file;
 mod header;
+mod intern;
 mod state;
 
 use std::str;
@@ -15,6 +16,8 @@ pub(crate) use self::header::FileHeader;
 pub use self::file::DecompressedFile;
 
 pub use self::error::Error;
+pub use self::intern::*;
+pub use self::state::DecodeOptions;
 
 /// A configurable deserializer for Roblox binary models and places.
 ///
@@ -23,13 +26,13 @@ pub use self::error::Error;
 /// use std::fs::File;
 /// use std::io::BufReader;
 ///
-/// use rbx_binary::{DecompressedFile, Deserializer};
+/// use rbx_binary::{DecodeOptions, DecompressedFile, Deserializer};
 ///
 /// let input = BufReader::new(File::open("File.rbxm")?);
 ///
 /// let file = DecompressedFile::from_reader(input)?;
 /// let deserializer = Deserializer::new();
-/// let dom = deserializer.deserialize(&file)?;
+/// let dom = deserializer.deserialize(&file, DecodeOptions::read_unknown())?;
 ///
 /// // rbx_binary always returns a DOM with a DataModel at the top level.
 /// // To get to the instances from our file, we need to go one level deeper.
@@ -50,11 +53,11 @@ pub use self::error::Error;
 ///
 /// [ReflectionDatabase]: rbx_reflection::ReflectionDatabase
 /// [reflection_database]: Deserializer#method.reflection_database
-pub struct Deserializer<'db> {
-    database: &'db ReflectionDatabase<'db>,
+pub struct Deserializer<'de, 'db> {
+    database: &'de ReflectionDatabase<'db>,
 }
 
-impl<'db> Deserializer<'db> {
+impl<'de, 'dom, 'db: 'dom, 'file> Deserializer<'de, 'db> {
     /// Create a new `Deserializer` with the default settings.
     pub fn new() -> Self {
         Self {
@@ -64,16 +67,20 @@ impl<'db> Deserializer<'db> {
 
     /// Sets what reflection database for the deserializer to use.
     #[inline]
-    pub fn reflection_database(self, database: &'db ReflectionDatabase<'db>) -> Self {
+    pub fn reflection_database(self, database: &'de ReflectionDatabase<'db>) -> Self {
         Self { database }
     }
 
     /// Deserialize a Roblox binary model or place from the given stream using
     /// this deserializer.
-    pub fn deserialize(&self, file: &DecompressedFile) -> Result<WeakDom, Error> {
+    pub fn deserialize<S: StringIntern<'file, 'dom>>(
+        &self,
+        file: &'file DecompressedFile,
+        options: DecodeOptions<S>,
+    ) -> Result<WeakDom<'dom>, Error> {
         profiling::scope!("rbx_binary::deserialize");
 
-        let mut deserializer = DeserializerState::new(self, &file.header)?;
+        let mut deserializer = DeserializerState::new(self, &file.header, options)?;
 
         for chunk in &file.chunks {
             match &chunk.name {
@@ -94,7 +101,7 @@ impl<'db> Deserializer<'db> {
     }
 }
 
-impl Default for Deserializer<'_> {
+impl Default for Deserializer<'_, '_> {
     fn default() -> Self {
         Self::new()
     }

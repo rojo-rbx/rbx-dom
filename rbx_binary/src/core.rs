@@ -3,7 +3,6 @@ use std::{
     mem,
 };
 
-use rbx_dom_weak::Ustr;
 use rbx_reflection::{
     ClassDescriptor, PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase,
 };
@@ -374,19 +373,19 @@ pub fn untransform_i64(value: i64) -> i64 {
     ((value as u64) >> 1) as i64 ^ -(value & 1)
 }
 
-pub struct PropertyDescriptors<'db> {
-    pub canonical: &'db PropertyDescriptor<'db>,
-    pub serialized: Option<&'db PropertyDescriptor<'db>>,
+pub struct PropertyDescriptors<'de, 'db> {
+    pub canonical: &'de PropertyDescriptor<'db>,
+    pub serialized: Option<&'de PropertyDescriptor<'db>>,
 }
 
 /// Find both the canonical and serialized property descriptors for a given
 /// class and property name pair. These might be the same descriptor!
-pub fn find_property_descriptors<'db>(
-    database: &'db ReflectionDatabase<'db>,
-    class_name: Ustr,
-    property_name: Ustr,
-) -> Option<PropertyDescriptors<'db>> {
-    let mut class_descriptor = database.classes.get(class_name.as_str())?;
+pub fn find_property_descriptors<'de, 'dom, 'db: 'dom>(
+    database: &'de ReflectionDatabase<'db>,
+    class_name: &'dom str,
+    property_name: &'dom str,
+) -> Option<PropertyDescriptors<'de, 'db>> {
+    let mut class_descriptor = database.classes.get(class_name)?;
 
     // We need to find the canonical property descriptor associated with
     // the property we're working with.
@@ -398,7 +397,7 @@ pub fn find_property_descriptors<'db>(
     loop {
         // If this class descriptor knows about this property name, we're pretty
         // much done!
-        if let Some(property_descriptor) = class_descriptor.properties.get(property_name.as_str()) {
+        if let Some(property_descriptor) = class_descriptor.properties.get(property_name) {
             match &property_descriptor.kind {
                 // This property descriptor is the canonical form of this
                 // logical property. That means we've found one of the two
@@ -475,11 +474,11 @@ pub fn find_property_descriptors<'db>(
 /// Given the canonical property descriptor for a logical property along with
 /// its serialization, returns the serialized form of the logical property if
 /// this property is serializable.
-fn find_serialized_from_canonical<'db>(
-    class: &'db ClassDescriptor<'db>,
-    canonical: &'db PropertyDescriptor<'db>,
-    serialization: &'db PropertySerialization<'db>,
-) -> Option<&'db PropertyDescriptor<'db>> {
+fn find_serialized_from_canonical<'de, 'db>(
+    class: &'de ClassDescriptor<'db>,
+    canonical: &'de PropertyDescriptor<'db>,
+    serialization: &'de PropertySerialization<'db>,
+) -> Option<&'de PropertyDescriptor<'db>> {
     match serialization {
         // This property serializes as-is. This is the happiest path: both the
         // canonical and serialized descriptors are the same!

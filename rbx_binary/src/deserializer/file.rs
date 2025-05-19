@@ -2,7 +2,7 @@ use std::io::Read;
 
 use rbx_dom_weak::WeakDom;
 
-use super::{error::InnerError, header::FileHeader};
+use super::{error::InnerError, header::FileHeader, intern::StringIntern, state::DecodeOptions};
 use crate::chunk::Chunks;
 use crate::deserializer::{Deserializer, Error};
 
@@ -21,7 +21,10 @@ impl DecompressedFile {
         Ok(DecompressedFile { header, chunks })
     }
     /// Perform the deserialization step.
-    pub fn deserialize(&self) -> Result<WeakDom, Error> {
-        Deserializer::new().deserialize(self)
+    pub fn deserialize<'file, 'dom, S: StringIntern<'file, 'dom>>(
+        &'file self,
+        options: DecodeOptions<S>,
+    ) -> Result<WeakDom<'dom>, Error> {
+        Deserializer::new().deserialize(self, options)
     }
 }
