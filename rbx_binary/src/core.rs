@@ -421,7 +421,7 @@ pub fn find_property_descriptors<'db>(
                 // return, it's possible that both the canonical and serialized
                 // forms are different.
                 PropertyKind::Alias { alias_for } => {
-                    let canonical = class_descriptor.properties.get(alias_for.as_ref()).unwrap();
+                    let canonical = class_descriptor.properties.get(*alias_for).unwrap();
 
                     if let PropertyKind::Canonical { serialization } = &canonical.kind {
                         let serialized = find_serialized_from_canonical(
@@ -490,7 +490,7 @@ fn find_serialized_from_canonical<'db>(
         // This property serializes under an alias. That property should have a
         // corresponding property descriptor within the same class descriptor.
         PropertySerialization::SerializesAs(serialized_name) => {
-            let serialized_descriptor = class.properties.get(serialized_name.as_ref()).unwrap();
+            let serialized_descriptor = class.properties.get(*serialized_name).unwrap();
 
             Some(serialized_descriptor)
         }

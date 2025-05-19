@@ -208,7 +208,7 @@ fn serialize_instance<'dom, W: Write>(
                 _ => unimplemented!(),
             };
 
-            let mut serialized_name = serialized_descriptor.name.as_ref();
+            let mut serialized_name = serialized_descriptor.name;
 
             let mut converted_value = match value.try_convert_ref(instance.class, data_type) {
                 Ok(value) => value,
@@ -234,7 +234,7 @@ fn serialize_instance<'dom, W: Write>(
                 // since old values will still load in Studio.
                 if let Ok(new_value) = migration.perform(&converted_value) {
                     converted_value = Cow::Owned(new_value);
-                    serialized_name = &migration.new_property_name
+                    serialized_name = migration.new_property_name
                 }
             }
 
