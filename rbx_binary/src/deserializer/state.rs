@@ -15,19 +15,15 @@ use rbx_dom_weak::{
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
-    chunk::Chunk,
     core::{find_property_descriptors, read_binary_string_slice, read_string_slice, RbxReadExt},
     types::Type,
 };
 
 use super::{error::InnerError, header::FileHeader, Deserializer};
 
-pub(super) struct DeserializerState<'db, R> {
+pub(super) struct DeserializerState<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
-
-    /// The input data encoded as a binary model.
-    input: R,
 
     /// The tree that instances should be written into. Eventually returned to
     /// the user.
@@ -205,14 +201,12 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
     }
 }
 
-impl<'db, R: Read> DeserializerState<'db, R> {
+impl<'db> DeserializerState<'db> {
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
-        mut input: R,
+        header: &FileHeader,
     ) -> Result<Self, InnerError> {
         let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
-
-        let header = FileHeader::decode(&mut input)?;
 
         let type_infos = HashMap::with_capacity(header.num_types as usize);
         let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
@@ -221,7 +215,6 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         Ok(DeserializerState {
             deserializer,
-            input,
             tree,
             metadata: HashMap::new(),
             shared_strings: Vec::new(),
@@ -230,10 +223,6 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             root_instance_refs: Vec::new(),
             unknown_type_ids: HashSet::new(),
         })
-    }
-
-    pub(super) fn next_chunk(&mut self) -> Result<Chunk, InnerError> {
-        Ok(Chunk::decode(&mut self.input)?)
     }
 
     #[profiling::function]
