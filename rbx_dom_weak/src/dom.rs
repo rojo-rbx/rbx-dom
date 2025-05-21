@@ -564,7 +564,7 @@ impl CloneContext {
 
         let builder = InstanceBuilder::new(instance.class)
             .with_name(instance.name.to_string())
-            .with_properties(instance.properties.clone());
+            .with_properties(instance.properties.iter().map(|(&k, v)| (k, v.clone())));
 
         let new_ref = builder.referent;
 
