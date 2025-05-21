@@ -83,8 +83,7 @@ pub use crate::{
 
 /// Deserialize a Roblox binary model or place from a stream.
 pub fn from_reader<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
-    let file = DecompressedFile::from_reader(reader)?;
-    Deserializer::new().deserialize(&file)
+    DecompressedFile::from_reader(reader)?.deserialize()
 }
 
 /// Serializes a subset of the given DOM to a binary format model or place,
