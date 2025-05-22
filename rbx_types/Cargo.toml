@@ -2,7 +2,11 @@
 name = "rbx_types"
 description = "Types used to represent Roblox values"
 version = "2.0.0"
-authors = ["Lucien Greathouse <me@lpghatguy.com>"]
+authors = [
+    "Lucien Greathouse <me@lpghatguy.com>",
+    "Micah Reid <git@dekkonot.com>",
+    "Ken Loeffler <kenloef@gmail.com>",
+]
 edition = "2018"
 license = "MIT"
 readme = "README.md"
