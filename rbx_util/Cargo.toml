@@ -6,7 +6,11 @@ license = "MIT"
 documentation = "https://docs.rs/rbx_util"
 homepage = "https://github.com/rojo-rbx/rbx-dom"
 repository = "https://github.com/rojo-rbx/rbx-dom.git"
-authors = ["Lucien Greathouse <me@lpghatguy.com>"]
+authors = [
+    "Lucien Greathouse <me@lpghatguy.com>",
+    "Micah Reid <git@dekkonot.com>",
+    "Ken Loeffler <kenloef@gmail.com>",
+]
 edition = "2018"
 readme = "README.md"
 
