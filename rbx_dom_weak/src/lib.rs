@@ -48,7 +48,6 @@ mod viewer;
 pub use rbx_types as types;
 
 pub use ahash::AHashMap;
-pub use ustr::{ustr, Ustr, UstrMap, UstrSet};
 
 pub use crate::{
     dom::WeakDom,
@@ -56,26 +55,13 @@ pub use crate::{
     viewer::{DomViewer, ViewedInstance},
 };
 
-/// Helper trait that provides convenience methods for `AHashMap` and `UstrMap`.
+/// Helper trait that provides convenience methods for `AHashMap`.
 pub trait HashMapExt {
     /// Constructs an empty map.
     fn new() -> Self;
 
     /// Constructs an empty map with at least the specified capacity.
     fn with_capacity(capacity: usize) -> Self;
-}
-
-impl<V> HashMapExt for UstrMap<V> {
-    /// Creates an empty `UstrMap` using the default value for its hasher.
-    fn new() -> Self {
-        UstrMap::default()
-    }
-
-    /// Creates an empty `UstrMap` with at least the specified capacity using
-    /// the default value for its hasher.
-    fn with_capacity(capacity: usize) -> Self {
-        UstrMap::with_capacity_and_hasher(capacity, Default::default())
-    }
 }
 
 impl<K, V> HashMapExt for AHashMap<K, V> {

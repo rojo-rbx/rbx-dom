@@ -40,8 +40,8 @@ mod test {
         class_descriptor_eq(iter.next(), part_class_descriptor);
 
         let mut current_class_descriptor = part_class_descriptor.unwrap();
-        while let Some(superclass) = current_class_descriptor.superclass.as_ref() {
-            let superclass_descriptor = database.classes.get(superclass.as_ref());
+        while let Some(superclass) = current_class_descriptor.superclass {
+            let superclass_descriptor = database.classes.get(superclass);
             class_descriptor_eq(iter.next(), superclass_descriptor);
             current_class_descriptor = superclass_descriptor.unwrap();
         }

@@ -5,7 +5,7 @@ use std::{
     io::Write,
 };
 
-use ahash::{HashMap, HashMapExt, HashSetExt};
+use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
@@ -14,7 +14,7 @@ use rbx_dom_weak::{
         PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
         UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
-    Instance, Ustr, UstrSet, WeakDom,
+    Instance, WeakDom,
 };
 
 use rbx_reflection::{
@@ -43,7 +43,7 @@ pub(super) struct SerializerState<'dom, 'db, W> {
     serializer: &'db Serializer<'db>,
 
     /// The dom containing all of the instances that we're serializing.
-    dom: &'dom WeakDom,
+    dom: &'dom WeakDom<'dom>,
 
     /// Where the binary output should be written.
     output: W,
@@ -72,7 +72,7 @@ pub(super) struct SerializerState<'dom, 'db, W> {
 /// An instance class that our serializer knows about. We should have one struct
 /// per unique ClassName.
 #[derive(Debug)]
-struct TypeInfo<'dom, 'db> {
+struct TypeInfo<'dom> {
     /// The ID that this serializer will use to refer to this type of instance.
     type_id: u32,
 
@@ -82,7 +82,7 @@ struct TypeInfo<'dom, 'db> {
     is_service: bool,
 
     /// All of the instances referenced by this type.
-    instances: Vec<&'dom Instance>,
+    instances: Vec<&'dom Instance<'dom>>,
 
     /// All of the defined properties for this type found on any instance of
     /// this type. Properties are keyed by their canonical name, and only one
@@ -90,16 +90,16 @@ struct TypeInfo<'dom, 'db> {
     ///
     /// Stored in a sorted map to try to ensure that we write out properties in
     /// a deterministic order.
-    properties: BTreeMap<Ustr, PropInfo<'db>>,
+    properties: BTreeMap<&'dom str, PropInfo<'dom>>,
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
-    class_descriptor: Option<&'db ClassDescriptor<'db>>,
+    class_descriptor: Option<&'dom ClassDescriptor<'dom>>,
 
     /// A set containing the properties that we have seen so far in the file and
     /// processed. This helps us avoid traversing the reflection database
     /// multiple times if there are many copies of the same kind of instance.
-    properties_visited: UstrSet,
+    properties_visited: HashSet<&'dom str>,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -122,14 +122,14 @@ struct PropInfo<'db> {
     /// The serialized name for this property. This is the name that is actually
     /// written as part of the PROP chunk and may not line up with the canonical
     /// name for the property.
-    serialized_name: Ustr,
+    serialized_name: &'db str,
 
     /// A set containing the names of all aliases discovered while preparing to
     /// serialize this property. Ideally, this set will remain empty (and not
     /// allocate) in most cases. However, if an instance is missing a property
     /// from its canonical name, but does have another variant, we can use this
     /// set to recover and map those values.
-    aliases: UstrSet,
+    aliases: HashSet<&'db str>,
 
     /// The default value for this property that should be used if any instances
     /// are missing this property.
@@ -146,7 +146,7 @@ struct PropInfo<'db> {
     /// If a logical property has a migration associated with it (i.e. BrickColor ->
     /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
     /// it is None.
-    migration: Option<&'db PropertyMigration>,
+    migration: Option<&'db PropertyMigration<'db>>,
 }
 
 /// Contains all of the `TypeInfo` objects known to the serializer so far. This
@@ -160,14 +160,14 @@ struct TypeInfos<'dom, 'db> {
     ///
     /// These are stored sorted so that we naturally iterate over them in order
     /// and improve our chances of being deterministic.
-    values: BTreeMap<Ustr, TypeInfo<'dom, 'db>>,
+    values: BTreeMap<&'dom str, TypeInfo<'dom>>,
 
     /// The next type ID that should be assigned if a type is discovered and
     /// added to the serializer.
     next_type_id: u32,
 }
 
-impl<'dom, 'db> TypeInfos<'dom, 'db> {
+impl<'dom, 'db: 'dom> TypeInfos<'dom, 'db> {
     fn new(database: &'db ReflectionDatabase<'db>) -> Self {
         Self {
             database,
@@ -178,12 +178,12 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
-    fn get_or_create(&mut self, class: Ustr) -> &mut TypeInfo<'dom, 'db> {
+    fn get_or_create(&mut self, class: &'dom str) -> &mut TypeInfo<'dom> {
         if let btree_map::Entry::Vacant(entry) = self.values.entry(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
-            let class_descriptor = self.database.classes.get(class.as_str());
+            let class_descriptor = self.database.classes.get(class);
 
             let is_service = if let Some(descriptor) = &class_descriptor {
                 descriptor.tags.contains(&ClassTag::Service)
@@ -202,11 +202,11 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
             // We can use a dummy default_value here because instances from
             // rbx_dom_weak always have a name set.
             properties.insert(
-                "Name".into(),
+                "Name",
                 PropInfo {
                     prop_type: Type::String,
-                    serialized_name: "Name".into(),
-                    aliases: UstrSet::new(),
+                    serialized_name: "Name",
+                    aliases: HashSet::new(),
                     default_value: Cow::Owned(Variant::String(String::new())),
                     migration: None,
                 },
@@ -218,7 +218,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
                 instances: Vec::new(),
                 properties,
                 class_descriptor,
-                properties_visited: UstrSet::new(),
+                properties_visited: HashSet::new(),
             });
         }
 
@@ -228,8 +228,8 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
     }
 }
 
-impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
-    pub fn new(serializer: &'db Serializer<'db>, dom: &'dom WeakDom, output: W) -> Self {
+impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
+    pub fn new(serializer: &'db Serializer<'db>, dom: &'dom WeakDom<'dom>, output: W) -> Self {
         SerializerState {
             serializer,
             dom,
@@ -319,7 +319,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
         let type_info = self.type_infos.get_or_create(instance.class);
         type_info.instances.push(instance);
 
-        for (prop_name, prop_value) in &instance.properties {
+        for (&prop_name, prop_value) in &instance.properties {
             // Discover and track any shared strings we come across.
             if let Variant::SharedString(shared_string) = prop_value {
                 if !self.shared_string_ids.contains_key(shared_string) {
@@ -337,7 +337,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
             // ...but add it to the set of visited properties if we haven't seen
             // it.
-            type_info.properties_visited.insert(*prop_name);
+            type_info.properties_visited.insert(prop_name);
 
             let canonical_name;
             let serialized_name;
@@ -345,7 +345,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             let mut migration = None;
 
             let database = self.serializer.database;
-            match find_property_descriptors(database, instance.class, *prop_name) {
+            match find_property_descriptors(database, instance.class, prop_name) {
                 Some(descriptors) => {
                     // For any properties that do not serialize, we can skip
                     // adding them to the set of type_infos.
@@ -363,7 +363,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 let new_descriptors = find_property_descriptors(
                                     database,
                                     instance.class,
-                                    prop_migration.new_property_name.as_str().into(),
+                                    prop_migration.new_property_name,
                                 );
 
                                 migration = Some(prop_migration);
@@ -371,8 +371,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 match new_descriptors {
                                     Some(descriptor) => match descriptor.serialized {
                                         Some(serialized) => {
-                                            canonical_name =
-                                                descriptor.canonical.name.as_ref().into();
+                                            canonical_name = descriptor.canonical.name;
                                             serialized
                                         }
                                         None => continue,
@@ -380,14 +379,14 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     None => continue,
                                 }
                             } else {
-                                canonical_name = descriptors.canonical.name.as_ref().into();
+                                canonical_name = descriptors.canonical.name;
                                 descriptor
                             }
                         }
                         None => continue,
                     };
 
-                    serialized_name = serialized.name.as_ref().into();
+                    serialized_name = serialized.name;
 
                     serialized_ty = match &serialized.data_type {
                         DataType::Value(ty) => *ty,
@@ -406,8 +405,8 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 }
 
                 None => {
-                    canonical_name = *prop_name;
-                    serialized_name = *prop_name;
+                    canonical_name = prop_name;
+                    serialized_name = prop_name;
                     serialized_ty = prop_value.ty();
                 }
             }
@@ -417,7 +416,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     .class_descriptor
                     .and_then(|class| {
                         database
-                            .find_default_property(class, &canonical_name)
+                            .find_default_property(class, canonical_name)
                             .map(Cow::Borrowed)
                     })
                     .or_else(|| Self::fallback_default_value(serialized_ty).map(Cow::Owned))
@@ -457,7 +456,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     PropInfo {
                         prop_type: ser_type,
                         serialized_name,
-                        aliases: UstrSet::new(),
+                        aliases: HashSet::new(),
                         default_value,
                         migration,
                     },
@@ -467,11 +466,11 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             // If the property we found on this instance is different than the
             // canonical name for this property, stash it into the set of known
             // aliases for this PropInfo.
-            if *prop_name != canonical_name {
+            if prop_name != canonical_name {
                 let prop_info = type_info.properties.get_mut(&canonical_name).unwrap();
 
                 if !prop_info.aliases.contains(prop_name) {
-                    prop_info.aliases.insert(*prop_name);
+                    prop_info.aliases.insert(prop_name);
                 }
 
                 prop_info.migration = migration;
@@ -618,7 +617,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
 
                 chunk.write_le_u32(type_info.type_id)?;
-                chunk.write_string(&prop_info.serialized_name)?;
+                chunk.write_string(prop_info.serialized_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
                 let values = type_info
