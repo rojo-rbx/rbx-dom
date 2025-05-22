@@ -485,7 +485,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     #[profiling::function]
     pub fn generate_referents(&mut self) {
         // This performs the same check as next_referent.try_into().unwrap() but only once.
-        assert!(self.relevant_instances.len() < i32::MAX as usize);
+        assert!(self.relevant_instances.len() <= i32::MAX as usize);
 
         self.id_to_referent.extend(
             self.relevant_instances
