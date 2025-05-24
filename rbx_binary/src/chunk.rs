@@ -78,6 +78,29 @@ impl ChunkBuilder {
         }
     }
 
+    /// Reserve bytes and return a slice of possibly uninitialized memory.
+    ///
+    /// SAFETY: All bytes in the mutable slice must be overwritten.
+    //
+    // Alternatively, the memory can be zeroed with safe code:
+    //
+    // let current_len = self.buffer.len();
+    // self.buffer.extend(core::iter::repeat_n(0, len));
+    // &mut self.buffer[current_len..current_len + len]
+    #[must_use]
+    pub unsafe fn reserve_bytes_mut(&mut self, len: usize) -> &mut [u8] {
+        let current_len = self.buffer.len();
+        // Reserve space
+        self.buffer.reserve(len);
+
+        unsafe {
+            // Update the length
+            self.buffer.set_len(current_len + len);
+            // Take a slice of uninitialized memory
+            core::slice::from_raw_parts_mut(self.buffer.as_mut_ptr().add(current_len), len)
+        }
+    }
+
     /// Consume the chunk and write it to the given writer.
     pub fn dump<W: Write>(self, mut writer: W) -> io::Result<()> {
         writer.write_all(self.chunk_name)?;
