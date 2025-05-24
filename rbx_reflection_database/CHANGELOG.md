@@ -2,6 +2,8 @@
 
 ## Unreleased Changes
 
+*  StyleRule's `PropertiesSerialize` property's scriptability has been changed to `Custom` in the `database.msgpack`.
+
 ## 1.0.3+roblox-670 (2025-04-25)
 * Set `Instance.Capabilities` to be unscriptable ([#523])
 
