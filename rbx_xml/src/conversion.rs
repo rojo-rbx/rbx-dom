@@ -6,7 +6,7 @@ use std::convert::TryInto;
 
 use rbx_dom_weak::types::{ContentId, ContentType, Enum};
 use rbx_dom_weak::{
-    types::{Attributes, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType},
+    types::{SerializedMap, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType},
     Ustr,
 };
 
@@ -64,13 +64,13 @@ impl ConvertVariant for Variant {
                     .map_err(|_| "Tags contain invalid UTF-8")?
                     .into(),
             )),
-            (Variant::BinaryString(value), VariantType::Attributes) => {
+            (Variant::BinaryString(value), VariantType::SerializedMap) => {
                 let bytes: &[u8] = value.as_ref();
-                match Attributes::from_reader(bytes) {
-                    Ok(attributes) => Ok(Cow::Owned(attributes.into())),
+                match SerializedMap::from_reader(bytes) {
+                    Ok(serialized_map) => Ok(Cow::Owned(serialized_map.into())),
                     Err(err) => {
                         log::warn!(
-                            "Failed to parse Attributes on {} because {:?}; falling back to BinaryString.
+                            "Failed to parse SerializedMap on {} because {:?}; falling back to BinaryString.
 
 rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
                              class_name,

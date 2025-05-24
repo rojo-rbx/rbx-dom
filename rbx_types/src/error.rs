@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-use crate::{AttributeError, MaterialColorsError, Matrix3Error, UniqueIdError};
+use crate::{SerializedMapError, MaterialColorsError, Matrix3Error, UniqueIdError};
 
 /// Represents an error that occurred when using a fallible method.
 #[derive(Debug, Error)]
@@ -9,8 +9,8 @@ pub struct Error {
     source: Box<InnerError>,
 }
 
-impl From<AttributeError> for Error {
-    fn from(source: AttributeError) -> Self {
+impl From<SerializedMapError> for Error {
+    fn from(source: SerializedMapError) -> Self {
         Self {
             source: Box::new(source.into()),
         }
@@ -44,7 +44,7 @@ impl From<UniqueIdError> for Error {
 #[derive(Debug, Error)]
 enum InnerError {
     #[error(transparent)]
-    Attribute(#[from] AttributeError),
+    SerializedMap(#[from] SerializedMapError),
 
     #[error(transparent)]
     Matrix3(#[from] Matrix3Error),

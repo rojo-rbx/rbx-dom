@@ -3,7 +3,7 @@ use std::{collections::BTreeMap, fs, path::PathBuf};
 use anyhow::bail;
 use clap::Parser;
 use rbx_types::{
-    Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+    SerializedMap, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
     ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, EnumItem, Faces,
     Font, MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
     PhysicalProperties, Ray, Rect, Region3int16, Tags, TerrainMaterials, UDim, UDim2, Variant,
@@ -28,7 +28,7 @@ impl ValuesSubcommand {
 
         values.insert(
             "Attributes",
-            Attributes::new()
+            SerializedMap::new()
                 .with("TestBool", true)
                 .with("TestString", "Test")
                 .with("TestNumber", Variant::Float64(1337.0))

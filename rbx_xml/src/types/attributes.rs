@@ -1,6 +1,6 @@
 use std::io::Write;
 
-use rbx_dom_weak::types::Attributes;
+use rbx_dom_weak::types::SerializedMap;
 
 use crate::{
     serializer_core::{XmlEventWriter, XmlWriteEvent},
@@ -9,10 +9,10 @@ use crate::{
 
 pub const XML_TAG_NAME: &str = "BinaryString";
 
-pub fn write_attributes<W: Write>(
+pub fn write_serialized_map<W: Write>(
     writer: &mut XmlEventWriter<W>,
     property_name: &str,
-    value: &Attributes,
+    value: &SerializedMap,
 ) -> Result<(), EncodeError> {
     let mut buffer = Vec::new();
 

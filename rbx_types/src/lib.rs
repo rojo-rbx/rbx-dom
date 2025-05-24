@@ -2,7 +2,7 @@
 #[macro_use]
 mod serde_util;
 
-mod attributes;
+mod serialized_map;
 mod axes;
 mod basic_types;
 mod binary_string;
@@ -21,7 +21,7 @@ mod tags;
 mod unique_id;
 mod variant;
 
-pub use attributes::*;
+pub use serialized_map::*;
 pub use axes::*;
 pub use basic_types::*;
 pub use binary_string::*;

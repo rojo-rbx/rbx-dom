@@ -1,7 +1,7 @@
 //! Basic functionality tests
 
 use rbx_dom_weak::types::{
-    Attributes, BinaryString, BrickColor, Color3, Color3uint8, ColorSequence,
+    SerializedMap, BinaryString, BrickColor, Color3, Color3uint8, ColorSequence,
     ColorSequenceKeypoint, Enum, EnumItem, Font, MaterialColors, NumberRange, NumberSequence,
     NumberSequenceKeypoint, Rect, Tags, TerrainMaterials, UDim, UDim2, UniqueId, Variant,
     VariantType, Vector2, Vector3,
@@ -117,7 +117,7 @@ fn read_attributes() {
 
     assert_eq!(folder.properties.get(&"AttributesSerialize".into()), None);
     let folder_attributes = match folder.properties.get(&"Attributes".into()) {
-        Some(Variant::Attributes(attrs)) => attrs,
+        Some(Variant::SerializedMap(attrs)) => attrs,
         Some(other) => panic!(
             "Attributes property was not Attributes, it was: {:?}",
             other.ty()
@@ -125,7 +125,7 @@ fn read_attributes() {
         None => panic!("Attributes property was missing"),
     };
 
-    let mut attributes = Attributes::new();
+    let mut attributes = SerializedMap::new();
     attributes.insert("Boolean".into(), true.into());
     attributes.insert("BrickColor".into(), BrickColor::ReallyRed.into());
     attributes.insert("Color3".into(), Color3::new(162.0 / 255.0, 0.0, 1.0).into());

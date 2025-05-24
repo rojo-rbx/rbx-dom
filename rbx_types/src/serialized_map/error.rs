@@ -5,23 +5,23 @@ use thiserror::Error;
 use crate::VariantType;
 
 #[derive(Debug, Error)]
-pub(crate) enum AttributeError {
-    #[error("missing attribute list length")]
+pub(crate) enum SerializedMapError {
+    #[error("missing item list length")]
     InvalidLength,
 
-    #[error("missing attribute key name")]
+    #[error("missing item key name")]
     NoKey,
 
-    #[error("attribute key contained invalid UTF-8")]
+    #[error("item key contained invalid UTF-8")]
     KeyBadUnicode(#[source] FromUtf8Error),
 
-    #[error("missing attribute value type")]
+    #[error("missing item value type")]
     NoValueType,
 
     #[error("invalid value type: {0}")]
     InvalidValueType(u8),
 
-    #[error("{0:?} values are not supported in attributes")]
+    #[error("{0:?} values are not supported in serialized maps")]
     UnsupportedVariantType(VariantType),
 
     #[error("invalid BrickColor value: {0}")]
@@ -34,7 +34,7 @@ pub(crate) enum AttributeError {
     Utf8(#[from] std::string::FromUtf8Error),
 
     #[error(transparent)]
-    BadAttributeValue(#[from] crate::Error),
+    BadItemValue(#[from] crate::Error),
 
     #[error("couldn't read bytes to deserialize {0}")]
     ReadType(&'static str),

@@ -9,61 +9,61 @@ use crate::{
     UDim, UDim2, Variant, VariantType, Vector2, Vector3,
 };
 
-use super::{type_id, AttributeError};
+use super::{type_id, SerializedMapError};
 
-/// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
-pub(crate) fn read_attributes<R: Read>(
+/// Reads through a serialized map property (SerializedMap) and returns a map of item names -> values.
+pub(crate) fn read_serialized_map<R: Read>(
     mut value: R,
-) -> Result<BTreeMap<String, Variant>, AttributeError> {
-    let mut attributes = BTreeMap::new();
+) -> Result<BTreeMap<String, Variant>, SerializedMapError> {
+    let mut unserialized = BTreeMap::new();
 
     let len = match read_option_u32(&mut value) {
         Ok(Some(len)) => len,
-        Ok(None) => return Ok(attributes),
-        Err(_) => return Err(AttributeError::InvalidLength),
+        Ok(None) => return Ok(unserialized),
+        Err(_) => return Err(SerializedMapError::InvalidLength),
     };
 
     for _ in 0..len {
-        let key_buf = read_string(&mut value).map_err(|_| AttributeError::NoKey)?;
-        let key = String::from_utf8(key_buf).map_err(AttributeError::KeyBadUnicode)?;
+        let key_buf = read_string(&mut value).map_err(|_| SerializedMapError::NoKey)?;
+        let key = String::from_utf8(key_buf).map_err(SerializedMapError::KeyBadUnicode)?;
 
-        let type_id = read_u8(&mut value).map_err(|_| AttributeError::NoValueType)?;
+        let type_id = read_u8(&mut value).map_err(|_| SerializedMapError::NoValueType)?;
         let ty =
-            type_id::to_variant_type(type_id).ok_or(AttributeError::InvalidValueType(type_id))?;
+            type_id::to_variant_type(type_id).ok_or(SerializedMapError::InvalidValueType(type_id))?;
 
         let value = match ty {
             VariantType::BrickColor => {
                 let color =
-                    read_u32(&mut value).map_err(|_| AttributeError::ReadType("BrickColor"))?;
+                    read_u32(&mut value).map_err(|_| SerializedMapError::ReadType("BrickColor"))?;
 
                 BrickColor::from_number(color as u16)
-                    .ok_or(AttributeError::InvalidBrickColor(color))?
+                    .ok_or(SerializedMapError::InvalidBrickColor(color))?
                     .into()
             }
 
             VariantType::Bool => {
-                (read_u8(&mut value).map_err(|_| AttributeError::ReadType("bool"))? != 0).into()
+                (read_u8(&mut value).map_err(|_| SerializedMapError::ReadType("bool"))? != 0).into()
             }
 
             VariantType::Color3 => read_color3(&mut value)
-                .map_err(|_| AttributeError::ReadType("Color3"))?
+                .map_err(|_| SerializedMapError::ReadType("Color3"))?
                 .into(),
 
             VariantType::ColorSequence => {
                 let size = read_u32(&mut value)
-                    .map_err(|_| AttributeError::ReadType("ColorSequence length"))?;
+                    .map_err(|_| SerializedMapError::ReadType("ColorSequence length"))?;
                 let mut keypoints = Vec::with_capacity(size as usize);
 
                 for _ in 0..size {
                     // `envelope` is always zero and can be ignored.
                     let _envelope = read_f32(&mut value)
-                        .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint envelope"))?;
+                        .map_err(|_| SerializedMapError::ReadType("ColorSequenceKeypoint envelope"))?;
 
                     let time = read_f32(&mut value)
-                        .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint time"))?;
+                        .map_err(|_| SerializedMapError::ReadType("ColorSequenceKeypoint time"))?;
 
                     let color = read_color3(&mut value)
-                        .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint color"))?;
+                        .map_err(|_| SerializedMapError::ReadType("ColorSequenceKeypoint color"))?;
 
                     keypoints.push(ColorSequenceKeypoint::new(time, color));
                 }
@@ -72,38 +72,38 @@ pub(crate) fn read_attributes<R: Read>(
             }
 
             VariantType::Int32 => read_i32(&mut value)
-                .map_err(|_| AttributeError::ReadType("int32"))?
+                .map_err(|_| SerializedMapError::ReadType("int32"))?
                 .into(),
 
             VariantType::Float32 => read_f32(&mut value)
-                .map_err(|_| AttributeError::ReadType("float32"))?
+                .map_err(|_| SerializedMapError::ReadType("float32"))?
                 .into(),
 
             VariantType::Float64 => read_f64(&mut value)
-                .map_err(|_| AttributeError::ReadType("float64"))?
+                .map_err(|_| SerializedMapError::ReadType("float64"))?
                 .into(),
 
             VariantType::NumberRange => NumberRange::new(
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("NumberRange min"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("NumberRange max"))?,
+                read_f32(&mut value).map_err(|_| SerializedMapError::ReadType("NumberRange min"))?,
+                read_f32(&mut value).map_err(|_| SerializedMapError::ReadType("NumberRange max"))?,
             )
             .into(),
 
             VariantType::NumberSequence => {
                 let size = read_u32(&mut value)
-                    .map_err(|_| AttributeError::ReadType("NumberSequence length"))?;
+                    .map_err(|_| SerializedMapError::ReadType("NumberSequence length"))?;
 
                 let mut keypoints = Vec::with_capacity(size as usize);
 
                 for _ in 0..size {
                     let envelope = read_f32(&mut value)
-                        .map_err(|_| AttributeError::ReadType("NumberSequence envelope"))?;
+                        .map_err(|_| SerializedMapError::ReadType("NumberSequence envelope"))?;
 
                     let time = read_f32(&mut value)
-                        .map_err(|_| AttributeError::ReadType("NumberSequence time"))?;
+                        .map_err(|_| SerializedMapError::ReadType("NumberSequence time"))?;
 
                     let value = read_f32(&mut value)
-                        .map_err(|_| AttributeError::ReadType("NumberSequence value"))?;
+                        .map_err(|_| SerializedMapError::ReadType("NumberSequence value"))?;
 
                     keypoints.push(NumberSequenceKeypoint::new(time, value, envelope));
                 }
@@ -112,38 +112,38 @@ pub(crate) fn read_attributes<R: Read>(
             }
 
             VariantType::Rect => Rect::new(
-                read_vector2(&mut value).map_err(|_| AttributeError::ReadType("Rect min"))?,
-                read_vector2(&mut value).map_err(|_| AttributeError::ReadType("Rect max"))?,
+                read_vector2(&mut value).map_err(|_| SerializedMapError::ReadType("Rect min"))?,
+                read_vector2(&mut value).map_err(|_| SerializedMapError::ReadType("Rect max"))?,
             )
             .into(),
 
             VariantType::BinaryString => {
                 let binary_string: BinaryString = read_string(&mut value)
-                    .map_err(|_| AttributeError::ReadType("string"))?
+                    .map_err(|_| SerializedMapError::ReadType("string"))?
                     .into();
                 binary_string.into()
             }
 
             VariantType::UDim => read_udim(&mut value)
-                .map_err(|_| AttributeError::ReadType("UDim"))?
+                .map_err(|_| SerializedMapError::ReadType("UDim"))?
                 .into(),
 
             VariantType::UDim2 => UDim2::new(
-                read_udim(&mut value).map_err(|_| AttributeError::ReadType("UDim2 X"))?,
-                read_udim(&mut value).map_err(|_| AttributeError::ReadType("UDim2 Y"))?,
+                read_udim(&mut value).map_err(|_| SerializedMapError::ReadType("UDim2 X"))?,
+                read_udim(&mut value).map_err(|_| SerializedMapError::ReadType("UDim2 Y"))?,
             )
             .into(),
 
             VariantType::Vector2 => Vector2::new(
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector2 X"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector2 Y"))?,
+                read_f32(&mut value).map_err(|_| SerializedMapError::ReadType("Vector2 X"))?,
+                read_f32(&mut value).map_err(|_| SerializedMapError::ReadType("Vector2 Y"))?,
             )
             .into(),
 
             VariantType::Vector3 => Vector3::new(
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector3 X"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector3 Y"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector3 Z"))?,
+                read_f32(&mut value).map_err(|_| SerializedMapError::ReadType("Vector3 X"))?,
+                read_f32(&mut value).map_err(|_| SerializedMapError::ReadType("Vector3 Y"))?,
+                read_f32(&mut value).map_err(|_| SerializedMapError::ReadType("Vector3 Z"))?,
             )
             .into(),
 
@@ -172,7 +172,7 @@ pub(crate) fn read_attributes<R: Read>(
                 let family = {
                     let buf = read_string(&mut value)?;
 
-                    String::from_utf8(buf).map_err(|source| AttributeError::FontBadUnicode {
+                    String::from_utf8(buf).map_err(|source| SerializedMapError::FontBadUnicode {
                         source,
                         field: "family",
                     })?
@@ -185,7 +185,7 @@ pub(crate) fn read_attributes<R: Read>(
                         None
                     } else {
                         Some(String::from_utf8(buf).map_err(|source| {
-                            AttributeError::FontBadUnicode {
+                            SerializedMapError::FontBadUnicode {
                                 source,
                                 field: "cached_face_id",
                             }
@@ -213,13 +213,13 @@ pub(crate) fn read_attributes<R: Read>(
             }
             .into(),
 
-            other => return Err(AttributeError::UnsupportedVariantType(other)),
+            other => return Err(SerializedMapError::UnsupportedVariantType(other)),
         };
 
-        attributes.insert(key, value);
+        unserialized.insert(key, value);
     }
 
-    Ok(attributes)
+    Ok(unserialized)
 }
 
 fn read_u8<R: Read>(mut reader: R) -> io::Result<u8> {

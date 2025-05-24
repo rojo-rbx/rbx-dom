@@ -39,10 +39,11 @@ Change:
     # refer to them with a different name.
     Attributes:
       DataType:
-        Value: "Attributes"
+        Value: "SerializedMap"
       Serialization:
         Type: SerializesAs
         As: AttributesSerialize
+        
       Scriptability: Custom
     AttributesSerialize:
       AliasFor: Attributes

@@ -8,7 +8,7 @@ use std::{
 use ahash::{HashMap, HashMapExt, HashSetExt};
 use rbx_dom_weak::{
     types::{
-        Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+        SerializedMap, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
         MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
         PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
@@ -702,7 +702,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     let buf = value.encode();
                                     chunk.write_binary_string(&buf)?;
                                 }
-                                Variant::Attributes(value) => {
+                                Variant::SerializedMap(value) => {
                                     let mut buf = Vec::new();
 
                                     value
@@ -718,7 +718,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     return type_mismatch(
                                         i,
                                         &rbx_value,
-                                        "String, ContentId, Tags, Attributes, MaterialColors, or BinaryString",
+                                        "String, ContentId, Tags, SerializedMap, MaterialColors, or BinaryString",
                                     );
                                 }
                             }
@@ -1420,7 +1420,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             VariantType::OptionalCFrame => Variant::OptionalCFrame(None),
             VariantType::Tags => Variant::Tags(Tags::new()),
             VariantType::ContentId => Variant::ContentId(ContentId::new()),
-            VariantType::Attributes => Variant::Attributes(Attributes::new()),
+            VariantType::SerializedMap => Variant::SerializedMap(SerializedMap::new()),
             VariantType::UniqueId => Variant::UniqueId(UniqueId::nil()),
             VariantType::Font => Variant::Font(Font::default()),
             VariantType::MaterialColors => Variant::MaterialColors(MaterialColors::new()),

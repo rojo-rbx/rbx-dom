@@ -3,7 +3,7 @@ use std::{
     io::{self, Write},
 };
 
-use super::{type_id, AttributeError};
+use super::{type_id, SerializedMapError};
 
 use crate::{
     basic_types::{Color3, UDim, Vector2},
@@ -11,11 +11,11 @@ use crate::{
     Vector3,
 };
 
-/// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
-pub(crate) fn write_attributes<W: Write>(
+/// Writes a serialized map property (SerializedMap) from a map of item names -> values.
+pub(crate) fn write_serialized_map<W: Write>(
     map: &BTreeMap<String, Variant>,
     mut writer: W,
-) -> Result<(), AttributeError> {
+) -> Result<(), SerializedMapError> {
     if map.is_empty() {
         return Ok(());
     }
@@ -26,7 +26,7 @@ pub(crate) fn write_attributes<W: Write>(
         write_string(&mut writer, name)?;
 
         let type_id = type_id::from_variant_type(variant.ty())
-            .ok_or_else(|| AttributeError::UnsupportedVariantType(variant.ty()))?;
+            .ok_or_else(|| SerializedMapError::UnsupportedVariantType(variant.ty()))?;
         writer.write_all(&[type_id])?;
 
         match variant {

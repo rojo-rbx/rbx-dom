@@ -1,0 +1,9 @@
+Change:
+  StyleRule:
+    PropertiesSerialize:
+      DataType:
+        Value: "SerializedMap"
+      Serialization:
+        Type: SerializesAs
+        As: PropertiesSerialize
+      Scriptability: Custom

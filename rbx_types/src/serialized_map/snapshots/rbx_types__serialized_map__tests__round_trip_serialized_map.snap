@@ -1,6 +1,6 @@
 ---
-source: rbx_types/src/attributes/mod.rs
-expression: attributes
+source: rbx_types/src/serialized_map/mod.rs
+expression: items
 ---
 Boolean:
   Bool: true
@@ -74,4 +74,3 @@ Vector3:
     - 1
     - 2
     - 3
-

@@ -54,7 +54,7 @@ use crate::{
 };
 
 use self::{
-    attributes::write_attributes,
+    attributes::write_serialized_map,
     material_colors::write_material_colors,
     referent::{read_ref, write_ref},
     shared_string::{read_shared_string, write_shared_string},
@@ -116,7 +116,7 @@ macro_rules! declare_rbx_types {
                 Variant::Ref(value) => write_ref(writer, xml_property_name, *value, state),
                 Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
                 Variant::Tags(value) => write_tags(writer, xml_property_name, value),
-                Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
+                Variant::SerializedMap(value) => write_serialized_map(writer, xml_property_name, value),
                 Variant::MaterialColors(value) => write_material_colors(writer, xml_property_name, value),
 
                 unknown => {
