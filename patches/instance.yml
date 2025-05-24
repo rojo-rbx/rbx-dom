@@ -43,7 +43,7 @@ Change:
       Serialization:
         Type: SerializesAs
         As: AttributesSerialize
-        
+
       Scriptability: Custom
     AttributesSerialize:
       AliasFor: Attributes
