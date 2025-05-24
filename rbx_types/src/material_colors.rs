@@ -23,7 +23,7 @@ impl MaterialColors {
     /// Constructs a new `MaterialColors` where all colors are their default
     /// values.
     #[inline]
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         Self {
             inner: BTreeMap::new(),
         }
