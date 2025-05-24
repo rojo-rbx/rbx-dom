@@ -1,0 +1,9 @@
+Change:
+  StyleRule:
+    PropertiesSerialize:
+      DataType:
+        Value: "Attributes"
+      Serialization:
+        Type: SerializesAs
+        As: PropertiesSerialize
+      Scriptability: Custom
