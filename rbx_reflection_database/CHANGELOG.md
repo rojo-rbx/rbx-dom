@@ -1,6 +1,12 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+- The database may now be loaded dynamically from the local file system. ([#376])
+  The location is OS-dependent but it will only be loaded if one exists. The location may also be manually specified using the `RBX_DATABASE` environment variable.
+
+  `get` is unchanged in use, but will return a locally stored database if it exists, and the bundled one if not. Two new methods were added: `get_bundled` will only fetch the local database and `get_local` will only fetch a locally stored one.
+
+[#376]: https://github.com/rojo-rbx/rbx-dom/pull/376
 
 ## 1.0.3+roblox-670 (2025-04-25)
 * Set `Instance.Capabilities` to be unscriptable ([#523])
