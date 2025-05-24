@@ -199,7 +199,7 @@ impl Drop for SerializedMapDrain<'_> {
 mod tests {
     use super::*;
 
-    // This is taken from rbx-test-files/models/items/xml.rbxmx, but with
+    // This is taken from rbx-test-files/models/attributes/xml.rbxmx, but with
     // the NaN and Infinity removed. This is pasted raw as to not create a
     // circular dependency in test
     // (rbx_types -> rbx_xml/rbx_binary -> rbx_types)
