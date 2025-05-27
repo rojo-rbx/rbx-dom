@@ -3,7 +3,6 @@ use std::{
     mem,
 };
 
-use rbx_dom_weak::Ustr;
 use rbx_reflection::{
     ClassDescriptor, PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase,
 };
@@ -407,10 +406,10 @@ impl<'db> PropertyDescriptors<'db> {
 /// class and property name pair. These might be the same descriptor!
 pub fn find_property_descriptors<'db>(
     database: &'db ReflectionDatabase<'db>,
-    class_name: Ustr,
-    property_name: Ustr,
+    class_name: &str,
+    property_name: &str,
 ) -> Option<PropertyDescriptors<'db>> {
-    let class_descriptor = database.classes.get(class_name.as_str())?;
+    let class_descriptor = database.classes.get(class_name)?;
 
     // We need to find the canonical property descriptor associated with
     // the property we're working with. Walk superclasses and
@@ -418,7 +417,7 @@ pub fn find_property_descriptors<'db>(
     let (class, prop) = database
         .superclasses_iter(class_descriptor)
         .find_map(|class| {
-            let prop = class.properties.get(property_name.as_str())?;
+            let prop = class.properties.get(property_name)?;
             Some((class, prop))
         })?;
 

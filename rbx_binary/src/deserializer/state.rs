@@ -100,7 +100,7 @@ fn find_canonical_property<'de>(
     class_name: Ustr,
     prop_name: Ustr,
 ) -> Option<CanonicalProperty<'de>> {
-    match find_property_descriptors(database, class_name, prop_name) {
+    match find_property_descriptors(database, &class_name, &prop_name) {
         Some(descriptors) => {
             // If this descriptor is known but wasn't supposed to be
             // serialized, we should skip it.
