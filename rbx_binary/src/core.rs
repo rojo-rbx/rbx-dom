@@ -373,6 +373,67 @@ pub struct PropertyDescriptors<'db> {
     pub serialized: Option<&'db PropertyDescriptor<'db>>,
 }
 
+impl<'db> PropertyDescriptors<'db> {
+    /// Get both the canonical and serialized property descriptors for a given
+    /// class and property descriptor. The canonical and serialized descriptors
+    /// might be the same descriptor!
+    pub fn new(
+        class_descriptor: &'db ClassDescriptor<'db>,
+        property_descriptor: &'db PropertyDescriptor<'db>,
+    ) -> Option<PropertyDescriptors<'db>> {
+        match &property_descriptor.kind {
+            // This property descriptor is the canonical form of this
+            // logical property.
+            PropertyKind::Canonical { serialization } => {
+                let serialized = find_serialized_from_canonical(
+                    class_descriptor,
+                    property_descriptor,
+                    serialization,
+                );
+
+                Some(PropertyDescriptors {
+                    canonical: property_descriptor,
+                    serialized,
+                })
+            }
+
+            // This descriptor is an alias for another property. While this
+            // descriptor might be one of the two descriptors we need to
+            // return, it's possible that both the canonical and serialized
+            // forms are different.
+            PropertyKind::Alias { alias_for } => {
+                let canonical = class_descriptor.properties.get(alias_for.as_ref()).unwrap();
+
+                if let PropertyKind::Canonical { serialization } = &canonical.kind {
+                    let serialized =
+                        find_serialized_from_canonical(class_descriptor, canonical, serialization);
+
+                    Some(PropertyDescriptors {
+                        canonical,
+                        serialized,
+                    })
+                } else {
+                    // If one property in the database calls itself an alias
+                    // of another property, that property must be canonical.
+                    log::error!(
+                        "Property {}.{} is marked as an alias for {}.{}, but the latter is not canonical.",
+                        class_descriptor.name,
+                        property_descriptor.name,
+                        class_descriptor.name,
+                        alias_for
+                    );
+
+                    None
+                }
+            }
+
+            // This descriptor is of an unknown kind and we don't know how
+            // to deal with it -- maybe rbx_binary is out of date?
+            _ => None,
+        }
+    }
+}
+
 /// Find both the canonical and serialized property descriptors for a given
 /// class and property name pair. These might be the same descriptor!
 pub fn find_property_descriptors<'db>(
@@ -380,90 +441,21 @@ pub fn find_property_descriptors<'db>(
     class_name: Ustr,
     property_name: Ustr,
 ) -> Option<PropertyDescriptors<'db>> {
-    let mut class_descriptor = database.classes.get(class_name.as_str())?;
+    let class_descriptor = database.classes.get(class_name.as_str())?;
 
     // We need to find the canonical property descriptor associated with
-    // the property we're working with.
-    //
-    // At each step of the loop, we're checking a new class descriptor to see if
-    // it has an entry for the property name we're looking for. If that class
-    // doesn't have the property, we'll check its superclass until we reach the
-    // root.
-    loop {
-        // If this class descriptor knows about this property name, we're pretty
-        // much done!
-        if let Some(property_descriptor) = class_descriptor.properties.get(property_name.as_str()) {
-            match &property_descriptor.kind {
-                // This property descriptor is the canonical form of this
-                // logical property. That means we've found one of the two
-                // descriptors we're looking for!
-                PropertyKind::Canonical { serialization } => {
-                    let serialized = find_serialized_from_canonical(
-                        class_descriptor,
-                        property_descriptor,
-                        serialization,
-                    );
+    // the property we're working with. Walk superclasses and
+    // find a class descriptor which knows about this property name.
+    let (class, prop) = database
+        .superclasses_iter(class_descriptor)
+        .find_map(|class| {
+            let prop = class.properties.get(property_name.as_str())?;
+            Some((class, prop))
+        })?;
 
-                    return Some(PropertyDescriptors {
-                        canonical: property_descriptor,
-                        serialized,
-                    });
-                }
-
-                // This descriptor is an alias for another property. While this
-                // descriptor might be one of the two descriptors we need to
-                // return, it's possible that both the canonical and serialized
-                // forms are different.
-                PropertyKind::Alias { alias_for } => {
-                    let canonical = class_descriptor.properties.get(alias_for.as_ref()).unwrap();
-
-                    if let PropertyKind::Canonical { serialization } = &canonical.kind {
-                        let serialized = find_serialized_from_canonical(
-                            class_descriptor,
-                            canonical,
-                            serialization,
-                        );
-
-                        return Some(PropertyDescriptors {
-                            canonical,
-                            serialized,
-                        });
-                    } else {
-                        // If one property in the database calls itself an alias
-                        // of another property, that property must be canonical.
-                        log::error!(
-                            "Property {}.{} is marked as an alias for {}.{}, but the latter is not canonical.",
-                            class_descriptor.name,
-                            property_descriptor.name,
-                            class_descriptor.name,
-                            alias_for
-                        );
-
-                        return None;
-                    }
-                }
-
-                // This descriptor is of an unknown kind and we don't know how
-                // to deal with it -- maybe rbx_binary is out of date?
-                _ => return None,
-            }
-        }
-
-        if let Some(superclass_name) = &class_descriptor.superclass {
-            // If a property descriptor isn't found in our class, check our
-            // superclass.
-
-            class_descriptor = database
-                .classes
-                .get(superclass_name)
-                .expect("Superclass in reflection database didn't exist");
-        } else {
-            // This property isn't known by any class in the reflection
-            // database.
-
-            return None;
-        }
-    }
+    // Extract the canonical and serialized property descriptors
+    // from the class and property descriptors
+    PropertyDescriptors::new(class, prop)
 }
 
 /// Given the canonical property descriptor for a logical property along with
