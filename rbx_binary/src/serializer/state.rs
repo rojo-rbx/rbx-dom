@@ -352,7 +352,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             let mut migration = None;
 
             let database = self.serializer.database;
-            match find_property_descriptors(database, instance.class, *prop_name) {
+            match find_property_descriptors(database, &instance.class, prop_name) {
                 Some(descriptors) => {
                     // For any properties that do not serialize, we can skip
                     // adding them to the set of type_infos.
@@ -369,8 +369,8 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 // serialize
                                 let new_descriptors = find_property_descriptors(
                                     database,
-                                    instance.class,
-                                    prop_migration.new_property_name.as_str().into(),
+                                    &instance.class,
+                                    &prop_migration.new_property_name,
                                 );
 
                                 migration = Some(prop_migration);
