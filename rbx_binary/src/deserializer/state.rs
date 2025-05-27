@@ -97,10 +97,10 @@ struct CanonicalProperty<'db> {
 fn find_canonical_property<'de>(
     database: &'de ReflectionDatabase,
     binary_type: Type,
-    class_name: Ustr,
-    prop_name: Ustr,
+    class_name: &str,
+    prop_name: &str,
 ) -> Option<CanonicalProperty<'de>> {
-    match find_property_descriptors(database, &class_name, &prop_name) {
+    match find_property_descriptors(database, class_name, prop_name) {
         Some(descriptors) => {
             // If this descriptor is known but wasn't supposed to be
             // serialized, we should skip it.
@@ -159,7 +159,7 @@ fn find_canonical_property<'de>(
             log::trace!("Unknown prop, using type {canonical_type:?}");
 
             Some(CanonicalProperty {
-                name: prop_name,
+                name: prop_name.into(),
                 ty: canonical_type,
                 migration: None,
             })
@@ -392,8 +392,8 @@ This may cause unexpected or broken behavior in your final results if you rely o
         let property = if let Some(property) = find_canonical_property(
             self.deserializer.database,
             binary_type,
-            type_info.type_name,
-            prop_name.as_str().into(),
+            &type_info.type_name,
+            &prop_name,
         ) {
             property
         } else {
