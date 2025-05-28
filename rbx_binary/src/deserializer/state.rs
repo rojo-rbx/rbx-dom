@@ -12,7 +12,9 @@ use rbx_dom_weak::{
     },
     InstanceBuilder, Ustr, WeakDom,
 };
-use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
+use rbx_reflection::{
+    ClassDescriptor, DataType, PropertyKind, PropertySerialization, ReflectionDatabase,
+};
 
 use crate::{
     chunk::Chunk,
@@ -42,7 +44,7 @@ pub(super) struct DeserializerState<'db, R> {
     shared_strings: Vec<SharedString>,
 
     /// All of the instance types described by the file so far.
-    type_infos: HashMap<u32, TypeInfo>,
+    type_infos: HashMap<u32, TypeInfo<'db>>,
 
     /// All of the instances known by the deserializer.
     instances_by_ref: HashMap<i32, Instance>,
@@ -59,7 +61,7 @@ pub(super) struct DeserializerState<'db, R> {
 
 /// Represents a unique instance class. Binary models define all their instance
 /// types up front and give them a short u32 identifier.
-struct TypeInfo {
+struct TypeInfo<'db> {
     /// The ID given to this type by the current file we're deserializing. This
     /// ID can be different for different files.
     type_id: u32,
@@ -69,6 +71,10 @@ struct TypeInfo {
 
     /// A list of the instances described by this file that are this type.
     referents: Vec<i32>,
+
+    /// A reference to the type's class descriptor from rbx_reflection, if this
+    /// is a known class.
+    class_descriptor: Option<&'db ClassDescriptor<'db>>,
 }
 
 /// Contains all the information we need to gather in order to construct an
@@ -97,12 +103,9 @@ struct CanonicalProperty<'db> {
 fn find_canonical_property<'de>(
     database: &'de ReflectionDatabase,
     binary_type: Type,
-    class_name: &str,
+    class_descriptor: Option<&'de ClassDescriptor<'de>>,
     prop_name: &str,
 ) -> Option<CanonicalProperty<'de>> {
-    // Do not return early if the class is None.
-    // find_property_descriptors accepts Option<ClassDescriptor>
-    let class_descriptor = database.classes.get(class_name);
     match find_property_descriptors(database, class_descriptor, prop_name) {
         Some((_, descriptors)) => {
             // If this descriptor is known but wasn't supposed to be
@@ -294,13 +297,12 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let mut referents = vec![0; number_instances as usize];
         chunk.read_referent_array(&mut referents)?;
 
-        let prop_capacity = self
-            .deserializer
-            .database
-            .classes
-            .get(type_name.as_str())
-            .map(|class| class.default_properties.len())
-            .unwrap_or(0);
+        let (class_descriptor, prop_capacity) =
+            if let Some(class) = self.deserializer.database.classes.get(type_name.as_str()) {
+                (Some(class), class.default_properties.len())
+            } else {
+                (None, 0)
+            };
 
         // TODO: Check object_format and check for service markers if it's 1?
 
@@ -323,6 +325,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 type_id,
                 type_name: type_name.into(),
                 referents,
+                class_descriptor,
             },
         );
 
@@ -408,7 +411,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
         let property = if let Some(property) = find_canonical_property(
             self.deserializer.database,
             binary_type,
-            &type_info.type_name,
+            type_info.class_descriptor,
             &prop_name,
         ) {
             property
