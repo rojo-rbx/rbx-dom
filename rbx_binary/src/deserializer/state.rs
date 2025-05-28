@@ -104,7 +104,7 @@ fn find_canonical_property<'de>(
     // find_property_descriptors accepts Option<ClassDescriptor>
     let class_descriptor = database.classes.get(class_name);
     match find_property_descriptors(database, class_descriptor, prop_name) {
-        Some(descriptors) => {
+        Some((_, descriptors)) => {
             // If this descriptor is known but wasn't supposed to be
             // serialized, we should skip it.
             //

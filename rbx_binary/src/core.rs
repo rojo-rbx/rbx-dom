@@ -433,13 +433,14 @@ impl<'db> PropertyDescriptors<'db> {
     }
 }
 
-/// Find both the canonical and serialized property descriptors for a given
-/// class and property name pair. These might be the same descriptor!
+/// Find the superclass which contains the specified property,
+/// extract the canonical and serialized property descriptors,
+/// and return both.
 pub fn find_property_descriptors<'db>(
     database: &'db ReflectionDatabase<'db>,
     class_descriptor: Option<&'db ClassDescriptor<'db>>,
     property_name: &str,
-) -> Option<PropertyDescriptors<'db>> {
+) -> Option<(&'db ClassDescriptor<'db>, PropertyDescriptors<'db>)> {
     // Checking the class descriptor is ugly without an optional
     // return value, and all the call sites need this precise logic.
     let class_descriptor = class_descriptor?;
@@ -456,7 +457,8 @@ pub fn find_property_descriptors<'db>(
 
     // Extract the canonical and serialized property descriptors
     // from the class and property descriptors
-    PropertyDescriptors::new(class, prop)
+    let descriptors = PropertyDescriptors::new(class, prop)?;
+    Some((class, descriptors))
 }
 
 /// Given the canonical property descriptor for a logical property along with
