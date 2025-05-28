@@ -437,10 +437,12 @@ impl<'db> PropertyDescriptors<'db> {
 /// class and property name pair. These might be the same descriptor!
 pub fn find_property_descriptors<'db>(
     database: &'db ReflectionDatabase<'db>,
-    class_name: &str,
+    class_descriptor: Option<&'db ClassDescriptor<'db>>,
     property_name: &str,
 ) -> Option<PropertyDescriptors<'db>> {
-    let class_descriptor = database.classes.get(class_name)?;
+    // Checking the class descriptor is ugly without an optional
+    // return value, and all the call sites need this precise logic.
+    let class_descriptor = class_descriptor?;
 
     // We need to find the canonical property descriptor associated with
     // the property we're working with. Walk superclasses and
