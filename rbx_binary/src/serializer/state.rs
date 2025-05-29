@@ -17,7 +17,7 @@ use rbx_dom_weak::{
 };
 
 use rbx_reflection::{
-    ClassDescriptor, ClassTag, DataType, PropertyKind, PropertyMigration, PropertySerialization,
+    ClassDescriptor, ClassTag, PropertyKind, PropertyMigration, PropertySerialization,
     ReflectionDatabase,
 };
 
@@ -396,20 +396,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
                     serialized_name = serialized.name.as_ref().into();
 
-                    serialized_ty = match &serialized.data_type {
-                        DataType::Value(ty) => *ty,
-                        DataType::Enum(_) => VariantType::Enum,
-
-                        unknown_ty => {
-                            // rbx_binary is not new enough to handle this kind
-                            // of property, whatever it is.
-                            return Err(InnerError::UnsupportedPropType {
-                                type_name: instance.class.to_string(),
-                                prop_name: prop_name.to_string(),
-                                prop_type: format!("{unknown_ty:?}"),
-                            });
-                        }
-                    };
+                    serialized_ty = serialized.data_type.ty();
                 }
 
                 None => {

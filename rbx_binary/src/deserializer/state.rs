@@ -12,7 +12,7 @@ use rbx_dom_weak::{
     },
     InstanceBuilder, Ustr, WeakDom,
 };
-use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
+use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     chunk::Chunk,
@@ -129,14 +129,7 @@ fn find_canonical_property<'de>(
 
             // TODO: Do we need an additional fix here?
             let canonical_name = &descriptors.canonical.name;
-            let canonical_type = match &descriptors.canonical.data_type {
-                DataType::Value(ty) => *ty,
-                DataType::Enum(_) => VariantType::Enum,
-                _ => {
-                    // TODO: Configurable handling of unknown types?
-                    return None;
-                }
-            };
+            let canonical_type = descriptors.canonical.data_type.ty();
             let migration = match &descriptors.canonical.kind {
                 PropertyKind::Canonical {
                     serialization: migration @ PropertySerialization::Migrate(_),

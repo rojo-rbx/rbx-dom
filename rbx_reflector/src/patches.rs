@@ -5,7 +5,7 @@ use rbx_reflection::{
     DataType, PropertyKind, PropertyMigration, PropertySerialization, ReflectionDatabase,
     Scriptability,
 };
-use rbx_types::{Variant, VariantType};
+use rbx_types::Variant;
 use serde::Deserialize;
 
 pub struct Patches {
@@ -122,9 +122,8 @@ impl Patches {
                     .properties
                     .get(prop_name.as_str());
                 if let Some(prop_data) = prop_data {
-                    match (&prop_data.data_type, default_value.ty()) {
-                        (DataType::Enum(_), VariantType::Enum) => {}
-                        (DataType::Value(existing), new) if *existing == new => {}
+                    match (prop_data.data_type.ty(), default_value.ty()) {
+                        (existing, new) if existing == new => {}
                         (expected, actual) => bail!(
                             "Bad type given for {class_name}.{prop_name}'s DefaultValue patch.\n\
                             Expected {expected:?}, got {actual:?}"
