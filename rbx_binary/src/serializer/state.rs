@@ -641,13 +641,77 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     pub fn serialize_properties(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing properties");
 
-        let dom = self.dom;
+        let name_ustr = rbx_dom_weak::ustr("Name");
         for (type_name, type_info) in &mut self.type_infos.values {
-            let desired_len = type_info.instances.len();
             // Sort logical properties by canonical name
             type_info.properties.sort_by_key(|info| info.canonical_name);
-            let instances = &type_info.instances;
-            for prop_info in &mut type_info.properties {
+
+            // Locate the index where "Name" could be inserted
+            let Err(name_index) = type_info
+                .properties
+                .binary_search_by_key(&name_ustr, |prop_info| prop_info.canonical_name)
+            else {
+                panic!("Name property should not exist in Instance.properties");
+            };
+
+            // Split properties at the sort location of "Name"
+            let (properties_before_name, properties_after_name) =
+                type_info.properties.split_at_mut(name_index);
+
+            for prop_info in properties_before_name {
+                write_prop_info(
+                    prop_info,
+                    &mut self.output,
+                    self.serializer.compression,
+                    self.dom,
+                    &self.id_to_referent,
+                    &self.shared_string_ids,
+                    &type_info.instances,
+                    type_info.type_id,
+                    type_name,
+                )?;
+            }
+
+            // Write name properties as a special case
+            {
+                let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
+
+                chunk.write_le_u32(type_info.type_id)?;
+                chunk.write_string("Name")?;
+                chunk.write_u8(Type::String as u8)?;
+
+                for &instance in &type_info.instances {
+                    chunk.write_string(&instance.name)?;
+                }
+
+                chunk.dump(&mut self.output)?;
+            }
+
+            for prop_info in properties_after_name {
+                write_prop_info(
+                    prop_info,
+                    &mut self.output,
+                    self.serializer.compression,
+                    self.dom,
+                    &self.id_to_referent,
+                    &self.shared_string_ids,
+                    &type_info.instances,
+                    type_info.type_id,
+                    type_name,
+                )?;
+            }
+
+            fn write_prop_info<'dom, W: Write>(
+                prop_info: &mut PropInfo<'dom>,
+                output: W,
+                compression: CompressionType,
+                dom: &'dom WeakDom,
+                id_to_referent: &HashMap<Ref, i32>,
+                shared_string_ids: &HashMap<SharedString, u32>,
+                instances: &[&Instance],
+                type_id: u32,
+                type_name: &str,
+            ) -> Result<(), InnerError> {
                 profiling::scope!("serialize property", prop_name.borrow());
                 log::trace!(
                     "Writing property {}.{} (type {:?})",
@@ -656,12 +720,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     prop_info.prop_type
                 );
 
-                // Ensure the number of values matches the number of instances.
-                prop_info.extend_with_default(desired_len);
+                // Ensure the number of values matches the number of referents.
+                prop_info.extend_with_default(instances.len());
 
-                let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
+                let mut chunk = ChunkBuilder::new(b"PROP", compression);
 
-                chunk.write_le_u32(type_info.type_id)?;
+                chunk.write_le_u32(type_id)?;
                 chunk.write_string(&prop_info.serialized_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
@@ -699,8 +763,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                     write_prop_values(
                         &mut chunk,
-                        &self.id_to_referent,
-                        &self.shared_string_ids,
+                        id_to_referent,
+                        shared_string_ids,
                         prop_info.prop_type,
                         migrated_values_bind.iter().map(Cow::as_ref).enumerate(),
                         type_mismatch,
@@ -709,8 +773,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 } else {
                     write_prop_values(
                         &mut chunk,
-                        &self.id_to_referent,
-                        &self.shared_string_ids,
+                        id_to_referent,
+                        shared_string_ids,
                         prop_info.prop_type,
                         prop_info.values.iter().copied().enumerate(),
                         type_mismatch,
@@ -718,7 +782,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     )?;
                 };
 
-                chunk.dump(&mut self.output)?;
+                chunk.dump(output)?;
+                Ok(())
             }
             fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
                 chunk: &mut ChunkBuilder,
