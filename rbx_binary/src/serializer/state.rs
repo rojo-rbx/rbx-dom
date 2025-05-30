@@ -680,29 +680,6 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 chunk.write_string(&prop_info.serialized_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
-                // Do migration
-                let migrated_values_bind: Vec<_>;
-                let migrated_values;
-                let property_values = if let Some(property_migration) = prop_info.migration {
-                    migrated_values_bind = prop_info
-                        .values
-                        .iter()
-                        .map(|&value| {
-                            property_migration
-                                .perform(value)
-                                // take original if migration failed
-                                .map_or(Cow::Borrowed(value), Cow::Owned)
-                        })
-                        .collect();
-                    // We need to map twice to type match `values`
-                    migrated_values = migrated_values_bind.iter().map(Cow::as_ref).collect();
-                    &migrated_values
-                } else {
-                    &prop_info.values
-                };
-
-                let values = property_values.iter().copied().enumerate();
-
                 // Helper to generate a type mismatch error with context from
                 // this chunk.
                 let type_mismatch =
@@ -723,15 +700,39 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     prop_type: format!("{:?}", bad_value.ty()),
                 };
 
-                write_prop_values(
-                    &mut chunk,
-                    &self.id_to_referent,
-                    &self.shared_string_ids,
-                    prop_info.prop_type,
-                    values,
-                    type_mismatch,
-                    invalid_value,
-                )?;
+                if let Some(property_migration) = prop_info.migration {
+                    let migrated_values_bind: Vec<_> = prop_info
+                        .values
+                        .iter()
+                        .map(|&value| {
+                            property_migration
+                                .perform(value)
+                                // take original if migration failed
+                                .map_or(Cow::Borrowed(value), Cow::Owned)
+                        })
+                        .collect();
+
+                    write_prop_values(
+                        &mut chunk,
+                        &self.id_to_referent,
+                        &self.shared_string_ids,
+                        prop_info.prop_type,
+                        migrated_values_bind.iter().map(Cow::as_ref).enumerate(),
+                        type_mismatch,
+                        invalid_value,
+                    )?;
+                } else {
+                    write_prop_values(
+                        &mut chunk,
+                        &self.id_to_referent,
+                        &self.shared_string_ids,
+                        prop_info.prop_type,
+                        prop_info.values.iter().copied().enumerate(),
+                        type_mismatch,
+                        invalid_value,
+                    )?;
+                };
+
                 chunk.dump(&mut self.output)?;
             }
             fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
