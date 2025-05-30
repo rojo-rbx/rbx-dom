@@ -147,7 +147,7 @@ struct PropInfo<'dom> {
     /// If a logical property has a migration associated with it (i.e. BrickColor ->
     /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
     /// it is None.
-    migration: Option<&'dom PropertyMigration>,
+    migration: Option<&'dom PropertyMigration<'dom>>,
 }
 impl<'dom, 'db: 'dom> PropInfo<'dom> {
     fn new(
@@ -300,9 +300,9 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         let mut serialized_name = prop_name;
         let mut serialized_ty = sample_value.ty();
         if let Some(class) = class_descriptor {
-            let class_name = class.name.as_ref().into();
+            let class_name = class.name.into();
             if let Some(descriptors) = find_property_descriptors(database, class_name, prop_name) {
-                canonical_name = descriptors.canonical.name.as_ref().into();
+                canonical_name = descriptors.canonical.name.into();
                 if let Some(mut serialized) = descriptors.serialized {
                     if let PropertyKind::Canonical {
                         serialization: PropertySerialization::Migrate(prop_migration),
@@ -318,17 +318,17 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                         let new_descriptors = find_property_descriptors(
                             database,
                             class_name,
-                            prop_migration.new_property_name.as_str().into(),
+                            prop_migration.new_property_name.into(),
                         );
 
                         if let Some(new_descriptor) = new_descriptors {
                             if let Some(new_serialized) = new_descriptor.serialized {
-                                canonical_name = new_descriptor.canonical.name.as_ref().into();
+                                canonical_name = new_descriptor.canonical.name.into();
                                 serialized = new_serialized;
                             }
                         }
                     }
-                    serialized_name = serialized.name.as_ref().into();
+                    serialized_name = serialized.name.into();
                     serialized_ty = match &serialized.data_type {
                         rbx_reflection::DataType::Value(variant_type) => *variant_type,
                         rbx_reflection::DataType::Enum(_) => VariantType::Enum,
