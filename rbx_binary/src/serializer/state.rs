@@ -745,7 +745,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 };
 
                 if let Some(property_migration) = prop_info.migration {
-                    let migrated_values_bind: Vec<_> = prop_info
+                    let migrated_values: Vec<_> = prop_info
                         .values
                         .iter()
                         .map(|&value| {
@@ -761,7 +761,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         id_to_referent,
                         shared_string_ids,
                         prop_info.prop_type,
-                        migrated_values_bind.iter().map(Cow::as_ref).enumerate(),
+                        migrated_values.iter().map(Cow::as_ref).enumerate(),
                         type_mismatch,
                         invalid_value,
                     )?;
