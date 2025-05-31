@@ -149,59 +149,7 @@ struct PropInfo<'dom> {
     /// it is None.
     migration: Option<&'dom PropertyMigration>,
 }
-impl<'dom, 'db: 'dom> PropInfo<'dom> {
-    fn new(
-        shared_strings: &mut Vec<SharedString>,
-        shared_string_ids: &mut HashMap<SharedString, u32>,
-        type_name: &str,
-        default_value: Option<&'dom Variant>,
-        serialized_ty: VariantType,
-        canonical_name: Ustr,
-        serialized_name: Ustr,
-        migration: Option<&'db PropertyMigration>,
-    ) -> Result<Self, InnerError> {
-        let default_value = default_value
-            .or_else(|| fallback_default_value(serialized_ty))
-            .ok_or_else(|| {
-                // Since we don't know how to generate the default value
-                // for this property, we consider it unsupported.
-                InnerError::UnsupportedPropType {
-                    type_name: type_name.to_string(),
-                    prop_name: canonical_name.to_string(),
-                    prop_type: format!("{:?}", serialized_ty),
-                }
-            })?;
-
-        // There's no assurance that the default SharedString value
-        // will actually get serialized inside of the SSTR chunk, so we
-        // check here just to make sure.
-        if let Variant::SharedString(sstr) = default_value {
-            if !shared_string_ids.contains_key(sstr) {
-                shared_string_ids.insert(sstr.clone(), 0);
-                shared_strings.push(sstr.clone());
-            }
-        }
-
-        let ser_type = Type::from_rbx_type(serialized_ty).ok_or_else(|| {
-            // This is a known value type, but rbx_binary doesn't have a
-            // binary type value for it. rbx_binary might be out of
-            // date?
-            InnerError::UnsupportedPropType {
-                type_name: type_name.to_string(),
-                prop_name: serialized_name.to_string(),
-                prop_type: format!("{:?}", serialized_ty),
-            }
-        })?;
-
-        Ok(Self {
-            prop_type: ser_type,
-            canonical_name,
-            serialized_name,
-            values: Vec::new(),
-            default_value,
-            migration,
-        })
-    }
+impl<'dom> PropInfo<'dom> {
     /// This function extends `self.values` with `self.default_value` values.
     /// Previous instances may not have traversed all properties, but
     /// all `PropInfo.values` must have the same length as
@@ -279,13 +227,11 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 }
 
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
-    fn get_or_create_logical_property<'a>(
+    fn get_or_create<'a>(
         &'a mut self,
-        shared_strings: &mut Vec<SharedString>,
-        shared_string_ids: &mut HashMap<SharedString, u32>,
-        type_name: &str,
+        push_sstr: &mut impl FnMut(&Variant),
         database: &'db ReflectionDatabase<'db>,
-        class_descriptor: Option<&'db ClassDescriptor<'db>>,
+        type_name: Ustr,
         prop_name: Ustr,
         sample_value: &Variant,
     ) -> Result<&'a mut PropInfo<'dom>, InnerError> {
@@ -293,67 +239,96 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         if let Some(&logical_index) = self.properties_visited.get(&prop_name) {
             return Ok(&mut self.properties[logical_index]);
         }
-        // get database property canonical name
         let mut migration = None;
-        let mut default_value = None;
         let mut canonical_name = prop_name;
         let mut serialized_name = prop_name;
         let mut serialized_ty = sample_value.ty();
-        if let Some(class) = class_descriptor {
-            if let Some((superclass_descriptor, descriptors)) =
-                find_property_descriptors(database, class_descriptor, &prop_name)
-            {
-                canonical_name = descriptors.canonical.name.as_ref().into();
-                if let Some(mut serialized) = descriptors.serialized {
-                    if let PropertyKind::Canonical {
-                        serialization: PropertySerialization::Migrate(prop_migration),
-                    } = &serialized.kind
-                    {
-                        migration = Some(prop_migration);
 
-                        // If the property migrates, we need to look up the
-                        // property it should migrate to and use the reflection
-                        // information of the new property instead of the old
-                        // property, because migrated properties should not
-                        // serialize
-                        //
-                        // Assume that the migration will always be
-                        // directed to a property on the same class.
-                        // This avoids re-walking the superclasses.
-                        let new_descriptors = superclass_descriptor
-                            .properties
-                            .get(prop_migration.new_property_name.as_str())
-                            .and_then(|prop| PropertyDescriptors::new(superclass_descriptor, prop));
+        if let Some((superclass_descriptor, descriptors)) = find_property_descriptors(database, self.class_descriptor, &prop_name) {
+            canonical_name = descriptors.canonical.name.as_ref().into();
+            if let Some(mut serialized) = descriptors.serialized {
+                if let PropertyKind::Canonical {
+                    serialization: PropertySerialization::Migrate(prop_migration),
+                } = &serialized.kind
+                {
+                    migration = Some(prop_migration);
 
-                        if let Some(new_descriptor) = new_descriptors {
-                            if let Some(new_serialized) = new_descriptor.serialized {
-                                canonical_name = new_descriptor.canonical.name.as_ref().into();
-                                serialized = new_serialized;
-                            }
+                    // If the property migrates, we need to look up the
+                    // property it should migrate to and use the reflection
+                    // information of the new property instead of the old
+                    // property, because migrated properties should not
+                    // serialize
+                    //
+                    // Assume that the migration will always be
+                    // directed to a property on the same class.
+                    // This avoids re-walking the superclasses.
+                    let new_descriptors = superclass_descriptor
+                        .properties
+                        .get(prop_migration.new_property_name.as_str())
+                        .and_then(|prop| {
+                            PropertyDescriptors::new(superclass_descriptor, prop)
+                        });
+
+                    if let Some(new_descriptor) = new_descriptors {
+                        if let Some(new_serialized) = new_descriptor.serialized {
+                            canonical_name = new_descriptor.canonical.name.as_ref().into();
+                            serialized = new_serialized;
                         }
                     }
-                    serialized_name = serialized.name.as_ref().into();
-                    serialized_ty = match &serialized.data_type {
-                        rbx_reflection::DataType::Value(variant_type) => *variant_type,
-                        rbx_reflection::DataType::Enum(_) => VariantType::Enum,
-                        _ => unimplemented!(),
-                    };
                 }
-            };
-            default_value = database.find_default_property(class, &canonical_name);
+                serialized_name = serialized.name.as_ref().into();
+                serialized_ty = match &serialized.data_type {
+                    rbx_reflection::DataType::Value(variant_type) => *variant_type,
+                    rbx_reflection::DataType::Enum(_) => VariantType::Enum,
+                    _ => unimplemented!(),
+                };
+            }
         };
-        let logical_index = if canonical_name == prop_name {
-            // create logical property
-            let prop_info = PropInfo::new(
-                shared_strings,
-                shared_string_ids,
-                type_name,
-                default_value,
-                serialized_ty,
+
+        let mut new_prop_info = || {
+            let default_value = self
+                .class_descriptor
+                .and_then(|class| database.find_default_property(class, &canonical_name))
+                .or_else(|| fallback_default_value(serialized_ty))
+                .ok_or_else(|| {
+                    // Since we don't know how to generate the default value
+                    // for this property, we consider it unsupported.
+                    InnerError::UnsupportedPropType {
+                        type_name: type_name.to_string(),
+                        prop_name: canonical_name.to_string(),
+                        prop_type: format!("{:?}", serialized_ty),
+                    }
+                })?;
+
+            // There's no assurance that the default SharedString value
+            // will actually get serialized inside of the SSTR chunk, so we
+            // check here just to make sure.
+            push_sstr(default_value);
+
+            let Some(ser_type) = Type::from_rbx_type(serialized_ty) else {
+                // This is a known value type, but rbx_binary doesn't have a
+                // binary type value for it. rbx_binary might be out of
+                // date?
+                return Err(InnerError::UnsupportedPropType {
+                    type_name: type_name.to_string(),
+                    prop_name: serialized_name.to_string(),
+                    prop_type: format!("{:?}", serialized_ty),
+                });
+            };
+
+            Ok(PropInfo {
+                prop_type: ser_type,
                 canonical_name,
                 serialized_name,
+                values: Vec::new(),
+                default_value,
                 migration,
-            )?;
+            })
+        };
+
+        let logical_index = if canonical_name == prop_name {
+            // create logical property
+            let prop_info = new_prop_info()?;
             let logical_index = self.properties.len();
             self.properties.push(prop_info);
             // insert prop_name PropInfo
@@ -371,16 +346,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 return Ok(prop_info);
             }
             // create logical property
-            let prop_info = PropInfo::new(
-                shared_strings,
-                shared_string_ids,
-                type_name,
-                default_value,
-                serialized_ty,
-                canonical_name,
-                serialized_name,
-                migration,
-            )?;
+            let prop_info = new_prop_info()?;
             let logical_index = self.properties.len();
             self.properties.push(prop_info);
             // insert canonical PropInfo
@@ -482,35 +448,43 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     #[allow(clippy::map_entry)]
     #[profiling::function]
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
-        let type_info = self.type_infos.get_or_create(instance.class);
+        let SerializerState {
+            serializer: Serializer { database, .. },
+            type_infos,
+            shared_strings,
+            shared_string_ids,
+            ..
+        } = self;
+
+        let type_info = type_infos.get_or_create(instance.class);
         let desired_len = type_info.instances.len();
         type_info.instances.push(instance);
 
-        for (prop_name, prop_value) in &instance.properties {
-            // Discover and track any shared strings we come across.
-            if let Variant::SharedString(shared_string) = prop_value {
-                if !self.shared_string_ids.contains_key(shared_string) {
-                    // We insert it with a dummy id of 0 so that we can check for contains_key.
-                    // The actual id is set in `add_instances`
-                    self.shared_string_ids.insert(shared_string.clone(), 0);
-                    self.shared_strings.push(shared_string.clone())
+        let mut push_sstr = |variant: &Variant| {
+            if let Variant::SharedString(sstr) = variant {
+                if !shared_string_ids.contains_key(sstr) {
+                    shared_string_ids.insert(sstr.clone(), 0);
+                    shared_strings.push(sstr.clone());
                 }
-            } else if let Variant::NetAssetRef(net) = prop_value {
+            } else if let Variant::NetAssetRef(net) = variant {
                 // NetAssetRef is serialized identically as `SharedString` and
                 // uses the same repository, so we just treat them all the same
                 let sstr_ref = net.as_ref();
-                if !self.shared_string_ids.contains_key(sstr_ref) {
-                    self.shared_string_ids.insert(sstr_ref.clone(), 0);
-                    self.shared_strings.push(sstr_ref.clone())
+                if !shared_string_ids.contains_key(sstr_ref) {
+                    shared_string_ids.insert(sstr_ref.clone(), 0);
+                    shared_strings.push(sstr_ref.clone())
                 }
             }
+        };
 
-            let logical_property = type_info.get_or_create_logical_property(
-                &mut self.shared_strings,
-                &mut self.shared_string_ids,
-                &instance.class,
-                self.serializer.database,
-                type_info.class_descriptor,
+        for (prop_name, prop_value) in &instance.properties {
+            // Discover and track any shared strings we come across.
+            push_sstr(prop_value);
+
+            let logical_property = type_info.get_or_create(
+                &mut push_sstr,
+                database,
+                instance.class,
                 *prop_name,
                 prop_value,
             )?;
@@ -1290,7 +1264,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                                 }
                             } else if let Variant::NetAssetRef(value) = rbx_value {
                                 let sstr_ref = value.as_ref();
-                                if let Some(id) = self.shared_string_ids.get(sstr_ref) {
+                                if let Some(id) = shared_string_ids.get(sstr_ref) {
                                     entries.push(*id)
                                 } else {
                                     panic!(
