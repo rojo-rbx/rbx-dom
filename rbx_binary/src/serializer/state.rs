@@ -227,6 +227,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 }
 
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
+    /// Get or create a logical property from a visited property.
     fn get_or_create<'a>(
         &'a mut self,
         push_sstr: &mut impl FnMut(&Variant),
@@ -326,6 +327,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             })
         };
 
+        // Is this property the canonical representation?
         let logical_index = if canonical_name == prop_name {
             // create logical property
             let prop_info = new_prop_info()?;
@@ -457,9 +459,13 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         } = self;
 
         let type_info = type_infos.get_or_create(instance.class);
+        // This order is important! The index that the prop_value
+        // is inserted into must match the index that the instance
+        // is inserted into.  See the loop below for details.
         let desired_len = type_info.instances.len();
         type_info.instances.push(instance);
 
+        // Helper to track a SharedString Variant
         let mut push_sstr = |variant: &Variant| {
             if let Variant::SharedString(sstr) = variant {
                 if !shared_string_ids.contains_key(sstr) {
