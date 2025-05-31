@@ -153,7 +153,7 @@ impl<'dom> PropInfo<'dom> {
     /// This function extends `self.values` with `self.default_value` values.
     /// Previous instances may not have traversed all properties, but
     /// all `PropInfo.values` must have the same length as
-    /// `TypeInfo.referents.len()` to serialize PROP chunks correctly.
+    /// `TypeInfo.instances.len()` to serialize PROP chunks correctly.
     fn extend_with_default(&mut self, desired_len: usize) {
         let current_len = self.values.len();
         let Some(additional) = desired_len.checked_sub(current_len) else {
