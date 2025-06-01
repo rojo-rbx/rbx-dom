@@ -3,7 +3,6 @@ use std::{
     mem,
 };
 
-use rbx_dom_weak::Ustr;
 use rbx_reflection::{
     ClassDescriptor, PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase,
 };
@@ -315,6 +314,43 @@ pub trait RbxWriteExt: Write {
 
 impl<W> RbxWriteExt for W where W: Write {}
 
+/// Read a binary "string" in the format that Roblox's model files use.
+///
+/// This function is safer than read_string because Roblox generally makes
+/// no guarantees about encoding of things it calls strings. rbx_binary
+/// makes a semantic differentiation between strings and binary buffers,
+/// which makes it more strict than Roblox but more likely to be correct.
+///
+/// This function is not part of RbxReadExt, and unlike
+/// RbxReadExt::read_binary_string, this function only operates on a byte slice.
+pub fn read_binary_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a [u8]> {
+    let length = slice.read_le_u32()?;
+
+    let out;
+    // split_at can panic if the slice is shorter than length
+    // but we do not expect that to happen.
+    (out, *slice) = slice.split_at(length as usize);
+
+    Ok(out)
+}
+
+/// Read a UTF-8 encoded string encoded how Roblox model files encode
+/// strings. This function isn't always appropriate because Roblox's formats
+/// generally aren't dilligent about data being valid Unicode.
+///
+/// This function is not part of RbxReadExt, and unlike
+/// RbxReadExt::read_string, this function only operates on a byte slice.
+pub fn read_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a str> {
+    let out = read_binary_string_slice(slice)?;
+
+    core::str::from_utf8(out).map_err(|_| {
+        io::Error::new(
+            io::ErrorKind::InvalidData,
+            "stream did not contain valid UTF-8",
+        )
+    })
+}
+
 /// Applies the 'zigzag' transformation done by Roblox to many `i32` values.
 pub fn transform_i32(value: i32) -> i32 {
     (value << 1) ^ (value >> 31)
@@ -337,19 +373,19 @@ pub fn untransform_i64(value: i64) -> i64 {
     ((value as u64) >> 1) as i64 ^ -(value & 1)
 }
 
-pub struct PropertyDescriptors<'db> {
-    pub canonical: &'db PropertyDescriptor<'db>,
-    pub serialized: Option<&'db PropertyDescriptor<'db>>,
+pub struct PropertyDescriptors<'de, 'db> {
+    pub canonical: &'de PropertyDescriptor<'db>,
+    pub serialized: Option<&'de PropertyDescriptor<'db>>,
 }
 
 /// Find both the canonical and serialized property descriptors for a given
 /// class and property name pair. These might be the same descriptor!
-pub fn find_property_descriptors<'db>(
-    database: &'db ReflectionDatabase<'db>,
-    class_name: Ustr,
-    property_name: Ustr,
-) -> Option<PropertyDescriptors<'db>> {
-    let mut class_descriptor = database.classes.get(class_name.as_str())?;
+pub fn find_property_descriptors<'de, 'dom, 'db: 'dom>(
+    database: &'de ReflectionDatabase<'db>,
+    class_name: &'dom str,
+    property_name: &'dom str,
+) -> Option<PropertyDescriptors<'de, 'db>> {
+    let mut class_descriptor = database.classes.get(class_name)?;
 
     // We need to find the canonical property descriptor associated with
     // the property we're working with.
@@ -361,7 +397,7 @@ pub fn find_property_descriptors<'db>(
     loop {
         // If this class descriptor knows about this property name, we're pretty
         // much done!
-        if let Some(property_descriptor) = class_descriptor.properties.get(property_name.as_str()) {
+        if let Some(property_descriptor) = class_descriptor.properties.get(property_name) {
             match &property_descriptor.kind {
                 // This property descriptor is the canonical form of this
                 // logical property. That means we've found one of the two
@@ -384,7 +420,7 @@ pub fn find_property_descriptors<'db>(
                 // return, it's possible that both the canonical and serialized
                 // forms are different.
                 PropertyKind::Alias { alias_for } => {
-                    let canonical = class_descriptor.properties.get(alias_for.as_ref()).unwrap();
+                    let canonical = class_descriptor.properties.get(*alias_for).unwrap();
 
                     if let PropertyKind::Canonical { serialization } = &canonical.kind {
                         let serialized = find_serialized_from_canonical(
@@ -438,11 +474,11 @@ pub fn find_property_descriptors<'db>(
 /// Given the canonical property descriptor for a logical property along with
 /// its serialization, returns the serialized form of the logical property if
 /// this property is serializable.
-fn find_serialized_from_canonical<'db>(
-    class: &'db ClassDescriptor<'db>,
-    canonical: &'db PropertyDescriptor<'db>,
-    serialization: &'db PropertySerialization<'db>,
-) -> Option<&'db PropertyDescriptor<'db>> {
+fn find_serialized_from_canonical<'de, 'db>(
+    class: &'de ClassDescriptor<'db>,
+    canonical: &'de PropertyDescriptor<'db>,
+    serialization: &'de PropertySerialization<'db>,
+) -> Option<&'de PropertyDescriptor<'db>> {
     match serialization {
         // This property serializes as-is. This is the happiest path: both the
         // canonical and serialized descriptors are the same!
@@ -453,7 +489,7 @@ fn find_serialized_from_canonical<'db>(
         // This property serializes under an alias. That property should have a
         // corresponding property descriptor within the same class descriptor.
         PropertySerialization::SerializesAs(serialized_name) => {
-            let serialized_descriptor = class.properties.get(serialized_name.as_ref()).unwrap();
+            let serialized_descriptor = class.properties.get(*serialized_name).unwrap();
 
             Some(serialized_descriptor)
         }

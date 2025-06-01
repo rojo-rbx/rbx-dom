@@ -50,7 +50,7 @@ static INDEX: AtomicU32 = AtomicU32::new(0);
 impl UniqueId {
     /// Returns a 'nil' `UniqueId` that has every field set to `0`.
     /// This value may appear multiple times in a Roblox file safely.
-    pub fn nil() -> Self {
+    pub const fn nil() -> Self {
         Self {
             index: 0,
             time: 0,

@@ -23,7 +23,7 @@ pub enum ContentType {
 impl Content {
     /// Constructs an empty `Content`.
     #[inline]
-    pub fn none() -> Self {
+    pub const fn none() -> Self {
         Self(ContentType::None)
     }
 
@@ -103,7 +103,7 @@ pub struct ContentId {
 impl ContentId {
     /// Constructs an empty new `ContentId`.
     #[inline]
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         ContentId { url: String::new() }
     }
 

@@ -20,7 +20,7 @@ pub struct Enum {
 }
 
 impl Enum {
-    pub fn from_u32(value: u32) -> Self {
+    pub const fn from_u32(value: u32) -> Self {
         Self { value }
     }
 
@@ -61,7 +61,7 @@ pub struct Vector2 {
 }
 
 impl Vector2 {
-    pub fn new(x: f32, y: f32) -> Self {
+    pub const fn new(x: f32, y: f32) -> Self {
         Self { x, y }
     }
 }
@@ -109,7 +109,7 @@ fn approx_unit_or_zero(value: f32) -> Option<i32> {
 }
 
 impl Vector3 {
-    pub fn new(x: f32, y: f32, z: f32) -> Self {
+    pub const fn new(x: f32, y: f32, z: f32) -> Self {
         Self { x, y, z }
     }
 
@@ -163,7 +163,7 @@ pub struct Vector3int16 {
 }
 
 impl Vector3int16 {
-    pub fn new(x: i16, y: i16, z: i16) -> Self {
+    pub const fn new(x: i16, y: i16, z: i16) -> Self {
         Self { x, y, z }
     }
 }
@@ -184,7 +184,7 @@ pub struct CFrame {
 }
 
 impl CFrame {
-    pub fn new(position: Vector3, orientation: Matrix3) -> Self {
+    pub const fn new(position: Vector3, orientation: Matrix3) -> Self {
         Self {
             position,
             orientation,
@@ -208,11 +208,11 @@ pub(crate) enum Matrix3Error {
 }
 
 impl Matrix3 {
-    pub fn new(x: Vector3, y: Vector3, z: Vector3) -> Self {
+    pub const fn new(x: Vector3, y: Vector3, z: Vector3) -> Self {
         Self { x, y, z }
     }
 
-    pub fn identity() -> Self {
+    pub const fn identity() -> Self {
         Self {
             x: Vector3::new(1.0, 0.0, 0.0),
             y: Vector3::new(0.0, 1.0, 0.0),
@@ -388,7 +388,7 @@ pub struct Color3 {
 }
 
 impl Color3 {
-    pub fn new(r: f32, g: f32, b: f32) -> Self {
+    pub const fn new(r: f32, g: f32, b: f32) -> Self {
         Self { r, g, b }
     }
 }
@@ -421,7 +421,7 @@ pub struct Color3uint8 {
 }
 
 impl Color3uint8 {
-    pub fn new(r: u8, g: u8, b: u8) -> Self {
+    pub const fn new(r: u8, g: u8, b: u8) -> Self {
         Self { r, g, b }
     }
 }
@@ -456,7 +456,7 @@ pub struct Ray {
 }
 
 impl Ray {
-    pub fn new(origin: Vector3, direction: Vector3) -> Self {
+    pub const fn new(origin: Vector3, direction: Vector3) -> Self {
         Self { origin, direction }
     }
 }
@@ -509,7 +509,7 @@ pub struct Rect {
 }
 
 impl Rect {
-    pub fn new(min: Vector2, max: Vector2) -> Self {
+    pub const fn new(min: Vector2, max: Vector2) -> Self {
         Self { min, max }
     }
 }
@@ -526,7 +526,7 @@ pub struct UDim {
 }
 
 impl UDim {
-    pub fn new(scale: f32, offset: i32) -> Self {
+    pub const fn new(scale: f32, offset: i32) -> Self {
         Self { scale, offset }
     }
 }
@@ -543,7 +543,7 @@ pub struct UDim2 {
 }
 
 impl UDim2 {
-    pub fn new(x: UDim, y: UDim) -> Self {
+    pub const fn new(x: UDim, y: UDim) -> Self {
         Self { x, y }
     }
 }
@@ -559,7 +559,7 @@ pub struct NumberRange {
 }
 
 impl NumberRange {
-    pub fn new(min: f32, max: f32) -> Self {
+    pub const fn new(min: f32, max: f32) -> Self {
         Self { min, max }
     }
 }
@@ -596,7 +596,7 @@ pub struct ColorSequenceKeypoint {
 }
 
 impl ColorSequenceKeypoint {
-    pub fn new(time: f32, color: Color3) -> Self {
+    pub const fn new(time: f32, color: Color3) -> Self {
         Self { time, color }
     }
 }
@@ -636,7 +636,7 @@ pub struct NumberSequenceKeypoint {
 }
 
 impl NumberSequenceKeypoint {
-    pub fn new(time: f32, value: f32, envelope: f32) -> Self {
+    pub const fn new(time: f32, value: f32, envelope: f32) -> Self {
         Self {
             time,
             value,
