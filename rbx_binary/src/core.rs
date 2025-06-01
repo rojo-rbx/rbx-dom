@@ -266,14 +266,16 @@ impl ChunkBuilder {
         let values_len = values.len();
         let bytes_len = values_len * N;
 
-        // SAFETY: I promise that I am about to write `bytes_len` bytes into the buffer.
-        let buffer = unsafe { self.reserve_bytes_mut(bytes_len) };
-
-        for (i, bytes) in values.enumerate() {
-            for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
-                buffer[i + b * values_len] = byte;
+        let initialize_bytes = |buffer: &mut [u8]| {
+            for (i, bytes) in values.enumerate() {
+                for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
+                    buffer[i + b * values_len] = byte;
+                }
             }
-        }
+        };
+
+        // SAFETY: I promise `initialize_bytes` writes `bytes_len` bytes into the buffer.
+        unsafe { self.initialize_bytes_with(bytes_len, initialize_bytes) };
 
         Ok(())
     }
