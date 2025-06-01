@@ -78,38 +78,11 @@ impl ChunkBuilder {
         }
     }
 
-    /// Reserve bytes and use a closure to initialize possibly uninitialized memory.
-    ///
-    /// SAFETY:
-    /// - All bytes in the mutable slice must be overwritten.
-    /// - The closure cannot panic.
-    //
-    // Alternatively, the memory can be zeroed with safe code:
-    //
-    // let current_len = self.buffer.len();
-    // self.buffer.extend(core::iter::repeat_n(0, len));
-    // initialize_bytes(&mut self.buffer[current_len..current_len + len]);
-    pub unsafe fn initialize_bytes_with(
-        &mut self,
-        len: usize,
-        initialize_bytes: impl FnOnce(&mut [u8]),
-    ) {
+    /// Reserve bytes and use a closure to initialize them.
+    pub fn initialize_bytes_with(&mut self, len: usize, initialize_bytes: impl FnOnce(&mut [u8])) {
         let current_len = self.buffer.len();
-        // Reserve space
-        self.buffer.reserve(len);
-
-        // Take a slice of uninitialized memory
-        let bytes = unsafe {
-            core::slice::from_raw_parts_mut(self.buffer.as_mut_ptr().add(current_len), len)
-        };
-
-        // Pls no panic c:
-        initialize_bytes(bytes);
-
-        // Update the length
-        unsafe {
-            self.buffer.set_len(current_len + len);
-        };
+        self.buffer.extend(core::iter::repeat_n(0, len));
+        initialize_bytes(&mut self.buffer[current_len..current_len + len]);
     }
 
     /// Consume the chunk and write it to the given writer.
