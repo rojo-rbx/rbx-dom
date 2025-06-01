@@ -22,7 +22,7 @@ use crate::{
 use super::{
     error::InnerError,
     header::FileHeader,
-    intern::{InternFunction, StringIntern},
+    intern::{DummyInterner, InternFunction, StringIntern},
     Deserializer,
 };
 
@@ -61,7 +61,7 @@ pub struct DecodeOptions<S> {
     property_behavior: DecodePropertyBehavior<S>,
 }
 
-impl DecodeOptions<InternFunction<'_, 'static>> {
+impl DecodeOptions<DummyInterner> {
     /// Constructs a `DecodeOptions` which specifies to error upon encountering an unknown property or class.
     #[inline]
     pub fn error_on_unknown() -> Self {
@@ -117,7 +117,7 @@ impl<'file> DecodeOptions<InternFunction<'file, 'file>> {
         }
     }
 }
-impl Default for DecodeOptions<InternFunction<'_, 'static>> {
+impl Default for DecodeOptions<DummyInterner> {
     #[inline]
     fn default() -> Self {
         Self::ignore_unknown()

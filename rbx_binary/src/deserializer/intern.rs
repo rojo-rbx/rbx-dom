@@ -7,6 +7,15 @@ pub trait StringIntern<'input, 'output> {
     fn intern(&mut self, str: &'input str) -> &'output str;
 }
 
+/// A dummy string interner which implements the StringIntern trait but
+/// is never meant to be used.
+pub struct DummyInterner;
+impl<'input, 'output> StringIntern<'input, 'output> for DummyInterner {
+    fn intern(&mut self, _str: &'input str) -> &'output str {
+        unimplemented!()
+    }
+}
+
 /// A type alias for a function which implements the StringIntern trait.
 pub type InternFunction<'input, 'output> = fn(&'input str) -> &'output str;
 
