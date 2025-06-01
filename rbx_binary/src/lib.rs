@@ -101,3 +101,36 @@ pub fn from_reader_default<R: Read>(reader: R) -> Result<WeakDom<'static>, Decod
 pub fn to_writer<W: Write>(writer: W, dom: &WeakDom, refs: &[Ref]) -> Result<(), EncodeError> {
     Serializer::new().serialize(writer, dom, refs)
 }
+
+#[cfg(test)]
+mod smoke_test {
+    use crate::{from_reader, DecodeOptions, DecompressedFile};
+
+    const EMPTY_SLICE: &[u8] = &[];
+
+    // This should refuse to compile
+    // #[test]
+    // #[ignore]
+    // fn refuse_compile(){
+    //     from_reader(EMPTY_SLICE, DecodeOptions::read_unknown()).unwrap();
+    // }
+
+    // These must pass the borrow checker
+    #[test]
+    #[ignore]
+    fn default() {
+        from_reader(EMPTY_SLICE, DecodeOptions::default()).unwrap();
+    }
+    #[test]
+    #[ignore]
+    fn read_unknown() {
+        let file = DecompressedFile::from_reader(EMPTY_SLICE).unwrap();
+        file.deserialize(DecodeOptions::read_unknown()).unwrap();
+    }
+    #[test]
+    #[ignore]
+    fn custom_interner() {
+        let bad_interner = |str: &str| String::leak(str.to_owned()) as &str;
+        from_reader(EMPTY_SLICE, DecodeOptions::read_unknown_with(bad_interner)).unwrap();
+    }
+}
