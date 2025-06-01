@@ -269,15 +269,12 @@ impl ChunkBuilder {
         let initialize_bytes = |buffer: &mut [u8]| {
             for (i, bytes) in values.enumerate() {
                 for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
-                    // SAFETY: The index is within bounds, but
-                    // potentially too complicated for the compiler to verify.
-                    *unsafe { buffer.get_unchecked_mut(i + b * values_len) } = byte;
+                    buffer[i + b * values_len] = byte;
                 }
             }
         };
 
-        // SAFETY: I promise `initialize_bytes` writes `bytes_len` bytes into the buffer.
-        unsafe { self.initialize_bytes_with(bytes_len, initialize_bytes) };
+        self.initialize_bytes_with(bytes_len, initialize_bytes);
 
         Ok(())
     }
