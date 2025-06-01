@@ -1,4 +1,4 @@
-use crate::core::{RbxReadExt, RbxWriteExt};
+use crate::{chunk::ChunkBuilder, core::RbxReadExt, CompressionType};
 
 #[test]
 fn read_interleaved_bytes() {
@@ -28,8 +28,10 @@ fn read_interleaved_bytes() {
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
     ];
 
-    let mut result = vec![[0; 16]; expected.len()];
-    input.read_interleaved_bytes::<16>(&mut result).unwrap();
+    let result: Vec<_> = input
+        .read_interleaved_bytes::<16>(expected.len())
+        .unwrap()
+        .collect();
 
     assert_eq!(result, expected)
 }
@@ -62,8 +64,16 @@ fn write_interleaved_bytes() {
             15, 15, 15,
         ];
 
-    let mut result = Vec::new();
-    result.write_interleaved_bytes::<16>(input).unwrap();
+    let mut chunk = ChunkBuilder::new(b"ASDF", CompressionType::None);
+    chunk
+        .write_interleaved_bytes::<16, _>(input.into_iter().copied())
+        .unwrap();
 
-    assert_eq!(result, expected)
+    let mut dump = Vec::new();
+    chunk.dump(&mut dump).unwrap();
+
+    // the first 16 bytes are the chunk header
+    let result = &dump[16..];
+
+    assert_eq!(result, expected);
 }
