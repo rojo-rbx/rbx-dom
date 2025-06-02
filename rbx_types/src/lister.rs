@@ -1,21 +1,19 @@
 use std::fmt;
 
-/// Small utility to write formatting functions for lists of things.
-pub(crate) struct Lister {
-    first: bool,
-}
-
-impl Lister {
-    pub fn new() -> Self {
-        Self { first: true }
-    }
-
-    pub fn write(&mut self, out: &mut fmt::Formatter, label: impl fmt::Display) -> fmt::Result {
-        if self.first {
-            self.first = false;
-            write!(out, "{}", label)
-        } else {
-            write!(out, ", {}", label)
+/// Small utility to write lists of things.
+pub fn write_comma_separated<D, I, F>(f: &mut fmt::Formatter, iter: I, mut writer: F) -> fmt::Result
+where
+    D: fmt::Display,
+    I: IntoIterator<Item = D>,
+    F: FnMut(&mut fmt::Formatter, D) -> fmt::Result,
+{
+    let mut it = iter.into_iter();
+    if let Some(first) = it.next() {
+        writer(f, first)?;
+        for item in it {
+            write!(f, ", ")?;
+            writer(f, item)?;
         }
     }
+    Ok(())
 }

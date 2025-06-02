@@ -1,6 +1,6 @@
 use std::fmt;
 
-use crate::lister::Lister;
+use crate::lister::write_comma_separated;
 
 bitflags::bitflags! {
     #[derive(Clone, Copy, PartialEq, Eq)]
@@ -82,33 +82,13 @@ impl Faces {
 
 impl fmt::Debug for Faces {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
-        let mut list = Lister::new();
-
         write!(out, "Faces(")?;
 
-        if self.contains(Faces::RIGHT) {
-            list.write(out, "Right")?;
-        }
-
-        if self.contains(Faces::TOP) {
-            list.write(out, "Top")?;
-        }
-
-        if self.contains(Faces::BACK) {
-            list.write(out, "Back")?;
-        }
-
-        if self.contains(Faces::LEFT) {
-            list.write(out, "Left")?;
-        }
-
-        if self.contains(Faces::BOTTOM) {
-            list.write(out, "Bottom")?;
-        }
-
-        if self.contains(Faces::FRONT) {
-            list.write(out, "Front")?;
-        }
+        write_comma_separated(
+            out,
+            self.flags.iter_names().map(|(name, _)| name),
+            |f, name| write!(f, "{name}"),
+        )?;
 
         write!(out, ")")
     }
