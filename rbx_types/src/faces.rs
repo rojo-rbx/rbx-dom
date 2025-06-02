@@ -84,11 +84,7 @@ impl fmt::Debug for Faces {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
         write!(out, "Faces(")?;
 
-        write_comma_separated(
-            out,
-            self.flags.iter_names().map(|(name, _)| name),
-            |f, name| write!(f, "{name}"),
-        )?;
+        write_comma_separated(out, self.flags.iter_names().map(|(name, _)| name))?;
 
         write!(out, ")")
     }
