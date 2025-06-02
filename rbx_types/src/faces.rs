@@ -3,6 +3,7 @@ use std::fmt;
 use crate::lister::Lister;
 
 bitflags::bitflags! {
+    #[derive(Clone, Copy, PartialEq, Eq)]
     struct FaceFlags: u8 {
         const RIGHT = 1;
         const TOP = 2;
