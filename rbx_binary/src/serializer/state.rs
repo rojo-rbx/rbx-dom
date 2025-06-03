@@ -148,7 +148,7 @@ struct PropInfo<'dom> {
     /// it is None.
     migration: Option<&'dom PropertyMigration>,
 }
-impl<'dom> PropInfo<'dom> {
+impl PropInfo<'_> {
     /// This function extends `self.values` with `self.default_value` values.
     /// Previous instances may not have traversed all properties, but
     /// all `PropInfo.values` must have the same length as
