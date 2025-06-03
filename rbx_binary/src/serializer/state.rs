@@ -654,17 +654,23 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 type_info.properties.split_at_mut(name_index);
 
             for prop_info in properties_before_name {
+                let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
+
+                chunk.write_le_u32(type_info.type_id)?;
+                chunk.write_string(&prop_info.serialized_name)?;
+                chunk.write_u8(prop_info.prop_type as u8)?;
+
                 write_prop_info(
                     prop_info,
-                    &mut self.output,
-                    self.serializer.compression,
+                    &mut chunk,
                     self.dom,
                     &self.id_to_referent,
                     &self.shared_string_ids,
                     &type_info.instances,
-                    type_info.type_id,
                     type_name,
                 )?;
+
+                chunk.dump(&mut self.output)?;
             }
 
             // Write name properties as a special case
@@ -683,28 +689,32 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             }
 
             for prop_info in properties_after_name {
+                let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
+
+                chunk.write_le_u32(type_info.type_id)?;
+                chunk.write_string(&prop_info.serialized_name)?;
+                chunk.write_u8(prop_info.prop_type as u8)?;
+
                 write_prop_info(
                     prop_info,
-                    &mut self.output,
-                    self.serializer.compression,
+                    &mut chunk,
                     self.dom,
                     &self.id_to_referent,
                     &self.shared_string_ids,
                     &type_info.instances,
-                    type_info.type_id,
                     type_name,
                 )?;
+
+                chunk.dump(&mut self.output)?;
             }
 
-            fn write_prop_info<'dom, W: Write>(
+            fn write_prop_info<'dom>(
                 prop_info: &mut PropInfo<'dom>,
-                output: W,
-                compression: CompressionType,
+                chunk: &mut ChunkBuilder,
                 dom: &'dom WeakDom,
                 id_to_referent: &HashMap<Ref, i32>,
                 shared_string_ids: &HashMap<SharedString, u32>,
                 instances: &[&Instance],
-                type_id: u32,
                 type_name: &str,
             ) -> Result<(), InnerError> {
                 profiling::scope!("serialize property", prop_name.borrow());
@@ -717,12 +727,6 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                 // Ensure the number of values matches the number of referents.
                 prop_info.extend_with_default(instances.len());
-
-                let mut chunk = ChunkBuilder::new(b"PROP", compression);
-
-                chunk.write_le_u32(type_id)?;
-                chunk.write_string(&prop_info.serialized_name)?;
-                chunk.write_u8(prop_info.prop_type as u8)?;
 
                 // Helper to generate a type mismatch error with context from
                 // this chunk.
@@ -757,7 +761,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         .collect();
 
                     write_prop_values(
-                        &mut chunk,
+                        chunk,
                         id_to_referent,
                         shared_string_ids,
                         prop_info.prop_type,
@@ -767,7 +771,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     )?;
                 } else {
                     write_prop_values(
-                        &mut chunk,
+                        chunk,
                         id_to_referent,
                         shared_string_ids,
                         prop_info.prop_type,
@@ -777,7 +781,6 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     )?;
                 };
 
-                chunk.dump(output)?;
                 Ok(())
             }
             fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
