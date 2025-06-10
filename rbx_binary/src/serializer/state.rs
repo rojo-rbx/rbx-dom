@@ -158,8 +158,8 @@ impl PropInfo<'_> {
         let current_len = self.values.len();
         let Some(additional) = desired_len.checked_sub(current_len) else {
             panic!(
-                "current_len ({}) must be less than or equal to desired_len ({})",
-                current_len, desired_len
+                "desired_len ({}) must be greater than or equal to current_len ({})",
+                desired_len, current_len
             );
         };
         self.values
