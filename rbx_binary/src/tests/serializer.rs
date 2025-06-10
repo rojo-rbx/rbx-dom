@@ -204,17 +204,16 @@ fn does_not_serialize() {
 
     // Generate a bunch of objects with properties that do not serialize.
     let children = db.classes.iter().filter_map(|(class_name, class)| {
-        let mut has_non_serialize_properties = false;
         let properties: Vec<_> = class
             .properties
             .iter()
             .filter_map(|(prop_name, prop)| {
-                match prop.kind {
+                let does_not_serialize = matches!(
+                    prop.kind,
                     rbx_reflection::PropertyKind::Canonical {
                         serialization: rbx_reflection::PropertySerialization::DoesNotSerialize,
-                    } => has_non_serialize_properties = true,
-                    _ => (),
-                }
+                    }
+                );
 
                 let ty = match &prop.data_type {
                     rbx_reflection::DataType::Value(variant_type) => *variant_type,
@@ -226,12 +225,12 @@ fn does_not_serialize() {
                 // so we have to make one up.
                 let default_value = fallback_default_value(ty)?;
 
-                Some((prop_name.as_ref(), default_value.clone()))
+                does_not_serialize.then(|| (prop_name.as_ref(), default_value.clone()))
             })
             .collect();
 
-        has_non_serialize_properties
-            .then_some(InstanceBuilder::new(class_name.as_ref()).with_properties(properties))
+        (properties.len() != 0)
+            .then(|| InstanceBuilder::new(class_name.as_ref()).with_properties(properties))
     });
 
     let root = InstanceBuilder::new("Folder").with_children(children);
