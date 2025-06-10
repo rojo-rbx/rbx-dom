@@ -1,12 +1,11 @@
 use rbx_dom_weak::{
     types::{
-        BrickColor, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, VariantType,
+        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Variant,
         Vector3,
     },
     InstanceBuilder, WeakDom,
 };
 
-use crate::serializer::fallback_default_value;
 use crate::{text_deserializer::DecodedModel, to_writer};
 
 /// A basic test to make sure we can serialize the simplest instance: a Folder.
@@ -200,40 +199,35 @@ fn default_shared_string() {
 
 #[test]
 fn does_not_serialize() {
-    let db = rbx_reflection_database::get();
+    let default_vector3 = Vector3::new(0.0, 0.0, 0.0);
+    let default_cframe = CFrame::new(
+        default_vector3,
+        rbx_dom_weak::types::Matrix3 {
+            x: default_vector3,
+            y: default_vector3,
+            z: default_vector3,
+        },
+    );
 
-    // Generate a bunch of objects with properties that do not serialize.
-    let children = db.classes.iter().filter_map(|(class_name, class)| {
-        let properties: Vec<_> = class
-            .properties
-            .iter()
-            .filter_map(|(prop_name, prop)| {
-                let does_not_serialize = matches!(
-                    prop.kind,
-                    rbx_reflection::PropertyKind::Canonical {
-                        serialization: rbx_reflection::PropertySerialization::DoesNotSerialize,
-                    }
-                );
-
-                let ty = match &prop.data_type {
-                    rbx_reflection::DataType::Value(variant_type) => *variant_type,
-                    rbx_reflection::DataType::Enum(_) => VariantType::Enum,
-                    _ => unimplemented!(),
-                };
-
-                // There are no non-serializing properties that have a default value,
-                // so we have to make one up.
-                let default_value = fallback_default_value(ty)?;
-
-                does_not_serialize.then(|| (prop_name.as_ref(), default_value.clone()))
-            })
-            .collect();
-
-        (properties.len() != 0)
-            .then(|| InstanceBuilder::new(class_name.as_ref()).with_properties(properties))
-    });
-
-    let root = InstanceBuilder::new("Folder").with_children(children);
+    let root = InstanceBuilder::new("Folder").with_children([
+        InstanceBuilder::new("Motor6D").with_property("ChildName", Variant::String(String::new())),
+        InstanceBuilder::new("FaceControls")
+            .with_property("RightCheekRaiser", Variant::Float32(0.0)),
+        InstanceBuilder::new("Motor6D").with_property(
+            "ReplicateCurrentOffset6D",
+            Variant::Vector3(default_vector3),
+        ),
+        InstanceBuilder::new("GuiService").with_property("MenuIsOpen", Variant::Bool(false)),
+        InstanceBuilder::new("PVInstance").with_property("Origin", Variant::CFrame(default_cframe)),
+        InstanceBuilder::new("Stats").with_property("RenderCPUFrameTime", Variant::Float32(0.0)),
+        InstanceBuilder::new("VRService").with_property("VREnabled", Variant::Bool(false)),
+        InstanceBuilder::new("TorsionSpringConstraint")
+            .with_property("CurrentAngle", Variant::Float32(0.0)),
+        InstanceBuilder::new("Lighting")
+            .with_property("ShadowColor", Variant::Color3(Color3::new(0.0, 0.0, 0.0))),
+        InstanceBuilder::new("BasePart")
+            .with_property("ExtentsCFrame", Variant::CFrame(default_cframe)),
+    ]);
 
     let tree = WeakDom::new(root);
 
