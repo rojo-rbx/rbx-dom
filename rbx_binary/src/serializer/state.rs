@@ -235,10 +235,10 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         type_name: Ustr,
         prop_name: Ustr,
         sample_value: &Variant,
-    ) -> Result<&'a mut PropInfo<'dom>, InnerError> {
+    ) -> Result<Option<&'a mut PropInfo<'dom>>, InnerError> {
         // check if prop_name is already in properties_visited, return
         if let Some(&logical_index) = self.properties_visited.get(&prop_name) {
-            return Ok(&mut self.properties[logical_index]);
+            return Ok(Some(&mut self.properties[logical_index]));
         }
         let mut migration = None;
         let mut canonical_name = prop_name;
@@ -274,7 +274,13 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                         if let Some(new_serialized) = new_descriptor.serialized {
                             canonical_name = new_descriptor.canonical.name.as_ref().into();
                             serialized = new_serialized;
+                        } else {
+                            // Do not serialize this property.
+                            return Ok(None);
                         }
+                    } else {
+                        // Do not serialize this property.
+                        return Ok(None);
                     }
                 }
                 serialized_name = serialized.name.as_ref().into();
@@ -283,6 +289,9 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                     rbx_reflection::DataType::Enum(_) => VariantType::Enum,
                     _ => unimplemented!(),
                 };
+            } else {
+                // Do not serialize this property.
+                return Ok(None);
             }
         };
 
@@ -345,7 +354,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 // the logical property has not been made aware of yet.
                 // Conflicting migrations are not prevented by the type system!
                 prop_info.migration = prop_info.migration.or(migration);
-                return Ok(prop_info);
+                return Ok(Some(prop_info));
             }
             // create logical property
             let prop_info = new_prop_info()?;
@@ -358,7 +367,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             self.properties_visited.insert(prop_name, logical_index);
             logical_index
         };
-        Ok(&mut self.properties[logical_index])
+        Ok(Some(&mut self.properties[logical_index]))
     }
 }
 
@@ -484,16 +493,19 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         };
 
         for (prop_name, prop_value) in &instance.properties {
-            // Discover and track any shared strings we come across.
-            push_sstr(prop_value);
-
-            let logical_property = type_info.get_or_create(
+            let Some(logical_property) = type_info.get_or_create(
                 &mut push_sstr,
                 database,
                 instance.class,
                 *prop_name,
                 prop_value,
-            )?;
+            )?
+            else {
+                continue;
+            };
+
+            // Discover and track any shared strings we come across.
+            push_sstr(prop_value);
 
             // Add default values until the desired len is reached.
             // This happens when instances of the same class have different
