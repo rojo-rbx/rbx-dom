@@ -461,7 +461,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         let type_info = type_infos.get_or_create(instance.class);
         // This order is important! The index that the prop_value
         // is inserted into must match the index that the instance
-        // is inserted into.  See the loop below for details.
+        // is inserted into.  See the loop below for more details.
         let desired_len = type_info.instances.len();
         type_info.instances.push(instance);
 
@@ -496,8 +496,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             )?;
 
             // Add default values until the desired len is reached.
-            // This is required when previously collected instances
-            // were missing properties.  This is cheaper than checking
+            // This happens when instances of the same class have different
+            // sets of properties.  This is cheaper than checking
             // for missing properties using set differences.
             logical_property.extend_with_default(desired_len);
 
@@ -639,7 +639,9 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         let name_ustr = rbx_dom_weak::ustr("Name");
         for (type_name, type_info) in &mut self.type_infos.values {
             // Sort logical properties by canonical name
-            type_info.properties.sort_by_key(|info| info.canonical_name);
+            type_info
+                .properties
+                .sort_by_key(|prop_info| prop_info.canonical_name);
 
             // Locate the index where "Name" could be inserted
             let Err(name_index) = type_info
@@ -726,6 +728,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 );
 
                 // Ensure the number of values matches the number of referents.
+                // This happens when instances of the same class have different
+                // sets of properties.
                 prop_info.extend_with_default(instances.len());
 
                 // Helper to generate a type mismatch error with context from
