@@ -1,8 +1,12 @@
 use rbx_dom_weak::{
-    types::{BrickColor, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Vector3},
+    types::{
+        BrickColor, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, VariantType,
+        Vector3,
+    },
     InstanceBuilder, WeakDom,
 };
 
+use crate::serializer::fallback_default_value;
 use crate::{text_deserializer::DecodedModel, to_writer};
 
 /// A basic test to make sure we can serialize the simplest instance: a Folder.
@@ -189,6 +193,53 @@ fn default_shared_string() {
 
     let mut buf = Vec::new();
     let _ = to_writer(&mut buf, &tree, &[ref_1, ref_2]);
+
+    let decoded = DecodedModel::from_reader(buf.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
+#[test]
+fn does_not_serialize() {
+    let db = rbx_reflection_database::get();
+
+    // Generate a bunch of objects with properties that do not serialize.
+    let children = db.classes.iter().filter_map(|(class_name, class)| {
+        let mut has_non_serialize_properties = false;
+        let properties: Vec<_> = class
+            .properties
+            .iter()
+            .filter_map(|(prop_name, prop)| {
+                match prop.kind {
+                    rbx_reflection::PropertyKind::Canonical {
+                        serialization: rbx_reflection::PropertySerialization::DoesNotSerialize,
+                    } => has_non_serialize_properties = true,
+                    _ => (),
+                }
+
+                let ty = match &prop.data_type {
+                    rbx_reflection::DataType::Value(variant_type) => *variant_type,
+                    rbx_reflection::DataType::Enum(_) => VariantType::Enum,
+                    _ => unimplemented!(),
+                };
+
+                // There are no non-serializing properties that have a default value,
+                // so we have to make one up.
+                let default_value = fallback_default_value(ty).unwrap();
+
+                Some((prop_name.as_ref(), default_value.clone()))
+            })
+            .collect();
+
+        has_non_serialize_properties
+            .then_some(InstanceBuilder::new(class_name.as_ref()).with_properties(properties))
+    });
+
+    let root = InstanceBuilder::new("Folder").with_children(children);
+
+    let tree = WeakDom::new(root);
+
+    let mut buf = Vec::new();
+    let _ = to_writer(&mut buf, &tree, tree.root().children());
 
     let decoded = DecodedModel::from_reader(buf.as_slice());
     insta::assert_yaml_snapshot!(decoded);
