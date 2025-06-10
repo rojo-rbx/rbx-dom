@@ -38,7 +38,7 @@ fn read_interleaved_bytes() {
 
 #[test]
 fn write_interleaved_bytes() {
-    let input: &[[u8; 16]] = &[
+    let input: [[u8; 16]; 3] = [
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
@@ -65,9 +65,7 @@ fn write_interleaved_bytes() {
         ];
 
     let mut chunk = ChunkBuilder::new(b"ASDF", CompressionType::None);
-    chunk
-        .write_interleaved_bytes::<16, _>(input.into_iter().copied())
-        .unwrap();
+    chunk.write_interleaved_bytes(input).unwrap();
 
     let mut dump = Vec::new();
     chunk.dump(&mut dump).unwrap();
