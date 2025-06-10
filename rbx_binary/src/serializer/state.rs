@@ -98,8 +98,9 @@ struct TypeInfo<'dom, 'db> {
     /// A set containing the properties that we have seen so far in the file and
     /// processed. This helps us avoid traversing the reflection database
     /// multiple times if there are many copies of the same kind of instance.
-    /// This acts as the key to `self.properties`.
-    properties_visited: UstrMap<usize>,
+    /// This acts as the key to `self.properties`.  It is None for properties
+    /// that do not serialize.
+    properties_visited: UstrMap<Option<usize>>,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -238,13 +239,19 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     ) -> Result<Option<&'a mut PropInfo<'dom>>, InnerError> {
         // check if prop_name is already in properties_visited, return
         if let Some(&logical_index) = self.properties_visited.get(&prop_name) {
-            return Ok(Some(&mut self.properties[logical_index]));
+            let prop_info = match logical_index {
+                Some(logical_index) => Some(&mut self.properties[logical_index]),
+                // Does not serialize, no logical property
+                None => None,
+            };
+            return Ok(prop_info);
         }
         let mut migration = None;
         let mut canonical_name = prop_name;
         let mut serialized_name = prop_name;
         let mut serialized_ty = sample_value.ty();
 
+        let mut skip_serialization = true;
         if let Some((superclass_descriptor, descriptors)) = find_property_descriptors(database, self.class_descriptor, &prop_name) {
             canonical_name = descriptors.canonical.name.as_ref().into();
             if let Some(mut serialized) = descriptors.serialized {
@@ -274,14 +281,11 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                         if let Some(new_serialized) = new_descriptor.serialized {
                             canonical_name = new_descriptor.canonical.name.as_ref().into();
                             serialized = new_serialized;
-                        } else {
-                            // Do not serialize this property.
-                            return Ok(None);
+                            skip_serialization = false;
                         }
-                    } else {
-                        // Do not serialize this property.
-                        return Ok(None);
                     }
+                } else {
+                    skip_serialization = false;
                 }
                 serialized_name = serialized.name.as_ref().into();
                 serialized_ty = match &serialized.data_type {
@@ -289,11 +293,16 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                     rbx_reflection::DataType::Enum(_) => VariantType::Enum,
                     _ => unimplemented!(),
                 };
-            } else {
-                // Do not serialize this property.
-                return Ok(None);
             }
+        } else {
+            skip_serialization = false;
         };
+
+        if skip_serialization {
+            // Remember that this visited property does not serialize
+            self.properties_visited.insert(prop_name, None);
+            return Ok(None);
+        }
 
         let mut new_prop_info = || {
             let default_value = self
@@ -343,18 +352,28 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             let logical_index = self.properties.len();
             self.properties.push(prop_info);
             // insert prop_name PropInfo
-            self.properties_visited.insert(prop_name, logical_index);
+            self.properties_visited
+                .insert(prop_name, Some(logical_index));
             logical_index
         } else {
             // check if canonical name is already in properties_visited, return
             if let Some(&logical_index) = self.properties_visited.get(&canonical_name) {
                 self.properties_visited.insert(prop_name, logical_index);
-                let prop_info = &mut self.properties[logical_index];
-                // The visited property may contain a migration that
-                // the logical property has not been made aware of yet.
-                // Conflicting migrations are not prevented by the type system!
-                prop_info.migration = prop_info.migration.or(migration);
-                return Ok(Some(prop_info));
+
+                let prop_info = match logical_index {
+                    Some(logical_index) => {
+                        let prop_info = &mut self.properties[logical_index];
+                        // The visited property may contain a migration that
+                        // the logical property has not been made aware of yet.
+                        // Conflicting migrations are not prevented by the type system!
+                        prop_info.migration = prop_info.migration.or(migration);
+                        Some(prop_info)
+                    }
+                    // Does not serialize, no logical property
+                    None => None,
+                };
+
+                return Ok(prop_info);
             }
             // create logical property
             let prop_info = new_prop_info()?;
@@ -362,9 +381,10 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             self.properties.push(prop_info);
             // insert canonical PropInfo
             self.properties_visited
-                .insert(canonical_name, logical_index);
+                .insert(canonical_name, Some(logical_index));
             // insert prop_name PropInfo
-            self.properties_visited.insert(prop_name, logical_index);
+            self.properties_visited
+                .insert(prop_name, Some(logical_index));
             logical_index
         };
         Ok(Some(&mut self.properties[logical_index]))
