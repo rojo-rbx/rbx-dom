@@ -420,7 +420,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                             .find_default_property(class, &canonical_name)
                             .map(Cow::Borrowed)
                     })
-                    .or_else(|| Self::fallback_default_value(serialized_ty).map(Cow::Owned))
+                    .or_else(|| fallback_default_value(serialized_ty).map(Cow::Owned))
                     .ok_or_else(|| {
                         // Since we don't know how to generate the default value
                         // for this property, we consider it unsupported.
@@ -1365,70 +1365,68 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
         name
     }
+}
 
-    fn fallback_default_value(rbx_type: VariantType) -> Option<Variant> {
-        Some(match rbx_type {
-            VariantType::String => Variant::String(String::new()),
-            VariantType::BinaryString => Variant::BinaryString(BinaryString::new()),
-            VariantType::Bool => Variant::Bool(false),
-            VariantType::Int32 => Variant::Int32(0),
-            VariantType::Float32 => Variant::Float32(0.0),
-            VariantType::Float64 => Variant::Float64(0.0),
-            VariantType::UDim => Variant::UDim(UDim::new(0.0, 0)),
-            VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
-            VariantType::Ray => Variant::Ray(Ray::new(
-                Vector3::new(0.0, 0.0, 0.0),
-                Vector3::new(0.0, 0.0, 0.0),
-            )),
-            VariantType::Faces => Variant::Faces(Faces::from_bits(0)?),
-            VariantType::Axes => Variant::Axes(Axes::from_bits(0)?),
-            VariantType::BrickColor => Variant::BrickColor(BrickColor::MediumStoneGrey),
-            VariantType::CFrame => Variant::CFrame(CFrame::new(
-                Vector3::new(0.0, 0.0, 0.0),
-                Matrix3::identity(),
-            )),
-            VariantType::Enum => Variant::Enum(Enum::from_u32(u32::MAX)),
-            VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
-            VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
-            VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
-            VariantType::Ref => Variant::Ref(Ref::none()),
-            VariantType::Vector3int16 => Variant::Vector3int16(Vector3int16::new(0, 0, 0)),
-            VariantType::NumberSequence => Variant::NumberSequence(NumberSequence {
-                keypoints: [
-                    NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
-                    NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
-                ]
-                .to_vec(),
-            }),
-            VariantType::ColorSequence => Variant::ColorSequence(ColorSequence {
-                keypoints: [
-                    ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
-                    ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
-                ]
-                .to_vec(),
-            }),
-            VariantType::NumberRange => Variant::NumberRange(NumberRange::new(0.0, 0.0)),
-            VariantType::Rect => {
-                Variant::Rect(Rect::new(Vector2::new(0.0, 0.0), Vector2::new(0.0, 0.0)))
-            }
-            VariantType::PhysicalProperties => {
-                Variant::PhysicalProperties(PhysicalProperties::Default)
-            }
-            VariantType::Color3uint8 => Variant::Color3uint8(Color3uint8::new(0, 0, 0)),
-            VariantType::Int64 => Variant::Int64(0),
-            VariantType::SharedString => Variant::SharedString(SharedString::new(Vec::new())),
-            VariantType::OptionalCFrame => Variant::OptionalCFrame(None),
-            VariantType::Tags => Variant::Tags(Tags::new()),
-            VariantType::ContentId => Variant::ContentId(ContentId::new()),
-            VariantType::Attributes => Variant::Attributes(Attributes::new()),
-            VariantType::UniqueId => Variant::UniqueId(UniqueId::nil()),
-            VariantType::Font => Variant::Font(Font::default()),
-            VariantType::MaterialColors => Variant::MaterialColors(MaterialColors::new()),
-            VariantType::SecurityCapabilities => {
-                Variant::SecurityCapabilities(SecurityCapabilities::default())
-            }
-            VariantType::Content => Variant::Content(Content::none()),
-            _ => return None,
-        })
-    }
+pub fn fallback_default_value(rbx_type: VariantType) -> Option<Variant> {
+    Some(match rbx_type {
+        VariantType::String => Variant::String(String::new()),
+        VariantType::BinaryString => Variant::BinaryString(BinaryString::new()),
+        VariantType::Bool => Variant::Bool(false),
+        VariantType::Int32 => Variant::Int32(0),
+        VariantType::Float32 => Variant::Float32(0.0),
+        VariantType::Float64 => Variant::Float64(0.0),
+        VariantType::UDim => Variant::UDim(UDim::new(0.0, 0)),
+        VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
+        VariantType::Ray => Variant::Ray(Ray::new(
+            Vector3::new(0.0, 0.0, 0.0),
+            Vector3::new(0.0, 0.0, 0.0),
+        )),
+        VariantType::Faces => Variant::Faces(Faces::from_bits(0)?),
+        VariantType::Axes => Variant::Axes(Axes::from_bits(0)?),
+        VariantType::BrickColor => Variant::BrickColor(BrickColor::MediumStoneGrey),
+        VariantType::CFrame => Variant::CFrame(CFrame::new(
+            Vector3::new(0.0, 0.0, 0.0),
+            Matrix3::identity(),
+        )),
+        VariantType::Enum => Variant::Enum(Enum::from_u32(u32::MAX)),
+        VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
+        VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
+        VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
+        VariantType::Ref => Variant::Ref(Ref::none()),
+        VariantType::Vector3int16 => Variant::Vector3int16(Vector3int16::new(0, 0, 0)),
+        VariantType::NumberSequence => Variant::NumberSequence(NumberSequence {
+            keypoints: [
+                NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
+                NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
+            ]
+            .to_vec(),
+        }),
+        VariantType::ColorSequence => Variant::ColorSequence(ColorSequence {
+            keypoints: [
+                ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
+                ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
+            ]
+            .to_vec(),
+        }),
+        VariantType::NumberRange => Variant::NumberRange(NumberRange::new(0.0, 0.0)),
+        VariantType::Rect => {
+            Variant::Rect(Rect::new(Vector2::new(0.0, 0.0), Vector2::new(0.0, 0.0)))
+        }
+        VariantType::PhysicalProperties => Variant::PhysicalProperties(PhysicalProperties::Default),
+        VariantType::Color3uint8 => Variant::Color3uint8(Color3uint8::new(0, 0, 0)),
+        VariantType::Int64 => Variant::Int64(0),
+        VariantType::SharedString => Variant::SharedString(SharedString::new(Vec::new())),
+        VariantType::OptionalCFrame => Variant::OptionalCFrame(None),
+        VariantType::Tags => Variant::Tags(Tags::new()),
+        VariantType::ContentId => Variant::ContentId(ContentId::new()),
+        VariantType::Attributes => Variant::Attributes(Attributes::new()),
+        VariantType::UniqueId => Variant::UniqueId(UniqueId::nil()),
+        VariantType::Font => Variant::Font(Font::default()),
+        VariantType::MaterialColors => Variant::MaterialColors(MaterialColors::new()),
+        VariantType::SecurityCapabilities => {
+            Variant::SecurityCapabilities(SecurityCapabilities::default())
+        }
+        VariantType::Content => Variant::Content(Content::none()),
+        _ => return None,
+    })
 }
