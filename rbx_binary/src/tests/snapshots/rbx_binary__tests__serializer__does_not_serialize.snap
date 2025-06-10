@@ -1,0 +1,145 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+expression: decoded
+---
+num_types: 9
+num_instances: 10
+chunks:
+  - Inst:
+      type_id: 8
+      type_name: BasePart
+      object_format: 0
+      referents:
+        - 9
+  - Inst:
+      type_id: 1
+      type_name: FaceControls
+      object_format: 0
+      referents:
+        - 1
+  - Inst:
+      type_id: 2
+      type_name: GuiService
+      object_format: 1
+      referents:
+        - 3
+      remaining: "01"
+  - Inst:
+      type_id: 7
+      type_name: Lighting
+      object_format: 1
+      referents:
+        - 8
+      remaining: "01"
+  - Inst:
+      type_id: 0
+      type_name: Motor6D
+      object_format: 0
+      referents:
+        - 0
+        - 2
+  - Inst:
+      type_id: 3
+      type_name: PVInstance
+      object_format: 0
+      referents:
+        - 4
+  - Inst:
+      type_id: 4
+      type_name: Stats
+      object_format: 1
+      referents:
+        - 5
+      remaining: "01"
+  - Inst:
+      type_id: 6
+      type_name: TorsionSpringConstraint
+      object_format: 0
+      referents:
+        - 7
+  - Inst:
+      type_id: 5
+      type_name: VRService
+      object_format: 1
+      referents:
+        - 6
+      remaining: "01"
+  - Prop:
+      type_id: 8
+      prop_name: Name
+      prop_type: String
+      values:
+        - BasePart
+  - Prop:
+      type_id: 1
+      prop_name: Name
+      prop_type: String
+      values:
+        - FaceControls
+  - Prop:
+      type_id: 2
+      prop_name: Name
+      prop_type: String
+      values:
+        - GuiService
+  - Prop:
+      type_id: 7
+      prop_name: Name
+      prop_type: String
+      values:
+        - Lighting
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - Motor6D
+        - Motor6D
+  - Prop:
+      type_id: 3
+      prop_name: Name
+      prop_type: String
+      values:
+        - PVInstance
+  - Prop:
+      type_id: 4
+      prop_name: Name
+      prop_type: String
+      values:
+        - Stats
+  - Prop:
+      type_id: 6
+      prop_name: Name
+      prop_type: String
+      values:
+        - TorsionSpringConstraint
+  - Prop:
+      type_id: 5
+      prop_name: Name
+      prop_type: String
+      values:
+        - VRService
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+        - - 1
+          - -1
+        - - 2
+          - -1
+        - - 3
+          - -1
+        - - 4
+          - -1
+        - - 5
+          - -1
+        - - 6
+          - -1
+        - - 7
+          - -1
+        - - 8
+          - -1
+        - - 9
+          - -1
+  - End
