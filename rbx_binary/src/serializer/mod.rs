@@ -8,8 +8,6 @@ use rbx_reflection::ReflectionDatabase;
 
 use self::state::SerializerState;
 
-pub use state::fallback_default_value;
-
 pub use self::error::Error;
 
 /// A configurable serializer for Roblox binary models and places.
