@@ -224,7 +224,7 @@ fn does_not_serialize() {
 
                 // There are no non-serializing properties that have a default value,
                 // so we have to make one up.
-                let default_value = fallback_default_value(ty).unwrap();
+                let default_value = fallback_default_value(ty)?;
 
                 Some((prop_name.as_ref(), default_value.clone()))
             })
