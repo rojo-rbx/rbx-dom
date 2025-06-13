@@ -210,23 +210,16 @@ fn does_not_serialize() {
     );
 
     let root = InstanceBuilder::new("Folder").with_children([
-        InstanceBuilder::new("Motor6D").with_property("ChildName", Variant::String(String::new())),
-        InstanceBuilder::new("FaceControls")
-            .with_property("RightCheekRaiser", Variant::Float32(0.0)),
-        InstanceBuilder::new("Motor6D").with_property(
-            "ReplicateCurrentOffset6D",
-            Variant::Vector3(default_vector3),
-        ),
-        InstanceBuilder::new("GuiService").with_property("MenuIsOpen", Variant::Bool(false)),
-        InstanceBuilder::new("PVInstance").with_property("Origin", Variant::CFrame(default_cframe)),
-        InstanceBuilder::new("Stats").with_property("RenderCPUFrameTime", Variant::Float32(0.0)),
-        InstanceBuilder::new("VRService").with_property("VREnabled", Variant::Bool(false)),
-        InstanceBuilder::new("TorsionSpringConstraint")
-            .with_property("CurrentAngle", Variant::Float32(0.0)),
-        InstanceBuilder::new("Lighting")
-            .with_property("ShadowColor", Variant::Color3(Color3::new(0.0, 0.0, 0.0))),
-        InstanceBuilder::new("BasePart")
-            .with_property("ExtentsCFrame", Variant::CFrame(default_cframe)),
+        InstanceBuilder::new("Motor6D").with_property("ChildName", String::new()),
+        InstanceBuilder::new("FaceControls").with_property("RightCheekRaiser", 0.0),
+        InstanceBuilder::new("Motor6D").with_property("ReplicateCurrentOffset6D", default_vector3),
+        InstanceBuilder::new("GuiService").with_property("MenuIsOpen", false),
+        InstanceBuilder::new("PVInstance").with_property("Origin", default_cframe),
+        InstanceBuilder::new("Stats").with_property("RenderCPUFrameTime", 0.0),
+        InstanceBuilder::new("VRService").with_property("VREnabled", false),
+        InstanceBuilder::new("TorsionSpringConstraint").with_property("CurrentAngle", 0.0),
+        InstanceBuilder::new("Lighting").with_property("ShadowColor", Color3::new(0.0, 0.0, 0.0)),
+        InstanceBuilder::new("BasePart").with_property("ExtentsCFrame", default_cframe),
     ]);
 
     let tree = WeakDom::new(root);
