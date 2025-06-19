@@ -1,5 +1,7 @@
 use rbx_dom_weak::{
-    types::{BrickColor, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Vector3},
+    types::{
+        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Vector3,
+    },
     InstanceBuilder, WeakDom,
 };
 
@@ -189,6 +191,40 @@ fn default_shared_string() {
 
     let mut buf = Vec::new();
     let _ = to_writer(&mut buf, &tree, &[ref_1, ref_2]);
+
+    let decoded = DecodedModel::from_reader(buf.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
+#[test]
+fn does_not_serialize() {
+    let default_vector3 = Vector3::new(0.0, 0.0, 0.0);
+    let default_cframe = CFrame::new(
+        default_vector3,
+        rbx_dom_weak::types::Matrix3 {
+            x: default_vector3,
+            y: default_vector3,
+            z: default_vector3,
+        },
+    );
+
+    let root = InstanceBuilder::new("Folder").with_children([
+        InstanceBuilder::new("Motor6D").with_property("ChildName", String::new()),
+        InstanceBuilder::new("FaceControls").with_property("RightCheekRaiser", 0.0f32),
+        InstanceBuilder::new("Motor6D").with_property("ReplicateCurrentOffset6D", default_vector3),
+        InstanceBuilder::new("GuiService").with_property("MenuIsOpen", false),
+        InstanceBuilder::new("PVInstance").with_property("Origin", default_cframe),
+        InstanceBuilder::new("Stats").with_property("RenderCPUFrameTime", 0.0f32),
+        InstanceBuilder::new("VRService").with_property("VREnabled", false),
+        InstanceBuilder::new("TorsionSpringConstraint").with_property("CurrentAngle", 0.0f32),
+        InstanceBuilder::new("Lighting").with_property("ShadowColor", Color3::new(0.0, 0.0, 0.0)),
+        InstanceBuilder::new("BasePart").with_property("ExtentsCFrame", default_cframe),
+    ]);
+
+    let tree = WeakDom::new(root);
+
+    let mut buf = Vec::new();
+    let _ = to_writer(&mut buf, &tree, tree.root().children());
 
     let decoded = DecodedModel::from_reader(buf.as_slice());
     insta::assert_yaml_snapshot!(decoded);
