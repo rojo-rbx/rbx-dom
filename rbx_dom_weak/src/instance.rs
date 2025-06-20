@@ -1,3 +1,4 @@
+use ahash::HashMapExt;
 use rbx_types::{Ref, Variant};
 use ustr::{Ustr, UstrMap};
 
@@ -35,7 +36,7 @@ pub struct InstanceBuilder {
     pub(crate) referent: Ref,
     pub(crate) name: String,
     pub(crate) class: Ustr,
-    pub(crate) properties: Vec<(Ustr, Variant)>,
+    pub(crate) properties: UstrMap<Variant>,
     pub(crate) children: Vec<InstanceBuilder>,
 }
 
@@ -50,7 +51,7 @@ impl InstanceBuilder {
             referent: Ref::new(),
             name,
             class,
-            properties: Vec::new(),
+            properties: UstrMap::new(),
             children: Vec::new(),
         }
     }
@@ -65,7 +66,7 @@ impl InstanceBuilder {
             referent: Ref::new(),
             name,
             class,
-            properties: Vec::with_capacity(capacity),
+            properties: UstrMap::with_capacity(capacity),
             children: Vec::new(),
         }
     }
@@ -76,7 +77,7 @@ impl InstanceBuilder {
             referent: Ref::new(),
             name: String::new(),
             class: Ustr::default(),
-            properties: Vec::new(),
+            properties: UstrMap::new(),
             children: Vec::new(),
         }
     }
@@ -122,19 +123,19 @@ impl InstanceBuilder {
 
     /// Add a new property to the `InstanceBuilder`.
     pub fn with_property<K: Into<Ustr>, V: Into<Variant>>(mut self, key: K, value: V) -> Self {
-        self.properties.push((key.into(), value.into()));
+        self.properties.insert(key.into(), value.into());
         self
     }
 
     /// Add a new property to the `InstanceBuilder`.
     pub fn add_property<K: Into<Ustr>, V: Into<Variant>>(&mut self, key: K, value: V) {
-        self.properties.push((key.into(), value.into()));
+        self.properties.insert(key.into(), value.into());
     }
 
     /// Check if the `InstanceBuilder` already has a property with the given key.
     pub fn has_property<K: Into<Ustr>>(&self, key: K) -> bool {
         let key = key.into();
-        self.properties.iter().any(|(k, _)| *k == key)
+        self.properties.contains_key(&key)
     }
 
     /// Add multiple properties to the `InstanceBuilder` at once.
