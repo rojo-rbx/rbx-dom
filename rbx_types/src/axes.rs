@@ -1,8 +1,9 @@
 use std::fmt;
 
-use crate::lister::Lister;
+use crate::lister::write_comma_separated;
 
 bitflags::bitflags! {
+    #[derive(Clone, Copy, PartialEq, Eq)]
     struct AxisFlags: u8 {
         const X = 1;
         const Y = 2;
@@ -66,21 +67,9 @@ impl Axes {
 
 impl fmt::Debug for Axes {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
-        let mut list = Lister::new();
-
         write!(out, "Axes(")?;
 
-        if self.contains(Self::X) {
-            list.write(out, "X")?;
-        }
-
-        if self.contains(Self::Y) {
-            list.write(out, "Y")?;
-        }
-
-        if self.contains(Self::Z) {
-            list.write(out, "Z")?;
-        }
+        write_comma_separated(out, self.flags.iter_names().map(|(name, _)| name))?;
 
         write!(out, ")")
     }
