@@ -69,8 +69,11 @@ impl Faces {
         self.flags.bits()
     }
 
-    pub fn from_bits(bits: u8) -> Option<Self> {
-        FaceFlags::from_bits(bits).map(|flags| Self { flags })
+    pub const fn from_bits(bits: u8) -> Option<Self> {
+        match FaceFlags::from_bits(bits) {
+            Some(flags) => Some(Self { flags }),
+            None => None,
+        }
     }
 
     #[cfg(feature = "serde")]
