@@ -9,6 +9,7 @@ use rbx_reflection::ReflectionDatabase;
 
 use self::state::DeserializerState;
 
+#[cfg(any(test, feature = "unstable_text_format"))]
 pub(crate) use self::header::FileHeader;
 
 pub use self::error::Error;
