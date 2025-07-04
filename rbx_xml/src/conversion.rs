@@ -4,9 +4,11 @@
 use std::borrow::{Borrow, Cow};
 use std::convert::TryInto;
 
-use rbx_dom_weak::types::{ContentId, ContentType, Enum};
 use rbx_dom_weak::{
-    types::{Attributes, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType},
+    types::{
+        Attributes, BrickColor, Color3uint8, ContentId, ContentType, Enum, MaterialColors,
+        SmoothGrid, Tags, Variant, VariantType,
+    },
     Ustr,
 };
 
@@ -87,6 +89,22 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     Err(err) => {
                         log::warn!(
                             "Failed to parse MaterialColors on {} because {:?}; falling back to BinaryString.
+
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
+                            class_name,
+                            err
+                        );
+
+                        Ok(Cow::Owned(value.clone().into()))
+                    }
+                }
+            }
+            (Variant::BinaryString(value), VariantType::SmoothGrid) => {
+                match SmoothGrid::decode(value.as_ref()) {
+                    Ok(smooth_grid) => Ok(Cow::Owned(smooth_grid.into())),
+                    Err(err) => {
+                        log::warn!(
+                            "Failed to parse SmoothGrid on {} because {:?}; falling back to BinaryString.
 
 rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
                             class_name,
