@@ -5,3 +5,18 @@ Change:
         Type: Migrate
         To: TextureContent
         Migration: ContentIdToContent
+    MetalnessMap:
+      Serialization:
+        Type: Migrate
+        To: MetalnessMapContent
+        Migration: ContentIdToContent
+    NormalMap:
+      Serialization:
+        Type: Migrate
+        To: NormalMapContent
+        Migration: ContentIdToContent
+    RoughnessMap:
+      Serialization:
+        Type: Migrate
+        To: RoughnessMapContent
+        Migration: ContentIdToContent
