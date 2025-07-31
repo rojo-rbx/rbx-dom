@@ -1,4 +1,5 @@
 use criterion::{measurement::Measurement, BatchSize, BenchmarkGroup, Throughput};
+use rbx_binary::{DecodeOptions, DecompressedFile};
 
 pub(crate) fn bench<T: Measurement>(group: &mut BenchmarkGroup<T>, bench_file: &'static [u8]) {
     serialize_bench(group, bench_file);
@@ -6,7 +7,8 @@ pub(crate) fn bench<T: Measurement>(group: &mut BenchmarkGroup<T>, bench_file: &
 }
 
 fn serialize_bench<T: Measurement>(group: &mut BenchmarkGroup<T>, buffer: &[u8]) {
-    let tree = rbx_binary::from_reader(buffer).unwrap();
+    let file = DecompressedFile::from_reader(buffer).unwrap();
+    let tree = file.deserialize(DecodeOptions::read_unknown()).unwrap();
     let root_ref = tree.root_ref();
     let mut buffer = Vec::new();
 
@@ -36,7 +38,10 @@ fn deserialize_bench<T: Measurement>(group: &mut BenchmarkGroup<T>, buffer: &[u8
         .throughput(Throughput::Bytes(buffer.len() as u64))
         .bench_function("Deserialize", |bencher| {
             bencher.iter(|| {
-                rbx_binary::from_reader(buffer).unwrap();
+                DecompressedFile::from_reader(buffer)
+                    .unwrap()
+                    .deserialize(DecodeOptions::read_unknown())
+                    .unwrap();
             });
         });
 }

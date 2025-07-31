@@ -55,6 +55,33 @@ impl Chunk {
     }
 }
 
+/// Decompressed chunks.  Referenced by WeakDom properties
+/// when the identity string interner is used.
+pub struct Chunks {
+    chunks: Vec<Chunk>,
+}
+impl Chunks {
+    pub fn decode<R: Read>(mut reader: R) -> io::Result<Chunks> {
+        let mut chunks = Vec::new();
+        loop {
+            let chunk = Chunk::decode(&mut reader)?;
+            let is_end_chunk = matches!(&chunk.name, b"END\0");
+            chunks.push(chunk);
+            if is_end_chunk {
+                break;
+            }
+        }
+        Ok(Chunks { chunks })
+    }
+}
+impl<'a> IntoIterator for &'a Chunks {
+    type Item = &'a Chunk;
+    type IntoIter = core::slice::Iter<'a, Chunk>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.chunks.iter()
+    }
+}
+
 /// Holds a chunk that is currently being written.
 ///
 /// This type intended to be written into via io::Write and then dumped into the
