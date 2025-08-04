@@ -101,34 +101,29 @@ impl fmt::Display for DecodeErrorKind {
         use self::DecodeErrorKind::*;
 
         match self {
-            Xml(err) => write!(output, "{}", err),
-            ParseFloat(err) => write!(output, "{}", err),
-            ParseInt(err) => write!(output, "{}", err),
-            DecodeBase64(err) => write!(output, "{}", err),
-            MigrationError(err) => write!(output, "{}", err),
-            TypeError(err) => write!(output, "{}", err),
+            Xml(err) => write!(output, "{err}"),
+            ParseFloat(err) => write!(output, "{err}"),
+            ParseInt(err) => write!(output, "{err}"),
+            DecodeBase64(err) => write!(output, "{err}"),
+            MigrationError(err) => write!(output, "{err}"),
+            TypeError(err) => write!(output, "{err}"),
 
             WrongDocVersion(version) => {
-                write!(output, "Invalid version '{}', expected version 4", version)
+                write!(output, "Invalid version '{version}', expected version 4")
             }
             UnexpectedEof => write!(output, "Unexpected end-of-file"),
-            UnexpectedXmlEvent(event) => write!(output, "Unexpected XML event {:?}", event),
+            UnexpectedXmlEvent(event) => write!(output, "Unexpected XML event {event:?}"),
             MissingAttribute(attribute_name) => {
-                write!(output, "Missing attribute '{}'", attribute_name)
+                write!(output, "Missing attribute '{attribute_name}'")
             }
             UnknownProperty {
                 class_name,
                 property_name,
-            } => write!(
-                output,
-                "Property {}.{} is unknown",
-                class_name, property_name
-            ),
-            InvalidContent(explain) => write!(output, "Invalid text content: {}", explain),
+            } => write!(output, "Property {class_name}.{property_name} is unknown"),
+            InvalidContent(explain) => write!(output, "Invalid text content: {explain}"),
             NameMustBeString(ty) => write!(
                 output,
-                "The 'Name' property must be of type String, but it was {:?}",
-                ty
+                "The 'Name' property must be of type String, but it was {ty:?}"
             ),
             UnsupportedPropertyConversion {
                 class_name,
@@ -138,9 +133,8 @@ impl fmt::Display for DecodeErrorKind {
                 message,
             } => write!(
                 output,
-                "Property {}.{} is expected to be of type {:?}, but it was of type {:?} \
-                 When trying to convert, this error occured: {}",
-                class_name, property_name, expected_type, actual_type, message
+                "Property {class_name}.{property_name} is expected to be of type {expected_type:?}, but it was of type {actual_type:?} \
+                 When trying to convert, this error occured: {message}"
             ),
         }
     }
@@ -241,20 +235,16 @@ impl fmt::Display for EncodeErrorKind {
         use self::EncodeErrorKind::*;
 
         match self {
-            Io(err) => write!(output, "{}", err),
-            Xml(err) => write!(output, "{}", err),
-            Type(err) => write!(output, "{}", err),
+            Io(err) => write!(output, "{err}"),
+            Xml(err) => write!(output, "{err}"),
+            Type(err) => write!(output, "{err}"),
 
             UnknownProperty {
                 class_name,
                 property_name,
-            } => write!(
-                output,
-                "Property {}.{} is unknown",
-                class_name, property_name
-            ),
+            } => write!(output, "Property {class_name}.{property_name} is unknown"),
             UnsupportedPropertyType(ty) => {
-                write!(output, "Properties of type {:?} cannot be encoded yet", ty)
+                write!(output, "Properties of type {ty:?} cannot be encoded yet")
             }
             UnsupportedPropertyConversion {
                 class_name,
@@ -264,9 +254,8 @@ impl fmt::Display for EncodeErrorKind {
                 message,
             } => write!(
                 output,
-                "Property {}.{} is expected to be of type {:?}, but it was of type {:?} \
-                 When trying to convert the value, this error occured: {}",
-                class_name, property_name, expected_type, actual_type, message
+                "Property {class_name}.{property_name} is expected to be of type {expected_type:?}, but it was of type {actual_type:?} \
+                 When trying to convert the value, this error occured: {message}"
             ),
         }
     }

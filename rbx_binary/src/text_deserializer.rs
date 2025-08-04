@@ -868,7 +868,7 @@ where
     let mut state = serializer.serialize_seq(Some(values.len()))?;
     for value in values {
         for byte in value.hash().as_bytes() {
-            write!(hash, "{:02x}", byte).unwrap();
+            write!(hash, "{byte:02x}").unwrap();
         }
         state.serialize_element(&SerializedSharedString {
             len: value.data().len(),
@@ -909,9 +909,9 @@ mod unknown_buffer {
         fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
             for (index, byte) in self.0.iter().enumerate() {
                 if index < self.0.len() - 1 {
-                    write!(formatter, "{:02x} ", byte)?;
+                    write!(formatter, "{byte:02x} ")?;
                 } else {
-                    write!(formatter, "{:02x}", byte)?;
+                    write!(formatter, "{byte:02x}")?;
                 }
             }
 

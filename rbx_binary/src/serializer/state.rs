@@ -188,7 +188,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
             let is_service = if let Some(descriptor) = &class_descriptor {
                 descriptor.tags.contains(&ClassTag::Service)
             } else {
-                log::info!("The class {} is not known to rbx_binary", class);
+                log::info!("The class {class} is not known to rbx_binary");
                 false
             };
 
@@ -399,7 +399,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                             return Err(InnerError::UnsupportedPropType {
                                 type_name: instance.class.to_string(),
                                 prop_name: prop_name.to_string(),
-                                prop_type: format!("{:?}", unknown_ty),
+                                prop_type: format!("{unknown_ty:?}"),
                             });
                         }
                     };
@@ -427,7 +427,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         InnerError::UnsupportedPropType {
                             type_name: instance.class.to_string(),
                             prop_name: canonical_name.to_string(),
-                            prop_type: format!("{:?}", serialized_ty),
+                            prop_type: format!("{serialized_ty:?}"),
                         }
                     })?;
 
@@ -448,7 +448,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     InnerError::UnsupportedPropType {
                         type_name: instance.class.to_string(),
                         prop_name: serialized_name.to_string(),
-                        prop_type: format!("{:?}", serialized_ty),
+                        prop_type: format!("{serialized_ty:?}"),
                     }
                 })?;
 

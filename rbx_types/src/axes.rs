@@ -140,7 +140,7 @@ mod serde_impl {
                     "Y" => flags |= AxisFlags::Y,
                     "Z" => flags |= AxisFlags::Z,
                     _ => {
-                        return Err(A::Error::custom(format!("invalid axis '{}'", axis_str)));
+                        return Err(A::Error::custom(format!("invalid axis '{axis_str}'")));
                     }
                 }
             }
