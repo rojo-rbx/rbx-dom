@@ -60,7 +60,7 @@ impl<W: Write> XmlEventWriter<W> {
         &mut self,
         value: T,
     ) -> Result<(), NewEncodeError> {
-        write!(self.character_buffer, "{}", value).unwrap();
+        write!(self.character_buffer, "{value}").unwrap();
         write_characters_or_cdata(&mut self.inner, &self.character_buffer)?;
         self.character_buffer.clear();
 

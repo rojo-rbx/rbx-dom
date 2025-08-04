@@ -101,7 +101,7 @@ tell application "System Events"
     -- Studio process only has one window.
 
     -- This could be hazardous - for example, escape may not close every modal,
-    -- or Roblox Studio could one day gain more windows. So, we'll also cap the 
+    -- or Roblox Studio could one day gain more windows. So, we'll also cap the
     -- number of times this loop can execute to 100.
     set attemptCount to 0
     repeat until count of windows of robloxStudio is 1 or attemptCount >= 100
@@ -203,7 +203,7 @@ fn generate_place_with_all_classes(path: &PathBuf, dump: &Dump) -> anyhow::Resul
             _ => {}
         }
 
-        write!(place_contents, "{}", instance).unwrap();
+        write!(place_contents, "{instance}").unwrap();
     }
 
     writeln!(place_contents, "</roblox>").unwrap();
@@ -240,7 +240,7 @@ impl fmt::Display for Instance<'_> {
         )?;
 
         for child in &self.children {
-            write!(f, "{}", child)?;
+            write!(f, "{child}")?;
         }
 
         writeln!(f, "</Item>")?;

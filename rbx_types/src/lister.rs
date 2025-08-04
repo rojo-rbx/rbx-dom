@@ -13,9 +13,9 @@ impl Lister {
     pub fn write(&mut self, out: &mut fmt::Formatter, label: impl fmt::Display) -> fmt::Result {
         if self.first {
             self.first = false;
-            write!(out, "{}", label)
+            write!(out, "{label}")
         } else {
-            write!(out, ", {}", label)
+            write!(out, ", {label}")
         }
     }
 }

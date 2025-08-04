@@ -48,11 +48,11 @@ impl ConvertVariant for Variant {
             }
             (Variant::Int32(value), VariantType::BrickColor) => {
                 let narrowed: u16 = (*value).try_into().map_err(|_| {
-                    format!("Value {} is not in the range of a valid BrickColor", value)
+                    format!("Value {value} is not in the range of a valid BrickColor")
                 })?;
 
                 BrickColor::from_number(narrowed)
-                    .ok_or_else(|| format!("{} is not a valid BrickColor number", value))
+                    .ok_or_else(|| format!("{value} is not a valid BrickColor number"))
                     .map(Into::into)
                     .map(Cow::Owned)
             }
@@ -70,11 +70,9 @@ impl ConvertVariant for Variant {
                     Ok(attributes) => Ok(Cow::Owned(attributes.into())),
                     Err(err) => {
                         log::warn!(
-                            "Failed to parse Attributes on {} because {:?}; falling back to BinaryString.
+                            "Failed to parse Attributes on {class_name} because {err:?}; falling back to BinaryString.
 
-rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
-                             class_name,
-                             err
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning."
                         );
 
                         Ok(Cow::Owned(value.clone().into()))
@@ -86,11 +84,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     Ok(material_colors) => Ok(Cow::Owned(material_colors.into())),
                     Err(err) => {
                         log::warn!(
-                            "Failed to parse MaterialColors on {} because {:?}; falling back to BinaryString.
+                            "Failed to parse MaterialColors on {class_name} because {err:?}; falling back to BinaryString.
 
-rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
-                            class_name,
-                            err
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning."
                         );
 
                         Ok(Cow::Owned(value.clone().into()))
