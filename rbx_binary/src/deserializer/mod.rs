@@ -85,7 +85,7 @@ impl<'db> Deserializer<'db> {
                     break;
                 }
                 _ => match str::from_utf8(&chunk.name) {
-                    Ok(name) => log::info!("Unknown binary chunk name {}", name),
+                    Ok(name) => log::info!("Unknown binary chunk name {name}"),
                     Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
                 },
             }

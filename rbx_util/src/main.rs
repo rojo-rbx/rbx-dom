@@ -87,7 +87,7 @@ fn main() {
         .init();
 
     if let Err(err) = options.run() {
-        eprintln!("{:?}", err);
+        eprintln!("{err:?}");
         process::exit(1);
     }
 }
