@@ -1,0 +1,7 @@
+Change:
+  VideoFrame:
+    Video:
+      Serialization:
+        Type: Migrate
+        To: VideoContent
+        Migration: ContentIdToContent

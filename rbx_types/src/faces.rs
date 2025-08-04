@@ -182,7 +182,7 @@ mod serde_impl {
                     "Bottom" => flags |= FaceFlags::BOTTOM,
                     "Front" => flags |= FaceFlags::FRONT,
                     _ => {
-                        return Err(A::Error::custom(format!("invalid face '{}'", face_str)));
+                        return Err(A::Error::custom(format!("invalid face '{face_str}'")));
                     }
                 }
             }

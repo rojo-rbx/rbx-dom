@@ -7,7 +7,11 @@ documentation = "https://docs.rs/rbx_binary"
 homepage = "https://github.com/rojo-rbx/rbx-dom"
 repository = "https://github.com/rojo-rbx/rbx-dom.git"
 readme = "README.md"
-authors = ["Lucien Greathouse <me@lpghatguy.com>"]
+authors = [
+    "Lucien Greathouse <me@lpghatguy.com>",
+    "Micah Reid <git@dekkonot.com>",
+    "Ken Loeffler <kenloef@gmail.com>",
+]
 edition = "2018"
 
 [features]
@@ -16,11 +20,11 @@ unstable_text_format = ["serde"]
 [dependencies]
 rbx_dom_weak = { version = "3.0.0", path = "../rbx_dom_weak" }
 rbx_reflection = { version = "5.0.0", path = "../rbx_reflection" }
-rbx_reflection_database = { version = "1.0.1", path = "../rbx_reflection_database" }
+rbx_reflection_database = { version = "1.0.3", path = "../rbx_reflection_database" }
 
 ahash = "0.8.11"
 log = "0.4.17"
-lz4 = "1.23.3"
+lz4_flex = "0.11"
 thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }
 profiling = "1.0.6"

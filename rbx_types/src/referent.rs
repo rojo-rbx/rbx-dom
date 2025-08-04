@@ -18,19 +18,30 @@ impl Ref {
 
     /// Generate a `Ref` that points to nothing.
     #[inline]
-    pub fn none() -> Self {
+    pub const fn none() -> Self {
         Ref(None)
+    }
+
+    /// Generate a `Ref` that points to something.
+    ///
+    /// ## Panics
+    /// Panics if `value` is 0. Use the Ref::none()
+    /// constructor instead to create a `Ref` that
+    /// points to nothing.
+    #[inline]
+    pub const fn some(value: u128) -> Self {
+        Ref(Some(NonZeroU128::new(value).expect("Ref value is 0")))
     }
 
     /// Tells whether this `Ref` points to something.
     #[inline]
-    pub fn is_some(&self) -> bool {
+    pub const fn is_some(&self) -> bool {
         self.0.is_some()
     }
 
     /// Tells whether this `Ref` points to nothing.
     #[inline]
-    pub fn is_none(&self) -> bool {
+    pub const fn is_none(&self) -> bool {
         self.0.is_none()
     }
 
@@ -51,6 +62,7 @@ impl fmt::Display for Ref {
 impl FromStr for Ref {
     type Err = std::num::ParseIntError;
 
+    #[inline]
     fn from_str(input: &str) -> Result<Self, Self::Err> {
         let value = u128::from_str_radix(input, 16)?;
 

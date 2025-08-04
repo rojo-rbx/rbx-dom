@@ -78,9 +78,8 @@ mod test {
         let test_value = "Hello,\n\tworld!\n";
         let test_source = format!(
             r#"
-            <ProtectedString name="something">{}</ProtectedString>
-        "#,
-            test_value
+            <ProtectedString name="something">{test_value}</ProtectedString>
+        "#
         );
 
         test_util::test_xml_deserialize(&test_source, &ProtectedStringDummy(test_value.to_owned()));

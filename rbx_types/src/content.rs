@@ -55,6 +55,24 @@ impl Content {
     pub fn into_value(self) -> ContentType {
         self.0
     }
+
+    /// If this `Content` is a URI, returns the URI. Otherwise, returns `None`.
+    #[inline]
+    pub fn as_uri(&self) -> Option<&str> {
+        match self.value() {
+            ContentType::Uri(uri) => Some(uri),
+            _ => None,
+        }
+    }
+
+    /// If this `Content` is an Object, returns the Ref. Otherwise, returns `None`.
+    #[inline]
+    pub fn as_object(&self) -> Option<Ref> {
+        match self.value() {
+            &ContentType::Object(referent) => Some(referent),
+            _ => None,
+        }
+    }
 }
 
 impl From<String> for Content {

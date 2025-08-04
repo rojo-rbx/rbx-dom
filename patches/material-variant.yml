@@ -1,23 +1,22 @@
 Change:
-  ImageButton:
-    Image:
+  MaterialVariant:
+    RoughnessMap:
       Serialization:
         Type: Migrate
-        To: ImageContent
+        To: RoughnessMapContent
         Migration: ContentIdToContent
-    HoverImage:
+    NormalMap:
       Serialization:
         Type: Migrate
-        To: HoverImageContent
+        To: NormalMapContent
         Migration: ContentIdToContent
-    PressedImage:
+    MetalnessMap:
       Serialization:
         Type: Migrate
-        To: PressedImageContent
+        To: MetalnessMapContent
         Migration: ContentIdToContent
-  ImageLabel:
-    Image:
+    ColorMap:
       Serialization:
         Type: Migrate
-        To: ImageContent
+        To: ColorMapContent
         Migration: ContentIdToContent

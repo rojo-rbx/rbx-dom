@@ -23,8 +23,8 @@ expression: decoded_viewed
       Int64: -1
     Tags:
       Tags: []
-    Texture:
-      ContentId: ""
+    TextureContent:
+      Content: None
     Transparency:
       Float32: 0
     ZIndex:
@@ -51,8 +51,9 @@ expression: decoded_viewed
       Int64: -1
     Tags:
       Tags: []
-    Texture:
-      ContentId: "rbxasset://textures/SpawnLocation.png"
+    TextureContent:
+      Content:
+        Uri: "rbxasset://textures/SpawnLocation.png"
     Transparency:
       Float32: 0
     ZIndex:
@@ -307,4 +308,3 @@ expression: decoded_viewed
     ZIndex:
       Int32: 1
   children: []
-

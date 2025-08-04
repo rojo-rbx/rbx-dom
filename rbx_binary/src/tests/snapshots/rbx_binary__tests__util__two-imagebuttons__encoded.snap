@@ -115,11 +115,11 @@ chunks:
         - false
   - Prop:
       type_id: 0
-      prop_name: HoverImage
-      prop_type: String
+      prop_name: HoverImageContent
+      prop_type: Content
       values:
-        - ""
-        - ""
+        - None
+        - None
   - Prop:
       type_id: 0
       prop_name: ImageColor3
@@ -227,11 +227,11 @@ chunks:
             - 0
   - Prop:
       type_id: 0
-      prop_name: PressedImage
-      prop_type: String
+      prop_name: PressedImageContent
+      prop_type: Content
       values:
-        - ""
-        - ""
+        - None
+        - None
   - Prop:
       type_id: 0
       prop_name: RootLocalizationTable
@@ -370,4 +370,3 @@ chunks:
         - - 1
           - -1
   - End
-

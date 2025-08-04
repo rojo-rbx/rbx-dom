@@ -1067,10 +1067,10 @@ chunks:
         - ""
   - Prop:
       type_id: 4
-      prop_name: Texture
-      prop_type: String
+      prop_name: TextureContent
+      prop_type: Content
       values:
-        - "rbxasset://textures/SpawnLocation.png"
+        - Uri: "rbxasset://textures/SpawnLocation.png"
   - Prop:
       type_id: 4
       prop_name: Transparency
@@ -4524,10 +4524,10 @@ chunks:
         - ""
   - Prop:
       type_id: 1
-      prop_name: Texture
-      prop_type: String
+      prop_name: TextureContent
+      prop_type: Content
       values:
-        - "rbxassetid://6372755229"
+        - Uri: "rbxassetid://6372755229"
   - Prop:
       type_id: 1
       prop_name: Transparency
@@ -5108,4 +5108,3 @@ chunks:
         - - 59
           - -1
   - End
-
