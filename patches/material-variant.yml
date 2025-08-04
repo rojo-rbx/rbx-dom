@@ -1,22 +1,22 @@
 Change:
-  Decal:
-    Texture:
+  MaterialVariant:
+    RoughnessMap:
       Serialization:
         Type: Migrate
-        To: TextureContent
-        Migration: ContentIdToContent
-    MetalnessMap:
-      Serialization:
-        Type: Migrate
-        To: MetalnessMapContent
+        To: RoughnessMapContent
         Migration: ContentIdToContent
     NormalMap:
       Serialization:
         Type: Migrate
         To: NormalMapContent
         Migration: ContentIdToContent
-    RoughnessMap:
+    MetalnessMap:
       Serialization:
         Type: Migrate
-        To: RoughnessMapContent
+        To: MetalnessMapContent
+        Migration: ContentIdToContent
+    ColorMap:
+      Serialization:
+        Type: Migrate
+        To: ColorMapContent
         Migration: ContentIdToContent

@@ -1,0 +1,17 @@
+Change:
+  ScrollingFrame:
+    BottomImage:
+      Serialization:
+        Type: Migrate
+        To: BottomImageContent
+        Migration: ContentIdToContent
+    MidImage:
+      Serialization:
+        Type: Migrate
+        To: MidImageContent
+        Migration: ContentIdToContent
+    TopImage:
+      Serialization:
+        Type: Migrate
+        To: TopImageContent
+        Migration: ContentIdToContent
