@@ -78,7 +78,7 @@ impl<'db> DecodeOptions<'db> {
     pub fn new() -> Self {
         DecodeOptions {
             property_behavior: DecodePropertyBehavior::IgnoreUnknown,
-            database: rbx_reflection_database::get(),
+            database: rbx_reflection_database::get().unwrap(),
         }
     }
 
