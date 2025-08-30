@@ -134,7 +134,7 @@ impl WeakDom {
     /// The descendants are guaranteed to be top-down such that children come
     /// after their parents.
     #[inline]
-    pub fn descendants(&self) -> WeakDomDescendants {
+    pub fn descendants(&self) -> WeakDomDescendants<'_> {
         self.descendants_of(self.root_ref)
     }
 
@@ -145,7 +145,7 @@ impl WeakDom {
     ///
     /// Panics if `referent` is not a member of this DOM.
     #[inline]
-    pub fn descendants_of(&self, referent: Ref) -> WeakDomDescendants {
+    pub fn descendants_of(&self, referent: Ref) -> WeakDomDescendants<'_> {
         if !self.instances.contains_key(&referent) {
             panic!("the referent provided to `descendants_of` must be a part of the DOM")
         }
