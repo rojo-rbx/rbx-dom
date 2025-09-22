@@ -1,0 +1,7 @@
+Change:
+  BackpackItem:
+    TextureId:
+      Serialization:
+        Type: Migrate
+        To: TextureContent
+        Migration: ContentIdToContent
