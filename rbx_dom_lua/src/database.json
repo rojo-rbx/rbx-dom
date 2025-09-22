@@ -5598,7 +5598,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "AudioContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -5786,11 +5791,11 @@
         "Archivable": {
           "Bool": true
         },
-        "Asset": {
-          "ContentId": ""
-        },
         "Attributes": {
           "Attributes": {}
+        },
+        "AudioContent": {
+          "Content": "None"
         },
         "AutoLoad": {
           "Bool": true
@@ -9306,7 +9311,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "TextureContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         }
@@ -16681,7 +16691,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "CursorIconContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -16722,8 +16737,8 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "CursorIcon": {
-          "ContentId": ""
+        "CursorIconContent": {
+          "Content": "None"
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -21730,7 +21745,12 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "Migrate": {
+                  "To": "ColorMapContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -22738,7 +22758,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "ActivatedCursorIconContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -23154,8 +23179,8 @@
         }
       },
       "DefaultProperties": {
-        "ActivatedCursorIcon": {
-          "ContentId": ""
+        "ActivatedCursorIconContent": {
+          "Content": "None"
         },
         "ApplyAtCenterOfMass": {
           "Bool": false
@@ -23169,8 +23194,8 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "CursorIcon": {
-          "ContentId": ""
+        "CursorIconContent": {
+          "Content": "None"
         },
         "DragFrame": {
           "CFrame": {
@@ -26243,8 +26268,8 @@
         "TeamColor": {
           "BrickColor": 194
         },
-        "TextureId": {
-          "ContentId": ""
+        "TextureContent": {
+          "Content": "None"
         },
         "ToolTip": {
           "String": ""
@@ -32207,8 +32232,8 @@
         "Tags": {
           "Tags": []
         },
-        "TextureId": {
-          "ContentId": ""
+        "TextureContent": {
+          "Content": "None"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -45545,7 +45570,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "IconContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -62367,7 +62397,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "AudioContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -62508,6 +62543,9 @@
         "Attributes": {
           "Attributes": {}
         },
+        "AudioContent": {
+          "Content": "None"
+        },
         "Capabilities": {
           "SecurityCapabilities": 0
         },
@@ -62555,9 +62593,6 @@
         },
         "Sandboxed": {
           "Bool": false
-        },
-        "SoundId": {
-          "ContentId": ""
         },
         "SourceAssetId": {
           "Int64": -1
@@ -75831,8 +75866,8 @@
         "Tags": {
           "Tags": []
         },
-        "TextureId": {
-          "ContentId": ""
+        "TextureContent": {
+          "Content": "None"
         },
         "ToolTip": {
           "String": ""
@@ -77721,7 +77756,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "ActivatedCursorIconContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -77773,7 +77813,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "CursorIconContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -78000,8 +78045,8 @@
         }
       },
       "DefaultProperties": {
-        "ActivatedCursorIcon": {
-          "ContentId": ""
+        "ActivatedCursorIconContent": {
+          "Content": "None"
         },
         "Archivable": {
           "Bool": true
@@ -78015,8 +78060,8 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "CursorIcon": {
-          "ContentId": ""
+        "CursorIconContent": {
+          "Content": "None"
         },
         "DragAxis": {
           "Vector2": [
@@ -81426,7 +81471,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "MouseIconContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
