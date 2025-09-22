@@ -20,3 +20,8 @@ Change:
         Type: Migrate
         To: RoughnessMapContent
         Migration: ContentIdToContent
+    ColorMap:
+      Serialization:
+        Type: Migrate
+        To: ColorMapContent
+        Migration: ContentIdToContent
