@@ -11,8 +11,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
         MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
-        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, SmoothGrid, Tags,
+        UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, Ustr, UstrSet, WeakDom,
 };
@@ -714,11 +714,14 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 Variant::MaterialColors(value) => {
                                     chunk.write_binary_string(&value.encode())?;
                                 }
+                                Variant::SmoothGrid(value) => {
+                                    chunk.write_binary_string(&value.encode())?;
+                                }
                                 _ => {
                                     return type_mismatch(
                                         i,
                                         &rbx_value,
-                                        "String, ContentId, Tags, Attributes, MaterialColors, or BinaryString",
+                                        "String, ContentId, Tags, Attributes, MaterialColors, SmoothGrid, or BinaryString",
                                     );
                                 }
                             }
@@ -1424,6 +1427,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             VariantType::UniqueId => Variant::UniqueId(UniqueId::nil()),
             VariantType::Font => Variant::Font(Font::default()),
             VariantType::MaterialColors => Variant::MaterialColors(MaterialColors::new()),
+            VariantType::SmoothGrid => Variant::SmoothGrid(SmoothGrid::new()),
             VariantType::SecurityCapabilities => {
                 Variant::SecurityCapabilities(SecurityCapabilities::default())
             }
