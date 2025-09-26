@@ -146,7 +146,7 @@ struct PropInfo<'db> {
     /// If a logical property has a migration associated with it (i.e. BrickColor ->
     /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
     /// it is None.
-    migration: Option<&'db PropertyMigration>,
+    migration: Option<&'db PropertyMigration<'db>>,
 }
 
 /// Contains all of the `TypeInfo` objects known to the serializer so far. This
@@ -363,7 +363,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 let new_descriptors = find_property_descriptors(
                                     database,
                                     instance.class,
-                                    prop_migration.new_property_name.as_str().into(),
+                                    prop_migration.new_property_name.into(),
                                 );
 
                                 migration = Some(prop_migration);
@@ -371,8 +371,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 match new_descriptors {
                                     Some(descriptor) => match descriptor.serialized {
                                         Some(serialized) => {
-                                            canonical_name =
-                                                descriptor.canonical.name.as_ref().into();
+                                            canonical_name = descriptor.canonical.name.into();
                                             serialized
                                         }
                                         None => continue,
@@ -380,14 +379,14 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     None => continue,
                                 }
                             } else {
-                                canonical_name = descriptors.canonical.name.as_ref().into();
+                                canonical_name = descriptors.canonical.name.into();
                                 descriptor
                             }
                         }
                         None => continue,
                     };
 
-                    serialized_name = serialized.name.as_ref().into();
+                    serialized_name = serialized.name.into();
 
                     serialized_ty = match &serialized.data_type {
                         DataType::Value(ty) => *ty,
