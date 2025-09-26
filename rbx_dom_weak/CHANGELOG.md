@@ -2,6 +2,7 @@
 
 ## Unreleased Changes
 
+* Allow `WeakDom::transfer_within` to have the None Ref as the destination. ([#517])
 * Add `WeakDom::ancestors_of` helper function. ([#520])
 
 ## 3.0.0 (2025-03-28)
