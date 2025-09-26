@@ -4,7 +4,7 @@ use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
     types::{Ref, SharedString, Variant, VariantType},
-    InstanceBuilder, Ustr, WeakDom,
+    InstanceBuilder, Ustr, UstrMap, WeakDom,
 };
 use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
 
@@ -460,7 +460,7 @@ fn deserialize_instance<R: Read>(
         state.referents_to_ids.insert(referent, instance_id);
     }
 
-    let mut properties: HashMap<Ustr, Variant> = HashMap::new();
+    let mut properties = UstrMap::new();
 
     loop {
         match reader.expect_peek()? {
@@ -507,7 +507,7 @@ fn deserialize_instance<R: Read>(
         None => instance.class.to_string(),
     };
 
-    instance.properties = properties.into_iter().collect();
+    instance.properties = properties;
 
     Ok(())
 }
@@ -516,7 +516,7 @@ fn deserialize_properties<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
     instance_id: Ref,
-    props: &mut HashMap<Ustr, Variant>,
+    props: &mut UstrMap<Variant>,
 ) -> Result<(), DecodeError> {
     reader.expect_start_with_name("Properties")?;
 
