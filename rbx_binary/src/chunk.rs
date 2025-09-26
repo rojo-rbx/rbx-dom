@@ -78,6 +78,13 @@ impl ChunkBuilder {
         }
     }
 
+    /// Reserve bytes and use a closure to initialize them.
+    pub fn initialize_bytes_with(&mut self, len: usize, initialize_bytes: impl FnOnce(&mut [u8])) {
+        let current_len = self.buffer.len();
+        self.buffer.extend(core::iter::repeat_n(0, len));
+        initialize_bytes(&mut self.buffer[current_len..]);
+    }
+
     /// Consume the chunk and write it to the given writer.
     pub fn dump<W: Write>(self, mut writer: W) -> io::Result<()> {
         writer.write_all(self.chunk_name)?;
