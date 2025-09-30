@@ -1,0 +1,424 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: "Position: 4,2,0"
+  class: UnionOperation
+  properties:
+    AeroMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    Anchored:
+      Bool: false
+    AssetId:
+      ContentId: ""
+    Attributes:
+      Attributes: {}
+    AudioCanCollide:
+      Bool: true
+    BackParamA:
+      Float32: -0.5
+    BackParamB:
+      Float32: 0.5
+    BackSurface:
+      Enum: 0
+    BackSurfaceInput:
+      Enum: 0
+    BottomParamA:
+      Float32: -0.5
+    BottomParamB:
+      Float32: 0.5
+    BottomSurface:
+      Enum: 0
+    BottomSurfaceInput:
+      Enum: 0
+    CFrame:
+      CFrame:
+        position:
+          - 4
+          - 2
+          - 0
+        orientation:
+          - - 1
+            - -0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - -0
+            - 0
+            - 1
+    CanCollide:
+      Bool: true
+    CanQuery:
+      Bool: true
+    CanTouch:
+      Bool: true
+    Capabilities:
+      SecurityCapabilities: 0
+    CastShadow:
+      Bool: true
+    ChildData:
+      BinaryString: ""
+    ChildData2:
+      len: 2701
+      hash: a832b9dedb22471f618e0022976153b1ee34e010c3fb70e473c8ae5b01c41256
+    CollisionGroup:
+      String: Default
+    CollisionGroupId:
+      Int32: 0
+    Color:
+      Color3uint8:
+        - 163
+        - 162
+        - 165
+    ComponentIndex:
+      Int32: -1
+    CustomPhysicalProperties:
+      PhysicalProperties: Default
+    EnableFluidForces:
+      Bool: true
+    FluidFidelityInternal:
+      Enum: 0
+    FormFactor:
+      Enum: 3
+    FrontParamA:
+      Float32: -0.5
+    FrontParamB:
+      Float32: 0.5
+    FrontSurface:
+      Enum: 0
+    FrontSurfaceInput:
+      Enum: 0
+    InertiaMigrated:
+      Bool: false
+    InitialSize:
+      Vector3:
+        - 5.6
+        - 2
+        - 2
+    LeftParamA:
+      Float32: -0.5
+    LeftParamB:
+      Float32: 0.5
+    LeftSurface:
+      Enum: 0
+    LeftSurfaceInput:
+      Enum: 0
+    Locked:
+      Bool: false
+    Massless:
+      Bool: false
+    Material:
+      Enum: 256
+    MaterialVariant:
+      String: ""
+    MeshData:
+      BinaryString: ""
+    MeshData2:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    OffCentered:
+      Bool: false
+    PhysicalConfigData:
+      len: 3119
+      hash: f33b7f076532410ee2d7d5e1b8a247df084e4778bea5d0a736c9e68586b002ef
+    PhysicsData:
+      BinaryString: ""
+    PivotOffset:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    Reflectance:
+      Float32: 0
+    RenderFidelity:
+      Enum: 0
+    RightParamA:
+      Float32: -0.5
+    RightParamB:
+      Float32: 0.5
+    RightSurface:
+      Enum: 0
+    RightSurfaceInput:
+      Enum: 0
+    RootPriority:
+      Int32: 0
+    RotVelocity:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    Sandboxed:
+      Bool: false
+    Size:
+      Vector3:
+        - 5.6
+        - 2
+        - 2
+    SmoothingAngle:
+      Float32: 0
+    SolidMeshHolder:
+      len: 1039
+      hash: e6d3c346bf46b185c238b7165f439d86e067e07feb9611b903a493b37b36d33a
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    TopParamA:
+      Float32: -0.5
+    TopParamB:
+      Float32: 0.5
+    TopSurface:
+      Enum: 0
+    TopSurfaceInput:
+      Enum: 0
+    Transparency:
+      Float32: 0
+    UnscaledCofm:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    UnscaledVolInertiaDiags:
+      Vector3:
+        - 10.666667
+        - 36.906666
+        - 36.906666
+    UnscaledVolInertiaOffDiags:
+      Vector3:
+        - 6.3999996
+        - -0
+        - -0
+    UnscaledVolume:
+      Float32: 16
+    UsePartColor:
+      Bool: false
+    Velocity:
+      Vector3:
+        - 0
+        - 0
+        - 0
+  children: []
+- referent: referent-1
+  name: "Position: -4, -2, 0"
+  class: UnionOperation
+  properties:
+    AeroMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    Anchored:
+      Bool: false
+    AssetId:
+      ContentId: ""
+    Attributes:
+      Attributes: {}
+    AudioCanCollide:
+      Bool: true
+    BackParamA:
+      Float32: -0.5
+    BackParamB:
+      Float32: 0.5
+    BackSurface:
+      Enum: 0
+    BackSurfaceInput:
+      Enum: 0
+    BottomParamA:
+      Float32: -0.5
+    BottomParamB:
+      Float32: 0.5
+    BottomSurface:
+      Enum: 0
+    BottomSurfaceInput:
+      Enum: 0
+    CFrame:
+      CFrame:
+        position:
+          - -4
+          - -2
+          - -0
+        orientation:
+          - - 1
+            - -0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - -0
+            - 0
+            - 1
+    CanCollide:
+      Bool: true
+    CanQuery:
+      Bool: true
+    CanTouch:
+      Bool: true
+    Capabilities:
+      SecurityCapabilities: 0
+    CastShadow:
+      Bool: true
+    ChildData:
+      BinaryString: ""
+    ChildData2:
+      len: 2699
+      hash: 5debab6cd87ea949a0b1f1ada74bf15103724dd039ee4b009c5891c8ebd5b7c9
+    CollisionGroup:
+      String: Default
+    CollisionGroupId:
+      Int32: 0
+    Color:
+      Color3uint8:
+        - 163
+        - 162
+        - 165
+    ComponentIndex:
+      Int32: -1
+    CustomPhysicalProperties:
+      PhysicalProperties: Default
+    EnableFluidForces:
+      Bool: true
+    FluidFidelityInternal:
+      Enum: 0
+    FormFactor:
+      Enum: 3
+    FrontParamA:
+      Float32: -0.5
+    FrontParamB:
+      Float32: 0.5
+    FrontSurface:
+      Enum: 0
+    FrontSurfaceInput:
+      Enum: 0
+    InertiaMigrated:
+      Bool: false
+    InitialSize:
+      Vector3:
+        - 4
+        - 2
+        - 3
+    LeftParamA:
+      Float32: -0.5
+    LeftParamB:
+      Float32: 0.5
+    LeftSurface:
+      Enum: 0
+    LeftSurfaceInput:
+      Enum: 0
+    Locked:
+      Bool: false
+    Massless:
+      Bool: false
+    Material:
+      Enum: 256
+    MaterialVariant:
+      String: ""
+    MeshData:
+      BinaryString: ""
+    MeshData2:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    OffCentered:
+      Bool: false
+    PhysicalConfigData:
+      len: 5503
+      hash: e95d20e904cb6cc41af06523f8f237057302ec76e3afc78af451432b74b4690e
+    PhysicsData:
+      BinaryString: ""
+    PivotOffset:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    Reflectance:
+      Float32: 0
+    RenderFidelity:
+      Enum: 0
+    RightParamA:
+      Float32: -0.5
+    RightParamB:
+      Float32: 0.5
+    RightSurface:
+      Enum: 0
+    RightSurfaceInput:
+      Enum: 0
+    RootPriority:
+      Int32: 0
+    RotVelocity:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    Sandboxed:
+      Bool: false
+    Size:
+      Vector3:
+        - 4
+        - 2
+        - 3
+    SmoothingAngle:
+      Float32: 0
+    SolidMeshHolder:
+      len: 1039
+      hash: 976002d267f3468651e58f6d3a71405d6d05d072d36f0b5a93b5a9310eaf7d53
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    TopParamA:
+      Float32: -0.5
+    TopParamB:
+      Float32: 0.5
+    TopSurface:
+      Enum: 0
+    TopSurfaceInput:
+      Enum: 0
+    Transparency:
+      Float32: 0
+    UnscaledCofm:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    UnscaledVolInertiaDiags:
+      Vector3:
+        - 14.666667
+        - 30.666666
+        - 26.666666
+    UnscaledVolInertiaOffDiags:
+      Vector3:
+        - -0
+        - -0
+        - 4
+    UnscaledVolume:
+      Float32: 16
+    UsePartColor:
+      Bool: false
+    Velocity:
+      Vector3:
+        - 0
+        - 0
+        - 0
+  children: []
