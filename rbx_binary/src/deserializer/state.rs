@@ -5,7 +5,7 @@ use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, Faces, Font,
-        FontStyle, FontWeight, MaterialColors, Matrix3, NumberRange, NumberSequence,
+        FontStyle, FontWeight, MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities,
         SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
         Vector3int16,
@@ -1269,6 +1269,28 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
                         add_property(instance, &property, shared_string.clone().into());
+                    }
+                }
+                VariantType::NetAssetRef => {
+                    let mut values = vec![0; type_info.referents.len()];
+                    chunk.read_interleaved_u32_array(&mut values)?;
+
+                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                        let net_asset = NetAssetRef::from(
+                            self.shared_strings
+                                .get(value as usize)
+                                .ok_or_else(|| InnerError::InvalidPropData {
+                                    type_name: type_info.type_name.to_string(),
+                                    prop_name: prop_name.clone(),
+                                    valid_value: "a valid NetAssetRef",
+                                    actual_value: format!("{value:?}"),
+                                })?
+                                .clone(),
+                        );
+
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+
+                        add_property(instance, &property, net_asset.into());
                     }
                 }
                 invalid_type => {

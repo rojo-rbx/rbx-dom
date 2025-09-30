@@ -55,6 +55,9 @@ impl Type {
             VariantType::Tags => Type::String,
             VariantType::MaterialColors => Type::String,
 
+            VariantType::SharedString => Type::SharedString,
+            VariantType::NetAssetRef => Type::SharedString,
+
             VariantType::Bool => Type::Bool,
             VariantType::Int32 => Type::Int32,
             VariantType::Float32 => Type::Float32,
@@ -79,7 +82,6 @@ impl Type {
             VariantType::PhysicalProperties => Type::PhysicalProperties,
             VariantType::Color3uint8 => Type::Color3uint8,
             VariantType::Int64 => Type::Int64,
-            VariantType::SharedString => Type::SharedString,
             VariantType::OptionalCFrame => Type::OptionalCFrame,
             VariantType::UniqueId => Type::UniqueId,
             VariantType::Font => Type::Font,
