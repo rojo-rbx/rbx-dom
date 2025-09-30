@@ -2,10 +2,14 @@
 
 ## Unreleased Changes
 
+* Implement support for serializing and deserializing the `NetAssetRef` type. ([#555])
 * Added `Ref::some` to construct a Ref from a u128. ([#516])
 * Added `Content::as_object` and `Content::as_uri` to assume the respective type (optional value). ([#511])
 * Added `Content::into_value` to support converting a `Content` into its underlying value. ([#507])
 
+[#555]: https://github.com/rojo-rbx/rbx-dom/pull/555
+[#516]: https://github.com/rojo-rbx/rbx-dom/pull/516
+[#511]: https://github.com/rojo-rbx/rbx-dom/pull/511
 [#507]: https://github.com/rojo-rbx/rbx-dom/pull/507
 
 ## 2.0.0 (2025-03-28)
