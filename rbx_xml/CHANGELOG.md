@@ -1,6 +1,9 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Implement support for serializing and deserializing the `NetAssetRef` type. ([#555])
+
+[#555]: https://github.com/rojo-rbx/rbx-dom/pull/555
 
 ## 1.0.0 (2025-03-28)
 * Improved performance of serializer and deserializer by using `Ustr` to represent property and class names ([#462]).

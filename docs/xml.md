@@ -33,6 +33,7 @@ The XML model format has generally been replaced by the newer, more efficient [b
 	- [Font](#font)
 	- [int](#int) (Int32)
 	- [int64](#int64)
+	- [NetAssetRef](#netassetref)
 	- [NumberRange](#numberrange)
 	- [NumberSequence](#numbersequence)
 	- [Optional](#optional)
@@ -425,6 +426,16 @@ An `int64` value of `-559038737` appears as follows:
 
 ```xml
 <int64 name="Int64Example">-559038737</int64>
+```
+
+### NetAssetRef
+
+The `NetAssetRef` data type is represented identically to a [`SharedString`][SharedString-use] type. That is, it is represented as a string defined elsewhere in the file. The contents of the element MUST be equal to the `md5` attribute of a [`SharedString` definition][SharedString-def]. Despite being a `NetAssetRef`, definitions for this type MUST still use `SharedString`.
+
+A `NetAssetRef` value pointing to the `SharedString` with its `md5` attribute equal to `ZGVra29ub3Rfd2FzX2hlcmU=` appears as follows:
+
+```xml
+<NetAssetRef name="NetAssetRefExample">ZGVra29ub3Rfd2FzX2hlcmU=</NetAssetRef>
 ```
 
 ### NumberRange

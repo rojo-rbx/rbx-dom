@@ -80,7 +80,14 @@ static LOCAL_DATABASE: LazyLock<ResultOption<ReflectionDatabase<'static>>> = Laz
 /// Errors if a locally stored [`ReflectionDatabase`] could not be read
 /// or is invalid MessagePack.
 pub fn get() -> Result<&'static ReflectionDatabase<'static>, Error> {
-    Ok(get_local()?.unwrap_or(&BUNDLED_DATABASE))
+    #[cfg(feature = "debug_always_use_bundled")]
+    {
+        Ok(&BUNDLED_DATABASE)
+    }
+    #[cfg(not(feature = "debug_always_use_bundled"))]
+    {
+        Ok(get_local()?.unwrap_or(&BUNDLED_DATABASE))
+    }
 }
 
 /// Returns a reflection database from the file system, if one can be found.
@@ -161,7 +168,7 @@ mod test {
         test_path.push("empty.msgpack");
 
         unsafe { env::set_var(OVERRIDE_PATH_VAR, &test_path) };
-        let empty_db = get().unwrap();
+        let empty_db = get_local().unwrap().unwrap();
         assert!(empty_db.version == [0, 0, 0, 0]);
     }
 

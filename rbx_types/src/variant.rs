@@ -1,8 +1,9 @@
 use crate::{
     Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-    Content, ContentId, Enum, EnumItem, Faces, Font, MaterialColors, NumberRange, NumberSequence,
-    PhysicalProperties, Ray, Rect, Ref, Region3, Region3int16, SecurityCapabilities, SharedString,
-    Tags, UDim, UDim2, UniqueId, Vector2, Vector2int16, Vector3, Vector3int16,
+    Content, ContentId, Enum, EnumItem, Faces, Font, MaterialColors, NetAssetRef, NumberRange,
+    NumberSequence, PhysicalProperties, Ray, Rect, Ref, Region3, Region3int16,
+    SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Vector2, Vector2int16,
+    Vector3, Vector3int16,
 };
 
 /// Reduces boilerplate from listing different values of Variant by wrapping
@@ -131,6 +132,7 @@ make_variant! {
     SecurityCapabilities(SecurityCapabilities),
     EnumItem(EnumItem),
     Content(Content),
+    NetAssetRef(NetAssetRef),
 }
 
 impl From<&'_ str> for Variant {

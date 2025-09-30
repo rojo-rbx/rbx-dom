@@ -625,7 +625,9 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 ### SharedString
 **Type ID `0x1c`**
 
-`SharedString` values are stored as an [Interleaved Array](#byte-interleaving) of big-endian `u32` values that represent indices in the [`SSTR`](#sstr-chunk) string array.
+`SharedString` values are stored as an [Interleaved Array](#byte-interleaving) of big-endian `u32` values that represent indices in the [`SSTR`](#sstr-chunk) string array. 
+
+`NetAssetRef` properties are stored identically to this format and use the same type ID.
 
 ### Bytecode
 **Type ID `0x1d`**

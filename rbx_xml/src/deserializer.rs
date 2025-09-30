@@ -28,6 +28,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Wea
     deserialize_root(&mut iterator, &mut state, root_id)?;
     apply_referent_rewrites(&mut state);
     apply_shared_string_rewrites(&mut state);
+    apply_net_asset_rewrites(&mut state);
 
     Ok(tree)
 }
@@ -142,7 +143,12 @@ pub struct ParseState<'dom, 'db> {
     /// A list of SharedString properties to set in the tree as a secondary
     /// pass. This works just like referent rewriting since the shared string
     /// dictionary is usually at the end of the XML file.
-    shared_string_rewrites: Vec<SharedStringRewrite>,
+    shared_string_rewrites: Vec<HashRewrites>,
+
+    /// A list of NetAssetRef properties to set in the tree as a secondary
+    /// pass. This works just like the `SharedString` rewriting, since
+    /// `NetAssetRef` uses the same repository as `SharedString`.
+    net_asset_rewrites: Vec<HashRewrites>,
 
     /// Contains all of the unknown types that have been found so far. Tracking
     /// them here helps ensure that we only output a warning once per type.
@@ -155,10 +161,10 @@ struct ReferentRewrite {
     referent_value: String,
 }
 
-struct SharedStringRewrite {
+struct HashRewrites {
     id: Ref,
     property_name: Ustr,
-    shared_string_hash: String,
+    hash: String,
 }
 
 impl<'dom, 'db> ParseState<'dom, 'db> {
@@ -171,6 +177,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
             referent_rewrites: Vec::new(),
             known_shared_strings: HashMap::new(),
             shared_string_rewrites: Vec::new(),
+            net_asset_rewrites: Vec::new(),
             unknown_type_names: HashSet::new(),
         }
     }
@@ -206,19 +213,26 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     }
 
     /// Marks that a property on this instance needs to be rewritten once we
-    /// have a complete view of how referents map to Ref values.
+    /// have a complete view of values in the `SharedString` repository.
     ///
-    /// This is used to deserialize non-null Ref values correctly.
-    pub fn add_shared_string_rewrite(
-        &mut self,
-        id: Ref,
-        property_name: Ustr,
-        shared_string_hash: String,
-    ) {
-        self.shared_string_rewrites.push(SharedStringRewrite {
+    /// This is used to deserialize `SharedString` values correctly.
+    pub fn add_shared_string_rewrite(&mut self, id: Ref, property_name: Ustr, hash: String) {
+        self.shared_string_rewrites.push(HashRewrites {
             id,
             property_name,
-            shared_string_hash,
+            hash,
+        });
+    }
+
+    /// Marks that a property on this instance needs to be rewritten once we
+    /// have a complete view of values in the `SharedString` repository.
+    ///
+    /// This is used to deserialize `NetAssetRefs` values correctly.
+    pub fn add_net_asset_rewrite(&mut self, id: Ref, property_name: Ustr, hash: String) {
+        self.net_asset_rewrites.push(HashRewrites {
+            id,
+            property_name,
+            hash,
         });
     }
 }
@@ -242,9 +256,27 @@ fn apply_referent_rewrites(state: &mut ParseState) {
     }
 }
 
+fn apply_net_asset_rewrites(state: &mut ParseState) {
+    for rewrite in &state.net_asset_rewrites {
+        let new_value = match state.known_shared_strings.get(&rewrite.hash) {
+            Some(v) => v.clone(),
+            None => continue,
+        };
+
+        let instance = state.tree.get_by_ref_mut(rewrite.id).expect(
+            "rbx_xml bug: had ID in NetAssetRef rewrite list that didn't end up in the tree",
+        );
+
+        instance.properties.insert(
+            rewrite.property_name.as_str().into(),
+            Variant::NetAssetRef(new_value.into()),
+        );
+    }
+}
+
 fn apply_shared_string_rewrites(state: &mut ParseState) {
     for rewrite in &state.shared_string_rewrites {
-        let new_value = match state.known_shared_strings.get(&rewrite.shared_string_hash) {
+        let new_value = match state.known_shared_strings.get(&rewrite.hash) {
             Some(v) => v.clone(),
             None => continue,
         };

@@ -108,6 +108,18 @@ impl DomViewer {
                             hash: hash_hex,
                         }
                     }
+                    Variant::NetAssetRef(net) => {
+                        let hash = net.hash();
+                        let mut hash_hex = String::with_capacity(hash.as_bytes().len() * 2);
+
+                        for byte in hash.as_bytes() {
+                            write!(hash_hex, "{byte:02x}").unwrap();
+                        }
+                        ViewedValue::NetAssetRef {
+                            len: net.data().len(),
+                            hash: hash_hex,
+                        }
+                    }
                     other => ViewedValue::Other(other.clone()),
                 };
 
@@ -149,6 +161,7 @@ pub struct ViewedInstance {
 enum ViewedValue {
     Ref(String),
     SharedString { len: usize, hash: String },
+    NetAssetRef { len: usize, hash: String },
     Other(Variant),
 }
 
