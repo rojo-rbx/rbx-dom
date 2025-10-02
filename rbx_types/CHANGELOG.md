@@ -2,6 +2,8 @@
 
 ## Unreleased Changes
 
+* Reworked `PhysicalProperties` type to support `AudioAbsorption`. This is a breaking change, though it is minor. This change makes `PhysicalProperties` non-exhaustive, makes the fields private, and adds setters/getters for them instead. 
+
 * Added `Ref::some` to construct a Ref from a u128. ([#516])
 * Added `Content::as_object` and `Content::as_uri` to assume the respective type (optional value). ([#511])
 * Added `Content::into_value` to support converting a `Content` into its underlying value. ([#507])
