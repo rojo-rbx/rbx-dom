@@ -22,9 +22,8 @@ impl XmlType for PhysicalProperties {
                 writer.write_value_in_tag(&properties.elasticity(), "Elasticity")?;
                 writer.write_value_in_tag(&properties.friction_weight(), "FrictionWeight")?;
                 writer.write_value_in_tag(&properties.elasticity_weight(), "ElasticityWeight")?;
-                if let Some(value) = properties.acoustic_absorption() {
-                    writer.write_value_in_tag(&value, "AcousticAbsorption")?;
-                }
+                writer
+                    .write_value_in_tag(&properties.acoustic_absorption(), "AcousticAbsorption")?;
             }
             PhysicalProperties::Default => {
                 writer.write_value_in_tag(&false, "CustomPhysics")?;
@@ -44,11 +43,11 @@ impl XmlType for PhysicalProperties {
             let friction_weight: f32 = reader.read_value_in_tag("FrictionWeight")?;
             let elasticity_weight: f32 = reader.read_value_in_tag("ElasticityWeight")?;
 
-            let acoustic_absorption: Option<f32> = match reader.expect_peek()? {
+            let acoustic_absorption: f32 = match reader.expect_peek()? {
                 XmlEvent::StartElement { name, .. } if name.local_name == "AcousticAbsorption" => {
-                    Some(reader.read_value_in_tag("AcousticAbsorption")?)
+                    reader.read_value_in_tag("AcousticAbsorption")?
                 }
-                _ => None,
+                _ => 1.0,
             };
 
             Ok(PhysicalProperties::Custom(CustomPhysicalProperties::new(
@@ -79,7 +78,7 @@ mod test {
     #[test]
     fn round_trip_physical_properties_custom() {
         test_util::test_xml_round_trip(&PhysicalProperties::Custom(CustomPhysicalProperties::new(
-            0.5, 1.0, 1.5, 2.0, 2.5, None,
+            0.5, 1.0, 1.5, 2.0, 2.5, 1.0,
         )));
     }
 
@@ -109,7 +108,7 @@ mod test {
                 </PhysicalProperties>
             "#,
             &PhysicalProperties::Custom(CustomPhysicalProperties::new(
-                0.5, 1.0, 1.5, 2.0, 2.5, None,
+                0.5, 1.0, 1.5, 2.0, 2.5, 1.0,
             )),
         );
     }
@@ -137,10 +136,11 @@ mod test {
                     <Elasticity>1.5</Elasticity>
                     <FrictionWeight>2</FrictionWeight>
                     <ElasticityWeight>2.5</ElasticityWeight>
+                    <AcousticAbsorption>3</AcousticAbsorption>
                 </PhysicalProperties>
             "#,
             &PhysicalProperties::Custom(CustomPhysicalProperties::new(
-                0.5, 1.0, 1.5, 2.0, 2.5, None,
+                0.5, 1.0, 1.5, 2.0, 2.5, 3.0,
             )),
         );
     }

@@ -133,7 +133,15 @@ expression: "DomViewer::new().view_children(&de)"
                 elasticity: 0.15625
                 frictionWeight: -0.15625
                 elasticityWeight: NaN
-                acousticAbsorption: ~
+                acousticAbsorption: 1
+            TestPhysicalProperties3:
+              PhysicalProperties:
+                density: 1
+                friction: -1
+                elasticity: 0.15625
+                frictionWeight: -0.15625
+                elasticityWeight: NaN
+                acousticAbsorption: 1337
             TestProtectedString:
               String: "Hello world, again!"
             TestRay:

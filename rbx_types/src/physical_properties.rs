@@ -36,7 +36,7 @@ pub struct CustomPhysicalProperties {
     elasticity: f32,
     friction_weight: f32,
     elasticity_weight: f32,
-    acoustic_absorption: Option<f32>,
+    acoustic_absorption: f32,
 }
 
 impl CustomPhysicalProperties {
@@ -46,7 +46,7 @@ impl CustomPhysicalProperties {
         elasticity: f32,
         friction_weight: f32,
         elasticity_weight: f32,
-        acoustic_absorption: Option<f32>,
+        acoustic_absorption: f32,
     ) -> Self {
         Self {
             density,
@@ -109,12 +109,12 @@ impl CustomPhysicalProperties {
     }
 
     #[inline]
-    pub fn acoustic_absorption(&self) -> Option<f32> {
+    pub fn acoustic_absorption(&self) -> f32 {
         self.acoustic_absorption
     }
 
     #[inline]
-    pub fn set_acoustic_absorption(&mut self, acoustic_absorption: Option<f32>) {
+    pub fn set_acoustic_absorption(&mut self, acoustic_absorption: f32) {
         self.acoustic_absorption = acoustic_absorption
     }
 }
@@ -224,11 +224,11 @@ mod serde_test {
             elasticity: 0.0,
             elasticity_weight: 5.0,
             friction_weight: 6.0,
-            acoustic_absorption: None,
+            acoustic_absorption: 1.0,
         });
 
         let ser = serde_json::to_string(&custom).unwrap();
-        assert_eq!(ser, "{\"density\":1.0,\"friction\":0.5,\"elasticity\":0.0,\"frictionWeight\":6.0,\"elasticityWeight\":5.0,\"acousticAbsorption\":null}");
+        assert_eq!(ser, "{\"density\":1.0,\"friction\":0.5,\"elasticity\":0.0,\"frictionWeight\":6.0,\"elasticityWeight\":5.0,\"acousticAbsorption\":1.0}");
 
         let de: PhysicalProperties = serde_json::from_str(&ser).unwrap();
         assert_eq!(de, custom);
@@ -242,7 +242,7 @@ mod serde_test {
             elasticity: 0.0,
             elasticity_weight: 5.0,
             friction_weight: 6.0,
-            acoustic_absorption: Some(1337.0),
+            acoustic_absorption: 1337.0,
         });
 
         let ser = serde_json::to_string(&custom).unwrap();
@@ -270,7 +270,7 @@ mod serde_test {
             elasticity: 0.0,
             elasticity_weight: 5.0,
             friction_weight: 6.0,
-            acoustic_absorption: None,
+            acoustic_absorption: 1.0,
         });
 
         let ser = bincode::serialize(&custom).unwrap();

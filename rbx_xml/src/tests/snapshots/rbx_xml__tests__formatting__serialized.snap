@@ -107,6 +107,16 @@ expression: ser_str
             <Elasticity>0.15625</Elasticity>
             <FrictionWeight>-0.15625</FrictionWeight>
             <ElasticityWeight>NAN</ElasticityWeight>
+            <AcousticAbsorption>1</AcousticAbsorption>
+          </PhysicalProperties>
+          <PhysicalProperties name="TestPhysicalProperties3">
+            <CustomPhysics>true</CustomPhysics>
+            <Density>1</Density>
+            <Friction>-1</Friction>
+            <Elasticity>0.15625</Elasticity>
+            <FrictionWeight>-0.15625</FrictionWeight>
+            <ElasticityWeight>NAN</ElasticityWeight>
+            <AcousticAbsorption>1337</AcousticAbsorption>
           </PhysicalProperties>
           <string name="TestProtectedString">Hello world, again!</string>
           <Ray name="TestRay">

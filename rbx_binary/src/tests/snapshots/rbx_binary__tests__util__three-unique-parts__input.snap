@@ -193,13 +193,13 @@ chunks:
           elasticity: 0.5
           frictionWeight: 1
           elasticityWeight: 1
-          acousticAbsorption: ~
+          acousticAbsorption: 1
         - density: 90.66
           friction: 1.44
           elasticity: 0.65
           frictionWeight: 50.5
           elasticityWeight: 40.5
-          acousticAbsorption: ~
+          acousticAbsorption: 1
   - Prop:
       type_id: 0
       prop_name: FrontParamA

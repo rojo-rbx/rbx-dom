@@ -83,6 +83,15 @@ const INPUT: &str = r#"<roblox version="4">
                         <FrictionWeight>-0.15625</FrictionWeight>
                         <ElasticityWeight>NAN</ElasticityWeight>
                     </PhysicalProperties>
+                    <PhysicalProperties name="TestPhysicalProperties3">
+                        <CustomPhysics>true</CustomPhysics>
+                        <Density>1</Density>
+                        <Friction>-1</Friction>
+                        <Elasticity>0.15625</Elasticity>
+                        <FrictionWeight>-0.15625</FrictionWeight>
+                        <ElasticityWeight>NAN</ElasticityWeight>
+                        <AcousticAbsorption>1337</AcousticAbsorption>
+                    </PhysicalProperties>
                     <ProtectedString name="TestProtectedString">Hello world, again!</ProtectedString>
                     <Ray name="TestRay">
                         <origin>

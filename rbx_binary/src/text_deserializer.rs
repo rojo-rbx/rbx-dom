@@ -611,7 +611,7 @@ impl DecodedValues {
                             reader.read_le_f32().unwrap(),
                             reader.read_le_f32().unwrap(),
                             reader.read_le_f32().unwrap(),
-                            None,
+                            1.0,
                         )),
                         0b11 => PhysicalProperties::Custom(CustomPhysicalProperties::new(
                             reader.read_le_f32().unwrap(),
@@ -619,7 +619,7 @@ impl DecodedValues {
                             reader.read_le_f32().unwrap(),
                             reader.read_le_f32().unwrap(),
                             reader.read_le_f32().unwrap(),
-                            Some(reader.read_le_f32().unwrap()),
+                            reader.read_le_f32().unwrap(),
                         )),
                         _ => panic!(
                             "cannot read PhysicalProperties with discriminator 0b{:b}",

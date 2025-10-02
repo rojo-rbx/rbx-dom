@@ -1184,7 +1184,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                     chunk.read_le_f32()?,
                                     chunk.read_le_f32()?,
                                     chunk.read_le_f32()?,
-                                    None,
+                                    1.0,
                                 ),
                             )),
                             0b11 => Variant::PhysicalProperties(PhysicalProperties::Custom(
@@ -1194,7 +1194,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                     chunk.read_le_f32()?,
                                     chunk.read_le_f32()?,
                                     chunk.read_le_f32()?,
-                                    Some(chunk.read_le_f32()?),
+                                    chunk.read_le_f32()?,
                                 ),
                             )),
                             _ => return Err(InnerError::BadPhysicalPropertiesType(discriminator)),
