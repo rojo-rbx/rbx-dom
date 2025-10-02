@@ -1174,18 +1174,30 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::PhysicalProperties => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = if chunk.read_u8()? == 1 {
-                            Variant::PhysicalProperties(PhysicalProperties::Custom(
-                                CustomPhysicalProperties {
-                                    density: chunk.read_le_f32()?,
-                                    friction: chunk.read_le_f32()?,
-                                    elasticity: chunk.read_le_f32()?,
-                                    friction_weight: chunk.read_le_f32()?,
-                                    elasticity_weight: chunk.read_le_f32()?,
-                                },
-                            ))
-                        } else {
-                            Variant::PhysicalProperties(PhysicalProperties::Default)
+                        let discriminator = chunk.read_u8()?;
+                        let value = match discriminator {
+                            0b00 | 0b10 => Variant::PhysicalProperties(PhysicalProperties::Default),
+                            0b01 => Variant::PhysicalProperties(PhysicalProperties::Custom(
+                                CustomPhysicalProperties::new(
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    None,
+                                ),
+                            )),
+                            0b11 => Variant::PhysicalProperties(PhysicalProperties::Custom(
+                                CustomPhysicalProperties::new(
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    chunk.read_le_f32()?,
+                                    Some(chunk.read_le_f32()?),
+                                ),
+                            )),
+                            _ => return Err(InnerError::BadPhysicalPropertiesType(discriminator)),
                         };
 
                         add_property(instance, &property, value);

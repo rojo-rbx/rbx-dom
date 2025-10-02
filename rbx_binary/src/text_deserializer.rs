@@ -602,17 +602,30 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    if reader.read_u8().unwrap() == 1 {
-                        values.push(PhysicalProperties::Custom(CustomPhysicalProperties {
-                            density: reader.read_le_f32().unwrap(),
-                            friction: reader.read_le_f32().unwrap(),
-                            elasticity: reader.read_le_f32().unwrap(),
-                            friction_weight: reader.read_le_f32().unwrap(),
-                            elasticity_weight: reader.read_le_f32().unwrap(),
-                        }))
-                    } else {
-                        values.push(PhysicalProperties::Default)
-                    }
+                    let discriminator = reader.read_u8().unwrap();
+                    values.push(match discriminator {
+                        0b00 | 0b10 => PhysicalProperties::Default,
+                        0b01 => PhysicalProperties::Custom(CustomPhysicalProperties::new(
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            None,
+                        )),
+                        0b11 => PhysicalProperties::Custom(CustomPhysicalProperties::new(
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            reader.read_le_f32().unwrap(),
+                            Some(reader.read_le_f32().unwrap()),
+                        )),
+                        _ => panic!(
+                            "cannot read PhysicalProperties with discriminator 0b{:b}",
+                            discriminator
+                        ),
+                    });
                 }
 
                 Some(DecodedValues::PhysicalProperties(values))

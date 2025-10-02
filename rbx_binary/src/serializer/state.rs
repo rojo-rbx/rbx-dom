@@ -1077,14 +1077,21 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         for (i, rbx_value) in values {
                             if let Variant::PhysicalProperties(value) = rbx_value.as_ref() {
                                 if let PhysicalProperties::Custom(props) = value {
-                                    chunk.write_u8(1)?;
-                                    chunk.write_le_f32(props.density)?;
-                                    chunk.write_le_f32(props.friction)?;
-                                    chunk.write_le_f32(props.elasticity)?;
-                                    chunk.write_le_f32(props.friction_weight)?;
-                                    chunk.write_le_f32(props.elasticity_weight)?;
+                                    chunk.write_u8(if props.acoustic_absorption().is_some() {
+                                        0b11
+                                    } else {
+                                        0b01
+                                    })?;
+                                    chunk.write_le_f32(props.density())?;
+                                    chunk.write_le_f32(props.friction())?;
+                                    chunk.write_le_f32(props.elasticity())?;
+                                    chunk.write_le_f32(props.friction_weight())?;
+                                    chunk.write_le_f32(props.elasticity_weight())?;
+                                    if let Some(absorption) = props.acoustic_absorption() {
+                                        chunk.write_le_f32(absorption)?;
+                                    }
                                 } else {
-                                    chunk.write_u8(0)?;
+                                    chunk.write_u8(0b00)?;
                                 }
                             } else {
                                 return type_mismatch(i, &rbx_value, "PhysicalProperties");
