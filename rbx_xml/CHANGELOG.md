@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* Implement support for `AcousticAbsorption` in `PhysicalProperties`
 
 ## 1.0.0 (2025-03-28)
 * Improved performance of serializer and deserializer by using `Ustr` to represent property and class names ([#462]).

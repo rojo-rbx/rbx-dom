@@ -181,6 +181,7 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         elasticity: 0.5
         frictionWeight: 1
         elasticityWeight: 1
+        acousticAbsorption: ~
     FormFactor:
       Enum: 1
     FrontParamA:
@@ -307,6 +308,7 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         elasticity: 0.65
         frictionWeight: 50.5
         elasticityWeight: 40.5
+        acousticAbsorption: ~
     FormFactor:
       Enum: 1
     FrontParamA:
@@ -375,4 +377,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - 0
         - 0
   children: []
-

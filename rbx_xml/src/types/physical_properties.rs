@@ -1,6 +1,7 @@
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{CustomPhysicalProperties, PhysicalProperties};
+use xml::reader::XmlEvent;
 
 use crate::{
     core::XmlType,
@@ -16,11 +17,14 @@ impl XmlType for PhysicalProperties {
         match self {
             PhysicalProperties::Custom(properties) => {
                 writer.write_value_in_tag(&true, "CustomPhysics")?;
-                writer.write_value_in_tag(&properties.density, "Density")?;
-                writer.write_value_in_tag(&properties.friction, "Friction")?;
-                writer.write_value_in_tag(&properties.elasticity, "Elasticity")?;
-                writer.write_value_in_tag(&properties.friction_weight, "FrictionWeight")?;
-                writer.write_value_in_tag(&properties.elasticity_weight, "ElasticityWeight")?;
+                writer.write_value_in_tag(&properties.density(), "Density")?;
+                writer.write_value_in_tag(&properties.friction(), "Friction")?;
+                writer.write_value_in_tag(&properties.elasticity(), "Elasticity")?;
+                writer.write_value_in_tag(&properties.friction_weight(), "FrictionWeight")?;
+                writer.write_value_in_tag(&properties.elasticity_weight(), "ElasticityWeight")?;
+                if let Some(value) = properties.acoustic_absorption() {
+                    writer.write_value_in_tag(&value, "AcousticAbsorption")?;
+                }
             }
             PhysicalProperties::Default => {
                 writer.write_value_in_tag(&false, "CustomPhysics")?;
@@ -40,13 +44,21 @@ impl XmlType for PhysicalProperties {
             let friction_weight: f32 = reader.read_value_in_tag("FrictionWeight")?;
             let elasticity_weight: f32 = reader.read_value_in_tag("ElasticityWeight")?;
 
-            Ok(PhysicalProperties::Custom(CustomPhysicalProperties {
+            let acoustic_absorption: Option<f32> = match reader.expect_peek()? {
+                XmlEvent::StartElement { name, .. } if name.local_name == "AcousticAbsorption" => {
+                    Some(reader.read_value_in_tag("AcousticAbsorption")?)
+                }
+                _ => None,
+            };
+
+            Ok(PhysicalProperties::Custom(CustomPhysicalProperties::new(
                 density,
                 friction,
                 elasticity,
                 friction_weight,
                 elasticity_weight,
-            }))
+                acoustic_absorption,
+            )))
         } else {
             Ok(PhysicalProperties::Default)
         }
@@ -66,13 +78,9 @@ mod test {
 
     #[test]
     fn round_trip_physical_properties_custom() {
-        test_util::test_xml_round_trip(&PhysicalProperties::Custom(CustomPhysicalProperties {
-            density: 0.5,
-            friction: 1.0,
-            elasticity: 1.5,
-            friction_weight: 2.0,
-            elasticity_weight: 2.5,
-        }));
+        test_util::test_xml_round_trip(&PhysicalProperties::Custom(CustomPhysicalProperties::new(
+            0.5, 1.0, 1.5, 2.0, 2.5, None,
+        )));
     }
 
     #[test]
@@ -100,13 +108,9 @@ mod test {
                     <ElasticityWeight>2.5</ElasticityWeight>
                 </PhysicalProperties>
             "#,
-            &PhysicalProperties::Custom(CustomPhysicalProperties {
-                density: 0.5,
-                friction: 1.0,
-                elasticity: 1.5,
-                friction_weight: 2.0,
-                elasticity_weight: 2.5,
-            }),
+            &PhysicalProperties::Custom(CustomPhysicalProperties::new(
+                0.5, 1.0, 1.5, 2.0, 2.5, None,
+            )),
         );
     }
 
@@ -135,13 +139,9 @@ mod test {
                     <ElasticityWeight>2.5</ElasticityWeight>
                 </PhysicalProperties>
             "#,
-            &PhysicalProperties::Custom(CustomPhysicalProperties {
-                density: 0.5,
-                friction: 1.0,
-                elasticity: 1.5,
-                friction_weight: 2.0,
-                elasticity_weight: 2.5,
-            }),
+            &PhysicalProperties::Custom(CustomPhysicalProperties::new(
+                0.5, 1.0, 1.5, 2.0, 2.5, None,
+            )),
         );
     }
 }
