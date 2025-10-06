@@ -1085,7 +1085,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     chunk.write_le_f32(props.elasticity_weight())?;
                                     chunk.write_le_f32(props.acoustic_absorption())?;
                                 } else {
-                                    chunk.write_u8(0b00)?;
+                                    chunk.write_u8(0b10)?;
                                 }
                             } else {
                                 return type_mismatch(i, &rbx_value, "PhysicalProperties");
