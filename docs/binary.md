@@ -586,7 +586,7 @@ Two encoded `Rect` values with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0,
 ### PhysicalProperties
 **Type ID `0x19`**
 
-The `PhysicalProperties` type contains a bitfield which indicates whether the value is custom, along with whether it has an `AudioAbsorption` field. This flag is a single byte. These bits are described below, where bit `0` is the least-significant bit.
+The `PhysicalProperties` type contains a bitfield which indicates whether the value is custom, along with whether it has an `AudioAbsorption` field. This flag is a single byte. These bits are described below, where bit `0` is the least-significant bit. When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
 
 | Bit Number | Purpose                                                                    |
 |:-----------|:---------------------------------------------------------------------------|
@@ -606,9 +606,9 @@ If bit `0` is set, then the value is followed by a `CustomPhysicalProperties`. T
 
 The `AcousticAbsorption` field is only present if bit `1` is set. Otherwise, it is left out and may be assumed to be `1.0` when deserializing a `CustomPhysicalProperties`.
 
-If bit `0` is not set, but bit `1` is set, the is no `CustomPhysicalProperties` present.
+If bit `0` is not set, but bit `1` is set, there is no `CustomPhysicalProperties` present.
 
-The `PhysicalProperties` type is stored as a `u8` representing the bitfield, followed by a `CustomPhysicalProperties` if bit `0` is set. When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
+The `PhysicalProperties` type is stored as a `u8` representing the bitfield, followed by a `CustomPhysicalProperties` if bit `0` is set.
 
 
 If you had 4 physical properties with the following characteristics:
