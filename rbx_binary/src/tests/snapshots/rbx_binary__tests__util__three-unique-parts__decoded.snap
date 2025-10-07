@@ -181,6 +181,7 @@ expression: decoded_viewed
         elasticity: 0.5
         frictionWeight: 1
         elasticityWeight: 1
+        acousticAbsorption: 1
     FormFactor:
       Enum: 1
     FrontParamA:
@@ -307,6 +308,7 @@ expression: decoded_viewed
         elasticity: 0.65
         frictionWeight: 50.5
         elasticityWeight: 40.5
+        acousticAbsorption: 1
     FormFactor:
       Enum: 1
     FrontParamA:
@@ -375,4 +377,3 @@ expression: decoded_viewed
         - 0
         - 0
   children: []
-

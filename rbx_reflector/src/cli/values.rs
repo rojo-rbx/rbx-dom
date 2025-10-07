@@ -169,13 +169,9 @@ impl ValuesSubcommand {
         );
         values.insert(
             "PhysicalProperties-Custom",
-            PhysicalProperties::Custom(CustomPhysicalProperties {
-                density: 0.5,
-                friction: 1.0,
-                elasticity: 0.0,
-                friction_weight: 50.0,
-                elasticity_weight: 25.0,
-            })
+            PhysicalProperties::Custom(CustomPhysicalProperties::new(
+                0.5, 1.0, 0.0, 50.0, 25.0, 0.15625,
+            ))
             .into(),
         );
         values.insert(

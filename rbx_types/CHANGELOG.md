@@ -2,11 +2,13 @@
 
 ## Unreleased Changes
 
+* Reworked `PhysicalProperties` type to support `AudioAbsorption`. This is a breaking change, though it is minor. This change makes `PhysicalProperties` non-exhaustive, makes the fields private, and adds setters/getters for them instead. ([#556])
 * Added `Ref::some` to construct a Ref from a u128. ([#516])
 * Added `Content::as_object` and `Content::as_uri` to assume the respective type (optional value). ([#511])
 * Added `Content::into_value` to support converting a `Content` into its underlying value. ([#507])
 
 [#507]: https://github.com/rojo-rbx/rbx-dom/pull/507
+[#556]: https://github.com/rojo-rbx/rbx-dom/pull/556
 
 ## 2.0.0 (2025-03-28)
 * Changed `Content` to more closely align with Roblox's new `Content` type. This is a breaking change. ([#495])

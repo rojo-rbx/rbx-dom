@@ -586,19 +586,43 @@ Two encoded `Rect` values with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0,
 ### PhysicalProperties
 **Type ID `0x19`**
 
-The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five `f32` values:
+The `PhysicalProperties` type contains a bitfield which indicates whether the value is custom, along with whether it has an `AudioAbsorption` field. This flag is a single byte. These bits are described below, where bit `0` is the least-significant bit. When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
 
-| Field Name       | Format | Value                                                        |
-|:-----------------|:-------|:-------------------------------------------------------------|
-| Density          | `f32`  | The density set for the custom physical properties           |
-| Friction         | `f32`  | The friction set for the custom physical properties          |
-| Elasticity       | `f32`  | The elasticity set for the custom physical properties        |
-| FrictionWeight   | `f32`  | The friction weight set for the custom physical properties   |
-| ElasticityWeight | `f32`  | The elasticity weight set for the custom physical properties |
+| Bit Number | Purpose                                                                    |
+|:-----------|:---------------------------------------------------------------------------|
+| `0`        | Whether the value is custom or not                                         |
+| `1`        | Whether the value has `AcousticAbsorption` or not                          |
 
-If there is no `CustomPhysicalProperties` value, a `PhysicalProperties` is stored as a single byte of value `0`. Otherwise, it is stored as a byte of value `1` immediately followed by a `CustomPhysicalProperties` stored as little-endian floats (in the same order as the above table). When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
+If bit `0` is set, then the value is followed by a `CustomPhysicalProperties`. This is a struct of 6 `f32` values:
 
-A default `PhysicalProperties` (i.e. no custom properties set) followed by a `PhysicalProperties` of value `PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)` looks like this: `00 01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f`.
+| Field Name         | Format | Value                                                          |
+|:-------------------|:-------|:---------------------------------------------------------------|
+| Density            | `f32`  | The density set for the custom physical properties             |
+| Friction           | `f32`  | The friction set for the custom physical properties            |
+| Elasticity         | `f32`  | The elasticity set for the custom physical properties          |
+| FrictionWeight     | `f32`  | The friction weight set for the custom physical properties     |
+| ElasticityWeight   | `f32`  | The elasticity weight set for the custom physical properties   |
+| AcousticAbsorption | `f32`  | The acoustic absorption set for the custom physical properties |
+
+The `AcousticAbsorption` field is only present if bit `1` is set. Otherwise, it is left out and may be assumed to be `1.0` when deserializing a `CustomPhysicalProperties`.
+
+If bit `0` is not set, but bit `1` is set, there is no `CustomPhysicalProperties` present.
+
+The `PhysicalProperties` type is stored as a `u8` representing the bitfield, followed by a `CustomPhysicalProperties` if bit `0` is set.
+
+
+If you had 4 physical properties with the following characteristics:
+1. No custom properties set, no `AcousticAbsorption`
+2. `PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)`, no `AcousticAbsorption`
+3. No custom properties set, has `AcousticAbsorption`
+3. `PhysicalProperties.new(0.25, 0.5, 0.125, 1, 0.25, 0.5)`, has `AcousticAbsorption`
+
+They would be serialized as follows: `00 01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f 02 03 00 00 80 3e 00 00 00 3f 00 00 00 3e 00 00 80 3f 00 00 80 3e 00 00 00 3f`.
+
+1. is represented as `00`
+2. is represented as `01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f`
+3. is represented as `02`
+4. is represented as `03 00 00 80 3e 00 00 00 3f 00 00 00 3e 00 00 80 3f 00 00 80 3e 00 00 00 3f`
 
 ### Color3uint8
 **Type ID `0x1a`**

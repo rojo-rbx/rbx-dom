@@ -82,4 +82,7 @@ pub(crate) enum InnerError {
 
     #[error("'Content' type {0} is not implemented")]
     BadContentType(i32),
+
+    #[error("'PhysicalProperties' discriminator {0:b} is not supported")]
+    BadPhysicalPropertiesType(u8),
 }
