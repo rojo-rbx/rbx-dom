@@ -1076,16 +1076,25 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     Type::PhysicalProperties => {
                         for (i, rbx_value) in values {
                             if let Variant::PhysicalProperties(value) = rbx_value.as_ref() {
-                                if let PhysicalProperties::Custom(props) = value {
-                                    chunk.write_u8(0b11)?;
-                                    chunk.write_le_f32(props.density())?;
-                                    chunk.write_le_f32(props.friction())?;
-                                    chunk.write_le_f32(props.elasticity())?;
-                                    chunk.write_le_f32(props.friction_weight())?;
-                                    chunk.write_le_f32(props.elasticity_weight())?;
-                                    chunk.write_le_f32(props.acoustic_absorption())?;
-                                } else {
-                                    chunk.write_u8(0b10)?;
+                                // So that we better roundtrip files, we only
+                                // write the AcousticAbsorption bit if we
+                                // have to.
+                                match value {
+                                    PhysicalProperties::Default => {
+                                        chunk.write_u8(0b00)?;
+                                    }
+                                    PhysicalProperties::Custom(props) => {
+                                        let skip_acoustics = props.acoustic_absorption() == 1.0;
+                                        chunk.write_u8(if skip_acoustics { 0b01 } else { 0b11 })?;
+                                        chunk.write_le_f32(props.density())?;
+                                        chunk.write_le_f32(props.friction())?;
+                                        chunk.write_le_f32(props.elasticity())?;
+                                        chunk.write_le_f32(props.friction_weight())?;
+                                        chunk.write_le_f32(props.elasticity_weight())?;
+                                        if !skip_acoustics {
+                                            chunk.write_le_f32(props.acoustic_absorption())?;
+                                        }
+                                    }
                                 }
                             } else {
                                 return type_mismatch(i, &rbx_value, "PhysicalProperties");
