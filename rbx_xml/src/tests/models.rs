@@ -70,5 +70,6 @@ model_tests! {
     folder_with_enum_attribute,
     imagelabel_content,
     content_mixed,
+    physical_properties_acoustics,
     netassetref,
 }

@@ -500,14 +500,16 @@ An `Optional<CoordinateFrame>` where the value was `0, 0, 0, 1, 0, 0, 0, 1, 0, 0
 
 The `PhysicalProperties` data type is represented as a sequence of either one or six child elements. The first child element is named `CustomPhysics` and is a [`bool`](#bool) value indicating whether the data type is custom or not.
 
-If `CustomPhysics` is `true`, then there will be an additional `5` child elements. They are named `Density`, `Friction`, `Elasticity`, `FrictionWeight`, and `ElasticityWeight` and represent the respective components of the value. Each of these child elements is a [`float`](#float) value.
+If `CustomPhysics` is `true`, then there will be an additional `6` child elements. They are named `Density`, `Friction`, `Elasticity`, `FrictionWeight`, `ElasticityWeight`, and `AcousticAbsorption` and represent the respective components of the value. Each of these child elements is a [`float`](#float) value.
+
+`AcousticAbsorption` was introduced at a later date and MAY be missing from older files. If it is not present in a custom `PhysicalProperties`, it can either be ignored or assumed to be a default value of `1.0`.
 
 If `CustomPhysics` is `false`, then it will be the only child element present.
 
 A custom `PhysicalProperties` created with this constructor:
 
 ```lua
-PhysicalProperties.new(1, 2, 3, 0.15625, 1.25)
+PhysicalProperties.new(1, 2, 3, 0.15625, 1.25, 1)
 ```
 
 Appears as follows:
@@ -520,6 +522,7 @@ Appears as follows:
 	<Elasticity>1</Elasticity>
 	<FrictionWeight>0.15625</FrictionWeight>
 	<ElasticityWeight>1.25</ElasticityWeight>
+	<AcousticAbsorption>1</AcousticAbsorption>
 </PhysicalProperties>
 ```
 
