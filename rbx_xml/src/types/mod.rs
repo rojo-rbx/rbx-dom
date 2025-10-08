@@ -19,6 +19,7 @@ mod enumeration;
 mod faces;
 mod font;
 mod material_colors;
+mod net_asset_ref;
 mod number_range;
 mod number_sequence;
 mod numbers;
@@ -56,6 +57,7 @@ use crate::{
 use self::{
     attributes::write_attributes,
     material_colors::write_material_colors,
+    net_asset_ref::{read_net_asset_ref, write_net_asset_ref},
     referent::{read_ref, write_ref},
     shared_string::{read_shared_string, write_shared_string},
     tags::write_tags,
@@ -87,6 +89,7 @@ macro_rules! declare_rbx_types {
 
                 self::referent::XML_TAG_NAME => Ok(Some(Variant::Ref(read_ref(reader, instance_id, property_name, state)?))),
                 self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state).map(Some),
+                self::net_asset_ref::XML_TAG_NAME => read_net_asset_ref(reader, instance_id, property_name, state).map(Some),
 
                 _ => {
                     state.unknown_type_visited(instance_id, property_name, xml_type_name);
@@ -118,6 +121,7 @@ macro_rules! declare_rbx_types {
                 Variant::Tags(value) => write_tags(writer, xml_property_name, value),
                 Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
                 Variant::MaterialColors(value) => write_material_colors(writer, xml_property_name, value),
+                Variant::NetAssetRef(value) => write_net_asset_ref(writer, xml_property_name, value, state),
 
                 unknown => {
                     Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.ty())))

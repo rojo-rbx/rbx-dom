@@ -180,6 +180,79 @@ pub(crate) mod serde_impl {
     }
 }
 
+/// A type used by Roblox for certain networking and memory guarantees.
+///
+/// This type is functionally identical to a `SharedString` when serialized.
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(transparent)
+)]
+pub struct NetAssetRef(SharedString);
+
+impl NetAssetRef {
+    /// Construct a `NetAssetRef` from an owned buffer of data.
+    pub fn new(data: Vec<u8>) -> Self {
+        Self(SharedString::new(data))
+    }
+
+    #[inline]
+    pub fn data(&self) -> &[u8] {
+        self.0.data()
+    }
+
+    pub fn hash(&self) -> NetAssetRefHash {
+        NetAssetRefHash(self.0.hash)
+    }
+}
+
+impl AsRef<[u8]> for NetAssetRef {
+    fn as_ref(&self) -> &[u8] {
+        self.data()
+    }
+}
+
+impl From<SharedString> for NetAssetRef {
+    fn from(value: SharedString) -> Self {
+        Self(value)
+    }
+}
+
+impl From<NetAssetRef> for SharedString {
+    fn from(value: NetAssetRef) -> Self {
+        value.0
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct NetAssetRefHash(Blake3Hash);
+
+impl NetAssetRefHash {
+    #[inline]
+    pub fn as_bytes(&self) -> &[u8] {
+        self.0.as_bytes().as_ref()
+    }
+}
+
+impl Ord for NetAssetRefHash {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.as_bytes().cmp(other.as_bytes())
+    }
+}
+
+impl PartialOrd for NetAssetRefHash {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl fmt::Display for NetAssetRefHash {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(self.0.to_hex().as_str())
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -241,5 +314,30 @@ mod test {
         let deserialized: SharedString = bincode::deserialize(&serialized).unwrap();
 
         assert_eq!(sstr, deserialized);
+    }
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn netassetref_serde() {
+        let sstr = SharedString::new(vec![13, 37]);
+        let net = NetAssetRef::new(vec![13, 37]);
+
+        let ser_sstr_1 = serde_json::to_string(&sstr).unwrap();
+        let ser_net_1 = serde_json::to_string(&net).unwrap();
+
+        assert_eq!(ser_sstr_1, ser_net_1);
+
+        let de_net_1: NetAssetRef = serde_json::from_str(&ser_net_1).unwrap();
+
+        assert_eq!(net, de_net_1);
+
+        let ser_sstr_2 = bincode::serialize(&sstr).unwrap();
+        let ser_net_2 = bincode::serialize(&net).unwrap();
+
+        assert_eq!(ser_sstr_2, ser_net_2);
+
+        let de_net_2: NetAssetRef = bincode::deserialize(&ser_net_2).unwrap();
+
+        assert_eq!(net, de_net_2);
     }
 }

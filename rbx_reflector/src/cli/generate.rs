@@ -315,6 +315,7 @@ fn variant_type_from_str(type_name: &str) -> Option<VariantType> {
         "Faces" => VariantType::Faces,
         "Font" => VariantType::Font,
         "Instance" => VariantType::Ref,
+        "NetAssetRef" => VariantType::NetAssetRef,
         "NumberRange" => VariantType::NumberRange,
         "NumberSequence" => VariantType::NumberSequence,
         "OptionalCoordinateFrame" => VariantType::OptionalCFrame,

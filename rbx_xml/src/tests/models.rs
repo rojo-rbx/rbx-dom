@@ -71,4 +71,5 @@ model_tests! {
     imagelabel_content,
     content_mixed,
     physical_properties_acoustics,
+    netassetref,
 }

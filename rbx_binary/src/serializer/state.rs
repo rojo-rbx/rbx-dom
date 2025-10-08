@@ -10,7 +10,7 @@ use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
-        MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+        MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence, NumberSequenceKeypoint,
         PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
         UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
@@ -327,6 +327,14 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     // The actual id is set in `add_instances`
                     self.shared_string_ids.insert(shared_string.clone(), 0);
                     self.shared_strings.push(shared_string.clone())
+                }
+            } else if let Variant::NetAssetRef(net) = prop_value {
+                // NetAssetRef is serialized identically as `SharedString` and
+                // uses the same repository, so we just treat them all the same
+                let converted = SharedString::from(net.clone());
+                if !self.shared_string_ids.contains_key(&converted) {
+                    self.shared_string_ids.insert(converted.clone(), 0);
+                    self.shared_strings.push(converted)
                 }
             }
 
@@ -1158,8 +1166,18 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                         value.hash()
                                     )
                                 }
+                            } else if let Variant::NetAssetRef(value) = rbx_value.as_ref() {
+                                let converted = SharedString::from(value.clone());
+                                if let Some(id) = self.shared_string_ids.get(&converted) {
+                                    entries.push(*id)
+                                } else {
+                                    panic!(
+                                        "NetAssetRef {} was not found during type collection",
+                                        value.hash()
+                                    );
+                                }
                             } else {
-                                return type_mismatch(i, &rbx_value, "SharedString");
+                                return type_mismatch(i, &rbx_value, "SharedString or NetAssetRef");
                             }
                         }
 
@@ -1438,6 +1456,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                 Variant::SecurityCapabilities(SecurityCapabilities::default())
             }
             VariantType::Content => Variant::Content(Content::none()),
+            VariantType::NetAssetRef => Variant::NetAssetRef(NetAssetRef::new(Vec::new())),
             _ => return None,
         })
     }
