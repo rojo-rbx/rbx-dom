@@ -119,11 +119,15 @@ macro_rules! material_colors {
         const MATERIAL_ORDER: [TerrainMaterials; 21] = [$(TerrainMaterials::$name,)*];
 
         /// All materials that are represented by `MaterialColors`.
+        ///
+        /// Roblox may add more to this enum unexpectedly, so it is marked
+        /// as `non_exhaustive.`
         #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
         #[cfg_attr(
             feature = "serde",
             derive(serde::Serialize, serde::Deserialize),
         )]
+        #[non_exhaustive]
         pub enum TerrainMaterials {
             $(
                 $name,
