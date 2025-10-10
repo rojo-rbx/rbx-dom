@@ -32,7 +32,7 @@ impl<W: Write> XmlEventWriter<W> {
     }
 
     pub(crate) fn error<T: Into<EncodeErrorKind>>(&self, kind: T) -> NewEncodeError {
-        NewEncodeError::new_from_writer(kind.into(), &self.inner)
+        NewEncodeError::new(kind.into())
     }
 
     pub fn end_element(&mut self) -> Result<(), NewEncodeError> {
@@ -136,11 +136,11 @@ fn write_characters_or_cdata<W: Write>(
     if has_outer_whitespace {
         writer
             .write(XmlWriteEvent::cdata(value))
-            .map_err(|e| NewEncodeError::new_from_writer(e.into(), writer))?;
+            .map_err(|e| NewEncodeError::new(e.into()))?;
     } else {
         writer
             .write(XmlWriteEvent::characters(value))
-            .map_err(|e| NewEncodeError::new_from_writer(e.into(), writer))?;
+            .map_err(|e| NewEncodeError::new(e.into()))?;
     }
 
     Ok(())

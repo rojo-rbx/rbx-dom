@@ -5,7 +5,7 @@ use rbx_dom_weak::types::{Font, FontStyle, FontWeight};
 use crate::{
     core::XmlType,
     deserializer_core::{XmlEventReader, XmlReadEvent},
-    error::{DecodeError, DecodeErrorKind, EncodeError},
+    error::{DecodeError, DecodeErrorKind, EncodeError, EncodeErrorKind},
     serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
@@ -93,6 +93,11 @@ impl XmlType for Font {
         let style = match self.style {
             FontStyle::Normal => "Normal",
             FontStyle::Italic => "Italic",
+            style => {
+                return Err(EncodeError::new(EncodeErrorKind::UnsupportedFontStyle(
+                    style,
+                )))
+            }
         };
         writer.write_tag_characters("Style", style)?;
 
