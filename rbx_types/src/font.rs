@@ -1,3 +1,10 @@
+/// Represents a 'weight' for a Font. These correspond to values of the
+/// [`FontWeight`][FontWeight-rbx] enum on Roblox.
+///
+/// Due to the nature of Roblox enums, this is marked as non-exhaustive as
+/// Roblox may add more variants to it at any time.
+///
+/// [FontWeight-rbx]: https://create.roblox.com/docs/reference/engine/enums/FontWeight
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
@@ -15,6 +22,11 @@ pub enum FontWeight {
 }
 
 impl FontWeight {
+    /// Creates a `FontWeight` from the provided value, if possible. Accepted
+    /// values correspond to entries in the [`FontWeight`][FontWeight-rbx] enum
+    /// on Roblox.
+    ///
+    /// [FontWeight-rbx]: https://create.roblox.com/docs/reference/engine/enums/FontWeight
     pub fn from_u16(weight: u16) -> Option<Self> {
         Some(match weight {
             100 => FontWeight::Thin,
@@ -29,6 +41,12 @@ impl FontWeight {
             _ => return None,
         })
     }
+
+    /// Converts this vaue into a number identifier. Values are converted into
+    /// their respective value of the Roblox [`FontWeight`][FontWeight-rbx]
+    /// enum. As an example, `FontWeight::Thin` is converted to `100`.
+    ///
+    /// [FontWeight-rbx]: https://create.roblox.com/docs/reference/engine/enums/FontWeight
     pub fn as_u16(self) -> u16 {
         match self {
             FontWeight::Thin => 100,
@@ -44,6 +62,13 @@ impl FontWeight {
     }
 }
 
+/// Represents a 'style' for a Font. These correspond to values of the
+/// [`FontStyle`][FontStyle-rbx] enum on Roblox.
+///
+/// Due to the nature of Roblox enums, this is marked as non-exhaustive as
+/// Roblox may add more variants to it at any time.
+///
+/// [FontStyle-rbx]: https://create.roblox.com/docs/reference/engine/enums/FontStyle
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
@@ -54,6 +79,11 @@ pub enum FontStyle {
 }
 
 impl FontStyle {
+    /// Creates a `FontStyle` from the provided value, if possible. Accepted
+    /// values correspond to entries in the [`FontStyle`][FontStyle-rbx] enum
+    /// on Roblox.
+    ///
+    /// [FontStyle-rbx]: https://create.roblox.com/docs/reference/engine/enums/FontStyle
     pub fn from_u8(style: u8) -> Option<Self> {
         Some(match style {
             0 => FontStyle::Normal,
@@ -62,6 +92,11 @@ impl FontStyle {
         })
     }
 
+    /// Converts this vaue into a number identifier. Values are converted into
+    /// their respective value of the Roblox [`FontStyle`][FontStyle-rbx]
+    /// enum. As an example, `FontStyle::Normal` is converted to `0`.
+    ///
+    /// [FontStyle-rbx]: https://create.roblox.com/docs/reference/engine/enums/FontStyle
     pub fn as_u8(self) -> u8 {
         match self {
             FontStyle::Normal => 0,
@@ -96,6 +131,7 @@ impl Default for Font {
 }
 
 impl Font {
+    /// Constructs a new font with the provided family, weight, and style.
     pub fn new(family: &str, weight: FontWeight, style: FontStyle) -> Self {
         Self {
             family: family.to_owned(),
@@ -104,6 +140,9 @@ impl Font {
             cached_face_id: None,
         }
     }
+
+    /// Constructs a 'regular' font from the provided family, with the default
+    /// weight and style.
     pub fn regular(family: &str) -> Self {
         Self {
             family: family.to_owned(),
