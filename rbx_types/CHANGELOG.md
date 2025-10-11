@@ -1,7 +1,6 @@
 # rbx_types Changelog
 
-## Unreleased Changes
-
+# 3.0.0 (2025-10-10)
 * Marked `CustomPhysicalProperties`, `TerrainMaterials`, `FontStyle`, and `FontWeight` as non-exhaustive. This is a breaking change. ([#556], [#557])
 * Changed `CustomPhysicalProperties` to use private fields and to have a constructor and setters/getters. This is a breaking change. ([#556])
 * Reworked `CustomPhysicalProperties` to support `AudioAbsorption` ([#556])
