@@ -1,6 +1,6 @@
 use std::{
     fmt,
-    io::{self, Read, Write},
+    io::{self, Read},
 };
 
 use rbx_dom_weak::types::VariantType;
@@ -188,10 +188,7 @@ pub struct EncodeError {
 }
 
 impl EncodeError {
-    pub(crate) fn new_from_writer<W: Write>(
-        kind: EncodeErrorKind,
-        _writer: &xml::EventWriter<W>,
-    ) -> EncodeError {
+    pub(crate) fn new(kind: EncodeErrorKind) -> EncodeError {
         EncodeError {
             kind: Box::new(kind),
         }
@@ -228,6 +225,7 @@ pub(crate) enum EncodeErrorKind {
         actual_type: VariantType,
         message: String,
     },
+    UnsupportedFontStyle(rbx_dom_weak::types::FontStyle),
 }
 
 impl fmt::Display for EncodeErrorKind {
@@ -257,6 +255,7 @@ impl fmt::Display for EncodeErrorKind {
                 "Property {class_name}.{property_name} is expected to be of type {expected_type:?}, but it was of type {actual_type:?} \
                  When trying to convert the value, this error occured: {message}"
             ),
+            UnsupportedFontStyle(style) => write!(output, "Cannot serialize FontStyle of type {style:?}")
         }
     }
 }
@@ -272,7 +271,8 @@ impl std::error::Error for EncodeErrorKind {
 
             UnknownProperty { .. }
             | UnsupportedPropertyType(_)
-            | UnsupportedPropertyConversion { .. } => None,
+            | UnsupportedPropertyConversion { .. }
+            | UnsupportedFontStyle(_) => None,
         }
     }
 }
