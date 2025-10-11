@@ -1,6 +1,7 @@
 # rbx_binary Changelog
 
-## Unreleased
+## 2.0.0 (2025-10-10)
+* Upgrade rbx-dom dependencies, which results in breaking changes to some data types.
 * Implement support for serializing and deserializing the `NetAssetRef` type. ([#555])
 * Implement support for `AcousticAbsorption` in `PhysicalProperties`. ([#556])
 
