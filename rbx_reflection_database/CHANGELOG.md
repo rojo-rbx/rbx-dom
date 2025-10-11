@@ -1,7 +1,7 @@
 # rbx\_reflection_database Changelog
 
-## Unreleased Changes
-* Updated to Roblox version 693.
+## 2.0.0+roblox-694 (2025-10-10)
+* Updated to Roblox version 694.
 * The database may now be loaded dynamically from the local file system. ([#376])
   The location is OS-dependent but it will only be loaded if one exists. The location may also be manually specified using the `RBX_DATABASE` environment variable.
 

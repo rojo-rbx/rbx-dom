@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    693,
+    694,
     0,
-    6930960
+    6940982
   ],
   "Classes": {
     "Accessory": {
@@ -6621,9 +6621,7 @@
     },
     "AudioTremolo": {
       "Name": "AudioTremolo",
-      "Tags": [
-        "NotBrowsable"
-      ],
+      "Tags": [],
       "Superclass": "Instance",
       "Properties": {
         "Bypass": {
@@ -38760,6 +38758,26 @@
         }
       }
     },
+    "InstanceExtensionsService": {
+      "Name": "InstanceExtensionsService",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
     "IntConstrainedValue": {
       "Name": "IntConstrainedValue",
       "Tags": [
@@ -39166,7 +39184,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "InertiaMigrated": {
-          "Bool": false
+          "Bool": true
         },
         "InitialSize": {
           "Vector3": [
@@ -39281,9 +39299,6 @@
         "SmoothingAngle": {
           "Float32": 0.0
         },
-        "SolidMeshHolder": {
-          "NetAssetRef": ""
-        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -39310,27 +39325,27 @@
         },
         "UnscaledCofm": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolInertiaDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.16666666,
+            0.16666666,
+            0.16666666
           ]
         },
         "UnscaledVolInertiaOffDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolume": {
-          "Float32": null
+          "Float32": 1.0
         },
         "UsePartColor": {
           "Bool": false
@@ -44257,7 +44272,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "InertiaMigrated": {
-          "Bool": false
+          "Bool": true
         },
         "InitialSize": {
           "Vector3": [
@@ -44399,27 +44414,27 @@
         },
         "UnscaledCofm": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolInertiaDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            1.6666664e-31,
+            1.6666664e-31,
+            1.6666664e-31
           ]
         },
         "UnscaledVolInertiaOffDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolume": {
-          "Float32": null
+          "Float32": 9.999999e-19
         },
         "Velocity": {
           "Vector3": [
@@ -46102,7 +46117,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "InertiaMigrated": {
-          "Bool": false
+          "Bool": true
         },
         "InitialSize": {
           "Vector3": [
@@ -46220,9 +46235,6 @@
         "SmoothingAngle": {
           "Float32": 0.0
         },
-        "SolidMeshHolder": {
-          "NetAssetRef": ""
-        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -46249,27 +46261,27 @@
         },
         "UnscaledCofm": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolInertiaDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.16666666,
+            0.16666666,
+            0.16666666
           ]
         },
         "UnscaledVolInertiaOffDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolume": {
-          "Float32": null
+          "Float32": 1.0
         },
         "UsePartColor": {
           "Bool": false
@@ -48513,7 +48525,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "InertiaMigrated": {
-          "Bool": false
+          "Bool": true
         },
         "InitialSize": {
           "Vector3": [
@@ -48628,9 +48640,6 @@
         "SmoothingAngle": {
           "Float32": 0.0
         },
-        "SolidMeshHolder": {
-          "NetAssetRef": ""
-        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -48657,27 +48666,27 @@
         },
         "UnscaledCofm": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolInertiaDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.16666666,
+            0.16666666,
+            0.16666666
           ]
         },
         "UnscaledVolInertiaOffDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolume": {
-          "Float32": null
+          "Float32": 1.0
         },
         "UsePartColor": {
           "Bool": false
@@ -58004,6 +58013,22 @@
             }
           }
         },
+        "PredictionState": {
+          "Name": "PredictionState",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "PredictionState"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "RunState": {
           "Name": "RunState",
           "Scriptability": "ReadWrite",
@@ -58092,6 +58117,26 @@
         "NotCreatable"
       ],
       "Superclass": "StatsItem",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "RuntimeContentService": {
+      "Name": "RuntimeContentService",
+      "Tags": [
+        "NotCreatable",
+        "Service"
+      ],
+      "Superclass": "Instance",
       "Properties": {},
       "DefaultProperties": {
         "Archivable": {
@@ -80095,7 +80140,7 @@
           "UniqueId": "00000000000000000000000000000000"
         },
         "InertiaMigrated": {
-          "Bool": false
+          "Bool": true
         },
         "InitialSize": {
           "Vector3": [
@@ -80210,9 +80255,6 @@
         "SmoothingAngle": {
           "Float32": 0.0
         },
-        "SolidMeshHolder": {
-          "NetAssetRef": ""
-        },
         "SourceAssetId": {
           "Int64": -1
         },
@@ -80239,27 +80281,27 @@
         },
         "UnscaledCofm": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolInertiaDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.16666666,
+            0.16666666,
+            0.16666666
           ]
         },
         "UnscaledVolInertiaOffDiags": {
           "Vector3": [
-            null,
-            null,
-            null
+            0.0,
+            0.0,
+            0.0
           ]
         },
         "UnscaledVolume": {
-          "Float32": null
+          "Float32": 1.0
         },
         "UsePartColor": {
           "Bool": false
@@ -89106,9 +89148,12 @@
     "ConnectionError": {
       "name": "ConnectionError",
       "items": {
+        "AlreadyConnected": 3,
         "AndroidAnticheatKick": 304,
         "AndroidEmulatorKick": 305,
         "AndroidRootedKick": 306,
+        "ConnectErrors": 2,
+        "ConnectionBanned": 5,
         "DisconnectBadhash": 257,
         "DisconnectBlockedIP": 282,
         "DisconnectBySecurityPolicy": 281,
@@ -89144,12 +89189,18 @@
         "DisconnectSendPacketError": 262,
         "DisconnectTimeout": 266,
         "DisconnectWrongVersion": 280,
+        "DisconnectionNotification": 308,
+        "IPRecentlyConnected": 8,
+        "IncompatibleProtocolVersion": 7,
+        "InvalidPassword": 6,
         "NetworkInternal": 296,
         "NetworkMisbehavior": 299,
         "NetworkSecurity": 300,
         "NetworkSend": 297,
         "NetworkTimeout": 298,
+        "NoFreeIncomingConnections": 4,
         "OK": 0,
+        "OurSystemRequiresSecurity": 9,
         "PhantomFreeze": 303,
         "PlacelaunchCreatorBan": 600,
         "PlacelaunchCustomMessage": 610,
@@ -89172,6 +89223,7 @@
         "ReplacementReady": 301,
         "ReplicatorTimeout": 290,
         "ScreentimeLockoutKick": 307,
+        "SecurityKeyMismatch": 10,
         "ServerEmpty": 302,
         "ServerShutdown": 288,
         "TeleportErrors": 768,
@@ -89197,6 +89249,7 @@
       "items": {
         "None": 0,
         "Object": 2,
+        "Opaque": 3,
         "Uri": 1
       }
     },
@@ -91396,6 +91449,14 @@
         "Kick": 2
       }
     },
+    "PlayerExitReason": {
+      "name": "PlayerExitReason",
+      "items": {
+        "CreatorKick": 2,
+        "PlatformKick": 1,
+        "Unknown": 0
+      }
+    },
     "PoseEasingDirection": {
       "name": "PoseEasingDirection",
       "items": {
@@ -91428,6 +91489,15 @@
         "Automatic": 0,
         "Off": 2,
         "On": 1
+      }
+    },
+    "PredictionState": {
+      "name": "PredictionState",
+      "items": {
+        "Idle": 0,
+        "Resimulating": 3,
+        "RollingBack": 2,
+        "Simulating": 1
       }
     },
     "PreferredInput": {
