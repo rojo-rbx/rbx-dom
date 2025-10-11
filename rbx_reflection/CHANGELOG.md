@@ -1,6 +1,7 @@
 # rbx_reflection Changelog
 
-## Unreleased Changes
+## 6.0.0 (2025-10-10)
+* Updated to rbx_types 3.0.0. As this is a major version bump for a dependency, this crate has also gone up a major version to avoid mismatched versions. It is otherwise unchanged.
 
 ## 5.0.0 (2025-03-28)
 * Added `ReflectionDatabase::superclasses_iter`
