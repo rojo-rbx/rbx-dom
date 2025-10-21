@@ -517,7 +517,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let buffer = chunk.read_binary_string()?;
-                        match SmoothGrid::decode(&buffer) {
+
+                        match SmoothGrid::decode(buffer.as_slice()) {
                             Ok(value) => add_property(instance, &property, value.into()),
                             Err(err) => {
                                 log::warn!(

@@ -119,3 +119,44 @@ where
 
     Ok(())
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    /// This is a confirmed valid snapshot of the testing data created by
+    /// the encoder in the `test_binary_encode` test, and is in the snapshot.
+    const TERRAIN_BASE64: &str = "AQUAAAAAAAAAAAAAAAABFoD/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP0AAAAAAAAAAAABAAABFoD/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP0=";
+
+    #[test]
+    fn test_grid_encode() {
+        let mut terr = SmoothGrid::new();
+        let mut chunk = Chunk::new_with_base(TerrainMaterials::Air);
+
+        let mut voxel = Voxel::new_with_water(TerrainMaterials::Water, 1.0, 0.5);
+        chunk.write_voxel(&VoxelCoordinates::new(0, 0, 0), voxel);
+        voxel.set_material(TerrainMaterials::Pavement);
+        chunk.write_voxel(&VoxelCoordinates::new(1, 0, 0), voxel);
+
+        terr.write_chunk(&ChunkCoordinates::default(), chunk.clone());
+        terr.write_chunk(&ChunkCoordinates::new(1, 0, 0), chunk.clone());
+
+        let encoded_grid = base64::encode(terr.encode());
+        assert_eq!(encoded_grid, TERRAIN_BASE64)
+    }
+
+    #[test]
+    #[cfg(feature = "serde")]
+    fn test_round_trip_grid() {
+        let grid_bytes = base64::decode(TERRAIN_BASE64).expect("bad base64 for terrain");
+        let grid = SmoothGrid::decode(grid_bytes.as_slice()).expect("couldn't deserialize terrain");
+
+        let encoded = grid.encode();
+        let epic = &encoded[..];
+        println!("{epic:02X?}");
+
+        // Because the serde implementation for SmoothGrid is naive, and solely
+        // calls into the actual encoder, this will test the encoder.
+        insta::assert_yaml_snapshot!(grid);
+    }
+}

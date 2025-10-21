@@ -29,7 +29,7 @@ impl<'de> Visitor<'de> for SmoothGridVisitor {
     {
         let decoded_bytes = base64_or_unexpected(str)?;
 
-        match SmoothGrid::decode(&decoded_bytes[..]) {
+        match SmoothGrid::decode(decoded_bytes.as_slice()) {
             Ok(grid) => Ok(grid),
             Err(_) => Err(de::Error::invalid_value(Unexpected::Str(str), &self)),
         }
@@ -68,7 +68,7 @@ impl<'de> Visitor<'de> for ChunkVisitor {
     {
         let decoded_bytes = base64_or_unexpected(str)?;
 
-        match Chunk::decode(&decoded_bytes[..]) {
+        match Chunk::decode(decoded_bytes.as_slice()) {
             Ok(grid) => Ok(grid),
             Err(_) => Err(de::Error::invalid_value(Unexpected::Str(str), &self)),
         }

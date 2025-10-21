@@ -420,6 +420,17 @@ impl Chunk {
         self.grid.insert(*position, voxel);
     }
 
+    /// Using the yzx encoding order of chunks, convert the integer index into
+    /// the chunk's array of voxels to its 3D position within the chunk.
+    #[inline]
+    fn voxel_index_to_coordinates(index: i32) -> VoxelCoordinates {
+        VoxelCoordinates::new(
+            index % CHUNK_SIZE,
+            index / (CHUNK_SIZE.pow(2)),
+            (index / CHUNK_SIZE) % CHUNK_SIZE,
+        )
+    }
+
     pub(super) fn encode(&self) -> Vec<u8> {
         // ~256 bytes if all voxels are air/base mat with maximum count. Double it
         let mut data = Vec::with_capacity(512);
@@ -472,9 +483,15 @@ impl Chunk {
         data
     }
 
-    /// Decodes a `Chunk` from a binary blob. The blob must be the same format used
-    /// by `encode` and Roblox.
-    pub fn decode(mut buffer: &[u8]) -> Result<Self, CrateError> {
+    /// Decodes a `Chunk` from a binary blob. The blob must be the same
+    /// format used by `encode` and Roblox.
+    pub fn decode<B: Read>(mut buffer: B) -> Result<Self, CrateError> {
+        Self::decode_mut(&mut buffer)
+    }
+
+    /// Decodes a `Chunk` from a binary blob, mutating the reader. The blob
+    /// must be the same format used by `encode` and Roblox.
+    pub fn decode_mut<B: Read>(buffer: &mut B) -> Result<Self, CrateError> {
         let mut chunk = Chunk::new();
 
         let mut voxel_count = 0;
@@ -484,12 +501,15 @@ impl Chunk {
                 return Err(SmoothGridError::from(e).into());
             }
 
-            let voxel_flag = VoxelFlags::from_bits_truncate(current_voxel_buffer[0]);
+            let curr_byte = current_voxel_buffer[0];
+            let voxel_flag = VoxelFlags::from_bits_truncate(curr_byte);
+
+            let byte_material = curr_byte & !VoxelFlags::all().bits();
+            let material = TerrainGridMaterial::try_from(byte_material)?;
 
             let mut occupancy: Option<f32> = None;
             let mut count: Option<u8> = None;
             let mut water_occupancy: Option<f32> = None;
-            let material = TerrainGridMaterial::try_from(current_voxel_buffer[0])?;
 
             if voxel_flag.contains(VoxelFlags::HAS_OCCUPANCY) {
                 let mut occupancy_buffer = [0u8];
@@ -517,29 +537,10 @@ impl Chunk {
                 }
             }
 
-            if let Some(voxel_amount) = count {
-                for _ in 0..voxel_amount {
-                    chunk.write_voxel(
-                        &VoxelCoordinates::new(
-                            voxel_count / (CHUNK_SIZE.pow(2)),
-                            voxel_count / CHUNK_SIZE,
-                            voxel_count % CHUNK_SIZE,
-                        ),
-                        Voxel {
-                            material,
-                            solid_occupancy: occupancy.unwrap_or(0.0),
-                            water_occupancy: 0.0,
-                        },
-                    );
-                    voxel_count += 1;
-                }
-            } else {
+            for _ in 0..=count.unwrap_or(0) {
+                let voxel_position = Self::voxel_index_to_coordinates(voxel_count);
                 chunk.write_voxel(
-                    &VoxelCoordinates::new(
-                        voxel_count / (CHUNK_SIZE.pow(2)),
-                        voxel_count / CHUNK_SIZE,
-                        voxel_count % CHUNK_SIZE,
-                    ),
+                    &voxel_position,
                     Voxel {
                         material,
                         solid_occupancy: occupancy.unwrap_or(0.0),
@@ -612,9 +613,15 @@ impl SmoothGrid {
         data
     }
 
-    /// Decodes a `SmoothGrid` from a binary blob. The blob must be the same format used
-    /// by `encode` and Roblox.
-    pub fn decode(mut buffer: &[u8]) -> Result<Self, CrateError> {
+    /// Decodes a `SmoothGrid` from a binary blob. The blob must be the
+    /// same format used by `encode` and Roblox.
+    pub fn decode<B: Read>(mut buffer: B) -> Result<Self, CrateError> {
+        Self::decode_mut(&mut buffer)
+    }
+
+    /// Decodes a `SmoothGrid` from a binary blob, mutating the reader.
+    /// The blob must be the same format used by `encode` and Roblox.
+    pub fn decode_mut<B: Read>(buffer: &mut B) -> Result<Self, CrateError> {
         let mut header = [0u8, 0u8];
         if let Err(e) = buffer.read_exact(&mut header) {
             return Err(SmoothGridError::from(e).into());
@@ -628,7 +635,7 @@ impl SmoothGrid {
         let mut world = Self::new();
         let mut offset_buffer = [0; 3];
         let mut cursor_buffer = [0; 3];
-        while read_interleaved_i32_array(&mut buffer, &mut offset_buffer).is_ok() {
+        while read_interleaved_i32_array(buffer, &mut offset_buffer).is_ok() {
             let true_position_buffer = [
                 cursor_buffer[0] + offset_buffer[0],
                 cursor_buffer[1] + offset_buffer[1],
@@ -636,38 +643,14 @@ impl SmoothGrid {
             ];
             cursor_buffer.copy_from_slice(&true_position_buffer[..]);
 
-            let true_position = ChunkCoordinates::new(
+            let true_position: ChunkCoordinates = ChunkCoordinates::new(
                 true_position_buffer[0],
                 true_position_buffer[1],
                 true_position_buffer[2],
             );
-            world.write_chunk(&true_position, Chunk::decode(buffer)?);
+            world.write_chunk(&true_position, Chunk::decode_mut(buffer)?);
         }
 
         Ok(world)
-    }
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn encode_default() {
-        let mut terr = SmoothGrid::new();
-        let mut chunk = Chunk::new_with_base(TerrainMaterials::Air);
-
-        let mut voxel = Voxel::new_with_water(TerrainMaterials::Water, 1.0, 0.5);
-        chunk.write_voxel(&VoxelCoordinates::new(0, 0, 0), voxel);
-        voxel.set_material(TerrainMaterials::Pavement);
-        chunk.write_voxel(&VoxelCoordinates::new(1, 0, 0), voxel);
-
-        terr.write_chunk(&ChunkCoordinates::default(), chunk.clone());
-        terr.write_chunk(&ChunkCoordinates::new(1, 0, 0), chunk.clone());
-
-        let test = serde_json::to_string(&terr).unwrap();
-        println!("{test}");
-        //let encoded = base64::encode(terr.encode());
-        //assert_eq!(encoded, "AQUAAAAAAAAAAAAAAAABFoD/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP0AAAAAAAAAAAABAAABFoD/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP+A/4D/gP0=")
     }
 }

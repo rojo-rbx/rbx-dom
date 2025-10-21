@@ -96,7 +96,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
             }
             (Variant::BinaryString(value), VariantType::SmoothGrid) => {
-                match SmoothGrid::decode(value.as_ref()) {
+                let bytes: &[u8] = value.as_ref();
+                match SmoothGrid::decode(bytes) {
                     Ok(smooth_grid) => Ok(Cow::Owned(smooth_grid.into())),
                     Err(err) => {
                         log::warn!(
