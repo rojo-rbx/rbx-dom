@@ -152,8 +152,6 @@ mod test {
         let grid = SmoothGrid::decode(grid_bytes.as_slice()).expect("couldn't deserialize terrain");
 
         let encoded = grid.encode();
-        let epic = &encoded[..];
-        println!("{epic:02X?}");
 
         // Because the serde implementation for SmoothGrid is naive, and solely
         // calls into the actual encoder, this will test the encoder.
