@@ -54,6 +54,7 @@ impl Type {
             VariantType::ContentId => Type::String,
             VariantType::Tags => Type::String,
             VariantType::MaterialColors => Type::String,
+            VariantType::SmoothGrid => Type::String,
 
             VariantType::SharedString => Type::SharedString,
             VariantType::NetAssetRef => Type::SharedString,

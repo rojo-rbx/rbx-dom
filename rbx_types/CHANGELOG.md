@@ -1,6 +1,11 @@
 # rbx_types Changelog
 
-# 3.0.0 (2025-10-10)
+## Unreleased
+* Added support for `Terrain.SmoothGrid`, and adjacent support for `TerrainRegion.SmoothGrid`. ([#444])
+
+[#444]: https://github.com/rojo-rbx/rbx-dom/pull/444
+
+## 3.0.0 (2025-10-10)
 * Marked `CustomPhysicalProperties`, `TerrainMaterials`, `FontStyle`, and `FontWeight` as non-exhaustive. This is a breaking change. ([#556], [#557])
 * Changed `CustomPhysicalProperties` to use private fields and to have a constructor and setters/getters. This is a breaking change. ([#556])
 * Reworked `CustomPhysicalProperties` to support `AudioAbsorption` ([#556])
@@ -8,6 +13,7 @@
 * Added `Ref::some` to construct a Ref from a u128. ([#516])
 * Added `Content::as_object` and `Content::as_uri` to assume the respective type (optional value). ([#511])
 * Added `Content::into_value` to support converting a `Content` into its underlying value. ([#507])
+* Added support for `Terrain.SmoothGrid`, and adjacent support for `TerrainRegion.SmoothGrid`. ([#444])
 
 [#516]: https://github.com/rojo-rbx/rbx-dom/pull/516
 [#511]: https://github.com/rojo-rbx/rbx-dom/pull/511
