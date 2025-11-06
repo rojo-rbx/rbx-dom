@@ -1394,6 +1394,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 }
 static DEFAULT_STRING: Variant = Variant::String(String::new());
 fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
+    use std::sync::LazyLock;
     static DEFAULT_BINARYSTRING: Variant = Variant::BinaryString(BinaryString::new());
     static DEFAULT_BOOL: Variant = Variant::Bool(false);
     static DEFAULT_INT32: Variant = Variant::Int32(0);
@@ -1419,22 +1420,22 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     static DEFAULT_VECTOR3: Variant = Variant::Vector3(Vector3::new(0.0, 0.0, 0.0));
     static DEFAULT_REF: Variant = Variant::Ref(Ref::none());
     static DEFAULT_VECTOR3INT16: Variant = Variant::Vector3int16(Vector3int16::new(0, 0, 0));
-    lazy_static::lazy_static! {
-        static ref DEFAULT_NUMBERSEQUENCE: Variant = Variant::NumberSequence(NumberSequence {
+    static DEFAULT_NUMBERSEQUENCE: LazyLock<Variant> = LazyLock::new(|| {
+        Variant::NumberSequence(NumberSequence {
             keypoints: vec![
                 NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
                 NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
             ],
-        });
-    }
-    lazy_static::lazy_static! {
-        static ref DEFAULT_COLORSEQUENCE: Variant = Variant::ColorSequence(ColorSequence {
+        })
+    });
+    static DEFAULT_COLORSEQUENCE: LazyLock<Variant> = LazyLock::new(|| {
+        Variant::ColorSequence(ColorSequence {
             keypoints: vec![
                 ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
                 ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
             ],
-        });
-    }
+        })
+    });
     static DEFAULT_NUMBERRANGE: Variant = Variant::NumberRange(NumberRange::new(0.0, 0.0));
     static DEFAULT_RECT: Variant =
         Variant::Rect(Rect::new(Vector2::new(0.0, 0.0), Vector2::new(0.0, 0.0)));
@@ -1442,25 +1443,20 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
         Variant::PhysicalProperties(PhysicalProperties::Default);
     static DEFAULT_COLOR3UINT8: Variant = Variant::Color3uint8(Color3uint8::new(0, 0, 0));
     static DEFAULT_INT64: Variant = Variant::Int64(0);
-    lazy_static::lazy_static! {
-        static ref DEFAULT_SHAREDSTRING: Variant =
-            Variant::SharedString(SharedString::new(Vec::new()));
-    }
+    static DEFAULT_SHAREDSTRING: LazyLock<Variant> =
+        LazyLock::new(|| Variant::SharedString(SharedString::new(Vec::new())));
     static DEFAULT_OPTIONALCFRAME: Variant = Variant::OptionalCFrame(None);
     static DEFAULT_TAGS: Variant = Variant::Tags(Tags::new());
     static DEFAULT_CONTENTID: Variant = Variant::ContentId(ContentId::new());
     static DEFAULT_ATTRIBUTES: Variant = Variant::Attributes(Attributes::new());
     static DEFAULT_UNIQUEID: Variant = Variant::UniqueId(UniqueId::nil());
-    lazy_static::lazy_static! {
-        static ref DEFAULT_FONT: Variant = Variant::Font(Font::default());
-    }
+    static DEFAULT_FONT: LazyLock<Variant> = LazyLock::new(|| Variant::Font(Font::default()));
     static DEFAULT_MATERIALCOLORS: Variant = Variant::MaterialColors(MaterialColors::new());
     static DEFAULT_SECURITYCAPABILITIES: Variant =
         Variant::SecurityCapabilities(SecurityCapabilities::from_bits(0));
     static DEFAULT_CONTENT: Variant = Variant::Content(Content::none());
-    lazy_static::lazy_static! {
-        static ref DEFAULT_NETASSETREF: Variant = Variant::NetAssetRef(NetAssetRef::new(Vec::new()));
-    }
+    static DEFAULT_NETASSETREF: LazyLock<Variant> =
+        LazyLock::new(|| Variant::NetAssetRef(NetAssetRef::new(Vec::new())));
     Some(match rbx_type {
         VariantType::String => &DEFAULT_STRING,
         VariantType::BinaryString => &DEFAULT_BINARYSTRING,

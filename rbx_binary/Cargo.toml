@@ -29,7 +29,6 @@ thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }
 profiling = "1.0.6"
 zstd = "0.13.2"
-lazy_static = "1.5.0"
 
 [dev-dependencies]
 criterion = "0.5.1"
