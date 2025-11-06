@@ -223,6 +223,7 @@ pub enum DataType<'a> {
     /// The property is an enum with the given name.
     Enum(Cow<'a, str>),
 }
+
 impl DataType<'_> {
     pub fn ty(&self) -> VariantType {
         match self {
