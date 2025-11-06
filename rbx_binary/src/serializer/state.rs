@@ -751,7 +751,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 instances: &[&Instance],
                 type_name: &str,
             ) -> Result<(), InnerError> {
-                profiling::scope!("serialize property", prop_name.borrow());
+                profiling::scope!("serialize property", &prop_info.canonical_name);
                 log::trace!(
                     "Writing property {}.{} (type {:?})",
                     type_name,
