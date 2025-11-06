@@ -16,6 +16,7 @@ pub struct ReadInterleavedBufferIter<const N: usize> {
     index: usize,
     len: usize,
 }
+
 impl<const N: usize> ReadInterleavedBufferIter<N> {
     fn new(len: usize) -> Self {
         let index = 0;
@@ -23,6 +24,7 @@ impl<const N: usize> ReadInterleavedBufferIter<N> {
         Self { buffer, index, len }
     }
 }
+
 impl<const N: usize> Iterator for ReadInterleavedBufferIter<N> {
     type Item = [u8; N];
     fn next(&mut self) -> Option<Self::Item> {
