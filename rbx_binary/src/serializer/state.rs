@@ -1,7 +1,6 @@
 use std::{
     borrow::{Borrow, Cow},
     collections::{btree_map, BTreeMap},
-    convert::TryInto,
     io::Write,
 };
 
@@ -493,12 +492,15 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     /// be serializing to the model.
     #[profiling::function]
     pub fn generate_referents(&mut self) {
-        self.id_to_referent.reserve(self.relevant_instances.len());
+        // This performs the same check as next_referent.try_into().unwrap() but only once.
+        assert!(self.relevant_instances.len() <= i32::MAX as usize);
 
-        for (next_referent, id) in self.relevant_instances.iter().enumerate() {
-            self.id_to_referent
-                .insert(*id, next_referent.try_into().unwrap());
-        }
+        self.id_to_referent.extend(
+            self.relevant_instances
+                .iter()
+                .enumerate()
+                .map(|(next_referent, id)| (*id, next_referent as i32)),
+        );
 
         log::debug!("Collected {} referents", self.id_to_referent.len());
     }
