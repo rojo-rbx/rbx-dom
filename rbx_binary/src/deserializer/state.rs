@@ -1236,10 +1236,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     }
                 }
                 VariantType::NetAssetRef => {
-                    let mut values = vec![0; type_info.referents.len()];
-                    chunk.read_interleaved_u32_array(&mut values)?;
+                    let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
 
-                    for (value, referent) in values.into_iter().zip(&type_info.referents) {
+                    for (value, referent) in values.zip(&type_info.referents) {
                         let net_asset = NetAssetRef::from(
                             self.shared_strings
                                 .get(value as usize)
