@@ -288,11 +288,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                     skip_serialization = false;
                 }
                 serialized_name = serialized.name.as_ref().into();
-                serialized_ty = match &serialized.data_type {
-                    rbx_reflection::DataType::Value(variant_type) => *variant_type,
-                    rbx_reflection::DataType::Enum(_) => VariantType::Enum,
-                    _ => unimplemented!(),
-                };
+                serialized_ty = serialized.data_type.ty();
             }
         } else {
             skip_serialization = false;
