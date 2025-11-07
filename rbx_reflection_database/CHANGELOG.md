@@ -1,7 +1,7 @@
 # rbx\_reflection_database Changelog
 
-## Unreleased
-* Updated to Roblox version 697
+## 2.0.1+roblox-697 (2025-11-06)
+* Updated to Roblox version 697.
 
 ## 2.0.0+roblox-694 (2025-10-10)
 * Updated to Roblox version 694.

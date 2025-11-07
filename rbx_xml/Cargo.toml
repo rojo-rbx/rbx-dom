@@ -17,7 +17,7 @@ edition = "2018"
 [dependencies]
 rbx_dom_weak = { version = "4.0.0", path = "../rbx_dom_weak" }
 rbx_reflection = { version = "6.0.0", path = "../rbx_reflection" }
-rbx_reflection_database = { version = "2.0.0", path = "../rbx_reflection_database" }
+rbx_reflection_database = { version = "2.0.1", path = "../rbx_reflection_database" }
 
 ahash = "0.8.11"
 base64 = "0.13.0"
