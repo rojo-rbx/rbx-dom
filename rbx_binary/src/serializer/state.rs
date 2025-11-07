@@ -24,7 +24,8 @@ use rbx_reflection::{
 use crate::{
     chunk::ChunkBuilder,
     core::{
-        find_property_descriptors, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
+        find_property_descriptors, PropertyDescriptors, RbxWriteExt, FILE_MAGIC_HEADER,
+        FILE_SIGNATURE, FILE_VERSION,
     },
     types::Type,
     Serializer,
@@ -352,8 +353,8 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             let mut migration = None;
 
             let database = self.serializer.database;
-            match find_property_descriptors(database, instance.class, *prop_name) {
-                Some(descriptors) => {
+            match find_property_descriptors(database, type_info.class_descriptor, prop_name) {
+                Some((superclass_descriptor, descriptors)) => {
                     // For any properties that do not serialize, we can skip
                     // adding them to the set of type_infos.
                     let serialized = match descriptors.serialized {
@@ -367,11 +368,16 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 // information of the new property instead of the old
                                 // property, because migrated properties should not
                                 // serialize
-                                let new_descriptors = find_property_descriptors(
-                                    database,
-                                    instance.class,
-                                    prop_migration.new_property_name.as_str().into(),
-                                );
+                                //
+                                // Assume that the migration will always be
+                                // directed to a property on the same class.
+                                // This avoids re-walking the superclasses.
+                                let new_descriptors = superclass_descriptor
+                                    .properties
+                                    .get(prop_migration.new_property_name.as_str())
+                                    .and_then(|prop| {
+                                        PropertyDescriptors::new(superclass_descriptor, prop)
+                                    });
 
                                 migration = Some(prop_migration);
 
