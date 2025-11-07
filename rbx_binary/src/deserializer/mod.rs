@@ -1,8 +1,9 @@
 mod error;
+mod file;
 mod header;
 mod state;
 
-use std::{io::Read, str};
+use std::str;
 
 use rbx_dom_weak::WeakDom;
 use rbx_reflection::ReflectionDatabase;
@@ -11,6 +12,8 @@ use self::state::DeserializerState;
 
 #[cfg(any(test, feature = "unstable_text_format"))]
 pub(crate) use self::header::FileHeader;
+
+pub use self::file::DecompressedFile;
 
 pub use self::error::Error;
 
@@ -21,12 +24,13 @@ pub use self::error::Error;
 /// use std::fs::File;
 /// use std::io::BufReader;
 ///
-/// use rbx_binary::Deserializer;
+/// use rbx_binary::{DecompressedFile, Deserializer};
 ///
 /// let input = BufReader::new(File::open("File.rbxm")?);
 ///
+/// let file = DecompressedFile::from_reader(input)?;
 /// let deserializer = Deserializer::new();
-/// let dom = deserializer.deserialize(input)?;
+/// let dom = deserializer.deserialize(&file)?;
 ///
 /// // rbx_binary always returns a DOM with a DataModel at the top level.
 /// // To get to the instances from our file, we need to go one level deeper.
@@ -67,24 +71,19 @@ impl<'db> Deserializer<'db> {
 
     /// Deserialize a Roblox binary model or place from the given stream using
     /// this deserializer.
-    pub fn deserialize<R: Read>(&self, reader: R) -> Result<WeakDom, Error> {
+    pub fn deserialize(&self, file: &DecompressedFile) -> Result<WeakDom, Error> {
         profiling::scope!("rbx_binary::deserialize");
 
-        let mut deserializer = DeserializerState::new(self, reader)?;
+        let mut deserializer = DeserializerState::new(self, &file.header)?;
 
-        loop {
-            let chunk = deserializer.next_chunk()?;
-
+        for chunk in &file.chunks {
             match &chunk.name {
                 b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
                 b"SSTR" => deserializer.decode_sstr_chunk(&chunk.data)?,
                 b"INST" => deserializer.decode_inst_chunk(&chunk.data)?,
                 b"PROP" => deserializer.decode_prop_chunk(&chunk.data)?,
                 b"PRNT" => deserializer.decode_prnt_chunk(&chunk.data)?,
-                b"END\0" => {
-                    deserializer.decode_end_chunk(&chunk.data)?;
-                    break;
-                }
+                b"END\0" => deserializer.decode_end_chunk(&chunk.data)?,
                 _ => match str::from_utf8(&chunk.name) {
                     Ok(name) => log::info!("Unknown binary chunk name {name}"),
                     Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
