@@ -65,7 +65,8 @@ static LOCAL_DATABASE: LazyLock<ResultOption<ReflectionDatabase<'static>>> = Laz
         return Ok(None);
     };
     if path.exists() {
-        let database: ReflectionDatabase<'static> = rmp_serde::from_slice(&fs::read(path)?)?;
+        let database_file = fs::read(path)?.leak();
+        let database: ReflectionDatabase<'static> = rmp_serde::from_slice(database_file)?;
         Ok(Some(database))
     } else {
         Ok(None)
