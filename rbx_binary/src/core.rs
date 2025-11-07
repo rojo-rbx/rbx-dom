@@ -1,16 +1,42 @@
-use std::{
-    io::{self, Read, Write},
-    mem,
-};
+use std::io::{self, Read, Write};
 
 use rbx_dom_weak::Ustr;
 use rbx_reflection::{
     ClassDescriptor, PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase,
 };
 
+use crate::chunk::ChunkBuilder;
+
 pub static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
 pub static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
 pub const FILE_VERSION: u16 = 0;
+
+pub struct ReadInterleavedBufferIter<const N: usize> {
+    buffer: Vec<u8>,
+    index: usize,
+    len: usize,
+}
+
+impl<const N: usize> ReadInterleavedBufferIter<N> {
+    fn new(len: usize) -> Self {
+        let index = 0;
+        let buffer = vec![0; len * N];
+        Self { buffer, index, len }
+    }
+}
+
+impl<const N: usize> Iterator for ReadInterleavedBufferIter<N> {
+    type Item = [u8; N];
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.index < self.len {
+            let output = core::array::from_fn(|i| self.buffer[self.index + self.len * i]);
+            self.index += 1;
+            Some(output)
+        } else {
+            None
+        }
+    }
+}
 
 pub trait RbxReadExt: Read {
     fn read_le_u32(&mut self) -> io::Result<u32> {
@@ -99,89 +125,79 @@ pub trait RbxReadExt: Read {
         Ok(self.read_u8()? != 0)
     }
 
-    /// Fills `output` with blocks of `N` bytes from the buffer,
-    /// deinterleaving them in the process.
-    ///
-    /// This function allocates `N * output.len()` bytes before reading.
-    fn read_interleaved_bytes<const N: usize>(&mut self, output: &mut [[u8; N]]) -> io::Result<()> {
-        let len = output.len();
-        let mut buffer = vec![0; len * N];
-        self.read_exact(&mut buffer)?;
-
-        for (i, array) in output.iter_mut().enumerate() {
-            for (j, byte) in array.iter_mut().enumerate() {
-                *byte = buffer[i + len * j];
-            }
-        }
-
-        Ok(())
+    /// Create an iterator that reads chunks of N interleaved bytes.
+    /// This function allocates `N * len` bytes before reading.
+    fn read_interleaved_bytes<const N: usize>(
+        &mut self,
+        len: usize,
+    ) -> io::Result<ReadInterleavedBufferIter<N>> {
+        let mut it = ReadInterleavedBufferIter::new(len);
+        self.read_exact(&mut it.buffer)?;
+        Ok(it)
     }
 
-    /// Fills `output` with big-endian `i32` values read from the buffer.
-    /// These values are untransformed while being read.
-    fn read_interleaved_i32_array(&mut self, output: &mut [i32]) -> io::Result<()> {
-        let mut read = vec![[0; mem::size_of::<i32>()]; output.len()];
-        self.read_interleaved_bytes(&mut read)?;
-
-        for (chunk, out) in read.into_iter().zip(output) {
-            *out = untransform_i32(i32::from_be_bytes(chunk));
-        }
-
-        Ok(())
+    /// Creates an iterator of `len` big-endian i32 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are transformed during iteration.
+    fn read_interleaved_i32_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = i32> + use<Self>> {
+        Ok(self
+            .read_interleaved_bytes(len)?
+            .map(|out| untransform_i32(i32::from_be_bytes(out))))
     }
 
-    /// Fills `output` with big-endian `u32` values read from the buffer.
-    fn read_interleaved_u32_array(&mut self, output: &mut [u32]) -> io::Result<()> {
-        let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
-        self.read_interleaved_bytes(&mut read)?;
-
-        for (chunk, out) in read.into_iter().zip(output) {
-            *out = u32::from_be_bytes(chunk);
-        }
-
-        Ok(())
+    /// Creates an iterator of `len` big-endian u32 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are transformed during iteration.
+    fn read_interleaved_u32_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = u32> + use<Self>> {
+        Ok(self.read_interleaved_bytes(len)?.map(u32::from_be_bytes))
     }
 
-    /// Fills `output` with big-endian `f32` values read from the buffer.
-    /// These values are properly unrotated while being read.
-    fn read_interleaved_f32_array(&mut self, output: &mut [f32]) -> io::Result<()> {
-        let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
-        self.read_interleaved_bytes(&mut read)?;
-
-        for (chunk, out) in read.into_iter().zip(output) {
-            *out = f32::from_bits(u32::from_be_bytes(chunk).rotate_right(1));
-        }
-
-        Ok(())
+    /// Creates an iterator of `len` big-endian f32 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are properly unrotated during iteration.
+    fn read_interleaved_f32_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = f32> + use<Self>> {
+        Ok(self
+            .read_interleaved_bytes(len)?
+            .map(|out| f32::from_bits(u32::from_be_bytes(out).rotate_right(1))))
     }
 
-    /// Fills `output` with big-endian `i32` values read from the buffer.
-    /// The values are properly untransformed and accumulated so as to properly
-    /// read arrays of referent values.
-    fn read_referent_array(&mut self, output: &mut [i32]) -> io::Result<()> {
-        self.read_interleaved_i32_array(output)?;
-
+    /// Creates an iterator of `len` big-endian i32 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are properly untransformed and accumulated
+    /// so as to properly read arrays of referent values.
+    fn read_referent_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = i32> + use<Self>> {
         let mut last = 0;
-
-        for referent in output.iter_mut() {
-            *referent += last;
-            last = *referent;
-        }
-
-        Ok(())
+        Ok(self
+            .read_interleaved_i32_array(len)?
+            .map(move |mut referent| {
+                referent += last;
+                last = referent;
+                referent
+            }))
     }
 
-    /// Fills `output` with big-endian `64` values read from the buffer.
-    /// These values are untransformed while being read.
-    fn read_interleaved_i64_array(&mut self, output: &mut [i64]) -> io::Result<()> {
-        let mut read = vec![[0; mem::size_of::<i64>()]; output.len()];
-        self.read_interleaved_bytes(&mut read)?;
-
-        for (chunk, out) in read.into_iter().zip(output) {
-            *out = untransform_i64(i64::from_be_bytes(chunk));
-        }
-
-        Ok(())
+    /// Creates an iterator of `len` big-endian i64 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are transformed during iteration.
+    fn read_interleaved_i64_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = i64> + use<Self>> {
+        Ok(self
+            .read_interleaved_bytes(len)?
+            .map(|out| untransform_i64(i64::from_be_bytes(out))))
     }
 }
 
@@ -238,62 +254,77 @@ pub trait RbxWriteExt: Write {
     fn write_bool(&mut self, value: bool) -> io::Result<()> {
         self.write_u8(value as u8)
     }
+}
 
+impl ChunkBuilder {
     /// Takes `values` and writes it as a blob of data with each value
     /// interleaved by `N` bytes.
-    ///
-    /// This function allocates `N * values.len()` bytes before writing.
-    fn write_interleaved_bytes<const N: usize>(&mut self, values: &[[u8; N]]) -> io::Result<()> {
-        let len = values.len();
-        let mut blob = vec![0; len * N];
-        for (i, bytes) in values.iter().enumerate() {
-            for (j, byte) in bytes.iter().enumerate() {
-                blob[i + len * j] = *byte;
+    pub fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: IntoIterator<Item = [u8; N]>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        let values = values.into_iter();
+        let values_len = values.len();
+        let bytes_len = values_len * N;
+
+        let initialize_bytes = |buffer: &mut [u8]| {
+            for (i, bytes) in values.enumerate() {
+                for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
+                    buffer[i + b * values_len] = byte;
+                }
             }
-        }
-        self.write_all(&blob)?;
+        };
+
+        self.initialize_bytes_with(bytes_len, initialize_bytes);
 
         Ok(())
     }
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Transformation is applied to the values as they're written.
-    fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
+    pub fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = i32>,
+        I: IntoIterator<Item = i32>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
-        let values: Vec<_> = values.map(|v| transform_i32(v).to_be_bytes()).collect();
-        self.write_interleaved_bytes(&values)
+        self.write_interleaved_bytes(values.into_iter().map(|v| transform_i32(v).to_be_bytes()))
     }
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes.
-    fn write_interleaved_u32_array(&mut self, values: &[u32]) -> io::Result<()> {
-        let values: Vec<_> = values.iter().map(|v| v.to_be_bytes()).collect();
-        self.write_interleaved_bytes(&values)
+    pub fn write_interleaved_u32_array<I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: IntoIterator<Item = u32>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        self.write_interleaved_bytes(values.into_iter().map(|v| v.to_be_bytes()))
     }
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Rotation is applied to the values as they're written.
-    fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
+    pub fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = f32>,
+        I: IntoIterator<Item = f32>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
-        let values: Vec<_> = values
-            .map(|v| v.to_bits().rotate_left(1).to_be_bytes())
-            .collect();
-        self.write_interleaved_bytes(&values)
+        self.write_interleaved_bytes(
+            values
+                .into_iter()
+                .map(|v| v.to_bits().rotate_left(1).to_be_bytes()),
+        )
     }
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. The appropriate transformation and de-accumulation is done as
     /// values are written.
-    fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
+    pub fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = i32>,
+        I: IntoIterator<Item = i32>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
         let mut last_value = 0;
-        let delta_encoded = values.map(|value| {
+        let delta_encoded = values.into_iter().map(|value| {
             let encoded = value - last_value;
             last_value = value;
             encoded
@@ -304,12 +335,12 @@ pub trait RbxWriteExt: Write {
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Transformation is applied to the values as they're written.
-    fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
+    pub fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = i64>,
+        I: IntoIterator<Item = i64>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
-        let values: Vec<_> = values.map(|v| transform_i64(v).to_be_bytes()).collect();
-        self.write_interleaved_bytes(&values)
+        self.write_interleaved_bytes(values.into_iter().map(|v| transform_i64(v).to_be_bytes()))
     }
 }
 
