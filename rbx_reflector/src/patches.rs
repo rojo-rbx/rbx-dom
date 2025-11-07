@@ -4,7 +4,7 @@ use anyhow::{anyhow, bail, Context};
 use rbx_reflection::{
     MigrationOperation, PropertyKind, PropertySerialization, ReflectionDatabase, Scriptability,
 };
-use rbx_types::Variant;
+use rbx_types::{Variant, VariantType};
 use serde::Deserialize;
 
 pub struct Patches {
