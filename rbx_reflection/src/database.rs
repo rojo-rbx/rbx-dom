@@ -224,6 +224,15 @@ pub enum DataType<'a> {
     Enum(Cow<'a, str>),
 }
 
+impl DataType<'_> {
+    pub fn ty(&self) -> VariantType {
+        match self {
+            DataType::Value(variant_type) => *variant_type,
+            DataType::Enum(_) => VariantType::Enum,
+        }
+    }
+}
+
 /// Defines how Lua can access a property, if at all.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 #[non_exhaustive]

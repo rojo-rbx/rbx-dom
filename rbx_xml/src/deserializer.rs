@@ -3,10 +3,10 @@ use std::{collections::hash_map::Entry, io::Read};
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
-    types::{Ref, SharedString, Variant, VariantType},
+    types::{Ref, SharedString, Variant},
     InstanceBuilder, Ustr, WeakDom,
 };
-use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
+use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     conversion::ConvertVariant,
@@ -633,11 +633,7 @@ fn deserialize_properties<R: Read>(
             // For example:
             // - Int/Float widening from 32-bit to 64-bit
             // - BrickColor properties turning into Color3
-            let expected_type = match &descriptor.data_type {
-                DataType::Value(data_type) => *data_type,
-                DataType::Enum(_enum_name) => VariantType::Enum,
-                _ => unimplemented!(),
-            };
+            let expected_type = descriptor.data_type.ty();
             log::trace!("property's read type: {xml_ty:?}, canonical type: {expected_type:?}");
 
             let value = match value.try_convert(class_name, expected_type) {

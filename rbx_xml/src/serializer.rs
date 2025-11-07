@@ -2,10 +2,10 @@ use std::{borrow::Cow, collections::BTreeMap, io::Write};
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
-    types::{Ref, SharedString, SharedStringHash, Variant, VariantType},
+    types::{Ref, SharedString, SharedStringHash, Variant},
     WeakDom,
 };
-use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
+use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     conversion::ConvertVariant,
@@ -202,11 +202,7 @@ fn serialize_instance<'dom, W: Write>(
         };
 
         if let Some(serialized_descriptor) = maybe_serialized_descriptor {
-            let data_type = match &serialized_descriptor.data_type {
-                DataType::Value(data_type) => *data_type,
-                DataType::Enum(_enum_name) => VariantType::Enum,
-                _ => unimplemented!(),
-            };
+            let data_type = serialized_descriptor.data_type.ty();
 
             let mut serialized_name = serialized_descriptor.name.as_ref();
 
