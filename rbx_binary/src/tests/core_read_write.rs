@@ -1,7 +1,7 @@
-use crate::{chunk::ChunkBuilder, core::RbxReadExt, CompressionType};
+use crate::{chunk::ChunkBuilder, core::read_interleaved_bytes, CompressionType};
 
 #[test]
-fn read_interleaved_bytes() {
+fn test_read_interleaved_bytes() {
     #[rustfmt::skip]
     let mut input: &[u8] = &[
         0, 0, 0,
@@ -28,8 +28,7 @@ fn read_interleaved_bytes() {
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
     ];
 
-    let result: Vec<_> = input
-        .read_interleaved_bytes::<16>(expected.len())
+    let result: Vec<_> = read_interleaved_bytes::<16>(&mut input, expected.len())
         .unwrap()
         .collect();
 
