@@ -271,7 +271,7 @@ impl ChunkBuilder {
 impl<W> RbxWriteExt for W where W: Write {}
 
 /// Create an iterator that reads chunks of N interleaved bytes.
-/// This function allocates `N * len` bytes before reading.
+/// Splits `N * len` bytes from the slice.
 ///
 /// This function is not part of RbxReadExt.
 pub fn read_interleaved_bytes<'a, const N: usize>(
@@ -287,8 +287,7 @@ pub fn read_interleaved_bytes<'a, const N: usize>(
 }
 
 /// Creates an iterator of `len` big-endian i32 values.
-/// The bytes are read into a buffer immediately,
-/// and the values are transformed during iteration.
+/// The values are transformed during iteration.
 ///
 /// This function is not part of RbxReadExt.
 pub fn read_interleaved_i32_array<'a>(
@@ -299,8 +298,7 @@ pub fn read_interleaved_i32_array<'a>(
 }
 
 /// Creates an iterator of `len` big-endian u32 values.
-/// The bytes are read into a buffer immediately,
-/// and the values are transformed during iteration.
+/// The values are transformed during iteration.
 ///
 /// This function is not part of RbxReadExt.
 pub fn read_interleaved_u32_array<'a>(
@@ -311,8 +309,7 @@ pub fn read_interleaved_u32_array<'a>(
 }
 
 /// Creates an iterator of `len` big-endian f32 values.
-/// The bytes are read into a buffer immediately,
-/// and the values are properly unrotated during iteration.
+/// The values are properly unrotated during iteration.
 ///
 /// This function is not part of RbxReadExt.
 pub fn read_interleaved_f32_array<'a>(
@@ -324,8 +321,7 @@ pub fn read_interleaved_f32_array<'a>(
 }
 
 /// Creates an iterator of `len` big-endian i32 values.
-/// The bytes are read into a buffer immediately,
-/// and the values are properly untransformed and accumulated
+/// The values are properly untransformed and accumulated
 /// so as to properly read arrays of referent values.
 ///
 /// This function is not part of RbxReadExt.
@@ -344,8 +340,7 @@ pub fn read_referent_array<'a>(
 }
 
 /// Creates an iterator of `len` big-endian i64 values.
-/// The bytes are read into a buffer immediately,
-/// and the values are transformed during iteration.
+/// The values are transformed during iteration.
 ///
 /// This function is not part of RbxReadExt.
 pub fn read_interleaved_i64_array<'a>(
