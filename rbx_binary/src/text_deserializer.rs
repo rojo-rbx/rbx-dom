@@ -21,7 +21,10 @@ use serde::{ser::SerializeSeq, Serialize, Serializer};
 
 use crate::{
     chunk::Chunk,
-    core::{read_binary_string, read_string, RbxReadExt},
+    core::{
+        read_binary_string, read_string, read_interleaved_bytes, read_interleaved_f32_array, read_interleaved_i32_array,
+        read_interleaved_i64_array, read_interleaved_u32_array, read_referent_array, RbxReadExt,
+    },
     deserializer::FileHeader,
     types::Type,
 };
@@ -124,8 +127,7 @@ fn decode_inst_chunk(mut chunk: &[u8], count_by_type_id: &mut HashMap<u32, usize
 
     count_by_type_id.insert(type_id, num_instances as usize);
 
-    let referents = chunk
-        .read_referent_array(num_instances as usize)
+    let referents = read_referent_array(&mut chunk, num_instances as usize)
         .unwrap()
         .collect();
 
@@ -172,17 +174,17 @@ fn decode_prop_chunk(mut chunk: &[u8], count_by_type_id: &mut HashMap<u32, usize
     }
 }
 
-fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
-    let version = reader.read_u8().unwrap();
-    let num_referents = reader.read_le_u32().unwrap();
+fn decode_prnt_chunk(mut chunk: &[u8]) -> DecodedChunk {
+    let version = chunk.read_u8().unwrap();
+    let num_referents = chunk.read_le_u32().unwrap();
 
-    let subjects = reader.read_referent_array(num_referents as usize).unwrap();
-    let parents = reader.read_referent_array(num_referents as usize).unwrap();
+    let subjects = read_referent_array(&mut chunk, num_referents as usize).unwrap();
+    let parents = read_referent_array(&mut chunk, num_referents as usize).unwrap();
 
     let links = subjects.zip(parents).collect();
 
     let mut remaining = Vec::new();
-    reader.read_to_end(&mut remaining).unwrap();
+    chunk.read_to_end(&mut remaining).unwrap();
 
     DecodedChunk::Prnt {
         version,
@@ -249,16 +251,14 @@ impl DecodedValues {
                 Some(DecodedValues::Bool(values))
             }
             Type::Int32 => {
-                let values = chunk
-                    .read_interleaved_i32_array(prop_count)
+                let values = read_interleaved_i32_array(chunk, prop_count)
                     .unwrap()
                     .collect();
 
                 Some(DecodedValues::Int32(values))
             }
             Type::Float32 => {
-                let values = chunk
-                    .read_interleaved_f32_array(prop_count)
+                let values = read_interleaved_f32_array(chunk, prop_count)
                     .unwrap()
                     .collect();
 
@@ -274,8 +274,8 @@ impl DecodedValues {
                 Some(DecodedValues::Float64(values))
             }
             Type::UDim => {
-                let scale = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let offset = chunk.read_interleaved_i32_array(prop_count).unwrap();
+                let scale = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let offset = read_interleaved_i32_array(chunk, prop_count).unwrap();
 
                 let values = scale
                     .zip(offset)
@@ -285,10 +285,10 @@ impl DecodedValues {
                 Some(DecodedValues::UDim(values))
             }
             Type::UDim2 => {
-                let scale_x = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let scale_y = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let offset_x = chunk.read_interleaved_i32_array(prop_count).unwrap();
-                let offset_y = chunk.read_interleaved_i32_array(prop_count).unwrap();
+                let scale_x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let scale_y = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let offset_x = read_interleaved_i32_array(chunk, prop_count).unwrap();
+                let offset_y = read_interleaved_i32_array(chunk, prop_count).unwrap();
 
                 let x_values = scale_x
                     .zip(offset_x)
@@ -368,7 +368,7 @@ impl DecodedValues {
                 Some(DecodedValues::Axes(values))
             }
             Type::BrickColor => {
-                let values = chunk.read_interleaved_u32_array(prop_count).unwrap();
+                let values = read_interleaved_u32_array(chunk, prop_count).unwrap();
 
                 let values = values
                     .map(|value| BrickColor::from_number(value.try_into().unwrap()).unwrap())
@@ -404,9 +404,9 @@ impl DecodedValues {
                     }
                 }
 
-                let x = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let y = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let z = chunk.read_interleaved_f32_array(prop_count).unwrap();
+                let x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let z = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = x
                     .zip(y)
@@ -418,21 +418,21 @@ impl DecodedValues {
                 Some(DecodedValues::CFrame(values))
             }
             Type::Enum => {
-                let ints = chunk.read_interleaved_u32_array(prop_count).unwrap();
+                let ints = read_interleaved_u32_array(chunk, prop_count).unwrap();
 
                 let values = ints.map(Enum::from_u32).collect();
 
                 Some(DecodedValues::Enum(values))
             }
             Type::Ref => {
-                let refs = chunk.read_referent_array(prop_count).unwrap().collect();
+                let refs = read_referent_array(chunk, prop_count).unwrap().collect();
 
                 Some(DecodedValues::Ref(refs))
             }
             Type::Color3 => {
-                let r = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let g = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let b = chunk.read_interleaved_f32_array(prop_count).unwrap();
+                let r = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let g = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let b = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = r
                     .zip(g)
@@ -443,17 +443,17 @@ impl DecodedValues {
                 Some(DecodedValues::Color3(values))
             }
             Type::Vector2 => {
-                let x = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let y = chunk.read_interleaved_f32_array(prop_count).unwrap();
+                let x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = x.zip(y).map(|(x, y)| Vector2::new(x, y)).collect();
 
                 Some(DecodedValues::Vector2(values))
             }
             Type::Vector3 => {
-                let x = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let y = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let z = chunk.read_interleaved_f32_array(prop_count).unwrap();
+                let x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let z = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = x
                     .zip(y)
@@ -535,10 +535,10 @@ impl DecodedValues {
                 Some(DecodedValues::NumberSequence(values))
             }
             Type::Rect => {
-                let x_min = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let y_min = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let x_max = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let y_max = chunk.read_interleaved_f32_array(prop_count).unwrap();
+                let x_min = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y_min = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let x_max = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y_max = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = x_min
                     .zip(y_min)
@@ -602,16 +602,14 @@ impl DecodedValues {
                 Some(DecodedValues::Color3uint8(values))
             }
             Type::Int64 => {
-                let values = chunk
-                    .read_interleaved_i64_array(prop_count)
+                let values = read_interleaved_i64_array(chunk, prop_count)
                     .unwrap()
                     .collect();
 
                 Some(DecodedValues::Int64(values))
             }
             Type::SharedString => {
-                let values = chunk
-                    .read_interleaved_u32_array(prop_count)
+                let values = read_interleaved_u32_array(chunk, prop_count)
                     .unwrap()
                     .collect();
 
@@ -647,9 +645,9 @@ impl DecodedValues {
                     }
                 }
 
-                let x = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let y = chunk.read_interleaved_f32_array(prop_count).unwrap();
-                let z = chunk.read_interleaved_f32_array(prop_count).unwrap();
+                let x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let z = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 chunk.read_u8().unwrap();
 
@@ -669,8 +667,7 @@ impl DecodedValues {
                 Some(DecodedValues::OptionalCFrame(values))
             }
             Type::UniqueId => {
-                let values = chunk
-                    .read_interleaved_bytes::<16>(prop_count)
+                let values = read_interleaved_bytes::<16>(chunk, prop_count)
                     .unwrap()
                     .map(|v| {
                         let mut bytes = v.as_slice();
@@ -686,7 +683,7 @@ impl DecodedValues {
                 Some(DecodedValues::UniqueId(values))
             }
             Type::SecurityCapabilities => {
-                let values = chunk.read_interleaved_i64_array(prop_count).unwrap();
+                let values = read_interleaved_i64_array(chunk, prop_count).unwrap();
 
                 let values = values
                     .map(|value| SecurityCapabilities::from_bits(value as u64))
@@ -697,7 +694,7 @@ impl DecodedValues {
             Type::Content => {
                 let mut values = vec![SerializedContentType::None; prop_count];
 
-                let source_types = chunk.read_interleaved_i32_array(prop_count).unwrap();
+                let source_types = read_interleaved_i32_array(chunk, prop_count).unwrap();
 
                 let uri_count = chunk.read_le_u32().unwrap() as usize;
                 let mut uris = VecDeque::with_capacity(uri_count);
@@ -707,7 +704,7 @@ impl DecodedValues {
 
                 let object_count = chunk.read_le_u32().unwrap() as usize;
                 let mut objects: VecDeque<i32> =
-                    chunk.read_referent_array(object_count).unwrap().collect();
+                    read_referent_array(chunk, object_count).unwrap().collect();
 
                 let external_count = chunk.read_le_u32().unwrap() as usize;
                 let mut external_objects = vec![0; external_count * 4];
