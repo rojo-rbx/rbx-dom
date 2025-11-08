@@ -1237,7 +1237,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 .get(value as usize)
                                 .ok_or_else(|| InnerError::InvalidPropData {
                                     type_name: type_info.type_name.to_string(),
-                                    prop_name: prop_name.clone(),
+                                    prop_name: prop_name.to_owned(),
                                     valid_value: "a valid NetAssetRef",
                                     actual_value: format!("{value:?}"),
                                 })?
