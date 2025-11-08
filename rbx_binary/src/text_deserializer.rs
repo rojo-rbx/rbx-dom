@@ -19,7 +19,15 @@ use rbx_dom_weak::types::{
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
-use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
+use crate::{
+    chunk::Chunk,
+    core::{
+        read_interleaved_bytes, read_interleaved_f32_array, read_interleaved_i32_array,
+        read_interleaved_i64_array, read_interleaved_u32_array, read_referent_array, RbxReadExt,
+    },
+    deserializer::FileHeader,
+    types::Type,
+};
 
 #[derive(Debug, Serialize)]
 pub struct DecodedModel {
@@ -111,24 +119,20 @@ fn decode_sstr_chunk<R: Read>(mut reader: R) -> DecodedChunk {
     }
 }
 
-fn decode_inst_chunk<R: Read>(
-    mut reader: R,
-    count_by_type_id: &mut HashMap<u32, usize>,
-) -> DecodedChunk {
-    let type_id = reader.read_le_u32().unwrap();
-    let type_name = reader.read_string().unwrap();
-    let object_format = reader.read_u8().unwrap();
-    let num_instances = reader.read_le_u32().unwrap();
+fn decode_inst_chunk(mut chunk: &[u8], count_by_type_id: &mut HashMap<u32, usize>) -> DecodedChunk {
+    let type_id = chunk.read_le_u32().unwrap();
+    let type_name = chunk.read_string().unwrap();
+    let object_format = chunk.read_u8().unwrap();
+    let num_instances = chunk.read_le_u32().unwrap();
 
     count_by_type_id.insert(type_id, num_instances as usize);
 
-    let referents = reader
-        .read_referent_array(num_instances as usize)
+    let referents = read_referent_array(&mut chunk, num_instances as usize)
         .unwrap()
         .collect();
 
     let mut remaining = Vec::new();
-    reader.read_to_end(&mut remaining).unwrap();
+    chunk.read_to_end(&mut remaining).unwrap();
 
     DecodedChunk::Inst {
         type_id,
@@ -139,21 +143,18 @@ fn decode_inst_chunk<R: Read>(
     }
 }
 
-fn decode_prop_chunk<R: Read>(
-    mut reader: R,
-    count_by_type_id: &mut HashMap<u32, usize>,
-) -> DecodedChunk {
-    let type_id = reader.read_le_u32().unwrap();
-    let prop_name = reader.read_string().unwrap();
+fn decode_prop_chunk(mut chunk: &[u8], count_by_type_id: &mut HashMap<u32, usize>) -> DecodedChunk {
+    let type_id = chunk.read_le_u32().unwrap();
+    let prop_name = chunk.read_string().unwrap();
 
-    let prop_type_value = reader.read_u8().unwrap();
+    let prop_type_value = chunk.read_u8().unwrap();
     let (prop_type, values) = match prop_type_value.try_into() {
         Ok(prop_type) => {
             // If this type ID is unknown, we'll default to assuming that type
             // has no members and thus has no values of this property.
             let values = count_by_type_id
                 .get(&type_id)
-                .map(|&prop_count| DecodedValues::decode(&mut reader, prop_count, prop_type))
+                .map(|&prop_count| DecodedValues::decode(&mut chunk, prop_count, prop_type))
                 .unwrap_or(None);
 
             (DecodedPropType::Known(prop_type), values)
@@ -162,7 +163,7 @@ fn decode_prop_chunk<R: Read>(
     };
 
     let mut remaining = Vec::new();
-    reader.read_to_end(&mut remaining).unwrap();
+    chunk.read_to_end(&mut remaining).unwrap();
 
     DecodedChunk::Prop {
         type_id,
@@ -173,17 +174,17 @@ fn decode_prop_chunk<R: Read>(
     }
 }
 
-fn decode_prnt_chunk<R: Read>(mut reader: R) -> DecodedChunk {
-    let version = reader.read_u8().unwrap();
-    let num_referents = reader.read_le_u32().unwrap();
+fn decode_prnt_chunk(mut chunk: &[u8]) -> DecodedChunk {
+    let version = chunk.read_u8().unwrap();
+    let num_referents = chunk.read_le_u32().unwrap();
 
-    let subjects = reader.read_referent_array(num_referents as usize).unwrap();
-    let parents = reader.read_referent_array(num_referents as usize).unwrap();
+    let subjects = read_referent_array(&mut chunk, num_referents as usize).unwrap();
+    let parents = read_referent_array(&mut chunk, num_referents as usize).unwrap();
 
     let links = subjects.zip(parents).collect();
 
     let mut remaining = Vec::new();
-    reader.read_to_end(&mut remaining).unwrap();
+    chunk.read_to_end(&mut remaining).unwrap();
 
     DecodedChunk::Prnt {
         version,
@@ -229,13 +230,13 @@ pub enum DecodedValues {
 }
 
 impl DecodedValues {
-    fn decode<R: Read>(mut reader: R, prop_count: usize, prop_type: Type) -> Option<Self> {
+    fn decode(chunk: &mut &[u8], prop_count: usize, prop_type: Type) -> Option<Self> {
         match prop_type {
             Type::String => {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    values.push(reader.read_binary_string().unwrap().into());
+                    values.push(chunk.read_binary_string().unwrap().into());
                 }
 
                 Some(DecodedValues::String(values))
@@ -244,22 +245,20 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    values.push(reader.read_bool().unwrap());
+                    values.push(chunk.read_bool().unwrap());
                 }
 
                 Some(DecodedValues::Bool(values))
             }
             Type::Int32 => {
-                let values = reader
-                    .read_interleaved_i32_array(prop_count)
+                let values = read_interleaved_i32_array(chunk, prop_count)
                     .unwrap()
                     .collect();
 
                 Some(DecodedValues::Int32(values))
             }
             Type::Float32 => {
-                let values = reader
-                    .read_interleaved_f32_array(prop_count)
+                let values = read_interleaved_f32_array(chunk, prop_count)
                     .unwrap()
                     .collect();
 
@@ -269,14 +268,14 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    values.push(reader.read_le_f64().unwrap());
+                    values.push(chunk.read_le_f64().unwrap());
                 }
 
                 Some(DecodedValues::Float64(values))
             }
             Type::UDim => {
-                let scale = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let offset = reader.read_interleaved_i32_array(prop_count).unwrap();
+                let scale = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let offset = read_interleaved_i32_array(chunk, prop_count).unwrap();
 
                 let values = scale
                     .zip(offset)
@@ -286,10 +285,10 @@ impl DecodedValues {
                 Some(DecodedValues::UDim(values))
             }
             Type::UDim2 => {
-                let scale_x = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let scale_y = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let offset_x = reader.read_interleaved_i32_array(prop_count).unwrap();
-                let offset_y = reader.read_interleaved_i32_array(prop_count).unwrap();
+                let scale_x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let scale_y = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let offset_x = read_interleaved_i32_array(chunk, prop_count).unwrap();
+                let offset_y = read_interleaved_i32_array(chunk, prop_count).unwrap();
 
                 let x_values = scale_x
                     .zip(offset_x)
@@ -309,11 +308,11 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    let family = reader.read_string().unwrap();
+                    let family = chunk.read_string().unwrap();
                     let weight =
-                        FontWeight::from_u16(reader.read_le_u16().unwrap()).unwrap_or_default();
-                    let style = FontStyle::from_u8(reader.read_u8().unwrap()).unwrap_or_default();
-                    let cached_face_id = reader.read_string().unwrap();
+                        FontWeight::from_u16(chunk.read_le_u16().unwrap()).unwrap_or_default();
+                    let style = FontStyle::from_u8(chunk.read_u8().unwrap()).unwrap_or_default();
+                    let cached_face_id = chunk.read_string().unwrap();
 
                     let cached_face_id = if cached_face_id.is_empty() {
                         None
@@ -335,12 +334,12 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    let origin_x = reader.read_le_f32().unwrap();
-                    let origin_y = reader.read_le_f32().unwrap();
-                    let origin_z = reader.read_le_f32().unwrap();
-                    let direction_x = reader.read_le_f32().unwrap();
-                    let direction_y = reader.read_le_f32().unwrap();
-                    let direction_z = reader.read_le_f32().unwrap();
+                    let origin_x = chunk.read_le_f32().unwrap();
+                    let origin_y = chunk.read_le_f32().unwrap();
+                    let origin_z = chunk.read_le_f32().unwrap();
+                    let direction_x = chunk.read_le_f32().unwrap();
+                    let direction_y = chunk.read_le_f32().unwrap();
+                    let direction_z = chunk.read_le_f32().unwrap();
 
                     values.push(Ray::new(
                         Vector3::new(origin_x, origin_y, origin_z),
@@ -354,7 +353,7 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    values.push(Faces::from_bits(reader.read_u8().unwrap())?)
+                    values.push(Faces::from_bits(chunk.read_u8().unwrap())?)
                 }
 
                 Some(DecodedValues::Faces(values))
@@ -363,13 +362,13 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    values.push(Axes::from_bits(reader.read_u8().unwrap())?)
+                    values.push(Axes::from_bits(chunk.read_u8().unwrap())?)
                 }
 
                 Some(DecodedValues::Axes(values))
             }
             Type::BrickColor => {
-                let values = reader.read_interleaved_u32_array(prop_count).unwrap();
+                let values = read_interleaved_u32_array(chunk, prop_count).unwrap();
 
                 let values = values
                     .map(|value| BrickColor::from_number(value.try_into().unwrap()).unwrap())
@@ -381,23 +380,23 @@ impl DecodedValues {
                 let mut rotations = vec![Matrix3::identity(); prop_count];
 
                 for rotation in rotations.iter_mut() {
-                    let id = reader.read_u8().unwrap();
+                    let id = chunk.read_u8().unwrap();
                     if id == 0 {
                         *rotation = Matrix3::new(
                             Vector3::new(
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
                             ),
                             Vector3::new(
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
                             ),
                             Vector3::new(
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
                             ),
                         );
                     } else {
@@ -405,9 +404,9 @@ impl DecodedValues {
                     }
                 }
 
-                let x = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let y = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let z = reader.read_interleaved_f32_array(prop_count).unwrap();
+                let x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let z = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = x
                     .zip(y)
@@ -419,21 +418,21 @@ impl DecodedValues {
                 Some(DecodedValues::CFrame(values))
             }
             Type::Enum => {
-                let ints = reader.read_interleaved_u32_array(prop_count).unwrap();
+                let ints = read_interleaved_u32_array(chunk, prop_count).unwrap();
 
                 let values = ints.map(Enum::from_u32).collect();
 
                 Some(DecodedValues::Enum(values))
             }
             Type::Ref => {
-                let refs = reader.read_referent_array(prop_count).unwrap().collect();
+                let refs = read_referent_array(chunk, prop_count).unwrap().collect();
 
                 Some(DecodedValues::Ref(refs))
             }
             Type::Color3 => {
-                let r = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let g = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let b = reader.read_interleaved_f32_array(prop_count).unwrap();
+                let r = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let g = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let b = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = r
                     .zip(g)
@@ -444,17 +443,17 @@ impl DecodedValues {
                 Some(DecodedValues::Color3(values))
             }
             Type::Vector2 => {
-                let x = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let y = reader.read_interleaved_f32_array(prop_count).unwrap();
+                let x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = x.zip(y).map(|(x, y)| Vector2::new(x, y)).collect();
 
                 Some(DecodedValues::Vector2(values))
             }
             Type::Vector3 => {
-                let x = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let y = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let z = reader.read_interleaved_f32_array(prop_count).unwrap();
+                let x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let z = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = x
                     .zip(y)
@@ -468,21 +467,21 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    let keypoint_count = reader.read_le_u32().unwrap() as usize;
+                    let keypoint_count = chunk.read_le_u32().unwrap() as usize;
                     let mut keypoints = Vec::with_capacity(keypoint_count);
 
                     for _ in 0..keypoint_count {
                         keypoints.push(ColorSequenceKeypoint::new(
-                            reader.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
                             Color3::new(
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
                             ),
                         ));
 
                         // envelope is serialized but doesn't do anything; don't do anything with it
-                        reader.read_le_f32().unwrap();
+                        chunk.read_le_f32().unwrap();
                     }
 
                     values.push(ColorSequence { keypoints })
@@ -495,9 +494,9 @@ impl DecodedValues {
 
                 for _ in 0..prop_count {
                     values.push(Vector3int16::new(
-                        reader.read_le_i16().unwrap(),
-                        reader.read_le_i16().unwrap(),
-                        reader.read_le_i16().unwrap(),
+                        chunk.read_le_i16().unwrap(),
+                        chunk.read_le_i16().unwrap(),
+                        chunk.read_le_i16().unwrap(),
                     ));
                 }
 
@@ -508,8 +507,8 @@ impl DecodedValues {
 
                 for _ in 0..prop_count {
                     values.push(NumberRange::new(
-                        reader.read_le_f32().unwrap(),
-                        reader.read_le_f32().unwrap(),
+                        chunk.read_le_f32().unwrap(),
+                        chunk.read_le_f32().unwrap(),
                     ));
                 }
 
@@ -519,14 +518,14 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    let keypoint_count = reader.read_le_u32().unwrap();
+                    let keypoint_count = chunk.read_le_u32().unwrap();
                     let mut keypoints = Vec::with_capacity(keypoint_count as usize);
 
                     for _ in 0..keypoint_count {
                         keypoints.push(NumberSequenceKeypoint::new(
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
                         ))
                     }
 
@@ -536,10 +535,10 @@ impl DecodedValues {
                 Some(DecodedValues::NumberSequence(values))
             }
             Type::Rect => {
-                let x_min = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let y_min = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let x_max = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let y_max = reader.read_interleaved_f32_array(prop_count).unwrap();
+                let x_min = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y_min = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let x_max = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y_max = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
                 let values = x_min
                     .zip(y_min)
@@ -556,24 +555,24 @@ impl DecodedValues {
                 let mut values = Vec::with_capacity(prop_count);
 
                 for _ in 0..prop_count {
-                    let discriminator = reader.read_u8().unwrap();
+                    let discriminator = chunk.read_u8().unwrap();
                     values.push(match discriminator {
                         0b00 | 0b10 => PhysicalProperties::Default,
                         0b01 => PhysicalProperties::Custom(CustomPhysicalProperties::new(
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
                             1.0,
                         )),
                         0b11 => PhysicalProperties::Custom(CustomPhysicalProperties::new(
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
-                            reader.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
+                            chunk.read_le_f32().unwrap(),
                         )),
                         _ => panic!(
                             "cannot read PhysicalProperties with discriminator 0b{:b}",
@@ -589,9 +588,9 @@ impl DecodedValues {
                 let mut g = vec![0; prop_count];
                 let mut b = vec![0; prop_count];
 
-                reader.read_exact(r.as_mut_slice()).unwrap();
-                reader.read_exact(g.as_mut_slice()).unwrap();
-                reader.read_exact(b.as_mut_slice()).unwrap();
+                chunk.read_exact(r.as_mut_slice()).unwrap();
+                chunk.read_exact(g.as_mut_slice()).unwrap();
+                chunk.read_exact(b.as_mut_slice()).unwrap();
 
                 let values = r
                     .into_iter()
@@ -603,16 +602,14 @@ impl DecodedValues {
                 Some(DecodedValues::Color3uint8(values))
             }
             Type::Int64 => {
-                let values = reader
-                    .read_interleaved_i64_array(prop_count)
+                let values = read_interleaved_i64_array(chunk, prop_count)
                     .unwrap()
                     .collect();
 
                 Some(DecodedValues::Int64(values))
             }
             Type::SharedString => {
-                let values = reader
-                    .read_interleaved_u32_array(prop_count)
+                let values = read_interleaved_u32_array(chunk, prop_count)
                     .unwrap()
                     .collect();
 
@@ -621,26 +618,26 @@ impl DecodedValues {
             Type::OptionalCFrame => {
                 let mut rotations = vec![Matrix3::identity(); prop_count];
 
-                reader.read_u8().unwrap();
+                chunk.read_u8().unwrap();
 
                 for rotation in rotations.iter_mut() {
-                    let id = reader.read_u8().unwrap();
+                    let id = chunk.read_u8().unwrap();
                     if id == 0 {
                         *rotation = Matrix3::new(
                             Vector3::new(
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
                             ),
                             Vector3::new(
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
                             ),
                             Vector3::new(
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
-                                reader.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
+                                chunk.read_le_f32().unwrap(),
                             ),
                         );
                     } else {
@@ -648,18 +645,18 @@ impl DecodedValues {
                     }
                 }
 
-                let x = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let y = reader.read_interleaved_f32_array(prop_count).unwrap();
-                let z = reader.read_interleaved_f32_array(prop_count).unwrap();
+                let x = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let y = read_interleaved_f32_array(chunk, prop_count).unwrap();
+                let z = read_interleaved_f32_array(chunk, prop_count).unwrap();
 
-                reader.read_u8().unwrap();
+                chunk.read_u8().unwrap();
 
                 let values = x
                     .zip(y)
                     .zip(z)
                     .zip(rotations)
                     .map(|(((x, y), z), rotation)| {
-                        if reader.read_u8().unwrap() == 0 {
+                        if chunk.read_u8().unwrap() == 0 {
                             None
                         } else {
                             Some(CFrame::new(Vector3::new(x, y, z), rotation))
@@ -670,8 +667,7 @@ impl DecodedValues {
                 Some(DecodedValues::OptionalCFrame(values))
             }
             Type::UniqueId => {
-                let values = reader
-                    .read_interleaved_bytes::<16>(prop_count)
+                let values = read_interleaved_bytes::<16>(chunk, prop_count)
                     .unwrap()
                     .map(|v| {
                         let mut bytes = v.as_slice();
@@ -687,7 +683,7 @@ impl DecodedValues {
                 Some(DecodedValues::UniqueId(values))
             }
             Type::SecurityCapabilities => {
-                let values = reader.read_interleaved_i64_array(prop_count).unwrap();
+                let values = read_interleaved_i64_array(chunk, prop_count).unwrap();
 
                 let values = values
                     .map(|value| SecurityCapabilities::from_bits(value as u64))
@@ -698,21 +694,21 @@ impl DecodedValues {
             Type::Content => {
                 let mut values = vec![SerializedContentType::None; prop_count];
 
-                let source_types = reader.read_interleaved_i32_array(prop_count).unwrap();
+                let source_types = read_interleaved_i32_array(chunk, prop_count).unwrap();
 
-                let uri_count = reader.read_le_u32().unwrap() as usize;
+                let uri_count = chunk.read_le_u32().unwrap() as usize;
                 let mut uris = VecDeque::with_capacity(uri_count);
                 for _ in 0..uri_count {
-                    uris.push_front(reader.read_string().unwrap());
+                    uris.push_front(chunk.read_string().unwrap());
                 }
 
-                let object_count = reader.read_le_u32().unwrap() as usize;
+                let object_count = chunk.read_le_u32().unwrap() as usize;
                 let mut objects: VecDeque<i32> =
-                    reader.read_referent_array(object_count).unwrap().collect();
+                    read_referent_array(chunk, object_count).unwrap().collect();
 
-                let external_count = reader.read_le_u32().unwrap() as usize;
+                let external_count = chunk.read_le_u32().unwrap() as usize;
                 let mut external_objects = vec![0; external_count * 4];
-                reader.read_to_end(&mut external_objects).unwrap();
+                chunk.read_to_end(&mut external_objects).unwrap();
 
                 for (v, ty) in values.iter_mut().zip(source_types) {
                     *v = match ty {
