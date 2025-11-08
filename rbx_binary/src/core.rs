@@ -277,13 +277,12 @@ impl<W> RbxWriteExt for W where W: Write {}
 pub fn read_interleaved_bytes<'a, const N: usize>(
     slice: &mut &'a [u8],
     len: usize,
-) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
+) -> ReadInterleavedBytesIter<'a, N> {
     let out;
     // split_at can panic if the slice is shorter than length
     // but we do not expect that to happen.
     (out, *slice) = slice.split_at(len * N);
-    let it = ReadInterleavedBytesIter::new(out, len);
-    Ok(it)
+    ReadInterleavedBytesIter::new(out, len)
 }
 
 /// Creates an iterator of `len` big-endian i32 values.
@@ -293,8 +292,8 @@ pub fn read_interleaved_bytes<'a, const N: usize>(
 pub fn read_interleaved_i32_array<'a>(
     slice: &mut &'a [u8],
     len: usize,
-) -> io::Result<impl Iterator<Item = i32> + 'a> {
-    Ok(read_interleaved_bytes(slice, len)?.map(|out| untransform_i32(i32::from_be_bytes(out))))
+) -> impl Iterator<Item = i32> + 'a {
+    read_interleaved_bytes(slice, len).map(|out| untransform_i32(i32::from_be_bytes(out)))
 }
 
 /// Creates an iterator of `len` big-endian u32 values.
@@ -304,8 +303,8 @@ pub fn read_interleaved_i32_array<'a>(
 pub fn read_interleaved_u32_array<'a>(
     slice: &mut &'a [u8],
     len: usize,
-) -> io::Result<impl Iterator<Item = u32> + 'a> {
-    Ok(read_interleaved_bytes(slice, len)?.map(u32::from_be_bytes))
+) -> impl Iterator<Item = u32> + 'a {
+    read_interleaved_bytes(slice, len).map(u32::from_be_bytes)
 }
 
 /// Creates an iterator of `len` big-endian f32 values.
@@ -315,9 +314,9 @@ pub fn read_interleaved_u32_array<'a>(
 pub fn read_interleaved_f32_array<'a>(
     slice: &mut &'a [u8],
     len: usize,
-) -> io::Result<impl Iterator<Item = f32> + 'a> {
-    Ok(read_interleaved_bytes(slice, len)?
-        .map(|out| f32::from_bits(u32::from_be_bytes(out).rotate_right(1))))
+) -> impl Iterator<Item = f32> + 'a {
+    read_interleaved_bytes(slice, len)
+        .map(|out| f32::from_bits(u32::from_be_bytes(out).rotate_right(1)))
 }
 
 /// Creates an iterator of `len` big-endian i32 values.
@@ -325,18 +324,13 @@ pub fn read_interleaved_f32_array<'a>(
 /// so as to properly read arrays of referent values.
 ///
 /// This function is not part of RbxReadExt.
-pub fn read_referent_array<'a>(
-    slice: &mut &'a [u8],
-    len: usize,
-) -> io::Result<impl Iterator<Item = i32> + 'a> {
+pub fn read_referent_array<'a>(slice: &mut &'a [u8], len: usize) -> impl Iterator<Item = i32> + 'a {
     let mut last = 0;
-    Ok(
-        read_interleaved_i32_array(slice, len)?.map(move |mut referent| {
-            referent += last;
-            last = referent;
-            referent
-        }),
-    )
+    read_interleaved_i32_array(slice, len).map(move |mut referent| {
+        referent += last;
+        last = referent;
+        referent
+    })
 }
 
 /// Creates an iterator of `len` big-endian i64 values.
@@ -346,8 +340,8 @@ pub fn read_referent_array<'a>(
 pub fn read_interleaved_i64_array<'a>(
     slice: &mut &'a [u8],
     len: usize,
-) -> io::Result<impl Iterator<Item = i64> + 'a> {
-    Ok(read_interleaved_bytes(slice, len)?.map(|out| untransform_i64(i64::from_be_bytes(out))))
+) -> impl Iterator<Item = i64> + 'a {
+    read_interleaved_bytes(slice, len).map(|out| untransform_i64(i64::from_be_bytes(out)))
 }
 
 /// Applies the 'zigzag' transformation done by Roblox to many `i32` values.
