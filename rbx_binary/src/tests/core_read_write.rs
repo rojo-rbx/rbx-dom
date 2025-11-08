@@ -28,9 +28,7 @@ fn test_read_interleaved_bytes() {
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
     ];
 
-    let result: Vec<_> = read_interleaved_bytes::<16>(&mut input, expected.len())
-        .unwrap()
-        .collect();
+    let result: Vec<_> = read_interleaved_bytes::<16>(&mut input, expected.len()).collect();
 
     assert_eq!(result, expected)
 }
