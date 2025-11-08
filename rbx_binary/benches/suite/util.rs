@@ -35,8 +35,10 @@ fn deserialize_bench<T: Measurement>(group: &mut BenchmarkGroup<T>, buffer: &[u8
     group
         .throughput(Throughput::Bytes(buffer.len() as u64))
         .bench_function("Deserialize", |bencher| {
-            bencher.iter(|| {
-                rbx_binary::from_reader(buffer).unwrap();
-            });
+            bencher.iter_batched(
+                || unsafe { ustr::_clear_cache() },
+                |_| rbx_binary::from_reader(buffer).unwrap(),
+                BatchSize::SmallInput,
+            );
         });
 }

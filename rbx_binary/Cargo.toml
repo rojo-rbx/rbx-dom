@@ -39,6 +39,7 @@ serde = { version = "1.0.137", features = ["derive"] }
 rbx_reflection_database = { path = "../rbx_reflection_database", features = [
     "debug_always_use_bundled",
 ] }
+ustr = "1.1.0"
 
 [[bench]]
 name = "suite"
