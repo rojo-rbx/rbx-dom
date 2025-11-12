@@ -279,9 +279,9 @@ pub fn read_interleaved_bytes<'a, const N: usize>(
     len: usize,
 ) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
     let out;
-    // split_at can panic if the slice is shorter than length
-    // but we do not expect that to happen.
-    (out, *slice) = slice.split_at(len * N);
+    (out, *slice) = slice.split_at_checked(len * N).ok_or_else(|| {
+        io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
+    })?;
     let it = ReadInterleavedBytesIter::new(out, len);
     Ok(it)
 }
