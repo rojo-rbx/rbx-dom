@@ -292,8 +292,7 @@ pub fn read_interleaved_bytes<'a, const N: usize>(
     (out, *slice) = slice.split_at_checked(len * N).ok_or_else(|| {
         io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
     })?;
-    let it = ReadInterleavedBytesIter::new(out, len);
-    Ok(it)
+    Ok(ReadInterleavedBytesIter::new(out, len))
 }
 
 /// Creates an iterator of `len` big-endian i32 values.
