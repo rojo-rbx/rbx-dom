@@ -358,9 +358,9 @@ pub fn read_binary_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a [u8]
     let length = slice.read_le_u32()?;
 
     let out;
-    // split_at can panic if the slice is shorter than length
-    // but we do not expect that to happen.
-    (out, *slice) = slice.split_at(length as usize);
+    (out, *slice) = slice.split_at_checked(length as usize).ok_or_else(|| {
+        io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
+    })?;
 
     Ok(out)
 }
