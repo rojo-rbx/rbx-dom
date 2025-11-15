@@ -269,43 +269,14 @@ impl ChunkBuilder {
 }
 
 impl<W> RbxWriteExt for W where W: Write {}
-pub trait RbxReadZeroCopy<'a> {
-    fn read_interleaved_bytes<const N: usize>(
-        &mut self,
-        len: usize,
-    ) -> io::Result<ReadInterleavedBytesIter<'a, N>>;
-    fn read_interleaved_i32_array(
-        &mut self,
-        len: usize,
-    ) -> io::Result<impl Iterator<Item = i32> + 'a>;
-    fn read_interleaved_u32_array(
-        &mut self,
-        len: usize,
-    ) -> io::Result<impl Iterator<Item = u32> + 'a>;
-    fn read_interleaved_f32_array(
-        &mut self,
-        len: usize,
-    ) -> io::Result<impl Iterator<Item = f32> + 'a>;
-    fn read_referent_array(&mut self, len: usize) -> io::Result<impl Iterator<Item = i32> + 'a>;
-    fn read_interleaved_i64_array(
-        &mut self,
-        len: usize,
-    ) -> io::Result<impl Iterator<Item = i64> + 'a>;
-}
 
-impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
+pub trait RbxReadZeroCopy<'a> {
     /// Create an iterator that reads chunks of N interleaved bytes.
     /// Splits `N * len` bytes from the slice.
     fn read_interleaved_bytes<const N: usize>(
         &mut self,
         len: usize,
-    ) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
-        let out;
-        (out, *self) = self.split_at_checked(len * N).ok_or_else(|| {
-            io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
-        })?;
-        Ok(ReadInterleavedBytesIter::new(out, len))
-    }
+    ) -> io::Result<ReadInterleavedBytesIter<'a, N>>;
 
     /// Creates an iterator of `len` big-endian i32 values.
     /// The values are transformed during iteration.
@@ -361,6 +332,19 @@ impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
         Ok(self
             .read_interleaved_bytes(len)?
             .map(|out| untransform_i64(i64::from_be_bytes(out))))
+    }
+}
+
+impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
+    fn read_interleaved_bytes<const N: usize>(
+        &mut self,
+        len: usize,
+    ) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
+        let out;
+        (out, *self) = self.split_at_checked(len * N).ok_or_else(|| {
+            io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
+        })?;
+        Ok(ReadInterleavedBytesIter::new(out, len))
     }
 }
 
