@@ -94,32 +94,6 @@ pub trait RbxReadExt: Read {
         Ok(buffer[0])
     }
 
-    /// Read a binary "string" in the format that Roblox's model files use.
-    ///
-    /// This function is safer than read_string because Roblox generally makes
-    /// no guarantees about encoding of things it calls strings. rbx_binary
-    /// makes a semantic differentiation between strings and binary buffers,
-    /// which makes it more strict than Roblox but more likely to be correct.
-    fn read_binary_string(&mut self) -> io::Result<Vec<u8>> {
-        let length = self.read_le_u32()?;
-
-        let mut value = Vec::with_capacity(length as usize);
-        self.take(length as u64).read_to_end(&mut value)?;
-
-        Ok(value)
-    }
-
-    /// Read a UTF-8 encoded string encoded how Roblox model files encode
-    /// strings. This function isn't always appropriate because Roblox's formats
-    /// generally aren't dilligent about data being valid Unicode.
-    fn read_string(&mut self) -> io::Result<String> {
-        let length = self.read_le_u32()?;
-        let mut value = String::with_capacity(length as usize);
-        self.take(length as u64).read_to_string(&mut value)?;
-
-        Ok(value)
-    }
-
     fn read_bool(&mut self) -> io::Result<bool> {
         Ok(self.read_u8()? != 0)
     }
@@ -354,7 +328,7 @@ impl<W> RbxWriteExt for W where W: Write {}
 ///
 /// This function is not part of RbxReadExt, and unlike
 /// RbxReadExt::read_binary_string, this function only operates on a byte slice.
-pub fn read_binary_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a [u8]> {
+pub fn read_binary_string<'a>(slice: &mut &'a [u8]) -> io::Result<&'a [u8]> {
     let length = slice.read_le_u32()?;
 
     let out;
@@ -371,8 +345,8 @@ pub fn read_binary_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a [u8]
 ///
 /// This function is not part of RbxReadExt, and unlike
 /// RbxReadExt::read_string, this function only operates on a byte slice.
-pub fn read_string_slice<'a>(slice: &mut &'a [u8]) -> io::Result<&'a str> {
-    let out = read_binary_string_slice(slice)?;
+pub fn read_string<'a>(slice: &mut &'a [u8]) -> io::Result<&'a str> {
+    let out = read_binary_string(slice)?;
 
     core::str::from_utf8(out).map_err(|_| {
         io::Error::new(

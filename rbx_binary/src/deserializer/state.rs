@@ -16,7 +16,7 @@ use rbx_reflection::{ClassDescriptor, PropertyKind, PropertySerialization, Refle
 
 use crate::{
     chunk::Chunk,
-    core::{find_property_descriptors, read_binary_string_slice, read_string_slice, RbxReadExt},
+    core::{find_property_descriptors, read_binary_string, read_string, RbxReadExt},
     types::Type,
 };
 
@@ -236,8 +236,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         self.metadata.reserve(len as usize);
 
         for _ in 0..len {
-            let key = chunk.read_string()?;
-            let value = chunk.read_string()?;
+            let key = read_string(&mut chunk)?.to_owned();
+            let value = read_string(&mut chunk)?.to_owned();
 
             self.metadata.insert(key, value);
         }
@@ -260,7 +260,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         for _ in 0..num_entries {
             chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
-            let data = chunk.read_binary_string()?;
+            let data = read_binary_string(&mut chunk)?.to_owned();
             self.shared_strings.push(SharedString::new(data));
         }
 
@@ -270,7 +270,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
     #[profiling::function]
     pub(super) fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
-        let type_name = read_string_slice(&mut chunk)?;
+        let type_name = read_string(&mut chunk)?;
         let object_format = chunk.read_u8()?;
         let number_instances = chunk.read_le_u32()?;
 
@@ -317,7 +317,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
     #[profiling::function]
     pub(super) fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
-        let prop_name = read_string_slice(&mut chunk)?;
+        let prop_name = read_string(&mut chunk)?;
 
         let type_info = self
             .type_infos
@@ -370,7 +370,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
             for referent in &type_info.referents {
                 let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                let binary_string = read_binary_string_slice(&mut chunk)?;
+                let binary_string = read_binary_string(&mut chunk)?;
                 let value = match std::str::from_utf8(binary_string) {
                     Ok(value) => Cow::Borrowed(value),
                     Err(_) => {
@@ -408,7 +408,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::String => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let binary_string = read_binary_string_slice(&mut chunk)?;
+                        let binary_string = read_binary_string(&mut chunk)?;
                         let value = match std::str::from_utf8(binary_string) {
                             Ok(value) => Cow::Borrowed(value),
                             Err(_) => {
@@ -429,21 +429,21 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::ContentId => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = chunk.read_string()?;
+                        let value = read_string(&mut chunk)?.to_owned();
                         add_property(instance, &property, ContentId::from(value).into());
                     }
                 }
                 VariantType::BinaryString => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value: BinaryString = chunk.read_binary_string()?.into();
+                        let value: BinaryString = read_binary_string(&mut chunk)?.to_owned().into();
                         add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::Tags => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let buffer = read_binary_string_slice(&mut chunk)?;
+                        let buffer = read_binary_string(&mut chunk)?;
 
                         let value =
                             Tags::decode(buffer).map_err(|_| InnerError::InvalidPropData {
@@ -459,7 +459,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::Attributes => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let buffer = read_binary_string_slice(&mut chunk)?;
+                        let buffer = read_binary_string(&mut chunk)?;
 
                         match Attributes::from_reader(buffer) {
                             Ok(value) => {
@@ -486,7 +486,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::MaterialColors => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let buffer = read_binary_string_slice(&mut chunk)?;
+                        let buffer = read_binary_string(&mut chunk)?;
                         match MaterialColors::decode(buffer) {
                             Ok(value) => add_property(instance, &property, value.into()),
                             Err(err) => {
@@ -976,10 +976,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
-                        let family = chunk.read_string()?;
+                        let family = read_string(&mut chunk)?.to_owned();
                         let weight = FontWeight::from_u16(chunk.read_le_u16()?).unwrap_or_default();
                         let style = FontStyle::from_u8(chunk.read_u8()?).unwrap_or_default();
-                        let cached_face_id = chunk.read_string()?;
+                        let cached_face_id = read_string(&mut chunk)?.to_owned();
 
                         let cached_face_id = if cached_face_id.is_empty() {
                             None
@@ -1409,7 +1409,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let uri_count = chunk.read_le_u32()? as usize;
                     let mut uris = VecDeque::with_capacity(uri_count);
                     for _ in 0..uri_count {
-                        uris.push_front(chunk.read_string()?);
+                        uris.push_front(read_string(&mut chunk)?.to_owned());
                     }
 
                     let object_count = chunk.read_le_u32()? as usize;
