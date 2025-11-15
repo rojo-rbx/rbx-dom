@@ -16,11 +16,7 @@ use rbx_reflection::{ClassDescriptor, PropertyKind, PropertySerialization, Refle
 
 use crate::{
     chunk::Chunk,
-    core::{
-        read_binary_string, read_string, find_property_descriptors, read_interleaved_bytes, read_interleaved_f32_array,
-        read_interleaved_i32_array, read_interleaved_i64_array, read_interleaved_u32_array,
-        read_referent_array, RbxReadExt,
-    },
+    core::{find_property_descriptors, RbxReadExt, RbxReadZeroCopy},
     types::Type,
 };
 
@@ -240,8 +236,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         self.metadata.reserve(len as usize);
 
         for _ in 0..len {
-            let key = read_string(&mut chunk)?.to_owned();
-            let value = read_string(&mut chunk)?.to_owned();
+            let key = chunk.read_string()?.to_owned();
+            let value = chunk.read_string()?.to_owned();
 
             self.metadata.insert(key, value);
         }
@@ -264,7 +260,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         for _ in 0..num_entries {
             chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
-            let data = read_binary_string(&mut chunk)?.to_owned();
+            let data = chunk.read_binary_string()?.to_owned();
             self.shared_strings.push(SharedString::new(data));
         }
 
@@ -274,7 +270,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
     #[profiling::function]
     pub(super) fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
-        let type_name = read_string(&mut chunk)?;
+        let type_name = chunk.read_string()?;
         let object_format = chunk.read_u8()?;
         let number_instances = chunk.read_le_u32()?;
 
@@ -282,7 +278,9 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             "INST chunk (type ID {type_id}, type name {type_name}, format {object_format}, {number_instances} instances)",
         );
 
-        let referents = read_referent_array(&mut chunk, number_instances as usize)?.collect();
+        let referents = chunk
+            .read_referent_array(number_instances as usize)?
+            .collect();
 
         let (class_descriptor, prop_capacity) =
             if let Some(class) = self.deserializer.database.classes.get(type_name) {
@@ -319,7 +317,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
     #[profiling::function]
     pub(super) fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
-        let prop_name = read_string(&mut chunk)?;
+        let prop_name = chunk.read_string()?;
 
         let type_info = self
             .type_infos
@@ -372,7 +370,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
             for referent in &type_info.referents {
                 let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                let binary_string = read_binary_string(&mut chunk)?;
+                let binary_string = chunk.read_binary_string()?;
                 let value = match std::str::from_utf8(binary_string) {
                     Ok(value) => Cow::Borrowed(value),
                     Err(_) => {
@@ -410,7 +408,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::String => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let binary_string = read_binary_string(&mut chunk)?;
+                        let binary_string = chunk.read_binary_string()?;
                         let value = match std::str::from_utf8(binary_string) {
                             Ok(value) => Cow::Borrowed(value),
                             Err(_) => {
@@ -431,21 +429,21 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::ContentId => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value = read_string(&mut chunk)?.to_owned();
+                        let value = chunk.read_string()?.to_owned();
                         add_property(instance, &property, ContentId::from(value).into());
                     }
                 }
                 VariantType::BinaryString => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let value: BinaryString = read_binary_string(&mut chunk)?.to_owned().into();
+                        let value: BinaryString = chunk.read_binary_string()?.to_owned().into();
                         add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::Tags => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let buffer = read_binary_string(&mut chunk)?;
+                        let buffer = chunk.read_binary_string()?;
 
                         let value =
                             Tags::decode(buffer).map_err(|_| InnerError::InvalidPropData {
@@ -461,7 +459,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 VariantType::Attributes => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let buffer = read_binary_string(&mut chunk)?;
+                        let buffer = chunk.read_binary_string()?;
 
                         match Attributes::from_reader(buffer) {
                             Ok(value) => {
@@ -488,7 +486,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::MaterialColors => {
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        let buffer = read_binary_string(&mut chunk)?;
+                        let buffer = chunk.read_binary_string()?;
                         match MaterialColors::decode(buffer) {
                             Ok(value) => add_property(instance, &property, value.into()),
                             Err(err) => {
@@ -538,7 +536,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Int32 => match canonical_type {
                 VariantType::Int32 => {
-                    let values = read_interleaved_i32_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_i32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
@@ -549,7 +547,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 // Basically, we convert Int32 to Int64 when we expect a Int64 but read a Int32
                 // See: #301
                 VariantType::Int64 => {
-                    let values = read_interleaved_i32_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_i32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
@@ -568,7 +566,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Float32 => match canonical_type {
                 VariantType::Float32 => {
-                    let values = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_f32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
@@ -596,7 +594,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 // Basically, we convert Float32 to Float64 when we expect a Float64 but read a Float32
                 // See: #301
                 VariantType::Float32 => {
-                    let values = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_f32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
@@ -615,9 +613,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::UDim => match canonical_type {
                 VariantType::UDim => {
-                    let scales = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
-                    let offsets =
-                        read_interleaved_i32_array(&mut chunk, type_info.referents.len())?;
+                    let scales = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let offsets = chunk.read_interleaved_i32_array(type_info.referents.len())?;
 
                     let values = scales
                         .zip(offsets)
@@ -640,10 +637,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::UDim2 => match canonical_type {
                 VariantType::UDim2 => {
                     let prop_count = type_info.referents.len();
-                    let scale_x = read_interleaved_f32_array(&mut chunk, prop_count)?;
-                    let scale_y = read_interleaved_f32_array(&mut chunk, prop_count)?;
-                    let offset_x = read_interleaved_i32_array(&mut chunk, prop_count)?;
-                    let offset_y = read_interleaved_i32_array(&mut chunk, prop_count)?;
+                    let scale_x = chunk.read_interleaved_f32_array(prop_count)?;
+                    let scale_y = chunk.read_interleaved_f32_array(prop_count)?;
+                    let offset_x = chunk.read_interleaved_i32_array(prop_count)?;
+                    let offset_y = chunk.read_interleaved_i32_array(prop_count)?;
 
                     let x = scale_x
                         .zip(offset_x)
@@ -754,7 +751,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::BrickColor => match canonical_type {
                 VariantType::BrickColor => {
-                    let values = read_interleaved_u32_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
@@ -783,9 +780,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Color3 => match canonical_type {
                 VariantType::Color3 => {
-                    let r = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
-                    let g = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
-                    let b = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
+                    let r = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let g = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let b = chunk.read_interleaved_f32_array(type_info.referents.len())?;
 
                     let colors = r.zip(g).zip(b).map(|((r, g), b)| Color3::new(r, g, b));
 
@@ -805,8 +802,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Vector2 => match canonical_type {
                 VariantType::Vector2 => {
-                    let x = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
-                    let y = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
+                    let x = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let y = chunk.read_interleaved_f32_array(type_info.referents.len())?;
 
                     let values = x.zip(y).map(|(x, y)| Vector2::new(x, y));
 
@@ -826,9 +823,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Vector3 => match canonical_type {
                 VariantType::Vector3 => {
-                    let x = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
-                    let y = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
-                    let z = read_interleaved_f32_array(&mut chunk, type_info.referents.len())?;
+                    let x = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let y = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let z = chunk.read_interleaved_f32_array(type_info.referents.len())?;
 
                     let values = x.zip(y).zip(z).map(|((x, y), z)| Vector3::new(x, y, z));
 
@@ -882,9 +879,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         }
                     }
 
-                    let x = read_interleaved_f32_array(&mut chunk, referents.len())?;
-                    let y = read_interleaved_f32_array(&mut chunk, referents.len())?;
-                    let z = read_interleaved_f32_array(&mut chunk, referents.len())?;
+                    let x = chunk.read_interleaved_f32_array(referents.len())?;
+                    let y = chunk.read_interleaved_f32_array(referents.len())?;
+                    let z = chunk.read_interleaved_f32_array(referents.len())?;
 
                     let values = x
                         .zip(y)
@@ -909,7 +906,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Enum => match canonical_type {
                 VariantType::Enum => {
-                    let values = read_interleaved_u32_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
@@ -927,7 +924,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Ref => match canonical_type {
                 VariantType::Ref => {
-                    let refs = read_referent_array(&mut chunk, type_info.referents.len())?;
+                    let refs = chunk.read_referent_array(type_info.referents.len())?;
 
                     for (value, referent) in refs.zip(&type_info.referents) {
                         let rbx_value = if let Some(instance) = self.instances_by_ref.get(&value) {
@@ -979,10 +976,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     for referent in &type_info.referents {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
-                        let family = read_string(&mut chunk)?.to_owned();
+                        let family = chunk.read_string()?.to_owned();
                         let weight = FontWeight::from_u16(chunk.read_le_u16()?).unwrap_or_default();
                         let style = FontStyle::from_u8(chunk.read_u8()?).unwrap_or_default();
-                        let cached_face_id = read_string(&mut chunk)?.to_owned();
+                        let cached_face_id = chunk.read_string()?.to_owned();
 
                         let cached_face_id = if cached_face_id.is_empty() {
                             None
@@ -1095,10 +1092,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Rect => match canonical_type {
                 VariantType::Rect => {
                     let len = type_info.referents.len();
-                    let x_min = read_interleaved_f32_array(&mut chunk, len)?;
-                    let y_min = read_interleaved_f32_array(&mut chunk, len)?;
-                    let x_max = read_interleaved_f32_array(&mut chunk, len)?;
-                    let y_max = read_interleaved_f32_array(&mut chunk, len)?;
+                    let x_min = chunk.read_interleaved_f32_array(len)?;
+                    let y_min = chunk.read_interleaved_f32_array(len)?;
+                    let x_max = chunk.read_interleaved_f32_array(len)?;
+                    let y_max = chunk.read_interleaved_f32_array(len)?;
 
                     let values = x_min.zip(y_min).zip(x_max).zip(y_max).map(
                         |(((x_min, y_min), x_max), y_max)| {
@@ -1195,7 +1192,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Int64 => match canonical_type {
                 VariantType::Int64 => {
-                    let values = read_interleaved_i64_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_i64_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
@@ -1213,7 +1210,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::SharedString => match canonical_type {
                 VariantType::SharedString => {
-                    let values = read_interleaved_u32_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let shared_string =
@@ -1232,7 +1229,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     }
                 }
                 VariantType::NetAssetRef => {
-                    let values = read_interleaved_u32_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let net_asset = NetAssetRef::from(
@@ -1309,9 +1306,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         }
                     }
 
-                    let x = read_interleaved_f32_array(&mut chunk, referents.len())?;
-                    let y = read_interleaved_f32_array(&mut chunk, referents.len())?;
-                    let z = read_interleaved_f32_array(&mut chunk, referents.len())?;
+                    let x = chunk.read_interleaved_f32_array(referents.len())?;
+                    let y = chunk.read_interleaved_f32_array(referents.len())?;
+                    let z = chunk.read_interleaved_f32_array(referents.len())?;
 
                     // Roblox writes a type marker for Bool here that we don't
                     // need to use. We explicitly check for this right now just
@@ -1355,7 +1352,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::UniqueId => match canonical_type {
                 VariantType::UniqueId => {
                     let n = type_info.referents.len();
-                    let values = read_interleaved_bytes::<16>(&mut chunk, n)?;
+                    let values = chunk.read_interleaved_bytes::<16>(n)?;
 
                     for (i, value) in values.enumerate() {
                         let mut value = value.as_slice();
@@ -1386,7 +1383,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::SecurityCapabilities => match canonical_type {
                 VariantType::SecurityCapabilities => {
-                    let values = read_interleaved_i64_array(&mut chunk, type_info.referents.len())?;
+                    let values = chunk.read_interleaved_i64_array(type_info.referents.len())?;
 
                     let values = values.map(|value| SecurityCapabilities::from_bits(value as u64));
 
@@ -1407,17 +1404,17 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Content => match canonical_type {
                 VariantType::Content => {
                     let source_types =
-                        read_interleaved_i32_array(&mut chunk, type_info.referents.len())?;
+                        chunk.read_interleaved_i32_array(type_info.referents.len())?;
 
                     let uri_count = chunk.read_le_u32()? as usize;
                     let mut uris = VecDeque::with_capacity(uri_count);
                     for _ in 0..uri_count {
-                        uris.push_front(read_string(&mut chunk)?.to_owned());
+                        uris.push_front(chunk.read_string()?.to_owned());
                     }
 
                     let object_count = chunk.read_le_u32()? as usize;
                     let mut objects: VecDeque<i32> =
-                        read_referent_array(&mut chunk, object_count)?.collect();
+                        chunk.read_referent_array(object_count)?.collect();
 
                     let external_count = chunk.read_le_u32().unwrap() as usize;
                     // We are advised by Roblox to just ignore this, as it's
@@ -1475,8 +1472,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
         log::trace!("PRNT chunk ({number_objects} instances)");
 
-        let subjects = read_referent_array(&mut chunk, number_objects as usize)?;
-        let parents = read_referent_array(&mut chunk, number_objects as usize)?;
+        let subjects = chunk.read_referent_array(number_objects as usize)?;
+        let parents = chunk.read_referent_array(number_objects as usize)?;
 
         for (id, parent_ref) in subjects.zip(parents) {
             if parent_ref == -1 {
