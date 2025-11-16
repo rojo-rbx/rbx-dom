@@ -1,7 +1,7 @@
 use crate::{chunk::ChunkBuilder, core::RbxReadZeroCopy, CompressionType};
 
 #[test]
-fn test_read_interleaved_bytes() {
+fn read_interleaved_bytes() {
     #[rustfmt::skip]
     let mut input: &[u8] = &[
         0, 0, 0,
