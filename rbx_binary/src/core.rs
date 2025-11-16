@@ -93,8 +93,125 @@ pub trait RbxReadExt: Read {
         Ok(buffer[0])
     }
 
+    /// Read a binary "string" in the format that Roblox's model files use.
+    ///
+    /// This function is safer than read_string because Roblox generally makes
+    /// no guarantees about encoding of things it calls strings. rbx_binary
+    /// makes a semantic differentiation between strings and binary buffers,
+    /// which makes it more strict than Roblox but more likely to be correct.
+    fn read_binary_string<'a>(&mut self) -> io::Result<&'a [u8]>
+    where
+        Self: RbxReadZeroCopy<'a>,
+    {
+        let length = self.read_le_u32()?;
+        let out = self.read_slice(length as usize)?;
+        Ok(out)
+    }
+
+    /// Read a UTF-8 encoded string encoded how Roblox model files encode
+    /// strings. This function isn't always appropriate because Roblox's formats
+    /// generally aren't dilligent about data being valid Unicode.
+    fn read_string<'a>(&mut self) -> io::Result<&'a str>
+    where
+        Self: RbxReadZeroCopy<'a>,
+    {
+        let out = self.read_binary_string()?;
+
+        core::str::from_utf8(out).map_err(|_| {
+            io::Error::new(
+                io::ErrorKind::InvalidData,
+                "stream did not contain valid UTF-8",
+            )
+        })
+    }
+
     fn read_bool(&mut self) -> io::Result<bool> {
         Ok(self.read_u8()? != 0)
+    }
+
+    /// Create an iterator that reads chunks of N interleaved bytes.
+    /// Splits `N * len` bytes from the slice.
+    fn read_interleaved_bytes<'a, const N: usize>(
+        &mut self,
+        len: usize,
+    ) -> io::Result<ReadInterleavedBytesIter<'a, N>>
+    where
+        Self: RbxReadZeroCopy<'a>,
+    {
+        let out = self.read_slice(len * N)?;
+
+        Ok(ReadInterleavedBytesIter::new(out, len))
+    }
+
+    /// Creates an iterator of `len` big-endian i32 values.
+    /// The values are transformed during iteration.
+    fn read_interleaved_i32_array<'a>(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = i32> + 'a>
+    where
+        Self: RbxReadZeroCopy<'a>,
+    {
+        Ok(self
+            .read_interleaved_bytes(len)?
+            .map(|out| untransform_i32(i32::from_be_bytes(out))))
+    }
+
+    /// Creates an iterator of `len` big-endian u32 values.
+    /// The values are transformed during iteration.
+    fn read_interleaved_u32_array<'a>(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = u32> + 'a>
+    where
+        Self: RbxReadZeroCopy<'a>,
+    {
+        Ok(self.read_interleaved_bytes(len)?.map(u32::from_be_bytes))
+    }
+
+    /// Creates an iterator of `len` big-endian f32 values.
+    /// The values are properly unrotated during iteration.
+    fn read_interleaved_f32_array<'a>(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = f32> + 'a>
+    where
+        Self: RbxReadZeroCopy<'a>,
+    {
+        Ok(self
+            .read_interleaved_bytes(len)?
+            .map(|out| f32::from_bits(u32::from_be_bytes(out).rotate_right(1))))
+    }
+
+    /// Creates an iterator of `len` big-endian i32 values.
+    /// The values are properly untransformed and accumulated
+    /// so as to properly read arrays of referent values.
+    fn read_referent_array<'a>(&mut self, len: usize) -> io::Result<impl Iterator<Item = i32> + 'a>
+    where
+        Self: RbxReadZeroCopy<'a>,
+    {
+        let mut last = 0;
+        Ok(self
+            .read_interleaved_i32_array(len)?
+            .map(move |mut referent| {
+                referent += last;
+                last = referent;
+                referent
+            }))
+    }
+
+    /// Creates an iterator of `len` big-endian i64 values.
+    /// The values are transformed during iteration.
+    fn read_interleaved_i64_array<'a>(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = i64> + 'a>
+    where
+        Self: RbxReadZeroCopy<'a>,
+    {
+        Ok(self
+            .read_interleaved_bytes(len)?
+            .map(|out| untransform_i64(i64::from_be_bytes(out))))
     }
 }
 
@@ -246,105 +363,6 @@ impl<W> RbxWriteExt for W where W: Write {}
 pub trait RbxReadZeroCopy<'a> {
     /// Split a slice of length `len` from the beginning of the chunk.
     fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
-
-    /// Read a binary "string" in the format that Roblox's model files use.
-    ///
-    /// This function is safer than read_string because Roblox generally makes
-    /// no guarantees about encoding of things it calls strings. rbx_binary
-    /// makes a semantic differentiation between strings and binary buffers,
-    /// which makes it more strict than Roblox but more likely to be correct.
-    fn read_binary_string(&mut self) -> io::Result<&'a [u8]>
-    where
-        Self: RbxReadExt,
-    {
-        let length = self.read_le_u32()?;
-        let out = self.read_slice(length as usize)?;
-        Ok(out)
-    }
-
-    /// Read a UTF-8 encoded string encoded how Roblox model files encode
-    /// strings. This function isn't always appropriate because Roblox's formats
-    /// generally aren't dilligent about data being valid Unicode.
-    fn read_string(&mut self) -> io::Result<&'a str>
-    where
-        Self: RbxReadExt,
-    {
-        let out = self.read_binary_string()?;
-
-        core::str::from_utf8(out).map_err(|_| {
-            io::Error::new(
-                io::ErrorKind::InvalidData,
-                "stream did not contain valid UTF-8",
-            )
-        })
-    }
-
-    /// Create an iterator that reads chunks of N interleaved bytes.
-    /// Splits `N * len` bytes from the slice.
-    fn read_interleaved_bytes<const N: usize>(
-        &mut self,
-        len: usize,
-    ) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
-        let out = self.read_slice(len * N)?;
-
-        Ok(ReadInterleavedBytesIter::new(out, len))
-    }
-
-    /// Creates an iterator of `len` big-endian i32 values.
-    /// The values are transformed during iteration.
-    fn read_interleaved_i32_array(
-        &mut self,
-        len: usize,
-    ) -> io::Result<impl Iterator<Item = i32> + 'a> {
-        Ok(self
-            .read_interleaved_bytes(len)?
-            .map(|out| untransform_i32(i32::from_be_bytes(out))))
-    }
-
-    /// Creates an iterator of `len` big-endian u32 values.
-    /// The values are transformed during iteration.
-    fn read_interleaved_u32_array(
-        &mut self,
-        len: usize,
-    ) -> io::Result<impl Iterator<Item = u32> + 'a> {
-        Ok(self.read_interleaved_bytes(len)?.map(u32::from_be_bytes))
-    }
-
-    /// Creates an iterator of `len` big-endian f32 values.
-    /// The values are properly unrotated during iteration.
-    fn read_interleaved_f32_array(
-        &mut self,
-        len: usize,
-    ) -> io::Result<impl Iterator<Item = f32> + 'a> {
-        Ok(self
-            .read_interleaved_bytes(len)?
-            .map(|out| f32::from_bits(u32::from_be_bytes(out).rotate_right(1))))
-    }
-
-    /// Creates an iterator of `len` big-endian i32 values.
-    /// The values are properly untransformed and accumulated
-    /// so as to properly read arrays of referent values.
-    fn read_referent_array(&mut self, len: usize) -> io::Result<impl Iterator<Item = i32> + 'a> {
-        let mut last = 0;
-        Ok(self
-            .read_interleaved_i32_array(len)?
-            .map(move |mut referent| {
-                referent += last;
-                last = referent;
-                referent
-            }))
-    }
-
-    /// Creates an iterator of `len` big-endian i64 values.
-    /// The values are transformed during iteration.
-    fn read_interleaved_i64_array(
-        &mut self,
-        len: usize,
-    ) -> io::Result<impl Iterator<Item = i64> + 'a> {
-        Ok(self
-            .read_interleaved_bytes(len)?
-            .map(|out| untransform_i64(i64::from_be_bytes(out))))
-    }
 }
 
 #[cold]
