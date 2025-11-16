@@ -130,6 +130,27 @@ pub trait RbxReadExt: Read {
     }
 }
 
+pub trait RbxReadZeroCopy<'a> {
+    /// Split off a slice of length `len`, or return
+    /// an error if the length overruns the source data.
+    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
+}
+
+#[cold]
+fn unexpected_eof() -> io::Error {
+    io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
+}
+
+impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
+    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]> {
+        let out;
+
+        (out, *self) = self.split_at_checked(len).ok_or_else(unexpected_eof)?;
+
+        Ok(out)
+    }
+}
+
 pub trait RbxReadInterleaved<'a>: RbxReadZeroCopy<'a> {
     /// Create an iterator that reads chunks of N interleaved bytes.
     /// Splits `N * len` bytes from the slice.
@@ -344,27 +365,6 @@ impl ChunkBuilder {
 }
 
 impl<W> RbxWriteExt for W where W: Write {}
-
-pub trait RbxReadZeroCopy<'a> {
-    /// Split off a slice of length `len`, or return
-    /// an error if the length overruns the source data.
-    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
-}
-
-#[cold]
-fn unexpected_eof() -> io::Error {
-    io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
-}
-
-impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
-    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]> {
-        let out;
-
-        (out, *self) = self.split_at_checked(len).ok_or_else(unexpected_eof)?;
-
-        Ok(out)
-    }
-}
 
 /// Applies the 'zigzag' transformation done by Roblox to many `i32` values.
 pub fn transform_i32(value: i32) -> i32 {
