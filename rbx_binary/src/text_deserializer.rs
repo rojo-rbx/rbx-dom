@@ -584,19 +584,15 @@ impl DecodedValues {
                 Some(DecodedValues::PhysicalProperties(values))
             }
             Type::Color3uint8 => {
-                let mut r = vec![0; prop_count];
-                let mut g = vec![0; prop_count];
-                let mut b = vec![0; prop_count];
-
-                chunk.read_exact(r.as_mut_slice()).unwrap();
-                chunk.read_exact(g.as_mut_slice()).unwrap();
-                chunk.read_exact(b.as_mut_slice()).unwrap();
+                let r = chunk.read_slice(prop_count).unwrap();
+                let g = chunk.read_slice(prop_count).unwrap();
+                let b = chunk.read_slice(prop_count).unwrap();
 
                 let values = r
                     .into_iter()
                     .zip(g)
                     .zip(b)
-                    .map(|((r, g), b)| Color3uint8::new(r, g, b))
+                    .map(|((r, g), b)| Color3uint8::new(*r, *g, *b))
                     .collect();
 
                 Some(DecodedValues::Color3uint8(values))
@@ -710,8 +706,7 @@ impl DecodedValues {
                     chunk.read_referent_array(object_count).unwrap().collect();
 
                 let external_count = chunk.read_le_u32().unwrap() as usize;
-                let mut external_objects = vec![0; external_count * 4];
-                chunk.read_to_end(&mut external_objects).unwrap();
+                let _external_objects = chunk.read_slice(external_count * 4).unwrap();
 
                 for (v, ty) in values.iter_mut().zip(source_types) {
                     *v = match ty {
