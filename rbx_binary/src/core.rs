@@ -243,7 +243,7 @@ impl ChunkBuilder {
 
 impl<W> RbxWriteExt for W where W: Write {}
 
-pub trait RbxReadZeroCopy<'a>: RbxReadExt {
+pub trait RbxReadZeroCopy<'a> {
     /// Split a slice of length `len` from the beginning of the chunk.
     fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
 
@@ -253,7 +253,10 @@ pub trait RbxReadZeroCopy<'a>: RbxReadExt {
     /// no guarantees about encoding of things it calls strings. rbx_binary
     /// makes a semantic differentiation between strings and binary buffers,
     /// which makes it more strict than Roblox but more likely to be correct.
-    fn read_binary_string(&mut self) -> io::Result<&'a [u8]> {
+    fn read_binary_string(&mut self) -> io::Result<&'a [u8]>
+    where
+        Self: RbxReadExt,
+    {
         let length = self.read_le_u32()?;
         let out = self.read_slice(length as usize)?;
         Ok(out)
@@ -262,7 +265,10 @@ pub trait RbxReadZeroCopy<'a>: RbxReadExt {
     /// Read a UTF-8 encoded string encoded how Roblox model files encode
     /// strings. This function isn't always appropriate because Roblox's formats
     /// generally aren't dilligent about data being valid Unicode.
-    fn read_string(&mut self) -> io::Result<&'a str> {
+    fn read_string(&mut self) -> io::Result<&'a str>
+    where
+        Self: RbxReadExt,
+    {
         let out = self.read_binary_string()?;
 
         core::str::from_utf8(out).map_err(|_| {
