@@ -589,7 +589,7 @@ impl DecodedValues {
                 let b = chunk.read_slice(prop_count).unwrap();
 
                 let values = r
-                    .into_iter()
+                    .iter()
                     .zip(g)
                     .zip(b)
                     .map(|((r, g), b)| Color3uint8::new(*r, *g, *b))
