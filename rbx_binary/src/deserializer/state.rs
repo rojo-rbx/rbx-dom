@@ -1162,19 +1162,15 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Color3uint8 => match canonical_type {
                 VariantType::Color3 => {
                     let len = type_info.referents.len();
-                    let mut r = vec![0; len];
-                    let mut g = vec![0; len];
-                    let mut b = vec![0; len];
-
-                    chunk.read_exact(r.as_mut_slice())?;
-                    chunk.read_exact(g.as_mut_slice())?;
-                    chunk.read_exact(b.as_mut_slice())?;
+                    let r = chunk.read_slice(len)?;
+                    let g = chunk.read_slice(len)?;
+                    let b = chunk.read_slice(len)?;
 
                     let colors = r
                         .into_iter()
                         .zip(g)
                         .zip(b)
-                        .map(|((r, g), b)| Color3uint8::new(r, g, b));
+                        .map(|((r, g), b)| Color3uint8::new(*r, *g, *b));
 
                     for (color, referent) in colors.into_iter().zip(&type_info.referents) {
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
@@ -1420,8 +1416,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     // We are advised by Roblox to just ignore this, as it's
                     // meant for internal use. If we want to use it in the
                     // future, it's a referent array.
-                    let mut bytes = vec![0; external_count * 4];
-                    chunk.read_to_end(&mut bytes)?;
+                    let _bytes = chunk.read_slice(external_count * 4)?;
 
                     for (referent, ty) in type_info.referents.iter().zip(source_types) {
                         let value = match ty {
