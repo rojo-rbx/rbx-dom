@@ -330,14 +330,19 @@ pub trait RbxReadZeroCopy<'a> {
     }
 }
 
+#[cold]
+fn unexpected_eof() -> io::Error {
+    io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
+}
+
 impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
     fn read_binary_string(&mut self) -> io::Result<&'a [u8]> {
         let length = self.read_le_u32()?;
 
         let out;
-        (out, *self) = self.split_at_checked(length as usize).ok_or_else(|| {
-            io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
-        })?;
+        (out, *self) = self
+            .split_at_checked(length as usize)
+            .ok_or_else(unexpected_eof)?;
 
         Ok(out)
     }
@@ -347,9 +352,9 @@ impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
         len: usize,
     ) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
         let out;
-        (out, *self) = self.split_at_checked(len * N).ok_or_else(|| {
-            io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
-        })?;
+
+        (out, *self) = self.split_at_checked(len * N).ok_or_else(unexpected_eof)?;
+
         Ok(ReadInterleavedBytesIter::new(out, len))
     }
 }
