@@ -131,7 +131,7 @@ pub trait RbxReadExt: Read {
 }
 
 pub trait ReadSlice<'a> {
-    /// Split off a slice of length `len`, or return
+    /// Read a slice of length `len`, or return
     /// an error if the length overruns the source data.
     fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
 }
@@ -153,7 +153,7 @@ impl<'a> ReadSlice<'a> for &'a [u8] {
 
 pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     /// Create an iterator that reads chunks of N interleaved bytes.
-    /// Splits `N * len` bytes from the slice.
+    /// Consumes `N * len` bytes from Self.
     fn read_interleaved_bytes<const N: usize>(
         &mut self,
         len: usize,
