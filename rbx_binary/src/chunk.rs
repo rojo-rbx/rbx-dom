@@ -78,13 +78,6 @@ impl ChunkBuilder {
         }
     }
 
-    /// Reserve bytes and use a closure to initialize them.
-    pub fn initialize_bytes_with(&mut self, len: usize, initialize_bytes: impl FnOnce(&mut [u8])) {
-        let current_len = self.buffer.len();
-        self.buffer.extend(core::iter::repeat_n(0, len));
-        initialize_bytes(&mut self.buffer[current_len..]);
-    }
-
     /// Consume the chunk and write it to the given writer.
     pub fn dump<W: Write>(self, mut writer: W) -> io::Result<()> {
         writer.write_all(self.chunk_name)?;
@@ -143,13 +136,17 @@ impl RbxWriteInterleaved for ChunkBuilder {
         let values_len = values.len();
         let bytes_len = values_len * N;
 
-        self.initialize_bytes_with(bytes_len, |buffer| {
-            for (i, bytes) in values.enumerate() {
-                for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
-                    buffer[i + b * values_len] = byte;
-                }
+        // Reserve space for new values
+        let current_len = self.buffer.len();
+        self.buffer.extend(core::iter::repeat_n(0, bytes_len));
+
+        // Write new values
+        let buffer = &mut self.buffer[current_len..];
+        for (i, bytes) in values.enumerate() {
+            for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
+                buffer[i + b * values_len] = byte;
             }
-        });
+        }
 
         Ok(())
     }
