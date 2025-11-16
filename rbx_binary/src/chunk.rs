@@ -5,7 +5,7 @@ use std::{
 };
 
 use crate::{
-    core::{RbxReadExt, RbxWriteExt},
+    core::{RbxReadExt, RbxWriteExt, RbxWriteInterleaved},
     serializer::CompressionType,
 };
 
@@ -129,6 +129,28 @@ impl Write for ChunkBuilder {
     }
 
     fn flush(&mut self) -> io::Result<()> {
+        Ok(())
+    }
+}
+
+impl RbxWriteInterleaved for ChunkBuilder {
+    fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: IntoIterator<Item = [u8; N]>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        let values = values.into_iter();
+        let values_len = values.len();
+        let bytes_len = values_len * N;
+
+        self.initialize_bytes_with(bytes_len, |buffer| {
+            for (i, bytes) in values.enumerate() {
+                for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
+                    buffer[i + b * values_len] = byte;
+                }
+            }
+        });
+
         Ok(())
     }
 }

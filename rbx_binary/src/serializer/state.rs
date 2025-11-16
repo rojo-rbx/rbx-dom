@@ -24,8 +24,8 @@ use rbx_reflection::{
 use crate::{
     chunk::ChunkBuilder,
     core::{
-        find_property_descriptors, PropertyDescriptors, RbxWriteExt, FILE_MAGIC_HEADER,
-        FILE_SIGNATURE, FILE_VERSION,
+        find_property_descriptors, PropertyDescriptors, RbxWriteExt, RbxWriteInterleaved,
+        FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
     },
     types::Type,
     Serializer,

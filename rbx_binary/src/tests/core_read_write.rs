@@ -1,4 +1,8 @@
-use crate::{chunk::ChunkBuilder, core::RbxReadExt, CompressionType};
+use crate::{
+    chunk::ChunkBuilder,
+    core::{RbxReadExt, RbxWriteInterleaved},
+    CompressionType,
+};
 
 #[test]
 fn read_interleaved_bytes() {
