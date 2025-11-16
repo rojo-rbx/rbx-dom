@@ -101,7 +101,7 @@ pub trait RbxReadExt: Read {
     /// which makes it more strict than Roblox but more likely to be correct.
     fn read_binary_string<'a>(&mut self) -> io::Result<&'a [u8]>
     where
-        Self: RbxReadZeroCopy<'a>,
+        Self: ReadSlice<'a>,
     {
         let length = self.read_le_u32()?;
         let out = self.read_slice(length as usize)?;
@@ -113,7 +113,7 @@ pub trait RbxReadExt: Read {
     /// generally aren't dilligent about data being valid Unicode.
     fn read_string<'a>(&mut self) -> io::Result<&'a str>
     where
-        Self: RbxReadZeroCopy<'a>,
+        Self: ReadSlice<'a>,
     {
         let out = self.read_binary_string()?;
 
@@ -130,7 +130,7 @@ pub trait RbxReadExt: Read {
     }
 }
 
-pub trait RbxReadZeroCopy<'a> {
+pub trait ReadSlice<'a> {
     /// Split off a slice of length `len`, or return
     /// an error if the length overruns the source data.
     fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
@@ -141,7 +141,7 @@ fn unexpected_eof() -> io::Error {
     io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
 }
 
-impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
+impl<'a> ReadSlice<'a> for &'a [u8] {
     fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]> {
         let out;
 
@@ -151,7 +151,7 @@ impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
     }
 }
 
-pub trait RbxReadInterleaved<'a>: RbxReadZeroCopy<'a> {
+pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     /// Create an iterator that reads chunks of N interleaved bytes.
     /// Splits `N * len` bytes from the slice.
     fn read_interleaved_bytes<const N: usize>(
@@ -221,7 +221,7 @@ pub trait RbxReadInterleaved<'a>: RbxReadZeroCopy<'a> {
 }
 
 impl<R> RbxReadExt for R where R: Read {}
-impl<'a, R> RbxReadInterleaved<'a> for R where R: RbxReadZeroCopy<'a> {}
+impl<'a, R> RbxReadInterleaved<'a> for R where R: ReadSlice<'a> {}
 
 pub trait RbxWriteExt: Write {
     fn write_le_u32(&mut self, value: u32) -> io::Result<()> {

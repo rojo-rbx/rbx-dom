@@ -16,7 +16,7 @@ use rbx_reflection::{ClassDescriptor, PropertyKind, PropertySerialization, Refle
 
 use crate::{
     chunk::Chunk,
-    core::{find_property_descriptors, RbxReadExt, RbxReadInterleaved, RbxReadZeroCopy},
+    core::{find_property_descriptors, RbxReadExt, RbxReadInterleaved, ReadSlice},
     types::Type,
 };
 
