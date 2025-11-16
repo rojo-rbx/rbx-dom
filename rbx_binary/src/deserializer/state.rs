@@ -16,7 +16,7 @@ use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     chunk::Chunk,
-    core::{find_property_descriptors, RbxReadExt, RbxReadZeroCopy},
+    core::{find_property_descriptors, RbxReadExt, RbxReadInterleaved, RbxReadZeroCopy},
     types::Type,
 };
 
