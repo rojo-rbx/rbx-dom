@@ -243,14 +243,21 @@ impl ChunkBuilder {
 
 impl<W> RbxWriteExt for W where W: Write {}
 
-pub trait RbxReadZeroCopy<'a> {
+pub trait RbxReadZeroCopy<'a>: RbxReadExt {
+    /// Split a slice of length `len` from the beginning of the chunk.
+    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
+
     /// Read a binary "string" in the format that Roblox's model files use.
     ///
     /// This function is safer than read_string because Roblox generally makes
     /// no guarantees about encoding of things it calls strings. rbx_binary
     /// makes a semantic differentiation between strings and binary buffers,
     /// which makes it more strict than Roblox but more likely to be correct.
-    fn read_binary_string(&mut self) -> io::Result<&'a [u8]>;
+    fn read_binary_string(&mut self) -> io::Result<&'a [u8]> {
+        let length = self.read_le_u32()?;
+        let out = self.read_slice(length as usize)?;
+        Ok(out)
+    }
 
     /// Read a UTF-8 encoded string encoded how Roblox model files encode
     /// strings. This function isn't always appropriate because Roblox's formats
@@ -271,7 +278,11 @@ pub trait RbxReadZeroCopy<'a> {
     fn read_interleaved_bytes<const N: usize>(
         &mut self,
         len: usize,
-    ) -> io::Result<ReadInterleavedBytesIter<'a, N>>;
+    ) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
+        let out = self.read_slice(len * N)?;
+
+        Ok(ReadInterleavedBytesIter::new(out, len))
+    }
 
     /// Creates an iterator of `len` big-endian i32 values.
     /// The values are transformed during iteration.
@@ -336,26 +347,12 @@ fn unexpected_eof() -> io::Error {
 }
 
 impl<'a> RbxReadZeroCopy<'a> for &'a [u8] {
-    fn read_binary_string(&mut self) -> io::Result<&'a [u8]> {
-        let length = self.read_le_u32()?;
-
+    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]> {
         let out;
-        (out, *self) = self
-            .split_at_checked(length as usize)
-            .ok_or_else(unexpected_eof)?;
+
+        (out, *self) = self.split_at_checked(len).ok_or_else(unexpected_eof)?;
 
         Ok(out)
-    }
-
-    fn read_interleaved_bytes<const N: usize>(
-        &mut self,
-        len: usize,
-    ) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
-        let out;
-
-        (out, *self) = self.split_at_checked(len * N).ok_or_else(unexpected_eof)?;
-
-        Ok(ReadInterleavedBytesIter::new(out, len))
     }
 }
 
