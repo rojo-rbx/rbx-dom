@@ -88,8 +88,7 @@ fn decode_meta_chunk(mut chunk: &[u8]) -> DecodedChunk {
         entries.push((key, value));
     }
 
-    let mut remaining = Vec::new();
-    chunk.read_to_end(&mut remaining).unwrap();
+    let remaining = chunk.to_owned();
 
     DecodedChunk::Meta { entries, remaining }
 }
@@ -106,8 +105,7 @@ fn decode_sstr_chunk(mut chunk: &[u8]) -> DecodedChunk {
         entries.push(SharedString::new(data));
     }
 
-    let mut remaining = Vec::new();
-    chunk.read_to_end(&mut remaining).unwrap();
+    let remaining = chunk.to_owned();
 
     DecodedChunk::Sstr {
         version,
@@ -129,8 +127,7 @@ fn decode_inst_chunk(mut chunk: &[u8], count_by_type_id: &mut HashMap<u32, usize
         .unwrap()
         .collect();
 
-    let mut remaining = Vec::new();
-    chunk.read_to_end(&mut remaining).unwrap();
+    let remaining = chunk.to_owned();
 
     DecodedChunk::Inst {
         type_id,
@@ -160,8 +157,7 @@ fn decode_prop_chunk(mut chunk: &[u8], count_by_type_id: &mut HashMap<u32, usize
         Err(_) => (DecodedPropType::Unknown(prop_type_value), None),
     };
 
-    let mut remaining = Vec::new();
-    chunk.read_to_end(&mut remaining).unwrap();
+    let remaining = chunk.to_owned();
 
     DecodedChunk::Prop {
         type_id,
@@ -181,8 +177,7 @@ fn decode_prnt_chunk(mut chunk: &[u8]) -> DecodedChunk {
 
     let links = subjects.zip(parents).collect();
 
-    let mut remaining = Vec::new();
-    chunk.read_to_end(&mut remaining).unwrap();
+    let remaining = chunk.to_owned();
 
     DecodedChunk::Prnt {
         version,
