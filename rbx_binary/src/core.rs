@@ -361,7 +361,8 @@ impl ChunkBuilder {
 impl<W> RbxWriteExt for W where W: Write {}
 
 pub trait RbxReadZeroCopy<'a> {
-    /// Split a slice of length `len` from the beginning of the chunk.
+    /// Split off a slice of length `len`, or return
+    /// an error if the length overruns the source data.
     fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
 }
 
