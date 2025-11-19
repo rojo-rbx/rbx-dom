@@ -252,7 +252,9 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         let mut serialized_ty = sample_value.ty();
 
         let mut skip_serialization = true;
-        if let Some((superclass_descriptor, descriptors)) = find_property_descriptors(database, self.class_descriptor, &prop_name) {
+        if let Some((superclass_descriptor, descriptors)) =
+            find_property_descriptors(database, self.class_descriptor, &prop_name)
+        {
             canonical_name = descriptors.canonical.name.as_ref().into();
             if let Some(mut serialized) = descriptors.serialized {
                 if let PropertyKind::Canonical {
@@ -273,9 +275,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                     let new_descriptors = superclass_descriptor
                         .properties
                         .get(prop_migration.new_property_name.as_str())
-                        .and_then(|prop| {
-                            PropertyDescriptors::new(superclass_descriptor, prop)
-                        });
+                        .and_then(|prop| PropertyDescriptors::new(superclass_descriptor, prop));
 
                     if let Some(new_descriptor) = new_descriptors {
                         if let Some(new_serialized) = new_descriptor.serialized {
