@@ -228,24 +228,12 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 }
 
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
-    /// Get or create a logical property from a visited property.
-    fn get_or_create<'a>(
-        &'a mut self,
-        push_sstr: &mut impl FnMut(&Variant),
+    fn get_serialization_info(
+        &self,
         database: &'db ReflectionDatabase<'db>,
-        type_name: Ustr,
         prop_name: Ustr,
         sample_value: &Variant,
-    ) -> Result<Option<&'a mut PropInfo<'dom>>, InnerError> {
-        // check if prop_name is already in properties_visited, return
-        if let Some(&logical_index) = self.properties_visited.get(&prop_name) {
-            let prop_info = match logical_index {
-                Some(logical_index) => Some(&mut self.properties[logical_index]),
-                // Does not serialize, no logical property
-                None => None,
-            };
-            return Ok(prop_info);
-        }
+    ) -> Option<(Option<&'db PropertyMigration>, Ustr, Ustr, VariantType)> {
         let mut migration = None;
         let mut canonical_name = prop_name;
         let mut serialized_name = prop_name;
@@ -294,11 +282,35 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             skip_serialization = false;
         };
 
-        if skip_serialization {
+        (!skip_serialization).then_some((migration, canonical_name, serialized_name, serialized_ty))
+    }
+
+    /// Get or create a logical property from a visited property.
+    fn get_or_create<'a>(
+        &'a mut self,
+        push_sstr: &mut impl FnMut(&Variant),
+        database: &'db ReflectionDatabase<'db>,
+        type_name: Ustr,
+        prop_name: Ustr,
+        sample_value: &Variant,
+    ) -> Result<Option<&'a mut PropInfo<'dom>>, InnerError> {
+        // check if prop_name is already in properties_visited, return
+        if let Some(&logical_index) = self.properties_visited.get(&prop_name) {
+            let prop_info = match logical_index {
+                Some(logical_index) => Some(&mut self.properties[logical_index]),
+                // Does not serialize, no logical property
+                None => None,
+            };
+            return Ok(prop_info);
+        }
+
+        let Some((migration, canonical_name, serialized_name, serialized_ty)) =
+            self.get_serialization_info(database, prop_name, sample_value)
+        else {
             // Remember that this visited property does not serialize
             self.properties_visited.insert(prop_name, None);
             return Ok(None);
-        }
+        };
 
         let mut new_prop_info = || {
             let default_value = self
