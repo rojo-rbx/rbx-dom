@@ -137,8 +137,8 @@ mod serde_impl {
         fn visit_seq<A: SeqAccess<'de>>(self, mut seq: A) -> Result<Self::Value, A::Error> {
             let mut flags = AxisFlags::empty();
 
-            while let Some(axis_str) = seq.next_element::<&str>()? {
-                match axis_str {
+            while let Some(axis_str) = seq.next_element::<String>()? {
+                match axis_str.as_str() {
                     "X" => flags |= AxisFlags::X,
                     "Y" => flags |= AxisFlags::Y,
                     "Z" => flags |= AxisFlags::Z,
