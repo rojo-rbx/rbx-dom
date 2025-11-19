@@ -1,5 +1,8 @@
 # rbx_dom_weak Changelog
 
+## Unreleased Changes
+* Allow `WeakDom::transfer_within` to have the None Ref as the destination. ([#517])
+
 ## 4.0.0 (2025-10-10)
 * Updated to `rbx-types` v3.0.0, which includes a breaking change to a struct and a few enums. See the changelog of `rbx-types` for more information.
 * Add `WeakDom::ancestors_of` helper function. ([#520])
