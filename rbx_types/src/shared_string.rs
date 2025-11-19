@@ -151,7 +151,10 @@ impl fmt::Display for SharedStringHash {
 pub(crate) mod serde_impl {
     use super::*;
 
-    use serde::{de::Error as _, Deserialize, Deserializer, Serialize, Serializer};
+    use serde::{
+        de::{Error, Visitor},
+        Deserialize, Deserializer, Serialize, Serializer,
+    };
 
     impl Serialize for SharedString {
         fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
@@ -165,14 +168,28 @@ pub(crate) mod serde_impl {
         }
     }
 
+    struct SharedStringVisitor;
+
+    impl Visitor<'_> for SharedStringVisitor {
+        type Value = SharedString;
+
+        fn expecting(&self, out: &mut std::fmt::Formatter) -> std::fmt::Result {
+            write!(out, "a SharedString value")
+        }
+
+        fn visit_str<E: Error>(self, str: &str) -> Result<Self::Value, E> {
+            let buffer = base64::decode(str).map_err(E::custom)?;
+            Ok(SharedString::new(buffer))
+        }
+    }
+
     impl<'de> Deserialize<'de> for SharedString {
         fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
             if deserializer.is_human_readable() {
-                let encoded = <&str>::deserialize(deserializer)?;
-                let buffer = base64::decode(encoded).map_err(D::Error::custom)?;
-
-                Ok(SharedString::new(buffer))
+                deserializer.deserialize_str(SharedStringVisitor)
             } else {
+                // For compatibility reasons, we use `Vec<u8>`'s implementation
+                // of deserialize.
                 let buffer = <Vec<u8>>::deserialize(deserializer)?;
                 Ok(SharedString::new(buffer))
             }
