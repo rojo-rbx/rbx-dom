@@ -1,5 +1,10 @@
 # rbx_types Changelog
 
+# Unreleased
+* Fixed `serde::Deserialize` implementations for `BinaryString`, `SharedString`, `NetAssetRef`, `Faces`, and `Axes` to properly utilize visitors. ([#563])
+
+[#563]: https://github.com/rojo-rbx/rbx-dom/pull/563
+
 # 3.0.0 (2025-10-10)
 * Marked `CustomPhysicalProperties`, `TerrainMaterials`, `FontStyle`, and `FontWeight` as non-exhaustive. This is a breaking change. ([#556], [#557])
 * Changed `CustomPhysicalProperties` to use private fields and to have a constructor and setters/getters. This is a breaking change. ([#556])
