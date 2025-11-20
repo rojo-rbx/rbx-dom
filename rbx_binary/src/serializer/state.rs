@@ -234,55 +234,70 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         prop_name: Ustr,
         sample_value: &Variant,
     ) -> Option<(Option<&'db PropertyMigration>, Ustr, Ustr, VariantType)> {
+        let canonical_name;
+        let serialized_name;
+        let serialized_ty;
         let mut migration = None;
-        let mut canonical_name = prop_name;
-        let mut serialized_name = prop_name;
-        let mut serialized_ty = sample_value.ty();
 
-        let mut skip_serialization = true;
-        if let Some((superclass_descriptor, descriptors)) =
-            find_property_descriptors(database, self.class_descriptor, &prop_name)
-        {
-            canonical_name = descriptors.canonical.name.as_ref().into();
-            if let Some(mut serialized) = descriptors.serialized {
-                if let PropertyKind::Canonical {
-                    serialization: PropertySerialization::Migrate(prop_migration),
-                } = &serialized.kind
-                {
-                    migration = Some(prop_migration);
+        match find_property_descriptors(database, self.class_descriptor, &prop_name) {
+            Some((superclass_descriptor, descriptors)) => {
+                // For any properties that do not serialize, we can skip
+                // adding them to the set of type_infos.
+                let serialized = match descriptors.serialized {
+                    Some(descriptor) => {
+                        if let PropertyKind::Canonical {
+                            serialization: PropertySerialization::Migrate(prop_migration),
+                        } = &descriptor.kind
+                        {
+                            // If the property migrates, we need to look up the
+                            // property it should migrate to and use the reflection
+                            // information of the new property instead of the old
+                            // property, because migrated properties should not
+                            // serialize
+                            //
+                            // Assume that the migration will always be
+                            // directed to a property on the same class.
+                            // This avoids re-walking the superclasses.
+                            let new_descriptors = superclass_descriptor
+                                .properties
+                                .get(prop_migration.new_property_name.as_str())
+                                .and_then(|prop| {
+                                    PropertyDescriptors::new(superclass_descriptor, prop)
+                                });
 
-                    // If the property migrates, we need to look up the
-                    // property it should migrate to and use the reflection
-                    // information of the new property instead of the old
-                    // property, because migrated properties should not
-                    // serialize
-                    //
-                    // Assume that the migration will always be
-                    // directed to a property on the same class.
-                    // This avoids re-walking the superclasses.
-                    let new_descriptors = superclass_descriptor
-                        .properties
-                        .get(prop_migration.new_property_name.as_str())
-                        .and_then(|prop| PropertyDescriptors::new(superclass_descriptor, prop));
+                            migration = Some(prop_migration);
 
-                    if let Some(new_descriptor) = new_descriptors {
-                        if let Some(new_serialized) = new_descriptor.serialized {
-                            canonical_name = new_descriptor.canonical.name.as_ref().into();
-                            serialized = new_serialized;
-                            skip_serialization = false;
+                            match new_descriptors {
+                                Some(descriptor) => match descriptor.serialized {
+                                    Some(serialized) => {
+                                        canonical_name = descriptor.canonical.name.as_ref().into();
+                                        serialized
+                                    }
+                                    None => return None,
+                                },
+                                None => return None,
+                            }
+                        } else {
+                            canonical_name = descriptors.canonical.name.as_ref().into();
+                            descriptor
                         }
                     }
-                } else {
-                    skip_serialization = false;
-                }
+                    None => return None,
+                };
+
                 serialized_name = serialized.name.as_ref().into();
+
                 serialized_ty = serialized.data_type.ty();
             }
-        } else {
-            skip_serialization = false;
-        };
 
-        (!skip_serialization).then_some((migration, canonical_name, serialized_name, serialized_ty))
+            None => {
+                canonical_name = prop_name;
+                serialized_name = prop_name;
+                serialized_ty = sample_value.ty();
+            }
+        }
+
+        return Some((migration, canonical_name, serialized_name, serialized_ty));
     }
 
     /// Get or create a logical property from a visited property.
