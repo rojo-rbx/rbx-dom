@@ -230,6 +230,12 @@ impl AsRef<[u8]> for NetAssetRef {
     }
 }
 
+impl AsRef<SharedString> for NetAssetRef {
+    fn as_ref(&self) -> &SharedString {
+        &self.0
+    }
+}
+
 impl From<SharedString> for NetAssetRef {
     fn from(value: SharedString) -> Self {
         Self(value)

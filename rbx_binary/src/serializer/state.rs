@@ -331,10 +331,10 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
             } else if let Variant::NetAssetRef(net) = prop_value {
                 // NetAssetRef is serialized identically as `SharedString` and
                 // uses the same repository, so we just treat them all the same
-                let converted = SharedString::from(net.clone());
-                if !self.shared_string_ids.contains_key(&converted) {
-                    self.shared_string_ids.insert(converted.clone(), 0);
-                    self.shared_strings.push(converted)
+                let sstr_ref = net.as_ref();
+                if !self.shared_string_ids.contains_key(sstr_ref) {
+                    self.shared_string_ids.insert(sstr_ref.clone(), 0);
+                    self.shared_strings.push(sstr_ref.clone())
                 }
             }
 
@@ -1158,8 +1158,8 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     )
                                 }
                             } else if let Variant::NetAssetRef(value) = rbx_value.as_ref() {
-                                let converted = SharedString::from(value.clone());
-                                if let Some(id) = self.shared_string_ids.get(&converted) {
+                                let sstr_ref = value.as_ref();
+                                if let Some(id) = self.shared_string_ids.get(sstr_ref) {
                                     entries.push(*id)
                                 } else {
                                     panic!(
