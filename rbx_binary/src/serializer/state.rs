@@ -233,11 +233,11 @@ struct SerializationInfo<'db> {
     serialized_name: Ustr,
     serialized_ty: VariantType,
 }
-impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
-    /// Helper function for `get_or_create`.
+impl<'db> SerializationInfo<'db> {
+    /// Helper function for `TypeInfo::get_or_create`.
     /// This is separated out to utilize `return`.
-    fn get_serialization_info(
-        &self,
+    fn new(
+        class_descriptor: Option<&'db ClassDescriptor<'db>>,
         database: &'db ReflectionDatabase<'db>,
         prop_name: Ustr,
         sample_value: &Variant,
@@ -247,7 +247,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         let serialized_ty;
         let mut migration = None;
 
-        match find_property_descriptors(database, self.class_descriptor, &prop_name) {
+        match find_property_descriptors(database, class_descriptor, &prop_name) {
             Some((superclass_descriptor, descriptors)) => {
                 // For any properties that do not serialize, we can skip
                 // adding them to the set of type_infos.
@@ -312,7 +312,9 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             serialized_ty,
         })
     }
+}
 
+impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     /// Get or create a logical property from a visited property.
     fn get_or_create<'a>(
         &'a mut self,
@@ -337,7 +339,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             canonical_name,
             serialized_name,
             serialized_ty,
-        }) = self.get_serialization_info(database, prop_name, sample_value)
+        }) = SerializationInfo::new(self.class_descriptor, database, prop_name, sample_value)
         else {
             // Remember that this visited property does not serialize
             self.properties_visited.insert(prop_name, None);
