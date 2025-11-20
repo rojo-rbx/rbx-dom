@@ -299,7 +299,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             }
         }
 
-        return Some((migration, canonical_name, serialized_name, serialized_ty));
+        Some((migration, canonical_name, serialized_name, serialized_ty))
     }
 
     /// Get or create a logical property from a visited property.
