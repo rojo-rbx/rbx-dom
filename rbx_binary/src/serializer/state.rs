@@ -530,9 +530,11 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         } = self;
 
         let type_info = type_infos.get_or_create(instance.class);
-        // This order is important! The index that the prop_value
-        // is inserted into must match the index that the instance
-        // is inserted into.  See the loop below for more details.
+        // The desired length of all PropInfo.values in this TypeInfo.
+        // Some instances may have missing properties, meaning the
+        // corresponding PropInfo is never visited and no value is inserted.
+        //
+        // Used in the loop below (extend_with_default)
         let desired_len = type_info.instances.len();
         type_info.instances.push(instance);
 
