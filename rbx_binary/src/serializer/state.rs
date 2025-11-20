@@ -227,6 +227,12 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
     }
 }
 
+struct SerializationInfo<'db> {
+    migration: Option<&'db PropertyMigration>,
+    canonical_name: Ustr,
+    serialized_name: Ustr,
+    serialized_ty: VariantType,
+}
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     /// Helper function for `get_or_create`.
     /// This is separated out to utilize `return`.
@@ -235,7 +241,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         database: &'db ReflectionDatabase<'db>,
         prop_name: Ustr,
         sample_value: &Variant,
-    ) -> Option<(Option<&'db PropertyMigration>, Ustr, Ustr, VariantType)> {
+    ) -> Option<SerializationInfo<'db>> {
         let canonical_name;
         let serialized_name;
         let serialized_ty;
@@ -299,7 +305,12 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             }
         }
 
-        Some((migration, canonical_name, serialized_name, serialized_ty))
+        Some(SerializationInfo {
+            migration,
+            canonical_name,
+            serialized_name,
+            serialized_ty,
+        })
     }
 
     /// Get or create a logical property from a visited property.
@@ -321,8 +332,12 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             return Ok(prop_info);
         }
 
-        let Some((migration, canonical_name, serialized_name, serialized_ty)) =
-            self.get_serialization_info(database, prop_name, sample_value)
+        let Some(SerializationInfo {
+            migration,
+            canonical_name,
+            serialized_name,
+            serialized_ty,
+        }) = self.get_serialization_info(database, prop_name, sample_value)
         else {
             // Remember that this visited property does not serialize
             self.properties_visited.insert(prop_name, None);
