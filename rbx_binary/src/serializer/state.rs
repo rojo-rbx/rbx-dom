@@ -228,6 +228,8 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 }
 
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
+    /// Helper function for `get_or_create`.
+    /// This is separated out to utilize `return`.
     fn get_serialization_info(
         &self,
         database: &'db ReflectionDatabase<'db>,
