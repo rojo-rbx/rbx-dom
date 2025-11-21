@@ -259,7 +259,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let num_entries = chunk.read_le_u32()?;
 
         for _ in 0..num_entries {
-            chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
+            let _hash = chunk.read_slice(16)?; // We don't do anything with the hash.
             let data = chunk.read_binary_string()?.to_owned();
             self.shared_strings.push(SharedString::new(data));
         }
