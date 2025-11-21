@@ -1403,10 +1403,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     static DEFAULT_FACES: Variant = Variant::Faces(Faces::from_bits(0).unwrap());
     static DEFAULT_AXES: Variant = Variant::Axes(Axes::from_bits(0).unwrap());
     static DEFAULT_BRICKCOLOR: Variant = Variant::BrickColor(BrickColor::MediumStoneGrey);
-    static DEFAULT_CFRAME: Variant = Variant::CFrame(CFrame::new(
-        Vector3::new(0.0, 0.0, 0.0),
-        Matrix3::identity(),
-    ));
+    static DEFAULT_CFRAME: Variant = Variant::CFrame(CFrame::identity());
     static DEFAULT_ENUM: Variant = Variant::Enum(Enum::from_u32(u32::MAX));
     static DEFAULT_COLOR3: Variant = Variant::Color3(Color3::new(0.0, 0.0, 0.0));
     static DEFAULT_VECTOR2: Variant = Variant::Vector2(Vector2::new(0.0, 0.0));
