@@ -615,15 +615,10 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let value = match read_value_xml(
-                reader,
-                state,
-                &xml_type_name,
-                instance_id,
-                descriptor.name,
-            )? {
-                Some(value) => value,
-                None => continue,
+            let Some(value) =
+                read_value_xml(reader, state, &xml_type_name, instance_id, descriptor.name)?
+            else {
+                continue;
             };
 
             let xml_ty = value.ty();
