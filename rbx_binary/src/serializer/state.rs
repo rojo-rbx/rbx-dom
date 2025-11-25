@@ -384,11 +384,12 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     ) -> &mut PropInfo<'dom> {
         let logical_index = self.properties.len();
         self.properties.push(prop_info);
+        let prop_info = &mut self.properties[logical_index];
         for prop_name in prop_names {
             self.properties_visited
                 .insert(prop_name, Some(logical_index));
         }
-        &mut self.properties[logical_index]
+        prop_info
     }
 
     /// Get or create a logical property from a visited property.
