@@ -334,6 +334,17 @@ fn create_logical_property<'db>(
     database: &'db ReflectionDatabase<'db>,
     type_name: Ustr,
 ) -> Result<PropInfo<'db>, InnerError> {
+    let Some(prop_type) = Type::from_rbx_type(serialized_ty) else {
+        // This is a known value type, but rbx_binary doesn't have a
+        // binary type value for it. rbx_binary might be out of
+        // date?
+        return Err(InnerError::UnsupportedPropType {
+            type_name: type_name.to_string(),
+            prop_name: serialized_name.to_string(),
+            prop_type: format!("{:?}", serialized_ty),
+        });
+    };
+
     let default_value = class_descriptor
         .and_then(|class| database.find_default_property(class, &canonical_name))
         .or_else(|| fallback_default_value(serialized_ty))
@@ -352,19 +363,8 @@ fn create_logical_property<'db>(
     // check here just to make sure.
     push_sstr(default_value);
 
-    let Some(ser_type) = Type::from_rbx_type(serialized_ty) else {
-        // This is a known value type, but rbx_binary doesn't have a
-        // binary type value for it. rbx_binary might be out of
-        // date?
-        return Err(InnerError::UnsupportedPropType {
-            type_name: type_name.to_string(),
-            prop_name: serialized_name.to_string(),
-            prop_type: format!("{:?}", serialized_ty),
-        });
-    };
-
     Ok(PropInfo {
-        prop_type: ser_type,
+        prop_type,
         canonical_name,
         serialized_name,
         values: Vec::new(),
