@@ -168,12 +168,11 @@ impl<'dom> PropInfo<'dom> {
     }
     /// Set the migration
     fn set_migration(&mut self, m_new: &'dom PropertyMigration) {
-        match self.migration {
+        if let Some(m_old) = self.migration {
             // Check that migrations do not conflict if one already exists
-            Some(m_old) => {
-                assert_eq!(m_old, m_new, "Migration must not change after being set")
-            }
-            None => self.migration = Some(m_new),
+            assert_eq!(m_old, m_new, "Migration must not change after being set");
+        } else {
+            self.migration = Some(m_new);
         }
     }
 
