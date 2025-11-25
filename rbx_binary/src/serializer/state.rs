@@ -234,7 +234,7 @@ struct SerializationInfo<'db> {
     serialized_ty: VariantType,
 }
 impl<'db> SerializationInfo<'db> {
-    /// Helper function for `TypeInfo::get_or_create`.
+    /// Helper function for `TypeInfo::get_or_create_logical_property`.
     /// This is separated out to utilize `return`.
     fn new(
         class_descriptor: Option<&'db ClassDescriptor<'db>>,
@@ -368,8 +368,24 @@ fn create_logical_property<'db>(
 }
 
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
+    /// Helper function for `TypeInfo::get_or_create_logical_property`.
+    /// Push a new PropInfo into properties and add a list of aliases which point to it.
+    fn push_prop_info_with_names(
+        &mut self,
+        prop_info: PropInfo<'dom>,
+        prop_names: impl IntoIterator<Item = Ustr>,
+    ) -> &mut PropInfo<'dom> {
+        let logical_index = self.properties.len();
+        self.properties.push(prop_info);
+        for prop_name in prop_names {
+            self.properties_visited
+                .insert(prop_name, Some(logical_index));
+        }
+        &mut self.properties[logical_index]
+    }
+
     /// Get or create a logical property from a visited property.
-    fn get_or_create<'a>(
+    fn get_or_create_logical_property<'a>(
         &'a mut self,
         push_sstr: &mut impl FnMut(&Variant),
         database: &'db ReflectionDatabase<'db>,
@@ -377,6 +393,8 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         prop_name: Ustr,
         sample_value: &Variant,
     ) -> Result<Option<&'a mut PropInfo<'dom>>, InnerError> {
+        let class = self.class_descriptor;
+
         // check if prop_name is already in properties_visited, return
         if let Some(&logical_index) = self.properties_visited.get(&prop_name) {
             let prop_info = match logical_index {
@@ -387,8 +405,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             return Ok(prop_info);
         }
 
-        let Some(ser_info) =
-            SerializationInfo::new(self.class_descriptor, database, prop_name, sample_value)
+        let Some(ser_info) = SerializationInfo::new(class, database, prop_name, sample_value)
         else {
             // Remember that this visited property does not serialize
             self.properties_visited.insert(prop_name, None);
@@ -396,23 +413,8 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         };
 
         // Is this property the canonical representation?
-        let logical_index = if ser_info.canonical_name == prop_name {
-            // create logical property
-            let prop_info = create_logical_property(
-                ser_info,
-                self.class_descriptor,
-                push_sstr,
-                database,
-                type_name,
-            )?;
-            let logical_index = self.properties.len();
-            self.properties.push(prop_info);
-            // insert prop_name PropInfo
-            self.properties_visited
-                .insert(prop_name, Some(logical_index));
-            logical_index
-        } else {
-            let canonical_name = ser_info.canonical_name;
+        let canonical_name = ser_info.canonical_name;
+        if canonical_name != prop_name {
             // check if canonical name is already in properties_visited, return
             if let Some(&logical_index) = self.properties_visited.get(&canonical_name) {
                 self.properties_visited.insert(prop_name, logical_index);
@@ -432,25 +434,18 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
 
                 return Ok(prop_info);
             }
-            // create logical property
-            let prop_info = create_logical_property(
-                ser_info,
-                self.class_descriptor,
-                push_sstr,
-                database,
-                type_name,
-            )?;
-            let logical_index = self.properties.len();
-            self.properties.push(prop_info);
-            // insert canonical PropInfo
-            self.properties_visited
-                .insert(canonical_name, Some(logical_index));
-            // insert prop_name PropInfo
-            self.properties_visited
-                .insert(prop_name, Some(logical_index));
-            logical_index
-        };
-        Ok(Some(&mut self.properties[logical_index]))
+            // create logical property with two new names
+            let prop_info =
+                create_logical_property(ser_info, class, push_sstr, database, type_name)?;
+            let prop_info = self.push_prop_info_with_names(prop_info, [canonical_name, prop_name]);
+            Ok(Some(prop_info))
+        } else {
+            // create logical property with one new name
+            let prop_info =
+                create_logical_property(ser_info, class, push_sstr, database, type_name)?;
+            let prop_info = self.push_prop_info_with_names(prop_info, [prop_name]);
+            Ok(Some(prop_info))
+        }
     }
 }
 
@@ -578,7 +573,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         };
 
         for (prop_name, prop_value) in &instance.properties {
-            let Some(logical_property) = type_info.get_or_create(
+            let Some(logical_property) = type_info.get_or_create_logical_property(
                 &mut push_sstr,
                 database,
                 instance.class,
