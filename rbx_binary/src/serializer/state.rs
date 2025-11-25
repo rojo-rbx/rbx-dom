@@ -402,7 +402,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     ) -> Result<Option<&'a mut PropInfo<'dom>>, InnerError> {
         let class = self.class_descriptor;
 
-        // check if prop_name is already in properties_visited, return it
+        // Check if prop_name is already in properties_visited, return it
         if let Some(&logical_index) = self.properties_visited.get(&prop_name) {
             let prop_info = match logical_index {
                 Some(logical_index) => Some(&mut self.properties[logical_index]),
@@ -422,8 +422,9 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         // Is this property the canonical representation?
         let canonical_name = ser_info.canonical_name;
         if canonical_name != prop_name {
-            // check if canonical name is already in properties_visited, return it
+            // Check if canonical name is already in properties_visited, return it
             if let Some(&logical_index) = self.properties_visited.get(&canonical_name) {
+                // Add the new alias
                 self.properties_visited.insert(prop_name, logical_index);
 
                 let prop_info = match logical_index {
@@ -440,13 +441,13 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
 
                 return Ok(prop_info);
             }
-            // create logical property with two new names
+            // Create logical property with two new names
             let prop_info =
                 create_logical_property(ser_info, class, push_sstr, database, type_name)?;
             let prop_info = self.push_prop_info_with_names(prop_info, [canonical_name, prop_name]);
             Ok(Some(prop_info))
         } else {
-            // create logical property with one new name
+            // Create logical property with one new name
             let prop_info =
                 create_logical_property(ser_info, class, push_sstr, database, type_name)?;
             let prop_info = self.push_prop_info_with_names(prop_info, [prop_name]);
@@ -857,7 +858,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         .map(|&value| {
                             property_migration
                                 .perform(value)
-                                // take original if migration failed
+                                // Take original if migration failed
                                 .map_or(Cow::Borrowed(value), Cow::Owned)
                         })
                         .collect();
