@@ -314,6 +314,59 @@ impl<'db> SerializationInfo<'db> {
     }
 }
 
+/// Helper function for `TypeInfo::get_or_create_logical_property`.
+/// This is separated out to reduce the amount of things in the function body.
+fn create_logical_property<'db>(
+    SerializationInfo {
+        migration,
+        canonical_name,
+        serialized_name,
+        serialized_ty,
+    }: SerializationInfo<'db>,
+    class_descriptor: Option<&'db ClassDescriptor<'db>>,
+    push_sstr: &mut impl FnMut(&Variant),
+    database: &'db ReflectionDatabase<'db>,
+    type_name: Ustr,
+) -> Result<PropInfo<'db>, InnerError> {
+    let default_value = class_descriptor
+        .and_then(|class| database.find_default_property(class, &canonical_name))
+        .or_else(|| fallback_default_value(serialized_ty))
+        .ok_or_else(|| {
+            // Since we don't know how to generate the default value
+            // for this property, we consider it unsupported.
+            InnerError::UnsupportedPropType {
+                type_name: type_name.to_string(),
+                prop_name: canonical_name.to_string(),
+                prop_type: format!("{:?}", serialized_ty),
+            }
+        })?;
+
+    // There's no assurance that the default SharedString value
+    // will actually get serialized inside of the SSTR chunk, so we
+    // check here just to make sure.
+    push_sstr(default_value);
+
+    let Some(ser_type) = Type::from_rbx_type(serialized_ty) else {
+        // This is a known value type, but rbx_binary doesn't have a
+        // binary type value for it. rbx_binary might be out of
+        // date?
+        return Err(InnerError::UnsupportedPropType {
+            type_name: type_name.to_string(),
+            prop_name: serialized_name.to_string(),
+            prop_type: format!("{:?}", serialized_ty),
+        });
+    };
+
+    Ok(PropInfo {
+        prop_type: ser_type,
+        canonical_name,
+        serialized_name,
+        values: Vec::new(),
+        default_value,
+        migration,
+    })
+}
+
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     /// Get or create a logical property from a visited property.
     fn get_or_create<'a>(
@@ -334,63 +387,24 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             return Ok(prop_info);
         }
 
-        let Some(SerializationInfo {
-            migration,
-            canonical_name,
-            serialized_name,
-            serialized_ty,
-        }) = SerializationInfo::new(self.class_descriptor, database, prop_name, sample_value)
+        let Some(ser_info) =
+            SerializationInfo::new(self.class_descriptor, database, prop_name, sample_value)
         else {
             // Remember that this visited property does not serialize
             self.properties_visited.insert(prop_name, None);
             return Ok(None);
         };
 
-        let mut new_prop_info = || {
-            let default_value = self
-                .class_descriptor
-                .and_then(|class| database.find_default_property(class, &canonical_name))
-                .or_else(|| fallback_default_value(serialized_ty))
-                .ok_or_else(|| {
-                    // Since we don't know how to generate the default value
-                    // for this property, we consider it unsupported.
-                    InnerError::UnsupportedPropType {
-                        type_name: type_name.to_string(),
-                        prop_name: canonical_name.to_string(),
-                        prop_type: format!("{:?}", serialized_ty),
-                    }
-                })?;
-
-            // There's no assurance that the default SharedString value
-            // will actually get serialized inside of the SSTR chunk, so we
-            // check here just to make sure.
-            push_sstr(default_value);
-
-            let Some(ser_type) = Type::from_rbx_type(serialized_ty) else {
-                // This is a known value type, but rbx_binary doesn't have a
-                // binary type value for it. rbx_binary might be out of
-                // date?
-                return Err(InnerError::UnsupportedPropType {
-                    type_name: type_name.to_string(),
-                    prop_name: serialized_name.to_string(),
-                    prop_type: format!("{:?}", serialized_ty),
-                });
-            };
-
-            Ok(PropInfo {
-                prop_type: ser_type,
-                canonical_name,
-                serialized_name,
-                values: Vec::new(),
-                default_value,
-                migration,
-            })
-        };
-
         // Is this property the canonical representation?
-        let logical_index = if canonical_name == prop_name {
+        let logical_index = if ser_info.canonical_name == prop_name {
             // create logical property
-            let prop_info = new_prop_info()?;
+            let prop_info = create_logical_property(
+                ser_info,
+                self.class_descriptor,
+                push_sstr,
+                database,
+                type_name,
+            )?;
             let logical_index = self.properties.len();
             self.properties.push(prop_info);
             // insert prop_name PropInfo
@@ -398,6 +412,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 .insert(prop_name, Some(logical_index));
             logical_index
         } else {
+            let canonical_name = ser_info.canonical_name;
             // check if canonical name is already in properties_visited, return
             if let Some(&logical_index) = self.properties_visited.get(&canonical_name) {
                 self.properties_visited.insert(prop_name, logical_index);
@@ -408,7 +423,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                         // The visited property may contain a migration that
                         // the logical property has not been made aware of yet.
                         // Conflicting migrations are not prevented by the type system!
-                        prop_info.migration = prop_info.migration.or(migration);
+                        prop_info.migration = prop_info.migration.or(ser_info.migration);
                         Some(prop_info)
                     }
                     // Does not serialize, no logical property
@@ -418,7 +433,13 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 return Ok(prop_info);
             }
             // create logical property
-            let prop_info = new_prop_info()?;
+            let prop_info = create_logical_property(
+                ser_info,
+                self.class_descriptor,
+                push_sstr,
+                database,
+                type_name,
+            )?;
             let logical_index = self.properties.len();
             self.properties.push(prop_info);
             // insert canonical PropInfo
