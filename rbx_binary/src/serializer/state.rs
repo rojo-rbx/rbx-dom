@@ -166,13 +166,15 @@ impl<'dom> PropInfo<'dom> {
         self.values
             .extend(core::iter::repeat_n(self.default_value, additional));
     }
-    /// Set the migration, if it exists.
-    fn set_migration(&mut self, migration: Option<&'dom PropertyMigration>) {
-        // Check that migrations do not conflict if one already exists
-        if let (Some(m_old), Some(m_new)) = (self.migration, migration) {
-            assert_eq!(m_old, m_new, "Migration must not change after being set");
+    /// Set the migration
+    fn set_migration(&mut self, m_new: &'dom PropertyMigration) {
+        match self.migration {
+            // Check that migrations do not conflict if one already exists
+            Some(m_old) => {
+                assert_eq!(m_old, m_new, "Migration must not change after being set")
+            }
+            None => self.migration = Some(m_new),
         }
-        self.migration = self.migration.or(migration);
     }
 
     /// Helper function for `TypeInfo::get_or_create_logical_property`.
@@ -435,7 +437,9 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                         let prop_info = &mut self.properties[logical_index];
                         // The visited property may contain a migration that
                         // the logical property has not been made aware of yet.
-                        prop_info.set_migration(ser_info.migration);
+                        if let Some(migration) = ser_info.migration {
+                            prop_info.set_migration(migration);
+                        }
                         Some(prop_info)
                     }
                     // Does not serialize, no logical property
