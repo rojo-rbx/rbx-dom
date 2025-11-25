@@ -150,7 +150,7 @@ struct PropInfo<'dom> {
     /// it is None.
     migration: Option<&'dom PropertyMigration>,
 }
-impl PropInfo<'_> {
+impl<'dom> PropInfo<'dom> {
     /// This function extends `self.values` with `self.default_value` values.
     /// Previous instances may not have traversed all properties, but
     /// all `PropInfo.values` must have the same length as
@@ -165,6 +165,12 @@ impl PropInfo<'_> {
         };
         self.values
             .extend(core::iter::repeat_n(self.default_value, additional));
+    }
+    /// Set the migration, if it exists.
+    fn set_migration(&mut self, migration: Option<&'dom PropertyMigration>) {
+        // Conflicting migrations are not prevented!
+        // TODO: check that migrations do not conflict if one already exists
+        self.migration = self.migration.or(migration);
     }
 }
 
@@ -424,8 +430,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                         let prop_info = &mut self.properties[logical_index];
                         // The visited property may contain a migration that
                         // the logical property has not been made aware of yet.
-                        // Conflicting migrations are not prevented by the type system!
-                        prop_info.migration = prop_info.migration.or(ser_info.migration);
+                        prop_info.set_migration(ser_info.migration);
                         Some(prop_info)
                     }
                     // Does not serialize, no logical property
