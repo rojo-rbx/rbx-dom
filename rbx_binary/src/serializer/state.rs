@@ -172,6 +172,59 @@ impl<'dom> PropInfo<'dom> {
         // TODO: check that migrations do not conflict if one already exists
         self.migration = self.migration.or(migration);
     }
+
+    /// Helper function for `TypeInfo::get_or_create_logical_property`.
+    /// This is separated out to reduce the amount of things in the function body.
+    fn new(
+        SerializationInfo {
+            migration,
+            canonical_name,
+            serialized_name,
+            serialized_ty,
+        }: SerializationInfo<'dom>,
+        class_descriptor: Option<&'dom ClassDescriptor<'dom>>,
+        push_sstr: &mut impl FnMut(&Variant),
+        database: &'dom ReflectionDatabase<'dom>,
+        type_name: Ustr,
+    ) -> Result<PropInfo<'dom>, InnerError> {
+        let Some(prop_type) = Type::from_rbx_type(serialized_ty) else {
+            // This is a known value type, but rbx_binary doesn't have a
+            // binary type value for it. rbx_binary might be out of
+            // date?
+            return Err(InnerError::UnsupportedPropType {
+                type_name: type_name.to_string(),
+                prop_name: serialized_name.to_string(),
+                prop_type: format!("{:?}", serialized_ty),
+            });
+        };
+
+        let default_value = class_descriptor
+            .and_then(|class| database.find_default_property(class, &canonical_name))
+            .or_else(|| fallback_default_value(serialized_ty))
+            .ok_or_else(|| {
+                // Since we don't know how to generate the default value
+                // for this property, we consider it unsupported.
+                InnerError::UnsupportedPropType {
+                    type_name: type_name.to_string(),
+                    prop_name: canonical_name.to_string(),
+                    prop_type: format!("{:?}", serialized_ty),
+                }
+            })?;
+
+        // There's no assurance that the default SharedString value
+        // will actually get serialized inside of the SSTR chunk, so we
+        // check here just to make sure.
+        push_sstr(default_value);
+
+        Ok(PropInfo {
+            prop_type,
+            canonical_name,
+            serialized_name,
+            values: Vec::new(),
+            default_value,
+            migration,
+        })
+    }
 }
 
 /// Contains all of the `TypeInfo` objects known to the serializer so far. This
@@ -321,59 +374,6 @@ impl<'db> SerializationInfo<'db> {
     }
 }
 
-/// Helper function for `TypeInfo::get_or_create_logical_property`.
-/// This is separated out to reduce the amount of things in the function body.
-fn create_logical_property<'db>(
-    SerializationInfo {
-        migration,
-        canonical_name,
-        serialized_name,
-        serialized_ty,
-    }: SerializationInfo<'db>,
-    class_descriptor: Option<&'db ClassDescriptor<'db>>,
-    push_sstr: &mut impl FnMut(&Variant),
-    database: &'db ReflectionDatabase<'db>,
-    type_name: Ustr,
-) -> Result<PropInfo<'db>, InnerError> {
-    let Some(prop_type) = Type::from_rbx_type(serialized_ty) else {
-        // This is a known value type, but rbx_binary doesn't have a
-        // binary type value for it. rbx_binary might be out of
-        // date?
-        return Err(InnerError::UnsupportedPropType {
-            type_name: type_name.to_string(),
-            prop_name: serialized_name.to_string(),
-            prop_type: format!("{:?}", serialized_ty),
-        });
-    };
-
-    let default_value = class_descriptor
-        .and_then(|class| database.find_default_property(class, &canonical_name))
-        .or_else(|| fallback_default_value(serialized_ty))
-        .ok_or_else(|| {
-            // Since we don't know how to generate the default value
-            // for this property, we consider it unsupported.
-            InnerError::UnsupportedPropType {
-                type_name: type_name.to_string(),
-                prop_name: canonical_name.to_string(),
-                prop_type: format!("{:?}", serialized_ty),
-            }
-        })?;
-
-    // There's no assurance that the default SharedString value
-    // will actually get serialized inside of the SSTR chunk, so we
-    // check here just to make sure.
-    push_sstr(default_value);
-
-    Ok(PropInfo {
-        prop_type,
-        canonical_name,
-        serialized_name,
-        values: Vec::new(),
-        default_value,
-        migration,
-    })
-}
-
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     /// Helper function for `TypeInfo::get_or_create_logical_property`.
     /// Push a new PropInfo into properties and add a list of aliases which point to it.
@@ -443,14 +443,12 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 return Ok(prop_info);
             }
             // Create logical property with two new names
-            let prop_info =
-                create_logical_property(ser_info, class, push_sstr, database, type_name)?;
+            let prop_info = PropInfo::new(ser_info, class, push_sstr, database, type_name)?;
             let prop_info = self.push_prop_info_with_names(prop_info, [canonical_name, prop_name]);
             Ok(Some(prop_info))
         } else {
             // Create logical property with one new name
-            let prop_info =
-                create_logical_property(ser_info, class, push_sstr, database, type_name)?;
+            let prop_info = PropInfo::new(ser_info, class, push_sstr, database, type_name)?;
             let prop_info = self.push_prop_info_with_names(prop_info, [prop_name]);
             Ok(Some(prop_info))
         }
