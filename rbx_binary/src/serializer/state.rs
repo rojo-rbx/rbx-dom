@@ -239,6 +239,7 @@ struct SerializationInfo<'db> {
     serialized_name: Ustr,
     serialized_ty: VariantType,
 }
+
 impl<'db> SerializationInfo<'db> {
     /// Helper function for `TypeInfo::get_or_create_logical_property`.
     /// This is separated out to utilize `return`.
@@ -401,7 +402,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     ) -> Result<Option<&'a mut PropInfo<'dom>>, InnerError> {
         let class = self.class_descriptor;
 
-        // check if prop_name is already in properties_visited, return
+        // check if prop_name is already in properties_visited, return it
         if let Some(&logical_index) = self.properties_visited.get(&prop_name) {
             let prop_info = match logical_index {
                 Some(logical_index) => Some(&mut self.properties[logical_index]),
@@ -421,7 +422,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         // Is this property the canonical representation?
         let canonical_name = ser_info.canonical_name;
         if canonical_name != prop_name {
-            // check if canonical name is already in properties_visited, return
+            // check if canonical name is already in properties_visited, return it
             if let Some(&logical_index) = self.properties_visited.get(&canonical_name) {
                 self.properties_visited.insert(prop_name, logical_index);
 
