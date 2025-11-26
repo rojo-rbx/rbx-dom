@@ -2,6 +2,7 @@
 
 # Unreleased
 * Fixed `serde::Deserialize` implementations for `BinaryString`, `SharedString`, `NetAssetRef`, `Faces`, and `Axes` to properly utilize visitors. ([#563])
+* Added `CFrame::identity` convenience method to construct an identity CFrame. ([#567])
 
 [#563]: https://github.com/rojo-rbx/rbx-dom/pull/563
 
