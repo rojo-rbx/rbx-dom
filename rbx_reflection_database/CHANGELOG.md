@@ -2,7 +2,7 @@
 
 ## Unreleased Changes
 
-*  StyleRule's `PropertiesSerialize` property's scriptability has been changed to `Custom` in the `database.msgpack`.
+*  StyleRule's `PropertiesSerialize` property's is now serialized as the `Attributes` type.
 
 ## 2.0.1+roblox-697 (2025-11-06)
 * Updated to Roblox version 697.
