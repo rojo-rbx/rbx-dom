@@ -1,5 +1,8 @@
 # rbx_xml Changelog
 
+## 2.0.1 (2025-11-27)
+* Upgrade rbx-dom dependencies.
+
 ## 2.0.0 (2025-10-10)
 * Upgrade rbx-dom dependencies, which results in breaking changes to some data types.
 * Implement support for serializing and deserializing the `NetAssetRef` type. ([#555])
