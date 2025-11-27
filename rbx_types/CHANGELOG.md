@@ -1,10 +1,11 @@
 # rbx_types Changelog
 
-# Unreleased
+# 3.1.0 (2025-11-27)
 * Fixed `serde::Deserialize` implementations for `BinaryString`, `SharedString`, `NetAssetRef`, `Faces`, and `Axes` to properly utilize visitors. ([#563])
 * Added `CFrame::identity` convenience method to construct an identity CFrame. ([#567])
 
 [#563]: https://github.com/rojo-rbx/rbx-dom/pull/563
+[#567]: https://github.com/rojo-rbx/rbx-dom/pull/567
 
 # 3.0.0 (2025-10-10)
 * Marked `CustomPhysicalProperties`, `TerrainMaterials`, `FontStyle`, and `FontWeight` as non-exhaustive. This is a breaking change. ([#556], [#557])
