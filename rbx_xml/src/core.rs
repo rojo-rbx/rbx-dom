@@ -129,7 +129,7 @@ fn find_property_descriptors<'db>(
             }
         }
 
-        if let Some(superclass_name) = &current_class_descriptor.superclass {
+        if let Some(superclass_name) = current_class_descriptor.superclass {
             // If a property descriptor isn't found in our class, check
             // our superclass.
 

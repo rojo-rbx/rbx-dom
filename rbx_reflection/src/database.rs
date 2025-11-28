@@ -52,7 +52,7 @@ impl<'a> ReflectionDatabase<'a> {
 
         while let Some(class) = current_class {
             list.push(class);
-            current_class = class.superclass.as_ref().and_then(|s| self.classes.get(s));
+            current_class = class.superclass.and_then(|s| self.classes.get(s));
         }
 
         Some(list)
@@ -65,7 +65,7 @@ impl<'a> ReflectionDatabase<'a> {
         descriptor: &'a ClassDescriptor<'a>,
     ) -> impl Iterator<Item = &'a ClassDescriptor<'a>> {
         std::iter::successors(Some(descriptor), move |class| {
-            class.superclass.as_ref().and_then(|s| self.classes.get(s))
+            class.superclass.and_then(|s| self.classes.get(s))
         })
     }
 
@@ -93,7 +93,7 @@ impl<'a> ReflectionDatabase<'a> {
                 None => {
                     class = self
                         .classes
-                        .get(class.superclass.as_ref()?)
+                        .get(class.superclass?)
                         .expect("superclass that is Some should exist in reflection database")
                 }
                 default_value => return default_value,
