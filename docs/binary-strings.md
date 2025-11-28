@@ -21,6 +21,34 @@ This blob is used to serialize [attributes][Attributes]. Due to the complexity o
 
 [Attributes]: https://create.roblox.com/docs/studio/instance-attributes
 
+### CollisionGroupData
+**Used By:** `Workspace.CollisionGroupData`
+
+This blob serializes the collision groups registered in `Workspace`. It encodes information about each group, including the group name, ID, and collision mask.
+
+| Size (Bytes) | Field        | Description                                |
+|--------------|--------------|--------------------------------------------|
+| `1`          | Version (?)  | Constant (`0x01`).                         |
+| `1`          | Group Count  | Total number of collision groups (`u8`).   |
+| `1`          | ID           | Group ID (`u8`).                           |
+| `1`          | Unknown (?)  | Constant value (`0x04`, possibly a reserved byte). |
+| `4`          | Mask         | Collision mask (`i32`).                    |
+| `1`          | Name Length  | Length of the group name (`u8`).           |
+| `N`          | Name         | Group name (`string`).                     |
+
+If there are two collision groups defined as follows (`PhysicsService.GetRegisteredCollisionGroups`):
+1. Name: `"Default"`, ID: `0`, Mask: `-1`
+2. Name: `"Group1"`, ID: `1`, Mask: `-3`
+3. Name: `"Group2"`, ID: `2`, Mask: `-5`
+
+The serialized data would be:
+```
+01 03 00 04 FF FF FF FF 07 44 65 66 61 75 6C 74 01 04 FF FF FF FF 06 47 72 6F 75 70 31 02 04 FB FF FF FF 06 47 72 6F 75 70 32
+```
+
+[PhysicsService](https://create.roblox.com/docs/reference/engine/classes/PhysicsService#GetRegisteredCollisionGroups)
+[Collision Groups](https://create.roblox.com/docs/workspace/collisions)
+
 ### MaterialColors
 **Used By:** `Terrain.MaterialColors`
 
