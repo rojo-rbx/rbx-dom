@@ -290,7 +290,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 }
 
 struct SerializationInfo<'db> {
-    migration: Option<&'db PropertyMigration>,
+    migration: Option<&'db PropertyMigration<'db>>,
     canonical_name: Ustr,
     serialized_name: Ustr,
     serialized_ty: VariantType,
