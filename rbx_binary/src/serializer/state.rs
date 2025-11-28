@@ -148,7 +148,7 @@ struct PropInfo<'dom> {
     /// If a logical property has a migration associated with it (i.e. BrickColor ->
     /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
     /// it is None.
-    migration: Option<&'dom PropertyMigration>,
+    migration: Option<&'dom PropertyMigration<'dom>>,
 }
 impl<'dom> PropInfo<'dom> {
     /// This function extends `self.values` with `self.default_value` values.
@@ -290,7 +290,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 }
 
 struct SerializationInfo<'db> {
-    migration: Option<&'db PropertyMigration>,
+    migration: Option<&'db PropertyMigration<'db>>,
     canonical_name: Ustr,
     serialized_name: Ustr,
     serialized_ty: VariantType,
@@ -331,7 +331,7 @@ impl<'db> SerializationInfo<'db> {
                             // This avoids re-walking the superclasses.
                             let new_descriptors = superclass_descriptor
                                 .properties
-                                .get(prop_migration.new_property_name.as_str())
+                                .get(prop_migration.new_property_name)
                                 .and_then(|prop| {
                                     PropertyDescriptors::new(superclass_descriptor, prop)
                                 });
@@ -341,7 +341,7 @@ impl<'db> SerializationInfo<'db> {
                             match new_descriptors {
                                 Some(descriptor) => match descriptor.serialized {
                                     Some(serialized) => {
-                                        canonical_name = descriptor.canonical.name.as_ref().into();
+                                        canonical_name = descriptor.canonical.name.into();
                                         serialized
                                     }
                                     None => return None,
@@ -349,14 +349,14 @@ impl<'db> SerializationInfo<'db> {
                                 None => return None,
                             }
                         } else {
-                            canonical_name = descriptors.canonical.name.as_ref().into();
+                            canonical_name = descriptors.canonical.name.into();
                             descriptor
                         }
                     }
                     None => return None,
                 };
 
-                serialized_name = serialized.name.as_ref().into();
+                serialized_name = serialized.name.into();
 
                 serialized_ty = serialized.data_type.ty();
             }
