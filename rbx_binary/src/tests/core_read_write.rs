@@ -22,18 +22,18 @@ fn read_interleaved_bytes() {
         15, 15, 15,
     ];
 
-    let expected = [
+    let expected = &[
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
     ];
 
-    let mut iter = input.read_interleaved_bytes(expected.len()).unwrap();
-    for expected_array in expected {
-        assert_eq!(iter.next().unwrap(), expected_array);
-    }
+    let result: Vec<_> = input
+        .read_interleaved_bytes::<16>(expected.len())
+        .unwrap()
+        .collect();
 
-    assert_eq!(iter.next(), None);
+    assert_eq!(result, expected)
 }
 
 #[test]
