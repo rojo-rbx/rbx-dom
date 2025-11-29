@@ -324,6 +324,32 @@ pub trait RbxWriteInterleaved {
     }
 }
 
+impl RbxWriteInterleaved for Vec<u8> {
+    fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: IntoIterator<Item = [u8; N]>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        let values = values.into_iter();
+        let values_len = values.len();
+        let bytes_len = values_len * N;
+
+        // Reserve space for new values
+        let current_len = self.len();
+        self.extend(core::iter::repeat_n(0, bytes_len));
+
+        // Write new values
+        let buffer = &mut self[current_len..];
+        for (i, bytes) in values.enumerate() {
+            for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
+                buffer[i + b * values_len] = byte;
+            }
+        }
+
+        Ok(())
+    }
+}
+
 impl<W> RbxWriteExt for W where W: Write {}
 
 /// Applies the 'zigzag' transformation done by Roblox to many `i32` values.

@@ -132,23 +132,7 @@ impl RbxWriteInterleaved for ChunkBuilder {
         I: IntoIterator<Item = [u8; N]>,
         <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
-        let values = values.into_iter();
-        let values_len = values.len();
-        let bytes_len = values_len * N;
-
-        // Reserve space for new values
-        let current_len = self.buffer.len();
-        self.buffer.extend(core::iter::repeat_n(0, bytes_len));
-
-        // Write new values
-        let buffer = &mut self.buffer[current_len..];
-        for (i, bytes) in values.enumerate() {
-            for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
-                buffer[i + b * values_len] = byte;
-            }
-        }
-
-        Ok(())
+        self.buffer.write_interleaved_bytes(values)
     }
 }
 
