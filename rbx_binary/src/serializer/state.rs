@@ -1468,7 +1468,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                             }
                         }
 
-                        chunk.write_interleaved_bytes::<16, _>(blobs)?;
+                        chunk.write_interleaved_bytes(blobs)?;
                     }
                     Type::SecurityCapabilities => {
                         let mut capabilities = Vec::with_capacity(values.len());
