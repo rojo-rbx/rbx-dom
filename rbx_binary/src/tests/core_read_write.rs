@@ -31,12 +31,11 @@ fn read_interleaved_bytes() {
     let mut input = BYTES_INTERLEAVED;
     let expected = BYTES_UNINTERLEAVED;
 
-    let result: Vec<_> = input
-        .read_interleaved_bytes::<16>(expected.len())
-        .unwrap()
-        .collect();
+    let mut array_iter = input.read_interleaved_bytes(expected.len()).unwrap();
+    let result = core::array::from_fn(|_| array_iter.next().unwrap());
 
-    assert_eq!(result, expected)
+    assert_eq!(result, expected);
+    assert!(array_iter.next().is_none());
 }
 
 #[test]
