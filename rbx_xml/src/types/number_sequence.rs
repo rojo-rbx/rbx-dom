@@ -41,7 +41,7 @@ impl XmlType for NumberSequence {
 
         // Because next() returns Option<Result<_>> here, it's cleaner to use
         // loop instead of while-let.
-        #[allow(clippy::while_let_loop)]
+        #[expect(clippy::while_let_loop)]
         loop {
             let time = match pieces.next() {
                 Some(value) => value?,

@@ -332,7 +332,7 @@ mod test {
     use super::*;
 
     #[test]
-    #[allow(clippy::bool_assert_comparison)]
+    #[expect(clippy::bool_assert_comparison)]
     fn exact_or_none() {
         let mut buf = [0u8; 4];
 

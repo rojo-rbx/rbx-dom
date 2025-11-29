@@ -545,7 +545,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     /// properties.
     // Using the entry API here, as Clippy suggests, would require us to
     // clone canonical_name in a cold branch. We don't want to do that.
-    #[allow(clippy::map_entry)]
+    #[expect(clippy::map_entry)]
     #[profiling::function]
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
         let SerializerState {

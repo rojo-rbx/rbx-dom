@@ -17,7 +17,7 @@ pub enum PropertyTag {
 }
 
 #[derive(Debug)]
-#[allow(dead_code)]
+#[expect(dead_code)]
 pub struct PropertyTagFromStrError(String);
 
 impl FromStr for PropertyTag {

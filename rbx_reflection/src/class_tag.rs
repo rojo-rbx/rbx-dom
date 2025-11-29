@@ -18,7 +18,7 @@ pub enum ClassTag {
 }
 
 #[derive(Debug)]
-#[allow(dead_code)]
+#[expect(dead_code)]
 pub struct ClassTagFromStrError(String);
 
 impl FromStr for ClassTag {

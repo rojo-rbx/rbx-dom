@@ -174,11 +174,11 @@ mod test {
 
     #[test]
     fn local_location() {
-        #[allow(unused_mut, reason = "this path needs to be mutated on macos")]
+        #[expect(unused_mut, reason = "this path needs to be mutated on macos")]
         let mut home_from_env;
 
         #[cfg(target_os = "windows")]
-        #[allow(
+        #[expect(
             clippy::unnecessary_operation,
             reason = "attributes on statements are currently unstable so this cannot be reduced"
         )]
@@ -186,7 +186,7 @@ mod test {
             home_from_env = PathBuf::from(env!("LOCALAPPDATA"));
         }
         #[cfg(target_os = "macos")]
-        #[allow(
+        #[expect(
             clippy::unnecessary_operation,
             reason = "attributes on statements are currently unstable so this cannot be reduced"
         )]
@@ -196,7 +196,7 @@ mod test {
             home_from_env.push("Application Support");
         }
         #[cfg(not(any(target_os = "windows", target_os = "macos")))]
-        #[allow(
+        #[expect(
             clippy::unnecessary_operation,
             reason = "attributes on statements are currently unstable so this cannot be reduced"
         )]
