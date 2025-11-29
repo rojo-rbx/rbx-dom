@@ -174,7 +174,7 @@ mod test {
 
     #[test]
     fn local_location() {
-        #[expect(unused_mut, reason = "this path needs to be mutated on macos")]
+        #[allow(unused_mut, reason = "this path needs to be mutated on macos")]
         let mut home_from_env;
 
         #[cfg(target_os = "windows")]
