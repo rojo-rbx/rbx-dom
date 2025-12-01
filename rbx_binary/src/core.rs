@@ -1,4 +1,3 @@
-use std::convert::TryInto;
 use std::io::{self, Write};
 
 use rbx_reflection::{
@@ -109,6 +108,8 @@ pub trait ReadSlice<'a> {
     /// Read an array of length `N`, or return
     /// an error if the length overruns the source data.
     fn read_array<const N: usize>(&mut self) -> io::Result<&'a [u8; N]> {
+        use std::convert::TryInto;
+
         let slice = self.read_slice(N)?;
 
         let array = slice.try_into().unwrap();
