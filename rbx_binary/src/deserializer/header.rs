@@ -1,6 +1,6 @@
 use std::io::Read;
 
-use crate::core::{RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION};
+use crate::core::{RbxReadExt, ReadSlice, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION};
 
 use super::error::InnerError;
 
@@ -16,35 +16,47 @@ pub(crate) struct FileHeader {
     pub(crate) num_instances: u32,
 }
 
+/// The raw header as it appears in the file.
+/// Used to calculate the length of data to read.
+#[repr(C, packed)]
+struct RawFileHeader {
+    magic_header: [u8; 8],
+    signature: [u8; 6],
+    version: u16,
+    num_types: u32,
+    num_instances: u32,
+    reserved: [u8; 8],
+}
+
 impl FileHeader {
     pub(crate) fn decode<R: Read>(mut source: R) -> Result<Self, InnerError> {
-        let mut magic_header = [0; 8];
-        source.read_exact(&mut magic_header)?;
+        // Read a buffer the same length as the header
+        let mut data = [0; size_of::<RawFileHeader>()];
+        source.read_exact(&mut data)?;
 
+        // Read the fields off of a slice
+        let mut slice: &[u8] = &data;
+
+        let magic_header = slice.read_slice(8)?;
         if magic_header != FILE_MAGIC_HEADER {
             return Err(InnerError::BadHeader);
         }
 
-        let mut signature = [0; 6];
-        source.read_exact(&mut signature)?;
-
+        let signature = slice.read_slice(6)?;
         if signature != FILE_SIGNATURE {
             return Err(InnerError::BadHeader);
         }
 
-        let version = source.read_le_u16()?;
-
+        let version = slice.read_le_u16()?;
         if version != FILE_VERSION {
             return Err(InnerError::UnknownFileVersion { version });
         }
 
-        let num_types = source.read_le_u32()?;
-        let num_instances = source.read_le_u32()?;
+        let num_types = slice.read_le_u32()?;
+        let num_instances = slice.read_le_u32()?;
 
-        let mut reserved = [0; 8];
-        source.read_exact(&mut reserved)?;
-
-        if reserved != [0; 8] {
+        let reserved = slice.read_slice(8)?;
+        if reserved != &[0; 8] {
             return Err(InnerError::BadHeader);
         }
 

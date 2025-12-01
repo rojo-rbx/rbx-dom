@@ -5,7 +5,7 @@ use std::{
 };
 
 use crate::{
-    core::{RbxReadExt, RbxWriteExt},
+    core::{RbxReadExt, RbxWriteExt, ReadSlice},
     serializer::CompressionType,
 };
 
@@ -167,12 +167,19 @@ impl fmt::Display for ChunkHeader {
 }
 
 fn decode_chunk_header<R: Read>(source: &mut R) -> io::Result<ChunkHeader> {
-    let mut name = [0; 4];
-    source.read_exact(&mut name)?;
+    use std::convert::TryInto;
 
-    let compressed_len = source.read_le_u32()?;
-    let len = source.read_le_u32()?;
-    let reserved = source.read_le_u32()?;
+    // Read a buffer the same length as the header
+    let mut data = [0; size_of::<ChunkHeader>()];
+    source.read_exact(&mut data)?;
+
+    // Read the fields off of a slice
+    let mut slice: &[u8] = &data;
+
+    let name = slice.read_slice(4)?.try_into().unwrap();
+    let compressed_len = slice.read_le_u32()?;
+    let len = slice.read_le_u32()?;
+    let reserved = slice.read_le_u32()?;
 
     if reserved != 0 {
         panic!(
