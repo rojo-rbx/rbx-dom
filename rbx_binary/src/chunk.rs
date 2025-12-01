@@ -167,8 +167,6 @@ impl fmt::Display for ChunkHeader {
 }
 
 fn decode_chunk_header<R: Read>(source: &mut R) -> io::Result<ChunkHeader> {
-    use std::convert::TryInto;
-
     // Read a buffer the same length as the header
     let mut data = [0; size_of::<ChunkHeader>()];
     source.read_exact(&mut data)?;
@@ -176,7 +174,7 @@ fn decode_chunk_header<R: Read>(source: &mut R) -> io::Result<ChunkHeader> {
     // Read the fields off of a slice
     let mut slice: &[u8] = &data;
 
-    let name = slice.read_slice(4)?.try_into().unwrap();
+    let name = *slice.read_array()?;
     let compressed_len = slice.read_le_u32()?;
     let len = slice.read_le_u32()?;
     let reserved = slice.read_le_u32()?;

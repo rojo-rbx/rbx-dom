@@ -37,12 +37,12 @@ impl FileHeader {
         // Read the fields off of a slice
         let mut slice: &[u8] = &data;
 
-        let magic_header = slice.read_slice(8)?;
+        let magic_header: &[u8; 8] = slice.read_array()?;
         if magic_header != FILE_MAGIC_HEADER {
             return Err(InnerError::BadHeader);
         }
 
-        let signature = slice.read_slice(6)?;
+        let signature: &[u8; 6] = slice.read_array()?;
         if signature != FILE_SIGNATURE {
             return Err(InnerError::BadHeader);
         }
@@ -55,7 +55,7 @@ impl FileHeader {
         let num_types = slice.read_le_u32()?;
         let num_instances = slice.read_le_u32()?;
 
-        let reserved = slice.read_slice(8)?;
+        let reserved: &[u8; 8] = slice.read_array()?;
         if reserved != &[0; 8] {
             return Err(InnerError::BadHeader);
         }
