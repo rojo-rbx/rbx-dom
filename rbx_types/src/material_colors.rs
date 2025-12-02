@@ -6,7 +6,7 @@ use crate::Color3uint8;
 
 use crate::Error as CrateError;
 
-#[derive(Debug, PartialEq, Clone, Default)]
+#[derive(Debug, PartialEq, Clone)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
@@ -16,7 +16,7 @@ use crate::Error as CrateError;
 pub struct MaterialColors {
     /// The underlying map used by this struct. A `BTreeMap` is used
     /// over a `HashMap` to ensure serialization with serde is ordered.
-    inner: [Option<Color3uint8>; NUM_COLORS],
+    inner: [Color3uint8; NUM_COLORS],
 }
 
 impl MaterialColors {
@@ -25,7 +25,7 @@ impl MaterialColors {
     #[inline]
     pub const fn new() -> Self {
         Self {
-            inner: [None; NUM_COLORS],
+            inner: DEFAULT_COLORS,
         }
     }
 
@@ -33,13 +33,13 @@ impl MaterialColors {
     /// none is set.
     #[inline]
     pub fn get_color(&self, material: TerrainMaterials) -> Color3uint8 {
-        self.inner[material as usize].unwrap_or_else(|| material.default_color())
+        self.inner[material as usize]
     }
 
     /// Sets the color for the given material.
     #[inline]
     pub fn set_color(&mut self, material: TerrainMaterials, color: Color3uint8) {
-        self.inner[material as usize] = Some(color);
+        self.inner[material as usize] = color;
     }
 
     /// Encodes the `MaterialColors` into a binary blob that can be understood
@@ -70,6 +70,12 @@ impl MaterialColors {
             .map(|color| Color3uint8::new(color[0], color[1], color[2]));
 
         Ok(IntoIterator::into_iter(MATERIAL_ORDER).zip(colors).into())
+    }
+}
+
+impl Default for MaterialColors {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
@@ -115,6 +121,7 @@ macro_rules! material_colors {
         /// A list of all `TerrainMaterials` in the order they must be read
         /// and written.
         const MATERIAL_ORDER: [TerrainMaterials; NUM_COLORS] = [$(TerrainMaterials::$name,)*];
+        const DEFAULT_COLORS: [Color3uint8; NUM_COLORS] = [$(TerrainMaterials::$name.default_color(),)*];
 
         /// All materials that are represented by `MaterialColors`.
         ///
@@ -134,7 +141,7 @@ macro_rules! material_colors {
 
         impl TerrainMaterials {
             /// Returns the default color for the given `TerrainMaterial`.
-            pub fn default_color(&self) -> Color3uint8 {
+            pub const fn default_color(&self) -> Color3uint8 {
                 match self {
                     $(
                         Self::$name => Color3uint8::new($r, $g, $b),
