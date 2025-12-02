@@ -45,6 +45,7 @@ impl MaterialColors {
     /// Encodes the `MaterialColors` into a binary blob that can be understood
     /// by Roblox.
     pub fn encode(&self) -> Vec<u8> {
+        // TODO: just AsRef bytes the damn thing
         let mut buffer = Vec::with_capacity(69);
         // 6 reserved bytes
         buffer.extend_from_slice(&[0; 6]);
