@@ -76,7 +76,7 @@ impl MaterialColors {
     }
 
     /// Iterator over non-default material colors.
-    pub fn iter_filtered(&self) -> impl Iterator<Item = (TerrainMaterials, Color3uint8)> {
+    pub fn iter_filter_default(&self) -> impl Iterator<Item = (TerrainMaterials, Color3uint8)> {
         self.into_iter()
             .filter(|(material, color)| *color != material.default_color())
     }
@@ -234,7 +234,7 @@ impl serde::Serialize for MaterialColors {
         use serde::ser::SerializeMap;
 
         let mut map = serializer.serialize_map(None)?;
-        for (material, color) in self.iter_filtered() {
+        for (material, color) in self.iter_filter_default() {
             map.serialize_entry(&material, &color)?;
         }
         map.end()
