@@ -6,7 +6,7 @@ use crate::Color3uint8;
 
 use crate::Error as CrateError;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
@@ -44,7 +44,7 @@ impl MaterialColors {
 
     /// Encodes the `MaterialColors` into a binary blob that can be understood
     /// by Roblox.
-    pub fn encode(&self) -> Vec<u8> {
+    pub fn encode(self) -> Vec<u8> {
         // TODO: just AsRef bytes the damn thing
         let mut buffer = Vec::with_capacity(69);
         // 6 reserved bytes
@@ -69,7 +69,9 @@ impl MaterialColors {
             .skip(2)
             .map(|color| Color3uint8::new(color[0], color[1], color[2]));
 
-        Ok(IntoIterator::into_iter(MATERIAL_ORDER).zip(colors).into())
+        Ok(IntoIterator::into_iter(MATERIAL_ORDER)
+            .zip(colors)
+            .collect())
     }
 }
 
@@ -79,33 +81,37 @@ impl Default for MaterialColors {
     }
 }
 
-impl<T> From<T> for MaterialColors
-where
-    T: IntoIterator<Item = (TerrainMaterials, Color3uint8)>,
-{
-    fn from(value: T) -> Self {
+impl core::iter::FromIterator<(TerrainMaterials, Color3uint8)> for MaterialColors {
+    fn from_iter<T>(iter: T) -> Self
+    where
+        T: IntoIterator<Item = (TerrainMaterials, Color3uint8)>,
+    {
         let mut material_colors = Self::new();
-        for (material, color) in value {
+        for (material, color) in iter {
             material_colors.set_color(material, color);
         }
         material_colors
     }
 }
 
-fn enumerate_material_order((i, color): (usize, Color3uint8)) -> (TerrainMaterials, Color3uint8) {
-    (MATERIAL_ORDER[i], color)
+impl IntoIterator for MaterialColors {
+    type Item = (TerrainMaterials, Color3uint8);
+    type IntoIter = Iter;
+    fn into_iter(self) -> Self::IntoIter {
+        Iter {
+            inner: IntoIterator::into_iter(self.inner).enumerate(),
+        }
+    }
 }
 
-impl IntoIterator for &MaterialColors {
+pub struct Iter {
+    inner: core::iter::Enumerate<core::array::IntoIter<Color3uint8, 21>>,
+}
+impl Iterator for Iter {
     type Item = (TerrainMaterials, Color3uint8);
-    type IntoIter = core::iter::Map<
-        core::iter::Enumerate<core::array::IntoIter<Color3uint8, 21>>,
-        fn((usize, Color3uint8)) -> (TerrainMaterials, Color3uint8),
-    >;
-    fn into_iter(self) -> Self::IntoIter {
-        IntoIterator::into_iter(self.inner)
-            .enumerate()
-            .map(enumerate_material_order)
+    fn next(&mut self) -> Option<Self::Item> {
+        let (i, color) = self.inner.next()?;
+        Some((MATERIAL_ORDER[i], color))
     }
 }
 
