@@ -69,8 +69,8 @@ impl MaterialColors {
     }
 
     /// Iterator over material colors.
-    pub fn iter(&self) -> Iter {
-        Iter {
+    pub fn iter(&self) -> MaterialColorsIter {
+        MaterialColorsIter {
             inner: IntoIterator::into_iter(self.inner).enumerate(),
         }
     }
@@ -103,23 +103,23 @@ impl core::iter::FromIterator<(TerrainMaterials, Color3uint8)> for MaterialColor
 
 impl IntoIterator for MaterialColors {
     type Item = (TerrainMaterials, Color3uint8);
-    type IntoIter = Iter;
+    type IntoIter = MaterialColorsIter;
     fn into_iter(self) -> Self::IntoIter {
         self.iter()
     }
 }
 impl IntoIterator for &MaterialColors {
     type Item = (TerrainMaterials, Color3uint8);
-    type IntoIter = Iter;
+    type IntoIter = MaterialColorsIter;
     fn into_iter(self) -> Self::IntoIter {
         self.iter()
     }
 }
 
-pub struct Iter {
+pub struct MaterialColorsIter {
     inner: core::iter::Enumerate<core::array::IntoIter<Color3uint8, 21>>,
 }
-impl Iterator for Iter {
+impl Iterator for MaterialColorsIter {
     type Item = (TerrainMaterials, Color3uint8);
     fn next(&mut self) -> Option<Self::Item> {
         let (i, color) = self.inner.next()?;
