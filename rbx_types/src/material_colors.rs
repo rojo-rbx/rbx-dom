@@ -117,7 +117,7 @@ impl IntoIterator for &MaterialColors {
 }
 
 pub struct MaterialColorsIter {
-    inner: core::iter::Enumerate<core::array::IntoIter<Color3uint8, 21>>,
+    inner: core::iter::Enumerate<core::array::IntoIter<Color3uint8, NUM_COLORS>>,
 }
 impl Iterator for MaterialColorsIter {
     type Item = (TerrainMaterials, Color3uint8);
