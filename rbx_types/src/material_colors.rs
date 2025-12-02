@@ -7,11 +7,6 @@ use crate::Color3uint8;
 use crate::Error as CrateError;
 
 #[derive(Debug, PartialEq, Clone, Copy)]
-#[cfg_attr(
-    feature = "serde",
-    derive(serde::Serialize, serde::Deserialize),
-    serde(transparent)
-)]
 /// Represents the mapping of materials to colors used by Roblox's `Terrain`.
 pub struct MaterialColors {
     /// The underlying map used by this struct. A `BTreeMap` is used
@@ -210,6 +205,55 @@ material_colors! {
     Salt => [198, 189, 181],
     Limestone => [206, 173, 148],
     Pavement => [148, 148, 140],
+}
+
+#[cfg(feature = "serde")]
+impl serde::Serialize for MaterialColors {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeMap;
+
+        let mut map = serializer.serialize_map(None)?;
+        for (material, color) in *self {
+            if color != material.default_color() {
+                map.serialize_entry(&material, &color)?;
+            }
+        }
+        map.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MaterialColors {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use serde::de::Visitor;
+
+        struct MaterialColorsVisitor;
+        impl<'de> Visitor<'de> for MaterialColorsVisitor {
+            type Value = MaterialColors;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                write!(formatter, "a MaterialColors value")
+            }
+
+            fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                let mut material_colors = MaterialColors::new();
+                while let Some((material, color)) = map.next_entry()? {
+                    material_colors.set_color(material, color);
+                }
+                Ok(material_colors)
+            }
+        }
+
+        deserializer.deserialize_map(MaterialColorsVisitor)
+    }
 }
 
 #[cfg(test)]
