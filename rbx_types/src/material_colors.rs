@@ -44,7 +44,7 @@ impl MaterialColors {
         // 6 reserved bytes
         buffer.extend_from_slice(&[0; 6]);
 
-        for (_, color) in self {
+        for color in self.inner {
             buffer.extend_from_slice(&[color.r, color.g, color.b])
         }
 
