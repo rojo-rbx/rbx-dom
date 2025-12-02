@@ -6,7 +6,7 @@ use crate::Color3uint8;
 
 use crate::Error as CrateError;
 
-#[derive(Debug, PartialEq, Clone, Copy)]
+#[derive(Debug, PartialEq, Clone)]
 /// Represents the mapping of materials to colors used by Roblox's `Terrain`.
 pub struct MaterialColors {
     /// The underlying map used by this struct. A `BTreeMap` is used
@@ -39,8 +39,7 @@ impl MaterialColors {
 
     /// Encodes the `MaterialColors` into a binary blob that can be understood
     /// by Roblox.
-    pub fn encode(self) -> Vec<u8> {
-        // TODO: just AsRef bytes the damn thing
+    pub fn encode(&self) -> Vec<u8> {
         let mut buffer = Vec::with_capacity(69);
         // 6 reserved bytes
         buffer.extend_from_slice(&[0; 6]);
@@ -90,6 +89,15 @@ impl core::iter::FromIterator<(TerrainMaterials, Color3uint8)> for MaterialColor
 }
 
 impl IntoIterator for MaterialColors {
+    type Item = (TerrainMaterials, Color3uint8);
+    type IntoIter = Iter;
+    fn into_iter(self) -> Self::IntoIter {
+        Iter {
+            inner: IntoIterator::into_iter(self.inner).enumerate(),
+        }
+    }
+}
+impl IntoIterator for &MaterialColors {
     type Item = (TerrainMaterials, Color3uint8);
     type IntoIter = Iter;
     fn into_iter(self) -> Self::IntoIter {
@@ -216,7 +224,7 @@ impl serde::Serialize for MaterialColors {
         use serde::ser::SerializeMap;
 
         let mut map = serializer.serialize_map(None)?;
-        for (material, color) in *self {
+        for (material, color) in self {
             if color != material.default_color() {
                 map.serialize_entry(&material, &color)?;
             }
