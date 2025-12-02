@@ -67,6 +67,19 @@ impl MaterialColors {
             .zip(colors)
             .collect())
     }
+
+    /// Iterator over material colors.
+    pub fn iter(&self) -> Iter {
+        Iter {
+            inner: IntoIterator::into_iter(self.inner).enumerate(),
+        }
+    }
+
+    /// Iterator over non-default material colors.
+    pub fn iter_filtered(&self) -> impl Iterator<Item = (TerrainMaterials, Color3uint8)> {
+        self.into_iter()
+            .filter(|(material, color)| *color != material.default_color())
+    }
 }
 
 impl Default for MaterialColors {
@@ -92,18 +105,14 @@ impl IntoIterator for MaterialColors {
     type Item = (TerrainMaterials, Color3uint8);
     type IntoIter = Iter;
     fn into_iter(self) -> Self::IntoIter {
-        Iter {
-            inner: IntoIterator::into_iter(self.inner).enumerate(),
-        }
+        self.iter()
     }
 }
 impl IntoIterator for &MaterialColors {
     type Item = (TerrainMaterials, Color3uint8);
     type IntoIter = Iter;
     fn into_iter(self) -> Self::IntoIter {
-        Iter {
-            inner: IntoIterator::into_iter(self.inner).enumerate(),
-        }
+        self.iter()
     }
 }
 
@@ -225,10 +234,8 @@ impl serde::Serialize for MaterialColors {
         use serde::ser::SerializeMap;
 
         let mut map = serializer.serialize_map(None)?;
-        for (material, color) in self {
-            if color != material.default_color() {
-                map.serialize_entry(&material, &color)?;
-            }
+        for (material, color) in self.iter_filtered() {
+            map.serialize_entry(&material, &color)?;
         }
         map.end()
     }
