@@ -16,7 +16,7 @@ use crate::Error as CrateError;
 pub struct MaterialColors {
     /// The underlying map used by this struct. A `BTreeMap` is used
     /// over a `HashMap` to ensure serialization with serde is ordered.
-    inner: [Option<Color3uint8>; 21],
+    inner: [Option<Color3uint8>; NUM_COLORS],
 }
 
 impl MaterialColors {
@@ -24,7 +24,9 @@ impl MaterialColors {
     /// values.
     #[inline]
     pub const fn new() -> Self {
-        Self { inner: [None; 21] }
+        Self {
+            inner: [None; NUM_COLORS],
+        }
     }
 
     /// Retrieves the set color for the given material, or the default if
@@ -112,7 +114,7 @@ macro_rules! material_colors {
 
         /// A list of all `TerrainMaterials` in the order they must be read
         /// and written.
-        const MATERIAL_ORDER: [TerrainMaterials; 21] = [$(TerrainMaterials::$name,)*];
+        const MATERIAL_ORDER: [TerrainMaterials; NUM_COLORS] = [$(TerrainMaterials::$name,)*];
 
         /// All materials that are represented by `MaterialColors`.
         ///
@@ -155,6 +157,7 @@ macro_rules! material_colors {
     };
 }
 
+const NUM_COLORS: usize = 21;
 material_colors! {
     Grass => [106, 127, 63],
     Slate => [63, 127, 107],
