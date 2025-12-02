@@ -49,8 +49,7 @@ impl MaterialColors {
         // 6 reserved bytes
         buffer.extend_from_slice(&[0; 6]);
 
-        for color in MATERIAL_ORDER {
-            let color = self.get_color(color);
+        for (_, color) in self {
             buffer.extend_from_slice(&[color.r, color.g, color.b])
         }
 
@@ -89,6 +88,23 @@ where
             material_colors.set_color(material, color);
         }
         material_colors
+    }
+}
+
+fn enumerate_material_order((i, color): (usize, Color3uint8)) -> (TerrainMaterials, Color3uint8) {
+    (MATERIAL_ORDER[i], color)
+}
+
+impl IntoIterator for &MaterialColors {
+    type Item = (TerrainMaterials, Color3uint8);
+    type IntoIter = core::iter::Map<
+        core::iter::Enumerate<core::array::IntoIter<Color3uint8, 21>>,
+        fn((usize, Color3uint8)) -> (TerrainMaterials, Color3uint8),
+    >;
+    fn into_iter(self) -> Self::IntoIter {
+        IntoIterator::into_iter(self.inner)
+            .enumerate()
+            .map(enumerate_material_order)
     }
 }
 
