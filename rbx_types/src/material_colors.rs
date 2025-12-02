@@ -1,4 +1,4 @@
-use std::{collections::BTreeMap, str::FromStr};
+use std::str::FromStr;
 
 use thiserror::Error;
 
@@ -16,7 +16,7 @@ use crate::Error as CrateError;
 pub struct MaterialColors {
     /// The underlying map used by this struct. A `BTreeMap` is used
     /// over a `HashMap` to ensure serialization with serde is ordered.
-    inner: BTreeMap<TerrainMaterials, Color3uint8>,
+    inner: [Option<Color3uint8>; 21],
 }
 
 impl MaterialColors {
@@ -24,26 +24,20 @@ impl MaterialColors {
     /// values.
     #[inline]
     pub const fn new() -> Self {
-        Self {
-            inner: BTreeMap::new(),
-        }
+        Self { inner: [None; 21] }
     }
 
     /// Retrieves the set color for the given material, or the default if
     /// none is set.
     #[inline]
     pub fn get_color(&self, material: TerrainMaterials) -> Color3uint8 {
-        if let Some(color) = self.inner.get(&material) {
-            *color
-        } else {
-            material.default_color()
-        }
+        self.inner[material as usize].unwrap_or_else(|| material.default_color())
     }
 
     /// Sets the color for the given material.
     #[inline]
     pub fn set_color(&mut self, material: TerrainMaterials, color: Color3uint8) {
-        self.inner.insert(material, color);
+        self.inner[material as usize] = Some(color);
     }
 
     /// Encodes the `MaterialColors` into a binary blob that can be understood
@@ -67,24 +61,26 @@ impl MaterialColors {
         if buffer.len() != 69 {
             return Err(MaterialColorsError::WrongLength(buffer.len()).into());
         }
-        let mut map = BTreeMap::new();
-        // We have to skip the first 6 bytes, which amounts to 2 chunks
-        for (material, color) in MATERIAL_ORDER.iter().zip(buffer.chunks(3).skip(2)) {
-            map.insert(*material, Color3uint8::new(color[0], color[1], color[2]));
-        }
+        let colors = buffer
+            .chunks(3)
+            // We have to skip the first 6 bytes, which amounts to 2 chunks
+            .skip(2)
+            .map(|color| Color3uint8::new(color[0], color[1], color[2]));
 
-        Ok(Self { inner: map })
+        Ok(IntoIterator::into_iter(MATERIAL_ORDER).zip(colors).into())
     }
 }
 
 impl<T> From<T> for MaterialColors
 where
-    T: Into<BTreeMap<TerrainMaterials, Color3uint8>>,
+    T: IntoIterator<Item = (TerrainMaterials, Color3uint8)>,
 {
     fn from(value: T) -> Self {
-        Self {
-            inner: value.into(),
+        let mut material_colors = Self::new();
+        for (material, color) in value {
+            material_colors.set_color(material, color);
         }
+        material_colors
     }
 }
 
