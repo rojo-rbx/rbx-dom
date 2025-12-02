@@ -190,6 +190,7 @@ macro_rules! material_colors {
     };
 }
 
+// If this goes above 21, Variant will become larger than 64 bytes.
 const NUM_COLORS: usize = 21;
 material_colors! {
     Grass => [106, 127, 63],
