@@ -109,7 +109,9 @@ impl Drop for SharedString {
         // Make a weak reference so we can check the strong count later
         let weak = Arc::downgrade(&arc);
 
-        // Drop the Arc to decrement the strong_count
+        // Drop the Arc to decrement the strong_count. Once the
+        // strong count hits 0, no new strong references can
+        // be created by upgrading weak references.
         drop(arc);
 
         // Multiple threads may arrive here and pass this check
@@ -120,8 +122,7 @@ impl Drop for SharedString {
         }
 
         // Remove the SharedString from the string cache if we believe it to
-        // be the last strong reference.  Once the strong count hits 0, no new
-        // strong references can be created by upgrading weak references.
+        // be the last strong reference.
         let Ok(mut cache) = STRING_CACHE.lock() else {
             // If the lock is poisoned, we should just leave it
             // alone so that we don't accidentally double-panic.
