@@ -99,8 +99,12 @@ impl AsRef<[u8]> for SharedString {
 
 impl Drop for SharedString {
     fn drop(&mut self) {
+        // Replace the arc with an impostor
+        let arc = core::mem::replace(&mut self.data, Arc::default());
+        let arc_ptr = Arc::into_raw(arc);
+
         // Block Weak references from being upgraded.
-        unsafe { Arc::decrement_strong_count(&mut self.data) }
+        unsafe { Arc::decrement_strong_count(arc_ptr) }
 
         // If the reference we're about to drop is the very last reference to
         // the buffer, we'll be able to remove it from the SharedString cache.
@@ -114,7 +118,8 @@ impl Drop for SharedString {
             cache.remove(&self.hash);
         }
 
-        unsafe { Arc::increment_strong_count(&mut self.data) }
+        unsafe { Arc::increment_strong_count(arc_ptr) }
+        self.data = unsafe { Arc::from_raw(arc_ptr) };
     }
 }
 
