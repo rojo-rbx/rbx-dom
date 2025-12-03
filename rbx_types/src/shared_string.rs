@@ -118,6 +118,10 @@ impl Drop for SharedString {
             return;
         }
 
+        // If a SharedString::new takes the lock right before this, it will
+        // replace the entry, and then this will remove it immediately after.
+        // The result is that there are duplicate SharedString backing
+        // allocations. It's not ideal, but it's an acceptable failure mode.
         let Ok(mut cache) = STRING_CACHE.lock() else {
             // If the lock is poisoned, we should just leave it
             // alone so that we don't accidentally double-panic.
