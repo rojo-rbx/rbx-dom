@@ -109,7 +109,7 @@ impl Drop for SharedString {
         // Make a weak reference so we can check the strong count later
         let weak = Arc::downgrade(&arc);
 
-        // Drop the Arc
+        // Drop the Arc to decrement the strong_count
         drop(arc);
 
         // Multiple threads may arrive here and pass this check
