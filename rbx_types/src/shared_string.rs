@@ -100,7 +100,7 @@ impl AsRef<[u8]> for SharedString {
 impl Drop for SharedString {
     fn drop(&mut self) {
         // Replace the arc with an impostor
-        let arc = core::mem::replace(&mut self.data, Arc::default());
+        let arc = core::mem::take(&mut self.data);
 
         // Make a weak reference so we can check the strong count later
         let weak = Arc::downgrade(&arc);
