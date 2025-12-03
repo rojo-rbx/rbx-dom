@@ -114,15 +114,17 @@ impl Drop for SharedString {
         //
         // Multiple threads may arrive here and pass this check simultaneously,
         // but removing a string from the cache that is already removed is a no-op.
-        if Weak::strong_count(&weak) == 0 {
-            let Ok(mut cache) = STRING_CACHE.lock() else {
-                // If the lock is poisoned, we should just leave it
-                // alone so that we don't accidentally double-panic.
-                return;
-            };
-
-            cache.remove(&self.hash);
+        if Weak::strong_count(&weak) != 0 {
+            return;
         }
+
+        let Ok(mut cache) = STRING_CACHE.lock() else {
+            // If the lock is poisoned, we should just leave it
+            // alone so that we don't accidentally double-panic.
+            return;
+        };
+
+        cache.remove(&self.hash);
     }
 }
 
