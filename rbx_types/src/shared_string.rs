@@ -114,6 +114,8 @@ impl Drop for SharedString {
         // be created by upgrading weak references.
         drop(arc);
 
+        // Is this the last strong reference?
+        //
         // Multiple threads may arrive here and pass this check
         // simultaneously, but removing a string from the cache
         // that is already removed is a no-op.
@@ -121,14 +123,14 @@ impl Drop for SharedString {
             return;
         }
 
-        // Remove the SharedString from the string cache if we believe it to
-        // be the last strong reference.
         let Ok(mut cache) = STRING_CACHE.lock() else {
             // If the lock is poisoned, we should just leave it
             // alone so that we don't accidentally double-panic.
             return;
         };
 
+        // Remove the SharedString from the string cache.
+        //
         // Ensure we are removing the weak reference with the same
         // backing allocation as our weak pointer. This happens when
         // another thread calls SharedString::new right before the
