@@ -112,12 +112,13 @@ impl Drop for SharedString {
         // Drop the Arc
         drop(arc);
 
-        // Remove the SharedString from the string cache if we
-        // believe it to be the last strong reference.  Once the strong count hits 0,
-        // no new strong references can be created by upgrading weak references.
+        // Remove the SharedString from the string cache if we believe it to
+        // be the last strong reference.  Once the strong count hits 0, no new
+        // strong references can be created by upgrading weak references.
         //
-        // Multiple threads may arrive here and pass this check simultaneously,
-        // but removing a string from the cache that is already removed is a no-op.
+        // Multiple threads may arrive here and pass this check
+        // simultaneously, but removing a string from the cache
+        // that is already removed is a no-op.
         if Weak::strong_count(&weak) != 0 {
             return;
         }
