@@ -99,16 +99,27 @@ impl AsRef<[u8]> for SharedString {
 
 impl Drop for SharedString {
     fn drop(&mut self) {
-        // Replace the arc with an impostor
-        let arc = core::mem::replace(&mut self.data, Arc::default());
-
         // If the reference we're about to drop is the very last reference to
         // the buffer, we'll be able to remove it from the SharedString cache.
         //
-        // Convert the Arc into a UniqueArc which guarantees that there is only one
-        // and blocks Weak references from being upgraded in the mean time.
-        // Depends on #[feature(unique_rc_arc)]
-        let Some(_) = Arc::into_unique(arc) else {
+        // Force-create a mutable reference to the underlying data.
+        // There are three code paths in Arc::make_mut:
+        // 1. Other strong references exist.
+        //   - The Arc is cloned, which is a waste, but there is no other way to do this.
+        //     this is the only information we care about (was this code path hit? true/false)
+        //
+        // 2. No other strong references exist, but other weak references exist.
+        //   - This is the happy path.  The Arc is dissociated and the existing weak
+        //     references can no longer be upgraded.
+        //
+        // 3. No other strong or weak references exist.
+        //   - We expect this case to be impossible, because the string cache always
+        //     holds a weak reference that we are about to remove, but it's not a problem
+        //     if it does manage to happen, because removing something from a hash map
+        //     that doesn't exist does not fail.
+        let ptr_before = self.data.as_ptr();
+        let ptr_after = Arc::make_mut(&mut self.data);
+        if ptr_before != ptr_after.as_ptr() {
             return;
         };
 
