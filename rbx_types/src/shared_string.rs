@@ -105,7 +105,9 @@ impl Drop for SharedString {
 
         // Naively check if the current Arc count is 1.
         // This causes much less lock contention than
-        // directly locking the string cache.
+        // directly locking the string cache, however,
+        // two Arcs may be dropping simultaneously and
+        // both fail this check.
         if Arc::strong_count(&self.data) != 1 {
             return;
         };
