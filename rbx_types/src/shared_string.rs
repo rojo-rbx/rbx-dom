@@ -9,7 +9,7 @@ use std::{
 use blake3::Hash as Blake3Hash;
 
 lazy_static::lazy_static! {
-    static ref STRING_CACHE: Arc<Mutex<HashMap<Blake3Hash, Weak<Vec<u8>>>>> = {
+    static ref STRING_CACHE: Arc<Mutex<HashMap<Blake3Hash, Weak<[u8]>>>> = {
         Arc::new(Mutex::new(HashMap::new()))
     };
 }
@@ -19,14 +19,15 @@ lazy_static::lazy_static! {
 /// `SharedString` values.
 #[derive(Debug, Clone)]
 pub struct SharedString {
-    data: Option<Arc<Vec<u8>>>,
+    data: Option<Arc<[u8]>>,
     hash: Blake3Hash,
 }
 
 impl SharedString {
     /// Construct a SharedString from an owned buffer of data.
-    pub fn new(data: Vec<u8>) -> SharedString {
-        let hash = blake3::hash(&data);
+    pub fn new(data: impl AsRef<[u8]>) -> SharedString {
+        let data = data.as_ref();
+        let hash = blake3::hash(data);
 
         let data = {
             let mut cache = STRING_CACHE.lock().unwrap();
@@ -104,18 +105,19 @@ impl Drop for SharedString {
         // If the reference we're about to drop is the very last reference to
         // the buffer, we'll be able to unwrap it and remove it from the
         // SharedString cache.
-        if Arc::into_inner(self.data.take().unwrap()).is_some() {
-            let mut cache = match STRING_CACHE.lock() {
-                Ok(v) => v,
-                Err(_) => {
-                    // If the lock is poisoned, we should just leave it
-                    // alone so that we don't accidentally double-panic.
-                    return;
-                }
-            };
+        let arc = self.data.take().unwrap();
 
-            cache.remove(&self.hash);
-        }
+        if Arc::strong_count(&arc) != 1 {
+            return;
+        };
+
+        let Ok(mut cache) = STRING_CACHE.lock() else {
+            // If the lock is poisoned, we should just leave it
+            // alone so that we don't accidentally double-panic.
+            return;
+        };
+
+        cache.remove(&self.hash);
     }
 }
 
@@ -210,7 +212,7 @@ pub struct NetAssetRef(SharedString);
 
 impl NetAssetRef {
     /// Construct a `NetAssetRef` from an owned buffer of data.
-    pub fn new(data: Vec<u8>) -> Self {
+    pub fn new(data: impl AsRef<[u8]>) -> Self {
         Self(SharedString::new(data))
     }
 
@@ -282,8 +284,8 @@ mod test {
 
     #[test]
     fn insert_twice() {
-        let handle_1 = SharedString::new(vec![5, 4, 3]);
-        let handle_2 = SharedString::new(vec![5, 4, 3]);
+        let handle_1 = SharedString::new(&[5, 4, 3]);
+        let handle_2 = SharedString::new(&[5, 4, 3]);
 
         let data_1 = handle_1.data.as_ref().unwrap();
         let data_2 = handle_2.data.as_ref().unwrap();
@@ -294,18 +296,18 @@ mod test {
     #[test]
     fn drop() {
         {
-            let _x = SharedString::new(vec![2]);
+            let _x = SharedString::new(&[2]);
         }
 
         {
-            let _y = SharedString::new(vec![5, 6, 7, 1]);
+            let _y = SharedString::new(&[5, 6, 7, 1]);
         }
     }
 
     #[cfg(feature = "serde")]
     #[test]
     fn serde_human() {
-        let sstr = SharedString::new(b"a test string".to_vec());
+        let sstr = SharedString::new(b"a test string");
         let serialized = serde_json::to_string(&sstr).unwrap();
 
         assert_eq!(serialized, r#""YSB0ZXN0IHN0cmluZw==""#);
@@ -320,7 +322,7 @@ mod test {
     fn serde_non_human() {
         use std::{io::Write, mem};
 
-        let sstr = SharedString::new(b"a test string".to_vec());
+        let sstr = SharedString::new(b"a test string");
         let data = sstr.data();
         let serialized = bincode::serialize(&sstr).unwrap();
 
@@ -342,8 +344,8 @@ mod test {
     #[cfg(feature = "serde")]
     #[test]
     fn netassetref_serde() {
-        let sstr = SharedString::new(vec![13, 37]);
-        let net = NetAssetRef::new(vec![13, 37]);
+        let sstr = SharedString::new(&[13, 37]);
+        let net = NetAssetRef::new(&[13, 37]);
 
         let ser_sstr_1 = serde_json::to_string(&sstr).unwrap();
         let ser_net_1 = serde_json::to_string(&net).unwrap();

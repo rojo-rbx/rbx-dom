@@ -184,7 +184,7 @@ fn default_shared_string() {
         InstanceBuilder::new("Model").with_property(
             // This is the first SharedString property I saw in the database
             "ModelMeshData",
-            SharedString::new(b"arbitrary string".to_vec()),
+            SharedString::new(b"arbitrary string"),
         ),
     );
     let ref_2 = tree.insert(tree.root_ref(), InstanceBuilder::new("Model"));
