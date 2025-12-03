@@ -120,6 +120,10 @@ impl Drop for SharedString {
             return;
         };
 
+        if Arc::strong_count(&self.data) != 1 {
+            return;
+        };
+
         cache.remove(&self.hash);
     }
 }
