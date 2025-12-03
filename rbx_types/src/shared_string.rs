@@ -99,38 +99,22 @@ impl AsRef<[u8]> for SharedString {
 
 impl Drop for SharedString {
     fn drop(&mut self) {
+        // Block Weak references from being upgraded.
+        unsafe { Arc::decrement_strong_count(&mut self.data) }
+
         // If the reference we're about to drop is the very last reference to
         // the buffer, we'll be able to remove it from the SharedString cache.
-        //
-        // Force-create a mutable reference to the underlying data.
-        // There are three code paths in Arc::make_mut:
-        // 1. Other strong references exist.
-        //   - The Arc is cloned, which is a waste, but there is no other way to do this.
-        //     this is the only information we care about (was this code path hit? true/false)
-        //
-        // 2. No other strong references exist, but other weak references exist.
-        //   - This is the happy path.  The Arc is dissociated and the existing weak
-        //     references can no longer be upgraded.
-        // This also means that the Arc is cloned, and the pointer changes, so this whole thing doesn't work since the code path cannot be detected!
-        //
-        // 3. No other strong or weak references exist.
-        //   - We expect this case to be impossible, because the string cache always
-        //     holds a weak reference that we are about to remove, but it's not a problem
-        //     if it does manage to happen, because removing something from a hash map
-        //     that doesn't exist does not fail.
-        let ptr_before = self.data.as_ptr();
-        let ptr_after = Arc::make_mut(&mut self.data);
-        if ptr_before != ptr_after.as_ptr() {
-            return;
-        };
+        if Arc::strong_count(&self.data) == 0 {
+            let Ok(mut cache) = STRING_CACHE.lock() else {
+                // If the lock is poisoned, we should just leave it
+                // alone so that we don't accidentally double-panic.
+                return;
+            };
 
-        let Ok(mut cache) = STRING_CACHE.lock() else {
-            // If the lock is poisoned, we should just leave it
-            // alone so that we don't accidentally double-panic.
-            return;
-        };
+            cache.remove(&self.hash);
+        }
 
-        cache.remove(&self.hash);
+        unsafe { Arc::increment_strong_count(&mut self.data) }
     }
 }
 
