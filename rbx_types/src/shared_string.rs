@@ -19,7 +19,7 @@ lazy_static::lazy_static! {
 /// `SharedString` values.
 #[derive(Debug, Clone)]
 pub struct SharedString {
-    data: Option<Arc<[u8]>>,
+    data: Arc<[u8]>,
     hash: Blake3Hash,
 }
 
@@ -60,15 +60,12 @@ impl SharedString {
             }
         };
 
-        SharedString {
-            data: Some(data),
-            hash,
-        }
+        SharedString { data, hash }
     }
 
     #[inline]
     pub fn data(&self) -> &[u8] {
-        self.data.as_ref().unwrap()
+        self.data.as_ref()
     }
 
     #[inline]
@@ -105,9 +102,8 @@ impl Drop for SharedString {
         // If the reference we're about to drop is the very last reference to
         // the buffer, we'll be able to unwrap it and remove it from the
         // SharedString cache.
-        let arc = self.data.take().unwrap();
 
-        if Arc::strong_count(&arc) != 1 {
+        if Arc::strong_count(&self.data) != 1 {
             return;
         };
 
@@ -287,8 +283,8 @@ mod test {
         let handle_1 = SharedString::new(&[5, 4, 3]);
         let handle_2 = SharedString::new(&[5, 4, 3]);
 
-        let data_1 = handle_1.data.as_ref().unwrap();
-        let data_2 = handle_2.data.as_ref().unwrap();
+        let data_1 = &handle_1.data;
+        let data_2 = &handle_2.data;
 
         assert!(Arc::ptr_eq(data_1, data_2));
     }
