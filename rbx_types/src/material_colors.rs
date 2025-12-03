@@ -246,10 +246,8 @@ impl<'de> serde::Deserialize<'de> for MaterialColors {
     where
         D: serde::Deserializer<'de>,
     {
-        use serde::de::Visitor;
-
         struct MaterialColorsVisitor;
-        impl<'de> Visitor<'de> for MaterialColorsVisitor {
+        impl<'de> serde::de::Visitor<'de> for MaterialColorsVisitor {
             type Value = MaterialColors;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
