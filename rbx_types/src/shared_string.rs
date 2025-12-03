@@ -65,7 +65,7 @@ impl SharedString {
 
     #[inline]
     pub fn data(&self) -> &[u8] {
-        self.data.as_ref()
+        &self.data
     }
 
     #[inline]
@@ -130,7 +130,7 @@ pub struct SharedStringHash(Blake3Hash);
 impl SharedStringHash {
     #[inline]
     pub fn as_bytes(&self) -> &[u8] {
-        self.0.as_bytes().as_ref()
+        self.0.as_bytes()
     }
 }
 
@@ -259,7 +259,7 @@ pub struct NetAssetRefHash(Blake3Hash);
 impl NetAssetRefHash {
     #[inline]
     pub fn as_bytes(&self) -> &[u8] {
-        self.0.as_bytes().as_ref()
+        self.0.as_bytes()
     }
 }
 
