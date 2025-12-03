@@ -122,18 +122,19 @@ impl Drop for SharedString {
         // Remove the SharedString from the string cache if we believe it to
         // be the last strong reference.  Once the strong count hits 0, no new
         // strong references can be created by upgrading weak references.
-        //
-        // If a SharedString::new takes the lock right before this, it will
-        // replace the entry, and then this will remove it immediately after.
-        // The result is that there are duplicate SharedString backing
-        // allocations. It's not ideal, but it's an acceptable failure mode.
         let Ok(mut cache) = STRING_CACHE.lock() else {
             // If the lock is poisoned, we should just leave it
             // alone so that we don't accidentally double-panic.
             return;
         };
 
-        cache.remove(&self.hash);
+        // Ensure we are removing the weak reference with the same
+        // backing allocation as our weak pointer. This happens when
+        // another thread calls SharedString::new right before the
+        // string cache lock is acquired above.
+        if cache.get(&self.hash).is_some_and(|w| w.ptr_eq(&weak)) {
+            cache.remove(&self.hash);
+        }
     }
 }
 
