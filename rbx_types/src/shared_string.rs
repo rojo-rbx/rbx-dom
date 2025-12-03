@@ -99,13 +99,12 @@ impl AsRef<[u8]> for SharedString {
 
 impl Drop for SharedString {
     fn drop(&mut self) {
-        // If the reference we're about to drop is the very last reference to
-        // the buffer, we'll be able to unwrap it and remove it from the
-        // SharedString cache.
-
         // Replace the arc with an impostor
         let arc = core::mem::replace(&mut self.data, Arc::default());
 
+        // If the reference we're about to drop is the very last reference to
+        // the buffer, we'll be able to remove it from the SharedString cache.
+        //
         // Convert the Arc into a UniqueArc which guarantees that there is only one
         // and blocks Weak references from being upgraded in the mean time.
         // Depends on #[feature(unique_rc_arc)]
