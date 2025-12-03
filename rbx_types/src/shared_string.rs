@@ -111,6 +111,7 @@ impl Drop for SharedString {
         // 2. No other strong references exist, but other weak references exist.
         //   - This is the happy path.  The Arc is dissociated and the existing weak
         //     references can no longer be upgraded.
+        // This also means that the Arc is cloned, and the pointer changes, so this whole thing doesn't work since the code path cannot be detected!
         //
         // 3. No other strong or weak references exist.
         //   - We expect this case to be impossible, because the string cache always
