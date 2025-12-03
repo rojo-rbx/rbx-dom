@@ -108,9 +108,12 @@ impl Drop for SharedString {
         // Drop the Arc
         drop(arc);
 
-        // If the reference we dropped was the very last reference to
-        // the buffer, we are able to remove it from the SharedString cache.
-        // It does not matter if multiple threads remove the same hash from the string cache concurrently
+        // Remove the SharedString from the string cache if we
+        // believe it to be the last strong reference.  Once the strong count hits 0,
+        // no new strong references can be created by upgrading weak references.
+        //
+        // Multiple threads may arrive here and pass this check simultaneously,
+        // but removing a string from the cache that is already removed is a no-op.
         if Weak::strong_count(&weak) == 0 {
             let Ok(mut cache) = STRING_CACHE.lock() else {
                 // If the lock is poisoned, we should just leave it
