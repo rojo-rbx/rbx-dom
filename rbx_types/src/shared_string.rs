@@ -103,6 +103,13 @@ impl Drop for SharedString {
         // the buffer, we'll be able to unwrap it and remove it from the
         // SharedString cache.
 
+        // If we have the only strong reference, then
+        // we can be sure this is the only copy.  The inner Arc
+        // is never exposed so there will not be any downgraded
+        // weak copies anywhere other than the string cache.
+        // Therefore, it is not possible for another thread
+        // to change the strong count in between this check
+        // and `self.data` being dropped at the end of the scope.
         if Arc::strong_count(&self.data) != 1 {
             return;
         };
