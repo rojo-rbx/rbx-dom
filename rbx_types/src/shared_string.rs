@@ -101,11 +101,16 @@ impl Drop for SharedString {
     fn drop(&mut self) {
         // Replace the arc with an impostor
         let arc = core::mem::replace(&mut self.data, Arc::default());
+
+        // Make a weak reference so we can check the strong count later
         let weak = Arc::downgrade(&arc);
+
+        // Drop the Arc
         drop(arc);
 
-        // If the reference we're about to drop is the very last reference to
-        // the buffer, we'll be able to remove it from the SharedString cache.
+        // If the reference we dropped was the very last reference to
+        // the buffer, we are able to remove it from the SharedString cache.
+        // It does not matter if multiple threads remove the same hash from the string cache concurrently
         if Weak::strong_count(&weak) == 0 {
             let Ok(mut cache) = STRING_CACHE.lock() else {
                 // If the lock is poisoned, we should just leave it
