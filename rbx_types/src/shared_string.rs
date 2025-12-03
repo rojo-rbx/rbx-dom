@@ -112,10 +112,6 @@ impl Drop for SharedString {
         // Drop the Arc
         drop(arc);
 
-        // Remove the SharedString from the string cache if we believe it to
-        // be the last strong reference.  Once the strong count hits 0, no new
-        // strong references can be created by upgrading weak references.
-        //
         // Multiple threads may arrive here and pass this check
         // simultaneously, but removing a string from the cache
         // that is already removed is a no-op.
@@ -123,6 +119,10 @@ impl Drop for SharedString {
             return;
         }
 
+        // Remove the SharedString from the string cache if we believe it to
+        // be the last strong reference.  Once the strong count hits 0, no new
+        // strong references can be created by upgrading weak references.
+        //
         // If a SharedString::new takes the lock right before this, it will
         // replace the entry, and then this will remove it immediately after.
         // The result is that there are duplicate SharedString backing
