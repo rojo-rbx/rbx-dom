@@ -103,24 +103,19 @@ impl Drop for SharedString {
         // the buffer, we'll be able to unwrap it and remove it from the
         // SharedString cache.
 
-        // Naively check if the current Arc count is 1.
-        // This causes much less lock contention than
-        // directly locking the string cache, however,
-        // two Arcs may be dropping simultaneously and
-        // both fail this check.
-        if Arc::strong_count(&self.data) != 1 {
+        // Replace the arc with an impostor
+        let arc = core::mem::replace(&mut self.data, Arc::default());
+
+        // Convert the Arc into a UniqueArc which guarantees that there is only one
+        // and blocks Weak references from being upgraded in the mean time.
+        // Depends on #[feature(unique_rc_arc)]
+        let Some(_) = Arc::into_unique(arc) else {
             return;
         };
 
         let Ok(mut cache) = STRING_CACHE.lock() else {
             // If the lock is poisoned, we should just leave it
             // alone so that we don't accidentally double-panic.
-            return;
-        };
-
-        // Check again while holding the string cache lock in case
-        // the string cache upgraded an arc before releasing the lock.
-        if Arc::strong_count(&self.data) != 1 {
             return;
         };
 
