@@ -2,7 +2,7 @@
 //! It's intended to be used to snapshot test the binary serializer without
 //! suffering from same-inverse-bug problems.
 
-#![allow(missing_docs)]
+#![expect(missing_docs)]
 
 use std::{
     collections::{HashMap, VecDeque},
