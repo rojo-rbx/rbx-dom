@@ -1,4 +1,4 @@
-use std::string::FromUtf8Error;
+use core::str::Utf8Error;
 
 /// Contains a list of tags that can be applied to an instance.
 ///
@@ -31,8 +31,18 @@ impl Tags {
     }
 
     /// Decodes tags from a buffer containing `\0`-delimited tag names.
-    pub fn decode(buf: &[u8]) -> Result<Self, FromUtf8Error> {
-        let members = String::from_utf8(buf.to_owned())?;
+    pub fn decode(buf: &[u8]) -> Result<Self, Utf8Error> {
+        let str = str::from_utf8(buf)?;
+        // trim '\0's from beginning and end
+        let trimmed = str.trim_matches('\0');
+        if trimmed.is_empty() {
+            let members = String::new();
+            return Ok(Self { members });
+        }
+        let mut members = String::with_capacity(trimmed.len() + 1);
+        members.push_str(trimmed);
+        // encode expects '\0' postfix
+        members.push('\0');
         Ok(Self { members })
     }
 
