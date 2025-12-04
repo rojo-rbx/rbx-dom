@@ -175,7 +175,7 @@ mod test {
         test!(b"ez", b"ez", ["ez"]);
         test!(b"ez\0", b"ez", ["ez"]);
         test!(b"ez\0pz", b"ez\0pz", ["ez", "pz"]);
-        test!(b"ez\0\0pz", b"ez\0pz", ["ez", "pz"]);
-        test!(b"ez\0\0\0pz", b"ez\0pz", ["ez", "pz"]);
+        test!(b"ez\0\0pz", b"ez\0\0pz", ["ez", "pz"]);
+        test!(b"ez\0\0\0pz", b"ez\0\0\0pz", ["ez", "pz"]);
     }
 }
