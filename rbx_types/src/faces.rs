@@ -87,14 +87,18 @@ impl Faces {
     fn len(self) -> usize {
         self.bits().count_ones() as usize
     }
+
+    fn iter_names(self) -> impl Iterator<Item = &'static str> {
+        IntoIterator::into_iter(Self::FACE_NAMES)
+            .filter_map(move |(face, name)| self.contains(face).then_some(name))
+    }
 }
 
 impl fmt::Debug for Faces {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
         write!(out, "Faces(")?;
 
-        let mut iter = IntoIterator::into_iter(Self::FACE_NAMES)
-            .filter_map(|(face, name)| self.contains(face).then_some(name));
+        let mut iter = self.iter_names();
 
         if let Some(first_name) = iter.next() {
             write!(out, "{first_name}")?;
@@ -124,28 +128,8 @@ mod serde_impl {
             if serializer.is_human_readable() {
                 let mut seq = serializer.serialize_seq(Some(self.len()))?;
 
-                if self.contains(Self::RIGHT) {
-                    seq.serialize_element("Right")?;
-                }
-
-                if self.contains(Self::TOP) {
-                    seq.serialize_element("Top")?;
-                }
-
-                if self.contains(Self::BACK) {
-                    seq.serialize_element("Back")?;
-                }
-
-                if self.contains(Self::LEFT) {
-                    seq.serialize_element("Left")?;
-                }
-
-                if self.contains(Self::BOTTOM) {
-                    seq.serialize_element("Bottom")?;
-                }
-
-                if self.contains(Self::FRONT) {
-                    seq.serialize_element("Front")?;
+                for name in self.iter_names() {
+                    seq.serialize_element(name)?;
                 }
 
                 seq.end()

@@ -65,14 +65,18 @@ impl Axes {
     fn len(self) -> usize {
         self.bits().count_ones() as usize
     }
+
+    fn iter_names(self) -> impl Iterator<Item = &'static str> {
+        IntoIterator::into_iter(Self::AXIS_NAMES)
+            .filter_map(move |(axis, name)| self.contains(axis).then_some(name))
+    }
 }
 
 impl fmt::Debug for Axes {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
         write!(out, "Axes(")?;
 
-        let mut iter = IntoIterator::into_iter(Self::AXIS_NAMES)
-            .filter_map(|(face, name)| self.contains(face).then_some(name));
+        let mut iter = self.iter_names();
 
         if let Some(first_name) = iter.next() {
             write!(out, "{first_name}")?;
@@ -102,16 +106,8 @@ mod serde_impl {
             if serializer.is_human_readable() {
                 let mut seq = serializer.serialize_seq(Some(self.len()))?;
 
-                if self.contains(Self::X) {
-                    seq.serialize_element("X")?;
-                }
-
-                if self.contains(Self::Y) {
-                    seq.serialize_element("Y")?;
-                }
-
-                if self.contains(Self::Z) {
-                    seq.serialize_element("Z")?;
+                for name in self.iter_names() {
+                    seq.serialize_element(name)?;
                 }
 
                 seq.end()
