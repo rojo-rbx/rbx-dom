@@ -1,7 +1,5 @@
 use std::fmt;
 
-use crate::lister::Lister;
-
 bitflags::bitflags! {
     struct AxisFlags: u8 {
         const X = 1;
@@ -31,6 +29,8 @@ impl Axes {
     pub const Z: Self = Self {
         flags: AxisFlags::Z,
     };
+
+    const AXIS_NAMES: [(Axes, &'static str); 3] = [(Axes::X, "X"), (Axes::Y, "Y"), (Axes::Z, "Z")];
 }
 
 impl Axes {
@@ -69,20 +69,16 @@ impl Axes {
 
 impl fmt::Debug for Axes {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
-        let mut list = Lister::new();
-
         write!(out, "Axes(")?;
 
-        if self.contains(Self::X) {
-            list.write(out, "X")?;
-        }
+        let mut iter = IntoIterator::into_iter(Self::AXIS_NAMES)
+            .filter_map(|(face, name)| self.contains(face).then_some(name));
 
-        if self.contains(Self::Y) {
-            list.write(out, "Y")?;
-        }
-
-        if self.contains(Self::Z) {
-            list.write(out, "Z")?;
+        if let Some(first_name) = iter.next() {
+            write!(out, "{first_name}")?;
+            for name in iter {
+                write!(out, ", {name}")?;
+            }
         }
 
         write!(out, ")")

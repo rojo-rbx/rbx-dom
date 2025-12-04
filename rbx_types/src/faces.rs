@@ -1,7 +1,5 @@
 use std::fmt;
 
-use crate::lister::Lister;
-
 bitflags::bitflags! {
     struct FaceFlags: u8 {
         const RIGHT = 1;
@@ -46,6 +44,15 @@ impl Faces {
     pub const FRONT: Self = Self {
         flags: FaceFlags::FRONT,
     };
+
+    const FACE_NAMES: [(Faces, &'static str); 6] = [
+        (Faces::RIGHT, "Right"),
+        (Faces::TOP, "Top"),
+        (Faces::BACK, "Back"),
+        (Faces::LEFT, "Left"),
+        (Faces::BOTTOM, "Bottom"),
+        (Faces::FRONT, "Front"),
+    ];
 }
 
 impl Faces {
@@ -84,32 +91,16 @@ impl Faces {
 
 impl fmt::Debug for Faces {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
-        let mut list = Lister::new();
-
         write!(out, "Faces(")?;
 
-        if self.contains(Faces::RIGHT) {
-            list.write(out, "Right")?;
-        }
+        let mut iter = IntoIterator::into_iter(Self::FACE_NAMES)
+            .filter_map(|(face, name)| self.contains(face).then_some(name));
 
-        if self.contains(Faces::TOP) {
-            list.write(out, "Top")?;
-        }
-
-        if self.contains(Faces::BACK) {
-            list.write(out, "Back")?;
-        }
-
-        if self.contains(Faces::LEFT) {
-            list.write(out, "Left")?;
-        }
-
-        if self.contains(Faces::BOTTOM) {
-            list.write(out, "Bottom")?;
-        }
-
-        if self.contains(Faces::FRONT) {
-            list.write(out, "Front")?;
+        if let Some(first_name) = iter.next() {
+            write!(out, "{first_name}")?;
+            for name in iter {
+                write!(out, ", {name}")?;
+            }
         }
 
         write!(out, ")")
