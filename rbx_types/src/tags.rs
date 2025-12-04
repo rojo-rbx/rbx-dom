@@ -5,11 +5,6 @@ use std::string::FromUtf8Error;
 /// This object does not ensure that tags are unique; there may be duplicate
 /// values in the list of tags.
 #[derive(Default, Clone, Debug, Eq, PartialEq)]
-#[cfg_attr(
-    feature = "serde",
-    derive(serde::Serialize, serde::Deserialize),
-    serde(transparent)
-)]
 pub struct Tags {
     members: String,
 }
@@ -82,6 +77,51 @@ impl<'a> Iterator for TagsIter<'a> {
 
     fn next(&mut self) -> Option<Self::Item> {
         self.internal.find(|tag| !tag.is_empty())
+    }
+}
+
+#[cfg(feature = "serde")]
+impl serde::Serialize for Tags {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeSeq;
+
+        let mut seq = serializer.serialize_seq(None)?;
+        for tag in self.iter() {
+            seq.serialize_element(tag)?;
+        }
+        seq.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for Tags {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct TagsVisitor;
+        impl<'de> serde::de::Visitor<'de> for TagsVisitor {
+            type Value = Tags;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                write!(formatter, "a Tags value")
+            }
+
+            fn visit_seq<A>(self, mut seq: A) -> Result<Self::Value, A::Error>
+            where
+                A: serde::de::SeqAccess<'de>,
+            {
+                let mut tags = Tags::new();
+                while let Some(tag) = seq.next_element()? {
+                    tags.push(tag);
+                }
+                Ok(tags)
+            }
+        }
+
+        deserializer.deserialize_seq(TagsVisitor)
     }
 }
 
