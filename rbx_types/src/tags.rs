@@ -101,20 +101,30 @@ mod test {
     }
 
     #[test]
-    fn decode_encode() {
-        let value = b"ez\0pz";
-        let tags = Tags::decode(value).unwrap();
+    fn decode() {
+        macro_rules! test {
+            ($input:expr, $expected_encoded:expr, $expected_array:expr) => {
+                let tags = Tags::decode($input).unwrap();
+                assert_eq!(
+                    tags.encode(),
+                    $expected_encoded,
+                    "encoded tags does not match"
+                );
+                let mut tags_iter = tags.iter();
+                let array: [&str; _] = core::array::from_fn(|_| tags_iter.next().unwrap());
+                let expected_array: [&str; _] = $expected_array;
+                assert_eq!(array, expected_array, "tags do not match");
+            };
+        }
 
-        assert_eq!(tags.iter().collect::<Vec<_>>(), &["ez", "pz"]);
-        assert_eq!(tags.encode(), value);
-    }
-
-    #[test]
-    fn decode_empty() {
-        let input = b"";
-        let expected: &[String] = &[];
-        let result = Tags::decode(input).unwrap();
-
-        assert_eq!(result.iter().collect::<Vec<_>>(), expected);
+        test!(b"", b"", []);
+        test!(b"\0", b"", []);
+        test!(b"\0ez", b"ez", ["ez"]);
+        test!(b"\0ez\0", b"ez", ["ez"]);
+        test!(b"ez", b"ez", ["ez"]);
+        test!(b"ez\0", b"ez", ["ez"]);
+        test!(b"ez\0pz", b"ez\0pz", ["ez", "pz"]);
+        test!(b"ez\0\0pz", b"ez\0pz", ["ez", "pz"]);
+        test!(b"ez\0\0\0pz", b"ez\0pz", ["ez", "pz"]);
     }
 }
