@@ -11,49 +11,49 @@ use std::string::FromUtf8Error;
     serde(transparent)
 )]
 pub struct Tags {
-    // Future improvement: use a single String to hold all tags, delimited by
-    // `\0` like Roblox does for serialization.
-    members: Vec<String>,
+    members: String,
 }
 
 impl Tags {
     /// Create a new `Tags` empty container.
     pub const fn new() -> Tags {
         Self {
-            members: Vec::new(),
+            members: String::new(),
         }
     }
 
     /// Add a tag to the list of tags in the container.
     pub fn push(&mut self, tag: &str) {
-        self.members.push(tag.to_owned());
+        self.members.push_str(tag);
+        self.members.push('\0');
     }
 
     /// Returns an iterator over all of the tags in the container.
     pub fn iter(&self) -> TagsIter<'_> {
         TagsIter {
-            internal: self.members.iter(),
+            internal: self.members.split('\0'),
         }
     }
 
     /// Decodes tags from a buffer containing `\0`-delimited tag names.
     pub fn decode(buf: &[u8]) -> Result<Self, FromUtf8Error> {
-        Ok(buf
-            .split(|element| *element == 0)
-            .filter(|tag_name| !tag_name.is_empty())
-            .map(|tag_name| String::from_utf8(tag_name.to_vec()))
-            .collect::<Result<Vec<String>, _>>()?
-            .into())
+        let members = String::from_utf8(buf.to_owned())?;
+        Ok(Self { members })
     }
 
-    /// Encodes tags into a buffer by joining them with `\0` bytes.
-    pub fn encode(&self) -> Vec<u8> {
-        self.members.join("\0").into_bytes()
+    /// Get the encoded representation of the tags
+    pub fn encode(&self) -> &[u8] {
+        if self.is_empty() {
+            self.members.as_bytes()
+        } else {
+            // Chop off '\0' postfix
+            &self.members.as_bytes()[..self.members.len() - 1]
+        }
     }
 
     /// Returns the number of strings stored within this `Tags`.
     pub fn len(&self) -> usize {
-        self.members.len()
+        self.iter().count()
     }
 
     /// Returns `true` if this `Tags` contains no strings.
@@ -62,22 +62,26 @@ impl Tags {
     }
 }
 
-impl From<Vec<String>> for Tags {
-    fn from(members: Vec<String>) -> Tags {
-        Self { members }
+impl<'a> core::iter::FromIterator<&'a str> for Tags {
+    fn from_iter<T: IntoIterator<Item = &'a str>>(iter: T) -> Self {
+        let mut tags = Tags::new();
+        for tag in iter {
+            tags.push(tag);
+        }
+        tags
     }
 }
 
 /// See [`Tags::iter`].
 pub struct TagsIter<'a> {
-    internal: std::slice::Iter<'a, String>,
+    internal: core::str::Split<'a, char>,
 }
 
 impl<'a> Iterator for TagsIter<'a> {
     type Item = &'a str;
 
     fn next(&mut self) -> Option<Self::Item> {
-        self.internal.next().map(|v| v.as_str())
+        self.internal.find(|tag| !tag.is_empty())
     }
 }
 
@@ -88,13 +92,10 @@ mod test {
     #[test]
     #[cfg(feature = "serde")]
     fn serialization() {
+        use core::iter::FromIterator;
+
         let serialized = r#"["foo","grandma's","coat?","bar"]"#;
-        let expected = Tags::from(vec![
-            "foo".to_owned(),
-            "grandma's".to_owned(),
-            "coat?".to_owned(),
-            "bar".to_owned(),
-        ]);
+        let expected = Tags::from_iter(["foo", "grandma's", "coat?", "bar"]);
 
         assert_eq!(serialized, serde_json::to_string(&expected).unwrap());
         assert_eq!(expected, serde_json::from_str::<Tags>(serialized).unwrap());

@@ -152,12 +152,7 @@ impl ValuesSubcommand {
         );
         values.insert(
             "Tags",
-            Tags::from(vec![
-                "foo".to_owned(),
-                "con'fusion?!".to_owned(),
-                "bar".to_owned(),
-            ])
-            .into(),
+            Tags::from_iter(["foo", "con'fusion?!", "bar"]).into(),
         );
         values.insert("OptionalCFrame-None", Variant::OptionalCFrame(None));
         values.insert(
