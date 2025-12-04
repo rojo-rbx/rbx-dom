@@ -99,9 +99,8 @@ impl AsRef<[u8]> for SharedString {
 
 impl Drop for SharedString {
     fn drop(&mut self) {
-        // TODO: use `Arc::into_unique(Self) -> UniqueArc<T>`
-        // or `Arc::to_mut(&mut Self) -> Option<&mut T>`
-        // instead of strong_count if either is stabilized.
+        // TODO: use a more direct method to atomically determine if this Arc
+        // is the last strong reference if a better method gets stabilized.
 
         // Replace the arc with an impostor
         let arc = core::mem::take(&mut self.data);
