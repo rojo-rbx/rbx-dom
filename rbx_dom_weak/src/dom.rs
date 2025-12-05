@@ -920,6 +920,18 @@ mod test {
     }
 
     #[test]
+    fn full_name() {
+        let root = InstanceBuilder::new("DataModel");
+        let root_ref = root.referent();
+        let mut dom = WeakDom::new(root);
+        let child_1 = dom.insert(root_ref, InstanceBuilder::new("Workspace"));
+        let child_2 = dom.insert(child_1, InstanceBuilder::new("Part"));
+        let child_3 = dom.insert(child_2, InstanceBuilder::new("Texture"));
+
+        assert_eq!(dom.full_name_for(child_3), "Workspace.Part.Texture");
+    }
+
+    #[test]
     fn from_raw() {
         let mut dom = WeakDom::new(InstanceBuilder::new("ROOT"));
 
