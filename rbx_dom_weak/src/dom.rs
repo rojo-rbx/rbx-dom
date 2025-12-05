@@ -517,7 +517,7 @@ impl CloneContext {
     /// On any instances cloned during the operation, rewrite any Ref properties that
     /// point to instances that were also cloned.
     fn rewrite_refs(self, dest: &mut WeakDom) {
-        let existing_dest_refs: AHashSet<_> = dest.instances.keys().copied().collect();
+        let instances: *const _ = &dest.instances;
 
         for &new_ref in self.ref_rewrites.values() {
             let instance = dest
@@ -530,7 +530,7 @@ impl CloneContext {
                         // If the ref points to an instance contained within the
                         // cloned subtree, rewrite it as the corresponding new ref
                         *original_ref = *new_ref;
-                    } else if !existing_dest_refs.contains(original_ref) {
+                    } else if !unsafe { &*instances }.contains_key(original_ref) {
                         // If the ref points to an instance that does not exist
                         // in the destination WeakDom, rewrite it as none
                         *original_ref = Ref::none();
