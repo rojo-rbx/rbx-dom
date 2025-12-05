@@ -592,7 +592,7 @@ mod test {
         let target = InstanceBuilder::new("Folder")
             .with_name("Target")
             .with_child(InstanceBuilder::new("Part").with_name("Some Child"));
-        let target_ref = target.referent;
+        let target_ref = target.referent();
 
         let mut source = WeakDom::new(InstanceBuilder::new("Folder").with_child(target));
         let mut dest = WeakDom::new(InstanceBuilder::new("DataModel"));
@@ -618,14 +618,14 @@ mod test {
         let subject = InstanceBuilder::new("Folder")
             .with_name("Root")
             .with_child(InstanceBuilder::new("SpawnLocation"));
-        let subject_ref = subject.referent;
+        let subject_ref = subject.referent();
 
         let source_parent = InstanceBuilder::new("Folder")
             .with_name("Source")
             .with_child(subject);
 
         let dest_parent = InstanceBuilder::new("Folder").with_name("Dest");
-        let dest_parent_ref = dest_parent.referent;
+        let dest_parent_ref = dest_parent.referent();
 
         let mut dom = WeakDom::new(
             InstanceBuilder::new("Folder")
@@ -647,7 +647,7 @@ mod test {
     #[test]
     fn clone_within() {
         let mut child1 = InstanceBuilder::new("Part").with_name("Child1");
-        let child1_ref = child1.referent;
+        let child1_ref = child1.referent();
 
         let mut dom = {
             let root = InstanceBuilder::new("Folder").with_name("Root");
@@ -666,7 +666,7 @@ mod test {
             "parent of cloned subtree root should be none directly after a clone"
         );
 
-        dom.transfer_within(cloned_child1_ref, dom.root_ref);
+        dom.transfer_within(cloned_child1_ref, dom.root_ref());
 
         // This snapshot should have a clone of the Child1 subtree under the
         // root Folder, with Child2's ref property pointing to the cloned
@@ -694,14 +694,14 @@ mod test {
         };
 
         let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
-        let cloned_root = dom.clone_into_external(dom.root_ref, &mut other_dom);
+        let cloned_root = dom.clone_into_external(dom.root_ref(), &mut other_dom);
 
         assert!(
             other_dom.get_by_ref(cloned_root).unwrap().parent.is_none(),
             "parent of cloned subtree root should be none directly after a clone"
         );
 
-        other_dom.transfer_within(cloned_root, other_dom.root_ref);
+        other_dom.transfer_within(cloned_root, other_dom.root_ref());
 
         let mut viewer = DomViewer::new();
 
@@ -745,8 +745,8 @@ mod test {
             "parent of cloned subtree root should be none directly after a clone"
         );
 
-        other_dom.transfer_within(cloned[0], other_dom.root_ref);
-        other_dom.transfer_within(cloned[1], other_dom.root_ref);
+        other_dom.transfer_within(cloned[0], other_dom.root_ref());
+        other_dom.transfer_within(cloned[1], other_dom.root_ref());
 
         let mut viewer = DomViewer::new();
 
@@ -908,7 +908,7 @@ mod test {
     fn from_raw() {
         let mut dom = WeakDom::new(InstanceBuilder::new("ROOT"));
 
-        let parent = dom.insert(dom.root_ref, InstanceBuilder::new("Folder"));
+        let parent = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
         let child_1 = dom.insert(
             parent,
             InstanceBuilder::new("ObjectValue").with_property("Value", parent),
