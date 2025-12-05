@@ -172,6 +172,19 @@ impl WeakDom {
         })
     }
 
+    /// Equivalent to Instance:GetFullName() from Roblox.
+    ///
+    /// ## Panics
+    /// Panics if `subject_ref` is not a member of this DOM.
+    pub fn full_name_for(&self, subject_ref: Ref) -> String {
+        let mut components: Vec<_> = self
+            .ancestors_of(subject_ref)
+            .map(|instance| instance.name.as_str())
+            .collect();
+        components.reverse();
+        components.join(".")
+    }
+
     /// Insert a new instance into the DOM with the given parent. The parent is allowed to
     /// be the none Ref.
     ///

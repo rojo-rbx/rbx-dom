@@ -844,12 +844,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                             prop_name: prop_info.canonical_name.to_string(),
                             valid_type_names,
                             actual_type_name: format!("{:?}", bad_value.ty()),
-                            instance_full_name: full_name_for(dom, instances[i].referent()),
+                            instance_full_name: dom.full_name_for(instances[i].referent()),
                         })
                     };
 
                 let invalid_value = |i: usize, bad_value: &Variant| InnerError::InvalidPropValue {
-                    instance_full_name: full_name_for(dom, instances[i].referent()),
+                    instance_full_name: dom.full_name_for(instances[i].referent()),
                     type_name: type_name.to_string(),
                     prop_name: prop_info.canonical_name.to_string(),
                     prop_type: format!("{:?}", bad_value.ty()),
@@ -1583,15 +1583,6 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
         Ok(())
     }
-}
-/// Equivalent to Instance:GetFullName() from Roblox.
-fn full_name_for(dom: &WeakDom, subject_ref: Ref) -> String {
-    let mut components: Vec<_> = dom
-        .ancestors_of(subject_ref)
-        .map(|instance| instance.name.as_str())
-        .collect();
-    components.reverse();
-    components.join(".")
 }
 fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     use std::sync::LazyLock;
