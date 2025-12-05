@@ -181,6 +181,8 @@ impl WeakDom {
             .ancestors_of(subject_ref)
             .map(|instance| instance.name.as_str())
             .collect();
+        // Drop "DataModel" from the full name
+        components.pop();
         components.reverse();
         components.join(".")
     }
