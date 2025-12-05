@@ -152,19 +152,19 @@ mod test {
     }
 
     #[test]
-    fn decode() {
+    fn decode_encode() {
         macro_rules! test {
             ($input:expr, $expected_encoded:expr, $expected_array:expr) => {
                 let tags = Tags::decode($input).unwrap();
                 assert_eq!(
                     tags.encode(),
                     $expected_encoded,
-                    "encoded tags does not match"
+                    "encoded tags do not match expected"
                 );
                 let mut tags_iter = tags.iter();
                 let array: [&str; _] = core::array::from_fn(|_| tags_iter.next().unwrap());
                 let expected_array: [&str; _] = $expected_array;
-                assert_eq!(array, expected_array, "tags do not match");
+                assert_eq!(array, expected_array, "decoded tags do not match expected");
             };
         }
 
