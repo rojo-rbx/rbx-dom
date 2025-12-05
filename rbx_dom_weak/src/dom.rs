@@ -533,7 +533,8 @@ impl CloneContext {
         // that it is safe.
         //
         // Undefined behaviour would only be introduced if we used our
-        // raw pointer to interact with instance properties.
+        // raw pointer to hold references to instance properties while
+        // they are being rewritten.
 
         // Create a raw pointer to instances.
         let dest_instances: *const _ = &dest.instances;
