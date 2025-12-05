@@ -517,6 +517,21 @@ impl CloneContext {
     /// On any instances cloned during the operation, rewrite any Ref properties that
     /// point to instances that were also cloned.
     fn rewrite_refs(self, dest: &mut WeakDom) {
+        // We need to hold the lifetime of a mutable reference and an immutable reference at the same time.
+        //
+        // dest
+        // └ instances *const
+        //   └ instance
+        //     └ properties *mut
+        //
+        // The layout of the instances HashMap's heap allocation will not be
+        // changed, no items will be inserted or removed - however, we need
+        // to modify the instance properties.  This modification has no bearing
+        // on the instances, but nonetheless holds the lifetime of its mutable
+        // reference across the  instances.  Thus, the borrow checker
+        // complains, even though we know this is safe in this case.
+
+        // Create a raw pointer to instances.
         let instances: *const _ = &dest.instances;
 
         for &new_ref in self.ref_rewrites.values() {
@@ -530,7 +545,10 @@ impl CloneContext {
                         // If the ref points to an instance contained within the
                         // cloned subtree, rewrite it as the corresponding new ref
                         *original_ref = *new_ref;
-                    } else if !unsafe { &*instances }.contains_key(original_ref) {
+                    } else if
+                    // SAFETY:
+                    // - The pointer is non-null because it was created from a reference
+                    !unsafe { &*instances }.contains_key(original_ref) {
                         // If the ref points to an instance that does not exist
                         // in the destination WeakDom, rewrite it as none
                         *original_ref = Ref::none();
