@@ -536,7 +536,7 @@ impl CloneContext {
         // raw pointer to interact with instance properties.
 
         // Create a raw pointer to instances.
-        let instances: *const _ = &dest.instances;
+        let dest_instances: *const _ = &dest.instances;
 
         for &new_ref in self.ref_rewrites.values() {
             let instance = dest
@@ -553,7 +553,7 @@ impl CloneContext {
                     // SAFETY:
                     // - The pointer is valid because it was created from a
                     //   reference which has a valid lifetime for this scope.
-                    !unsafe { &*instances }.contains_key(original_ref) {
+                    !unsafe { &*dest_instances }.contains_key(original_ref) {
                         // If the ref points to an instance that does not exist
                         // in the destination WeakDom, rewrite it as none
                         *original_ref = Ref::none();
