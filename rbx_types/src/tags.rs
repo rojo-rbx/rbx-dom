@@ -165,6 +165,10 @@ mod test {
                 let array: [&str; _] = core::array::from_fn(|_| tags_iter.next().unwrap());
                 let expected_array: [&str; _] = $expected_array;
                 assert_eq!(array, expected_array, "decoded tags do not match expected");
+                assert!(
+                    tags_iter.next().is_none(),
+                    "TagsIter yielded too many items"
+                );
             };
         }
 
