@@ -1586,23 +1586,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 }
 /// Equivalent to Instance:GetFullName() from Roblox.
 fn full_name_for(dom: &WeakDom, subject_ref: Ref) -> String {
-    let mut components = Vec::new();
-    let mut current_id = subject_ref;
-
-    while current_id.is_some() {
-        let instance = dom.get_by_ref(current_id).unwrap();
-        components.push(instance.name.as_str());
-        current_id = instance.parent();
-    }
-
-    let mut name = String::new();
-    for component in components.iter().rev() {
-        name.push_str(component);
-        name.push('.');
-    }
-    name.pop();
-
-    name
+    let mut components: Vec<_> = dom
+        .ancestors_of(subject_ref)
+        .map(|instance| instance.name.as_str())
+        .collect();
+    components.reverse();
+    components.join(".")
 }
 fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     use std::sync::LazyLock;
