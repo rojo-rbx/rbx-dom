@@ -522,6 +522,7 @@ impl CloneContext {
                 .instances
                 .remove(rewrite_ref)
                 .expect("Cannot rewrite refs on an instance that does not exist");
+
             for prop_value in instance.properties.values_mut() {
                 if let Variant::Ref(original_ref) = prop_value {
                     if let Some(new_ref) = self.ref_rewrites.get(original_ref) {
@@ -537,6 +538,7 @@ impl CloneContext {
                     }
                 }
             }
+
             dest.instances.insert(*rewrite_ref, instance);
         }
     }
