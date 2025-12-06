@@ -517,45 +517,29 @@ impl CloneContext {
     /// On any instances cloned during the operation, rewrite any Ref properties that
     /// point to instances that were also cloned.
     fn rewrite_refs(self, dest: &mut WeakDom) {
-        // We need to hold the lifetime of a mutable reference,
-        // and at the same time, an immutable reference.
-        //
-        // dest *const
-        // └ instances *const
-        //
-        // dest *mut
-        // └ instances *mut
-        //   └ instance *mut
-        //     └ properties *mut
-        //
-        // We are holding `&mut dest` for properties and `&dest` for instances,
-        // thus the borrow checker complains, even though we know in this case
-        // that it is safe.
-        //
-        // Undefined behaviour would only be introduced if we used our
-        // raw pointer to hold references to instance properties while
-        // they are being rewritten.
+        // SAFETY: I read the miri output and it didn't complain
 
         // Create a raw pointer to instances.
         let dest_instances_mut = &mut dest.instances;
+        let instances: Vec<_> = self
+            .ref_rewrites
+            .values()
+            .map(|rewrite_ref| {
+                dest_instances_mut
+                    .get_mut(rewrite_ref)
+                    .expect("Cannot rewrite refs on an instance that does not exist")
+            } as *mut Instance)
+            .collect();
         let dest_instances: *const _ = dest_instances_mut;
 
-        for rewrite_ref in self.ref_rewrites.values() {
-            let instance = dest_instances_mut
-                .get_mut(rewrite_ref)
-                .expect("Cannot rewrite refs on an instance that does not exist");
-
-            for prop_value in instance.properties.values_mut() {
+        for instance in instances {
+            for prop_value in unsafe { &mut *instance }.properties.values_mut() {
                 if let Variant::Ref(original_ref) = prop_value {
                     if let Some(new_ref) = self.ref_rewrites.get(original_ref) {
                         // If the ref points to an instance contained within the
                         // cloned subtree, rewrite it as the corresponding new ref
                         *original_ref = *new_ref;
-                    } else if
-                    // SAFETY:
-                    // - The pointer is valid because it was created from a
-                    //   reference which has a valid lifetime for this scope.
-                    !unsafe { &*dest_instances }.contains_key(original_ref) {
+                    } else if !unsafe { &*dest_instances }.contains_key(original_ref) {
                         // If the ref points to an instance that does not exist
                         // in the destination WeakDom, rewrite it as none
                         *original_ref = Ref::none();
