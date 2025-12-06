@@ -537,11 +537,12 @@ impl CloneContext {
         // they are being rewritten.
 
         // Create a raw pointer to instances.
-        let dest_instances: *const _ = &dest.instances;
+        let dest_instances_mut = &mut dest.instances;
+        let dest_instances: *const _ = dest_instances_mut;
 
-        for &new_ref in self.ref_rewrites.values() {
-            let instance = dest
-                .get_by_ref_mut(new_ref)
+        for rewrite_ref in self.ref_rewrites.values() {
+            let instance = dest_instances_mut
+                .get_mut(rewrite_ref)
                 .expect("Cannot rewrite refs on an instance that does not exist");
 
             for prop_value in instance.properties.values_mut() {
