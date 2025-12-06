@@ -517,35 +517,27 @@ impl CloneContext {
     /// On any instances cloned during the operation, rewrite any Ref properties that
     /// point to instances that were also cloned.
     fn rewrite_refs(self, dest: &mut WeakDom) {
-        // SAFETY: I read the miri output and it didn't complain
-
-        // Create a raw pointer to instances.
-        let dest_instances_mut = &mut dest.instances;
-        let instances: Vec<_> = self
-            .ref_rewrites
-            .values()
-            .map(|rewrite_ref| {
-                dest_instances_mut
-                    .get_mut(rewrite_ref)
-                    .expect("Cannot rewrite refs on an instance that does not exist")
-            } as *mut Instance)
-            .collect();
-        let dest_instances: *const _ = dest_instances_mut;
-
-        for instance in instances {
-            for prop_value in unsafe { &mut *instance }.properties.values_mut() {
+        for rewrite_ref in self.ref_rewrites.values() {
+            let mut instance = dest
+                .instances
+                .remove(rewrite_ref)
+                .expect("Cannot rewrite refs on an instance that does not exist");
+            for prop_value in instance.properties.values_mut() {
                 if let Variant::Ref(original_ref) = prop_value {
                     if let Some(new_ref) = self.ref_rewrites.get(original_ref) {
                         // If the ref points to an instance contained within the
                         // cloned subtree, rewrite it as the corresponding new ref
                         *original_ref = *new_ref;
-                    } else if !unsafe { &*dest_instances }.contains_key(original_ref) {
+                    } else if rewrite_ref != original_ref
+                        && !dest.instances.contains_key(original_ref)
+                    {
                         // If the ref points to an instance that does not exist
                         // in the destination WeakDom, rewrite it as none
                         *original_ref = Ref::none();
                     }
                 }
             }
+            dest.instances.insert(*rewrite_ref, instance);
         }
     }
 
