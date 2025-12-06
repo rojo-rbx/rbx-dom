@@ -844,12 +844,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                             prop_name: prop_info.canonical_name.to_string(),
                             valid_type_names,
                             actual_type_name: format!("{:?}", bad_value.ty()),
-                            instance_full_name: dom.full_name_for(instances[i].referent()),
+                            instance_full_name: dom.full_name_for(instances[i].referent(), "."),
                         })
                     };
 
                 let invalid_value = |i: usize, bad_value: &Variant| InnerError::InvalidPropValue {
-                    instance_full_name: dom.full_name_for(instances[i].referent()),
+                    instance_full_name: dom.full_name_for(instances[i].referent(), "."),
                     type_name: type_name.to_string(),
                     prop_name: prop_info.canonical_name.to_string(),
                     prop_type: format!("{:?}", bad_value.ty()),
