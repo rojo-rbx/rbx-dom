@@ -2,7 +2,7 @@
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{BinaryString, NetAssetRef, Ref, Variant};
+use rbx_dom_weak::types::{BinaryString, NetAssetRef, SomeRef, Variant};
 
 use crate::{
     deserializer::ParseState,
@@ -36,7 +36,7 @@ pub fn write_net_asset_ref<W: Write>(
 
 pub fn read_net_asset_ref<R: Read>(
     reader: &mut XmlEventReader<R>,
-    referent: Ref,
+    referent: SomeRef,
     property_name: &str,
     state: &mut ParseState,
 ) -> Result<Variant, DecodeError> {

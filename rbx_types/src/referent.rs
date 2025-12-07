@@ -6,6 +6,7 @@ use std::num::NonZeroU128;
 use std::str::FromStr;
 
 /// A universally unique reference to a Roblox instance.
+#[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SomeRef(NonZeroU128);
 
@@ -40,6 +41,7 @@ impl SomeRef {
 pub type Ref = OptionalRef;
 
 /// A universally unique, optional reference to a Roblox instance.
+#[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct OptionalRef(Option<SomeRef>);
 

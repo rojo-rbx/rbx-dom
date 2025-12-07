@@ -2,7 +2,7 @@ use std::{borrow::Cow, collections::BTreeMap, io::Write};
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
-    types::{Ref, SharedString, SharedStringHash, Variant},
+    types::{Ref, SharedString, SharedStringHash, SomeRef, Variant},
     WeakDom,
 };
 use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
@@ -29,7 +29,13 @@ pub fn encode_internal<W: Write>(
 
     let mut property_buffer = Vec::new();
     for id in ids {
-        serialize_instance(&mut writer, &mut state, tree, *id, &mut property_buffer)?;
+        serialize_instance(
+            &mut writer,
+            &mut state,
+            tree,
+            id.to_some_ref().expect("Ref value is 0"),
+            &mut property_buffer,
+        )?;
     }
 
     serialize_shared_strings(&mut writer, &mut state)?;
@@ -119,7 +125,7 @@ pub struct EmitState<'db> {
 
     /// A map of IDs written so far to the generated referent that they use.
     /// This map is used to correctly emit Ref properties.
-    referent_map: HashMap<Ref, u32>,
+    referent_map: HashMap<SomeRef, u32>,
 
     /// The referent value that will be used for emitting the next instance.
     next_referent: u32,
@@ -139,7 +145,7 @@ impl<'db> EmitState<'db> {
         }
     }
 
-    pub fn map_id(&mut self, id: Ref) -> u32 {
+    pub fn map_id(&mut self, id: SomeRef) -> u32 {
         match self.referent_map.get(&id) {
             Some(&value) => value,
             None => {
@@ -164,10 +170,10 @@ fn serialize_instance<'dom, W: Write>(
     writer: &mut XmlEventWriter<W>,
     state: &mut EmitState,
     tree: &'dom WeakDom,
-    id: Ref,
+    id: SomeRef,
     property_buffer: &mut Vec<(&'dom str, &'dom Variant)>,
 ) -> Result<(), NewEncodeError> {
-    let instance = tree.get_by_ref(id).unwrap();
+    let instance = tree.get_by_ref(id.to_optional_ref()).unwrap();
     let mapped_id = state.map_id(id);
 
     writer.write(
@@ -257,7 +263,13 @@ fn serialize_instance<'dom, W: Write>(
     writer.write(XmlWriteEvent::end_element())?;
 
     for child_id in instance.children() {
-        serialize_instance(writer, state, tree, *child_id, property_buffer)?;
+        serialize_instance(
+            writer,
+            state,
+            tree,
+            child_id.to_some_ref().unwrap(),
+            property_buffer,
+        )?;
     }
 
     writer.write(XmlWriteEvent::end_element())?;

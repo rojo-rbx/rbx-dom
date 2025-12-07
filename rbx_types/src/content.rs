@@ -17,7 +17,7 @@ pub enum ContentType {
     #[default]
     None,
     Uri(String),
-    Object(Ref),
+    Object(SomeRef),
 }
 
 impl Content {
@@ -35,13 +35,16 @@ impl Content {
     /// Constructs a `Content` from the provided referent.
     #[inline]
     pub fn from_referent(referent: Ref) -> Self {
-        Self(ContentType::Object(referent))
+        match referent.to_some_ref() {
+            Some(some_ref) => Self(ContentType::Object(some_ref)),
+            None => Self::none(),
+        }
     }
 
     /// Constructs a `Content` from the provided referent.
     #[inline]
     pub const fn from_some_ref(referent: SomeRef) -> Self {
-        Self(ContentType::Object(referent.to_optional_ref()))
+        Self(ContentType::Object(referent))
     }
 
     /// Returns the underlying value of the `Content`.
@@ -75,7 +78,7 @@ impl Content {
     #[inline]
     pub fn as_object(&self) -> Option<Ref> {
         match self.value() {
-            &ContentType::Object(referent) => Some(referent),
+            &ContentType::Object(referent) => Some(referent.to_optional_ref()),
             _ => None,
         }
     }
