@@ -3,7 +3,7 @@ use std::{collections::hash_map::Entry, io::Read};
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
-    types::{Ref, SharedString, SomeRef, Variant},
+    types::{OptionalRef, SharedString, SomeRef, Variant},
     InstanceBuilder, Ustr, WeakDom,
 };
 use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
@@ -20,7 +20,7 @@ use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
     let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
-    let root_id = tree.root_ref();
+    let root_id = tree.root_ref().into();
 
     let mut iterator = XmlEventReader::from_source(source);
     let mut state = ParseState::new(&mut tree, options);
@@ -189,7 +189,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
         }
 
         self.unknown_type_names.insert(type_name.to_owned());
-        let instance = self.tree.get_by_ref(id.to_optional_ref()).unwrap();
+        let instance = self.tree.get_by_ref(id).unwrap();
 
         log::warn!(
             "Unknown value type name \"{name}\" in Roblox XML model file. \
@@ -251,7 +251,7 @@ fn apply_referent_rewrites(state: &mut ParseState) {
 
         let instance = state
             .tree
-            .get_by_ref_mut(rewrite.id.to_optional_ref())
+            .get_by_ref_mut(rewrite.id)
             .expect("rbx_xml bug: had ID in referent rewrite list that didn't end up in the tree");
 
         instance.properties.insert(
@@ -268,12 +268,9 @@ fn apply_net_asset_rewrites(state: &mut ParseState) {
             None => continue,
         };
 
-        let instance = state
-            .tree
-            .get_by_ref_mut(rewrite.id.to_optional_ref())
-            .expect(
-                "rbx_xml bug: had ID in NetAssetRef rewrite list that didn't end up in the tree",
-            );
+        let instance = state.tree.get_by_ref_mut(rewrite.id).expect(
+            "rbx_xml bug: had ID in NetAssetRef rewrite list that didn't end up in the tree",
+        );
 
         instance.properties.insert(
             rewrite.property_name.as_str().into(),
@@ -289,12 +286,9 @@ fn apply_shared_string_rewrites(state: &mut ParseState) {
             None => continue,
         };
 
-        let instance = state
-            .tree
-            .get_by_ref_mut(rewrite.id.to_optional_ref())
-            .expect(
-                "rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree",
-            );
+        let instance = state.tree.get_by_ref_mut(rewrite.id).expect(
+            "rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree",
+        );
 
         instance.properties.insert(
             rewrite.property_name.as_str().into(),
@@ -306,7 +300,7 @@ fn apply_shared_string_rewrites(state: &mut ParseState) {
 fn deserialize_root<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
-    parent_id: Ref,
+    parent_id: OptionalRef,
 ) -> Result<(), DecodeError> {
     match reader.expect_next()? {
         XmlReadEvent::StartDocument { .. } => {}
@@ -464,7 +458,7 @@ fn deserialize_shared_string<R: Read>(
 fn deserialize_instance<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
-    parent_id: Ref,
+    parent_id: OptionalRef,
 ) -> Result<(), DecodeError> {
     let (class_name, referent) = {
         let attributes = reader.expect_start_with_name("Item")?;
@@ -497,7 +491,7 @@ fn deserialize_instance<R: Read>(
         .unwrap_or(0);
 
     let builder = InstanceBuilder::with_property_capacity(class_name, prop_capacity);
-    let instance_id = state.tree.insert(parent_id, builder).to_some_ref().unwrap();
+    let instance_id = state.tree.insert(parent_id, builder);
 
     if let Some(referent) = referent {
         state.referents_to_ids.insert(referent, instance_id);
@@ -536,10 +530,7 @@ fn deserialize_instance<R: Read>(
         }
     }
 
-    let instance = state
-        .tree
-        .get_by_ref_mut(instance_id.to_optional_ref())
-        .unwrap();
+    let instance = state.tree.get_by_ref_mut(instance_id).unwrap();
 
     instance.name = match properties.remove(&"Name".into()) {
         Some(value) => match value {
@@ -568,7 +559,7 @@ fn deserialize_properties<R: Read>(
 
     let class_name = state
         .tree
-        .get_by_ref(instance_id.to_optional_ref())
+        .get_by_ref(instance_id)
         .expect("Couldn't find instance to deserialize properties into")
         .class;
 

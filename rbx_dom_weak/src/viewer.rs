@@ -33,7 +33,7 @@ impl DomViewer {
     /// View the given `WeakDom`, creating a `ViewedInstance` object that can be
     /// used in a snapshot test.
     pub fn view(&mut self, dom: &WeakDom) -> ViewedInstance {
-        let root_referent = dom.root_ref().to_some_ref().expect("Ref value is 0");
+        let root_referent = dom.root_ref().expect("Ref value is 0");
         self.populate_referent_map(dom, root_referent);
         self.view_instance(dom, root_referent)
     }
@@ -42,7 +42,7 @@ impl DomViewer {
     /// them as a `Vec<ViewedInstance>`.
     pub fn view_children(&mut self, dom: &WeakDom) -> Vec<ViewedInstance> {
         let root_instance = dom.root();
-        let children = root_instance.children_internal();
+        let children = root_instance.children();
 
         for &referent in children {
             self.populate_referent_map(dom, referent);
@@ -62,17 +62,17 @@ impl DomViewer {
             name
         });
 
-        let instance = dom.get_by_ref(referent.to_optional_ref()).unwrap();
-        for referent in instance.children_internal() {
+        let instance = dom.get_by_ref(referent).unwrap();
+        for referent in instance.children() {
             self.populate_referent_map(dom, *referent);
         }
     }
 
     fn view_instance(&self, dom: &WeakDom, referent: SomeRef) -> ViewedInstance {
-        let instance = dom.get_by_ref(referent.to_optional_ref()).unwrap();
+        let instance = dom.get_by_ref(referent).unwrap();
 
         let children = instance
-            .children_internal()
+            .children()
             .iter()
             .copied()
             .map(|referent| self.view_instance(dom, referent))

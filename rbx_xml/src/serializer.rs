@@ -2,7 +2,7 @@ use std::{borrow::Cow, collections::BTreeMap, io::Write};
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
-    types::{Ref, SharedString, SharedStringHash, SomeRef, Variant},
+    types::{SharedString, SharedStringHash, SomeRef, Variant},
     WeakDom,
 };
 use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
@@ -19,7 +19,7 @@ use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
 pub fn encode_internal<W: Write>(
     output: W,
     tree: &WeakDom,
-    ids: &[Ref],
+    ids: &[SomeRef],
     options: EncodeOptions,
 ) -> Result<(), NewEncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
@@ -29,13 +29,7 @@ pub fn encode_internal<W: Write>(
 
     let mut property_buffer = Vec::new();
     for id in ids {
-        serialize_instance(
-            &mut writer,
-            &mut state,
-            tree,
-            id.to_some_ref().expect("Ref value is 0"),
-            &mut property_buffer,
-        )?;
+        serialize_instance(&mut writer, &mut state, tree, *id, &mut property_buffer)?;
     }
 
     serialize_shared_strings(&mut writer, &mut state)?;
@@ -173,7 +167,7 @@ fn serialize_instance<'dom, W: Write>(
     id: SomeRef,
     property_buffer: &mut Vec<(&'dom str, &'dom Variant)>,
 ) -> Result<(), NewEncodeError> {
-    let instance = tree.get_by_ref(id.to_optional_ref()).unwrap();
+    let instance = tree.get_by_ref(id).unwrap();
     let mapped_id = state.map_id(id);
 
     writer.write(
@@ -263,13 +257,7 @@ fn serialize_instance<'dom, W: Write>(
     writer.write(XmlWriteEvent::end_element())?;
 
     for child_id in instance.children() {
-        serialize_instance(
-            writer,
-            state,
-            tree,
-            child_id.to_some_ref().unwrap(),
-            property_buffer,
-        )?;
+        serialize_instance(writer, state, tree, *child_id, property_buffer)?;
     }
 
     writer.write(XmlWriteEvent::end_element())?;

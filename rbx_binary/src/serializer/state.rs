@@ -10,8 +10,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
         MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, SomeRef, Tags,
-        UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        OptionalRef, PhysicalProperties, Ray, Rect, SecurityCapabilities, SharedString, SomeRef,
+        Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, Ustr, UstrMap, WeakDom,
 };
@@ -477,7 +477,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     /// Mark the given instance IDs and all of their descendants as intended for
     /// serialization with this serializer.
     #[profiling::function]
-    pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
+    pub fn add_instances(&mut self, referents: &[SomeRef]) -> Result<(), InnerError> {
         // Populate relevant_instances with a depth-first post-order traversal over the
         // tree(s). This is important to ensure that the order of the PRNT chunk (later
         // written by SerializerState::serialize_parents) is correct.
@@ -492,38 +492,26 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         // referents, generating type infos, and writing the PRNT chunk all in depth-first
         // post-order.
         let mut to_visit = Vec::new();
-        let mut last_visited_child: Option<SomeRef> = None;
+        let mut last_visited_child = None;
 
-        to_visit.extend(
-            referents
-                .iter()
-                .map(|referent| referent.to_some_ref().unwrap())
-                .rev(),
-        );
+        to_visit.extend(referents.iter().rev());
 
         while let Some(&referent) = to_visit.last() {
             let instance = self
                 .dom
-                .get_by_ref(referent.to_optional_ref())
+                .get_by_ref(referent)
                 .ok_or(InnerError::InvalidInstanceId { referent })?;
 
-            to_visit.extend(
-                instance
-                    .children()
-                    .iter()
-                    .map(|referent| referent.to_some_ref().unwrap())
-                    .rev(),
-            );
+            to_visit.extend(instance.children().iter().rev());
 
             while let Some(&referent) = to_visit.last() {
                 let instance = self
                     .dom
-                    .get_by_ref(referent.to_optional_ref())
+                    .get_by_ref(referent)
                     .ok_or(InnerError::InvalidInstanceId { referent })?;
 
                 if !instance.children().is_empty()
-                    && instance.children().last()
-                        != last_visited_child.map(|r| r.to_optional_ref()).as_ref()
+                    && instance.children().last() != last_visited_child.as_ref()
                 {
                     break;
                 }
@@ -714,9 +702,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
             chunk.write_le_u32(type_info.instances.len() as u32)?;
 
-            chunk.write_referent_array(type_info.instances.iter().map(|instance| {
-                self.id_to_referent[&instance.referent().to_some_ref().unwrap()]
-            }))?;
+            chunk.write_referent_array(
+                type_info
+                    .instances
+                    .iter()
+                    .map(|instance| self.id_to_referent[&instance.referent()]),
+            )?;
 
             if type_info.is_service {
                 // It's unclear what this byte is used for, but when the type is
@@ -849,18 +840,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                             prop_name: prop_info.canonical_name.to_string(),
                             valid_type_names,
                             actual_type_name: format!("{:?}", bad_value.ty()),
-                            instance_full_name: full_name_for(
-                                dom,
-                                instances[i].referent().to_some_ref().unwrap(),
-                            ),
+                            instance_full_name: full_name_for(dom, instances[i].referent()),
                         })
                     };
 
                 let invalid_value = |i: usize, bad_value: &Variant| InnerError::InvalidPropValue {
-                    instance_full_name: full_name_for(
-                        dom,
-                        instances[i].referent().to_some_ref().unwrap(),
-                    ),
+                    instance_full_name: full_name_for(dom, instances[i].referent()),
                     type_name: type_name.to_string(),
                     prop_name: prop_info.canonical_name.to_string(),
                     prop_type: format!("{:?}", bad_value.ty()),
@@ -1558,14 +1543,13 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             .map(|id| self.id_to_referent[id]);
 
         let parent_referents = self.relevant_instances.iter().map(|&id| {
-            let instance = self.dom.get_by_ref(id.to_optional_ref()).unwrap();
+            let instance = self.dom.get_by_ref(id).unwrap();
 
             // If there's no parent set OR our parent is not one of the
             // instances we're serializing, we use -1 to represent a null
             // parent.
             instance
                 .parent()
-                .to_some_ref()
                 .and_then(|some_ref| self.id_to_referent.get(&some_ref).copied())
                 .unwrap_or(-1)
         });
@@ -1595,10 +1579,10 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 /// Equivalent to Instance:GetFullName() from Roblox.
 fn full_name_for(dom: &WeakDom, subject_ref: SomeRef) -> String {
     let mut components = Vec::new();
-    let mut current_id = subject_ref.to_optional_ref();
+    let mut current_id = Some(subject_ref);
 
-    while let Some(some_ref) = current_id.to_some_ref() {
-        let instance = dom.get_by_ref(some_ref.to_optional_ref()).unwrap();
+    while let Some(some_ref) = current_id {
+        let instance = dom.get_by_ref(some_ref).unwrap();
         components.push(instance.name.as_str());
         current_id = instance.parent();
     }
@@ -1635,7 +1619,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     static DEFAULT_COLOR3: Variant = Variant::Color3(Color3::new(0.0, 0.0, 0.0));
     static DEFAULT_VECTOR2: Variant = Variant::Vector2(Vector2::new(0.0, 0.0));
     static DEFAULT_VECTOR3: Variant = Variant::Vector3(Vector3::new(0.0, 0.0, 0.0));
-    static DEFAULT_REF: Variant = Variant::Ref(Ref::none());
+    static DEFAULT_REF: Variant = Variant::Ref(OptionalRef::none());
     static DEFAULT_VECTOR3INT16: Variant = Variant::Vector3int16(Vector3int16::new(0, 0, 0));
     static DEFAULT_NUMBERSEQUENCE: LazyLock<Variant> = LazyLock::new(|| {
         Variant::NumberSequence(NumberSequence {

@@ -6,7 +6,6 @@ use std::num::NonZeroU128;
 use std::str::FromStr;
 
 /// A universally unique reference to a Roblox instance.
-#[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SomeRef(NonZeroU128);
 
@@ -41,41 +40,40 @@ impl SomeRef {
 pub type Ref = OptionalRef;
 
 /// A universally unique, optional reference to a Roblox instance.
-#[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct OptionalRef(Option<SomeRef>);
 
 impl OptionalRef {
-    /// Generate a new random non-nil `Ref`.
+    /// Generate a new random non-nil `OptionalRef`.
     #[inline]
     pub fn new() -> Self {
         OptionalRef(Some(SomeRef::new_random()))
     }
 
-    /// Construct a `Ref` that points to nothing.
+    /// Construct an `OptionalRef` that points to nothing.
     #[inline]
     pub const fn none() -> Self {
         OptionalRef(None)
     }
 
-    /// Construct a `Ref` that points to something.
+    /// Construct an `OptionalRef` that points to something.
     ///
     /// ## Panics
-    /// Panics if `value` is 0. Use the Ref::none()
-    /// constructor instead to create a `Ref` that
+    /// Panics if `value` is 0. Use the OptionalRef::none()
+    /// constructor instead to create an `OptionalRef` that
     /// points to nothing.
     #[inline]
     pub const fn some(value: u128) -> Self {
         OptionalRef(Some(SomeRef::new(value).expect("Ref value is 0")))
     }
 
-    /// Tells whether this `Ref` points to something.
+    /// Tells whether this `OptionalRef` points to something.
     #[inline]
     pub const fn is_some(&self) -> bool {
         self.0.is_some()
     }
 
-    /// Tells whether this `Ref` points to nothing.
+    /// Tells whether this `OptionalRef` points to nothing.
     #[inline]
     pub const fn is_none(&self) -> bool {
         self.0.is_none()

@@ -1,4 +1,4 @@
-use rbx_types::{Ref, SomeRef, Variant};
+use rbx_types::{SomeRef, Variant};
 use ustr::{Ustr, UstrMap};
 
 /**
@@ -82,14 +82,14 @@ impl InstanceBuilder {
     }
 
     /// Return the referent of the instance that the `InstanceBuilder` refers to.
-    pub fn referent(&self) -> Ref {
-        self.referent.to_optional_ref()
+    pub fn referent(&self) -> SomeRef {
+        self.referent
     }
 
     /// Change the referent of the `InstanceBuilder`.
-    pub fn with_referent<R: Into<Ref>>(self, referent: R) -> Self {
+    pub fn with_referent<R: Into<SomeRef>>(self, referent: R) -> Self {
         Self {
-            referent: referent.into().to_some_ref().expect("Ref value is 0"),
+            referent: referent.into(),
             ..self
         }
     }
@@ -215,25 +215,17 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Returns this instance's referent. It will always be non-null.
+    /// Returns this instance's referent.
     #[inline]
-    pub fn referent(&self) -> Ref {
-        self.referent.to_optional_ref()
+    pub fn referent(&self) -> SomeRef {
+        self.referent
     }
 
     /// Returns a list of the referents corresponding to the instance's
     /// children. All referents returned will be non-null and point to valid
     /// instances in the same [`WeakDom`][crate::WeakDom].
     #[inline]
-    pub fn children(&self) -> &[Ref] {
-        // SAFETY: `SomeRef` and `Ref` have an identical memory layout
-        // due to #[repr(transparent)]
-        unsafe { core::mem::transmute(self.children_internal()) }
-    }
-
-    /// Temporary internal function for SomeRef migration
-    #[inline]
-    pub(crate) fn children_internal(&self) -> &[SomeRef] {
+    pub fn children(&self) -> &[SomeRef] {
         &self.children
     }
 
@@ -241,7 +233,7 @@ impl Instance {
     /// referent will either point to an instance in the same
     /// [`WeakDom`][crate::WeakDom] or be null.
     #[inline]
-    pub fn parent(&self) -> Ref {
-        self.parent.into()
+    pub fn parent(&self) -> Option<SomeRef> {
+        self.parent
     }
 }

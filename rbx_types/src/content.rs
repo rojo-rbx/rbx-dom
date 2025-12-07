@@ -1,4 +1,4 @@
-use crate::referent::{Ref, SomeRef};
+use crate::referent::{OptionalRef, SomeRef};
 
 /// A reference to a Roblox asset.
 ///
@@ -34,7 +34,7 @@ impl Content {
 
     /// Constructs a `Content` from the provided referent.
     #[inline]
-    pub fn from_referent(referent: Ref) -> Self {
+    pub fn from_referent(referent: OptionalRef) -> Self {
         match referent.to_some_ref() {
             Some(some_ref) => Self(ContentType::Object(some_ref)),
             None => Self::none(),
@@ -74,11 +74,11 @@ impl Content {
         }
     }
 
-    /// If this `Content` is an Object, returns the Ref. Otherwise, returns `None`.
+    /// If this `Content` is an Object, returns the `SomeRef`. Otherwise, returns `None`.
     #[inline]
-    pub fn as_object(&self) -> Option<Ref> {
+    pub fn as_object(&self) -> Option<SomeRef> {
         match self.value() {
-            &ContentType::Object(referent) => Some(referent.to_optional_ref()),
+            &ContentType::Object(referent) => Some(referent),
             _ => None,
         }
     }
@@ -96,8 +96,8 @@ impl From<&'_ str> for Content {
     }
 }
 
-impl From<Ref> for Content {
-    fn from(referent: Ref) -> Self {
+impl From<OptionalRef> for Content {
+    fn from(referent: OptionalRef) -> Self {
         Self::from_referent(referent)
     }
 }

@@ -1,7 +1,7 @@
 use std::collections::VecDeque;
 
 use ahash::{AHashMap, AHashSet};
-use rbx_types::{Ref, SomeRef, UniqueId, Variant};
+use rbx_types::{OptionalRef, SomeRef, UniqueId, Variant};
 use ustr::ustr;
 
 use crate::instance::{Instance, InstanceBuilder};
@@ -29,7 +29,7 @@ impl WeakDom {
             unique_ids: AHashSet::new(),
         };
 
-        dom.insert(Ref::none(), builder);
+        dom.insert(OptionalRef::none(), builder);
         dom
     }
 
@@ -94,8 +94,8 @@ impl WeakDom {
     }
 
     /// Returns the referent of the root instance of the `WeakDom`.
-    pub fn root_ref(&self) -> Ref {
-        self.root_ref.into()
+    pub fn root_ref(&self) -> Option<SomeRef> {
+        self.root_ref
     }
 
     /// Returns a reference to the root instance of the `WeakDom`.
@@ -117,22 +117,19 @@ impl WeakDom {
 
     /// Returns a reference to an instance by referent, or `None` if it is not
     /// found.
-    pub fn get_by_ref(&self, referent: Ref) -> Option<&Instance> {
-        let referent = referent.to_some_ref()?;
+    pub fn get_by_ref(&self, referent: SomeRef) -> Option<&Instance> {
         self.instances.get(&referent)
     }
 
     /// Returns a _mutable_ reference to an instance by referent, or `None` if
     /// it is not found.
-    pub fn get_by_ref_mut(&mut self, referent: Ref) -> Option<&mut Instance> {
-        let referent = referent.to_some_ref()?;
+    pub fn get_by_ref_mut(&mut self, referent: SomeRef) -> Option<&mut Instance> {
         self.instances.get_mut(&referent)
     }
 
     /// Returns the [`UniqueId`] for the Instance with the provided referent, if it
     /// exists.
-    pub fn get_unique_id(&self, referent: Ref) -> Option<UniqueId> {
-        let referent = referent.to_some_ref()?;
+    pub fn get_unique_id(&self, referent: SomeRef) -> Option<UniqueId> {
         let inst = self.instances.get(&referent)?;
         match inst.properties.get(&ustr("UniqueId")) {
             Some(Variant::UniqueId(id)) => Some(*id),
@@ -150,18 +147,17 @@ impl WeakDom {
     /// Panics if `root_ref` is not a member of this DOM.
     #[inline]
     pub fn descendants(&self) -> WeakDomDescendants<'_> {
-        self.descendants_of(self.root_ref())
+        self.descendants_of(self.root_ref().expect("Ref value is 0"))
     }
 
     /// Returns an iterator that goes through the descendants of a particular
-    /// [`Ref`]. The passed `Ref` *must* be a part of this `WeakDom`.
+    /// [`SomeRef`]. The passed `SomeRef` *must* be a part of this `WeakDom`.
     ///
     /// ## Panics
     ///
     /// Panics if `referent` is not a member of this DOM.
     #[inline]
-    pub fn descendants_of(&self, referent: Ref) -> WeakDomDescendants<'_> {
-        let referent = referent.to_some_ref().expect("Ref value is 0");
+    pub fn descendants_of(&self, referent: SomeRef) -> WeakDomDescendants<'_> {
         if !self.instances.contains_key(&referent) {
             panic!("the referent provided to `descendants_of` must be a part of the DOM")
         }
@@ -172,19 +168,19 @@ impl WeakDom {
     }
 
     /// Returns an iterator that goes through the ancestors of a particular
-    /// [`Ref`]. The passed `Ref` *must* be a part of this `WeakDom`.
+    /// [`SomeRef`]. The passed `SomeRef` *must* be a part of this `WeakDom`.
     ///
     /// ## Panics
     ///
     /// Panics if `referent` is not a member of this DOM.
     #[inline]
-    pub fn ancestors_of(&self, referent: Ref) -> impl Iterator<Item = &Instance> {
+    pub fn ancestors_of(&self, referent: SomeRef) -> impl Iterator<Item = &Instance> {
         let initial_instance = self.get_by_ref(referent);
         if initial_instance.is_none() {
             panic!("the referent provided to `ancestors_of` must be a part of the DOM");
         }
         std::iter::successors(initial_instance, move |&instance| {
-            self.get_by_ref(instance.parent())
+            self.get_by_ref(instance.parent()?)
         })
     }
 
@@ -193,7 +189,11 @@ impl WeakDom {
     ///
     /// ## Panics
     /// Panics if `parent_ref` is some and does not refer to an instance in the DOM.
-    pub fn insert(&mut self, parent_ref: Ref, root_builder: InstanceBuilder) -> Ref {
+    pub fn insert(
+        &mut self,
+        parent_ref: impl Into<OptionalRef>,
+        root_builder: InstanceBuilder,
+    ) -> SomeRef {
         struct PendingInsert {
             parent: Option<SomeRef>,
             builder: InstanceBuilder,
@@ -234,7 +234,7 @@ impl WeakDom {
             }
         }
 
-        let parent_ref = parent_ref.to_some_ref();
+        let parent_ref = parent_ref.into().to_some_ref();
         let root_referent = root_builder.referent;
 
         // Fast path: if the builder does not have any children, then we don't have to
@@ -257,7 +257,7 @@ impl WeakDom {
             }
         }
 
-        root_referent.to_optional_ref()
+        root_referent
     }
 
     /// Destroy the instance with the given referent.
@@ -267,8 +267,7 @@ impl WeakDom {
     ///
     /// Will also panic if `referent` refers to the root instance in this
     /// `WeakDom`.
-    pub fn destroy(&mut self, referent: Ref) {
-        let referent = referent.to_some_ref().expect("Ref value is 0");
+    pub fn destroy(&mut self, referent: SomeRef) {
         if let Some(root_some_ref) = self.root_ref {
             assert!(
                 referent != root_some_ref,
@@ -307,8 +306,12 @@ impl WeakDom {
     ///
     /// Will also panic if `referent` refers to the root instance in this
     /// `WeakDom`.
-    pub fn transfer(&mut self, referent: Ref, dest: &mut WeakDom, dest_parent_ref: Ref) {
-        let referent = referent.to_some_ref().expect("Ref value is 0");
+    pub fn transfer(
+        &mut self,
+        referent: SomeRef,
+        dest: &mut WeakDom,
+        dest_parent_ref: impl Into<OptionalRef>,
+    ) {
         if let Some(root_some_ref) = self.root_ref {
             assert!(
                 referent != root_some_ref,
@@ -316,7 +319,7 @@ impl WeakDom {
             );
         }
 
-        let dest_parent_ref = dest_parent_ref.to_some_ref();
+        let dest_parent_ref = dest_parent_ref.into().to_some_ref();
         let mut instance = self.inner_remove(referent);
 
         // Remove the instance being moved from its parent's list of children.
@@ -369,8 +372,7 @@ impl WeakDom {
     ///
     /// Will also panic if `referent` refers to the root instance in this
     /// `WeakDom`.
-    pub fn transfer_within(&mut self, referent: Ref, dest_parent_ref: Ref) {
-        let referent = referent.to_some_ref().expect("Ref value is 0");
+    pub fn transfer_within(&mut self, referent: SomeRef, dest_parent_ref: impl Into<OptionalRef>) {
         if let Some(root_some_ref) = self.root_ref {
             assert!(
                 referent != root_some_ref,
@@ -383,7 +385,7 @@ impl WeakDom {
             .get_mut(&referent)
             .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
 
-        let dest_parent_ref = dest_parent_ref.to_some_ref();
+        let dest_parent_ref = dest_parent_ref.into().to_some_ref();
 
         // Tell the instance who its new parent is.
         let parent_ref = instance.parent;
@@ -412,11 +414,10 @@ impl WeakDom {
     ///
     /// Any Ref properties that point to instances contained in the subtree are
     /// rewritten to point to the cloned instances.
-    pub fn clone_within(&mut self, referent: Ref) -> Ref {
-        let referent = referent.to_some_ref().expect("Ref value is 0");
+    pub fn clone_within(&mut self, referent: SomeRef) -> SomeRef {
         let mut ctx = CloneContext::default();
         let root_builder = ctx.clone_ref_as_builder(self, referent);
-        let root_ref = self.insert(Ref::none(), root_builder);
+        let root_ref = self.insert(OptionalRef::none(), root_builder);
 
         while let Some(PendingClone {
             cloned_parent,
@@ -424,7 +425,7 @@ impl WeakDom {
         }) = ctx.queue.pop_front()
         {
             let builder = ctx.clone_ref_as_builder(self, uncloned_child);
-            self.insert(cloned_parent.to_optional_ref(), builder);
+            self.insert(cloned_parent, builder);
         }
 
         ctx.rewrite_refs(self);
@@ -443,11 +444,10 @@ impl WeakDom {
     /// This means that if you call this method on multiple different instances, Ref
     /// properties will not necessarily be preserved in the destination dom. If you're
     /// cloning multiple instances, prefer `clone_multiple_into_external` instead!
-    pub fn clone_into_external(&self, referent: Ref, dest: &mut WeakDom) -> Ref {
-        let referent = referent.to_some_ref().expect("Ref value is 0");
+    pub fn clone_into_external(&self, referent: SomeRef, dest: &mut WeakDom) -> SomeRef {
         let mut ctx = CloneContext::default();
         let root_builder = ctx.clone_ref_as_builder(self, referent);
-        let root_ref = dest.insert(Ref::none(), root_builder);
+        let root_ref = dest.insert(OptionalRef::none(), root_builder);
 
         while let Some(PendingClone {
             cloned_parent,
@@ -455,7 +455,7 @@ impl WeakDom {
         }) = ctx.queue.pop_front()
         {
             let builder = ctx.clone_ref_as_builder(self, uncloned_child);
-            dest.insert(cloned_parent.to_optional_ref(), builder);
+            dest.insert(cloned_parent, builder);
         }
 
         ctx.rewrite_refs(dest);
@@ -464,14 +464,17 @@ impl WeakDom {
 
     /// Similar to `clone_into_external`, but clones multiple subtrees all at once. This
     /// method will preserve Ref properties that point across the cloned subtrees.
-    pub fn clone_multiple_into_external(&self, referents: &[Ref], dest: &mut WeakDom) -> Vec<Ref> {
+    pub fn clone_multiple_into_external(
+        &self,
+        referents: &[SomeRef],
+        dest: &mut WeakDom,
+    ) -> Vec<SomeRef> {
         let mut ctx = CloneContext::default();
         let root_refs = referents
             .iter()
             .map(|referent| {
-                let builder =
-                    ctx.clone_ref_as_builder(self, referent.to_some_ref().expect("Ref value is 0"));
-                dest.insert(Ref::none(), builder)
+                let builder = ctx.clone_ref_as_builder(self, *referent);
+                dest.insert(OptionalRef::none(), builder)
             })
             .collect();
 
@@ -481,7 +484,7 @@ impl WeakDom {
         }) = ctx.queue.pop_front()
         {
             let builder = ctx.clone_ref_as_builder(self, uncloned_child);
-            dest.insert(cloned_parent.to_optional_ref(), builder);
+            dest.insert(cloned_parent, builder);
         }
 
         ctx.rewrite_refs(dest);
@@ -549,8 +552,8 @@ impl<'a> Iterator for WeakDomDescendants<'a> {
         let instance = self
             .queue
             .pop_front()
-            .and_then(|r| self.dom.get_by_ref(r.to_optional_ref()))?;
-        self.queue.extend(instance.children_internal());
+            .and_then(|r| self.dom.get_by_ref(r))?;
+        self.queue.extend(instance.children());
         Some(instance)
     }
 }
@@ -584,7 +587,7 @@ impl CloneContext {
 
         for &new_ref in self.ref_rewrites.values() {
             let instance = dest
-                .get_by_ref(new_ref.to_optional_ref())
+                .get_by_ref(new_ref)
                 .expect("Cannot rewrite refs on an instance that does not exist");
 
             for prop_value in instance.properties.values() {
@@ -600,7 +603,7 @@ impl CloneContext {
 
         for &new_ref in self.ref_rewrites.values() {
             let instance = dest
-                .get_by_ref_mut(new_ref.to_optional_ref())
+                .get_by_ref_mut(new_ref)
                 .expect("Cannot rewrite refs on an instance that does not exist");
 
             for prop_value in instance.properties.values_mut() {
@@ -613,7 +616,7 @@ impl CloneContext {
                         } else if !existing_dest_refs.contains(&some_ref) {
                             // If the ref points to an instance that does not exist
                             // in the destination WeakDom, rewrite it as none
-                            *original_ref = Ref::none();
+                            *original_ref = OptionalRef::none();
                         }
                     }
                 }
@@ -629,7 +632,7 @@ impl CloneContext {
     /// does not clone any children.
     fn clone_ref_as_builder(&mut self, source: &WeakDom, original_ref: SomeRef) -> InstanceBuilder {
         let instance = source
-            .get_by_ref(original_ref.to_optional_ref())
+            .get_by_ref(original_ref)
             .expect("Cannot clone an instance that does not exist");
 
         let builder = InstanceBuilder::new(instance.class)
@@ -695,7 +698,7 @@ mod test {
             .with_child(subject);
 
         let dest_parent = InstanceBuilder::new("Folder").with_name("Dest");
-        let dest_parent_ref = dest_parent.referent();
+        let dest_parent_ref = dest_parent.referent().to_optional_ref();
 
         let mut dom = WeakDom::new(
             InstanceBuilder::new("Folder")
@@ -754,7 +757,7 @@ mod test {
 
             child1 = child1.with_property("RefProp", child2.referent);
             child2 = child2.with_property("RefProp", child1.referent);
-            child3 = child3.with_property("RefProp", Ref::new());
+            child3 = child3.with_property("RefProp", OptionalRef::new());
 
             WeakDom::new(
                 InstanceBuilder::new("Folder")
@@ -764,7 +767,7 @@ mod test {
         };
 
         let mut other_dom = WeakDom::new(InstanceBuilder::new("DataModel"));
-        let cloned_root = dom.clone_into_external(dom.root_ref(), &mut other_dom);
+        let cloned_root = dom.clone_into_external(dom.root_ref().unwrap(), &mut other_dom);
 
         assert!(
             other_dom.get_by_ref(cloned_root).unwrap().parent.is_none(),
@@ -960,7 +963,10 @@ mod test {
         let sibling_2 = dom.insert(child_1, InstanceBuilder::new("Folder"));
 
         let mut descendants = dom.descendants();
-        assert_eq!(descendants.next().unwrap().referent(), dom.root_ref());
+        assert_eq!(
+            descendants.next().unwrap().referent(),
+            dom.root_ref().unwrap()
+        );
         assert_eq!(descendants.next().unwrap().referent(), child_1);
         assert_eq!(descendants.next().unwrap().referent(), child_2);
         assert_eq!(descendants.next().unwrap().referent(), sibling_1);
@@ -989,14 +995,14 @@ mod test {
         );
 
         let (old_root, tree) = dom.into_raw();
-        let dom = WeakDom::from_raw(parent.to_some_ref(), tree);
+        let dom = WeakDom::from_raw(Some(parent), tree);
 
         assert!(
-            dom.get_by_ref(old_root.into()).is_some(),
+            dom.get_by_ref(old_root.unwrap()).is_some(),
             "old root was not preserved in `tree` map"
         );
         assert_eq!(
-            dom.root_ref(),
+            dom.root_ref().unwrap(),
             parent,
             "new root was not respected by from_raw"
         );
@@ -1031,11 +1037,13 @@ mod test {
         };
 
         assert_eq!(
-            *child_1_value, parent,
+            *child_1_value,
+            parent.to_optional_ref(),
             "value of ref property was not preserved in new dom"
         );
         assert_eq!(
-            *child_2_value, child_1,
+            *child_2_value,
+            child_1.to_optional_ref(),
             "value of ref property was not preserved in new dom"
         );
     }
@@ -1045,14 +1053,8 @@ mod test {
     fn from_raw_duplicate_unique_id() {
         let mut dom = WeakDom::new(InstanceBuilder::new("ROOT"));
 
-        let inst_ref_1 = dom
-            .insert(dom.root_ref(), InstanceBuilder::new("Folder"))
-            .to_some_ref()
-            .unwrap();
-        let inst_ref_2 = dom
-            .insert(dom.root_ref(), InstanceBuilder::new("Folder"))
-            .to_some_ref()
-            .unwrap();
+        let inst_ref_1 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
+        let inst_ref_2 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
         let (root, mut tree) = dom.into_raw();
 
         // Deterministic for the panic above
@@ -1073,14 +1075,8 @@ mod test {
     fn from_raw_normal_unique_id() {
         let mut dom = WeakDom::new(InstanceBuilder::new("ROOT"));
 
-        let inst_ref_1 = dom
-            .insert(dom.root_ref(), InstanceBuilder::new("Folder"))
-            .to_some_ref()
-            .unwrap();
-        let inst_ref_2 = dom
-            .insert(dom.root_ref(), InstanceBuilder::new("Folder"))
-            .to_some_ref()
-            .unwrap();
+        let inst_ref_1 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
+        let inst_ref_2 = dom.insert(dom.root_ref(), InstanceBuilder::new("Folder"));
         let (root, mut tree) = dom.into_raw();
 
         tree.get_mut(&inst_ref_1)
