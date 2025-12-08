@@ -275,10 +275,9 @@ impl WeakDom {
             );
         }
 
-        let instance = self
-            .instances
-            .get(&referent)
-            .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
+        let Some(instance) = self.instances.get(&referent) else {
+            panic!("cannot destroy an instance that does not exist");
+        };
 
         if let Some(parent_some_ref) = instance.parent {
             let parent = self.instances.get_mut(&parent_some_ref).unwrap();
@@ -352,9 +351,9 @@ impl WeakDom {
         // Finally, notify the new parent instance that their adoption is
         // complete. Enjoy!
         if let Some(dest_some_ref) = dest_parent_ref {
-            let dest_parent = dest.instances.get_mut(&dest_some_ref).unwrap_or_else(|| {
+            let Some(dest_parent) = dest.instances.get_mut(&dest_some_ref) else {
                 panic!("cannot move an instance into an instance that does not exist")
-            });
+            };
             dest_parent.children.push(referent);
         }
     }
@@ -399,10 +398,9 @@ impl WeakDom {
 
         // Add the instance's referent to its new parent's list of children.
         if let Some(dest_some_ref) = dest_parent_ref {
-            let dest_parent = self
-                .instances
-                .get_mut(&dest_some_ref)
-                .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
+            let Some(dest_parent) = self.instances.get_mut(&dest_some_ref) else {
+                panic!("cannot move into an instance that does not exist");
+            };
             dest_parent.children.push(referent);
         }
     }
@@ -522,10 +520,9 @@ impl WeakDom {
     }
 
     fn inner_remove(&mut self, referent: SomeRef) -> Instance {
-        let instance = self
-            .instances
-            .remove(&referent)
-            .unwrap_or_else(|| panic!("cannot remove an instance that does not exist"));
+        let Some(instance) = self.instances.remove(&referent) else {
+            panic!("cannot remove an instance that does not exist");
+        };
 
         if let Some(Variant::UniqueId(unique_id)) = instance.properties.get(&ustr("UniqueId")) {
             self.unique_ids.remove(unique_id);

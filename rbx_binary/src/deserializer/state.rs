@@ -1520,23 +1520,19 @@ rbx-dom may require changes to fully support this property. Please open an issue
         // tree. Because of the way rbx_dom_weak generally works, we need to
         // start at the top of the tree to begin construction.
         let root_ref = self.tree.root_ref();
-        for &id in &self.root_instance_refs {
-            queue.push_back(PendingInsert {
-                id,
-                parent: root_ref,
-            });
-        }
+        queue.extend(self.root_instance_refs.iter().map(|&id| PendingInsert {
+            id,
+            parent: root_ref,
+        }));
 
         while let Some(PendingInsert { id, parent }) = queue.pop_front() {
             let instance = self.instances_by_ref.remove(&id).unwrap();
             let referent = self.tree.insert(parent, instance.builder);
 
-            for id in instance.children {
-                queue.push_back(PendingInsert {
-                    id,
-                    parent: Some(referent),
-                });
-            }
+            queue.extend(instance.children.iter().map(|&id| PendingInsert {
+                id,
+                parent: Some(referent),
+            }));
         }
 
         self.tree
