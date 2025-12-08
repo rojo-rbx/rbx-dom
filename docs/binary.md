@@ -715,15 +715,15 @@ Note that the [`Content`][Content-type] type should not be confused with the leg
 
 The `Content` type is a struct composed of the following fields:
 
-| Field Name          | Format          | Value                                                                                        |
-|:--------------------|:----------------|:---------------------------------------------------------------------------------------------|
-| SourceTypes         | Array(`Enum`)   | A list of types for items in this chunk                                                      |
-| UriCount            | `u32`           | Indicates how many items in this chunk are `Uri`s                                            |
-| Uris                | Array(`String`) | A list of the `URI`s for items in this chunk with that type                                  |
-| ObjectCount         | `u32`           | Indicates how many items in this chunk are `Object`s                                         |
-| ObjectRefs          | Array(`Ref`)    | A list of referents for `Object`s for items in this chunk                                    |
-| ExternalObjectCount | `u32`           | Indicates how many items in this chunk are `Objects` that are **external** to this file      |
-| ExternalObjectRefs  | Array(`Ref`)    | A list of referents for `Object`s for items in this chunk that are **external** to this file |
+| Field Name          | Format           | Value                                                                                        |
+|:--------------------|:-----------------|:---------------------------------------------------------------------------------------------|
+| SourceTypes         | Array(`Enum`)    | A list of types for items in this chunk                                                      |
+| UriCount            | `u32`            | Indicates how many items in this chunk are `Uri`s                                            |
+| Uris                | Array(`String`)  | A list of the `URI`s for items in this chunk with that type                                  |
+| ObjectCount         | `u32`            | Indicates how many items in this chunk are `Object`s                                         |
+| ObjectRefs          | Array(`SomeRef`) | A list of referents for `Object`s for items in this chunk                                    |
+| ExternalObjectCount | `u32`            | Indicates how many items in this chunk are `Objects` that are **external** to this file      |
+| ExternalObjectRefs  | Array(`SomeRef`) | A list of referents for `Object`s for items in this chunk that are **external** to this file |
 
 `SourceTypes` is a series of values representing a type for a given `Content`. At this moment it can have one of three values:
 
