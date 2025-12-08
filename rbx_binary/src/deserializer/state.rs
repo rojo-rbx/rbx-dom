@@ -1529,7 +1529,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             let instance = self.instances_by_ref.remove(&id).unwrap();
             let referent = self.tree.insert(parent, instance.builder);
 
-            queue.extend(instance.children.iter().map(|&id| PendingInsert {
+            queue.extend(instance.children.into_iter().map(|id| PendingInsert {
                 id,
                 parent: Some(referent),
             }));

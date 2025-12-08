@@ -225,12 +225,11 @@ impl WeakDom {
             }
 
             if let Some(queue) = queue {
-                for child in builder.children {
-                    queue.push_back(PendingInsert {
-                        parent: Some(builder.referent),
-                        builder: child,
-                    });
-                }
+                let parent = Some(builder.referent);
+                queue.extend(builder.children.into_iter().map(|child| PendingInsert {
+                    parent,
+                    builder: child,
+                }));
             }
         }
 
@@ -638,12 +637,15 @@ impl CloneContext {
 
         let cloned_parent = builder.referent;
 
-        for &uncloned_child in &instance.children {
-            self.queue.push_back(PendingClone {
-                cloned_parent,
-                uncloned_child,
-            });
-        }
+        self.queue.extend(
+            instance
+                .children
+                .iter()
+                .map(|&uncloned_child| PendingClone {
+                    cloned_parent,
+                    uncloned_child,
+                }),
+        );
 
         self.ref_rewrites.insert(original_ref, cloned_parent);
         builder
