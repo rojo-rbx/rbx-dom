@@ -11,7 +11,7 @@
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::Ref;
+use rbx_dom_weak::types::{OptionalRef, SomeRef};
 
 use crate::{
     deserializer::ParseState,
@@ -26,15 +26,15 @@ pub const XML_TAG_NAME: &str = "Ref";
 pub fn write_ref<W: Write>(
     writer: &mut XmlEventWriter<W>,
     xml_property_name: &str,
-    value: Ref,
+    value: OptionalRef,
     state: &mut EmitState,
 ) -> Result<(), EncodeError> {
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", xml_property_name))?;
 
-    if value.is_none() {
-        writer.write(XmlWriteEvent::characters("null"))?;
+    if let Some(some_ref) = value.to_some_ref() {
+        writer.write_characters(state.map_id(some_ref))?;
     } else {
-        writer.write_characters(state.map_id(value))?;
+        writer.write(XmlWriteEvent::characters("null"))?;
     }
 
     writer.write(XmlWriteEvent::end_element())?;
@@ -44,10 +44,10 @@ pub fn write_ref<W: Write>(
 
 pub fn read_ref<R: Read>(
     reader: &mut XmlEventReader<R>,
-    id: Ref,
+    id: SomeRef,
     property_name: &str,
     state: &mut ParseState,
-) -> Result<Ref, DecodeError> {
+) -> Result<OptionalRef, DecodeError> {
     let ref_contents = reader.read_tag_contents(XML_TAG_NAME)?;
 
     if ref_contents != "null" {
@@ -59,5 +59,5 @@ pub fn read_ref<R: Read>(
         state.add_referent_rewrite(id, property_name.into(), ref_contents);
     }
 
-    Ok(Ref::none())
+    Ok(OptionalRef::none())
 }
