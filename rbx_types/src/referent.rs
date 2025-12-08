@@ -45,12 +45,6 @@ pub type Ref = SomeRef;
 pub struct OptionalRef(Option<SomeRef>);
 
 impl OptionalRef {
-    /// Generate a new random non-nil `OptionalRef`.
-    #[inline]
-    pub fn new_random() -> Self {
-        OptionalRef(Some(SomeRef::new_random()))
-    }
-
     /// Construct an `OptionalRef` that points to nothing.
     #[inline]
     pub const fn none() -> Self {
@@ -301,7 +295,7 @@ mod serde_test {
 
     #[test]
     fn human() {
-        let value = OptionalRef::new_random();
+        let value = SomeRef::new_random();
 
         let ser = serde_json::to_string(&value).unwrap();
         let de = serde_json::from_str(&ser).unwrap();
@@ -311,7 +305,7 @@ mod serde_test {
 
     #[test]
     fn non_human() {
-        let value = OptionalRef::new_random();
+        let value = SomeRef::new_random();
 
         let ser = bincode::serialize(&value).unwrap();
         let de = bincode::deserialize(&ser).unwrap();

@@ -757,7 +757,7 @@ mod test {
 
             child1 = child1.with_property("RefProp", child2.referent);
             child2 = child2.with_property("RefProp", child1.referent);
-            child3 = child3.with_property("RefProp", OptionalRef::new_random());
+            child3 = child3.with_property("RefProp", SomeRef::new_random());
 
             WeakDom::new(
                 InstanceBuilder::new("Folder")
