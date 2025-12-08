@@ -35,9 +35,10 @@ impl SomeRef {
     }
 }
 
-/// A universally unique, optional reference to a Roblox instance.
-/// This is a type alias, the type has been renamed to `OptionalRef`.
-pub type Ref = OptionalRef;
+/// A universally unique reference to a Roblox instance.
+/// This is a type alias that points to a new type `SomeRef`.
+/// The original type has been renamed to `OptionalRef`.
+pub type Ref = SomeRef;
 
 /// A universally unique, optional reference to a Roblox instance.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
