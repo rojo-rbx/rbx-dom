@@ -46,7 +46,7 @@ pub struct OptionalRef(Option<SomeRef>);
 impl OptionalRef {
     /// Generate a new random non-nil `OptionalRef`.
     #[inline]
-    pub fn new() -> Self {
+    pub fn new_random() -> Self {
         OptionalRef(Some(SomeRef::new_random()))
     }
 
@@ -56,15 +56,11 @@ impl OptionalRef {
         OptionalRef(None)
     }
 
-    /// Construct an `OptionalRef` that points to something.
-    ///
-    /// ## Panics
-    /// Panics if `value` is 0. Use the OptionalRef::none()
-    /// constructor instead to create an `OptionalRef` that
-    /// points to nothing.
+    /// Construct an `OptionalRef`.  The value 0 is special
+    /// and points to nothing.
     #[inline]
-    pub const fn some(value: u128) -> Self {
-        OptionalRef(Some(SomeRef::new(value).expect("Ref value is 0")))
+    pub const fn new(value: u128) -> Self {
+        OptionalRef(SomeRef::new(value))
     }
 
     /// Tells whether this `OptionalRef` points to something.
@@ -82,10 +78,6 @@ impl OptionalRef {
     #[inline]
     pub const fn to_some_ref(&self) -> Option<SomeRef> {
         self.0
-    }
-
-    const fn new_value(value: u128) -> Self {
-        OptionalRef(SomeRef::new(value))
     }
 
     const fn value(&self) -> u128 {
@@ -114,7 +106,7 @@ impl FromStr for OptionalRef {
     fn from_str(input: &str) -> Result<Self, Self::Err> {
         let value = u128::from_str_radix(input, 16)?;
 
-        Ok(OptionalRef::new_value(value))
+        Ok(OptionalRef::new(value))
     }
 }
 impl FromStr for SomeRef {
@@ -222,12 +214,12 @@ mod serde_impl {
         }
 
         fn visit_u128<E: Error>(self, value: u128) -> Result<Self::Value, E> {
-            Ok(OptionalRef::new_value(value))
+            Ok(OptionalRef::new(value))
         }
 
         fn visit_str<E: Error>(self, ref_str: &str) -> Result<Self::Value, E> {
             let ref_value = u128::from_str_radix(ref_str, 16).map_err(E::custom)?;
-            Ok(OptionalRef::new_value(ref_value))
+            Ok(OptionalRef::new(ref_value))
         }
     }
 
@@ -256,10 +248,10 @@ mod test {
             "00000000000000000000000000000000"
         );
 
-        let thirty = OptionalRef::new_value(30);
+        let thirty = OptionalRef::new(30);
         assert_eq!(thirty.to_string(), "0000000000000000000000000000001e");
 
-        let max = OptionalRef::new_value(u128::MAX);
+        let max = OptionalRef::new(u128::MAX);
         assert_eq!(max.to_string(), "ffffffffffffffffffffffffffffffff");
     }
 
@@ -272,12 +264,12 @@ mod test {
 
         assert_eq!(
             OptionalRef::from_str("00000000300000e00f00000000000001").unwrap(),
-            OptionalRef::new_value(14855284604576099720297971713)
+            OptionalRef::new(14855284604576099720297971713)
         );
 
         assert_eq!(
             OptionalRef::from_str("ffffffffffffffffffffffffffffffff").unwrap(),
-            OptionalRef::new_value(u128::MAX)
+            OptionalRef::new(u128::MAX)
         );
     }
 
@@ -308,7 +300,7 @@ mod serde_test {
 
     #[test]
     fn human() {
-        let value = OptionalRef::new();
+        let value = OptionalRef::new_random();
 
         let ser = serde_json::to_string(&value).unwrap();
         let de = serde_json::from_str(&ser).unwrap();
@@ -318,7 +310,7 @@ mod serde_test {
 
     #[test]
     fn non_human() {
-        let value = OptionalRef::new();
+        let value = OptionalRef::new_random();
 
         let ser = bincode::serialize(&value).unwrap();
         let de = bincode::deserialize(&ser).unwrap();
