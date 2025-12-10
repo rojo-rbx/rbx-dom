@@ -25,9 +25,7 @@ impl Tags {
 
     /// Returns an iterator over all of the tags in the container.
     pub fn iter(&self) -> TagsIter<'_> {
-        TagsIter {
-            internal: self.members.split('\0'),
-        }
+        TagsIter::new(&self.members)
     }
 
     /// Decodes tags from a buffer containing `\0`-delimited tag names.
@@ -73,10 +71,24 @@ impl<'a> core::iter::FromIterator<&'a str> for Tags {
         tags
     }
 }
+impl<'a> IntoIterator for &'a Tags {
+    type Item = &'a str;
+    type IntoIter = TagsIter<'a>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
+    }
+}
 
 /// See [`Tags::iter`].
 pub struct TagsIter<'a> {
     internal: core::str::Split<'a, char>,
+}
+impl<'a> TagsIter<'a> {
+    fn new(members: &'a str) -> Self {
+        TagsIter {
+            internal: members.split('\0'),
+        }
+    }
 }
 
 impl<'a> Iterator for TagsIter<'a> {
@@ -96,7 +108,7 @@ impl serde::Serialize for Tags {
         use serde::ser::SerializeSeq;
 
         let mut seq = serializer.serialize_seq(None)?;
-        for tag in self.iter() {
+        for tag in self {
             seq.serialize_element(tag)?;
         }
         seq.end()
