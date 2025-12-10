@@ -23,7 +23,7 @@ impl Tags {
         self.members.push('\0');
     }
 
-    /// Returns an iterator over all of the tags in the container.
+    /// Returns an iterator over non-empty tags in the container.
     pub fn iter(&self) -> TagsIter<'_> {
         TagsIter::new(&self.members)
     }
@@ -79,7 +79,7 @@ impl<'a> IntoIterator for &'a Tags {
     }
 }
 
-/// See [`Tags::iter`].
+/// An iterator over non-empty tags.
 pub struct TagsIter<'a> {
     internal: core::str::Split<'a, char>,
 }
