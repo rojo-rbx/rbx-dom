@@ -48,12 +48,9 @@ impl Tags {
 
     /// Get the encoded representation of the tags
     pub fn encode(&self) -> &[u8] {
-        if self.is_empty() {
-            self.members.as_bytes()
-        } else {
-            // Chop off '\0' postfix
-            &self.members.as_bytes()[..self.members.len() - 1]
-        }
+        // Chop off '\0' postfix when it exists
+        let postfix_offset = !self.is_empty() as usize;
+        &self.members.as_bytes()[..self.members.len() - postfix_offset]
     }
 
     /// Returns the number of strings stored within this `Tags`.
