@@ -169,6 +169,7 @@ mod test {
             };
         }
 
+        // decode input, expected encode, expected iter
         test!(b"", b"", []);
         test!(b"\0", b"", []);
         test!(b"\0ez", b"ez", ["ez"]);
