@@ -314,7 +314,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         database: &'db ReflectionDatabase<'db>,
         type_id: u32,
         inst_chunk: DeferredChunk,
-        num_properties: usize,
+        prop_capacity: usize,
     ) -> Result<TypeInfo<'db>, InnerError> {
         let mut chunk = inst_chunk.rest();
 
@@ -340,7 +340,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 Instance {
                     builder: InstanceBuilder::with_property_capacity(
                         type_name.as_str(),
-                        num_properties,
+                        prop_capacity,
                     ),
                     children: Vec::new(),
                 },
