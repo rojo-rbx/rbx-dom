@@ -41,7 +41,8 @@ pub(super) struct DeserializerState<'db, R> {
     /// appear in the file.
     shared_strings: Vec<SharedString>,
 
-    /// Chunks which deserialization is delayed.
+    /// Deserialization of these chunks is delayed until
+    /// all INST and PROP chunks are collected.
     deferred_chunks: DeferredChunks,
 
     /// How many instances are expected in the file
@@ -67,11 +68,10 @@ struct TypeInfo<'db> {
 }
 
 struct TypeChunks {
-    /// The instance chunk data.  Deserialization is delayed until all INST and PROP chunks are collected.
-    /// Property chunks may appear before instance chunks in which case this will be None.
+    /// The instance chunk data.
     inst_chunk: DeferredChunk,
 
-    /// Property chunks for this class.  Deserialization is delayed until all INST and PROP chunks are collected.
+    /// Property chunks for this class.
     prop_chunks: Vec<DeferredChunk>,
 }
 
