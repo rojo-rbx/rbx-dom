@@ -66,11 +66,10 @@ struct TypeInfo<'db> {
     class_descriptor: Option<&'db ClassDescriptor<'db>>,
 }
 
-#[derive(Default)]
 struct TypeChunks {
     /// The instance chunk data.  Deserialization is delayed until all INST and PROP chunks are collected.
     /// Property chunks may appear before instance chunks in which case this will be None.
-    inst_chunk: Option<DeferredChunk>,
+    inst_chunk: DeferredChunk,
 
     /// Property chunks for this class.  Deserialization is delayed until all INST and PROP chunks are collected.
     prop_chunks: Vec<DeferredChunk>,
@@ -79,12 +78,6 @@ struct TypeChunks {
 struct DeferredChunks {
     type_chunks: HashMap<u32, TypeChunks>,
     prnt_chunk: Option<DeferredChunk>,
-}
-
-impl DeferredChunks {
-    fn get_or_create_type_chunks(&mut self, type_id: u32) -> &mut TypeChunks {
-        self.type_chunks.entry(type_id).or_default()
-    }
 }
 
 struct DeferredChunk {
@@ -299,14 +292,16 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         // chunk.truncate_front(rest);
         let start_position = cursor.position() as usize;
 
-        let replaced = self
-            .deferred_chunks
-            .get_or_create_type_chunks(type_id)
-            .inst_chunk
-            .replace(DeferredChunk {
-                chunk,
-                start_position,
-            });
+        let replaced = self.deferred_chunks.type_chunks.insert(
+            type_id,
+            TypeChunks {
+                inst_chunk: DeferredChunk {
+                    chunk,
+                    start_position,
+                },
+                prop_chunks: Vec::new(),
+            },
+        );
 
         assert!(replaced.is_none(), "Duplicate instance chunks");
 
@@ -367,7 +362,9 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let start_position = cursor.position() as usize;
 
         self.deferred_chunks
-            .get_or_create_type_chunks(type_id)
+            .type_chunks
+            .get_mut(&type_id)
+            .ok_or(InnerError::InvalidTypeId { type_id })?
             .prop_chunks
             .push(DeferredChunk {
                 chunk,
@@ -1599,19 +1596,16 @@ rbx-dom may require changes to fully support this property. Please open an issue
             .type_chunks
             .into_iter()
             .map(|(type_id, type_chunks)| {
-                let Some(inst_chunk) = type_chunks.inst_chunk else {
-                    return Err(InnerError::InvalidTypeId { type_id });
-                };
                 let type_info = Self::decode_inst_chunk(
                     &mut instances_by_ref,
                     database,
                     type_id,
-                    inst_chunk,
+                    type_chunks.inst_chunk,
                     type_chunks.prop_chunks.len(),
                 )?;
                 Ok((type_info, type_chunks.prop_chunks))
             })
-            .collect::<Result<Vec<_>, _>>()?;
+            .collect::<Result<Vec<_>, InnerError>>()?;
 
         let Some(prnt_chunk) = self.deferred_chunks.prnt_chunk else {
             panic!("No PRNT chunk");
