@@ -43,7 +43,7 @@ pub(super) struct DeserializerState<'db, R> {
 
     /// Deserialization of these chunks is delayed until
     /// all INST and PROP chunks are collected.
-    deferred_chunks: DeferredChunks,
+    deferred_chunks: DeferredChunks<'db>,
 
     /// How many instances are expected in the file
     num_instances: usize,
@@ -67,16 +67,19 @@ struct TypeInfo<'db> {
     class_descriptor: Option<&'db ClassDescriptor<'db>>,
 }
 
-struct TypeChunks {
+struct TypeChunks<'db> {
     /// The instance chunk data.
     inst_chunk: DeferredChunk,
+
+    type_name: String,
+    class_descriptor: Option<&'db ClassDescriptor<'db>>,
 
     /// Property chunks for this class.
     prop_chunks: Vec<DeferredChunk>,
 }
 
-struct DeferredChunks {
-    type_chunks: HashMap<u32, TypeChunks>,
+struct DeferredChunks<'db> {
+    type_chunks: HashMap<u32, TypeChunks<'db>>,
     prnt_chunk: Option<DeferredChunk>,
 }
 
@@ -286,11 +289,17 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let mut cursor = std::io::Cursor::new(chunk.as_slice());
         let type_id = cursor.read_le_u32()?;
 
+        let type_name = cursor.read_string()?;
+        let class_descriptor = self.deserializer.database.classes.get(type_name.as_str());
+        let expected_properties_len =
+            class_descriptor.map_or(0, |c| c.default_properties.len().max(c.properties.len()));
+
+        let start_position = cursor.position() as usize;
+
         // TODO: use VecDeque and truncate_front when it's stable.
         // let rest = chunk.len() - cursor.position() as usize;
         // let mut chunk: VecDeque<u8> = chunk.into();
         // chunk.truncate_front(rest);
-        let start_position = cursor.position() as usize;
 
         let replaced = self.deferred_chunks.type_chunks.insert(
             type_id,
@@ -299,7 +308,9 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                     chunk,
                     start_position,
                 },
-                prop_chunks: Vec::new(),
+                type_name,
+                class_descriptor,
+                prop_chunks: Vec::with_capacity(expected_properties_len),
             },
         );
 
@@ -311,14 +322,14 @@ impl<'db, R: Read> DeserializerState<'db, R> {
     #[profiling::function]
     fn decode_inst_chunk(
         instances_by_ref: &mut HashMap<i32, Instance>,
-        database: &'db ReflectionDatabase<'db>,
         type_id: u32,
+        type_name: String,
+        class_descriptor: Option<&'db ClassDescriptor<'db>>,
         inst_chunk: DeferredChunk,
         prop_capacity: usize,
     ) -> Result<TypeInfo<'db>, InnerError> {
         let mut chunk = inst_chunk.rest();
 
-        let type_name = chunk.read_string()?;
         let object_format = chunk.read_u8()?;
         let number_instances = chunk.read_le_u32()?;
 
@@ -329,8 +340,6 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let referents = chunk
             .read_referent_array(number_instances as usize)?
             .collect();
-
-        let class_descriptor = database.classes.get(type_name.as_str());
 
         // TODO: Check object_format and check for service markers if it's 1?
 
@@ -1598,8 +1607,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             .map(|(type_id, type_chunks)| {
                 let type_info = Self::decode_inst_chunk(
                     &mut instances_by_ref,
-                    database,
                     type_id,
+                    type_chunks.type_name,
+                    type_chunks.class_descriptor,
                     type_chunks.inst_chunk,
                     type_chunks.prop_chunks.len(),
                 )?;
