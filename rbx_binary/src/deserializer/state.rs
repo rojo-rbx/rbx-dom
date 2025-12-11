@@ -291,8 +291,13 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         let type_name = cursor.read_string()?;
         let class_descriptor = self.deserializer.database.classes.get(type_name.as_str());
-        let expected_properties_len =
-            class_descriptor.map_or(0, |c| c.default_properties.len().max(c.properties.len()));
+        let total_properties_max = class_descriptor.map_or(0, |descriptor| {
+            self.deserializer
+                .database
+                .superclasses_iter(descriptor)
+                .map(|descriptor| descriptor.properties.len())
+                .sum()
+        });
 
         let start_position = cursor.position() as usize;
 
@@ -310,7 +315,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 },
                 type_name,
                 class_descriptor,
-                prop_chunks: Vec::with_capacity(expected_properties_len),
+                prop_chunks: Vec::with_capacity(total_properties_max),
             },
         );
 
