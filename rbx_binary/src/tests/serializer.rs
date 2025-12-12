@@ -199,14 +199,7 @@ fn default_shared_string() {
 #[test]
 fn does_not_serialize() {
     let default_vector3 = Vector3::new(0.0, 0.0, 0.0);
-    let default_cframe = CFrame::new(
-        default_vector3,
-        rbx_dom_weak::types::Matrix3 {
-            x: default_vector3,
-            y: default_vector3,
-            z: default_vector3,
-        },
-    );
+    let default_cframe = CFrame::identity();
 
     let root = InstanceBuilder::new("Folder").with_children([
         InstanceBuilder::new("Motor6D").with_property("ChildName", String::new()),

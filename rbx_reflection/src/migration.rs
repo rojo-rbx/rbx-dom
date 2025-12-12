@@ -20,7 +20,7 @@ pub enum MigrationError {
     },
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
 pub struct PropertyMigration {
     #[serde(rename = "To")]
@@ -28,7 +28,7 @@ pub struct PropertyMigration {
     migration: MigrationOperation,
 }
 
-#[derive(Debug, Copy, Clone, Serialize, Deserialize)]
+#[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq)]
 #[non_exhaustive]
 pub enum MigrationOperation {
     IgnoreGuiInsetToScreenInsets,

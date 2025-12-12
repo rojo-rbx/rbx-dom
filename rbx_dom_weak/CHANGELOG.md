@@ -1,11 +1,15 @@
 # rbx_dom_weak Changelog
 
-## Unreleased Changes
+## 4.1.0 (2025-11-27)
 * Allow `WeakDom::transfer_within` to have the None Ref as the destination. ([#517])
+
+[#517]: https://github.com/rojo-rbx/rbx-dom/pull/517
 
 ## 4.0.0 (2025-10-10)
 * Updated to `rbx-types` v3.0.0, which includes a breaking change to a struct and a few enums. See the changelog of `rbx-types` for more information.
 * Add `WeakDom::ancestors_of` helper function. ([#520])
+
+[#520]: https://github.com/rojo-rbx/rbx-dom/pull/520
 
 ## 3.0.0 (2025-03-28)
 This version contains a number of breaking changes to achieve dramatically improved performance by interning property and class names with [ustr](https://docs.rs/ustr/latest/ustr/).
