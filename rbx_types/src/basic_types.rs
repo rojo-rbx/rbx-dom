@@ -190,6 +190,12 @@ impl CFrame {
             orientation,
         }
     }
+    pub const fn identity() -> Self {
+        Self {
+            position: Vector3::new(0.0, 0.0, 0.0),
+            orientation: Matrix3::identity(),
+        }
+    }
 }
 
 /// Used to represent the `orientation` field of `CFrame` and not a standalone
