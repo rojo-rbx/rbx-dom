@@ -291,6 +291,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         let type_name = cursor.read_string()?;
         let class_descriptor = self.deserializer.database.classes.get(type_name.as_str());
+
+        // Calculate the upper bound of how many PROP chunks can exist for this instance.
         let total_properties_max = class_descriptor.map_or(0, |descriptor| {
             self.deserializer
                 .database
