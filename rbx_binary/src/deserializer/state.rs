@@ -319,7 +319,9 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             },
         );
 
-        assert!(replaced.is_none(), "Duplicate instance chunks");
+        if replaced.is_some() {
+            return Err(InnerError::DuplicateInstChunk { type_id });
+        }
 
         Ok(())
     }
@@ -1537,7 +1539,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             start_position: 0,
         });
 
-        assert!(replaced.is_none(), "Duplicate prnt chunks");
+        if replaced.is_some() {
+            return Err(InnerError::DuplicatePrntChunk);
+        }
 
         Ok(())
     }
@@ -1623,7 +1627,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             .collect::<Result<Vec<_>, InnerError>>()?;
 
         let Some(prnt_chunk) = self.deferred_chunks.prnt_chunk else {
-            panic!("No PRNT chunk");
+            return Err(InnerError::MissingPrntChunk);
         };
         // Referents for all of the instances with no parent, in order they appear
         // in the file.
