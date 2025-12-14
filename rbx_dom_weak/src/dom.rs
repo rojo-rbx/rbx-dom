@@ -172,11 +172,12 @@ impl WeakDom {
         })
     }
 
-    /// Equivalent to Instance:GetFullName() from Roblox.
+    /// Equivalent to Instance:GetFullName() from Roblox,
+    /// but with a custom separator.
     ///
     /// ## Panics
     /// Panics if `subject_ref` is not a member of this DOM.
-    pub fn full_name_for(&self, subject_ref: Ref, separator: &str) -> String {
+    pub fn full_path_of(&self, subject_ref: Ref, separator: &str) -> String {
         let mut components: Vec<_> = self
             .ancestors_of(subject_ref)
             .map(|instance| instance.name.as_str())
@@ -928,7 +929,7 @@ mod test {
         let child_2 = dom.insert(child_1, InstanceBuilder::new("Part"));
         let child_3 = dom.insert(child_2, InstanceBuilder::new("Texture"));
 
-        assert_eq!(dom.full_name_for(child_3, "."), "Workspace.Part.Texture");
+        assert_eq!(dom.full_path_of(child_3, "."), "Workspace.Part.Texture");
     }
 
     #[test]
