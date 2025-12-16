@@ -164,6 +164,7 @@ impl<'db> From<SstrStage<'db>> for InstStage<'db> {
             shared_strings: stage.shared_strings,
             type_infos: HashMap::with_capacity(stage.num_types as usize),
             instances_by_ref: HashMap::with_capacity(1 + stage.num_instances as usize),
+            num_instances: stage.num_instances,
         }
     }
 }
@@ -180,6 +181,9 @@ pub struct InstStage<'db> {
 
     /// All of the instances known by the deserializer.
     instances_by_ref: HashMap<i32, Instance>,
+
+    /// How many instances are expected
+    num_instances: u32,
 }
 impl ChunkMany for InstStage<'_> {}
 impl<'db> Stage for InstStage<'db> {
@@ -196,6 +200,7 @@ impl<'db> From<InstStage<'db>> for PropStage<'db> {
             type_infos: stage.type_infos,
             instances_by_ref: stage.instances_by_ref,
             unknown_type_ids: HashSet::new(),
+            num_instances: stage.num_instances,
         }
     }
 }
@@ -217,6 +222,9 @@ pub struct PropStage<'db> {
     /// deserializing this file. We use this map in order to ensure we only
     /// print one warning per unknown type ID when deserializing a file.
     unknown_type_ids: HashSet<u8>,
+
+    /// How many instances are expected
+    num_instances: u32,
 }
 impl ChunkMany for PropStage<'_> {}
 impl Stage for PropStage<'_> {
@@ -230,6 +238,7 @@ impl<'db> From<PropStage<'db>> for PrntStage {
         Self {
             instances_by_ref: stage.instances_by_ref,
             root_instance_refs: Vec::new(),
+            num_instances: stage.num_instances,
         }
     }
 }
@@ -240,6 +249,9 @@ pub struct PrntStage {
     /// Referents for all of the instances with no parent, in order they appear
     /// in the file.
     root_instance_refs: Vec<i32>,
+
+    /// How many instances are expected
+    num_instances: u32,
 }
 impl ChunkUnique for PrntStage {}
 impl Stage for PrntStage {
@@ -1736,11 +1748,11 @@ impl From<EndStage> for WeakDom {
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     #[profiling::function]
-    fn from(mut value: EndStage) -> WeakDom {
+    fn from(EndStage(mut value): EndStage) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
 
         let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
-        tree.reserve(value.0.instances_by_ref.capacity());
+        tree.reserve(value.num_instances as usize);
 
         // Track all the instances we need to construct. Order of construction
         // is important to preserve for both determinism and sometimes
@@ -1751,12 +1763,12 @@ impl From<EndStage> for WeakDom {
         // tree. Because of the way rbx_dom_weak generally works, we need to
         // start at the top of the tree to begin construction.
         let root_ref = tree.root_ref();
-        for &referent in &value.0.root_instance_refs {
+        for &referent in &value.root_instance_refs {
             instances_to_construct.push_back((referent, root_ref));
         }
 
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            let instance = value.0.instances_by_ref.remove(&referent).unwrap();
+            let instance = value.instances_by_ref.remove(&referent).unwrap();
             let id = tree.insert(parent_ref, instance.builder);
 
             for referent in instance.children {
