@@ -29,6 +29,9 @@ pub(super) struct DeserializerState<R, S> {
     /// Decoding stage typestate.  Keeps track of
     /// which chunk is expected next, as well as relevant state.
     stage: S,
+
+    /// An upcoming chunk which has not been decoded yet.
+    next_chunk: Option<Chunk>,
 }
 
 /// The specific decoding implementation for the chunk type.
@@ -41,7 +44,23 @@ where
     S::Next: From<S>,
 {
     pub fn decode_optional(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
-        unimplemented!()
+        let chunk = match self.next_chunk {
+            Some(chunk) => chunk,
+            None => Chunk::decode(&mut self.input)?,
+        };
+
+        let next_chunk = if chunk.name == S::FOURCC {
+            self.stage.decode(chunk)?;
+            None
+        } else {
+            Some(chunk)
+        };
+
+        Ok(DeserializerState {
+            input: self.input,
+            stage: self.stage.into(),
+            next_chunk,
+        })
     }
 }
 
@@ -50,7 +69,10 @@ where
     S::Next: From<S>,
 {
     pub fn decode_one(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
-        let chunk = Chunk::decode(&mut self.input)?;
+        let chunk = match self.next_chunk {
+            Some(chunk) => chunk,
+            None => Chunk::decode(&mut self.input)?,
+        };
 
         if chunk.name == S::FOURCC {
             self.stage.decode(chunk)?;
@@ -64,6 +86,7 @@ where
         Ok(DeserializerState {
             input: self.input,
             stage: self.stage.into(),
+            next_chunk: None,
         })
     }
 }
@@ -73,7 +96,10 @@ where
     S::Next: From<S>,
 {
     pub fn decode_many(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
-        let mut chunk = Chunk::decode(&mut self.input)?;
+        let mut chunk = match self.next_chunk {
+            Some(chunk) => chunk,
+            None => Chunk::decode(&mut self.input)?,
+        };
 
         while chunk.name == S::FOURCC {
             self.stage.decode(chunk)?;
@@ -83,6 +109,7 @@ where
         Ok(DeserializerState {
             input: self.input,
             stage: self.stage.into(),
+            next_chunk: Some(chunk),
         })
     }
 }
@@ -435,6 +462,7 @@ impl<'db, R: Read> DeserializerState<R, MetaStage<'db>> {
                 num_types: header.num_types,
                 num_instances: header.num_instances,
             },
+            next_chunk: None,
         })
     }
 }
