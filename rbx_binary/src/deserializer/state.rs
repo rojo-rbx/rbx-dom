@@ -85,26 +85,26 @@ where
 }
 
 /// A decoding stage.
-trait Stage {
+pub trait Stage {
     const FOURCC: [u8; 4];
     type Next;
 }
 /// The specific chunk decoding implementation.
-trait Decode {
+pub trait Decode {
     fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError>;
 }
 
 // Marker traits for stages
 
 // Exactly one of this chunk exists
-trait ChunkUnique {}
+pub trait ChunkUnique {}
 // Zero or one of this chunk exists
-trait ChunkOptional {}
+pub trait ChunkOptional {}
 // Zero or more of these chunks may exist
-trait ChunkMany {}
+pub trait ChunkMany {}
 
 // === Metadata stage ===
-struct MetaStage<'db> {
+pub struct MetaStage<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
 
@@ -128,7 +128,7 @@ impl<'db> From<MetaStage<'db>> for SstrStage<'db> {
         }
     }
 }
-struct SstrStage<'db> {
+pub struct SstrStage<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
 
@@ -153,7 +153,7 @@ impl<'db> From<SstrStage<'db>> for InstStage<'db> {
         }
     }
 }
-struct InstStage<'db> {
+pub struct InstStage<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
 
@@ -185,7 +185,7 @@ impl<'db> From<InstStage<'db>> for PropStage<'db> {
         }
     }
 }
-struct PropStage<'db> {
+pub struct PropStage<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
 
@@ -219,7 +219,7 @@ impl<'db> From<PropStage<'db>> for PrntStage {
         }
     }
 }
-struct PrntStage {
+pub struct PrntStage {
     /// All of the instances known by the deserializer.
     instances_by_ref: HashMap<i32, Instance>,
 
@@ -239,7 +239,7 @@ impl From<PrntStage> for EndStage {
         Self(stage)
     }
 }
-struct EndStage(PrntStage);
+pub struct EndStage(PrntStage);
 impl ChunkUnique for EndStage {}
 impl Stage for EndStage {
     const FOURCC: [u8; 4] = *b"END\0";
