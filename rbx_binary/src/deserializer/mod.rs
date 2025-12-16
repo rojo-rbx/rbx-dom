@@ -72,10 +72,10 @@ impl<'db> Deserializer<'db> {
 
         let d_meta = DeserializerState::new(self, reader)?;
         let d_sstr = d_meta.decode_optional()?;
-        let d_inst = d_sstr.decode_one()?;
+        let d_inst = d_sstr.decode_optional()?;
         let d_prop = d_inst.decode_many()?;
         let d_prnt = d_prop.decode_many()?;
-        let d_end = d_prnt.decode_one()?;
+        let d_end = d_prnt.decode_optional()?;
 
         Ok(d_end.finish())
     }
