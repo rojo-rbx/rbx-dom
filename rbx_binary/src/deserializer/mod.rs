@@ -75,9 +75,10 @@ impl<'db> Deserializer<'db> {
         let d_inst = d_sstr.decode_optional()?;
         let d_prop = d_inst.decode_many()?;
         let d_prnt = d_prop.decode_many()?;
-        let d_end = d_prnt.decode_optional()?;
+        let d_end = d_prnt.decode_one()?;
+        let d_dom = d_end.decode_one()?;
 
-        Ok(d_end.finish())
+        Ok(d_dom.finish())
     }
 }
 

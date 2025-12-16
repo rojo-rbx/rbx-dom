@@ -241,7 +241,7 @@ pub struct PrntStage {
     /// in the file.
     root_instance_refs: Vec<i32>,
 }
-impl ChunkOptional for PrntStage {}
+impl ChunkUnique for PrntStage {}
 impl Stage for PrntStage {
     const FOURCC: [u8; 4] = *b"PRNT";
     type Next = EndStage;
@@ -258,6 +258,12 @@ impl ChunkUnique for EndStage {}
 impl Stage for EndStage {
     const FOURCC: [u8; 4] = *b"END\0";
     type Next = WeakDom;
+}
+
+impl<R> DeserializerState<R, WeakDom> {
+    pub(super) fn finish(self) -> WeakDom {
+        self.stage
+    }
 }
 
 /// Represents a unique instance class. Binary models define all their instance
@@ -403,7 +409,10 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
 }
 
 impl<'db, R: Read> DeserializerState<R, MetaStage<'db>> {
-    pub(super) fn new(deserializer: &'db Deserializer<'db>, mut input: R) -> Result<Self, InnerError> {
+    pub(super) fn new(
+        deserializer: &'db Deserializer<'db>,
+        mut input: R,
+    ) -> Result<Self, InnerError> {
         let header = FileHeader::decode(&mut input)?;
         Ok(Self {
             input,
@@ -1723,15 +1732,15 @@ impl<R: Read> Decode for DeserializerState<R, EndStage> {
     }
 }
 
-impl<R> DeserializerState<R, EndStage> {
+impl From<EndStage> for WeakDom {
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     #[profiling::function]
-    pub(super) fn finish(mut self) -> WeakDom {
+    fn from(mut value: EndStage) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
 
         let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
-        tree.reserve(self.stage.0.instances_by_ref.capacity());
+        tree.reserve(value.0.instances_by_ref.capacity());
 
         // Track all the instances we need to construct. Order of construction
         // is important to preserve for both determinism and sometimes
@@ -1742,12 +1751,12 @@ impl<R> DeserializerState<R, EndStage> {
         // tree. Because of the way rbx_dom_weak generally works, we need to
         // start at the top of the tree to begin construction.
         let root_ref = tree.root_ref();
-        for &referent in &self.stage.0.root_instance_refs {
+        for &referent in &value.0.root_instance_refs {
             instances_to_construct.push_back((referent, root_ref));
         }
 
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            let instance = self.stage.0.instances_by_ref.remove(&referent).unwrap();
+            let instance = value.0.instances_by_ref.remove(&referent).unwrap();
             let id = tree.insert(parent_ref, instance.builder);
 
             for referent in instance.children {
