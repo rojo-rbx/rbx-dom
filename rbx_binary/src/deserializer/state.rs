@@ -22,154 +22,112 @@ use crate::{
 
 use super::{error::InnerError, header::FileHeader, Deserializer};
 
-pub(super) struct DeserializerState<'db, R> {
+pub(super) struct DeserializerState<'db, R, S> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
 
     /// The input data encoded as a binary model.
     input: R,
 
-    /// The tree that instances should be written into. Eventually returned to
-    /// the user.
-    tree: WeakDom,
-
-    /// The metadata contained in the file, which affects how some constructs
-    /// are interpreted by Roblox.
-    metadata: HashMap<String, String>,
-
-    /// The SharedStrings contained in the file, if any, in the order that they
-    /// appear in the file.
-    shared_strings: Vec<SharedString>,
-
-    /// All of the instance types described by the file so far.
-    type_infos: HashMap<u32, TypeInfo<'db>>,
-
-    /// All of the instances known by the deserializer.
-    instances_by_ref: HashMap<i32, Instance>,
-
-    /// Referents for all of the instances with no parent, in order they appear
-    /// in the file.
-    root_instance_refs: Vec<i32>,
-
-    /// Contains a set of unknown type IDs that we've encountered so far while
-    /// deserializing this file. We use this map in order to ensure we only
-    /// print one warning per unknown type ID when deserializing a file.
-    unknown_type_ids: HashSet<u8>,
+    /// Decoding stage typestate.  Keeps track of
+    /// which chunk is expected next, as well as relevant state.
+    stage: S,
 }
+
+impl<'db, R: Read, S: ChunkUnique + Decode> DeserializerState<'db, R, S>
+where
+    S::Next: From<S>,
+{
+    fn decode_one(mut self) -> Result<DeserializerState<'db, R, S::Next>, InnerError> {
+        let chunk = Chunk::decode(&mut self.input)?;
+
+        if chunk.name == S::FOURCC {
+            self.stage.decode(chunk)?;
+        } else {
+            return Err(InnerError::UnexpectedChunk {
+                expected: str::from_utf8(&S::FOURCC).unwrap(),
+                actual: str::from_utf8(&chunk.name).unwrap().to_owned(),
+            });
+        }
+
+        Ok(DeserializerState {
+            deserializer: self.deserializer,
+            input: self.input,
+            stage: self.stage.into(),
+        })
+    }
+}
+
+impl<'db, R: Read, S: ChunkMany + Decode> DeserializerState<'db, R, S>
+where
+    S::Next: From<S>,
+{
+    fn decode_many(mut self) -> Result<DeserializerState<'db, R, S::Next>, InnerError> {
+        let mut chunk = Chunk::decode(&mut self.input)?;
+
+        while chunk.name == S::FOURCC {
+            self.stage.decode(chunk)?;
+            chunk = Chunk::decode(&mut self.input)?;
+        }
+
+        Ok(DeserializerState {
+            deserializer: self.deserializer,
+            input: self.input,
+            stage: self.stage.into(),
+        })
+    }
+}
+
+/// A decoding stage.
+trait Stage {
+    const FOURCC: [u8; 4];
+    type Next;
+}
+/// The specific chunk decoding implementation.
+trait Decode {
+    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError>;
+}
+
+// Exactly one of this chunk exists
+trait ChunkUnique: Stage {}
+// Zero or one of this chunk exists
+trait ChunkOptional: Stage {}
+// Zero or more of these chunks may exist
+trait ChunkMany: Stage {}
 
 struct MetaStage {}
-impl MetaStage {
-    const FOURCC: &[u8; 4] = b"META";
-    fn next_stage<R: Read>(mut self) -> Result<SstrStage, Error> {
-        let chunk = self.chunks.next_chunk()?;
-
-        match &chunk.name {
-            Self::FOURCC => self.decode(chunk)?,
-            observed => {
-                return Err(Error::ChunkOrder {
-                    expected: Self::FOURCC,
-                    observed,
-                })
-            }
-        }
-
-        Ok(SstrStage {
-            chunks: self.chunks,
-        })
-    }
+impl ChunkOptional for MetaStage {}
+impl Stage for MetaStage {
+    const FOURCC: [u8; 4] = *b"META";
+    type Next = SstrStage;
 }
 struct SstrStage {}
-impl SstrStage {
-    const FOURCC: &[u8; 4] = b"SSTR";
-    fn next_stage<R: Read>(mut self) -> Result<InstStage, Error> {
-        let chunk = self.chunks.next_chunk()?;
-
-        match &chunk.name {
-            Self::FOURCC => self.decode(chunk)?,
-            observed => {
-                return Err(Error::ChunkOrder {
-                    expected: Self::FOURCC,
-                    observed,
-                })
-            }
-        }
-
-        Ok(InstStage {
-            chunks: self.chunks,
-        })
-    }
+impl ChunkOptional for SstrStage {}
+impl Stage for SstrStage {
+    const FOURCC: [u8; 4] = *b"SSTR";
+    type Next = InstStage;
 }
 struct InstStage {}
-impl InstStage {
-    const FOURCC: &[u8; 4] = b"INST";
-    fn next_stage<R: Read>(mut self) -> Result<PropStage, Error> {
-        let mut chunk = self.chunks.next_chunk()?;
-        while chunk.name == Self::FOURCC {
-            self.decode(chunk)?;
-            chunk = self.chunks.next_chunk()?;
-        }
-
-        Ok(PropStage {
-            chunks: self.chunks,
-            next_chunk: chunk,
-        })
-    }
+impl Stage for InstStage {
+    const FOURCC: [u8; 4] = *b"INST";
+    type Next = PropStage;
 }
 struct PropStage {}
-impl PropStage {
-    const FOURCC: &[u8; 4] = b"PROP";
-    fn next_stage<R: Read>(mut self) -> Result<PrntStage, Error> {
-        let mut chunk = self.next_chunk;
-        while chunk.name == Self::FOURCC {
-            self.decode(chunk)?;
-            chunk = self.chunks.next_chunk()?;
-        }
-
-        Ok(PrntStage {
-            chunks: self.chunks,
-            next_chunk: chunk,
-        })
-    }
+impl Stage for PropStage {
+    const FOURCC: [u8; 4] = *b"PROP";
+    type Next = PrntStage;
 }
 struct PrntStage {}
-impl PrntStage {
-    const FOURCC: &[u8; 4] = b"PRNT";
-    fn next_stage<R: Read>(mut self) -> Result<EndStage, Error> {
-        let chunk = self.next_chunk;
-
-        match &chunk.name {
-            Self::FOURCC => self.decode(chunk)?,
-            observed => {
-                return Err(Error::ChunkOrder {
-                    expected: Self::FOURCC,
-                    observed,
-                })
-            }
-        }
-
-        Ok(EndStage {
-            chunks: self.chunks,
-        })
-    }
+impl ChunkOptional for PrntStage {}
+impl Stage for PrntStage {
+    const FOURCC: [u8; 4] = *b"PRNT";
+    type Next = EndStage;
 }
 struct EndStage {}
-impl EndStage {
-    const FOURCC: &[u8; 4] = b"END\0";
-    fn next_stage<R: Read>(mut self) -> Result<WeakDom, Error> {
-        let chunk = self.chunks.next_chunk()?;
-
-        match &chunk.name {
-            Self::FOURCC => self.decode(chunk)?,
-            observed => {
-                return Err(Error::ChunkOrder {
-                    expected: Self::FOURCC,
-                    observed,
-                })
-            }
-        }
-
-        Ok(self.tree)
-    }
+impl ChunkUnique for EndStage {}
+impl Stage for EndStage {
+    const FOURCC: [u8; 4] = *b"END\0";
+    type Next = WeakDom;
 }
 
 /// Represents a unique instance class. Binary models define all their instance
@@ -339,10 +297,6 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             root_instance_refs: Vec::new(),
             unknown_type_ids: HashSet::new(),
         })
-    }
-
-    pub(super) fn next_chunk(&mut self) -> Result<Chunk, InnerError> {
-        Ok(Chunk::decode(&mut self.input)?)
     }
 
     #[profiling::function]
