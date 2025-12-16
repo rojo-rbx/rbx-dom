@@ -139,7 +139,9 @@ impl ChunkUnique for EndStage {}
 
 /// A decoding stage.
 pub trait Stage {
+    /// The Four-character code expected in chunks decoded by this stage.
     const FOURCC: [u8; 4];
+    /// The next stage.
     type Next;
     fn into_next(self) -> Self::Next;
 }
