@@ -57,6 +57,30 @@ pub(super) struct DeserializerState<'db, R> {
     unknown_type_ids: HashSet<u8>,
 }
 
+// b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
+// b"SSTR" => deserializer.decode_sstr_chunk(&chunk.data)?,
+// b"INST" => deserializer.decode_inst_chunk(&chunk.data)?,
+// b"PROP" => deserializer.decode_prop_chunk(&chunk.data)?,
+// b"PRNT" => deserializer.decode_prnt_chunk(&chunk.data)?,
+// b"END\0" => {
+struct MetaStage{}
+impl MetaStage{
+    const FOURCC:&[u8;4]=b"META";
+    fn next_stage<R:Read>(mut self, reader: R) -> Result<SstrStage, Error> {
+        let chunk = self.chunks.next_chunk()?;
+
+        match &chunk.name {
+            Self::FOURCC => self.decode(chunk),
+            observed => return Err(Error::ChunkOrder{expected:Self::FOURCC,observed}),
+        }
+
+        Ok(SstrStage{
+            chunks:self.chunks,
+        })
+    }
+}
+struct SstrStage{}
+
 /// Represents a unique instance class. Binary models define all their instance
 /// types up front and give them a short u32 identifier.
 struct TypeInfo<'db> {
