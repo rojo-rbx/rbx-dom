@@ -521,6 +521,7 @@ impl Decode for SstrStage<'_> {
         }
 
         let num_entries = chunk.read_le_u32()?;
+        self.shared_strings.reserve(num_entries as usize);
 
         for _ in 0..num_entries {
             chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
