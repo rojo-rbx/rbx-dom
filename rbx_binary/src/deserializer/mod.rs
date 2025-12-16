@@ -70,15 +70,15 @@ impl<'db> Deserializer<'db> {
     pub fn deserialize<R: Read>(&self, reader: R) -> Result<WeakDom, Error> {
         profiling::scope!("rbx_binary::deserialize");
 
-        let d_meta = DeserializerState::new(self, reader)?;
-        let d_sstr = d_meta.decode_optional()?;
-        let d_inst = d_sstr.decode_optional()?;
-        let d_prop = d_inst.decode_many()?;
-        let d_prnt = d_prop.decode_many()?;
-        let d_end = d_prnt.decode_one()?;
-        let d_dom = d_end.decode_one()?;
+        let stage_meta = DeserializerState::new(self, reader)?;
+        let stage_sstr = stage_meta.decode_optional()?;
+        let stage_inst = stage_sstr.decode_optional()?;
+        let stage_prop = stage_inst.decode_many()?;
+        let stage_prnt = stage_prop.decode_many()?;
+        let stage_end = stage_prnt.decode_one()?;
+        let stage_dom = stage_end.decode_one()?;
 
-        Ok(d_dom.finish())
+        Ok(stage_dom.finish())
     }
 }
 
