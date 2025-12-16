@@ -31,11 +31,8 @@ pub struct MetaStage<'db> {
     /// are interpreted by Roblox.  It is dropped immediately.
     metadata: HashMap<String, String>,
 
-    /// How many type_ids are expected
-    num_types: u32,
-
-    /// How many instances are expected
-    num_instances: u32,
+    /// FileHeader being plumbed through the stages
+    header: FileHeader,
 }
 
 // === Shared string stage ===
@@ -47,11 +44,8 @@ pub struct SstrStage<'db> {
     /// appear in the file.
     shared_strings: Vec<SharedString>,
 
-    /// How many type_ids are expected
-    num_types: u32,
-
-    /// How many instances are expected
-    num_instances: u32,
+    /// FileHeader being plumbed through the stages
+    header: FileHeader,
 }
 
 // === Instance stage ===
@@ -157,8 +151,7 @@ impl<'db> Stage for MetaStage<'db> {
         Self::Next {
             deserializer: self.deserializer,
             shared_strings: Vec::new(),
-            num_types: self.num_types,
-            num_instances: self.num_instances,
+            header: self.header,
         }
     }
 }
@@ -169,9 +162,9 @@ impl<'db> Stage for SstrStage<'db> {
         Self::Next {
             deserializer: self.deserializer,
             shared_strings: self.shared_strings,
-            type_infos: HashMap::with_capacity(self.num_types as usize),
-            instances_by_ref: HashMap::with_capacity(1 + self.num_instances as usize),
-            num_instances: self.num_instances,
+            type_infos: HashMap::with_capacity(self.header.num_types as usize),
+            instances_by_ref: HashMap::with_capacity(1 + self.header.num_instances as usize),
+            num_instances: self.header.num_instances,
         }
     }
 }
@@ -458,8 +451,7 @@ impl<'db, R: Read> DeserializerState<R, MetaStage<'db>> {
             stage: MetaStage {
                 deserializer,
                 metadata: HashMap::new(),
-                num_types: header.num_types,
-                num_instances: header.num_instances,
+                header,
             },
             next_chunk: None,
         })
