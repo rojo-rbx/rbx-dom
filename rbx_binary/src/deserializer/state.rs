@@ -230,11 +230,11 @@ pub(super) struct DeserializerState<R, S> {
 }
 
 /// The specific decoding implementation for the chunk type.
-pub trait Decode {
-    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError>;
+pub trait DecodeChunk {
+    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError>;
 }
 
-impl<R: Read, S: ChunkOptional + Stage + Decode> DeserializerState<R, S> {
+impl<R: Read, S: ChunkOptional + Stage + DecodeChunk> DeserializerState<R, S> {
     pub fn decode_optional(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
         let chunk = match self.next_chunk {
             Some(chunk) => chunk,
@@ -242,7 +242,7 @@ impl<R: Read, S: ChunkOptional + Stage + Decode> DeserializerState<R, S> {
         };
 
         let next_chunk = if chunk.name == S::FOURCC {
-            self.stage.decode(chunk)?;
+            self.stage.decode_chunk(chunk)?;
             None
         } else {
             Some(chunk)
@@ -256,7 +256,7 @@ impl<R: Read, S: ChunkOptional + Stage + Decode> DeserializerState<R, S> {
     }
 }
 
-impl<R: Read, S: ChunkOnce + Stage + Decode> DeserializerState<R, S> {
+impl<R: Read, S: ChunkOnce + Stage + DecodeChunk> DeserializerState<R, S> {
     pub fn decode_once(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
         let chunk = match self.next_chunk {
             Some(chunk) => chunk,
@@ -264,7 +264,7 @@ impl<R: Read, S: ChunkOnce + Stage + Decode> DeserializerState<R, S> {
         };
 
         if chunk.name == S::FOURCC {
-            self.stage.decode(chunk)?;
+            self.stage.decode_chunk(chunk)?;
         } else {
             return Err(InnerError::UnexpectedChunk {
                 expected: str::from_utf8(&S::FOURCC).unwrap(),
@@ -280,7 +280,7 @@ impl<R: Read, S: ChunkOnce + Stage + Decode> DeserializerState<R, S> {
     }
 }
 
-impl<R: Read, S: ChunkRepeated + Stage + Decode> DeserializerState<R, S> {
+impl<R: Read, S: ChunkRepeated + Stage + DecodeChunk> DeserializerState<R, S> {
     pub fn decode_repeated(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
         let mut chunk = match self.next_chunk {
             Some(chunk) => chunk,
@@ -288,7 +288,7 @@ impl<R: Read, S: ChunkRepeated + Stage + Decode> DeserializerState<R, S> {
         };
 
         while chunk.name == S::FOURCC {
-            self.stage.decode(chunk)?;
+            self.stage.decode_chunk(chunk)?;
             chunk = Chunk::decode(&mut self.input)?;
         }
 
@@ -460,9 +460,9 @@ impl<'db, R: Read> DeserializerState<R, MetaStage<'db>> {
     }
 }
 
-impl Decode for MetaStage<'_> {
+impl DecodeChunk for MetaStage<'_> {
     #[profiling::function]
-    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
 
         let len = chunk.read_le_u32()?;
@@ -479,9 +479,9 @@ impl Decode for MetaStage<'_> {
     }
 }
 
-impl Decode for SstrStage<'_> {
+impl DecodeChunk for SstrStage<'_> {
     #[profiling::function]
-    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
 
         let version = chunk.read_le_u32()?;
@@ -506,9 +506,9 @@ impl Decode for SstrStage<'_> {
     }
 }
 
-impl Decode for InstStage<'_> {
+impl DecodeChunk for InstStage<'_> {
     #[profiling::function]
-    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
 
         let type_id = chunk.read_le_u32()?;
@@ -560,9 +560,9 @@ impl Decode for InstStage<'_> {
     }
 }
 
-impl Decode for PropStage<'_> {
+impl DecodeChunk for PropStage<'_> {
     #[profiling::function]
-    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
 
         let type_id = chunk.read_le_u32()?;
@@ -1708,9 +1708,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
     }
 }
 
-impl Decode for PrntStage {
+impl DecodeChunk for PrntStage {
     #[profiling::function]
-    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
 
         let version = chunk.read_u8()?;
@@ -1742,9 +1742,9 @@ impl Decode for PrntStage {
     }
 }
 
-impl Decode for EndStage {
+impl DecodeChunk for EndStage {
     #[profiling::function]
-    fn decode(&mut self, _chunk: Chunk) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, _chunk: Chunk) -> Result<(), InnerError> {
         log::trace!("END chunk");
 
         // We don't do any validation on the END chunk. There's no useful
