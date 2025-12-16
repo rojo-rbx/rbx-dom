@@ -2,7 +2,7 @@ mod error;
 mod header;
 mod state;
 
-use std::{io::Read, str};
+use std::io::Read;
 
 use rbx_dom_weak::WeakDom;
 use rbx_reflection::ReflectionDatabase;

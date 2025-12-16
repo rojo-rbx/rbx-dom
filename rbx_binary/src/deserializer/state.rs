@@ -111,6 +111,12 @@ pub struct MetaStage<'db> {
     /// The metadata contained in the file, which affects how some constructs
     /// are interpreted by Roblox.  It is dropped immediately.
     metadata: HashMap<String, String>,
+
+    /// How many type_ids are expected
+    num_types: u32,
+
+    /// How many instances are expected
+    num_instances: u32,
 }
 impl ChunkOptional for MetaStage<'_> {}
 impl<'db> Stage for MetaStage<'db> {
@@ -121,10 +127,12 @@ impl<'db> Stage for MetaStage<'db> {
 // === Shared string stage ===
 impl<'db> From<MetaStage<'db>> for SstrStage<'db> {
     fn from(stage: MetaStage<'db>) -> Self {
-        // metadata is dropped!
+        // Metadata is dropped!
         Self {
             deserializer: stage.deserializer,
             shared_strings: Vec::new(),
+            num_types: stage.num_types,
+            num_instances: stage.num_instances,
         }
     }
 }
@@ -135,6 +143,12 @@ pub struct SstrStage<'db> {
     /// The SharedStrings contained in the file, if any, in the order that they
     /// appear in the file.
     shared_strings: Vec<SharedString>,
+
+    /// How many type_ids are expected
+    num_types: u32,
+
+    /// How many instances are expected
+    num_instances: u32,
 }
 impl ChunkOptional for SstrStage<'_> {}
 impl<'db> Stage for SstrStage<'db> {
@@ -148,8 +162,8 @@ impl<'db> From<SstrStage<'db>> for InstStage<'db> {
         Self {
             deserializer: stage.deserializer,
             shared_strings: stage.shared_strings,
-            type_infos: HashMap::with_capacity(todo!()),
-            instances_by_ref: HashMap::with_capacity(todo!()),
+            type_infos: HashMap::with_capacity(stage.num_types as usize),
+            instances_by_ref: HashMap::with_capacity(1 + stage.num_instances as usize),
         }
     }
 }
@@ -389,12 +403,15 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
 }
 
 impl<'db, R: Read> DeserializerState<R, MetaStage<'db>> {
-    pub(super) fn new(deserializer: &'db Deserializer<'db>, input: R) -> Result<Self, InnerError> {
+    pub(super) fn new(deserializer: &'db Deserializer<'db>, mut input: R) -> Result<Self, InnerError> {
+        let header = FileHeader::decode(&mut input)?;
         Ok(Self {
             input,
             stage: MetaStage {
                 deserializer,
                 metadata: HashMap::new(),
+                num_types: header.num_types,
+                num_instances: header.num_instances,
             },
         })
     }
@@ -1714,7 +1731,7 @@ impl<R> DeserializerState<R, EndStage> {
         log::trace!("Constructing tree from deserialized data");
 
         let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
-        tree.reserve(todo!());
+        tree.reserve(self.stage.0.instances_by_ref.capacity());
 
         // Track all the instances we need to construct. Order of construction
         // is important to preserve for both determinism and sometimes
