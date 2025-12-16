@@ -34,11 +34,20 @@ pub(super) struct DeserializerState<'db, R, S> {
     stage: S,
 }
 
+impl<'db, R: Read, S: ChunkOptional + Stage + Decode> DeserializerState<'db, R, S>
+where
+    S::Next: From<S>,
+{
+    pub fn decode_optional(mut self) -> Result<DeserializerState<'db, R, S::Next>, InnerError> {
+        unimplemented!()
+    }
+}
+
 impl<'db, R: Read, S: ChunkUnique + Stage + Decode> DeserializerState<'db, R, S>
 where
     S::Next: From<S>,
 {
-    fn decode_one(mut self) -> Result<DeserializerState<'db, R, S::Next>, InnerError> {
+    pub fn decode_one(mut self) -> Result<DeserializerState<'db, R, S::Next>, InnerError> {
         let chunk = Chunk::decode(&mut self.input)?;
 
         if chunk.name == S::FOURCC {
@@ -62,7 +71,7 @@ impl<'db, R: Read, S: ChunkMany + Stage + Decode> DeserializerState<'db, R, S>
 where
     S::Next: From<S>,
 {
-    fn decode_many(mut self) -> Result<DeserializerState<'db, R, S::Next>, InnerError> {
+    pub fn decode_many(mut self) -> Result<DeserializerState<'db, R, S::Next>, InnerError> {
         let mut chunk = Chunk::decode(&mut self.input)?;
 
         while chunk.name == S::FOURCC {
@@ -95,24 +104,43 @@ trait ChunkOptional {}
 // Zero or more of these chunks may exist
 trait ChunkMany {}
 
-struct MetaStage {}
+#[derive(Default)]
+struct MetaStage {
+    /// The metadata contained in the file, which affects how some constructs
+    /// are interpreted by Roblox.  It is dropped immediately.
+    metadata: HashMap<String, String>,
+}
 impl ChunkOptional for MetaStage {}
 impl Stage for MetaStage {
     const FOURCC: [u8; 4] = *b"META";
     type Next = SstrStage;
 }
-struct SstrStage {}
+impl From<MetaStage> for SstrStage {
+    fn from(_value: MetaStage) -> Self {
+        // metadata is dropped!
+        Self::default()
+    }
+}
+
+#[derive(Default)]
+struct SstrStage {
+    /// The SharedStrings contained in the file, if any, in the order that they
+    /// appear in the file.
+    shared_strings: Vec<SharedString>,
+}
 impl ChunkOptional for SstrStage {}
 impl Stage for SstrStage {
     const FOURCC: [u8; 4] = *b"SSTR";
     type Next = InstStage;
 }
 struct InstStage {}
+impl ChunkMany for InstStage {}
 impl Stage for InstStage {
     const FOURCC: [u8; 4] = *b"INST";
     type Next = PropStage;
 }
 struct PropStage {}
+impl ChunkMany for PropStage {}
 impl Stage for PropStage {
     const FOURCC: [u8; 4] = *b"PROP";
     type Next = PrntStage;
@@ -273,23 +301,11 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
 }
 
 impl<'db, R: Read> DeserializerState<'db, R, MetaStage> {
-    pub(super) fn new(
-        deserializer: &'db Deserializer<'db>,
-        mut input: R,
-    ) -> Result<Self, InnerError> {
-        let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
-
-        let header = FileHeader::decode(&mut input)?;
-
-        let type_infos = HashMap::with_capacity(header.num_types as usize);
-        let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
-
-        tree.reserve(header.num_instances as usize);
-
-        Ok(DeserializerState {
+    pub(super) fn new(deserializer: &'db Deserializer<'db>, input: R) -> Result<Self, InnerError> {
+        Ok(Self {
             deserializer,
             input,
-            stage: MetaStage {},
+            stage: MetaStage::default(),
         })
     }
 }

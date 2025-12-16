@@ -70,29 +70,14 @@ impl<'db> Deserializer<'db> {
     pub fn deserialize<R: Read>(&self, reader: R) -> Result<WeakDom, Error> {
         profiling::scope!("rbx_binary::deserialize");
 
-        let mut deserializer = DeserializerState::new(self, reader)?;
+        let d_meta = DeserializerState::new(self, reader)?;
+        let d_sstr = d_meta.decode_optional()?;
+        let d_inst = d_sstr.decode_one()?;
+        let d_prop = d_inst.decode_many()?;
+        let d_prnt = d_prop.decode_many()?;
+        let d_end = d_prnt.decode_one()?;
 
-        loop {
-            let chunk = deserializer.next_chunk()?;
-
-            match &chunk.name {
-                b"META" => deserializer.decode_meta_chunk(&chunk.data)?,
-                b"SSTR" => deserializer.decode_sstr_chunk(&chunk.data)?,
-                b"INST" => deserializer.decode_inst_chunk(&chunk.data)?,
-                b"PROP" => deserializer.decode_prop_chunk(&chunk.data)?,
-                b"PRNT" => deserializer.decode_prnt_chunk(&chunk.data)?,
-                b"END\0" => {
-                    deserializer.decode_end_chunk(&chunk.data)?;
-                    break;
-                }
-                _ => match str::from_utf8(&chunk.name) {
-                    Ok(name) => log::info!("Unknown binary chunk name {name}"),
-                    Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
-                },
-            }
-        }
-
-        Ok(deserializer.finish())
+        Ok(d_end.finish())
     }
 }
 
