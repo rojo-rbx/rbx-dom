@@ -22,89 +22,6 @@ use crate::{
 
 use super::{error::InnerError, header::FileHeader, Deserializer};
 
-pub(super) struct DeserializerState<R, S> {
-    /// The input data encoded as a binary model.
-    input: R,
-
-    /// Decoding stage typestate.  Keeps track of
-    /// which chunk is expected next, as well as relevant state.
-    stage: S,
-
-    /// An upcoming chunk which has not been decoded yet.
-    next_chunk: Option<Chunk>,
-}
-
-/// The specific decoding implementation for the chunk type.
-pub trait Decode {
-    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError>;
-}
-
-impl<R: Read, S: ChunkOptional + Stage + Decode> DeserializerState<R, S> {
-    pub fn decode_optional(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
-        let chunk = match self.next_chunk {
-            Some(chunk) => chunk,
-            None => Chunk::decode(&mut self.input)?,
-        };
-
-        let next_chunk = if chunk.name == S::FOURCC {
-            self.stage.decode(chunk)?;
-            None
-        } else {
-            Some(chunk)
-        };
-
-        Ok(DeserializerState {
-            input: self.input,
-            stage: self.stage.into_next(),
-            next_chunk,
-        })
-    }
-}
-
-impl<R: Read, S: ChunkUnique + Stage + Decode> DeserializerState<R, S> {
-    pub fn decode_one(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
-        let chunk = match self.next_chunk {
-            Some(chunk) => chunk,
-            None => Chunk::decode(&mut self.input)?,
-        };
-
-        if chunk.name == S::FOURCC {
-            self.stage.decode(chunk)?;
-        } else {
-            return Err(InnerError::UnexpectedChunk {
-                expected: str::from_utf8(&S::FOURCC).unwrap(),
-                actual: str::from_utf8(&chunk.name).unwrap().to_owned(),
-            });
-        }
-
-        Ok(DeserializerState {
-            input: self.input,
-            stage: self.stage.into_next(),
-            next_chunk: None,
-        })
-    }
-}
-
-impl<R: Read, S: ChunkMany + Stage + Decode> DeserializerState<R, S> {
-    pub fn decode_many(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
-        let mut chunk = match self.next_chunk {
-            Some(chunk) => chunk,
-            None => Chunk::decode(&mut self.input)?,
-        };
-
-        while chunk.name == S::FOURCC {
-            self.stage.decode(chunk)?;
-            chunk = Chunk::decode(&mut self.input)?;
-        }
-
-        Ok(DeserializerState {
-            input: self.input,
-            stage: self.stage.into_next(),
-            next_chunk: Some(chunk),
-        })
-    }
-}
-
 // === Metadata stage ===
 pub struct MetaStage<'db> {
     /// The user-provided configuration that we should use.
@@ -302,6 +219,89 @@ impl Stage for EndStage {
             instances_by_ref: stage.instances_by_ref,
             root_instance_refs: stage.root_instance_refs,
         }
+    }
+}
+
+pub(super) struct DeserializerState<R, S> {
+    /// The input data encoded as a binary model.
+    input: R,
+
+    /// Decoding stage typestate.  Keeps track of
+    /// which chunk is expected next, as well as relevant state.
+    stage: S,
+
+    /// An upcoming chunk which has not been decoded yet.
+    next_chunk: Option<Chunk>,
+}
+
+/// The specific decoding implementation for the chunk type.
+pub trait Decode {
+    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError>;
+}
+
+impl<R: Read, S: ChunkOptional + Stage + Decode> DeserializerState<R, S> {
+    pub fn decode_optional(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
+        let chunk = match self.next_chunk {
+            Some(chunk) => chunk,
+            None => Chunk::decode(&mut self.input)?,
+        };
+
+        let next_chunk = if chunk.name == S::FOURCC {
+            self.stage.decode(chunk)?;
+            None
+        } else {
+            Some(chunk)
+        };
+
+        Ok(DeserializerState {
+            input: self.input,
+            stage: self.stage.into_next(),
+            next_chunk,
+        })
+    }
+}
+
+impl<R: Read, S: ChunkUnique + Stage + Decode> DeserializerState<R, S> {
+    pub fn decode_one(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
+        let chunk = match self.next_chunk {
+            Some(chunk) => chunk,
+            None => Chunk::decode(&mut self.input)?,
+        };
+
+        if chunk.name == S::FOURCC {
+            self.stage.decode(chunk)?;
+        } else {
+            return Err(InnerError::UnexpectedChunk {
+                expected: str::from_utf8(&S::FOURCC).unwrap(),
+                actual: str::from_utf8(&chunk.name).unwrap().to_owned(),
+            });
+        }
+
+        Ok(DeserializerState {
+            input: self.input,
+            stage: self.stage.into_next(),
+            next_chunk: None,
+        })
+    }
+}
+
+impl<R: Read, S: ChunkMany + Stage + Decode> DeserializerState<R, S> {
+    pub fn decode_many(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
+        let mut chunk = match self.next_chunk {
+            Some(chunk) => chunk,
+            None => Chunk::decode(&mut self.input)?,
+        };
+
+        while chunk.name == S::FOURCC {
+            self.stage.decode(chunk)?;
+            chunk = Chunk::decode(&mut self.input)?;
+        }
+
+        Ok(DeserializerState {
+            input: self.input,
+            stage: self.stage.into_next(),
+            next_chunk: Some(chunk),
+        })
     }
 }
 
