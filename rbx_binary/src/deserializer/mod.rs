@@ -73,10 +73,10 @@ impl<'db> Deserializer<'db> {
         let stage_meta = DeserializerState::new(self, reader)?;
         let stage_sstr = stage_meta.decode_optional()?;
         let stage_inst = stage_sstr.decode_optional()?;
-        let stage_prop = stage_inst.decode_many()?;
-        let stage_prnt = stage_prop.decode_many()?;
-        let stage_end = stage_prnt.decode_one()?;
-        let stage_finish = stage_end.decode_one()?;
+        let stage_prop = stage_inst.decode_repeated()?;
+        let stage_prnt = stage_prop.decode_repeated()?;
+        let stage_end = stage_prnt.decode_once()?;
+        let stage_finish = stage_end.decode_once()?;
 
         Ok(stage_finish.finish())
     }

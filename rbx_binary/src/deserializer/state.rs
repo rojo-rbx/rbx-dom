@@ -123,19 +123,19 @@ pub struct FinishStage {
 
 // Marker traits for stages
 
-// Exactly one of this chunk exists
-pub trait ChunkUnique {}
-// Zero or one of this chunk exists
+/// Exactly one of this chunk exists
+pub trait ChunkOnce {}
+/// Zero or one of this chunk exists
 pub trait ChunkOptional {}
-// Zero or more of these chunks may exist
-pub trait ChunkMany {}
+/// Zero or more of these chunks may exist
+pub trait ChunkRepeated {}
 
 impl ChunkOptional for MetaStage<'_> {}
 impl ChunkOptional for SstrStage<'_> {}
-impl ChunkMany for InstStage<'_> {}
-impl ChunkMany for PropStage<'_> {}
-impl ChunkUnique for PrntStage {}
-impl ChunkUnique for EndStage {}
+impl ChunkRepeated for InstStage<'_> {}
+impl ChunkRepeated for PropStage<'_> {}
+impl ChunkOnce for PrntStage {}
+impl ChunkOnce for EndStage {}
 
 /// A decoding stage.
 pub trait Stage {
@@ -256,8 +256,8 @@ impl<R: Read, S: ChunkOptional + Stage + Decode> DeserializerState<R, S> {
     }
 }
 
-impl<R: Read, S: ChunkUnique + Stage + Decode> DeserializerState<R, S> {
-    pub fn decode_one(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
+impl<R: Read, S: ChunkOnce + Stage + Decode> DeserializerState<R, S> {
+    pub fn decode_once(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
         let chunk = match self.next_chunk {
             Some(chunk) => chunk,
             None => Chunk::decode(&mut self.input)?,
@@ -280,8 +280,8 @@ impl<R: Read, S: ChunkUnique + Stage + Decode> DeserializerState<R, S> {
     }
 }
 
-impl<R: Read, S: ChunkMany + Stage + Decode> DeserializerState<R, S> {
-    pub fn decode_many(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
+impl<R: Read, S: ChunkRepeated + Stage + Decode> DeserializerState<R, S> {
+    pub fn decode_repeated(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
         let mut chunk = match self.next_chunk {
             Some(chunk) => chunk,
             None => Chunk::decode(&mut self.input)?,
