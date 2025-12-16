@@ -34,7 +34,7 @@ pub(super) struct DeserializerState<'db, R, S> {
     stage: S,
 }
 
-impl<'db, R: Read, S: ChunkUnique + Decode> DeserializerState<'db, R, S>
+impl<'db, R: Read, S: ChunkUnique + Stage + Decode> DeserializerState<'db, R, S>
 where
     S::Next: From<S>,
 {
@@ -58,7 +58,7 @@ where
     }
 }
 
-impl<'db, R: Read, S: ChunkMany + Decode> DeserializerState<'db, R, S>
+impl<'db, R: Read, S: ChunkMany + Stage + Decode> DeserializerState<'db, R, S>
 where
     S::Next: From<S>,
 {
@@ -89,11 +89,11 @@ trait Decode {
 }
 
 // Exactly one of this chunk exists
-trait ChunkUnique: Stage {}
+trait ChunkUnique {}
 // Zero or one of this chunk exists
-trait ChunkOptional: Stage {}
+trait ChunkOptional {}
 // Zero or more of these chunks may exist
-trait ChunkMany: Stage {}
+trait ChunkMany {}
 
 struct MetaStage {}
 impl ChunkOptional for MetaStage {}
@@ -272,7 +272,7 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
     }
 }
 
-impl<'db, R: Read> DeserializerState<'db, R> {
+impl<'db, R: Read> DeserializerState<'db, R, MetaStage> {
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
         mut input: R,
@@ -289,18 +289,16 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         Ok(DeserializerState {
             deserializer,
             input,
-            tree,
-            metadata: HashMap::new(),
-            shared_strings: Vec::new(),
-            type_infos,
-            instances_by_ref,
-            root_instance_refs: Vec::new(),
-            unknown_type_ids: HashSet::new(),
+            stage: MetaStage {},
         })
     }
+}
 
+impl Decode for MetaStage {
     #[profiling::function]
-    pub(super) fn decode_meta_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+        let mut chunk = chunk.data.as_slice();
+
         let len = chunk.read_le_u32()?;
         self.metadata.reserve(len as usize);
 
@@ -313,9 +311,13 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         Ok(())
     }
+}
 
+impl Decode for SstrStage {
     #[profiling::function]
-    pub(super) fn decode_sstr_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+        let mut chunk = chunk.data.as_slice();
+
         let version = chunk.read_le_u32()?;
 
         if version != 0 {
@@ -335,9 +337,13 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         Ok(())
     }
+}
 
+impl Decode for InstStage {
     #[profiling::function]
-    pub(super) fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+        let mut chunk = chunk.data.as_slice();
+
         let type_id = chunk.read_le_u32()?;
         let type_name = chunk.read_string()?;
         let object_format = chunk.read_u8()?;
@@ -385,9 +391,13 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         Ok(())
     }
+}
 
+impl Decode for PropStage {
     #[profiling::function]
-    pub(super) fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+        let mut chunk = chunk.data.as_slice();
+
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
 
@@ -1529,9 +1539,13 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
         Ok(())
     }
+}
 
+impl Decode for PrntStage {
     #[profiling::function]
-    pub(super) fn decode_prnt_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
+        let mut chunk = chunk.data.as_slice();
+
         let version = chunk.read_u8()?;
 
         if version != 0 {
@@ -1559,9 +1573,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
         Ok(())
     }
+}
 
+impl Decode for EndStage {
     #[profiling::function]
-    pub(super) fn decode_end_chunk(&mut self, _chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode(&mut self, _chunk: Chunk) -> Result<(), InnerError> {
         log::trace!("END chunk");
 
         // We don't do any validation on the END chunk. There's no useful
@@ -1570,7 +1586,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
         Ok(())
     }
+}
 
+impl<R> DeserializerState<'_, R, EndStage> {
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     #[profiling::function]
