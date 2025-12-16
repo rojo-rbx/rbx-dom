@@ -165,7 +165,7 @@ pub struct InstStage<'db> {
     num_instances: u32,
 }
 
-// === Prop stage ===
+// === Property stage ===
 pub struct PropStage<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
