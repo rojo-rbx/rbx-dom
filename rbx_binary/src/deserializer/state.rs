@@ -202,8 +202,22 @@ pub struct PrntStage {
     num_instances: u32,
 }
 
-// === Final stage ===
+// === End chunk stage ===
 pub struct EndStage(PrntStage);
+
+// === Final stage ===
+pub struct FinishStage {
+    /// The tree that instances should be written into.
+    /// This is what is returned to the user.
+    tree: WeakDom,
+
+    /// All of the instances known by the deserializer.
+    instances_by_ref: HashMap<i32, Instance>,
+
+    /// Referents for all of the instances with no parent, in order they appear
+    /// in the file.
+    root_instance_refs: Vec<i32>,
+}
 
 // Marker traits for stages
 
@@ -248,7 +262,7 @@ impl Stage for PrntStage {
 }
 impl Stage for EndStage {
     const FOURCC: [u8; 4] = *b"END\0";
-    type Next = WeakDom;
+    type Next = FinishStage;
 }
 
 // Stage state plumbing
@@ -300,9 +314,15 @@ impl From<PrntStage> for EndStage {
         Self(stage)
     }
 }
-impl<R> DeserializerState<R, WeakDom> {
-    pub(super) fn finish(self) -> WeakDom {
-        self.stage
+impl From<EndStage> for FinishStage {
+    fn from(EndStage(stage): EndStage) -> Self {
+        let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
+        tree.reserve(stage.num_instances as usize);
+        Self {
+            tree,
+            instances_by_ref: stage.instances_by_ref,
+            root_instance_refs: stage.root_instance_refs,
+        }
     }
 }
 
@@ -1761,15 +1781,14 @@ impl Decode for EndStage {
     }
 }
 
-impl From<EndStage> for WeakDom {
+impl<R> DeserializerState<R, FinishStage> {
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     #[profiling::function]
-    fn from(EndStage(mut value): EndStage) -> WeakDom {
+    pub(super) fn finish(self) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
 
-        let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
-        tree.reserve(value.num_instances as usize);
+        let mut stage = self.stage;
 
         // Track all the instances we need to construct. Order of construction
         // is important to preserve for both determinism and sometimes
@@ -1779,20 +1798,20 @@ impl From<EndStage> for WeakDom {
         // Any instance with a parent of -1 will be at the top level of the
         // tree. Because of the way rbx_dom_weak generally works, we need to
         // start at the top of the tree to begin construction.
-        let root_ref = tree.root_ref();
-        for &referent in &value.root_instance_refs {
+        let root_ref = stage.tree.root_ref();
+        for &referent in &stage.root_instance_refs {
             instances_to_construct.push_back((referent, root_ref));
         }
 
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            let instance = value.instances_by_ref.remove(&referent).unwrap();
-            let id = tree.insert(parent_ref, instance.builder);
+            let instance = stage.instances_by_ref.remove(&referent).unwrap();
+            let id = stage.tree.insert(parent_ref, instance.builder);
 
             for referent in instance.children {
                 instances_to_construct.push_back((referent, id));
             }
         }
 
-        tree
+        stage.tree
     }
 }

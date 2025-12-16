@@ -76,9 +76,9 @@ impl<'db> Deserializer<'db> {
         let stage_prop = stage_inst.decode_many()?;
         let stage_prnt = stage_prop.decode_many()?;
         let stage_end = stage_prnt.decode_one()?;
-        let stage_dom = stage_end.decode_one()?;
+        let stage_finish = stage_end.decode_one()?;
 
-        Ok(stage_dom.finish())
+        Ok(stage_finish.finish())
     }
 }
 
