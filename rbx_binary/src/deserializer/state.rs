@@ -36,7 +36,7 @@ pub trait Decode {
     fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError>;
 }
 
-impl<R: Read, S: ChunkOptional + Stage> DeserializerState<R, S>
+impl<R: Read, S: ChunkOptional + Stage + Decode> DeserializerState<R, S>
 where
     S::Next: From<S>,
 {
@@ -45,16 +45,15 @@ where
     }
 }
 
-impl<R: Read, S: ChunkUnique + Stage> DeserializerState<R, S>
+impl<R: Read, S: ChunkUnique + Stage + Decode> DeserializerState<R, S>
 where
-    Self: Decode,
     S::Next: From<S>,
 {
     pub fn decode_one(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
         let chunk = Chunk::decode(&mut self.input)?;
 
         if chunk.name == S::FOURCC {
-            self.decode(chunk)?;
+            self.stage.decode(chunk)?;
         } else {
             return Err(InnerError::UnexpectedChunk {
                 expected: str::from_utf8(&S::FOURCC).unwrap(),
@@ -69,16 +68,15 @@ where
     }
 }
 
-impl<R: Read, S: ChunkMany + Stage> DeserializerState<R, S>
+impl<R: Read, S: ChunkMany + Stage + Decode> DeserializerState<R, S>
 where
-    Self: Decode,
     S::Next: From<S>,
 {
     pub fn decode_many(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
         let mut chunk = Chunk::decode(&mut self.input)?;
 
         while chunk.name == S::FOURCC {
-            self.decode(chunk)?;
+            self.stage.decode(chunk)?;
             chunk = Chunk::decode(&mut self.input)?;
         }
 
@@ -441,26 +439,26 @@ impl<'db, R: Read> DeserializerState<R, MetaStage<'db>> {
     }
 }
 
-impl<'db, R: Read> Decode for DeserializerState<R, MetaStage<'db>> {
+impl Decode for MetaStage<'_> {
     #[profiling::function]
     fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
 
         let len = chunk.read_le_u32()?;
-        self.stage.metadata.reserve(len as usize);
+        self.metadata.reserve(len as usize);
 
         for _ in 0..len {
             let key = chunk.read_string()?;
             let value = chunk.read_string()?;
 
-            self.stage.metadata.insert(key, value);
+            self.metadata.insert(key, value);
         }
 
         Ok(())
     }
 }
 
-impl<'db, R: Read> Decode for DeserializerState<R, SstrStage<'db>> {
+impl Decode for SstrStage<'_> {
     #[profiling::function]
     fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
@@ -479,14 +477,14 @@ impl<'db, R: Read> Decode for DeserializerState<R, SstrStage<'db>> {
         for _ in 0..num_entries {
             chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
             let data = chunk.read_binary_string()?;
-            self.stage.shared_strings.push(SharedString::new(data));
+            self.shared_strings.push(SharedString::new(data));
         }
 
         Ok(())
     }
 }
 
-impl<'db, R: Read> Decode for DeserializerState<R, InstStage<'db>> {
+impl Decode for InstStage<'_> {
     #[profiling::function]
     fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
@@ -504,22 +502,17 @@ impl<'db, R: Read> Decode for DeserializerState<R, InstStage<'db>> {
             .read_referent_array(number_instances as usize)?
             .collect();
 
-        let (class_descriptor, prop_capacity) = if let Some(class) = self
-            .stage
-            .deserializer
-            .database
-            .classes
-            .get(type_name.as_str())
-        {
-            (Some(class), class.default_properties.len())
-        } else {
-            (None, 0)
-        };
+        let (class_descriptor, prop_capacity) =
+            if let Some(class) = self.deserializer.database.classes.get(type_name.as_str()) {
+                (Some(class), class.default_properties.len())
+            } else {
+                (None, 0)
+            };
 
         // TODO: Check object_format and check for service markers if it's 1?
 
         for &referent in &referents {
-            self.stage.instances_by_ref.insert(
+            self.instances_by_ref.insert(
                 referent,
                 Instance {
                     builder: InstanceBuilder::with_property_capacity(
@@ -531,7 +524,7 @@ impl<'db, R: Read> Decode for DeserializerState<R, InstStage<'db>> {
             );
         }
 
-        self.stage.type_infos.insert(
+        self.type_infos.insert(
             type_id,
             TypeInfo {
                 type_id,
@@ -545,7 +538,7 @@ impl<'db, R: Read> Decode for DeserializerState<R, InstStage<'db>> {
     }
 }
 
-impl<'db, R: Read> Decode for DeserializerState<R, PropStage<'db>> {
+impl Decode for PropStage<'_> {
     #[profiling::function]
     fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
@@ -554,7 +547,6 @@ impl<'db, R: Read> Decode for DeserializerState<R, PropStage<'db>> {
         let prop_name = chunk.read_string()?;
 
         let type_info = self
-            .stage
             .type_infos
             .get(&type_id)
             .ok_or(InnerError::InvalidTypeId { type_id })?;
@@ -574,7 +566,7 @@ impl<'db, R: Read> Decode for DeserializerState<R, PropStage<'db>> {
         let binary_type: Type = match binary_type_byte.try_into() {
             Ok(ty) => ty,
             Err(_) => {
-                if self.stage.unknown_type_ids.insert(binary_type_byte) {
+                if self.unknown_type_ids.insert(binary_type_byte) {
                     log::warn!(
                         "Unknown value type ID {byte:#04x} ({byte}) in Roblox \
                          binary model file. Found in property {class}.{prop}.",
@@ -604,7 +596,7 @@ impl<'db, R: Read> Decode for DeserializerState<R, PropStage<'db>> {
             // default name. This should be rare: effectively never!
 
             for referent in &type_info.referents {
-                let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                let instance = self.instances_by_ref.get_mut(referent).unwrap();
                 let binary_string = chunk.read_binary_string()?;
                 let value = match std::str::from_utf8(&binary_string) {
                     Ok(value) => Cow::Borrowed(value),
@@ -626,7 +618,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
         }
 
         let property = if let Some(property) = find_canonical_property(
-            self.stage.deserializer.database,
+            self.deserializer.database,
             binary_type,
             type_info.class_descriptor,
             &prop_name,
@@ -642,7 +634,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
             Type::String => match canonical_type {
                 VariantType::String => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let binary_string = chunk.read_binary_string()?;
                         let value = match std::str::from_utf8(&binary_string) {
                             Ok(value) => Cow::Borrowed(value),
@@ -663,21 +655,21 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 VariantType::ContentId => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_string()?;
                         add_property(instance, &property, ContentId::from(value).into());
                     }
                 }
                 VariantType::BinaryString => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value: BinaryString = chunk.read_binary_string()?.into();
                         add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::Tags => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let buffer = chunk.read_binary_string()?;
 
                         let value = Tags::decode(buffer.as_ref()).map_err(|_| {
@@ -694,7 +686,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                 }
                 VariantType::Attributes => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let buffer = chunk.read_binary_string()?;
 
                         match Attributes::from_reader(buffer.as_slice()) {
@@ -721,7 +713,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 VariantType::MaterialColors => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let buffer = chunk.read_binary_string()?;
                         match MaterialColors::decode(&buffer) {
                             Ok(value) => add_property(instance, &property, value.into()),
@@ -756,7 +748,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Bool => match canonical_type {
                 VariantType::Bool => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_bool()?;
                         add_property(instance, &property, value.into());
                     }
@@ -775,7 +767,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_i32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -786,7 +778,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_i32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value_converted = i64::from(value);
                         add_property(instance, &property, value_converted.into());
                     }
@@ -805,7 +797,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_f32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -821,7 +813,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Float64 => match canonical_type {
                 VariantType::Float64 => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_le_f64()?;
                         add_property(instance, &property, value.into());
                     }
@@ -833,7 +825,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_f32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let converted_value = f64::from(value);
                         add_property(instance, &property, converted_value.into());
                     }
@@ -857,7 +849,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         .map(|(scale, offset)| UDim::new(scale, offset));
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -889,7 +881,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -912,7 +904,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let direction_y = chunk.read_le_f32()?;
                         let direction_z = chunk.read_le_f32()?;
 
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
                         add_property(
                             instance,
@@ -937,7 +929,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Faces => match canonical_type {
                 VariantType::Faces => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_u8()?;
                         let faces =
                             Faces::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
@@ -962,7 +954,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Axes => match canonical_type {
                 VariantType::Axes => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let value = chunk.read_u8()?;
 
                         let axes =
@@ -990,7 +982,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let color = value
                             .try_into()
                             .ok()
@@ -1023,7 +1015,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let colors = r.zip(g).zip(b).map(|((r, g), b)| Color3::new(r, g, b));
 
                     for (color, referent) in colors.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, color.into());
                     }
                 }
@@ -1044,7 +1036,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = x.zip(y).map(|(x, y)| Vector2::new(x, y));
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -1066,7 +1058,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = x.zip(y).zip(z).map(|((x, y), z)| Vector3::new(x, y, z));
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -1127,7 +1119,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         .map(|(position, rotation)| CFrame::new(position, rotation));
 
                     for (cframe, referent) in values.zip(referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, cframe.into());
                     }
                 }
@@ -1145,7 +1137,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, Enum::from_u32(value).into());
                     }
                 }
@@ -1163,14 +1155,13 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let refs = chunk.read_referent_array(type_info.referents.len())?;
 
                     for (value, referent) in refs.zip(&type_info.referents) {
-                        let rbx_value =
-                            if let Some(instance) = self.stage.instances_by_ref.get(&value) {
-                                instance.builder.referent()
-                            } else {
-                                Ref::none()
-                            };
+                        let rbx_value = if let Some(instance) = self.instances_by_ref.get(&value) {
+                            instance.builder.referent()
+                        } else {
+                            Ref::none()
+                        };
 
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, rbx_value.into());
                     }
                 }
@@ -1186,7 +1177,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Vector3int16 => match canonical_type {
                 VariantType::Vector3int16 => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(
                             instance,
                             &property,
@@ -1211,7 +1202,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Font => match canonical_type {
                 VariantType::Font => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
                         let family = chunk.read_string()?;
                         let weight = FontWeight::from_u16(chunk.read_le_u16()?).unwrap_or_default();
@@ -1249,7 +1240,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::NumberSequence => match canonical_type {
                 VariantType::NumberSequence => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let keypoint_count = chunk.read_le_u32()?;
                         let mut keypoints = Vec::with_capacity(keypoint_count as usize);
 
@@ -1276,7 +1267,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::ColorSequence => match canonical_type {
                 VariantType::ColorSequence => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let keypoint_count = chunk.read_le_u32()? as usize;
                         let mut keypoints = Vec::with_capacity(keypoint_count);
 
@@ -1309,7 +1300,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::NumberRange => match canonical_type {
                 VariantType::NumberRange => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(
                             instance,
                             &property,
@@ -1341,7 +1332,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     );
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into())
                     }
                 }
@@ -1357,7 +1348,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::PhysicalProperties => match canonical_type {
                 VariantType::PhysicalProperties => {
                     for referent in &type_info.referents {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let discriminator = chunk.read_u8()?;
                         let value = match discriminator {
                             0b00 | 0b10 => Variant::PhysicalProperties(PhysicalProperties::Default),
@@ -1414,7 +1405,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         .map(|((r, g), b)| Color3uint8::new(r, g, b));
 
                     for (color, referent) in colors.into_iter().zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, color.into());
                     }
                 }
@@ -1432,7 +1423,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_i64_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -1450,18 +1441,17 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
 
                     for (value, referent) in values.zip(&type_info.referents) {
-                        let shared_string = self
-                            .stage
-                            .shared_strings
-                            .get(value as usize)
-                            .ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
-                                prop_name: prop_name.clone(),
-                                valid_value: "a valid SharedString",
-                                actual_value: format!("{value:?}"),
+                        let shared_string =
+                            self.shared_strings.get(value as usize).ok_or_else(|| {
+                                InnerError::InvalidPropData {
+                                    type_name: type_info.type_name.to_string(),
+                                    prop_name: prop_name.clone(),
+                                    valid_value: "a valid SharedString",
+                                    actual_value: format!("{value:?}"),
+                                }
                             })?;
 
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
                         add_property(instance, &property, shared_string.clone().into());
                     }
@@ -1471,8 +1461,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
                     for (value, referent) in values.zip(&type_info.referents) {
                         let net_asset = NetAssetRef::from(
-                            self.stage
-                                .shared_strings
+                            self.shared_strings
                                 .get(value as usize)
                                 .ok_or_else(|| InnerError::InvalidPropData {
                                     type_name: type_info.type_name.to_string(),
@@ -1483,7 +1472,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 .clone(),
                         );
 
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
                         add_property(instance, &property, net_asset.into());
                     }
@@ -1575,7 +1564,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         });
 
                     for (cframe, referent) in values.zip(referents) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, cframe.into());
                     }
                 }
@@ -1596,7 +1585,6 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     for (i, value) in values.enumerate() {
                         let mut value = value.as_slice();
                         let instance = self
-                            .stage
                             .instances_by_ref
                             .get_mut(&type_info.referents[i])
                             .unwrap();
@@ -1628,7 +1616,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = values.map(|value| SecurityCapabilities::from_bits(value as u64));
 
                     for (referent, value) in type_info.referents.iter().zip(values) {
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into())
                     }
                 }
@@ -1670,9 +1658,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             2 => {
                                 let read_value = objects.pop_back().unwrap();
                                 Content::from_referent(
-                                    if let Some(instance) =
-                                        self.stage.instances_by_ref.get(&read_value)
-                                    {
+                                    if let Some(instance) = self.instances_by_ref.get(&read_value) {
                                         instance.builder.referent()
                                     } else {
                                         Ref::none()
@@ -1681,7 +1667,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             }
                             n => return Err(InnerError::BadContentType(n)),
                         };
-                        let instance = self.stage.instances_by_ref.get_mut(referent).unwrap();
+                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into())
                     }
                 }
@@ -1700,7 +1686,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
     }
 }
 
-impl<R: Read> Decode for DeserializerState<R, PrntStage> {
+impl Decode for PrntStage {
     #[profiling::function]
     fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError> {
         let mut chunk = chunk.data.as_slice();
@@ -1723,9 +1709,9 @@ impl<R: Read> Decode for DeserializerState<R, PrntStage> {
 
         for (id, parent_ref) in subjects.zip(parents) {
             if parent_ref == -1 {
-                self.stage.root_instance_refs.push(id);
+                self.root_instance_refs.push(id);
             } else {
-                let instance = self.stage.instances_by_ref.get_mut(&parent_ref).unwrap();
+                let instance = self.instances_by_ref.get_mut(&parent_ref).unwrap();
                 instance.children.push(id);
             }
         }
@@ -1734,7 +1720,7 @@ impl<R: Read> Decode for DeserializerState<R, PrntStage> {
     }
 }
 
-impl<R: Read> Decode for DeserializerState<R, EndStage> {
+impl Decode for EndStage {
     #[profiling::function]
     fn decode(&mut self, _chunk: Chunk) -> Result<(), InnerError> {
         log::trace!("END chunk");
