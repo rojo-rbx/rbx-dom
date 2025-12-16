@@ -31,6 +31,11 @@ pub(super) struct DeserializerState<R, S> {
     stage: S,
 }
 
+/// The specific decoding implementation for the chunk type.
+pub trait Decode {
+    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError>;
+}
+
 impl<R: Read, S: ChunkOptional + Stage> DeserializerState<R, S>
 where
     S::Next: From<S>,
@@ -84,25 +89,6 @@ where
     }
 }
 
-/// A decoding stage.
-pub trait Stage {
-    const FOURCC: [u8; 4];
-    type Next;
-}
-/// The specific chunk decoding implementation.
-pub trait Decode {
-    fn decode(&mut self, chunk: Chunk) -> Result<(), InnerError>;
-}
-
-// Marker traits for stages
-
-// Exactly one of this chunk exists
-pub trait ChunkUnique {}
-// Zero or one of this chunk exists
-pub trait ChunkOptional {}
-// Zero or more of these chunks may exist
-pub trait ChunkMany {}
-
 // === Metadata stage ===
 pub struct MetaStage<'db> {
     /// The user-provided configuration that we should use.
@@ -118,24 +104,8 @@ pub struct MetaStage<'db> {
     /// How many instances are expected
     num_instances: u32,
 }
-impl ChunkOptional for MetaStage<'_> {}
-impl<'db> Stage for MetaStage<'db> {
-    const FOURCC: [u8; 4] = *b"META";
-    type Next = SstrStage<'db>;
-}
 
 // === Shared string stage ===
-impl<'db> From<MetaStage<'db>> for SstrStage<'db> {
-    fn from(stage: MetaStage<'db>) -> Self {
-        // Metadata is dropped!
-        Self {
-            deserializer: stage.deserializer,
-            shared_strings: Vec::new(),
-            num_types: stage.num_types,
-            num_instances: stage.num_instances,
-        }
-    }
-}
 pub struct SstrStage<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
@@ -150,24 +120,8 @@ pub struct SstrStage<'db> {
     /// How many instances are expected
     num_instances: u32,
 }
-impl ChunkOptional for SstrStage<'_> {}
-impl<'db> Stage for SstrStage<'db> {
-    const FOURCC: [u8; 4] = *b"SSTR";
-    type Next = InstStage<'db>;
-}
 
 // === Instance stage ===
-impl<'db> From<SstrStage<'db>> for InstStage<'db> {
-    fn from(stage: SstrStage<'db>) -> Self {
-        Self {
-            deserializer: stage.deserializer,
-            shared_strings: stage.shared_strings,
-            type_infos: HashMap::with_capacity(stage.num_types as usize),
-            instances_by_ref: HashMap::with_capacity(1 + stage.num_instances as usize),
-            num_instances: stage.num_instances,
-        }
-    }
-}
 pub struct InstStage<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
@@ -185,25 +139,8 @@ pub struct InstStage<'db> {
     /// How many instances are expected
     num_instances: u32,
 }
-impl ChunkMany for InstStage<'_> {}
-impl<'db> Stage for InstStage<'db> {
-    const FOURCC: [u8; 4] = *b"INST";
-    type Next = PropStage<'db>;
-}
 
 // === Prop stage ===
-impl<'db> From<InstStage<'db>> for PropStage<'db> {
-    fn from(stage: InstStage<'db>) -> Self {
-        Self {
-            deserializer: stage.deserializer,
-            shared_strings: stage.shared_strings,
-            type_infos: stage.type_infos,
-            instances_by_ref: stage.instances_by_ref,
-            unknown_type_ids: HashSet::new(),
-            num_instances: stage.num_instances,
-        }
-    }
-}
 pub struct PropStage<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
@@ -226,22 +163,8 @@ pub struct PropStage<'db> {
     /// How many instances are expected
     num_instances: u32,
 }
-impl ChunkMany for PropStage<'_> {}
-impl Stage for PropStage<'_> {
-    const FOURCC: [u8; 4] = *b"PROP";
-    type Next = PrntStage;
-}
 
 // === Parent stage ===
-impl<'db> From<PropStage<'db>> for PrntStage {
-    fn from(stage: PropStage<'db>) -> Self {
-        Self {
-            instances_by_ref: stage.instances_by_ref,
-            root_instance_refs: Vec::new(),
-            num_instances: stage.num_instances,
-        }
-    }
-}
 pub struct PrntStage {
     /// All of the instances known by the deserializer.
     instances_by_ref: HashMap<i32, Instance>,
@@ -253,25 +176,105 @@ pub struct PrntStage {
     /// How many instances are expected
     num_instances: u32,
 }
+
+// === Final stage ===
+pub struct EndStage(PrntStage);
+
+// Marker traits for stages
+
+// Exactly one of this chunk exists
+pub trait ChunkUnique {}
+// Zero or one of this chunk exists
+pub trait ChunkOptional {}
+// Zero or more of these chunks may exist
+pub trait ChunkMany {}
+
+impl ChunkOptional for MetaStage<'_> {}
+impl ChunkOptional for SstrStage<'_> {}
+impl ChunkMany for InstStage<'_> {}
+impl ChunkMany for PropStage<'_> {}
 impl ChunkUnique for PrntStage {}
+impl ChunkUnique for EndStage {}
+
+/// A decoding stage.
+pub trait Stage {
+    const FOURCC: [u8; 4];
+    type Next;
+}
+impl<'db> Stage for MetaStage<'db> {
+    const FOURCC: [u8; 4] = *b"META";
+    type Next = SstrStage<'db>;
+}
+impl<'db> Stage for SstrStage<'db> {
+    const FOURCC: [u8; 4] = *b"SSTR";
+    type Next = InstStage<'db>;
+}
+impl<'db> Stage for InstStage<'db> {
+    const FOURCC: [u8; 4] = *b"INST";
+    type Next = PropStage<'db>;
+}
+impl Stage for PropStage<'_> {
+    const FOURCC: [u8; 4] = *b"PROP";
+    type Next = PrntStage;
+}
 impl Stage for PrntStage {
     const FOURCC: [u8; 4] = *b"PRNT";
     type Next = EndStage;
 }
-
-// === Final stage ===
-impl From<PrntStage> for EndStage {
-    fn from(stage: PrntStage) -> Self {
-        Self(stage)
-    }
-}
-pub struct EndStage(PrntStage);
-impl ChunkUnique for EndStage {}
 impl Stage for EndStage {
     const FOURCC: [u8; 4] = *b"END\0";
     type Next = WeakDom;
 }
 
+// Stage state plumbing
+impl<'db> From<MetaStage<'db>> for SstrStage<'db> {
+    fn from(stage: MetaStage<'db>) -> Self {
+        // Metadata is dropped!
+        Self {
+            deserializer: stage.deserializer,
+            shared_strings: Vec::new(),
+            num_types: stage.num_types,
+            num_instances: stage.num_instances,
+        }
+    }
+}
+impl<'db> From<SstrStage<'db>> for InstStage<'db> {
+    fn from(stage: SstrStage<'db>) -> Self {
+        Self {
+            deserializer: stage.deserializer,
+            shared_strings: stage.shared_strings,
+            type_infos: HashMap::with_capacity(stage.num_types as usize),
+            instances_by_ref: HashMap::with_capacity(1 + stage.num_instances as usize),
+            num_instances: stage.num_instances,
+        }
+    }
+}
+impl<'db> From<InstStage<'db>> for PropStage<'db> {
+    fn from(stage: InstStage<'db>) -> Self {
+        Self {
+            deserializer: stage.deserializer,
+            shared_strings: stage.shared_strings,
+            type_infos: stage.type_infos,
+            instances_by_ref: stage.instances_by_ref,
+            unknown_type_ids: HashSet::new(),
+            num_instances: stage.num_instances,
+        }
+    }
+}
+impl<'db> From<PropStage<'db>> for PrntStage {
+    fn from(stage: PropStage<'db>) -> Self {
+        Self {
+            instances_by_ref: stage.instances_by_ref,
+            root_instance_refs: Vec::new(),
+            num_instances: stage.num_instances,
+        }
+    }
+}
+impl From<PrntStage> for EndStage {
+    fn from(stage: PrntStage) -> Self {
+        Self(stage)
+    }
+}
 impl<R> DeserializerState<R, WeakDom> {
     pub(super) fn finish(self) -> WeakDom {
         self.stage
