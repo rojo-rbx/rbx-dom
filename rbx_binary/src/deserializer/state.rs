@@ -291,6 +291,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             "INST chunk (type ID {type_id}, type name {type_name}, format {object_format}, {number_instances} instances)",
         );
 
+        let referents = chunk.read_referent_array(number_instances as usize)?;
+
         let (class_descriptor, prop_capacity) =
             if let Some(class) = self.deserializer.database.classes.get(type_name.as_str()) {
                 (Some(class), class.default_properties.len())
@@ -301,10 +303,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         // TODO: Check object_format and check for service markers if it's 1?
 
         let start = self.instances.len();
-        for (key, referent) in chunk
-            .read_referent_array(number_instances as usize)?
-            .enumerate()
-        {
+        for (key, referent) in referents.enumerate() {
             let builder =
                 InstanceBuilder::with_property_capacity(type_name.as_str(), prop_capacity);
             // TODO: assert / error when the ref already exists.
