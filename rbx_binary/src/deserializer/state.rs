@@ -148,12 +148,12 @@ pub trait Stage {
     const FOURCC: [u8; 4];
     /// The next stage.
     type Next;
-    fn into_next(self) -> Self::Next;
+    fn into_next_stage(self) -> Self::Next;
 }
 impl<'db> Stage for MetaStage<'db> {
     const FOURCC: [u8; 4] = *b"META";
     type Next = SstrStage<'db>;
-    fn into_next(self) -> Self::Next {
+    fn into_next_stage(self) -> Self::Next {
         // Metadata is dropped!
         Self::Next {
             deserializer: self.deserializer,
@@ -165,7 +165,7 @@ impl<'db> Stage for MetaStage<'db> {
 impl<'db> Stage for SstrStage<'db> {
     const FOURCC: [u8; 4] = *b"SSTR";
     type Next = InstStage<'db>;
-    fn into_next(self) -> Self::Next {
+    fn into_next_stage(self) -> Self::Next {
         Self::Next {
             deserializer: self.deserializer,
             shared_strings: self.shared_strings,
@@ -178,7 +178,7 @@ impl<'db> Stage for SstrStage<'db> {
 impl<'db> Stage for InstStage<'db> {
     const FOURCC: [u8; 4] = *b"INST";
     type Next = PropStage<'db>;
-    fn into_next(self) -> Self::Next {
+    fn into_next_stage(self) -> Self::Next {
         Self::Next {
             deserializer: self.deserializer,
             shared_strings: self.shared_strings,
@@ -192,7 +192,7 @@ impl<'db> Stage for InstStage<'db> {
 impl Stage for PropStage<'_> {
     const FOURCC: [u8; 4] = *b"PROP";
     type Next = PrntStage;
-    fn into_next(self) -> Self::Next {
+    fn into_next_stage(self) -> Self::Next {
         Self::Next {
             instances_by_ref: self.instances_by_ref,
             root_instance_refs: Vec::new(),
@@ -203,14 +203,14 @@ impl Stage for PropStage<'_> {
 impl Stage for PrntStage {
     const FOURCC: [u8; 4] = *b"PRNT";
     type Next = EndStage;
-    fn into_next(self) -> Self::Next {
+    fn into_next_stage(self) -> Self::Next {
         EndStage(self)
     }
 }
 impl Stage for EndStage {
     const FOURCC: [u8; 4] = *b"END\0";
     type Next = FinishStage;
-    fn into_next(self) -> Self::Next {
+    fn into_next_stage(self) -> Self::Next {
         let EndStage(stage) = self;
         let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
         tree.reserve(stage.num_instances as usize);
@@ -283,7 +283,7 @@ impl<R: Read, S: ChunkOptional + Stage + DecodeChunk, C: NextChunk> Deserializer
 
         Ok(DeserializerState {
             input: self.input,
-            stage: self.stage.into_next(),
+            stage: self.stage.into_next_stage(),
             next_chunk,
         })
     }
@@ -305,7 +305,7 @@ impl<R: Read, S: ChunkOnce + Stage + DecodeChunk, C: NextChunk> DeserializerStat
 
         Ok(DeserializerState {
             input: self.input,
-            stage: self.stage.into_next(),
+            stage: self.stage.into_next_stage(),
             next_chunk: NoChunk,
         })
     }
@@ -323,7 +323,7 @@ impl<R: Read, S: ChunkRepeated + Stage + DecodeChunk, C: NextChunk> Deserializer
 
         Ok(DeserializerState {
             input: self.input,
-            stage: self.stage.into_next(),
+            stage: self.stage.into_next_stage(),
             next_chunk: chunk,
         })
     }
