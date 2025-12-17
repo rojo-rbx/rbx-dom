@@ -301,29 +301,6 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         // TODO: Check object_format and check for service markers if it's 1?
 
         let start = self.instances.len();
-        // Y no work?
-        // (&mut self.instance_key_by_ref, &mut self.instances).extend(
-        //     chunk
-        //         .read_referent_array(number_instances as usize)?
-        //         .enumerate()
-        //         .map(|(key, referent)| {
-        //             let builder =
-        //                 InstanceBuilder::with_property_capacity(type_name.as_str(), prop_capacity);
-        //             (
-        //                 (
-        //                     referent,
-        //                     InstanceKey {
-        //                         key: start + key,
-        //                         referent: builder.referent(),
-        //                     },
-        //                 ),
-        //                 Instance {
-        //                     builder,
-        //                     children: Vec::new(),
-        //                 },
-        //             )
-        //         }),
-        // );
         for (key, referent) in chunk
             .read_referent_array(number_instances as usize)?
             .enumerate()
