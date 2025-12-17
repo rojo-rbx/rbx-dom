@@ -22,6 +22,11 @@ use crate::{
 
 use super::{error::InnerError, header::FileHeader, Deserializer};
 
+// There are 6 different chunk types, and they must appear in the file
+// in a specific order.  The relevant state for each stage is different
+// as the decoder reads each chunk type.  Some state such as
+// `unknown_type_ids` is only relevant for a single stage.
+
 // === Metadata stage ===
 pub struct MetaStage<'db> {
     /// The user-provided configuration that we should use.
