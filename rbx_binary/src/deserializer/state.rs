@@ -260,7 +260,7 @@ impl NextChunk for Option<Chunk> {
 
 /// The specific decoding implementation for the chunk type.
 pub trait DecodeChunk {
-    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError>;
+    fn decode_chunk(&mut self, chunk: &[u8]) -> Result<(), InnerError>;
 }
 
 impl<R: Read, S: ChunkOptional + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
@@ -271,7 +271,7 @@ impl<R: Read, S: ChunkOptional + Stage + DecodeChunk, C: NextChunk> Deserializer
         let chunk = self.next_chunk.next_chunk(&mut self.input)?;
 
         let next_chunk = if chunk.name == S::FOURCC {
-            self.stage.decode_chunk(chunk)?;
+            self.stage.decode_chunk(&chunk.data)?;
             None
         } else {
             Some(chunk)
@@ -291,7 +291,7 @@ impl<R: Read, S: ChunkOnce + Stage + DecodeChunk, C: NextChunk> DeserializerStat
         let chunk = self.next_chunk.next_chunk(&mut self.input)?;
 
         if chunk.name == S::FOURCC {
-            self.stage.decode_chunk(chunk)?;
+            self.stage.decode_chunk(&chunk.data)?;
         } else {
             return Err(InnerError::UnexpectedChunk {
                 expected: str::from_utf8(&S::FOURCC).unwrap_or("UTF8Error"),
@@ -313,7 +313,7 @@ impl<R: Read, S: ChunkRepeated + Stage + DecodeChunk, C: NextChunk> Deserializer
         let mut chunk = self.next_chunk.next_chunk(&mut self.input)?;
 
         while chunk.name == S::FOURCC {
-            self.stage.decode_chunk(chunk)?;
+            self.stage.decode_chunk(&chunk.data)?;
             chunk = Chunk::decode(&mut self.input)?;
         }
 
@@ -487,9 +487,7 @@ impl<'db, R: Read> DeserializerState<R, MetaStage<'db>, ()> {
 
 impl DecodeChunk for MetaStage<'_> {
     #[profiling::function]
-    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
-        let mut chunk = chunk.data.as_slice();
-
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let len = chunk.read_le_u32()?;
         self.metadata.reserve(len as usize);
 
@@ -506,9 +504,7 @@ impl DecodeChunk for MetaStage<'_> {
 
 impl DecodeChunk for SstrStage<'_> {
     #[profiling::function]
-    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
-        let mut chunk = chunk.data.as_slice();
-
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_le_u32()?;
 
         if version != 0 {
@@ -533,9 +529,7 @@ impl DecodeChunk for SstrStage<'_> {
 
 impl DecodeChunk for InstStage<'_> {
     #[profiling::function]
-    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
-        let mut chunk = chunk.data.as_slice();
-
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let type_name = chunk.read_string()?;
         let object_format = chunk.read_u8()?;
@@ -587,9 +581,7 @@ impl DecodeChunk for InstStage<'_> {
 
 impl DecodeChunk for PropStage<'_> {
     #[profiling::function]
-    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
-        let mut chunk = chunk.data.as_slice();
-
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
 
@@ -1735,9 +1727,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
 impl DecodeChunk for PrntStage {
     #[profiling::function]
-    fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError> {
-        let mut chunk = chunk.data.as_slice();
-
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_u8()?;
 
         if version != 0 {
@@ -1769,7 +1759,7 @@ impl DecodeChunk for PrntStage {
 
 impl DecodeChunk for EndStage {
     #[profiling::function]
-    fn decode_chunk(&mut self, _chunk: Chunk) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, _chunk: &[u8]) -> Result<(), InnerError> {
         log::trace!("END chunk");
 
         // We don't do any validation on the END chunk. There's no useful
