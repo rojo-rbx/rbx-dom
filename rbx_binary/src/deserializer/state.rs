@@ -75,11 +75,6 @@ struct TypeInfo<'db> {
     /// is a known class.
     class_descriptor: Option<&'db ClassDescriptor<'db>>,
 }
-impl TypeInfo<'_> {
-    const fn instances_slice(&self) -> core::ops::Range<usize> {
-        self.instances_slice.start..self.instances_slice.end
-    }
-}
 
 /// A key into an array of instances which also contains the instance ref
 /// to sidestep mutable + immutable aliasing.
@@ -410,7 +405,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             type_id
         );
 
-        let instances = &mut self.instances[type_info.instances_slice()];
+        let instances =
+            &mut self.instances[type_info.instances_slice.start..type_info.instances_slice.end];
 
         // The `Name` prop is special and is routed to a different spot for
         // rbx_dom_weak, so we handle it specially here.
