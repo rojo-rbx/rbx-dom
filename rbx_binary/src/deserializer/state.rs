@@ -239,11 +239,6 @@ pub(super) struct DeserializerState<R, S, C> {
 pub trait NextChunk {
     fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk>;
 }
-impl NextChunk for () {
-    fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk> {
-        Chunk::decode(input)
-    }
-}
 impl NextChunk for Chunk {
     fn next_chunk<R>(self, _input: &mut R) -> std::io::Result<Chunk> {
         Ok(self)
@@ -255,6 +250,15 @@ impl NextChunk for Option<Chunk> {
             Some(chunk) => Ok(chunk),
             None => Chunk::decode(input),
         }
+    }
+}
+
+/// A zero-size type which represents the abscence of a next chunk.
+/// Calling next_chunk always decodes a new chunk.
+pub struct NoChunk;
+impl NextChunk for NoChunk {
+    fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk> {
+        Chunk::decode(input)
     }
 }
 
@@ -287,7 +291,7 @@ impl<R: Read, S: ChunkOptional + Stage + DecodeChunk, C: NextChunk> Deserializer
 
 impl<R: Read, S: ChunkOnce + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
     /// Decode one chunk which must be present.
-    pub fn decode_once(mut self) -> Result<DeserializerState<R, S::Next, ()>, InnerError> {
+    pub fn decode_once(mut self) -> Result<DeserializerState<R, S::Next, NoChunk>, InnerError> {
         let chunk = self.next_chunk.next_chunk(&mut self.input)?;
 
         if chunk.name == S::FOURCC {
@@ -302,7 +306,7 @@ impl<R: Read, S: ChunkOnce + Stage + DecodeChunk, C: NextChunk> DeserializerStat
         Ok(DeserializerState {
             input: self.input,
             stage: self.stage.into_next(),
-            next_chunk: (),
+            next_chunk: NoChunk,
         })
     }
 }
@@ -467,7 +471,7 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
     }
 }
 
-impl<'db, R: Read> DeserializerState<R, MetaStage<'db>, ()> {
+impl<'db, R: Read> DeserializerState<R, MetaStage<'db>, NoChunk> {
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
         mut input: R,
@@ -480,7 +484,7 @@ impl<'db, R: Read> DeserializerState<R, MetaStage<'db>, ()> {
                 metadata: HashMap::new(),
                 header,
             },
-            next_chunk: (),
+            next_chunk: NoChunk,
         })
     }
 }
@@ -1770,7 +1774,7 @@ impl DecodeChunk for EndStage {
     }
 }
 
-impl<R> DeserializerState<R, FinishStage, ()> {
+impl<R> DeserializerState<R, FinishStage, NoChunk> {
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     #[profiling::function]
