@@ -101,8 +101,8 @@ pub struct PrntStage {
     /// All of the instances known by the deserializer.
     instances_by_ref: HashMap<i32, Instance>,
 
-    /// Referents for all of the instances with no parent, in order they appear
-    /// in the file.
+    /// Referents for all of the instances with no parent, in the order that
+    /// they appear in the file.
     root_instance_refs: Vec<i32>,
 
     /// How many instances are expected
@@ -121,8 +121,8 @@ pub struct FinishStage {
     /// All of the instances known by the deserializer.
     instances_by_ref: HashMap<i32, Instance>,
 
-    /// Referents for all of the instances with no parent, in order they appear
-    /// in the file.
+    /// Referents for all of the instances with no parent, in the order that
+    /// they appear in the file.
     root_instance_refs: Vec<i32>,
 }
 
