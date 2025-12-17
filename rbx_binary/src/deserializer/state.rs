@@ -259,6 +259,7 @@ pub trait DecodeChunk {
 }
 
 impl<R: Read, S: ChunkOptional + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
+    /// Optionally decode one chunk if it is present.
     pub fn decode_optional(
         mut self,
     ) -> Result<DeserializerState<R, S::Next, Option<Chunk>>, InnerError> {
@@ -280,6 +281,7 @@ impl<R: Read, S: ChunkOptional + Stage + DecodeChunk, C: NextChunk> Deserializer
 }
 
 impl<R: Read, S: ChunkOnce + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
+    /// Decode one chunk which must be present.
     pub fn decode_once(mut self) -> Result<DeserializerState<R, S::Next, ()>, InnerError> {
         let chunk = self.next_chunk.next_chunk(&mut self.input)?;
 
@@ -301,6 +303,7 @@ impl<R: Read, S: ChunkOnce + Stage + DecodeChunk, C: NextChunk> DeserializerStat
 }
 
 impl<R: Read, S: ChunkRepeated + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
+    /// Decode chunks repeatedly zero or more times.
     pub fn decode_repeated(mut self) -> Result<DeserializerState<R, S::Next, Chunk>, InnerError> {
         let mut chunk = self.next_chunk.next_chunk(&mut self.input)?;
 
