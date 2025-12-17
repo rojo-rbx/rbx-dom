@@ -217,7 +217,7 @@ impl Stage for EndStage {
     }
 }
 
-pub(super) struct DeserializerState<R, S> {
+pub(super) struct DeserializerState<R, S, C> {
     /// The input data encoded as a binary model.
     input: R,
 
@@ -225,8 +225,32 @@ pub(super) struct DeserializerState<R, S> {
     /// which chunk is expected next, as well as relevant state.
     stage: S,
 
-    /// An upcoming chunk which has not been decoded yet.
-    next_chunk: Option<Chunk>,
+    /// A previously read chunk which has not been decoded yet.
+    next_chunk: C,
+}
+
+/// Monomorphizing the aquisition of an initial chunk depending on whether
+/// the previous stage produced a chunk which has not yet been decoded.
+pub trait NextChunk {
+    fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk>;
+}
+impl NextChunk for () {
+    fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk> {
+        Chunk::decode(input)
+    }
+}
+impl NextChunk for Chunk {
+    fn next_chunk<R>(self, _input: &mut R) -> std::io::Result<Chunk> {
+        Ok(self)
+    }
+}
+impl NextChunk for Option<Chunk> {
+    fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk> {
+        match self {
+            Some(chunk) => Ok(chunk),
+            None => Chunk::decode(input),
+        }
+    }
 }
 
 /// The specific decoding implementation for the chunk type.
@@ -234,12 +258,11 @@ pub trait DecodeChunk {
     fn decode_chunk(&mut self, chunk: Chunk) -> Result<(), InnerError>;
 }
 
-impl<R: Read, S: ChunkOptional + Stage + DecodeChunk> DeserializerState<R, S> {
-    pub fn decode_optional(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
-        let chunk = match self.next_chunk {
-            Some(chunk) => chunk,
-            None => Chunk::decode(&mut self.input)?,
-        };
+impl<R: Read, S: ChunkOptional + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
+    pub fn decode_optional(
+        mut self,
+    ) -> Result<DeserializerState<R, S::Next, Option<Chunk>>, InnerError> {
+        let chunk = self.next_chunk.next_chunk(&mut self.input)?;
 
         let next_chunk = if chunk.name == S::FOURCC {
             self.stage.decode_chunk(chunk)?;
@@ -256,12 +279,9 @@ impl<R: Read, S: ChunkOptional + Stage + DecodeChunk> DeserializerState<R, S> {
     }
 }
 
-impl<R: Read, S: ChunkOnce + Stage + DecodeChunk> DeserializerState<R, S> {
-    pub fn decode_once(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
-        let chunk = match self.next_chunk {
-            Some(chunk) => chunk,
-            None => Chunk::decode(&mut self.input)?,
-        };
+impl<R: Read, S: ChunkOnce + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
+    pub fn decode_once(mut self) -> Result<DeserializerState<R, S::Next, ()>, InnerError> {
+        let chunk = self.next_chunk.next_chunk(&mut self.input)?;
 
         if chunk.name == S::FOURCC {
             self.stage.decode_chunk(chunk)?;
@@ -275,17 +295,14 @@ impl<R: Read, S: ChunkOnce + Stage + DecodeChunk> DeserializerState<R, S> {
         Ok(DeserializerState {
             input: self.input,
             stage: self.stage.into_next(),
-            next_chunk: None,
+            next_chunk: (),
         })
     }
 }
 
-impl<R: Read, S: ChunkRepeated + Stage + DecodeChunk> DeserializerState<R, S> {
-    pub fn decode_repeated(mut self) -> Result<DeserializerState<R, S::Next>, InnerError> {
-        let mut chunk = match self.next_chunk {
-            Some(chunk) => chunk,
-            None => Chunk::decode(&mut self.input)?,
-        };
+impl<R: Read, S: ChunkRepeated + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
+    pub fn decode_repeated(mut self) -> Result<DeserializerState<R, S::Next, Chunk>, InnerError> {
+        let mut chunk = self.next_chunk.next_chunk(&mut self.input)?;
 
         while chunk.name == S::FOURCC {
             self.stage.decode_chunk(chunk)?;
@@ -295,7 +312,7 @@ impl<R: Read, S: ChunkRepeated + Stage + DecodeChunk> DeserializerState<R, S> {
         Ok(DeserializerState {
             input: self.input,
             stage: self.stage.into_next(),
-            next_chunk: Some(chunk),
+            next_chunk: chunk,
         })
     }
 }
@@ -442,7 +459,7 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
     }
 }
 
-impl<'db, R: Read> DeserializerState<R, MetaStage<'db>> {
+impl<'db, R: Read> DeserializerState<R, MetaStage<'db>, ()> {
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
         mut input: R,
@@ -455,7 +472,7 @@ impl<'db, R: Read> DeserializerState<R, MetaStage<'db>> {
                 metadata: HashMap::new(),
                 header,
             },
-            next_chunk: None,
+            next_chunk: (),
         })
     }
 }
@@ -1755,7 +1772,7 @@ impl DecodeChunk for EndStage {
     }
 }
 
-impl<R> DeserializerState<R, FinishStage> {
+impl<R> DeserializerState<R, FinishStage, ()> {
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     #[profiling::function]
