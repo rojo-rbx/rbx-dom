@@ -410,6 +410,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             type_id
         );
 
+        let instances = &mut self.instances[type_info.instances_slice()];
+
         // The `Name` prop is special and is routed to a different spot for
         // rbx_dom_weak, so we handle it specially here.
         if prop_name == "Name" {
@@ -417,7 +419,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             // path, we should use the reflection database to figure out its
             // default name. This should be rare: effectively never!
 
-            for instance in &mut self.instances[type_info.instances_slice()] {
+            for instance in instances {
                 let binary_string = chunk.read_binary_string()?;
                 let value = match std::str::from_utf8(&binary_string) {
                     Ok(value) => Cow::Borrowed(value),
@@ -454,7 +456,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
         match binary_type {
             Type::String => match canonical_type {
                 VariantType::String => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let binary_string = chunk.read_binary_string()?;
                         let value = match std::str::from_utf8(&binary_string) {
                             Ok(value) => Cow::Borrowed(value),
@@ -474,20 +476,20 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     }
                 }
                 VariantType::ContentId => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let value = chunk.read_string()?;
                         add_property(instance, &property, ContentId::from(value).into());
                     }
                 }
                 VariantType::BinaryString => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let value: BinaryString = chunk.read_binary_string()?.into();
                         add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::Tags => {
                     let type_name = type_info.type_name;
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
                         let value = Tags::decode(buffer.as_ref()).map_err(|_| {
@@ -503,7 +505,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     }
                 }
                 VariantType::Attributes => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
                         match Attributes::from_reader(buffer.as_slice()) {
@@ -529,7 +531,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     }
                 }
                 VariantType::MaterialColors => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let buffer = chunk.read_binary_string()?;
                         match MaterialColors::decode(&buffer) {
                             Ok(value) => add_property(instance, &property, value.into()),
@@ -563,7 +565,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Bool => match canonical_type {
                 VariantType::Bool => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let value = chunk.read_bool()?;
                         add_property(instance, &property, value.into());
                     }
@@ -579,12 +581,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Int32 => match canonical_type {
                 VariantType::Int32 => {
-                    let values =
-                        chunk.read_interleaved_i32_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_i32_array(instances.len())?;
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -592,12 +591,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 // Basically, we convert Int32 to Int64 when we expect a Int64 but read a Int32
                 // See: #301
                 VariantType::Int64 => {
-                    let values =
-                        chunk.read_interleaved_i32_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_i32_array(instances.len())?;
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         let value_converted = i64::from(value);
                         add_property(instance, &property, value_converted.into());
                     }
@@ -613,12 +609,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Float32 => match canonical_type {
                 VariantType::Float32 => {
-                    let values =
-                        chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_f32_array(instances.len())?;
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -633,7 +626,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Float64 => match canonical_type {
                 VariantType::Float64 => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let value = chunk.read_le_f64()?;
                         add_property(instance, &property, value.into());
                     }
@@ -642,12 +635,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 // Basically, we convert Float32 to Float64 when we expect a Float64 but read a Float32
                 // See: #301
                 VariantType::Float32 => {
-                    let values =
-                        chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_f32_array(instances.len())?;
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         let converted_value = f64::from(value);
                         add_property(instance, &property, converted_value.into());
                     }
@@ -663,18 +653,14 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::UDim => match canonical_type {
                 VariantType::UDim => {
-                    let scales =
-                        chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
-                    let offsets =
-                        chunk.read_interleaved_i32_array(type_info.instances_slice.len())?;
+                    let scales = chunk.read_interleaved_f32_array(instances.len())?;
+                    let offsets = chunk.read_interleaved_i32_array(instances.len())?;
 
                     let values = scales
                         .zip(offsets)
                         .map(|(scale, offset)| UDim::new(scale, offset));
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -689,7 +675,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::UDim2 => match canonical_type {
                 VariantType::UDim2 => {
-                    let prop_count = type_info.instances_slice.len();
+                    let prop_count = instances.len();
                     let scale_x = chunk.read_interleaved_f32_array(prop_count)?;
                     let scale_y = chunk.read_interleaved_f32_array(prop_count)?;
                     let offset_x = chunk.read_interleaved_i32_array(prop_count)?;
@@ -705,9 +691,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
                     let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -722,7 +706,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Ray => match canonical_type {
                 VariantType::Ray => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let origin_x = chunk.read_le_f32()?;
                         let origin_y = chunk.read_le_f32()?;
                         let origin_z = chunk.read_le_f32()?;
@@ -753,7 +737,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Faces => match canonical_type {
                 VariantType::Faces => {
                     let type_name = type_info.type_name;
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let value = chunk.read_u8()?;
                         let faces =
                             Faces::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
@@ -778,7 +762,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Axes => match canonical_type {
                 VariantType::Axes => {
                     let type_name = type_info.type_name;
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let value = chunk.read_u8()?;
 
                         let axes =
@@ -803,13 +787,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::BrickColor => match canonical_type {
                 VariantType::BrickColor => {
-                    let values =
-                        chunk.read_interleaved_u32_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
 
                     let type_name = type_info.type_name;
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         let color = value
                             .try_into()
                             .ok()
@@ -835,15 +816,13 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Color3 => match canonical_type {
                 VariantType::Color3 => {
-                    let r = chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
-                    let g = chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
-                    let b = chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
+                    let r = chunk.read_interleaved_f32_array(instances.len())?;
+                    let g = chunk.read_interleaved_f32_array(instances.len())?;
+                    let b = chunk.read_interleaved_f32_array(instances.len())?;
 
                     let values = r.zip(g).zip(b).map(|((r, g), b)| Color3::new(r, g, b));
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -858,14 +837,12 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Vector2 => match canonical_type {
                 VariantType::Vector2 => {
-                    let x = chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
-                    let y = chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
+                    let x = chunk.read_interleaved_f32_array(instances.len())?;
+                    let y = chunk.read_interleaved_f32_array(instances.len())?;
 
                     let values = x.zip(y).map(|(x, y)| Vector2::new(x, y));
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -880,15 +857,13 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Vector3 => match canonical_type {
                 VariantType::Vector3 => {
-                    let x = chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
-                    let y = chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
-                    let z = chunk.read_interleaved_f32_array(type_info.instances_slice.len())?;
+                    let x = chunk.read_interleaved_f32_array(instances.len())?;
+                    let y = chunk.read_interleaved_f32_array(instances.len())?;
+                    let z = chunk.read_interleaved_f32_array(instances.len())?;
 
                     let values = x.zip(y).zip(z).map(|((x, y), z)| Vector3::new(x, y, z));
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -903,7 +878,6 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::CFrame => match canonical_type {
                 VariantType::CFrame => {
-                    let instances = &mut self.instances[type_info.instances_slice()];
                     let mut rotations = Vec::with_capacity(instances.len());
 
                     for _ in 0..instances.len() {
@@ -963,12 +937,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Enum => match canonical_type {
                 VariantType::Enum => {
-                    let values =
-                        chunk.read_interleaved_u32_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, Enum::from_u32(value).into());
                     }
                 }
@@ -983,11 +954,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Ref => match canonical_type {
                 VariantType::Ref => {
-                    let values = chunk.read_referent_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_referent_array(instances.len())?;
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         let rbx_value =
                             if let Some(instance_key) = self.instance_key_by_ref.get(&value) {
                                 instance_key.referent
@@ -1008,7 +977,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Vector3int16 => match canonical_type {
                 VariantType::Vector3int16 => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         add_property(
                             instance,
                             &property,
@@ -1032,7 +1001,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Font => match canonical_type {
                 VariantType::Font => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let family = chunk.read_string()?;
                         let weight = FontWeight::from_u16(chunk.read_le_u16()?).unwrap_or_default();
                         let style = FontStyle::from_u8(chunk.read_u8()?).unwrap_or_default();
@@ -1068,7 +1037,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::NumberSequence => match canonical_type {
                 VariantType::NumberSequence => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let keypoint_count = chunk.read_le_u32()?;
                         let mut keypoints = Vec::with_capacity(keypoint_count as usize);
 
@@ -1094,7 +1063,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::ColorSequence => match canonical_type {
                 VariantType::ColorSequence => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let keypoint_count = chunk.read_le_u32()? as usize;
                         let mut keypoints = Vec::with_capacity(keypoint_count);
 
@@ -1126,7 +1095,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::NumberRange => match canonical_type {
                 VariantType::NumberRange => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         add_property(
                             instance,
                             &property,
@@ -1145,7 +1114,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Rect => match canonical_type {
                 VariantType::Rect => {
-                    let len = type_info.instances_slice.len();
+                    let len = instances.len();
                     let x_min = chunk.read_interleaved_f32_array(len)?;
                     let y_min = chunk.read_interleaved_f32_array(len)?;
                     let x_max = chunk.read_interleaved_f32_array(len)?;
@@ -1157,9 +1126,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         },
                     );
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into())
                     }
                 }
@@ -1174,7 +1141,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::PhysicalProperties => match canonical_type {
                 VariantType::PhysicalProperties => {
-                    for instance in &mut self.instances[type_info.instances_slice()] {
+                    for instance in instances {
                         let discriminator = chunk.read_u8()?;
                         let value = match discriminator {
                             0b00 | 0b10 => Variant::PhysicalProperties(PhysicalProperties::Default),
@@ -1215,7 +1182,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Color3uint8 => match canonical_type {
                 VariantType::Color3 => {
-                    let len = type_info.instances_slice.len();
+                    let len = instances.len();
                     let mut r = vec![0; len];
                     let mut g = vec![0; len];
                     let mut b = vec![0; len];
@@ -1230,9 +1197,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         .zip(b)
                         .map(|((r, g), b)| Color3uint8::new(r, g, b));
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -1247,12 +1212,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Int64 => match canonical_type {
                 VariantType::Int64 => {
-                    let values =
-                        chunk.read_interleaved_i64_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_i64_array(instances.len())?;
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -1267,13 +1229,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::SharedString => match canonical_type {
                 VariantType::SharedString => {
-                    let values =
-                        chunk.read_interleaved_u32_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
 
                     let type_name = type_info.type_name;
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         let shared_string =
                             self.shared_strings.get(value as usize).ok_or_else(|| {
                                 InnerError::InvalidPropData {
@@ -1288,13 +1247,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     }
                 }
                 VariantType::NetAssetRef => {
-                    let values =
-                        chunk.read_interleaved_u32_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
 
                     let type_name = type_info.type_name;
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         let net_asset = NetAssetRef::from(
                             self.shared_strings
                                 .get(value as usize)
@@ -1321,7 +1277,6 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::OptionalCFrame => match canonical_type {
                 VariantType::OptionalCFrame => {
-                    let instances = &mut self.instances[type_info.instances_slice()];
                     let mut rotations = Vec::with_capacity(instances.len());
 
                     // Roblox writes a type marker for CFrame here that we don't
@@ -1411,12 +1366,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::UniqueId => match canonical_type {
                 VariantType::UniqueId => {
-                    let n = type_info.instances_slice.len();
+                    let n = instances.len();
                     let values = chunk.read_interleaved_bytes::<16>(n)?;
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         let mut value = value.as_slice();
                         add_property(
                             instance,
@@ -1441,14 +1394,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::SecurityCapabilities => match canonical_type {
                 VariantType::SecurityCapabilities => {
-                    let values =
-                        chunk.read_interleaved_i64_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_i64_array(instances.len())?;
 
                     let values = values.map(|value| SecurityCapabilities::from_bits(value as u64));
 
-                    for (value, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into())
                     }
                 }
@@ -1463,8 +1413,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Content => match canonical_type {
                 VariantType::Content => {
-                    let values =
-                        chunk.read_interleaved_i32_array(type_info.instances_slice.len())?;
+                    let values = chunk.read_interleaved_i32_array(instances.len())?;
 
                     let uri_count = chunk.read_le_u32()? as usize;
                     let mut uris = VecDeque::with_capacity(uri_count);
@@ -1483,9 +1432,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let mut bytes = vec![0; external_count * 4];
                     chunk.read_to_end(&mut bytes)?;
 
-                    for (ty, instance) in
-                        values.zip(&mut self.instances[type_info.instances_slice()])
-                    {
+                    for (ty, instance) in values.zip(instances) {
                         let value = match ty {
                             0 => Content::none(),
                             1 => Content::from_uri(uris.pop_back().unwrap()),
