@@ -234,6 +234,15 @@ pub(super) struct DeserializerState<R, S, C> {
     next_chunk: C,
 }
 
+impl<R> DeserializerState<R, FinishStage, NoChunk> {
+    /// Combines together all the decoded information to build and emplace
+    /// instances in our tree.
+    #[profiling::function]
+    pub(super) fn finish(self) -> WeakDom {
+        self.stage.finish()
+    }
+}
+
 /// Monomorphizing the aquisition of an initial chunk depending on whether
 /// the previous stage produced a chunk which has not yet been decoded.
 pub trait NextChunk {
@@ -1776,14 +1785,9 @@ impl DecodeChunk for EndStage {
     }
 }
 
-impl<R> DeserializerState<R, FinishStage, NoChunk> {
-    /// Combines together all the decoded information to build and emplace
-    /// instances in our tree.
-    #[profiling::function]
-    pub(super) fn finish(self) -> WeakDom {
+impl FinishStage {
+    fn finish(mut self) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
-
-        let mut stage = self.stage;
 
         // Track all the instances we need to construct. Order of construction
         // is important to preserve for both determinism and sometimes
@@ -1793,20 +1797,20 @@ impl<R> DeserializerState<R, FinishStage, NoChunk> {
         // Any instance with a parent of -1 will be at the top level of the
         // tree. Because of the way rbx_dom_weak generally works, we need to
         // start at the top of the tree to begin construction.
-        let root_ref = stage.tree.root_ref();
-        for &referent in &stage.root_instance_refs {
+        let root_ref = self.tree.root_ref();
+        for &referent in &self.root_instance_refs {
             instances_to_construct.push_back((referent, root_ref));
         }
 
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            let instance = stage.instances_by_ref.remove(&referent).unwrap();
-            let id = stage.tree.insert(parent_ref, instance.builder);
+            let instance = self.instances_by_ref.remove(&referent).unwrap();
+            let id = self.tree.insert(parent_ref, instance.builder);
 
             for referent in instance.children {
                 instances_to_construct.push_back((referent, id));
             }
         }
 
-        stage.tree
+        self.tree
     }
 }
