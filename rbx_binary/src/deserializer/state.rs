@@ -472,11 +472,13 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
 }
 
 impl<'db, R: Read> DeserializerState<R, MetaStage<'db>, NoChunk> {
+    /// Decode header and initialize the first stage `MetaStage`.
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
         mut input: R,
     ) -> Result<Self, InnerError> {
         let header = FileHeader::decode(&mut input)?;
+
         Ok(Self {
             input,
             stage: MetaStage {
