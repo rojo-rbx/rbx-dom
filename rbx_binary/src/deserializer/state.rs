@@ -267,8 +267,8 @@ impl<R: Read, S: ChunkOnce + Stage + DecodeChunk> DeserializerState<R, S> {
             self.stage.decode_chunk(chunk)?;
         } else {
             return Err(InnerError::UnexpectedChunk {
-                expected: str::from_utf8(&S::FOURCC).unwrap(),
-                actual: str::from_utf8(&chunk.name).unwrap().to_owned(),
+                expected: str::from_utf8(&S::FOURCC).unwrap_or("UTF8Error"),
+                actual: str::from_utf8(&chunk.name).unwrap_or("UTF8Error").into(),
             });
         }
 
