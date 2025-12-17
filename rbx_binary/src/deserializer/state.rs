@@ -68,7 +68,7 @@ struct TypeInfo<'db> {
     /// The common name for this type like `Folder` or `UserInputService`.
     type_name: Ustr,
 
-    /// A slice of instances_by_ref which contains every instance of this class.
+    /// A slice of `instances` which contains every instance of this class.
     instances_slice: core::ops::Range<usize>,
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
