@@ -1503,8 +1503,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
             // We need to keep `instance_key_by_ref` up to date with the swaps as they happen.
             let instance_key = self.instance_key_by_ref.get(&referent).unwrap().key;
             if let Some(last) = self.instances.last() {
-                let last_instance = self.instance_key_by_ref.get_mut(&last.referent).unwrap();
-                last_instance.key = instance_key;
+                let last_instance_key = self.instance_key_by_ref.get_mut(&last.referent).unwrap();
+                last_instance_key.key = instance_key;
             }
             let instance = self.instances.swap_remove(instance_key);
             let id = self.tree.insert(parent_ref, instance.builder);
