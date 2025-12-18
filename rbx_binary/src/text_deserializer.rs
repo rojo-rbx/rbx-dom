@@ -21,7 +21,7 @@ use serde::{ser::SerializeSeq, Serialize, Serializer};
 
 use crate::{
     chunk::Chunk,
-    core::{RbxReadExt, RbxReadInterleaved, ReadSlice},
+    core::{RbxReadExt, ReadSlice},
     deserializer::FileHeader,
     types::Type,
 };
