@@ -87,7 +87,8 @@ struct InstanceKey {
 /// instance. Incrementally built up by the deserializer as we decode different
 /// chunks.
 struct Instance {
-    /// The ref_id for this instance
+    /// The ref_id for this instance.  This is only used in one place,
+    /// so may be a good place to look for inspiration for a refactor.
     referent: i32,
 
     /// A work-in-progress builder that will be used to construct this instance.
