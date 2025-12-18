@@ -130,27 +130,6 @@ pub trait RbxReadExt: Read {
     }
 }
 
-pub trait ReadSlice<'a> {
-    /// Read a slice of length `len`, or return
-    /// an error if the length overruns the source data.
-    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
-}
-
-#[cold]
-fn unexpected_eof() -> io::Error {
-    io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
-}
-
-impl<'a> ReadSlice<'a> for &'a [u8] {
-    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]> {
-        let out;
-
-        (out, *self) = self.split_at_checked(len).ok_or_else(unexpected_eof)?;
-
-        Ok(out)
-    }
-}
-
 pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     /// Create an iterator that reads chunks of N interleaved bytes.
     /// Consumes `N * len` bytes from Self.
@@ -222,6 +201,27 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
 
 impl<R> RbxReadExt for R where R: Read {}
 impl<'a, R> RbxReadInterleaved<'a> for R where R: ReadSlice<'a> {}
+
+pub trait ReadSlice<'a> {
+    /// Read a slice of length `len`, or return
+    /// an error if the length overruns the source data.
+    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
+}
+
+#[cold]
+fn unexpected_eof() -> io::Error {
+    io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
+}
+
+impl<'a> ReadSlice<'a> for &'a [u8] {
+    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]> {
+        let out;
+
+        (out, *self) = self.split_at_checked(len).ok_or_else(unexpected_eof)?;
+
+        Ok(out)
+    }
+}
 
 pub trait RbxWriteExt: Write {
     fn write_le_u32(&mut self, value: u32) -> io::Result<()> {
