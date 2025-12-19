@@ -116,8 +116,7 @@ impl Drop for SharedString {
         // Is this the last strong reference?
         //
         // Multiple threads may arrive here and pass this check
-        // simultaneously, but removing a string from the cache
-        // that is already removed is a no-op.
+        // simultaneously, but the remaining code is idempotent.
         if Weak::strong_count(&weak) != 0 {
             return;
         }
