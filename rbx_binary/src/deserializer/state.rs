@@ -929,12 +929,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_referent_array(instances.len())?;
 
                     for (value, instance) in values.zip(instances) {
-                        let rbx_value =
-                            if let Some(instance_key) = self.instance_key_by_ref.get(&value) {
-                                instance_key.referent
-                            } else {
-                                Ref::none()
-                            };
+                        let rbx_value = if let Some(key) = self.instance_key_by_ref.get(&value) {
+                            key.referent
+                        } else {
+                            Ref::none()
+                        };
                         add_property(instance, &property, rbx_value.into());
                     }
                 }
@@ -1410,10 +1409,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             1 => Content::from_uri(uris.pop_back().unwrap()),
                             2 => {
                                 let read_value = objects.pop_back().unwrap();
-                                if let Some(instance_key) =
-                                    self.instance_key_by_ref.get(&read_value)
-                                {
-                                    Content::from_referent(instance_key.referent)
+                                if let Some(key) = self.instance_key_by_ref.get(&read_value) {
+                                    Content::from_referent(key.referent)
                                 } else {
                                     Content::none()
                                 }
