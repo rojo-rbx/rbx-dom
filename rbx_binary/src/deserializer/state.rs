@@ -69,7 +69,7 @@ struct TypeInfo<'db> {
     type_name: Ustr,
 
     /// A slice of `instances` which contains every instance of this class.
-    instances_slice: core::ops::Range<usize>,
+    instances: core::ops::Range<usize>,
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
@@ -328,7 +328,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             type_id,
             TypeInfo {
                 type_name: type_name.into(),
-                instances_slice: start..end,
+                instances: start..end,
                 class_descriptor,
             },
         );
@@ -382,8 +382,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             type_id
         );
 
-        let instances =
-            &mut self.instances[type_info.instances_slice.start..type_info.instances_slice.end];
+        let instances = &mut self.instances[type_info.instances.start..type_info.instances.end];
 
         // The `Name` prop is special and is routed to a different spot for
         // rbx_dom_weak, so we handle it specially here.
