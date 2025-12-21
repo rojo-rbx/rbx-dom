@@ -1443,7 +1443,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             if parent_ref == -1 {
                 self.root_instance_refs.push(id);
             } else {
-                let instance_key = self.instance_key_by_ref.get_mut(&parent_ref).unwrap();
+                let instance_key = self.instance_key_by_ref.get(&parent_ref).unwrap();
                 let instance = self.instances.get_mut(instance_key.key).unwrap();
                 instance.children.push(id);
             }
