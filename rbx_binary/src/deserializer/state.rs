@@ -93,14 +93,6 @@ struct Instance {
     /// Document-defined IDs for the children of this instance.
     children: Vec<i32>,
 }
-impl Instance {
-    fn empty() -> Self {
-        Self {
-            builder: InstanceBuilder::empty(),
-            children: Vec::new(),
-        }
-    }
-}
 
 /// Properties may be serialized under different names or types than
 /// they ultimately should have in the DOM. CanonicalProperty
@@ -1490,11 +1482,18 @@ rbx-dom may require changes to fully support this property. Please open an issue
             instances_to_construct.push_back((referent, root_ref));
         }
 
+        // Ensure we hit the global ustr lock array only once
+        let empty_ustr = Ustr::default();
+
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
             // Replace each instance with an impostor!
             // We guarantee this is done once by removing the key from `instance_key_by_ref`.
             let instance_key = self.instance_key_by_ref.remove(&referent).unwrap().key;
-            let instance = core::mem::replace(&mut self.instances[instance_key], Instance::empty());
+            let impostor = Instance {
+                builder: InstanceBuilder::new(empty_ustr),
+                children: Vec::new(),
+            };
+            let instance = core::mem::replace(&mut self.instances[instance_key], impostor);
             let id = self.tree.insert(parent_ref, instance.builder);
 
             for referent in instance.children {
