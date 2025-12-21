@@ -1491,8 +1491,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
         }
 
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            let instance_key = self.instance_key_by_ref.remove(&referent).unwrap().key;
             // Replace each instance with an impostor!
+            // We guarantee this is done once by removing the key from `instance_key_by_ref`.
+            let instance_key = self.instance_key_by_ref.remove(&referent).unwrap().key;
             let instance = core::mem::replace(&mut self.instances[instance_key], Instance::empty());
             let id = self.tree.insert(parent_ref, instance.builder);
 
