@@ -87,15 +87,19 @@ struct InstanceKey {
 /// instance. Incrementally built up by the deserializer as we decode different
 /// chunks.
 struct Instance {
-    /// The ref_id for this instance.  This is only used in one place,
-    /// so may be a good place to look for inspiration for a refactor.
-    referent: i32,
-
     /// A work-in-progress builder that will be used to construct this instance.
     builder: InstanceBuilder,
 
     /// Document-defined IDs for the children of this instance.
     children: Vec<i32>,
+}
+impl Instance {
+    fn empty() -> Self {
+        Self {
+            builder: InstanceBuilder::empty(),
+            children: Vec::new(),
+        }
+    }
 }
 
 /// Properties may be serialized under different names or types than
@@ -316,7 +320,6 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 },
             );
             self.instances.push(Instance {
-                referent,
                 builder,
                 children: Vec::new(),
             });
@@ -1488,14 +1491,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
         }
 
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            // swap_remove swaps the last element into the removed element.
-            // We need to keep `instance_key_by_ref` up to date with the swaps as they happen.
-            let instance_key = self.instance_key_by_ref.get(&referent).unwrap().key;
-            if let Some(last) = self.instances.last() {
-                let last_instance_key = self.instance_key_by_ref.get_mut(&last.referent).unwrap();
-                last_instance_key.key = instance_key;
-            }
-            let instance = self.instances.swap_remove(instance_key);
+            let instance_key = self.instance_key_by_ref.remove(&referent).unwrap().key;
+            // Replace each instance with an impostor!
+            let instance = core::mem::replace(&mut self.instances[instance_key], Instance::empty());
             let id = self.tree.insert(parent_ref, instance.builder);
 
             for referent in instance.children {
