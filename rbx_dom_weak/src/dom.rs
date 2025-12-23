@@ -48,9 +48,9 @@ impl WeakDom {
     /// `instances` or not a `Variant::UniqueId`, this function will panic.
     #[must_use]
     pub fn from_raw(root_ref: Option<Ref>, instances: AHashMap<Ref, Instance>) -> WeakDom {
-        if let Some(root_some_ref) = root_ref {
+        if let Some(referent) = root_ref {
             assert!(
-                instances.contains_key(&root_some_ref),
+                instances.contains_key(&referent),
                 "the provided `instances` map does not contain the `root_ref`"
             );
         }
@@ -151,7 +151,7 @@ impl WeakDom {
     }
 
     /// Returns an iterator that goes through the descendants of a particular
-    /// [`SomeRef`]. The passed `SomeRef` *must* be a part of this `WeakDom`.
+    /// [`Ref`]. The passed `Ref` *must* be a part of this `WeakDom`.
     ///
     /// ## Panics
     ///
@@ -168,7 +168,7 @@ impl WeakDom {
     }
 
     /// Returns an iterator that goes through the ancestors of a particular
-    /// [`SomeRef`]. The passed `SomeRef` *must* be a part of this `WeakDom`.
+    /// [`Ref`]. The passed `Ref` *must* be a part of this `WeakDom`.
     ///
     /// ## Panics
     ///
@@ -216,9 +216,9 @@ impl WeakDom {
                 },
             );
 
-            if let Some(parent_some_ref) = parent {
+            if let Some(parent_ref) = parent {
                 dom.instances
-                    .get_mut(&parent_some_ref)
+                    .get_mut(&parent_ref)
                     .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"))
                     .children
                     .push(builder.referent);
@@ -268,9 +268,9 @@ impl WeakDom {
     /// Will also panic if `referent` refers to the root instance in this
     /// `WeakDom`.
     pub fn destroy(&mut self, referent: Ref) {
-        if let Some(root_some_ref) = self.root_ref {
+        if let Some(root_ref) = self.root_ref {
             assert!(
-                referent != root_some_ref,
+                referent != root_ref,
                 "cannot destroy the root instance of a WeakDom"
             );
         }
@@ -280,8 +280,8 @@ impl WeakDom {
             .get(&referent)
             .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
 
-        if let Some(parent_some_ref) = instance.parent {
-            let parent = self.instances.get_mut(&parent_some_ref).unwrap();
+        if let Some(parent_ref) = instance.parent {
+            let parent = self.instances.get_mut(&parent_ref).unwrap();
             parent.children.retain(|&child| child != referent);
         }
 
@@ -312,9 +312,9 @@ impl WeakDom {
         dest: &mut WeakDom,
         dest_parent_ref: impl Into<Option<Ref>>,
     ) {
-        if let Some(root_some_ref) = self.root_ref {
+        if let Some(root_ref) = self.root_ref {
             assert!(
-                referent != root_some_ref,
+                referent != root_ref,
                 "cannot transfer the root instance of WeakDom"
             );
         }
@@ -325,8 +325,8 @@ impl WeakDom {
         // Remove the instance being moved from its parent's list of children.
         // If we care about panic tolerance in the future, doing this first is
         // important to ensure this link is the one severed first.
-        if let Some(parent_some_ref) = instance.parent {
-            let parent = self.instances.get_mut(&parent_some_ref).unwrap();
+        if let Some(parent_ref) = instance.parent {
+            let parent = self.instances.get_mut(&parent_ref).unwrap();
             parent.children.retain(|&child| child != referent);
         }
 
@@ -351,8 +351,8 @@ impl WeakDom {
 
         // Finally, notify the new parent instance that their adoption is
         // complete. Enjoy!
-        if let Some(dest_some_ref) = dest_parent_ref {
-            let dest_parent = dest.instances.get_mut(&dest_some_ref).unwrap_or_else(|| {
+        if let Some(dest_ref) = dest_parent_ref {
+            let dest_parent = dest.instances.get_mut(&dest_ref).unwrap_or_else(|| {
                 panic!("cannot move an instance into an instance that does not exist")
             });
             dest_parent.children.push(referent);
@@ -373,9 +373,9 @@ impl WeakDom {
     /// Will also panic if `referent` refers to the root instance in this
     /// `WeakDom`.
     pub fn transfer_within(&mut self, referent: Ref, dest_parent_ref: impl Into<Option<Ref>>) {
-        if let Some(root_some_ref) = self.root_ref {
+        if let Some(root_ref) = self.root_ref {
             assert!(
-                referent != root_some_ref,
+                referent != root_ref,
                 "cannot transfer the root instance of WeakDom"
             );
         }
@@ -392,16 +392,16 @@ impl WeakDom {
         instance.parent = dest_parent_ref;
 
         // Remove the instance's referent from its parent's list of children.
-        if let Some(parent_some_ref) = parent_ref {
-            let parent = self.instances.get_mut(&parent_some_ref).unwrap();
+        if let Some(parent_ref) = parent_ref {
+            let parent = self.instances.get_mut(&parent_ref).unwrap();
             parent.children.retain(|&child| child != referent);
         }
 
         // Add the instance's referent to its new parent's list of children.
-        if let Some(dest_some_ref) = dest_parent_ref {
+        if let Some(dest_ref) = dest_parent_ref {
             let dest_parent = self
                 .instances
-                .get_mut(&dest_some_ref)
+                .get_mut(&dest_ref)
                 .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
             dest_parent.children.push(referent);
         }

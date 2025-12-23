@@ -31,8 +31,8 @@ pub fn write_ref<W: Write>(
 ) -> Result<(), EncodeError> {
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", xml_property_name))?;
 
-    if let Some(some_ref) = value {
-        writer.write_characters(state.map_id(some_ref))?;
+    if let Some(referent) = value {
+        writer.write_characters(state.map_id(referent))?;
     } else {
         writer.write(XmlWriteEvent::characters("null"))?;
     }

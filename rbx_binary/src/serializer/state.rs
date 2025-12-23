@@ -1201,7 +1201,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         for (i, rbx_value) in values {
                             if let Variant::Ref(value) = rbx_value {
                                 let id = value
-                                    .and_then(|some_ref| id_to_referent.get(&some_ref).copied())
+                                    .and_then(|referent| id_to_referent.get(&referent).copied())
                                     .unwrap_or(-1);
                                 buf.push(id);
                             } else {
@@ -1549,7 +1549,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             // parent.
             instance
                 .parent()
-                .and_then(|some_ref| self.id_to_referent.get(&some_ref).copied())
+                .and_then(|referent| self.id_to_referent.get(&referent).copied())
                 .unwrap_or(-1)
         });
 
@@ -1580,8 +1580,8 @@ fn full_name_for(dom: &WeakDom, subject_ref: Ref) -> String {
     let mut components = Vec::new();
     let mut current_id = Some(subject_ref);
 
-    while let Some(some_ref) = current_id {
-        let instance = dom.get_by_ref(some_ref).unwrap();
+    while let Some(referent) = current_id {
+        let instance = dom.get_by_ref(referent).unwrap();
         components.push(instance.name.as_str());
         current_id = instance.parent();
     }

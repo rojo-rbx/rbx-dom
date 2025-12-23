@@ -10,13 +10,13 @@ use std::str::FromStr;
 pub struct Ref(NonZeroU128);
 
 impl Ref {
-    /// Generate a new random `SomeRef`.
+    /// Generate a new random `Ref`.
     #[inline]
     pub fn new_random() -> Self {
         Self(rand::random())
     }
 
-    /// Construct a `SomeRef`.
+    /// Construct a `Ref`.
     #[inline]
     pub const fn new(value: u128) -> Option<Self> {
         match NonZeroU128::new(value) {
@@ -75,9 +75,9 @@ mod serde_impl {
         }
     }
 
-    struct SomeRefVisitor;
+    struct RefVisitor;
 
-    impl Visitor<'_> for SomeRefVisitor {
+    impl Visitor<'_> for RefVisitor {
         type Value = Ref;
 
         fn expecting(&self, out: &mut fmt::Formatter) -> fmt::Result {
@@ -85,12 +85,12 @@ mod serde_impl {
         }
 
         fn visit_u128<E: Error>(self, value: u128) -> Result<Self::Value, E> {
-            Ref::new(value).ok_or_else(|| E::custom("SomeRef value is 0"))
+            Ref::new(value).ok_or_else(|| E::custom("Ref value is 0"))
         }
 
         fn visit_str<E: Error>(self, ref_str: &str) -> Result<Self::Value, E> {
             let ref_value = u128::from_str_radix(ref_str, 16).map_err(E::custom)?;
-            Ref::new(ref_value).ok_or_else(|| E::custom("SomeRef value is 0"))
+            Ref::new(ref_value).ok_or_else(|| E::custom("Ref value is 0"))
         }
     }
 
@@ -100,9 +100,9 @@ mod serde_impl {
             D: Deserializer<'de>,
         {
             if deserializer.is_human_readable() {
-                deserializer.deserialize_str(SomeRefVisitor)
+                deserializer.deserialize_str(RefVisitor)
             } else {
-                deserializer.deserialize_u128(SomeRefVisitor)
+                deserializer.deserialize_u128(RefVisitor)
             }
         }
     }

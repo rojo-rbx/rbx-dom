@@ -65,7 +65,7 @@ impl Content {
         }
     }
 
-    /// If this `Content` is an Object, returns the `SomeRef`. Otherwise, returns `None`.
+    /// If this `Content` is an Object, returns the `Ref`. Otherwise, returns `None`.
     #[inline]
     pub fn as_object(&self) -> Option<Ref> {
         match self.value() {
