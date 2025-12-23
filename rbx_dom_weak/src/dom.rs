@@ -1,7 +1,7 @@
 use std::collections::VecDeque;
 
 use ahash::{AHashMap, AHashSet};
-use rbx_types::{OptionalRef, SomeRef, UniqueId, Variant};
+use rbx_types::{Ref, UniqueId, Variant};
 use ustr::ustr;
 
 use crate::instance::{Instance, InstanceBuilder};
@@ -15,8 +15,8 @@ use crate::instance::{Instance, InstanceBuilder};
 /// objects and insert them into the tree.
 #[derive(Debug)]
 pub struct WeakDom {
-    instances: AHashMap<SomeRef, Instance>,
-    root_ref: Option<SomeRef>,
+    instances: AHashMap<Ref, Instance>,
+    root_ref: Option<Ref>,
     unique_ids: AHashSet<UniqueId>,
 }
 
@@ -29,7 +29,7 @@ impl WeakDom {
             unique_ids: AHashSet::new(),
         };
 
-        dom.insert(OptionalRef::none(), builder);
+        dom.insert(None, builder);
         dom
     }
 
@@ -47,7 +47,7 @@ impl WeakDom {
     /// If an Instance has a `UniqueId` property that is either duplicated in
     /// `instances` or not a `Variant::UniqueId`, this function will panic.
     #[must_use]
-    pub fn from_raw(root_ref: Option<SomeRef>, instances: AHashMap<SomeRef, Instance>) -> WeakDom {
+    pub fn from_raw(root_ref: Option<Ref>, instances: AHashMap<Ref, Instance>) -> WeakDom {
         if let Some(root_some_ref) = root_ref {
             assert!(
                 instances.contains_key(&root_some_ref),
@@ -89,12 +89,12 @@ impl WeakDom {
     /// Consumes the WeakDom, returning its underlying root ref and backing
     /// storage. This method is useful when tree-preserving operations are too
     /// slow.
-    pub fn into_raw(self) -> (Option<SomeRef>, AHashMap<SomeRef, Instance>) {
+    pub fn into_raw(self) -> (Option<Ref>, AHashMap<Ref, Instance>) {
         (self.root_ref, self.instances)
     }
 
     /// Returns the referent of the root instance of the `WeakDom`.
-    pub fn root_ref(&self) -> Option<SomeRef> {
+    pub fn root_ref(&self) -> Option<Ref> {
         self.root_ref
     }
 
@@ -117,19 +117,19 @@ impl WeakDom {
 
     /// Returns a reference to an instance by referent, or `None` if it is not
     /// found.
-    pub fn get_by_ref(&self, referent: SomeRef) -> Option<&Instance> {
+    pub fn get_by_ref(&self, referent: Ref) -> Option<&Instance> {
         self.instances.get(&referent)
     }
 
     /// Returns a _mutable_ reference to an instance by referent, or `None` if
     /// it is not found.
-    pub fn get_by_ref_mut(&mut self, referent: SomeRef) -> Option<&mut Instance> {
+    pub fn get_by_ref_mut(&mut self, referent: Ref) -> Option<&mut Instance> {
         self.instances.get_mut(&referent)
     }
 
     /// Returns the [`UniqueId`] for the Instance with the provided referent, if it
     /// exists.
-    pub fn get_unique_id(&self, referent: SomeRef) -> Option<UniqueId> {
+    pub fn get_unique_id(&self, referent: Ref) -> Option<UniqueId> {
         let inst = self.instances.get(&referent)?;
         match inst.properties.get(&ustr("UniqueId")) {
             Some(Variant::UniqueId(id)) => Some(*id),
@@ -157,7 +157,7 @@ impl WeakDom {
     ///
     /// Panics if `referent` is not a member of this DOM.
     #[inline]
-    pub fn descendants_of(&self, referent: SomeRef) -> WeakDomDescendants<'_> {
+    pub fn descendants_of(&self, referent: Ref) -> WeakDomDescendants<'_> {
         if !self.instances.contains_key(&referent) {
             panic!("the referent provided to `descendants_of` must be a part of the DOM")
         }
@@ -174,7 +174,7 @@ impl WeakDom {
     ///
     /// Panics if `referent` is not a member of this DOM.
     #[inline]
-    pub fn ancestors_of(&self, referent: SomeRef) -> impl Iterator<Item = &Instance> {
+    pub fn ancestors_of(&self, referent: Ref) -> impl Iterator<Item = &Instance> {
         let initial_instance = self.get_by_ref(referent);
         if initial_instance.is_none() {
             panic!("the referent provided to `ancestors_of` must be a part of the DOM");
@@ -191,17 +191,17 @@ impl WeakDom {
     /// Panics if `parent_ref` is some and does not refer to an instance in the DOM.
     pub fn insert(
         &mut self,
-        parent_ref: impl Into<OptionalRef>,
+        parent_ref: impl Into<Option<Ref>>,
         root_builder: InstanceBuilder,
-    ) -> SomeRef {
+    ) -> Ref {
         struct PendingInsert {
-            parent: Option<SomeRef>,
+            parent: Option<Ref>,
             builder: InstanceBuilder,
         }
         fn insert(
             dom: &mut WeakDom,
             builder: InstanceBuilder,
-            parent: Option<SomeRef>,
+            parent: Option<Ref>,
             queue: Option<&mut VecDeque<PendingInsert>>,
         ) {
             dom.inner_insert(
@@ -234,7 +234,7 @@ impl WeakDom {
             }
         }
 
-        let parent_ref = parent_ref.into().to_some_ref();
+        let parent_ref = parent_ref.into();
         let root_referent = root_builder.referent;
 
         // Fast path: if the builder does not have any children, then we don't have to
@@ -267,7 +267,7 @@ impl WeakDom {
     ///
     /// Will also panic if `referent` refers to the root instance in this
     /// `WeakDom`.
-    pub fn destroy(&mut self, referent: SomeRef) {
+    pub fn destroy(&mut self, referent: Ref) {
         if let Some(root_some_ref) = self.root_ref {
             assert!(
                 referent != root_some_ref,
@@ -308,9 +308,9 @@ impl WeakDom {
     /// `WeakDom`.
     pub fn transfer(
         &mut self,
-        referent: SomeRef,
+        referent: Ref,
         dest: &mut WeakDom,
-        dest_parent_ref: impl Into<OptionalRef>,
+        dest_parent_ref: impl Into<Option<Ref>>,
     ) {
         if let Some(root_some_ref) = self.root_ref {
             assert!(
@@ -319,7 +319,7 @@ impl WeakDom {
             );
         }
 
-        let dest_parent_ref = dest_parent_ref.into().to_some_ref();
+        let dest_parent_ref = dest_parent_ref.into();
         let mut instance = self.inner_remove(referent);
 
         // Remove the instance being moved from its parent's list of children.
@@ -372,7 +372,7 @@ impl WeakDom {
     ///
     /// Will also panic if `referent` refers to the root instance in this
     /// `WeakDom`.
-    pub fn transfer_within(&mut self, referent: SomeRef, dest_parent_ref: impl Into<OptionalRef>) {
+    pub fn transfer_within(&mut self, referent: Ref, dest_parent_ref: impl Into<Option<Ref>>) {
         if let Some(root_some_ref) = self.root_ref {
             assert!(
                 referent != root_some_ref,
@@ -385,7 +385,7 @@ impl WeakDom {
             .get_mut(&referent)
             .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
 
-        let dest_parent_ref = dest_parent_ref.into().to_some_ref();
+        let dest_parent_ref = dest_parent_ref.into();
 
         // Tell the instance who its new parent is.
         let parent_ref = instance.parent;
@@ -414,10 +414,10 @@ impl WeakDom {
     ///
     /// Any Ref properties that point to instances contained in the subtree are
     /// rewritten to point to the cloned instances.
-    pub fn clone_within(&mut self, referent: SomeRef) -> SomeRef {
+    pub fn clone_within(&mut self, referent: Ref) -> Ref {
         let mut ctx = CloneContext::default();
         let root_builder = ctx.clone_ref_as_builder(self, referent);
-        let root_ref = self.insert(OptionalRef::none(), root_builder);
+        let root_ref = self.insert(None, root_builder);
 
         while let Some(PendingClone {
             cloned_parent,
@@ -444,10 +444,10 @@ impl WeakDom {
     /// This means that if you call this method on multiple different instances, Ref
     /// properties will not necessarily be preserved in the destination dom. If you're
     /// cloning multiple instances, prefer `clone_multiple_into_external` instead!
-    pub fn clone_into_external(&self, referent: SomeRef, dest: &mut WeakDom) -> SomeRef {
+    pub fn clone_into_external(&self, referent: Ref, dest: &mut WeakDom) -> Ref {
         let mut ctx = CloneContext::default();
         let root_builder = ctx.clone_ref_as_builder(self, referent);
-        let root_ref = dest.insert(OptionalRef::none(), root_builder);
+        let root_ref = dest.insert(None, root_builder);
 
         while let Some(PendingClone {
             cloned_parent,
@@ -464,17 +464,13 @@ impl WeakDom {
 
     /// Similar to `clone_into_external`, but clones multiple subtrees all at once. This
     /// method will preserve Ref properties that point across the cloned subtrees.
-    pub fn clone_multiple_into_external(
-        &self,
-        referents: &[SomeRef],
-        dest: &mut WeakDom,
-    ) -> Vec<SomeRef> {
+    pub fn clone_multiple_into_external(&self, referents: &[Ref], dest: &mut WeakDom) -> Vec<Ref> {
         let mut ctx = CloneContext::default();
         let root_refs = referents
             .iter()
             .map(|referent| {
                 let builder = ctx.clone_ref_as_builder(self, *referent);
-                dest.insert(OptionalRef::none(), builder)
+                dest.insert(None, builder)
             })
             .collect();
 
@@ -491,7 +487,7 @@ impl WeakDom {
         root_refs
     }
 
-    fn inner_insert(&mut self, referent: SomeRef, instance: Instance) {
+    fn inner_insert(&mut self, referent: Ref, instance: Instance) {
         self.instances.insert(referent, instance);
 
         // We need to ensure that the value of the Instance.UniqueId property does
@@ -521,7 +517,7 @@ impl WeakDom {
         }
     }
 
-    fn inner_remove(&mut self, referent: SomeRef) -> Instance {
+    fn inner_remove(&mut self, referent: Ref) -> Instance {
         let instance = self
             .instances
             .remove(&referent)
@@ -542,7 +538,7 @@ impl WeakDom {
 #[derive(Debug)]
 pub struct WeakDomDescendants<'a> {
     dom: &'a WeakDom,
-    queue: VecDeque<SomeRef>,
+    queue: VecDeque<Ref>,
 }
 
 impl<'a> Iterator for WeakDomDescendants<'a> {
@@ -570,13 +566,13 @@ impl Default for WeakDom {
 
 #[derive(Debug)]
 struct PendingClone {
-    cloned_parent: SomeRef,
-    uncloned_child: SomeRef,
+    cloned_parent: Ref,
+    uncloned_child: Ref,
 }
 #[derive(Debug, Default)]
 struct CloneContext {
     queue: VecDeque<PendingClone>,
-    ref_rewrites: AHashMap<SomeRef, SomeRef>,
+    ref_rewrites: AHashMap<Ref, Ref>,
 }
 
 impl CloneContext {
@@ -591,11 +587,9 @@ impl CloneContext {
                 .expect("Cannot rewrite refs on an instance that does not exist");
 
             for prop_value in instance.properties.values() {
-                if let Variant::Ref(value) = prop_value {
-                    if let Some(some_ref) = value.to_some_ref() {
-                        if dest.instances.contains_key(&some_ref) {
-                            existing_dest_refs.insert(some_ref);
-                        }
+                if let Variant::Ref(Some(value)) = prop_value {
+                    if dest.instances.contains_key(value) {
+                        existing_dest_refs.insert(*value);
                     }
                 }
             }
@@ -608,15 +602,15 @@ impl CloneContext {
 
             for prop_value in instance.properties.values_mut() {
                 if let Variant::Ref(original_ref) = prop_value {
-                    if let Some(some_ref) = original_ref.to_some_ref() {
-                        if let Some(new_ref) = self.ref_rewrites.get(&some_ref) {
+                    if let Some(referent) = original_ref {
+                        if let Some(&new_ref) = self.ref_rewrites.get(referent) {
                             // If the ref points to an instance contained within the
                             // cloned subtree, rewrite it as the corresponding new ref
-                            *original_ref = new_ref.to_optional_ref();
-                        } else if !existing_dest_refs.contains(&some_ref) {
+                            *original_ref = Some(new_ref);
+                        } else if !existing_dest_refs.contains(referent) {
                             // If the ref points to an instance that does not exist
                             // in the destination WeakDom, rewrite it as none
-                            *original_ref = OptionalRef::none();
+                            *original_ref = None;
                         }
                     }
                 }
@@ -630,7 +624,7 @@ impl CloneContext {
     ///
     /// This method only clones the instance's class name, name, and properties; it
     /// does not clone any children.
-    fn clone_ref_as_builder(&mut self, source: &WeakDom, original_ref: SomeRef) -> InstanceBuilder {
+    fn clone_ref_as_builder(&mut self, source: &WeakDom, original_ref: Ref) -> InstanceBuilder {
         let instance = source
             .get_by_ref(original_ref)
             .expect("Cannot clone an instance that does not exist");
@@ -698,7 +692,7 @@ mod test {
             .with_child(subject);
 
         let dest_parent = InstanceBuilder::new("Folder").with_name("Dest");
-        let dest_parent_ref = dest_parent.referent().to_optional_ref();
+        let dest_parent_ref = dest_parent.referent();
 
         let mut dom = WeakDom::new(
             InstanceBuilder::new("Folder")
@@ -757,7 +751,7 @@ mod test {
 
             child1 = child1.with_property("RefProp", child2.referent);
             child2 = child2.with_property("RefProp", child1.referent);
-            child3 = child3.with_property("RefProp", SomeRef::new_random());
+            child3 = child3.with_property("RefProp", Ref::new_random());
 
             WeakDom::new(
                 InstanceBuilder::new("Folder")
@@ -1017,7 +1011,7 @@ mod test {
             "new root's children do not match their refs from old dom"
         );
 
-        let Variant::Ref(child_1_value) = dom
+        let &Variant::Ref(Some(child_1_value)) = dom
             .get_by_ref(child_1)
             .unwrap()
             .properties
@@ -1026,7 +1020,7 @@ mod test {
         else {
             panic!("child_1.Value was not a Ref. How did this happen?")
         };
-        let Variant::Ref(child_2_value) = dom
+        let &Variant::Ref(Some(child_2_value)) = dom
             .get_by_ref(child_2)
             .unwrap()
             .properties
@@ -1037,13 +1031,11 @@ mod test {
         };
 
         assert_eq!(
-            *child_1_value,
-            parent.to_optional_ref(),
+            child_1_value, parent,
             "value of ref property was not preserved in new dom"
         );
         assert_eq!(
-            *child_2_value,
-            child_1.to_optional_ref(),
+            child_2_value, child_1,
             "value of ref property was not preserved in new dom"
         );
     }

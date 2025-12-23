@@ -1,7 +1,6 @@
 use rbx_dom_weak::{
     types::{
-        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Region3, SharedString, SomeRef,
-        Vector3,
+        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -104,7 +103,7 @@ fn unknown_id() {
     let tree = WeakDom::new(InstanceBuilder::new("Folder"));
 
     let mut buffer = Vec::new();
-    let result = to_writer(&mut buffer, &tree, &[SomeRef::new_random()]);
+    let result = to_writer(&mut buffer, &tree, &[Ref::new_random()]);
 
     assert!(result.is_err());
 }

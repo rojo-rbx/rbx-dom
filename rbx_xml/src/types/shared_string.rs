@@ -2,7 +2,7 @@
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{BinaryString, SharedString, SomeRef, Variant};
+use rbx_dom_weak::types::{BinaryString, Ref, SharedString, Variant};
 
 use crate::{
     deserializer::ParseState,
@@ -36,7 +36,7 @@ pub fn write_shared_string<W: Write>(
 
 pub fn read_shared_string<R: Read>(
     reader: &mut XmlEventReader<R>,
-    referent: SomeRef,
+    referent: Ref,
     property_name: &str,
     state: &mut ParseState,
 ) -> Result<Variant, DecodeError> {

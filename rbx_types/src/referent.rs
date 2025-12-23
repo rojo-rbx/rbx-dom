@@ -7,9 +7,9 @@ use std::str::FromStr;
 
 /// A universally unique reference to a Roblox instance.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct SomeRef(NonZeroU128);
+pub struct Ref(NonZeroU128);
 
-impl SomeRef {
+impl Ref {
     /// Generate a new random `SomeRef`.
     #[inline]
     pub fn new_random() -> Self {
@@ -20,14 +20,9 @@ impl SomeRef {
     #[inline]
     pub const fn new(value: u128) -> Option<Self> {
         match NonZeroU128::new(value) {
-            Some(value) => Some(SomeRef(value)),
+            Some(value) => Some(Ref(value)),
             None => None,
         }
-    }
-
-    #[inline]
-    pub const fn to_optional_ref(&self) -> OptionalRef {
-        OptionalRef(Some(*self))
     }
 
     const fn value(&self) -> u128 {
@@ -35,76 +30,13 @@ impl SomeRef {
     }
 }
 
-/// A universally unique reference to a Roblox instance.
-/// This is a type alias that points to a new type `SomeRef`.
-/// The original type has been renamed to `OptionalRef`.
-pub type Ref = SomeRef;
-
-/// A universally unique, optional reference to a Roblox instance.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct OptionalRef(Option<SomeRef>);
-
-impl OptionalRef {
-    /// Construct an `OptionalRef` that points to nothing.
-    #[inline]
-    pub const fn none() -> Self {
-        OptionalRef(None)
-    }
-
-    /// Construct an `OptionalRef`.  The value 0 is special
-    /// and points to nothing.
-    #[inline]
-    pub const fn new(value: u128) -> Self {
-        OptionalRef(SomeRef::new(value))
-    }
-
-    /// Tells whether this `OptionalRef` points to something.
-    #[inline]
-    pub const fn is_some(&self) -> bool {
-        self.0.is_some()
-    }
-
-    /// Tells whether this `OptionalRef` points to nothing.
-    #[inline]
-    pub const fn is_none(&self) -> bool {
-        self.0.is_none()
-    }
-
-    #[inline]
-    pub const fn to_some_ref(&self) -> Option<SomeRef> {
-        self.0
-    }
-
-    const fn value(&self) -> u128 {
-        match self.0 {
-            Some(value) => value.value(),
-            None => 0,
-        }
-    }
-}
-
-impl fmt::Display for OptionalRef {
-    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-        write!(formatter, "{:032x}", self.value())
-    }
-}
-impl fmt::Display for SomeRef {
+impl fmt::Display for Ref {
     fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
         write!(formatter, "{:032x}", self.value())
     }
 }
 
-impl FromStr for OptionalRef {
-    type Err = std::num::ParseIntError;
-
-    #[inline]
-    fn from_str(input: &str) -> Result<Self, Self::Err> {
-        let value = u128::from_str_radix(input, 16)?;
-
-        Ok(OptionalRef::new(value))
-    }
-}
-impl FromStr for SomeRef {
+impl FromStr for Ref {
     type Err = std::num::ParseIntError;
 
     #[inline]
@@ -119,17 +51,6 @@ impl FromStr for SomeRef {
     }
 }
 
-impl From<Option<SomeRef>> for OptionalRef {
-    fn from(value: Option<SomeRef>) -> Self {
-        OptionalRef(value)
-    }
-}
-impl From<SomeRef> for OptionalRef {
-    fn from(value: SomeRef) -> Self {
-        value.to_optional_ref()
-    }
-}
-
 #[cfg(feature = "serde")]
 mod serde_impl {
     use super::*;
@@ -141,7 +62,7 @@ mod serde_impl {
         Deserialize, Deserializer, Serialize, Serializer,
     };
 
-    impl Serialize for SomeRef {
+    impl Serialize for Ref {
         fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
         where
             S: Serializer,
@@ -157,23 +78,23 @@ mod serde_impl {
     struct SomeRefVisitor;
 
     impl Visitor<'_> for SomeRefVisitor {
-        type Value = SomeRef;
+        type Value = Ref;
 
         fn expecting(&self, out: &mut fmt::Formatter) -> fmt::Result {
             write!(out, "a non-nil Roblox referent")
         }
 
         fn visit_u128<E: Error>(self, value: u128) -> Result<Self::Value, E> {
-            SomeRef::new(value).ok_or_else(|| E::custom("SomeRef value is 0"))
+            Ref::new(value).ok_or_else(|| E::custom("SomeRef value is 0"))
         }
 
         fn visit_str<E: Error>(self, ref_str: &str) -> Result<Self::Value, E> {
             let ref_value = u128::from_str_radix(ref_str, 16).map_err(E::custom)?;
-            SomeRef::new(ref_value).ok_or_else(|| E::custom("SomeRef value is 0"))
+            Ref::new(ref_value).ok_or_else(|| E::custom("SomeRef value is 0"))
         }
     }
 
-    impl<'de> Deserialize<'de> for SomeRef {
+    impl<'de> Deserialize<'de> for Ref {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
             D: Deserializer<'de>,
@@ -185,51 +106,6 @@ mod serde_impl {
             }
         }
     }
-
-    impl Serialize for OptionalRef {
-        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-        where
-            S: Serializer,
-        {
-            if serializer.is_human_readable() {
-                serializer.serialize_str(&format!("{:032x}", self.value()))
-            } else {
-                serializer.serialize_u128(self.value())
-            }
-        }
-    }
-
-    struct OptionalRefVisitor;
-
-    impl Visitor<'_> for OptionalRefVisitor {
-        type Value = OptionalRef;
-
-        fn expecting(&self, out: &mut fmt::Formatter) -> fmt::Result {
-            write!(out, "a Roblox referent")
-        }
-
-        fn visit_u128<E: Error>(self, value: u128) -> Result<Self::Value, E> {
-            Ok(OptionalRef::new(value))
-        }
-
-        fn visit_str<E: Error>(self, ref_str: &str) -> Result<Self::Value, E> {
-            let ref_value = u128::from_str_radix(ref_str, 16).map_err(E::custom)?;
-            Ok(OptionalRef::new(ref_value))
-        }
-    }
-
-    impl<'de> Deserialize<'de> for OptionalRef {
-        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-        where
-            D: Deserializer<'de>,
-        {
-            if deserializer.is_human_readable() {
-                deserializer.deserialize_str(OptionalRefVisitor)
-            } else {
-                deserializer.deserialize_u128(OptionalRefVisitor)
-            }
-        }
-    }
 }
 
 #[cfg(test)]
@@ -238,42 +114,29 @@ mod test {
 
     #[test]
     fn display() {
-        assert_eq!(
-            OptionalRef::none().to_string(),
-            "00000000000000000000000000000000"
-        );
-
-        let thirty = OptionalRef::new(30);
+        let thirty = Ref::new(30).unwrap();
         assert_eq!(thirty.to_string(), "0000000000000000000000000000001e");
 
-        let max = OptionalRef::new(u128::MAX);
+        let max = Ref::new(u128::MAX).unwrap();
         assert_eq!(max.to_string(), "ffffffffffffffffffffffffffffffff");
     }
 
     #[test]
     fn from_str() {
         assert_eq!(
-            OptionalRef::from_str("00000000000000000000000000000000").unwrap(),
-            OptionalRef::none()
+            Ref::from_str("00000000300000e00f00000000000001").unwrap(),
+            Ref::new(14855284604576099720297971713).unwrap()
         );
 
         assert_eq!(
-            OptionalRef::from_str("00000000300000e00f00000000000001").unwrap(),
-            OptionalRef::new(14855284604576099720297971713)
-        );
-
-        assert_eq!(
-            OptionalRef::from_str("ffffffffffffffffffffffffffffffff").unwrap(),
-            OptionalRef::new(u128::MAX)
+            Ref::from_str("ffffffffffffffffffffffffffffffff").unwrap(),
+            Ref::new(u128::MAX).unwrap()
         );
     }
 
     #[test]
     fn size() {
-        assert_eq!(
-            std::mem::size_of::<OptionalRef>(),
-            std::mem::size_of::<u128>()
-        );
+        assert_eq!(std::mem::size_of::<Ref>(), std::mem::size_of::<u128>());
     }
 }
 
@@ -282,20 +145,8 @@ mod serde_test {
     use super::*;
 
     #[test]
-    fn human_none() {
-        let value = OptionalRef::none();
-
-        let ser = serde_json::to_string(&value).unwrap();
-        assert_eq!(ser, "\"00000000000000000000000000000000\"");
-
-        let de: OptionalRef = serde_json::from_str(&ser).unwrap();
-
-        assert_eq!(value, de);
-    }
-
-    #[test]
     fn human() {
-        let value = SomeRef::new_random();
+        let value = Ref::new_random();
 
         let ser = serde_json::to_string(&value).unwrap();
         let de = serde_json::from_str(&ser).unwrap();
@@ -305,7 +156,7 @@ mod serde_test {
 
     #[test]
     fn non_human() {
-        let value = SomeRef::new_random();
+        let value = Ref::new_random();
 
         let ser = bincode::serialize(&value).unwrap();
         let de = bincode::deserialize(&ser).unwrap();

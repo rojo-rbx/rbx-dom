@@ -67,7 +67,7 @@ mod tests;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{types::SomeRef, WeakDom};
+use rbx_dom_weak::{types::Ref, WeakDom};
 
 /// An unstable textual format that can be used to debug binary models.
 #[cfg(feature = "unstable_text_format")]
@@ -87,6 +87,6 @@ pub fn from_reader<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
 
 /// Serializes a subset of the given DOM to a binary format model or place,
 /// writing to something that implements the `std::io::Write` trait.
-pub fn to_writer<W: Write>(writer: W, dom: &WeakDom, refs: &[SomeRef]) -> Result<(), EncodeError> {
+pub fn to_writer<W: Write>(writer: W, dom: &WeakDom, refs: &[Ref]) -> Result<(), EncodeError> {
     Serializer::new().serialize(writer, dom, refs)
 }

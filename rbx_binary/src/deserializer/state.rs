@@ -6,8 +6,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, Faces, Font,
         FontStyle, FontWeight, MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence,
-        NumberSequenceKeypoint, OptionalRef, PhysicalProperties, Ray, Rect, SecurityCapabilities,
-        SharedString, SomeRef, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
+        NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities,
+        SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
         Vector3int16,
     },
     InstanceBuilder, Ustr, WeakDom,
@@ -931,11 +931,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let refs = chunk.read_referent_array(type_info.referents.len())?;
 
                     for (value, referent) in refs.zip(&type_info.referents) {
-                        let rbx_value = if let Some(instance) = self.instances_by_ref.get(&value) {
-                            instance.builder.referent().to_optional_ref()
-                        } else {
-                            OptionalRef::none()
-                        };
+                        let rbx_value = self
+                            .instances_by_ref
+                            .get(&value)
+                            .map(|instance| instance.builder.referent());
 
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, rbx_value.into());
@@ -1434,7 +1433,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             2 => {
                                 let read_value = objects.pop_back().unwrap();
                                 if let Some(instance) = self.instances_by_ref.get(&read_value) {
-                                    Content::from_some_ref(instance.builder.referent())
+                                    Content::from_referent(instance.builder.referent())
                                 } else {
                                     Content::none()
                                 }
@@ -1508,7 +1507,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
         struct PendingInsert {
             id: i32,
-            parent: Option<SomeRef>,
+            parent: Option<Ref>,
         }
 
         // Track all the instances we need to construct. Order of construction

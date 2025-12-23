@@ -10,8 +10,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
         MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        OptionalRef, PhysicalProperties, Ray, Rect, SecurityCapabilities, SharedString, SomeRef,
-        Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
+        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, Ustr, UstrMap, WeakDom,
 };
@@ -50,11 +50,11 @@ pub(super) struct SerializerState<'dom, 'db, W> {
 
     /// All of the instances, in a deterministic order, that we're going to be
     /// serializing.
-    relevant_instances: Vec<SomeRef>,
+    relevant_instances: Vec<Ref>,
 
     /// A map from rbx-dom's unique instance ID (Ref) to the ID space used in
     /// the binary model format, signed integers.
-    id_to_referent: HashMap<SomeRef, i32>,
+    id_to_referent: HashMap<Ref, i32>,
 
     /// All of the types of instance discovered by our serializer that we'll be
     /// writing into the output.
@@ -477,7 +477,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     /// Mark the given instance IDs and all of their descendants as intended for
     /// serialization with this serializer.
     #[profiling::function]
-    pub fn add_instances(&mut self, referents: &[SomeRef]) -> Result<(), InnerError> {
+    pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
         // Populate relevant_instances with a depth-first post-order traversal over the
         // tree(s). This is important to ensure that the order of the PRNT chunk (later
         // written by SerializerState::serialize_parents) is correct.
@@ -813,7 +813,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 prop_info: &mut PropInfo<'dom>,
                 chunk: &mut ChunkBuilder,
                 dom: &'dom WeakDom,
-                id_to_referent: &HashMap<SomeRef, i32>,
+                id_to_referent: &HashMap<Ref, i32>,
                 shared_string_ids: &HashMap<SharedString, u32>,
                 instances: &[&Instance],
                 type_name: &str,
@@ -888,7 +888,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             }
             fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
                 chunk: &mut ChunkBuilder,
-                id_to_referent: &HashMap<SomeRef, i32>,
+                id_to_referent: &HashMap<Ref, i32>,
                 shared_string_ids: &HashMap<SharedString, u32>,
                 prop_type: Type,
                 values: I,
@@ -1201,7 +1201,6 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         for (i, rbx_value) in values {
                             if let Variant::Ref(value) = rbx_value {
                                 let id = value
-                                    .to_some_ref()
                                     .and_then(|some_ref| id_to_referent.get(&some_ref).copied())
                                     .unwrap_or(-1);
                                 buf.push(id);
@@ -1577,7 +1576,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     }
 }
 /// Equivalent to Instance:GetFullName() from Roblox.
-fn full_name_for(dom: &WeakDom, subject_ref: SomeRef) -> String {
+fn full_name_for(dom: &WeakDom, subject_ref: Ref) -> String {
     let mut components = Vec::new();
     let mut current_id = Some(subject_ref);
 
@@ -1619,7 +1618,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     static DEFAULT_COLOR3: Variant = Variant::Color3(Color3::new(0.0, 0.0, 0.0));
     static DEFAULT_VECTOR2: Variant = Variant::Vector2(Vector2::new(0.0, 0.0));
     static DEFAULT_VECTOR3: Variant = Variant::Vector3(Vector3::new(0.0, 0.0, 0.0));
-    static DEFAULT_REF: Variant = Variant::Ref(OptionalRef::none());
+    static DEFAULT_REF: Variant = Variant::Ref(None);
     static DEFAULT_VECTOR3INT16: Variant = Variant::Vector3int16(Vector3int16::new(0, 0, 0));
     static DEFAULT_NUMBERSEQUENCE: LazyLock<Variant> = LazyLock::new(|| {
         Variant::NumberSequence(NumberSequence {

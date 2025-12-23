@@ -3,7 +3,7 @@ use std::{collections::hash_map::Entry, io::Read};
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
-    types::{OptionalRef, SharedString, SomeRef, Variant},
+    types::{Ref, SharedString, Variant},
     InstanceBuilder, Ustr, WeakDom,
 };
 use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
@@ -20,7 +20,7 @@ use crate::deserializer_core::{XmlEventReader, XmlReadEvent};
 pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<WeakDom, DecodeError> {
     let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
-    let root_id = tree.root_ref().into();
+    let root_id = tree.root_ref();
 
     let mut iterator = XmlEventReader::from_source(source);
     let mut state = ParseState::new(&mut tree, options);
@@ -129,7 +129,7 @@ pub struct ParseState<'dom, 'db> {
     ///
     /// We need to do that step in two passes because it's possible for
     /// instances to refer to instances that are later in the file.
-    referents_to_ids: HashMap<String, SomeRef>,
+    referents_to_ids: HashMap<String, Ref>,
 
     /// A list of Ref property rewrites to apply. After the first
     /// deserialization pass, we enumerate over this list and fill in the
@@ -156,13 +156,13 @@ pub struct ParseState<'dom, 'db> {
 }
 
 struct ReferentRewrite {
-    id: SomeRef,
+    id: Ref,
     property_name: Ustr,
     referent_value: String,
 }
 
 struct HashRewrites {
-    id: SomeRef,
+    id: Ref,
     property_name: Ustr,
     hash: String,
 }
@@ -183,7 +183,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     }
 
     /// Called when the deserializer encounters an unknown property type.
-    pub fn unknown_type_visited(&mut self, id: SomeRef, property_name: &str, type_name: &str) {
+    pub fn unknown_type_visited(&mut self, id: Ref, property_name: &str, type_name: &str) {
         if self.unknown_type_names.contains(type_name) {
             return;
         }
@@ -204,12 +204,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     /// have a complete view of how referents map to Ref values.
     ///
     /// This is used to deserialize non-null Ref values correctly.
-    pub fn add_referent_rewrite(
-        &mut self,
-        id: SomeRef,
-        property_name: Ustr,
-        referent_value: String,
-    ) {
+    pub fn add_referent_rewrite(&mut self, id: Ref, property_name: Ustr, referent_value: String) {
         self.referent_rewrites.push(ReferentRewrite {
             id,
             property_name,
@@ -221,7 +216,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     /// have a complete view of values in the `SharedString` repository.
     ///
     /// This is used to deserialize `SharedString` values correctly.
-    pub fn add_shared_string_rewrite(&mut self, id: SomeRef, property_name: Ustr, hash: String) {
+    pub fn add_shared_string_rewrite(&mut self, id: Ref, property_name: Ustr, hash: String) {
         self.shared_string_rewrites.push(HashRewrites {
             id,
             property_name,
@@ -233,7 +228,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     /// have a complete view of values in the `SharedString` repository.
     ///
     /// This is used to deserialize `NetAssetRefs` values correctly.
-    pub fn add_net_asset_rewrite(&mut self, id: SomeRef, property_name: Ustr, hash: String) {
+    pub fn add_net_asset_rewrite(&mut self, id: Ref, property_name: Ustr, hash: String) {
         self.net_asset_rewrites.push(HashRewrites {
             id,
             property_name,
@@ -256,7 +251,7 @@ fn apply_referent_rewrites(state: &mut ParseState) {
 
         instance.properties.insert(
             rewrite.property_name.as_str().into(),
-            Variant::Ref(new_value.to_optional_ref()),
+            Variant::Ref(Some(new_value)),
         );
     }
 }
@@ -300,7 +295,7 @@ fn apply_shared_string_rewrites(state: &mut ParseState) {
 fn deserialize_root<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
-    parent_id: OptionalRef,
+    parent_id: Option<Ref>,
 ) -> Result<(), DecodeError> {
     match reader.expect_next()? {
         XmlReadEvent::StartDocument { .. } => {}
@@ -458,7 +453,7 @@ fn deserialize_shared_string<R: Read>(
 fn deserialize_instance<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
-    parent_id: OptionalRef,
+    parent_id: Option<Ref>,
 ) -> Result<(), DecodeError> {
     let (class_name, referent) = {
         let attributes = reader.expect_start_with_name("Item")?;
@@ -506,7 +501,7 @@ fn deserialize_instance<R: Read>(
                     deserialize_properties(reader, state, instance_id, &mut properties)?;
                 }
                 "Item" => {
-                    deserialize_instance(reader, state, instance_id.to_optional_ref())?;
+                    deserialize_instance(reader, state, Some(instance_id))?;
                 }
                 _ => {
                     let event = reader.expect_next().unwrap();
@@ -552,7 +547,7 @@ fn deserialize_instance<R: Read>(
 fn deserialize_properties<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
-    instance_id: SomeRef,
+    instance_id: Ref,
     props: &mut HashMap<Ustr, Variant>,
 ) -> Result<(), DecodeError> {
     reader.expect_start_with_name("Properties")?;

@@ -2,7 +2,7 @@ use std::{borrow::Cow, collections::BTreeMap, io::Write};
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
-    types::{SharedString, SharedStringHash, SomeRef, Variant},
+    types::{Ref, SharedString, SharedStringHash, Variant},
     WeakDom,
 };
 use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
@@ -19,7 +19,7 @@ use crate::serializer_core::{XmlEventWriter, XmlWriteEvent};
 pub fn encode_internal<W: Write>(
     output: W,
     tree: &WeakDom,
-    ids: &[SomeRef],
+    ids: &[Ref],
     options: EncodeOptions,
 ) -> Result<(), NewEncodeError> {
     let mut writer = XmlEventWriter::from_output(output);
@@ -119,7 +119,7 @@ pub struct EmitState<'db> {
 
     /// A map of IDs written so far to the generated referent that they use.
     /// This map is used to correctly emit Ref properties.
-    referent_map: HashMap<SomeRef, u32>,
+    referent_map: HashMap<Ref, u32>,
 
     /// The referent value that will be used for emitting the next instance.
     next_referent: u32,
@@ -139,7 +139,7 @@ impl<'db> EmitState<'db> {
         }
     }
 
-    pub fn map_id(&mut self, id: SomeRef) -> u32 {
+    pub fn map_id(&mut self, id: Ref) -> u32 {
         match self.referent_map.get(&id) {
             Some(&value) => value,
             None => {
@@ -164,7 +164,7 @@ fn serialize_instance<'dom, W: Write>(
     writer: &mut XmlEventWriter<W>,
     state: &mut EmitState,
     tree: &'dom WeakDom,
-    id: SomeRef,
+    id: Ref,
     property_buffer: &mut Vec<(&'dom str, &'dom Variant)>,
 ) -> Result<(), NewEncodeError> {
     let instance = tree.get_by_ref(id).unwrap();

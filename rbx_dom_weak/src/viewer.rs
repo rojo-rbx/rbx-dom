@@ -4,7 +4,7 @@ use std::{
 };
 
 use crate::{
-    types::{SomeRef, Variant},
+    types::{Ref, Variant},
     WeakDom,
 };
 use serde::{Deserialize, Serialize};
@@ -17,7 +17,7 @@ use ustr::Ustr;
 /// persist when viewing the same instance multiple times, and should stay the
 /// same across multiple runs of a test.
 pub struct DomViewer {
-    referent_to_id: HashMap<SomeRef, String>,
+    referent_to_id: HashMap<Ref, String>,
     next_id: usize,
 }
 
@@ -54,7 +54,7 @@ impl DomViewer {
             .collect()
     }
 
-    fn populate_referent_map(&mut self, dom: &WeakDom, referent: SomeRef) {
+    fn populate_referent_map(&mut self, dom: &WeakDom, referent: Ref) {
         let next_id = &mut self.next_id;
         self.referent_to_id.entry(referent).or_insert_with(|| {
             let name = format!("referent-{next_id}");
@@ -68,7 +68,7 @@ impl DomViewer {
         }
     }
 
-    fn view_instance(&self, dom: &WeakDom, referent: SomeRef) -> ViewedInstance {
+    fn view_instance(&self, dom: &WeakDom, referent: Ref) -> ViewedInstance {
         let instance = dom.get_by_ref(referent).unwrap();
 
         let children = instance
@@ -84,10 +84,10 @@ impl DomViewer {
             .map(|(key, value)| {
                 let new_value = match value {
                     Variant::Ref(referent) => {
-                        if let Some(some_ref) = referent.to_some_ref() {
+                        if let Some(some_ref) = referent {
                             let referent_str = self
                                 .referent_to_id
-                                .get(&some_ref)
+                                .get(some_ref)
                                 .cloned()
                                 .unwrap_or_else(|| "[unknown ID]".to_owned());
 

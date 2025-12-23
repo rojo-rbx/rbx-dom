@@ -1,6 +1,6 @@
 use std::io;
 
-use rbx_dom_weak::types::SomeRef;
+use rbx_dom_weak::types::Ref;
 use thiserror::Error;
 
 /// Represents an error that occurred during serialization.
@@ -58,5 +58,5 @@ pub(super) enum InnerError {
     },
 
     #[error("The instance with referent {referent:?} was not present in the dom.")]
-    InvalidInstanceId { referent: SomeRef },
+    InvalidInstanceId { referent: Ref },
 }

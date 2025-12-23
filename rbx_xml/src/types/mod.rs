@@ -40,8 +40,9 @@ use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
     Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, ContentId, Enum,
-    Faces, Font, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, SecurityCapabilities,
-    SomeRef, UDim, UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3, Vector3int16,
+    Faces, Font, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref,
+    SecurityCapabilities, UDim, UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3,
+    Vector3int16,
 };
 
 use crate::{
@@ -74,7 +75,7 @@ macro_rules! declare_rbx_types {
             reader: &mut XmlEventReader<R>,
             state: &mut ParseState,
             xml_type_name: &str,
-            instance_id: SomeRef,
+            instance_id: Ref,
             property_name: &str,
         ) -> Result<Option<Variant>, DecodeError> {
             match xml_type_name {
