@@ -178,12 +178,14 @@ impl WeakDom {
     /// ## Panics
     /// Panics if `subject_ref` is not a member of this DOM.
     pub fn full_path_of(&self, subject_ref: Ref, separator: &str) -> String {
+        let root_ref = self.root_ref();
         let mut components: Vec<_> = self
             .ancestors_of(subject_ref)
+            // Drop "DataModel" from the full name
+            .filter(|instance| instance.referent() != root_ref)
             .map(|instance| instance.name.as_str())
             .collect();
-        // Drop "DataModel" from the full name
-        components.pop();
+
         components.reverse();
         components.join(separator)
     }
