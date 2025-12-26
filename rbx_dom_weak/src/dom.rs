@@ -430,17 +430,12 @@ impl WeakDom {
         root_refs
     }
 
-    fn inner_insert(&mut self, referent: Ref, instance: Instance) {
-        self.instances.insert(referent, instance);
-
+    fn inner_insert(&mut self, referent: Ref, mut instance: Instance) {
         // We need to ensure that the value of the Instance.UniqueId property does
         // not collide with another instance. If it does, we must regenerate
         // it. If we *don't* do this, it's possible to use WeakDom::insert to
         // insert UniqueId properties that collide with other instances in the
         // dom, violating the invariant that every UniqueId is unique.
-
-        // Unwrap is safe because we just inserted this referent into the instance map
-        let instance = self.instances.get_mut(&referent).unwrap();
         if let Some(Variant::UniqueId(unique_id)) = instance.properties.get(&ustr("UniqueId")) {
             if self.unique_ids.contains(unique_id) {
                 // We found a collision! We need to replace the UniqueId property with
@@ -458,6 +453,7 @@ impl WeakDom {
                 self.unique_ids.insert(*unique_id);
             };
         }
+        self.instances.insert(referent, instance);
     }
 
     fn inner_remove(&mut self, referent: Ref) -> Instance {
