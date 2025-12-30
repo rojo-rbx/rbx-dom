@@ -25,7 +25,7 @@ impl WeakDom {
     pub fn new(builder: InstanceBuilder) -> WeakDom {
         let mut dom = WeakDom {
             instances: AHashMap::new(),
-            root_ref: builder.referent,
+            root_ref: builder.referent(),
             unique_ids: AHashSet::new(),
         };
 
@@ -184,39 +184,31 @@ impl WeakDom {
             parent: Ref,
             queue: Option<&mut VecDeque<(Ref, InstanceBuilder)>>,
         ) {
-            dom.inner_insert(
-                builder.referent,
-                Instance {
-                    referent: builder.referent,
-                    children: Vec::with_capacity(builder.children.len()),
-                    parent,
-                    name: builder.name,
-                    class: builder.class,
-                    properties: builder.properties.into_iter().collect(),
-                },
-            );
+            let referent = builder.referent();
+            let (instance, builder_children) = Instance::from_builder(parent, builder);
+            dom.inner_insert(referent, instance);
 
             if parent.is_some() {
                 dom.instances
                     .get_mut(&parent)
                     .unwrap_or_else(|| panic!("cannot insert into parent that does not exist"))
-                    .children
-                    .push(builder.referent);
+                    .children_mut()
+                    .push(referent);
             }
 
             if let Some(queue) = queue {
-                for child in builder.children {
-                    queue.push_back((builder.referent, child));
+                for child in builder_children {
+                    queue.push_back((referent, child));
                 }
             }
         }
 
-        let root_referent = root_builder.referent;
+        let root_referent = root_builder.referent();
 
         // Fast path: if the builder does not have any children, then we don't have to
         // construct a queue to keep track of descendants for insertion, avoiding a heap
         // allocation.
-        if root_builder.children.is_empty() {
+        if root_builder.children().is_empty() {
             insert(self, root_builder, parent_ref, None);
         } else {
             // Rather than performing this movement recursively, we instead use a
@@ -250,10 +242,10 @@ impl WeakDom {
             .get(&referent)
             .unwrap_or_else(|| panic!("cannot destroy an instance that does not exist"));
 
-        let parent_ref = instance.parent;
+        let parent_ref = instance.parent();
         if parent_ref.is_some() {
             let parent = self.instances.get_mut(&parent_ref).unwrap();
-            parent.children.retain(|&child| child != referent);
+            parent.children_mut().retain(|&child| child != referent);
         }
 
         let mut to_remove = VecDeque::new();
@@ -261,7 +253,7 @@ impl WeakDom {
 
         while let Some(referent) = to_remove.pop_front() {
             let instance = self.inner_remove(referent);
-            to_remove.extend(instance.children);
+            to_remove.extend(instance.children().iter().copied());
         }
     }
 
@@ -287,28 +279,28 @@ impl WeakDom {
         // Remove the instance being moved from its parent's list of children.
         // If we care about panic tolerance in the future, doing this first is
         // important to ensure this link is the one severed first.
-        let parent_ref = instance.parent;
+        let parent_ref = instance.parent();
         if parent_ref.is_some() {
             let parent = self.instances.get_mut(&parent_ref).unwrap();
-            parent.children.retain(|&child| child != referent);
+            parent.children_mut().retain(|&child| child != referent);
         }
 
         // We'll start tracking all of the instances that we're moving in a
         // queue. We're about to move the moving instance, so we need to do this
         // now.
         let mut to_move = VecDeque::new();
-        to_move.extend(instance.children.iter().copied());
+        to_move.extend(instance.children().iter().copied());
 
         // Instance was released.
         // Bye-bye, instance!
-        instance.parent = dest_parent_ref;
+        instance.set_parent(dest_parent_ref);
         dest.inner_insert(referent, instance);
 
         // Transfer all of the descendants of the moving instance breadth-first.
         while let Some(referent) = to_move.pop_front() {
             let instance = self.inner_remove(referent);
 
-            to_move.extend(instance.children.iter().copied());
+            to_move.extend(instance.children().iter().copied());
             dest.inner_insert(referent, instance);
         }
 
@@ -317,7 +309,7 @@ impl WeakDom {
         let dest_parent = dest.instances.get_mut(&dest_parent_ref).unwrap_or_else(|| {
             panic!("cannot move an instance into an instance that does not exist")
         });
-        dest_parent.children.push(referent);
+        dest_parent.children_mut().push(referent);
     }
 
     /// Move the instance with the given referent to a new parent within the
@@ -344,13 +336,13 @@ impl WeakDom {
             .unwrap_or_else(|| panic!("cannot move an instance that does not exist"));
 
         // Tell the instance who its new parent is.
-        let parent_ref = instance.parent;
-        instance.parent = dest_parent_ref;
+        let parent_ref = instance.parent();
+        instance.set_parent(dest_parent_ref);
 
         // Remove the instance's referent from its parent's list of children.
         if parent_ref.is_some() {
             let parent = self.instances.get_mut(&parent_ref).unwrap();
-            parent.children.retain(|&child| child != referent);
+            parent.children_mut().retain(|&child| child != referent);
         }
 
         // Add the instance's referent to its new parent's list of children.
@@ -359,7 +351,7 @@ impl WeakDom {
                 .instances
                 .get_mut(&dest_parent_ref)
                 .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
-            dest_parent.children.push(referent);
+            dest_parent.children_mut().push(referent);
         }
     }
 
@@ -569,9 +561,9 @@ impl CloneContext {
             .with_name(instance.name.to_string())
             .with_properties(instance.properties.clone());
 
-        let new_ref = builder.referent;
+        let new_ref = builder.referent();
 
-        for uncloned_child in instance.children.iter() {
+        for uncloned_child in instance.children() {
             self.queue.push_back((new_ref, *uncloned_child))
         }
 
@@ -592,7 +584,7 @@ mod test {
         let target = InstanceBuilder::new("Folder")
             .with_name("Target")
             .with_child(InstanceBuilder::new("Part").with_name("Some Child"));
-        let target_ref = target.referent;
+        let target_ref = target.referent();
 
         let mut source = WeakDom::new(InstanceBuilder::new("Folder").with_child(target));
         let mut dest = WeakDom::new(InstanceBuilder::new("DataModel"));
@@ -618,14 +610,14 @@ mod test {
         let subject = InstanceBuilder::new("Folder")
             .with_name("Root")
             .with_child(InstanceBuilder::new("SpawnLocation"));
-        let subject_ref = subject.referent;
+        let subject_ref = subject.referent();
 
         let source_parent = InstanceBuilder::new("Folder")
             .with_name("Source")
             .with_child(subject);
 
         let dest_parent = InstanceBuilder::new("Folder").with_name("Dest");
-        let dest_parent_ref = dest_parent.referent;
+        let dest_parent_ref = dest_parent.referent();
 
         let mut dom = WeakDom::new(
             InstanceBuilder::new("Folder")
@@ -647,14 +639,14 @@ mod test {
     #[test]
     fn clone_within() {
         let mut child1 = InstanceBuilder::new("Part").with_name("Child1");
-        let child1_ref = child1.referent;
+        let child1_ref = child1.referent();
 
         let mut dom = {
             let root = InstanceBuilder::new("Folder").with_name("Root");
             let mut child2 = InstanceBuilder::new("Part").with_name("Child2");
 
-            child1 = child1.with_property("RefProp", root.referent);
-            child2 = child2.with_property("RefProp", child1.referent);
+            child1 = child1.with_property("RefProp", root.referent());
+            child2 = child2.with_property("RefProp", child1.referent());
 
             WeakDom::new(root.with_child(child1.with_child(child2)))
         };
@@ -662,7 +654,10 @@ mod test {
         let cloned_child1_ref = dom.clone_within(child1_ref);
 
         assert!(
-            dom.get_by_ref(cloned_child1_ref).unwrap().parent.is_none(),
+            dom.get_by_ref(cloned_child1_ref)
+                .unwrap()
+                .parent()
+                .is_none(),
             "parent of cloned subtree root should be none directly after a clone"
         );
 
@@ -682,8 +677,8 @@ mod test {
             let mut child2 = InstanceBuilder::new("Part").with_name("Child2");
             let mut child3 = InstanceBuilder::new("Part").with_name("Child3");
 
-            child1 = child1.with_property("RefProp", child2.referent);
-            child2 = child2.with_property("RefProp", child1.referent);
+            child1 = child1.with_property("RefProp", child2.referent());
+            child2 = child2.with_property("RefProp", child1.referent());
             child3 = child3.with_property("RefProp", Ref::new());
 
             WeakDom::new(
@@ -697,7 +692,11 @@ mod test {
         let cloned_root = dom.clone_into_external(dom.root_ref, &mut other_dom);
 
         assert!(
-            other_dom.get_by_ref(cloned_root).unwrap().parent.is_none(),
+            other_dom
+                .get_by_ref(cloned_root)
+                .unwrap()
+                .parent()
+                .is_none(),
             "parent of cloned subtree root should be none directly after a clone"
         );
 
@@ -722,8 +721,8 @@ mod test {
             let mut child1 = InstanceBuilder::new("Part").with_name("Child1");
             let mut child2 = InstanceBuilder::new("Part").with_name("Child2");
 
-            child1 = child1.with_property("RefProp", child2.referent);
-            child2 = child2.with_property("RefProp", child1.referent);
+            child1 = child1.with_property("RefProp", child2.referent());
+            child2 = child2.with_property("RefProp", child1.referent());
 
             WeakDom::new(
                 InstanceBuilder::new("Folder")
@@ -736,12 +735,12 @@ mod test {
         let cloned = dom.clone_multiple_into_external(dom.root().children(), &mut other_dom);
 
         assert!(
-            other_dom.get_by_ref(cloned[0]).unwrap().parent.is_none(),
+            other_dom.get_by_ref(cloned[0]).unwrap().parent().is_none(),
             "parent of cloned subtree root should be none directly after a clone"
         );
 
         assert!(
-            other_dom.get_by_ref(cloned[1]).unwrap().parent.is_none(),
+            other_dom.get_by_ref(cloned[1]).unwrap().parent().is_none(),
             "parent of cloned subtree root should be none directly after a clone"
         );
 
