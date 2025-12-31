@@ -34,6 +34,9 @@ impl<'a, const N: usize> Iterator for ReadInterleavedBytesIter<'a, N> {
             None
         }
     }
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        (self.len, Some(self.len))
+    }
 }
 
 pub trait RbxReadExt: Read {
