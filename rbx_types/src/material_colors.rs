@@ -68,6 +68,11 @@ impl MaterialColors {
             .collect())
     }
 
+    /// True when all material colors are default values
+    pub fn is_empty(&self) -> bool {
+        self.inner == DEFAULT_COLORS
+    }
+
     /// Iterator over material colors.
     pub fn iter(&self) -> MaterialColorsIter {
         MaterialColorsIter {
