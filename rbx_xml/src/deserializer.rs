@@ -324,7 +324,9 @@ fn deserialize_root<R: Read>(
             XmlReadEvent::StartElement { name, .. } => {
                 match name.local_name.as_str() {
                     "Item" => {
-                        deserialize_instance(reader, state, parent_id)?;
+                        if let Some(parent_ref) = parent_id {
+                            deserialize_instance(reader, state, parent_ref)?;
+                        }
                     }
                     "External" => {
                         // This tag is always meaningless, there's nothing to do
@@ -453,7 +455,7 @@ fn deserialize_shared_string<R: Read>(
 fn deserialize_instance<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
-    parent_id: Option<Ref>,
+    parent_id: Ref,
 ) -> Result<(), DecodeError> {
     let (class_name, referent) = {
         let attributes = reader.expect_start_with_name("Item")?;
@@ -501,7 +503,7 @@ fn deserialize_instance<R: Read>(
                     deserialize_properties(reader, state, instance_id, &mut properties)?;
                 }
                 "Item" => {
-                    deserialize_instance(reader, state, Some(instance_id))?;
+                    deserialize_instance(reader, state, instance_id)?;
                 }
                 _ => {
                     let event = reader.expect_next().unwrap();
