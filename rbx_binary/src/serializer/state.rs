@@ -761,7 +761,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     let (properties_before_name, properties_after_name) =
                         type_info.properties.split_at_mut(name_index);
 
-                    // Skip "Name" property from Instance.properties
+                    // Skip "Name" logical property
                     (properties_before_name, &mut properties_after_name[1..])
                 }
             };
