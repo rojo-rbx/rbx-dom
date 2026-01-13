@@ -152,7 +152,7 @@ pub(crate) enum MaterialColorsError {
 /// Additionally, makes a constant named `MATERIAL_ORDER` that indicates what
 /// order the colors must be written and read in.
 macro_rules! material_colors {
-    ($($name:ident => [$r:literal, $g:literal, $b:literal]),*$(,)?) => {
+    ($($name:ident => [$r:literal, $g:literal, $b:literal],)*) => {
         // A downside to the macro is that the length of `MATERIAL_ORDER`
         // is hardcoded. There are ways to count macro repetitions, but they
         // all have tangible downsides.
