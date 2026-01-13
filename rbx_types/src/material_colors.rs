@@ -161,7 +161,7 @@ macro_rules! material_colors {
         /// A list of all `TerrainMaterials` in the order they must be read
         /// and written.
         const MATERIAL_ORDER: [TerrainMaterials; NUM_COLORS] = [$(TerrainMaterials::$name,)*];
-        const DEFAULT_COLORS: [Color3uint8; NUM_COLORS] = [$(TerrainMaterials::$name.default_color(),)*];
+        const DEFAULT_COLORS: [Color3uint8; NUM_COLORS] = [$(Color3uint8::new($r, $g, $b),)*];
 
         /// All materials that are represented by `MaterialColors`.
         ///
@@ -182,11 +182,7 @@ macro_rules! material_colors {
         impl TerrainMaterials {
             /// Returns the default color for the given `TerrainMaterial`.
             pub const fn default_color(&self) -> Color3uint8 {
-                match self {
-                    $(
-                        Self::$name => Color3uint8::new($r, $g, $b),
-                    )*
-                }
+                DEFAULT_COLORS[*self as usize]
             }
         }
 
