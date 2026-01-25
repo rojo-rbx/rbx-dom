@@ -132,6 +132,9 @@ impl Iterator for MaterialColorsIter {
     fn next(&mut self) -> Option<Self::Item> {
         self.inner.next()
     }
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        self.inner.size_hint()
+    }
 }
 
 /// An error that can occur when deserializing or working with MaterialColors and TerrainMaterials.
