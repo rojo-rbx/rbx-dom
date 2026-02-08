@@ -248,11 +248,15 @@ impl<R> DeserializerState<R, FinishStage, NoChunk> {
 pub trait NextChunk {
     fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk>;
 }
+
+/// Calling next_chunk never reads a new chunk.
 impl NextChunk for Chunk {
     fn next_chunk<R>(self, _input: &mut R) -> std::io::Result<Chunk> {
         Ok(self)
     }
 }
+
+/// Calling next_chunk optionally reads a new chunk.
 impl NextChunk for Option<Chunk> {
     fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk> {
         match self {
@@ -263,7 +267,7 @@ impl NextChunk for Option<Chunk> {
 }
 
 /// A zero-size type which represents the abscence of a next chunk.
-/// Calling next_chunk always decodes a new chunk.
+/// Calling next_chunk always reads a new chunk.
 pub struct NoChunk;
 impl NextChunk for NoChunk {
     fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk> {
