@@ -1653,7 +1653,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     static DEFAULT_COLOR3UINT8: Variant = Variant::Color3uint8(Color3uint8::new(0, 0, 0));
     static DEFAULT_INT64: Variant = Variant::Int64(0);
     static DEFAULT_SHAREDSTRING: LazyLock<Variant> =
-        LazyLock::new(|| Variant::SharedString(SharedString::new("")));
+        LazyLock::new(|| Variant::SharedString(SharedString::new(b"")));
     static DEFAULT_OPTIONALCFRAME: Variant = Variant::OptionalCFrame(None);
     static DEFAULT_TAGS: Variant = Variant::Tags(Tags::new());
     static DEFAULT_CONTENTID: Variant = Variant::ContentId(ContentId::new());
@@ -1665,7 +1665,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
         Variant::SecurityCapabilities(SecurityCapabilities::from_bits(0));
     static DEFAULT_CONTENT: Variant = Variant::Content(Content::none());
     static DEFAULT_NETASSETREF: LazyLock<Variant> =
-        LazyLock::new(|| Variant::NetAssetRef(NetAssetRef::new("")));
+        LazyLock::new(|| Variant::NetAssetRef(NetAssetRef::new(b"")));
     Some(match rbx_type {
         VariantType::String => &DEFAULT_STRING,
         VariantType::BinaryString => &DEFAULT_BINARYSTRING,

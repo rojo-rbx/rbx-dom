@@ -25,8 +25,7 @@ pub struct SharedString {
 
 impl SharedString {
     /// Construct a SharedString from an owned buffer of data.
-    pub fn new(data: impl AsRef<[u8]>) -> SharedString {
-        let data = data.as_ref();
+    pub fn new(data: &[u8]) -> SharedString {
         let hash = blake3::hash(data);
 
         let data = {
@@ -199,7 +198,7 @@ pub(crate) mod serde_impl {
 
         fn visit_str<E: Error>(self, str: &str) -> Result<Self::Value, E> {
             let buffer = base64::decode(str).map_err(E::custom)?;
-            Ok(SharedString::new(buffer))
+            Ok(SharedString::new(&buffer))
         }
     }
 
@@ -211,7 +210,7 @@ pub(crate) mod serde_impl {
                 // For compatibility reasons, we use `Vec<u8>`'s implementation
                 // of deserialize.
                 let buffer = <Vec<u8>>::deserialize(deserializer)?;
-                Ok(SharedString::new(buffer))
+                Ok(SharedString::new(&buffer))
             }
         }
     }
@@ -230,7 +229,7 @@ pub struct NetAssetRef(SharedString);
 
 impl NetAssetRef {
     /// Construct a `NetAssetRef` from an owned buffer of data.
-    pub fn new(data: impl AsRef<[u8]>) -> Self {
+    pub fn new(data: &[u8]) -> Self {
         Self(SharedString::new(data))
     }
 
@@ -302,8 +301,8 @@ mod test {
 
     #[test]
     fn insert_twice() {
-        let handle_1 = SharedString::new([5, 4, 3]);
-        let handle_2 = SharedString::new([5, 4, 3]);
+        let handle_1 = SharedString::new(&[5, 4, 3]);
+        let handle_2 = SharedString::new(&[5, 4, 3]);
 
         let data_1 = &handle_1.data;
         let data_2 = &handle_2.data;
@@ -314,11 +313,11 @@ mod test {
     #[test]
     fn drop() {
         {
-            let _x = SharedString::new([2]);
+            let _x = SharedString::new(&[2]);
         }
 
         {
-            let _y = SharedString::new([5, 6, 7, 1]);
+            let _y = SharedString::new(&[5, 6, 7, 1]);
         }
     }
 
@@ -362,8 +361,8 @@ mod test {
     #[cfg(feature = "serde")]
     #[test]
     fn netassetref_serde() {
-        let sstr = SharedString::new([13, 37]);
-        let net = NetAssetRef::new([13, 37]);
+        let sstr = SharedString::new(&[13, 37]);
+        let net = NetAssetRef::new(&[13, 37]);
 
         let ser_sstr_1 = serde_json::to_string(&sstr).unwrap();
         let ser_net_1 = serde_json::to_string(&net).unwrap();
