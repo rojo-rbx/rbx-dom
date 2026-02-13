@@ -1,5 +1,8 @@
 # rbx_dom_weak Changelog
 
+## Unreleased
+* Add `WeakDom::full_path_of` like Roblox's Instance:GetFullName() ([#580])
+
 ## 4.1.0 (2025-11-27)
 * Allow `WeakDom::transfer_within` to have the None Ref as the destination. ([#517])
 
