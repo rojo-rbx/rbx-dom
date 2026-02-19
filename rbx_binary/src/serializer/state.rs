@@ -747,16 +747,24 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 .sort_by_key(|prop_info| prop_info.canonical_name);
 
             // Locate the index where "Name" could be inserted
-            let Err(name_index) = type_info
+            let name_location = type_info
                 .properties
-                .binary_search_by_key(&name_ustr, |prop_info| prop_info.canonical_name)
-            else {
-                panic!("Name property should not exist in Instance.properties");
-            };
+                .binary_search_by_key(&name_ustr, |prop_info| prop_info.canonical_name);
 
-            // Split properties at the sort location of "Name"
-            let (properties_before_name, properties_after_name) =
-                type_info.properties.split_at_mut(name_index);
+            let (properties_before_name, properties_after_name) = match name_location {
+                // Split properties at the sort location of "Name"
+                Err(name_insert_index) => type_info.properties.split_at_mut(name_insert_index),
+                // "Name" logical property exists.  Ignore it.
+                Ok(name_index) => {
+                    log::warn!("Name property should not exist in Instance.properties. Use Instance.name instead. Property was ignored.");
+
+                    let (properties_before_name, properties_after_name) =
+                        type_info.properties.split_at_mut(name_index);
+
+                    // Skip "Name" logical property
+                    (properties_before_name, &mut properties_after_name[1..])
+                }
+            };
 
             for prop_info in properties_before_name {
                 let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
