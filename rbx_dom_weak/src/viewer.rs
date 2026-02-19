@@ -205,7 +205,7 @@ mod test {
 
     #[test]
     fn abbreviate_shared_string() {
-        let shared_string = SharedString::new("foo".into());
+        let shared_string = SharedString::new(b"foo");
 
         let root = InstanceBuilder::new("UnionOperation")
             .with_name("Root")
