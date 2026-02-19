@@ -7,7 +7,7 @@ pub(crate) fn bench<T: Measurement>(group: &mut BenchmarkGroup<T>, bench_file: &
 
 fn serialize_bench<T: Measurement>(group: &mut BenchmarkGroup<T>, buffer: &[u8]) {
     let tree = rbx_binary::from_reader(buffer).unwrap();
-    let root_ref = tree.root_ref();
+    let root_ref = tree.root_ref().unwrap();
     let mut buffer = Vec::new();
 
     rbx_binary::to_writer(&mut buffer, &tree, &[root_ref]).unwrap();

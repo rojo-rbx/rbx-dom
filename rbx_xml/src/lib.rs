@@ -125,7 +125,7 @@ mod tests;
 
 use std::io::{Read, Write};
 
-use rbx_dom_weak::{types::Ref, WeakDom};
+use rbx_dom_weak::{types::SomeRef, WeakDom};
 
 use crate::{deserializer::decode_internal, serializer::encode_internal};
 
@@ -163,7 +163,7 @@ pub fn from_str_default<S: AsRef<str>>(reader: S) -> Result<WeakDom, DecodeError
 pub fn to_writer<W: Write>(
     writer: W,
     tree: &WeakDom,
-    ids: &[Ref],
+    ids: &[SomeRef],
     options: EncodeOptions,
 ) -> Result<(), EncodeError> {
     encode_internal(writer, tree, ids, options)
@@ -175,7 +175,7 @@ pub fn to_writer<W: Write>(
 pub fn to_writer_default<W: Write>(
     writer: W,
     tree: &WeakDom,
-    ids: &[Ref],
+    ids: &[SomeRef],
 ) -> Result<(), EncodeError> {
     encode_internal(writer, tree, ids, EncodeOptions::default())
 }
