@@ -22,10 +22,11 @@ pub enum MigrationError {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
-pub struct PropertyMigration {
+pub struct PropertyMigration<'a> {
+    #[serde(borrow)]
     #[serde(rename = "To")]
-    pub new_property_name: String,
-    migration: MigrationOperation,
+    pub new_property_name: &'a str,
+    pub migration: MigrationOperation,
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq)]
@@ -37,7 +38,7 @@ pub enum MigrationOperation {
     ContentIdToContent,
 }
 
-impl PropertyMigration {
+impl PropertyMigration<'_> {
     pub fn perform(&self, input: &Variant) -> Result<Variant, MigrationError> {
         match self.migration {
             MigrationOperation::IgnoreGuiInsetToScreenInsets => {

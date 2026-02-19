@@ -89,7 +89,7 @@ fn find_property_descriptors<'db>(
                     PropertySerialization::SerializesAs(serialized_name) => {
                         let serialized_descriptor = current_class_descriptor
                             .properties
-                            .get(serialized_name.as_ref())
+                            .get(serialized_name)
                             .unwrap();
 
                         return Some((property_descriptor, serialized_descriptor));
@@ -97,10 +97,8 @@ fn find_property_descriptors<'db>(
                     _ => unimplemented!(),
                 },
                 PropertyKind::Alias { alias_for } => {
-                    let canonical_descriptor = current_class_descriptor
-                        .properties
-                        .get(alias_for.as_ref())
-                        .unwrap();
+                    let canonical_descriptor =
+                        current_class_descriptor.properties.get(alias_for).unwrap();
 
                     // FIXME: This code is duplicated with above.
                     match &canonical_descriptor.kind {
@@ -116,7 +114,7 @@ fn find_property_descriptors<'db>(
                             PropertySerialization::SerializesAs(serialized_name) => {
                                 let serialized_descriptor = current_class_descriptor
                                     .properties
-                                    .get(serialized_name.as_ref())
+                                    .get(serialized_name)
                                     .unwrap();
 
                                 return Some((canonical_descriptor, serialized_descriptor));
@@ -131,7 +129,7 @@ fn find_property_descriptors<'db>(
             }
         }
 
-        if let Some(superclass_name) = &current_class_descriptor.superclass {
+        if let Some(superclass_name) = current_class_descriptor.superclass {
             // If a property descriptor isn't found in our class, check
             // our superclass.
 

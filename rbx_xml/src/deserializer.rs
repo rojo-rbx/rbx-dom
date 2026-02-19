@@ -615,12 +615,11 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let value =
-                match read_value_xml(reader, state, &xml_type_name, instance_id, &descriptor.name)?
-                {
-                    Some(value) => value,
-                    None => continue,
-                };
+            let Some(value) =
+                read_value_xml(reader, state, &xml_type_name, instance_id, descriptor.name)?
+            else {
+                continue;
+            };
 
             let xml_ty = value.ty();
 
@@ -658,8 +657,8 @@ fn deserialize_properties<R: Read>(
                 PropertyKind::Canonical {
                     serialization: PropertySerialization::Migrate(migration),
                 } => {
-                    let new_property_name = &migration.new_property_name;
-                    let old_property_name = &descriptor.name;
+                    let new_property_name = migration.new_property_name;
+                    let old_property_name = descriptor.name;
 
                     if let Entry::Vacant(entry) = props.entry(new_property_name.into()) {
                         log::trace!(
@@ -679,7 +678,7 @@ fn deserialize_properties<R: Read>(
                     }
                 }
                 _ => {
-                    props.insert(descriptor.name.as_ref().into(), value);
+                    props.insert(descriptor.name.into(), value);
                 }
             };
         } else {
