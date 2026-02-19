@@ -32,11 +32,11 @@ let dom = WeakDom::new(data_model);
 */
 #[derive(Debug)]
 pub struct InstanceBuilder {
-    pub(crate) referent: Ref,
-    pub(crate) name: String,
-    pub(crate) class: Ustr,
-    pub(crate) properties: Vec<(Ustr, Variant)>,
-    pub(crate) children: Vec<InstanceBuilder>,
+    referent: Ref,
+    name: String,
+    class: Ustr,
+    properties: Vec<(Ustr, Variant)>,
+    children: Vec<InstanceBuilder>,
 }
 
 impl InstanceBuilder {
@@ -192,6 +192,10 @@ impl InstanceBuilder {
     {
         self.children.extend(children);
     }
+
+    pub(crate) fn children(&self) -> &[InstanceBuilder] {
+        &self.children
+    }
 }
 
 /// An instance contained inside of a [`WeakDom`][crate::WeakDom].
@@ -200,9 +204,9 @@ impl InstanceBuilder {
 /// [`WeakDom`][crate::WeakDom] cannot be performed on an `Instance` correctly.
 #[derive(Debug)]
 pub struct Instance {
-    pub(crate) referent: Ref,
-    pub(crate) children: Vec<Ref>,
-    pub(crate) parent: Ref,
+    referent: Ref,
+    children: Vec<Ref>,
+    parent: Ref,
 
     /// The instance's name, corresponding to the `Name` property.
     pub name: String,
@@ -235,5 +239,28 @@ impl Instance {
     #[inline]
     pub fn parent(&self) -> Ref {
         self.parent
+    }
+
+    pub(crate) const fn set_parent(&mut self, parent: Ref) {
+        self.parent = parent;
+    }
+    pub(crate) const fn children_mut(&mut self) -> &mut Vec<Ref> {
+        &mut self.children
+    }
+    pub(crate) fn from_builder(
+        parent: Ref,
+        builder: InstanceBuilder,
+    ) -> (Self, Vec<InstanceBuilder>) {
+        (
+            Instance {
+                referent: builder.referent,
+                children: Vec::with_capacity(builder.children.len()),
+                parent,
+                class: builder.class,
+                name: builder.name,
+                properties: builder.properties.into_iter().collect(),
+            },
+            builder.children,
+        )
     }
 }

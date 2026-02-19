@@ -10,10 +10,10 @@ pub(crate) struct FileHeader {
     /// The number of instance types (represented for us as `TypeInfo`) that are
     /// in this file. Generally useful to pre-size some containers before
     /// reading the file.
-    pub(crate) num_types: u32,
+    num_types: u32,
 
     /// The total number of instances described by this file.
-    pub(crate) num_instances: u32,
+    num_instances: u32,
 }
 
 impl FileHeader {
@@ -52,5 +52,11 @@ impl FileHeader {
             num_types,
             num_instances,
         })
+    }
+    pub(crate) const fn num_types(&self) -> u32 {
+        self.num_types
+    }
+    pub(crate) const fn num_instances(&self) -> u32 {
+        self.num_instances
     }
 }
