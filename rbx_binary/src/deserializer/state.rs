@@ -1433,13 +1433,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             1 => Content::from_uri(uris.pop_back().unwrap()),
                             2 => {
                                 let read_value = objects.pop_back().unwrap();
-                                Content::from_referent(
-                                    if let Some(instance) = self.instances_by_ref.get(&read_value) {
-                                        instance.builder.referent()
-                                    } else {
-                                        Ref::none()
-                                    },
-                                )
+                                if let Some(instance) = self.instances_by_ref.get(&read_value) {
+                                    Content::from_referent(instance.builder.referent())
+                                } else {
+                                    Content::none()
+                                }
                             }
                             n => return Err(InnerError::BadContentType(n)),
                         };
