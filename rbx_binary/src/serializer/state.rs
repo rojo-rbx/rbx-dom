@@ -928,7 +928,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                                 }
                                 Variant::Tags(value) => {
                                     let buf = value.encode();
-                                    chunk.write_binary_string(&buf)?;
+                                    chunk.write_binary_string(buf)?;
                                 }
                                 Variant::Attributes(value) => {
                                     let mut buf = Vec::new();
