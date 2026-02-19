@@ -122,9 +122,6 @@ impl Vector3 {
     /// (-1.0, 0.0, 0.0) -> 3
     /// (0.0, -1.0, 0.0) -> 4
     /// (0.0, 0.0, -1.0) -> 5
-    // We accidentally did not follow this convention, but that's okay, it's not
-    // a huge deal and not something we can change now.
-    #[allow(clippy::wrong_self_convention)]
     pub fn to_normal_id(&self) -> Option<u8> {
         fn get_normal_id(position: u8, value: i32) -> Option<u8> {
             match value {

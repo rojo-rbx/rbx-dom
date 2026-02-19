@@ -77,7 +77,7 @@ macro_rules! make_variant {
             ///
             /// If we forget to impl From when new types are added to Variant,
             /// this test will start failing.
-            #[allow(dead_code)]
+            #[expect(dead_code)]
             fn conversions_are_exhaustive() {
                 fn trait_test<T: Into<Variant>>() {}
 
