@@ -4,8 +4,6 @@ use rbx_reflection::{
     ClassDescriptor, PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase,
 };
 
-use crate::chunk::ChunkBuilder;
-
 pub static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
 pub static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
 pub const FILE_VERSION: u16 = 0;
@@ -255,34 +253,17 @@ pub trait RbxWriteExt: Write {
     }
 }
 
-impl ChunkBuilder {
+pub trait RbxWriteInterleaved {
     /// Takes `values` and writes it as a blob of data with each value
     /// interleaved by `N` bytes.
-    pub fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
+    fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
     where
         I: IntoIterator<Item = [u8; N]>,
-        <I as IntoIterator>::IntoIter: ExactSizeIterator,
-    {
-        let values = values.into_iter();
-        let values_len = values.len();
-        let bytes_len = values_len * N;
-
-        let initialize_bytes = |buffer: &mut [u8]| {
-            for (i, bytes) in values.enumerate() {
-                for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
-                    buffer[i + b * values_len] = byte;
-                }
-            }
-        };
-
-        self.initialize_bytes_with(bytes_len, initialize_bytes);
-
-        Ok(())
-    }
+        <I as IntoIterator>::IntoIter: ExactSizeIterator;
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Transformation is applied to the values as they're written.
-    pub fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
+    fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: IntoIterator<Item = i32>,
         <I as IntoIterator>::IntoIter: ExactSizeIterator,
@@ -292,7 +273,7 @@ impl ChunkBuilder {
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes.
-    pub fn write_interleaved_u32_array<I>(&mut self, values: I) -> io::Result<()>
+    fn write_interleaved_u32_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: IntoIterator<Item = u32>,
         <I as IntoIterator>::IntoIter: ExactSizeIterator,
@@ -302,7 +283,7 @@ impl ChunkBuilder {
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Rotation is applied to the values as they're written.
-    pub fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
+    fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: IntoIterator<Item = f32>,
         <I as IntoIterator>::IntoIter: ExactSizeIterator,
@@ -317,7 +298,7 @@ impl ChunkBuilder {
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. The appropriate transformation and de-accumulation is done as
     /// values are written.
-    pub fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
+    fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: IntoIterator<Item = i32>,
         <I as IntoIterator>::IntoIter: ExactSizeIterator,
@@ -334,12 +315,38 @@ impl ChunkBuilder {
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Transformation is applied to the values as they're written.
-    pub fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
+    fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
     where
         I: IntoIterator<Item = i64>,
         <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
         self.write_interleaved_bytes(values.into_iter().map(|v| transform_i64(v).to_be_bytes()))
+    }
+}
+
+impl RbxWriteInterleaved for Vec<u8> {
+    fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: IntoIterator<Item = [u8; N]>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        let values = values.into_iter();
+        let values_len = values.len();
+        let bytes_len = values_len * N;
+
+        // Reserve space for new values
+        let current_len = self.len();
+        self.extend(core::iter::repeat_n(0, bytes_len));
+
+        // Write new values
+        let buffer = &mut self[current_len..];
+        for (i, bytes) in values.enumerate() {
+            for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
+                buffer[i + b * values_len] = byte;
+            }
+        }
+
+        Ok(())
     }
 }
 
