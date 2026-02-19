@@ -1,4 +1,4 @@
-use crate::Ref;
+use crate::referent::{Ref, SomeRef};
 
 /// A reference to a Roblox asset.
 ///
@@ -36,6 +36,12 @@ impl Content {
     #[inline]
     pub fn from_referent(referent: Ref) -> Self {
         Self(ContentType::Object(referent))
+    }
+
+    /// Constructs a `Content` from the provided referent.
+    #[inline]
+    pub const fn from_some_ref(referent: SomeRef) -> Self {
+        Self(ContentType::Object(referent.to_optional_ref()))
     }
 
     /// Returns the underlying value of the `Content`.
@@ -86,6 +92,25 @@ impl From<&'_ str> for Content {
         Self(ContentType::Uri(url.to_owned()))
     }
 }
+
+impl From<Ref> for Content {
+    fn from(referent: Ref) -> Self {
+        Self::from_referent(referent)
+    }
+}
+
+impl From<SomeRef> for Content {
+    fn from(referent: SomeRef) -> Self {
+        Self::from_some_ref(referent)
+    }
+}
+
+impl From<Option<SomeRef>> for Content {
+    fn from(value: Option<SomeRef>) -> Self {
+        Self::from_referent(value.into())
+    }
+}
+
 /// A reference to a Roblox asset.
 ///
 /// When exposed to Luau, this is just a string. For the modern userdata type,
