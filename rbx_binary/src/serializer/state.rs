@@ -10,8 +10,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
         MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
-        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, SomeRef, Tags,
+        UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, Ustr, UstrMap, WeakDom,
 };
@@ -50,11 +50,11 @@ pub(super) struct SerializerState<'dom, 'db, W> {
 
     /// All of the instances, in a deterministic order, that we're going to be
     /// serializing.
-    relevant_instances: Vec<Ref>,
+    relevant_instances: Vec<SomeRef>,
 
     /// A map from rbx-dom's unique instance ID (Ref) to the ID space used in
     /// the binary model format, signed integers.
-    id_to_referent: HashMap<Ref, i32>,
+    id_to_referent: HashMap<SomeRef, i32>,
 
     /// All of the types of instance discovered by our serializer that we'll be
     /// writing into the output.
@@ -492,35 +492,43 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         // referents, generating type infos, and writing the PRNT chunk all in depth-first
         // post-order.
         let mut to_visit = Vec::new();
-        let mut last_visited_child = None;
+        let mut last_visited_child: Option<SomeRef> = None;
 
-        to_visit.extend(referents.iter().rev());
+        to_visit.extend(
+            referents
+                .iter()
+                .map(|referent| referent.to_some_ref().unwrap())
+                .rev(),
+        );
 
-        while let Some(referent) = to_visit.last() {
+        while let Some(&referent) = to_visit.last() {
             let instance = self
                 .dom
-                .get_by_ref(*referent)
-                .ok_or(InnerError::InvalidInstanceId {
-                    referent: *referent,
-                })?;
+                .get_by_ref(referent.to_optional_ref())
+                .ok_or(InnerError::InvalidInstanceId { referent })?;
 
-            to_visit.extend(instance.children().iter().rev());
+            to_visit.extend(
+                instance
+                    .children()
+                    .iter()
+                    .map(|referent| referent.to_some_ref().unwrap())
+                    .rev(),
+            );
 
-            while let Some(referent) = to_visit.last() {
-                let instance =
-                    self.dom
-                        .get_by_ref(*referent)
-                        .ok_or(InnerError::InvalidInstanceId {
-                            referent: *referent,
-                        })?;
+            while let Some(&referent) = to_visit.last() {
+                let instance = self
+                    .dom
+                    .get_by_ref(referent.to_optional_ref())
+                    .ok_or(InnerError::InvalidInstanceId { referent })?;
 
                 if !instance.children().is_empty()
-                    && instance.children().last() != last_visited_child.as_ref()
+                    && instance.children().last()
+                        != last_visited_child.map(|r| r.to_optional_ref()).as_ref()
                 {
                     break;
                 }
 
-                self.relevant_instances.push(*referent);
+                self.relevant_instances.push(referent);
                 self.collect_type_info(instance)?;
                 last_visited_child = to_visit.pop();
             }
@@ -706,12 +714,9 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
             chunk.write_le_u32(type_info.instances.len() as u32)?;
 
-            chunk.write_referent_array(
-                type_info
-                    .instances
-                    .iter()
-                    .map(|instance| self.id_to_referent[&instance.referent()]),
-            )?;
+            chunk.write_referent_array(type_info.instances.iter().map(|instance| {
+                self.id_to_referent[&instance.referent().to_some_ref().unwrap()]
+            }))?;
 
             if type_info.is_service {
                 // It's unclear what this byte is used for, but when the type is
@@ -825,7 +830,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 prop_info: &mut PropInfo<'dom>,
                 chunk: &mut ChunkBuilder,
                 dom: &'dom WeakDom,
-                id_to_referent: &HashMap<Ref, i32>,
+                id_to_referent: &HashMap<SomeRef, i32>,
                 shared_string_ids: &HashMap<SharedString, u32>,
                 instances: &[&Instance],
                 type_name: &str,
@@ -900,7 +905,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             }
             fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
                 chunk: &mut ChunkBuilder,
-                id_to_referent: &HashMap<Ref, i32>,
+                id_to_referent: &HashMap<SomeRef, i32>,
                 shared_string_ids: &HashMap<SharedString, u32>,
                 prop_type: Type,
                 values: I,
@@ -1212,11 +1217,11 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::Ref(value) = rbx_value {
-                                if let Some(id) = id_to_referent.get(value) {
-                                    buf.push(*id);
-                                } else {
-                                    buf.push(-1);
-                                }
+                                let id = value
+                                    .to_some_ref()
+                                    .and_then(|some_ref| id_to_referent.get(&some_ref).copied())
+                                    .unwrap_or(-1);
+                                buf.push(id);
                             } else {
                                 return type_mismatch(i, rbx_value, "Ref");
                             }
@@ -1554,20 +1559,17 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             .iter()
             .map(|id| self.id_to_referent[id]);
 
-        let parent_referents = self.relevant_instances.iter().map(|id| {
-            let instance = self.dom.get_by_ref(*id).unwrap();
+        let parent_referents = self.relevant_instances.iter().map(|&id| {
+            let instance = self.dom.get_by_ref(id.to_optional_ref()).unwrap();
 
             // If there's no parent set OR our parent is not one of the
             // instances we're serializing, we use -1 to represent a null
             // parent.
-            if instance.parent().is_some() {
-                self.id_to_referent
-                    .get(&instance.parent())
-                    .cloned()
-                    .unwrap_or(-1)
-            } else {
-                -1
-            }
+            instance
+                .parent()
+                .to_some_ref()
+                .and_then(|some_ref| self.id_to_referent.get(&some_ref).copied())
+                .unwrap_or(-1)
         });
 
         chunk.write_referent_array(object_referents)?;

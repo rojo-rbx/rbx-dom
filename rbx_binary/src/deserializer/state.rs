@@ -7,7 +7,7 @@ use rbx_dom_weak::{
         ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, Faces, Font,
         FontStyle, FontWeight, MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence,
         NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities,
-        SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
+        SharedString, SomeRef, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
         Vector3int16,
     },
     InstanceBuilder, Ustr, WeakDom,
@@ -1433,13 +1433,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             1 => Content::from_uri(uris.pop_back().unwrap()),
                             2 => {
                                 let read_value = objects.pop_back().unwrap();
-                                Content::from_referent(
-                                    if let Some(instance) = self.instances_by_ref.get(&read_value) {
-                                        instance.builder.referent()
-                                    } else {
-                                        Ref::none()
-                                    },
-                                )
+                                if let Some(instance) = self.instances_by_ref.get(&read_value) {
+                                    Content::from_referent(instance.builder.referent())
+                                } else {
+                                    Content::none()
+                                }
                             }
                             n => return Err(InnerError::BadContentType(n)),
                         };
@@ -1508,26 +1506,33 @@ rbx-dom may require changes to fully support this property. Please open an issue
     pub(super) fn finish(mut self) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
 
+        struct PendingInsert {
+            id: i32,
+            parent: Option<SomeRef>,
+        }
+
         // Track all the instances we need to construct. Order of construction
         // is important to preserve for both determinism and sometimes
         // functionality of models we handle.
-        let mut instances_to_construct = VecDeque::new();
+        let mut queue = VecDeque::new();
 
         // Any instance with a parent of -1 will be at the top level of the
         // tree. Because of the way rbx_dom_weak generally works, we need to
         // start at the top of the tree to begin construction.
-        let root_ref = self.tree.root_ref();
-        for &referent in &self.root_instance_refs {
-            instances_to_construct.push_back((referent, root_ref));
-        }
+        let root_ref = self.tree.root_ref().to_some_ref();
+        queue.extend(self.root_instance_refs.iter().map(|&id| PendingInsert {
+            id,
+            parent: root_ref,
+        }));
 
-        while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            let instance = self.instances_by_ref.remove(&referent).unwrap();
-            let id = self.tree.insert(parent_ref, instance.builder);
+        while let Some(PendingInsert { id, parent }) = queue.pop_front() {
+            let instance = self.instances_by_ref.remove(&id).unwrap();
+            let referent = self.tree.insert(parent.into(), instance.builder);
 
-            for referent in instance.children {
-                instances_to_construct.push_back((referent, id));
-            }
+            queue.extend(instance.children.into_iter().map(|id| PendingInsert {
+                id,
+                parent: referent.to_some_ref(),
+            }));
         }
 
         self.tree
