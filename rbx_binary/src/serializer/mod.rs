@@ -24,7 +24,7 @@ pub use self::error::Error;
 ///
 /// let output = BufWriter::new(File::create("PlainFolder.rbxm")?);
 /// let serializer = Serializer::new();
-/// serializer.serialize(output, &dom, &[dom.root_ref()])?;
+/// serializer.serialize(output, &dom, &[dom.root_ref().unwrap()])?;
 ///
 /// # Ok::<(), Box<dyn std::error::Error>>(())
 /// ```
