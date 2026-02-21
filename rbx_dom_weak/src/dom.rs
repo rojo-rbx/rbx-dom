@@ -217,7 +217,7 @@ impl WeakDom {
         root_builder: InstanceBuilder,
     ) -> Ref {
         struct PendingInsert {
-            parent: Option<Ref>,
+            parent: Ref,
             builder: InstanceBuilder,
         }
         fn insert(
@@ -249,7 +249,7 @@ impl WeakDom {
             if let Some(queue) = queue {
                 for child in builder.children {
                     queue.push_back(PendingInsert {
-                        parent: Some(builder.referent),
+                        parent: builder.referent,
                         builder: child,
                     });
                 }
@@ -269,13 +269,10 @@ impl WeakDom {
             // queue that we load the children of each `InstanceBuilder` into.
             // Then we can just iter through that.
             let mut queue = VecDeque::with_capacity(1);
-            queue.push_back(PendingInsert {
-                parent: parent_ref,
-                builder: root_builder,
-            });
+            insert(self, root_builder, parent_ref, Some(&mut queue));
 
             while let Some(PendingInsert { parent, builder }) = queue.pop_front() {
-                insert(self, builder, parent, Some(&mut queue));
+                insert(self, builder, Some(parent), Some(&mut queue));
             }
         }
 
