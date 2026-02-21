@@ -200,7 +200,7 @@ impl WeakDom {
             dom: &mut WeakDom,
             builder: InstanceBuilder,
             parent: Ref,
-            queue: Option<&mut VecDeque<(Ref, InstanceBuilder)>>,
+            queue: &mut VecDeque<(Ref, InstanceBuilder)>,
         ) {
             dom.inner_insert(
                 builder.referent,
@@ -222,30 +222,21 @@ impl WeakDom {
                     .push(builder.referent);
             }
 
-            if let Some(queue) = queue {
-                for child in builder.children {
-                    queue.push_back((builder.referent, child));
-                }
+            for child in builder.children {
+                queue.push_back((builder.referent, child));
             }
         }
 
         let root_referent = root_builder.referent;
 
-        // Fast path: if the builder does not have any children, then we don't have to
-        // construct a queue to keep track of descendants for insertion, avoiding a heap
-        // allocation.
-        if root_builder.children.is_empty() {
-            insert(self, root_builder, parent_ref, None);
-        } else {
-            // Rather than performing this movement recursively, we instead use a
-            // queue that we load the children of each `InstanceBuilder` into.
-            // Then we can just iter through that.
-            let mut queue = VecDeque::with_capacity(1);
-            queue.push_back((parent_ref, root_builder));
+        // Rather than performing this movement recursively, we instead use a
+        // queue that we load the children of each `InstanceBuilder` into.
+        // Then we can just iter through that.
+        let mut queue = VecDeque::new();
+        insert(self, root_builder, parent_ref, &mut queue);
 
-            while let Some((parent, builder)) = queue.pop_front() {
-                insert(self, builder, parent, Some(&mut queue));
-            }
+        while let Some((parent, builder)) = queue.pop_front() {
+            insert(self, builder, parent, &mut queue);
         }
 
         root_referent
