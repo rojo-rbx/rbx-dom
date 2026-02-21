@@ -266,7 +266,8 @@ impl WeakDom {
         }
 
         let mut to_remove = VecDeque::new();
-        to_remove.push_back(referent);
+        let instance = self.inner_remove(referent);
+        to_remove.extend(instance.children);
 
         while let Some(referent) = to_remove.pop_front() {
             let instance = self.inner_remove(referent);
