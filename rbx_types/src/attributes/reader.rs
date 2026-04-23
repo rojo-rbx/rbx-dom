@@ -4,9 +4,10 @@ use std::{
 };
 
 use crate::{
-    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font,
-    FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, Rect,
-    UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint,
+    EasingDirection, EasingStyle, EnumItem, Font, FontStyle, FontWeight, Matrix3, NumberRange,
+    NumberSequence, NumberSequenceKeypoint, Rect, TweenInfo, UDim, UDim2, Variant, VariantType,
+    Vector2, Vector3,
 };
 
 use super::{type_id, AttributeError};
@@ -198,6 +199,37 @@ pub(crate) fn read_attributes<R: Read>(
                     weight: FontWeight::from_u16(weight).unwrap_or_default(),
                     style: FontStyle::from_u8(style).unwrap_or_default(),
                     cached_face_id,
+                }
+            }
+            .into(),
+
+            VariantType::TweenInfo => {
+                let time =
+                    read_f32(&mut value).map_err(|_| AttributeError::ReadType("TweenInfo time"))?;
+
+                let delay_time = read_f32(&mut value)
+                    .map_err(|_| AttributeError::ReadType("TweenInfo delay_time"))?;
+
+                let repeat_count = read_i32(&mut value)
+                    .map_err(|_| AttributeError::ReadType("TweenInfo repeat_count"))?;
+
+                let easing_style = read_i32(&mut value)
+                    .map_err(|_| AttributeError::ReadType("TweenInfo easing_style"))?;
+
+                let easing_direction = read_i32(&mut value)
+                    .map_err(|_| AttributeError::ReadType("TweenInfo easing_direction"))?;
+
+                let reverses = read_u8(&mut value)
+                    .map_err(|_| AttributeError::ReadType("TweenInfo reverses"))?;
+
+                TweenInfo {
+                    time,
+                    easing_style: EasingStyle::from_u8(easing_style as u8).unwrap_or_default(),
+                    easing_direction: EasingDirection::from_u8(easing_direction as u8)
+                        .unwrap_or_default(),
+                    repeat_count,
+                    reverses: reverses != 0,
+                    delay_time,
                 }
             }
             .into(),

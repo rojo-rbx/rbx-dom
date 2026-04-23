@@ -10,8 +10,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
         MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
-        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, TweenInfo,
+        UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, Ustr, UstrMap, WeakDom,
 };
@@ -1654,6 +1654,8 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     static DEFAULT_CONTENT: Variant = Variant::Content(Content::none());
     static DEFAULT_NETASSETREF: LazyLock<Variant> =
         LazyLock::new(|| Variant::NetAssetRef(NetAssetRef::new(Vec::new())));
+    static DEFAULT_TWEENINFO: LazyLock<Variant> =
+        LazyLock::new(|| Variant::TweenInfo(TweenInfo::default()));
     Some(match rbx_type {
         VariantType::String => &DEFAULT_STRING,
         VariantType::BinaryString => &DEFAULT_BINARYSTRING,
@@ -1692,6 +1694,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
         VariantType::SecurityCapabilities => &DEFAULT_SECURITYCAPABILITIES,
         VariantType::Content => &DEFAULT_CONTENT,
         VariantType::NetAssetRef => &DEFAULT_NETASSETREF,
+        VariantType::TweenInfo => &DEFAULT_TWEENINFO,
         _ => return None,
     })
 }

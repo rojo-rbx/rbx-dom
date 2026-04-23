@@ -24,6 +24,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [NumberRange](#numberrange)
     - [Rect](#rect)
     - [Font](#font)
+    - [TweenInfo](#tweeninfo)
 
 ## Document Conventions
 
@@ -281,3 +282,43 @@ The `Weight` and `Style` values refer to the `FontWeight` and `FontStyle` enums 
 The `CachedFaceId` field will always be present, but may be an empty string.
 
 A regular `Source Sans Pro` font will be stored as `90 01 00 2C 00 00 00 72 62 78 61 73 73 65 74 3A 2F 2F 66 6F 6E 74 73 2F 66 61 6D 69 6C 69 65 73 2F 53 6F 75 72 63 65 53 61 6E 73 50 72 6F 2E 6A 73 6F 6E 2A 00 00 00 72 62 78 61 73 73 65 74 3A 2F 2F 66 6F 6E 74 73 2F 53 6F 75 72 63 65 53 61 6E 73 50 72 6F 2D 52 65 67 75 6C 61 72 2E 74 74 66`
+
+### TweenInfo
+**Type ID `0x24`**
+
+The `TweenInfo` type is a struct composed of two `f32`s, three `i32`s, and a `u8`:
+
+| Field Name      | Format | Value                                                                           |
+|:----------------|:-------|:--------------------------------------------------------------------------------|
+| Time            | `f32`  | The duration of the tween in seconds                                            |
+| DelayTime       | `f32`  | The delay before the tween begins in seconds                                    |
+| RepeatCount     | `i32`  | The number of times the tween repeats (`-1` for indefinite)                     |
+| EasingStyle     | `i32`  | The easing style, corresponding to the `EasingStyle` enum                       |
+| EasingDirection | `i32`  | The easing direction, corresponding to the `EasingDirection` enum               |
+| Reverses        | `u8`   | Whether the tween reverses; `0x00` for `false`, any non-zero value for `true`   |
+
+The `EasingStyle` values are:
+
+| Value | Name          |
+|:------|:--------------|
+| `0`   | Linear        |
+| `1`   | Sine          |
+| `2`   | Back          |
+| `3`   | Quad          |
+| `4`   | Quart         |
+| `5`   | Quint         |
+| `6`   | Bounce        |
+| `7`   | Elastic       |
+| `8`   | Exponential   |
+| `9`   | Circular      |
+| `10`  | Cubic         |
+
+The `EasingDirection` values are:
+
+| Value | Name  |
+|:------|:------|
+| `0`   | In    |
+| `1`   | Out   |
+| `2`   | InOut |
+
+A TweenInfo with the value `TweenInfo.new(0.125, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)` would look like this: `00 00 00 3e 00 00 00 00 00 00 00 00 08 00 00 00 02 00 00 00 00`
