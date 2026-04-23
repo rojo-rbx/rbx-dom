@@ -297,28 +297,4 @@ The `TweenInfo` type is a struct composed of two `f32`s, three `i32`s, and a `u8
 | EasingDirection | `i32`  | The easing direction, corresponding to the `EasingDirection` enum               |
 | Reverses        | `u8`   | Whether the tween reverses; `0x00` for `false`, any non-zero value for `true`   |
 
-The `EasingStyle` values are:
-
-| Value | Name          |
-|:------|:--------------|
-| `0`   | Linear        |
-| `1`   | Sine          |
-| `2`   | Back          |
-| `3`   | Quad          |
-| `4`   | Quart         |
-| `5`   | Quint         |
-| `6`   | Bounce        |
-| `7`   | Elastic       |
-| `8`   | Exponential   |
-| `9`   | Circular      |
-| `10`  | Cubic         |
-
-The `EasingDirection` values are:
-
-| Value | Name  |
-|:------|:------|
-| `0`   | In    |
-| `1`   | Out   |
-| `2`   | InOut |
-
 A TweenInfo with the value `TweenInfo.new(0.125, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)` would look like this: `00 00 00 3e 00 00 00 00 00 00 00 00 08 00 00 00 02 00 00 00 00`
