@@ -555,6 +555,29 @@ types = {
 			return { roblox.X, roblox.Y, roblox.Z }
 		end,
 	},
+
+	TweenInfo = {
+		fromPod = function(pod)
+			return TweenInfo.new(
+				pod.time,
+				if pod.easingStyle ~= nil then Enum.EasingStyle[pod.easingStyle] else nil,
+				if pod.easingDirection ~= nil then Enum.EasingDirection[pod.easingDirection] else nil,
+				pod.repeatCount,
+				pod.reverses,
+				pod.delayTime
+			)
+		end,
+		toPod = function(roblox)
+			return {
+				time = roblox.Time,
+				easingStyle = roblox.EasingStyle.Name,
+				easingDirection = roblox.EasingDirection.Name,
+				repeatCount = roblox.RepeatCount,
+				reverses = roblox.Reverses,
+				delayTime = roblox.DelayTime
+			}
+		end,
+	},
 }
 
 types.OptionalCFrame = {

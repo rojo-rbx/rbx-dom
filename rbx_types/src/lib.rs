@@ -18,6 +18,7 @@ mod referent;
 mod security_capabilities;
 mod shared_string;
 mod tags;
+mod tween_info;
 mod unique_id;
 mod variant;
 
@@ -36,5 +37,6 @@ pub use referent::*;
 pub use security_capabilities::*;
 pub use shared_string::*;
 pub use tags::*;
+pub use tween_info::*;
 pub use unique_id::*;
 pub use variant::*;

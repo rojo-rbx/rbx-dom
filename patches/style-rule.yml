@@ -7,3 +7,10 @@ Change:
         Type: SerializesAs
         As: PropertiesSerialize
       Scriptability: Custom
+    PropertyTransitionsSerialize:
+      DataType:
+        Value: "Attributes"
+      Serialization:
+        Type: SerializesAs
+        As: PropertyTransitionsSerialize
+      Scriptability: Custom

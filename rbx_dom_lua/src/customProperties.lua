@@ -220,13 +220,33 @@ return {
 
 				local existing = instance:GetProperties()
 
-				for itemName, itemValue in pairs(value) do
-					instance:SetProperty(itemName, itemValue)
-				end
+				instance:SetProperties(value)
 
 				for existingItemName in pairs(existing) do
 					if value[existingItemName] == nil then
 						instance:SetProperty(existingItemName, nil)
+					end
+				end
+
+				return true
+			end,
+		},
+		PropertyTransitionsSerialize = {
+			read = function(instance: StyleRule)
+				return true, instance:GetPropertyTransitions()
+			end,
+			write = function(instance: StyleRule, _, value: { [any]: any })
+				if typeof(value) ~= "table" then
+					return false, Error.new(Error.Kind.CannotParseBinaryString)
+				end
+
+				local existing = instance:GetPropertyTransitions()
+
+				instance:SetPropertyTransitions(value)
+
+				for existingItemName in pairs(existing) do
+					if value[existingItemName] == nil then
+						instance:SetPropertyTransition(existingItemName, nil)
 					end
 				end
 
