@@ -286,15 +286,15 @@ A regular `Source Sans Pro` font will be stored as `90 01 00 2C 00 00 00 72 62 7
 ### TweenInfo
 **Type ID `0x24`**
 
-The `TweenInfo` type is a struct composed of two `f32`s, three `i32`s, and a `u8`:
+The `TweenInfo` type is a struct composed of two `f32`s, an `i32`, two `u32`s, and a `u8`:
 
 | Field Name      | Format | Value                                                                           |
 |:----------------|:-------|:--------------------------------------------------------------------------------|
 | Time            | `f32`  | The duration of the tween in seconds                                            |
 | DelayTime       | `f32`  | The delay before the tween begins in seconds                                    |
 | RepeatCount     | `i32`  | The number of times the tween repeats (`-1` for indefinite)                     |
-| EasingStyle     | `i32`  | The easing style, corresponding to the `EasingStyle` enum                       |
-| EasingDirection | `i32`  | The easing direction, corresponding to the `EasingDirection` enum               |
+| EasingStyle     | `u32`  | The easing style, corresponding to the `EasingStyle` enum                       |
+| EasingDirection | `u32`  | The easing direction, corresponding to the `EasingDirection` enum               |
 | Reverses        | `u8`   | Whether the tween reverses; `0x00` for `false`, any non-zero value for `true`   |
 
 A TweenInfo with the value `TweenInfo.new(0.125, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)` would look like this: `00 00 00 3e 00 00 00 00 00 00 00 00 08 00 00 00 02 00 00 00 00`

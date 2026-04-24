@@ -103,8 +103,8 @@ pub(crate) fn write_attributes<W: Write>(
                 write_f32(&mut writer, tween_info.time)?;
                 write_f32(&mut writer, tween_info.delay_time)?;
                 write_i32(&mut writer, tween_info.repeat_count)?;
-                write_i32(&mut writer, tween_info.easing_style.as_u8() as i32)?;
-                write_i32(&mut writer, tween_info.easing_direction.as_u8() as i32)?;
+                write_u32(&mut writer, tween_info.easing_style.as_u8() as u32)?;
+                write_u32(&mut writer, tween_info.easing_direction.as_u8() as u32)?;
                 write_u8(&mut writer, tween_info.reverses as u8)?;
             }
             Variant::EnumItem(enum_item) => {

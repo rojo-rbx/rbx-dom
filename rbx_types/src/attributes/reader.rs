@@ -213,10 +213,10 @@ pub(crate) fn read_attributes<R: Read>(
                 let repeat_count = read_i32(&mut value)
                     .map_err(|_| AttributeError::ReadType("TweenInfo repeat_count"))?;
 
-                let easing_style = read_i32(&mut value)
+                let easing_style = read_u32(&mut value)
                     .map_err(|_| AttributeError::ReadType("TweenInfo easing_style"))?;
 
-                let easing_direction = read_i32(&mut value)
+                let easing_direction = read_u32(&mut value)
                     .map_err(|_| AttributeError::ReadType("TweenInfo easing_direction"))?;
 
                 let reverses = read_u8(&mut value)
