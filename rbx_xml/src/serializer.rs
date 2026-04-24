@@ -2,14 +2,14 @@ use std::{borrow::Cow, collections::BTreeMap, io::Write};
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
-    types::{Ref, SharedString, SharedStringHash, Variant},
+    types::{BinaryString, Ref, SharedString, SharedStringHash, Variant},
     WeakDom,
 };
 use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     conversion::ConvertVariant,
-    core::find_serialized_property_descriptor,
+    core::{find_canonical_property_descriptor, find_serialized_property_descriptor},
     error::{EncodeError as NewEncodeError, EncodeErrorKind},
     types::write_value_xml,
 };
@@ -202,18 +202,18 @@ fn serialize_instance<'dom, W: Write>(
         };
 
         if let Some(serialized_descriptor) = maybe_serialized_descriptor {
-            let data_type = serialized_descriptor.data_type.ty();
+            let ty = serialized_descriptor.data_type.ty();
 
             let mut serialized_name = serialized_descriptor.name.as_ref();
 
-            let mut converted_value = match value.try_convert_ref(instance.class, data_type) {
+            let mut converted_value = match value.try_convert_ref(instance.class, ty) {
                 Ok(value) => value,
                 Err(message) => {
                     return Err(
                         writer.error(EncodeErrorKind::UnsupportedPropertyConversion {
                             class_name: instance.class.to_string(),
                             property_name: property_name.to_string(),
-                            expected_type: data_type,
+                            expected_type: ty,
                             actual_type: value.ty(),
                             message,
                         }),
@@ -231,6 +231,28 @@ fn serialize_instance<'dom, W: Write>(
                 if let Ok(new_value) = migration.perform(&converted_value) {
                     converted_value = Cow::Owned(new_value);
                     serialized_name = &migration.new_property_name
+                }
+            }
+
+            // Certain Attributes, such as `PropertyTransitionsSerialize`,
+            // may have a discriminant that needs to be prepended.
+            if let Variant::Attributes(attrs) = converted_value.as_ref() {
+                let maybe_canonical_descriptor = if state.options.use_reflection() {
+                    find_canonical_property_descriptor(
+                        &instance.class,
+                        property_name,
+                        state.options.database,
+                    )
+                } else {
+                    None
+                };
+
+                if let Some(discriminant) =
+                    maybe_canonical_descriptor.and_then(|d| d.data_type.discriminant())
+                {
+                    let mut buf = Vec::from(discriminant);
+                    attrs.to_writer(&mut buf).unwrap();
+                    converted_value = Cow::Owned(BinaryString::from(buf).into());
                 }
             }
 

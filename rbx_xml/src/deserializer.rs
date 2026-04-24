@@ -3,7 +3,7 @@ use std::{collections::hash_map::Entry, io::Read};
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
-    types::{Ref, SharedString, Variant},
+    types::{Attributes, Ref, SharedString, Variant},
     InstanceBuilder, Ustr, WeakDom,
 };
 use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
@@ -635,6 +635,24 @@ fn deserialize_properties<R: Read>(
             // - BrickColor properties turning into Color3
             let expected_type = descriptor.data_type.ty();
             log::trace!("property's read type: {xml_ty:?}, canonical type: {expected_type:?}");
+
+            // Certain Attributes, such as `PropertyTransitionsSerialize`,
+            // may have a discriminant that needs to be stripped.
+            let value = match (&value, descriptor.data_type.discriminant()) {
+                (Variant::BinaryString(binary_string), Some(discriminant)) => {
+                    let bytes: &[u8] = binary_string.as_ref();
+
+                    if bytes.starts_with(discriminant) {
+                        match Attributes::from_reader(&bytes[discriminant.len()..]) {
+                            Ok(attrs) => attrs.into(),
+                            Err(_) => value,
+                        }
+                    } else {
+                        value
+                    }
+                }
+                _ => value,
+            };
 
             let value = match value.try_convert(class_name, expected_type) {
                 Ok(value) => value,

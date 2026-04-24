@@ -1,16 +1,24 @@
-Change:
+Add:
   StyleRule:
-    PropertiesSerialize:
+    Properties:
       DataType:
         Value: "Attributes"
       Serialization:
         Type: SerializesAs
         As: PropertiesSerialize
       Scriptability: Custom
-    PropertyTransitionsSerialize:
+    PropertyTransitions:
       DataType:
-        Value: "Attributes"
+        # `PropertyTransitionsSerialize` has a 2-byte header (`02 00`) before standard Attributes data.
+        DiscriminatedAttributes: [2, 0]
       Serialization:
         Type: SerializesAs
         As: PropertyTransitionsSerialize
       Scriptability: Custom
+
+Change:
+  StyleRule:
+    PropertiesSerialize:
+      AliasFor: Properties
+    PropertyTransitionsSerialize:
+      AliasFor: PropertyTransitions

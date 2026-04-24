@@ -17,7 +17,7 @@ use rbx_dom_weak::{
 };
 
 use rbx_reflection::{
-    ClassDescriptor, ClassTag, PropertyKind, PropertyMigration, PropertySerialization,
+    ClassDescriptor, ClassTag, DataType, PropertyKind, PropertyMigration, PropertySerialization,
     ReflectionDatabase,
 };
 
@@ -124,6 +124,10 @@ struct PropInfo<'dom> {
     /// logical property list just before serialization.
     canonical_name: Ustr,
 
+    /// The canonical data type of the serialized property, primarily used
+    /// to access discriminant bytes for `Attributes` properties.
+    canonical_datatype: DataType<'dom>,
+
     /// The serialized name for this property. This is the name that is actually
     /// written as part of the PROP chunk and may not line up with the canonical
     /// name for the property.
@@ -166,6 +170,7 @@ impl<'dom> PropInfo<'dom> {
         self.values
             .extend(core::iter::repeat_n(self.default_value, additional));
     }
+
     /// Set the migration
     fn set_migration(&mut self, m_new: &'dom PropertyMigration) {
         if let Some(m_old) = self.migration {
@@ -182,6 +187,7 @@ impl<'dom> PropInfo<'dom> {
         SerializationInfo {
             migration,
             canonical_name,
+            canonical_datatype,
             serialized_name,
             serialized_ty,
         }: SerializationInfo<'dom>,
@@ -222,6 +228,7 @@ impl<'dom> PropInfo<'dom> {
         Ok(PropInfo {
             prop_type,
             canonical_name,
+            canonical_datatype,
             serialized_name,
             values: Vec::new(),
             default_value,
@@ -292,6 +299,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
 struct SerializationInfo<'db> {
     migration: Option<&'db PropertyMigration>,
     canonical_name: Ustr,
+    canonical_datatype: DataType<'db>,
     serialized_name: Ustr,
     serialized_ty: VariantType,
 }
@@ -306,6 +314,7 @@ impl<'db> SerializationInfo<'db> {
         sample_value: &Variant,
     ) -> Option<SerializationInfo<'db>> {
         let canonical_name;
+        let canonical_datatype;
         let serialized_name;
         let serialized_ty;
         let mut migration = None;
@@ -342,6 +351,7 @@ impl<'db> SerializationInfo<'db> {
                                 Some(descriptor) => match descriptor.serialized {
                                     Some(serialized) => {
                                         canonical_name = descriptor.canonical.name.as_ref().into();
+                                        canonical_datatype = descriptor.canonical.data_type.clone();
                                         serialized
                                     }
                                     None => return None,
@@ -350,6 +360,7 @@ impl<'db> SerializationInfo<'db> {
                             }
                         } else {
                             canonical_name = descriptors.canonical.name.as_ref().into();
+                            canonical_datatype = descriptors.canonical.data_type.clone();
                             descriptor
                         }
                     }
@@ -357,7 +368,6 @@ impl<'db> SerializationInfo<'db> {
                 };
 
                 serialized_name = serialized.name.as_ref().into();
-
                 serialized_ty = serialized.data_type.ty();
             }
 
@@ -365,12 +375,14 @@ impl<'db> SerializationInfo<'db> {
                 canonical_name = prop_name;
                 serialized_name = prop_name;
                 serialized_ty = sample_value.ty();
+                canonical_datatype = DataType::Value(sample_value.ty());
             }
         }
 
         Some(SerializationInfo {
             migration,
             canonical_name,
+            canonical_datatype,
             serialized_name,
             serialized_ty,
         })
@@ -880,6 +892,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         id_to_referent,
                         shared_string_ids,
                         prop_info.prop_type,
+                        &prop_info.canonical_datatype,
                         migrated_values.iter().map(Cow::as_ref).enumerate(),
                         type_mismatch,
                         invalid_value,
@@ -890,6 +903,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         id_to_referent,
                         shared_string_ids,
                         prop_info.prop_type,
+                        &prop_info.canonical_datatype,
                         prop_info.values.iter().copied().enumerate(),
                         type_mismatch,
                         invalid_value,
@@ -903,6 +917,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 id_to_referent: &HashMap<Ref, i32>,
                 shared_string_ids: &HashMap<SharedString, u32>,
                 prop_type: Type,
+                canonical_datatype: &DataType<'a>,
                 values: I,
                 type_mismatch: TypeMismatch,
                 invalid_value: InvalidValue,
@@ -932,6 +947,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                                 }
                                 Variant::Attributes(value) => {
                                     let mut buf = Vec::new();
+
+                                    // Certain Attributes, such as `PropertyTransitionsSerialize`,
+                                    // may have a discriminant that needs to be prepended.
+                                    if let Some(discriminant) = canonical_datatype.discriminant() {
+                                        buf.extend_from_slice(discriminant);
+                                    }
 
                                     value
                                         .to_writer(&mut buf)

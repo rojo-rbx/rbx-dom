@@ -74292,16 +74292,13 @@
             }
           }
         },
-        "PropertiesSerialize": {
-          "Name": "PropertiesSerialize",
+        "Properties": {
+          "Name": "Properties",
           "Scriptability": "Custom",
           "DataType": {
             "Value": "Attributes"
           },
-          "Tags": [
-            "Hidden",
-            "NotScriptable"
-          ],
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": {
@@ -74310,21 +74307,53 @@
             }
           }
         },
-        "PropertyTransitionsSerialize": {
-          "Name": "PropertyTransitionsSerialize",
-          "Scriptability": "Custom",
+        "PropertiesSerialize": {
+          "Name": "PropertiesSerialize",
+          "Scriptability": "None",
           "DataType": {
-            "Value": "Attributes"
+            "Value": "BinaryString"
           },
           "Tags": [
             "Hidden",
             "NotScriptable"
           ],
           "Kind": {
+            "Alias": {
+              "AliasFor": "Properties"
+            }
+          }
+        },
+        "PropertyTransitions": {
+          "Name": "PropertyTransitions",
+          "Scriptability": "Custom",
+          "DataType": {
+            "DiscriminatedAttributes": [
+              2,
+              0
+            ]
+          },
+          "Tags": [],
+          "Kind": {
             "Canonical": {
               "Serialization": {
                 "SerializesAs": "PropertyTransitionsSerialize"
               }
+            }
+          }
+        },
+        "PropertyTransitionsSerialize": {
+          "Name": "PropertyTransitionsSerialize",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "BinaryString"
+          },
+          "Tags": [
+            "Hidden",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Alias": {
+              "AliasFor": "PropertyTransitions"
             }
           }
         },
@@ -74374,11 +74403,11 @@
         "Priority": {
           "Int32": 0
         },
-        "PropertiesSerialize": {
+        "Properties": {
           "Attributes": {}
         },
-        "PropertyTransitionsSerialize": {
-          "BinaryString": "AgAAAAAA"
+        "PropertyTransitions": {
+          "Attributes": {}
         },
         "Sandboxed": {
           "Bool": false

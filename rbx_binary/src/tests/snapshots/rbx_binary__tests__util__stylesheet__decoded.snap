@@ -1,0 +1,85 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: StyleSheet
+  class: StyleSheet
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    Sandboxed:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children:
+    - referent: referent-1
+      name: Frame
+      class: StyleRule
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        Priority:
+          Int32: 0
+        Properties:
+          Attributes:
+            Size:
+              UDim2:
+                - - 1
+                  - 0
+                - - 0.5
+                  - 0
+        PropertyTransitions:
+          Attributes:
+            Size:
+              TweenInfo:
+                time: 0.2
+                easingStyle: Exponential
+                easingDirection: Out
+                repeatCount: 0
+                reverses: false
+                delayTime: 0
+        Sandboxed:
+          Bool: false
+        Selector:
+          String: Frame
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+      children:
+        - referent: referent-2
+          name: ":hover"
+          class: StyleRule
+          properties:
+            Attributes:
+              Attributes: {}
+            Capabilities:
+              SecurityCapabilities: 0
+            Priority:
+              Int32: 0
+            Properties:
+              Attributes:
+                Size:
+                  UDim2:
+                    - - 1
+                      - 0
+                    - - 0.85
+                      - 0
+            PropertyTransitions:
+              Attributes: {}
+            Sandboxed:
+              Bool: false
+            Selector:
+              String: ":hover"
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+          children: []

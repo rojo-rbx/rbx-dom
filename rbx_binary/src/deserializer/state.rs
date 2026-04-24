@@ -12,7 +12,9 @@ use rbx_dom_weak::{
     },
     InstanceBuilder, Ustr, WeakDom,
 };
-use rbx_reflection::{ClassDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
+use rbx_reflection::{
+    ClassDescriptor, DataType, PropertyKind, PropertySerialization, ReflectionDatabase,
+};
 
 use crate::{
     chunk::Chunk,
@@ -94,7 +96,7 @@ struct Instance {
 #[derive(Debug)]
 struct CanonicalProperty<'db> {
     name: Ustr,
-    ty: VariantType,
+    data_type: DataType<'db>,
     migration: Option<&'db PropertySerialization<'db>>,
 }
 
@@ -133,7 +135,8 @@ fn find_canonical_property<'de>(
 
             // TODO: Do we need an additional fix here?
             let canonical_name = &descriptors.canonical.name;
-            let canonical_type = descriptors.canonical.data_type.ty();
+            let data_type = descriptors.canonical.data_type.clone();
+            let canonical_type = data_type.ty();
             let migration = match &descriptors.canonical.kind {
                 PropertyKind::Canonical {
                     serialization: migration @ PropertySerialization::Migrate(_),
@@ -147,7 +150,7 @@ fn find_canonical_property<'de>(
 
             Some(CanonicalProperty {
                 name: canonical_name.as_ref().into(),
-                ty: canonical_type,
+                data_type,
                 migration,
             })
         }
@@ -164,7 +167,7 @@ fn find_canonical_property<'de>(
 
             Some(CanonicalProperty {
                 name: prop_name.into(),
-                ty: canonical_type,
+                data_type: DataType::Value(canonical_type),
                 migration: None,
             })
         }
@@ -404,7 +407,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
             return Ok(());
         };
 
-        let canonical_type = property.ty;
+        let canonical_type = property.data_type.ty();
 
         match binary_type {
             Type::String => match canonical_type {
@@ -465,7 +468,20 @@ This may cause unexpected or broken behavior in your final results if you rely o
                         let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         let buffer = chunk.read_binary_string()?;
 
-                        match Attributes::from_reader(buffer.as_slice()) {
+                        // Certain Attributes, such as `PropertyTransitionsSerialize`,
+                        // may have a discriminant that needs to be stripped.
+                        let buffer_slice = match property.data_type.discriminant() {
+                            Some(discriminant) if buffer.starts_with(discriminant) => {
+                                &buffer[discriminant.len()..]
+                            }
+                            Some(discriminant) => {
+                                log::warn!("Expected discriminant {:?} on {}, falling back to BinaryString.", discriminant, type_info.type_name);
+                                buffer.as_slice()
+                            }
+                            None => buffer.as_slice(),
+                        };
+
+                        match Attributes::from_reader(buffer_slice) {
                             Ok(value) => {
                                 add_property(instance, &property, value.into());
                             }

@@ -222,6 +222,9 @@ pub enum DataType<'a> {
 
     /// The property is an enum with the given name.
     Enum(Cow<'a, str>),
+
+    /// The property is an Attributes but with a discriminant at the start.
+    DiscriminatedAttributes(Vec<u8>),
 }
 
 impl DataType<'_> {
@@ -229,6 +232,14 @@ impl DataType<'_> {
         match self {
             DataType::Value(variant_type) => *variant_type,
             DataType::Enum(_) => VariantType::Enum,
+            DataType::DiscriminatedAttributes(_) => VariantType::Attributes,
+        }
+    }
+
+    pub fn discriminant(&self) -> Option<&[u8]> {
+        match self {
+            DataType::Value(_) | DataType::Enum(_) => None,
+            DataType::DiscriminatedAttributes(discriminant) => Some(discriminant.as_slice()),
         }
     }
 }
