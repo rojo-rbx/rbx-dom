@@ -209,7 +209,7 @@ return {
 		},
 	},
 	StyleRule = {
-		PropertiesSerialize = {
+		Properties = {
 			read = function(instance: StyleRule)
 				return true, instance:GetProperties()
 			end,
@@ -231,7 +231,7 @@ return {
 				return true
 			end,
 		},
-		PropertyTransitionsSerialize = {
+		PropertyTransitions = {
 			read = function(instance: StyleRule)
 				return true, instance:GetPropertyTransitions()
 			end,
