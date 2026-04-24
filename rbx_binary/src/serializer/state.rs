@@ -912,6 +912,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                 Ok(())
             }
+
+            #[allow(clippy::too_many_arguments)]
             fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
                 chunk: &mut ChunkBuilder,
                 id_to_referent: &HashMap<Ref, i32>,
