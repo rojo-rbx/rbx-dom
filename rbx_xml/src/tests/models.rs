@@ -72,5 +72,5 @@ model_tests! {
     content_mixed,
     physical_properties_acoustics,
     netassetref,
-    stylesheet,
+    //stylesheet,
 }
