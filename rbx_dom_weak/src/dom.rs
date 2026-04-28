@@ -54,6 +54,8 @@ impl WeakDom {
         );
         let mut unique_ids = AHashSet::with_capacity(instances.len());
         for inst in instances.values() {
+            // This `if` cannot be collapsed into the match with an if guard.
+            #[expect(clippy::collapsible_match)]
             match inst.properties.get(&ustr("UniqueId")) {
                 Some(Variant::UniqueId(id)) => {
                     if !unique_ids.insert(*id) {

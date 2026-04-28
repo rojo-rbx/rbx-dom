@@ -2,8 +2,8 @@
   "Version": [
     0,
     718,
-    1,
-    7181110
+    603,
+    7181990
   ],
   "Classes": {
     "Accessory": {
@@ -47923,6 +47923,22 @@
               "Serialization": "Serializes"
             }
           }
+        },
+        "UnrestrictedRequireAllowed": {
+          "Name": "UnrestrictedRequireAllowed",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
         }
       },
       "DefaultProperties": {
@@ -68990,7 +69006,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "AvatarJointUpgrade_SerializedRollout"
+              }
             }
           }
         },
@@ -69005,8 +69023,8 @@
             "NotScriptable"
           ],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "AvatarJointUpgrade"
             }
           }
         },
@@ -69630,7 +69648,7 @@
         "AutoJumpEnabled": {
           "Bool": true
         },
-        "AvatarJointUpgrade_SerializedRollout": {
+        "AvatarJointUpgrade": {
           "Enum": 0
         },
         "CameraMaxZoomDistance": {
@@ -74292,34 +74310,21 @@
             }
           }
         },
-        "Properties": {
-          "Name": "Properties",
+        "PropertiesSerialize": {
+          "Name": "PropertiesSerialize",
           "Scriptability": "Custom",
           "DataType": {
             "Value": "Attributes"
-          },
-          "Tags": [],
-          "Kind": {
-            "Canonical": {
-              "Serialization": {
-                "SerializesAs": "PropertiesSerialize"
-              }
-            }
-          }
-        },
-        "PropertiesSerialize": {
-          "Name": "PropertiesSerialize",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "BinaryString"
           },
           "Tags": [
             "Hidden",
             "NotScriptable"
           ],
           "Kind": {
-            "Alias": {
-              "AliasFor": "Properties"
+            "Canonical": {
+              "Serialization": {
+                "SerializesAs": "PropertiesSerialize"
+              }
             }
           }
         },
@@ -74385,7 +74390,7 @@
         "Priority": {
           "Int32": 0
         },
-        "Properties": {
+        "PropertiesSerialize": {
           "Attributes": {}
         },
         "PropertyTransitionsSerialize": {
