@@ -69006,7 +69006,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "AvatarJointUpgrade_SerializedRollout"
+              }
             }
           }
         },
@@ -69021,8 +69023,8 @@
             "NotScriptable"
           ],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "AvatarJointUpgrade"
             }
           }
         },
@@ -69646,7 +69648,7 @@
         "AutoJumpEnabled": {
           "Bool": true
         },
-        "AvatarJointUpgrade_SerializedRollout": {
+        "AvatarJointUpgrade": {
           "Enum": 0
         },
         "CameraMaxZoomDistance": {
