@@ -3,3 +3,13 @@ Change:
     ClockTime:
       Serialization:
         Type: Serializes
+
+# Roblox's unified-lighting migration silently resets LightingStyle to Soft on
+# file load if the Lighting instance lacks Studio-internal markers like
+# RBX_LightingTechnologyUnifiedMigration in its Attributes. Studio always
+# writes them; we declare here that rbx-dom should always emit Lighting's
+# Attributes property, with values sourced from the captured Studio default
+# (see Lighting.DefaultProperties.Attributes in the reflection database).
+Inject:
+  Lighting:
+    - TargetProperty: Attributes

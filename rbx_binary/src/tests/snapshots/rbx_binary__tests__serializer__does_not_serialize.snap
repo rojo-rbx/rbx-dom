@@ -1,5 +1,6 @@
 ---
 source: rbx_binary/src/tests/serializer.rs
+assertion_line: 223
 expression: decoded
 ---
 num_types: 9
@@ -82,6 +83,12 @@ chunks:
       prop_type: String
       values:
         - GuiService
+  - Prop:
+      type_id: 7
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - 05 00 00 00 14 00 00 00 52 42 58 5f 42 61 63 6b 75 70 42 72 69 67 68 74 6e 65 73 73 05 00 00 80 3f 1e 00 00 00 52 42 58 5f 42 61 63 6b 75 70 45 78 70 6f 73 75 72 65 43 6f 6d 70 65 6e 73 61 74 69 6f 6e 05 00 00 00 00 21 00 00 00 52 42 58 5f 4c 69 67 68 74 69 6e 67 43 6f 6d 70 61 74 69 62 69 6c 69 74 79 4d 69 67 72 61 74 65 64 03 01 26 00 00 00 52 42 58 5f 4c 69 67 68 74 69 6e 67 54 65 63 68 6e 6f 6c 6f 67 79 55 6e 69 66 69 65 64 4d 69 67 72 61 74 69 6f 6e 03 01 20 00 00 00 52 42 58 5f 4f 72 69 67 69 6e 61 6c 54 65 63 68 6e 6f 6c 6f 67 79 4f 6e 46 69 6c 65 4c 6f 61 64 04 02 00 00 00
   - Prop:
       type_id: 7
       prop_name: Name

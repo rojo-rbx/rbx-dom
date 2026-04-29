@@ -2,19 +2,21 @@ use std::{borrow::Cow, collections::HashMap, fs, path::Path};
 
 use anyhow::{anyhow, bail, Context};
 use rbx_reflection::{
-    DataType, PropertyKind, PropertyMigration, PropertySerialization, ReflectionDatabase,
-    Scriptability,
+    ClassInjection, DataType, PropertyKind, PropertyMigration, PropertySerialization,
+    ReflectionDatabase, Scriptability,
 };
 use rbx_types::Variant;
 use serde::Deserialize;
 
 pub struct Patches {
     change: HashMap<String, HashMap<String, PropertyChange>>,
+    inject: HashMap<String, Vec<ClassInjectionPatch>>,
 }
 
 impl Patches {
     pub fn load(dir: &Path) -> anyhow::Result<Self> {
         let mut change = HashMap::new();
+        let mut inject: HashMap<String, Vec<ClassInjectionPatch>> = HashMap::new();
 
         for entry in fs::read_dir(dir)? {
             let entry = entry?;
@@ -23,9 +25,12 @@ impl Patches {
                 .with_context(|| format!("Error parsing patch file {}", entry.path().display()))?;
 
             change.extend(patch.change);
+            for (class_name, injections) in patch.inject {
+                inject.entry(class_name).or_default().extend(injections);
+            }
         }
 
-        Ok(Self { change })
+        Ok(Self { change, inject })
     }
 
     pub fn apply_pre_default(&self, database: &mut ReflectionDatabase) -> anyhow::Result<()> {
@@ -86,6 +91,24 @@ impl Patches {
 
                     existing_property.scriptability = *scriptability;
                 }
+            }
+        }
+
+        for (class_name, injections) in &self.inject {
+            let class = database
+                .classes
+                .get_mut(class_name.as_str())
+                .ok_or_else(|| {
+                    anyhow!(
+                        "Class {} listed in Inject patch does not exist in database",
+                        class_name
+                    )
+                })?;
+
+            for injection in injections {
+                class.injections.push(ClassInjection {
+                    target_property: Cow::Owned(injection.target_property.clone()),
+                });
             }
         }
 
@@ -157,6 +180,17 @@ impl Patches {
 struct Patch {
     #[serde(default)]
     change: HashMap<String, HashMap<String, PropertyChange>>,
+    /// Class-level inject declarations: maps class name to a list of inject
+    /// migrations applied to instances of that class on serialize. See
+    /// `ClassInjection` in `rbx_reflection`.
+    #[serde(default)]
+    inject: HashMap<String, Vec<ClassInjectionPatch>>,
+}
+
+#[derive(Clone, Deserialize)]
+#[serde(rename_all = "PascalCase", deny_unknown_fields)]
+struct ClassInjectionPatch {
+    target_property: String,
 }
 
 #[derive(Deserialize)]

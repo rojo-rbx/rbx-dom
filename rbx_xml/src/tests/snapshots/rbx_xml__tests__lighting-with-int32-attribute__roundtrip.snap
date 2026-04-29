@@ -1,5 +1,6 @@
 ---
 source: rbx_xml/src/tests/mod.rs
+assertion_line: 41
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
@@ -13,6 +14,14 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - 0.27450982
     Attributes:
       Attributes:
+        RBX_BackupBrightness:
+          Float32: 1
+        RBX_BackupExposureCompensation:
+          Float32: 0
+        RBX_LightingCompatibilityMigrated:
+          Bool: true
+        RBX_LightingTechnologyUnifiedMigration:
+          Bool: true
         RBX_OriginalTechnologyOnFileLoad:
           Int32: 3
     Brightness:
@@ -68,4 +77,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     TimeOfDay:
       String: "14:30:00"
   children: []
-

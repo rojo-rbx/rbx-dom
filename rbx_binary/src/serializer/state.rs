@@ -149,6 +149,13 @@ struct PropInfo<'dom> {
     /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
     /// it is None.
     migration: Option<&'dom PropertyMigration>,
+
+    /// If a class declares an inject migration targeting this property
+    /// (`ClassDescriptor::injections`), this field carries it. At write time
+    /// the injection's entries are merged into each instance's value of this
+    /// property (instance values win on key collision); for instances that do
+    /// not have this property set, the inject entries form the entire value.
+    inject: Option<&'dom rbx_reflection::ClassInjection<'dom>>,
 }
 impl<'dom> PropInfo<'dom> {
     /// This function extends `self.values` with `self.default_value` values.
@@ -219,6 +226,16 @@ impl<'dom> PropInfo<'dom> {
         // check here just to make sure.
         push_sstr(default_value);
 
+        // Look up class-level injections targeting this canonical property.
+        // Multiple injections may exist on a class; take the first one whose
+        // target property matches.
+        let inject = class_descriptor.and_then(|class| {
+            class
+                .injections
+                .iter()
+                .find(|inj| inj.target_property.as_ref() == canonical_name.as_str())
+        });
+
         Ok(PropInfo {
             prop_type,
             canonical_name,
@@ -226,6 +243,7 @@ impl<'dom> PropInfo<'dom> {
             values: Vec::new(),
             default_value,
             migration,
+            inject,
         })
     }
 }
@@ -526,6 +544,13 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             }
         }
 
+        // Force-create PropInfo entries for any class-level inject targets
+        // that no instance happened to set in memory. Without this, classes
+        // whose inject target is purely synthesized (e.g. a Lighting instance
+        // with no Attributes set in the source) wouldn't emit the property
+        // and the synthesis wouldn't reach the file.
+        self.apply_class_injections()?;
+
         // Sort shared_strings by their hash, to ensure they are deterministically added
         // into the SSTR chunk, then assign them corresponding ids
         self.shared_strings.sort_by_key(SharedString::hash);
@@ -537,6 +562,74 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             "Discovered {} unique TypeInfos",
             self.type_infos.values.len()
         );
+
+        Ok(())
+    }
+
+    /// Walks every TypeInfo and ensures the target property of each class-level
+    /// inject migration has a `PropInfo`. Without this, classes whose target
+    /// property is purely synthesized (no instance ever sets it in memory)
+    /// would not emit the property at all.
+    fn apply_class_injections(&mut self) -> Result<(), InnerError> {
+        let SerializerState {
+            serializer: Serializer { database, .. },
+            type_infos,
+            shared_strings,
+            shared_string_ids,
+            ..
+        } = self;
+
+        let mut push_sstr = |variant: &Variant| {
+            if let Variant::SharedString(sstr) = variant {
+                if !shared_string_ids.contains_key(sstr) {
+                    shared_string_ids.insert(sstr.clone(), 0);
+                    shared_strings.push(sstr.clone());
+                }
+            } else if let Variant::NetAssetRef(net) = variant {
+                let sstr_ref = net.as_ref();
+                if !shared_string_ids.contains_key(sstr_ref) {
+                    shared_string_ids.insert(sstr_ref.clone(), 0);
+                    shared_strings.push(sstr_ref.clone())
+                }
+            }
+        };
+
+        for (class_name, type_info) in type_infos.values.iter_mut() {
+            let class_desc = match database.classes.get(class_name.as_str()) {
+                Some(c) => c,
+                None => continue,
+            };
+
+            // Snapshot what we need from the immutable database borrow before
+            // we touch `type_info` mutably.
+            let inject_targets: Vec<_> = class_desc
+                .injections
+                .iter()
+                .map(|inj| rbx_dom_weak::ustr(inj.target_property.as_ref()))
+                .collect();
+
+            for target_prop_name in inject_targets {
+                if type_info.properties_visited.contains_key(&target_prop_name) {
+                    // Property already has a PropInfo; PropInfo::new wired up
+                    // its inject during the instance walks.
+                    continue;
+                }
+
+                // Sample value used only as a type seed when the database
+                // doesn't know about this property; for inject targets the
+                // type comes from the property descriptor itself, so the
+                // sample value is just a placeholder. An empty Attributes is
+                // a safe choice for the typical Lighting.Attributes case.
+                let sample = Variant::Attributes(rbx_dom_weak::types::Attributes::new());
+                let _ = type_info.get_or_create_logical_property(
+                    &mut push_sstr,
+                    database,
+                    *class_name,
+                    target_prop_name,
+                    &sample,
+                )?;
+            }
+        }
 
         Ok(())
     }
@@ -863,7 +956,52 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     prop_type: format!("{:?}", bad_value.ty()),
                 };
 
-                if let Some(property_migration) = prop_info.migration {
+                if prop_info.inject.is_some() {
+                    // Class-level inject: merge keys from the property's
+                    // `default_value` into each instance's value. Instance-
+                    // set keys win on collision. For instances that didn't
+                    // set the property, `values[i]` is already
+                    // `default_value` (set by `extend_with_default`), so the
+                    // merge produces the default unchanged.
+                    //
+                    // Source of truth for the merged keys is the captured
+                    // Studio default for the target property — meaning rbx-
+                    // dom output stays in sync with whatever Studio currently
+                    // writes for that class, no hand-maintained value list.
+                    let default_attrs = match prop_info.default_value {
+                        Variant::Attributes(a) => Some(a),
+                        _ => None,
+                    };
+
+                    let merged_values: Vec<Variant> = prop_info
+                        .values
+                        .iter()
+                        .map(|&value| {
+                            let mut merged = match value {
+                                Variant::Attributes(attrs) => attrs.clone(),
+                                _ => rbx_dom_weak::types::Attributes::new(),
+                            };
+                            if let Some(defaults) = default_attrs {
+                                for (key, val) in defaults.iter() {
+                                    if merged.get(key.as_str()).is_none() {
+                                        merged.insert(key.clone(), val.clone());
+                                    }
+                                }
+                            }
+                            Variant::Attributes(merged)
+                        })
+                        .collect();
+
+                    write_prop_values(
+                        chunk,
+                        id_to_referent,
+                        shared_string_ids,
+                        prop_info.prop_type,
+                        merged_values.iter().enumerate(),
+                        type_mismatch,
+                        invalid_value,
+                    )?;
+                } else if let Some(property_migration) = prop_info.migration {
                     let migrated_values: Vec<_> = prop_info
                         .values
                         .iter()

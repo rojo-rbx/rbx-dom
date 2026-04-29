@@ -2,8 +2,8 @@
   "Version": [
     0,
     718,
-    603,
-    7181990
+    0,
+    7181104
   ],
   "Classes": {
     "Accessory": {
@@ -42825,7 +42825,12 @@
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
         }
-      }
+      },
+      "Injections": [
+        {
+          "TargetProperty": "Attributes"
+        }
+      ]
     },
     "LineForce": {
       "Name": "LineForce",
@@ -47921,22 +47926,6 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
-            }
-          }
-        },
-        "UnrestrictedRequireAllowed": {
-          "Name": "UnrestrictedRequireAllowed",
-          "Scriptability": "None",
-          "DataType": {
-            "Value": "Bool"
-          },
-          "Tags": [
-            "Hidden",
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "DoesNotSerialize"
             }
           }
         }
