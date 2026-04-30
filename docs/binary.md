@@ -235,7 +235,7 @@ There should be exactly one `PRNT` chunk.
 
 **Instance Count** should be equal to the number of instances in the file header chunk, since each object should have a parent.
 
-**Child Referents** and **Parent Referents** should both have length equal to **Instance Count**. The parent of the ID at position *N* in **Child Referents** is a child of the ID at position *N* in **Parent Referents**.
+**Child Referents** and **Parent Referents** should both have length equal to **Instance Count**. The instance identified by the referent at position *N* in **Child Referents** has the parent instance identified by the referent at position *N* in **Parent Referents**.
 
 A null parent referent (`-1`) indicates that the object is a root instance. In a place, that means the object is a child of `DataModel`. In a model, that means the object should be placed directly under the object the model is being inserted into.
 
@@ -255,12 +255,11 @@ For example, given referents arranged as the following tree:
 └── 4
     └── 7
 ```
-Roblox Studio has been observed to write the child side of the PRNT links in
-this order:
+Roblox Studio has been observed to write the child referents in this order:
 ```text
 2, 5, 6, 3, 7, 4, 1
 ```
-With corresponding parents:
+And write the parent referents in this order:
 ```text
 1, 3, 3, 1, 4, 1, -1
 ```
