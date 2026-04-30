@@ -239,6 +239,34 @@ There should be exactly one `PRNT` chunk.
 
 A null parent referent (`-1`) indicates that the object is a root instance. In a place, that means the object is a child of `DataModel`. In a model, that means the object should be placed directly under the object the model is being inserted into.
 
+#### Ordering
+
+Although the `PRNT` chunk can be interpreted as a set of child-parent relationships, in practice, Roblox Studio appears to apply the relationships in the order stored in the chunk. This order can affect load-time behavior for some instance types, because parenting an instance may trigger engine side effects.
+
+For best compatibility with Roblox Studio, serializers should write `PRNT` entries in depth-first post-order over the instance tree: recursively write all children of an instance before writing the instance itself, preserving sibling order. This means that descendants are parented before their ancestors.
+
+For example, given referents arranged as the following tree:
+```text
+1
+├── 2
+├── 3
+│   ├── 5
+│   └── 6
+└── 4
+    └── 7
+```
+Roblox Studio has been observed to write the child side of the PRNT links in
+this order:
+```text
+2, 5, 6, 3, 7, 4, 1
+```
+With corresponding parents:
+```text
+1, 3, 3, 1, 4, 1, -1
+```
+
+Decoders should still treat the child and parent arrays as paired arrays. A file should not be rejected solely because its PRNT entries are not in this order, but serializers targeting Roblox Studio compatibility should follow this order.
+
 ### `END` Chunk
 The `END` chunk has this layout:
 
