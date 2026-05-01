@@ -185,6 +185,27 @@ fn serialize_instance<'dom, W: Write>(
         &Variant::String(instance.name.clone()),
     )?;
 
+    // Class-level injections: properties that should always be emitted for
+    // instances of this class, with their value being the instance's value
+    // (if any) merged with the property's `default_value` from the reflection
+    // database (instance-set keys win on collision). Source of merge keys is
+    // the captured Studio default — see `ClassDescriptor::injections`.
+    let class_descriptor = state.options.database.classes.get(instance.class.as_str());
+    let injections: Vec<(&str, Option<&Variant>)> = class_descriptor
+        .map(|class_desc| {
+            class_desc
+                .injections
+                .iter()
+                .map(|inj| {
+                    let target = inj.target_property.as_ref();
+                    let default = class_desc.default_properties.get(target);
+                    (target, default)
+                })
+                .collect()
+        })
+        .unwrap_or_default();
+    let mut injected_targets_emitted: Vec<&str> = Vec::with_capacity(injections.len());
+
     // Move references to our properties into property_buffer so we can sort
     // them and iterate them in order.
     property_buffer.extend(instance.properties.iter().map(|(k, v)| (k.as_str(), v)));
@@ -234,6 +255,27 @@ fn serialize_instance<'dom, W: Write>(
                 }
             }
 
+            // Apply class-level inject if this property is a target. We
+            // match on `property_name` (the canonical/in-memory name); merge
+            // any keys from the captured default into the instance's
+            // Attributes (instance keys win on collision).
+            if let Some((target, default)) =
+                injections.iter().find(|(target, _)| *target == property_name)
+            {
+                if let (Variant::Attributes(attrs), Some(Variant::Attributes(defaults))) =
+                    (converted_value.as_ref(), *default)
+                {
+                    let mut merged = attrs.clone();
+                    for (key, val) in defaults.iter() {
+                        if merged.get(key.as_str()).is_none() {
+                            merged.insert(key.clone(), val.clone());
+                        }
+                    }
+                    converted_value = Cow::Owned(Variant::Attributes(merged));
+                }
+                injected_targets_emitted.push(target);
+            }
+
             write_value_xml(writer, state, serialized_name, &converted_value)?;
         } else {
             match state.options.property_behavior {
@@ -251,6 +293,37 @@ fn serialize_instance<'dom, W: Write>(
                     }));
                 }
             }
+        }
+    }
+
+    // Synthesize any inject targets the instance didn't have set in memory.
+    // The synthesized value is the captured Studio default for the target
+    // property — i.e. exactly what Studio would write for a freshly-saved
+    // default instance of this class.
+    for (target, default) in &injections {
+        if injected_targets_emitted.contains(target) {
+            continue;
+        }
+        let synth = match default {
+            Some(value) => (*value).clone(),
+            // No captured default — skip, since we have nothing to write.
+            // (Hits if a class declares an inject target but the property has
+            // no default in the database.)
+            None => continue,
+        };
+
+        // Resolve the serialized name for the inject target (may differ from
+        // the canonical name due to SerializesAs aliases — e.g. Attributes
+        // serializes as AttributesSerialize).
+        let serialized_descriptor =
+            find_serialized_property_descriptor(&instance.class, target, state.options.database);
+        if let Some(desc) = serialized_descriptor {
+            write_value_xml(writer, state, desc.name.as_ref(), &synth)?;
+        } else {
+            // No reflection metadata — fall back to writing under the
+            // canonical name. Only happens if the database doesn't know
+            // about this class/property.
+            write_value_xml(writer, state, target, &synth)?;
         }
     }
 

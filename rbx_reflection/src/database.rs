@@ -129,6 +129,34 @@ pub struct ClassDescriptor<'a> {
     /// defined in serialization or freshly inserted with `Instance.new`.
     #[serde(serialize_with = "crate::serde_util::ordered_map")]
     pub default_properties: HashMap<Cow<'a, str>, Variant>,
+
+    /// Class-level injections: declarations that, when serializing instances
+    /// of this class, the named target property should always be emitted —
+    /// even if no instance has it set in memory. The property's value is
+    /// produced by merging each instance's value (if any) with the property's
+    /// `default_value` from this database (instance-set keys win on
+    /// collision).
+    ///
+    /// Used to satisfy Roblox-side load-time invariants. The canonical
+    /// example is `Lighting.Attributes`, which Studio always writes with
+    /// markers like `RBX_LightingTechnologyUnifiedMigration`. Without those
+    /// markers, Studio resets `Lighting.LightingStyle` to `Soft` on file
+    /// load. By force-emitting `Attributes` and merging in the captured
+    /// defaults, rbx-dom output matches what Studio writes.
+    ///
+    /// `#[serde(default)]` so reflection databases produced before this field
+    /// existed deserialize cleanly with an empty list.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub injections: Vec<ClassInjection<'a>>,
+}
+
+/// One class-level inject declaration. See `ClassDescriptor::injections`.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "PascalCase")]
+pub struct ClassInjection<'a> {
+    /// The canonical name of the property to force-emit and merge defaults
+    /// into (e.g. `"Attributes"`).
+    pub target_property: Cow<'a, str>,
 }
 
 impl<'a> ClassDescriptor<'a> {
@@ -140,6 +168,7 @@ impl<'a> ClassDescriptor<'a> {
             superclass: None,
             properties: HashMap::new(),
             default_properties: HashMap::new(),
+            injections: Vec::new(),
         }
     }
 }
@@ -213,6 +242,7 @@ pub enum PropertySerialization<'a> {
     /// exists, this property should be ignored.
     Migrate(PropertyMigration),
 }
+
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[non_exhaustive]
