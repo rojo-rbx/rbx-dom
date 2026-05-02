@@ -47,7 +47,7 @@ impl InstanceBuilder {
         let name = class.to_string();
 
         InstanceBuilder {
-            referent: Ref::new(),
+            referent: Ref::new_random(),
             name,
             class,
             properties: Vec::new(),
@@ -62,7 +62,7 @@ impl InstanceBuilder {
         let name = class.to_string();
 
         InstanceBuilder {
-            referent: Ref::new(),
+            referent: Ref::new_random(),
             name,
             class,
             properties: Vec::with_capacity(capacity),
@@ -73,7 +73,7 @@ impl InstanceBuilder {
     /// Create a new `InstanceBuilder` with all values set to empty.
     pub fn empty() -> Self {
         InstanceBuilder {
-            referent: Ref::new(),
+            referent: Ref::new_random(),
             name: String::new(),
             class: Ustr::default(),
             properties: Vec::new(),
@@ -202,7 +202,7 @@ impl InstanceBuilder {
 pub struct Instance {
     pub(crate) referent: Ref,
     pub(crate) children: Vec<Ref>,
-    pub(crate) parent: Ref,
+    pub(crate) parent: Option<Ref>,
 
     /// The instance's name, corresponding to the `Name` property.
     pub name: String,
@@ -215,7 +215,7 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Returns this instance's referent. It will always be non-null.
+    /// Returns this instance's referent.
     #[inline]
     pub fn referent(&self) -> Ref {
         self.referent
@@ -233,7 +233,7 @@ impl Instance {
     /// referent will either point to an instance in the same
     /// [`WeakDom`][crate::WeakDom] or be null.
     #[inline]
-    pub fn parent(&self) -> Ref {
+    pub fn parent(&self) -> Option<Ref> {
         self.parent
     }
 }

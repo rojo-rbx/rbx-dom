@@ -26,15 +26,15 @@ pub const XML_TAG_NAME: &str = "Ref";
 pub fn write_ref<W: Write>(
     writer: &mut XmlEventWriter<W>,
     xml_property_name: &str,
-    value: Ref,
+    value: Option<Ref>,
     state: &mut EmitState,
 ) -> Result<(), EncodeError> {
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", xml_property_name))?;
 
-    if value.is_none() {
-        writer.write(XmlWriteEvent::characters("null"))?;
+    if let Some(referent) = value {
+        writer.write_characters(state.map_id(referent))?;
     } else {
-        writer.write_characters(state.map_id(value))?;
+        writer.write(XmlWriteEvent::characters("null"))?;
     }
 
     writer.write(XmlWriteEvent::end_element())?;
@@ -47,7 +47,7 @@ pub fn read_ref<R: Read>(
     id: Ref,
     property_name: &str,
     state: &mut ParseState,
-) -> Result<Ref, DecodeError> {
+) -> Result<Option<Ref>, DecodeError> {
     let ref_contents = reader.read_tag_contents(XML_TAG_NAME)?;
 
     if ref_contents != "null" {
@@ -59,5 +59,5 @@ pub fn read_ref<R: Read>(
         state.add_referent_rewrite(id, property_name.into(), ref_contents);
     }
 
-    Ok(Ref::none())
+    Ok(None)
 }

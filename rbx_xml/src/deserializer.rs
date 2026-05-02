@@ -251,7 +251,7 @@ fn apply_referent_rewrites(state: &mut ParseState) {
 
         instance.properties.insert(
             rewrite.property_name.as_str().into(),
-            Variant::Ref(new_value),
+            Variant::Ref(Some(new_value)),
         );
     }
 }
@@ -295,7 +295,7 @@ fn apply_shared_string_rewrites(state: &mut ParseState) {
 fn deserialize_root<R: Read>(
     reader: &mut XmlEventReader<R>,
     state: &mut ParseState,
-    parent_id: Ref,
+    parent_id: Option<Ref>,
 ) -> Result<(), DecodeError> {
     match reader.expect_next()? {
         XmlReadEvent::StartDocument { .. } => {}
@@ -324,7 +324,9 @@ fn deserialize_root<R: Read>(
             XmlReadEvent::StartElement { name, .. } => {
                 match name.local_name.as_str() {
                     "Item" => {
-                        deserialize_instance(reader, state, parent_id)?;
+                        if let Some(parent_ref) = parent_id {
+                            deserialize_instance(reader, state, parent_ref)?;
+                        }
                     }
                     "External" => {
                         // This tag is always meaningless, there's nothing to do
