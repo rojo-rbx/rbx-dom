@@ -107,7 +107,7 @@ mod test {
 
         // Clippy's suggestion here doesn't work and is less clear than just
         // using as_bytes.
-        #[allow(clippy::string_lit_as_bytes)]
+        #[expect(clippy::string_lit_as_bytes)]
         let mut reader = XmlEventReader::from_source(r#"<float name="foo">NAN</float>"#.as_bytes());
         reader.next().unwrap().unwrap(); // Eat StartDocument event
         let value = f32::read_outer_xml(&mut reader).unwrap();
