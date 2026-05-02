@@ -1,4 +1,4 @@
-use crate::Ref;
+use crate::referent::{Ref, SomeRef};
 
 /// A reference to a Roblox asset.
 ///
@@ -17,7 +17,7 @@ pub enum ContentType {
     #[default]
     None,
     Uri(String),
-    Object(Ref),
+    Object(SomeRef),
 }
 
 impl Content {
@@ -35,6 +35,15 @@ impl Content {
     /// Constructs a `Content` from the provided referent.
     #[inline]
     pub fn from_referent(referent: Ref) -> Self {
+        match referent.to_some_ref() {
+            Some(some_ref) => Self(ContentType::Object(some_ref)),
+            None => Self::none(),
+        }
+    }
+
+    /// Constructs a `Content` from the provided referent.
+    #[inline]
+    pub const fn from_some_ref(referent: SomeRef) -> Self {
         Self(ContentType::Object(referent))
     }
 
@@ -69,7 +78,7 @@ impl Content {
     #[inline]
     pub fn as_object(&self) -> Option<Ref> {
         match self.value() {
-            &ContentType::Object(referent) => Some(referent),
+            &ContentType::Object(referent) => Some(referent.to_optional_ref()),
             _ => None,
         }
     }
@@ -86,6 +95,25 @@ impl From<&'_ str> for Content {
         Self(ContentType::Uri(url.to_owned()))
     }
 }
+
+impl From<Ref> for Content {
+    fn from(referent: Ref) -> Self {
+        Self::from_referent(referent)
+    }
+}
+
+impl From<SomeRef> for Content {
+    fn from(referent: SomeRef) -> Self {
+        Self::from_some_ref(referent)
+    }
+}
+
+impl From<Option<SomeRef>> for Content {
+    fn from(value: Option<SomeRef>) -> Self {
+        Self::from_referent(value.into())
+    }
+}
+
 /// A reference to a Roblox asset.
 ///
 /// When exposed to Luau, this is just a string. For the modern userdata type,
