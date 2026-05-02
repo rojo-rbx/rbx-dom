@@ -39,6 +39,12 @@ pub(crate) enum InnerError {
         version: u32,
     },
 
+    #[error("Unexpected chunk {actual}, expected {expected}")]
+    UnexpectedChunk {
+        expected: &'static str,
+        actual: String,
+    },
+
     #[error(transparent)]
     InvalidTypeError {
         #[from]

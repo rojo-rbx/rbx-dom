@@ -22,20 +22,41 @@ use crate::{
 
 use super::{error::InnerError, header::FileHeader, Deserializer};
 
-pub(super) struct DeserializerState<'db, R> {
+// There are 6 different chunk types, and they must appear in the file
+// in a specific order.  The relevant state for each stage is different
+// as the decoder reads each chunk type.  Some state such as
+// `unknown_type_ids` is only relevant for a single stage.
+
+// === Metadata stage ===
+pub struct MetaStage<'db> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
 
-    /// The input data encoded as a binary model.
-    input: R,
-
-    /// The tree that instances should be written into. Eventually returned to
-    /// the user.
-    tree: WeakDom,
-
     /// The metadata contained in the file, which affects how some constructs
-    /// are interpreted by Roblox.
+    /// are interpreted by Roblox.  It is dropped immediately.
     metadata: HashMap<String, String>,
+
+    /// FileHeader being plumbed through the stages
+    header: FileHeader,
+}
+
+// === Shared string stage ===
+pub struct SstrStage<'db> {
+    /// The user-provided configuration that we should use.
+    deserializer: &'db Deserializer<'db>,
+
+    /// The SharedStrings contained in the file, if any, in the order that they
+    /// appear in the file.
+    shared_strings: Vec<SharedString>,
+
+    /// FileHeader being plumbed through the stages
+    header: FileHeader,
+}
+
+// === Instance stage ===
+pub struct InstStage<'db> {
+    /// The user-provided configuration that we should use.
+    deserializer: &'db Deserializer<'db>,
 
     /// The SharedStrings contained in the file, if any, in the order that they
     /// appear in the file.
@@ -47,14 +68,278 @@ pub(super) struct DeserializerState<'db, R> {
     /// All of the instances known by the deserializer.
     instances_by_ref: HashMap<i32, Instance>,
 
-    /// Referents for all of the instances with no parent, in order they appear
-    /// in the file.
-    root_instance_refs: Vec<i32>,
+    /// How many instances are expected
+    num_instances: u32,
+}
+
+// === Property stage ===
+pub struct PropStage<'db> {
+    /// The user-provided configuration that we should use.
+    deserializer: &'db Deserializer<'db>,
+
+    /// The SharedStrings contained in the file, if any, in the order that they
+    /// appear in the file.
+    shared_strings: Vec<SharedString>,
+
+    /// All of the instance types described by the file so far.
+    type_infos: HashMap<u32, TypeInfo<'db>>,
+
+    /// All of the instances known by the deserializer.
+    instances_by_ref: HashMap<i32, Instance>,
 
     /// Contains a set of unknown type IDs that we've encountered so far while
     /// deserializing this file. We use this map in order to ensure we only
     /// print one warning per unknown type ID when deserializing a file.
     unknown_type_ids: HashSet<u8>,
+
+    /// How many instances are expected
+    num_instances: u32,
+}
+
+// === Parent stage ===
+pub struct PrntStage {
+    /// All of the instances known by the deserializer.
+    instances_by_ref: HashMap<i32, Instance>,
+
+    /// Referents for all of the instances with no parent, in the order that
+    /// they appear in the file.
+    root_instance_refs: Vec<i32>,
+
+    /// How many instances are expected
+    num_instances: u32,
+}
+
+// === End chunk stage ===
+pub struct EndStage(PrntStage);
+
+// === Final stage ===
+pub struct FinishStage {
+    /// The tree that instances should be written into.
+    /// This is what is returned to the user.
+    tree: WeakDom,
+
+    /// All of the instances known by the deserializer.
+    instances_by_ref: HashMap<i32, Instance>,
+
+    /// Referents for all of the instances with no parent, in the order that
+    /// they appear in the file.
+    root_instance_refs: Vec<i32>,
+}
+
+// Marker traits for stages
+
+/// Exactly one of this chunk exists
+pub trait ChunkOnce {}
+/// Zero or one of this chunk exists
+pub trait ChunkOptional {}
+/// Zero or more of these chunks may exist
+pub trait ChunkRepeated {}
+
+impl ChunkOptional for MetaStage<'_> {}
+impl ChunkOptional for SstrStage<'_> {}
+impl ChunkRepeated for InstStage<'_> {}
+impl ChunkRepeated for PropStage<'_> {}
+impl ChunkOnce for PrntStage {}
+impl ChunkOnce for EndStage {}
+
+/// A decoding stage.
+pub trait Stage {
+    /// The Four-character code expected in chunks decoded by this stage.
+    const FOURCC: [u8; 4];
+    /// The next stage.
+    type Next;
+    fn into_next_stage(self) -> Self::Next;
+}
+impl<'db> Stage for MetaStage<'db> {
+    const FOURCC: [u8; 4] = *b"META";
+    type Next = SstrStage<'db>;
+    fn into_next_stage(self) -> Self::Next {
+        // Metadata is dropped!
+        Self::Next {
+            deserializer: self.deserializer,
+            shared_strings: Vec::new(),
+            header: self.header,
+        }
+    }
+}
+impl<'db> Stage for SstrStage<'db> {
+    const FOURCC: [u8; 4] = *b"SSTR";
+    type Next = InstStage<'db>;
+    fn into_next_stage(self) -> Self::Next {
+        Self::Next {
+            deserializer: self.deserializer,
+            shared_strings: self.shared_strings,
+            type_infos: HashMap::with_capacity(self.header.num_types as usize),
+            instances_by_ref: HashMap::with_capacity(1 + self.header.num_instances as usize),
+            num_instances: self.header.num_instances,
+        }
+    }
+}
+impl<'db> Stage for InstStage<'db> {
+    const FOURCC: [u8; 4] = *b"INST";
+    type Next = PropStage<'db>;
+    fn into_next_stage(self) -> Self::Next {
+        Self::Next {
+            deserializer: self.deserializer,
+            shared_strings: self.shared_strings,
+            type_infos: self.type_infos,
+            instances_by_ref: self.instances_by_ref,
+            unknown_type_ids: HashSet::new(),
+            num_instances: self.num_instances,
+        }
+    }
+}
+impl Stage for PropStage<'_> {
+    const FOURCC: [u8; 4] = *b"PROP";
+    type Next = PrntStage;
+    fn into_next_stage(self) -> Self::Next {
+        Self::Next {
+            instances_by_ref: self.instances_by_ref,
+            root_instance_refs: Vec::new(),
+            num_instances: self.num_instances,
+        }
+    }
+}
+impl Stage for PrntStage {
+    const FOURCC: [u8; 4] = *b"PRNT";
+    type Next = EndStage;
+    fn into_next_stage(self) -> Self::Next {
+        EndStage(self)
+    }
+}
+impl Stage for EndStage {
+    const FOURCC: [u8; 4] = *b"END\0";
+    type Next = FinishStage;
+    fn into_next_stage(self) -> Self::Next {
+        let EndStage(stage) = self;
+        let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
+        tree.reserve(stage.num_instances as usize);
+        Self::Next {
+            tree,
+            instances_by_ref: stage.instances_by_ref,
+            root_instance_refs: stage.root_instance_refs,
+        }
+    }
+}
+
+pub(super) struct DeserializerState<R, S, C> {
+    /// The input data encoded as a binary model.
+    input: R,
+
+    /// Decoding stage typestate.  Keeps track of
+    /// which chunk is expected next, as well as relevant state.
+    stage: S,
+
+    /// A previously read chunk which has not been decoded yet.
+    next_chunk: C,
+}
+
+impl<R> DeserializerState<R, FinishStage, NoChunk> {
+    /// Combines together all the decoded information to build and emplace
+    /// instances in our tree.
+    #[profiling::function]
+    pub(super) fn finish(self) -> WeakDom {
+        self.stage.finish()
+    }
+}
+
+/// Monomorphizing the aquisition of an initial chunk depending on whether
+/// the previous stage produced a chunk which has not yet been decoded.
+pub trait NextChunk {
+    fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk>;
+}
+
+/// Calling next_chunk never reads a new chunk.
+impl NextChunk for Chunk {
+    fn next_chunk<R>(self, _input: &mut R) -> std::io::Result<Chunk> {
+        Ok(self)
+    }
+}
+
+/// Calling next_chunk optionally reads a new chunk.
+impl NextChunk for Option<Chunk> {
+    fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk> {
+        match self {
+            Some(chunk) => Ok(chunk),
+            None => Chunk::decode(input),
+        }
+    }
+}
+
+/// A zero-size type which represents the abscence of a next chunk.
+/// Calling next_chunk always reads a new chunk.
+pub struct NoChunk;
+impl NextChunk for NoChunk {
+    fn next_chunk<R: Read>(self, input: &mut R) -> std::io::Result<Chunk> {
+        Chunk::decode(input)
+    }
+}
+
+/// The specific decoding implementation for the chunk type.
+pub trait DecodeChunk {
+    fn decode_chunk(&mut self, chunk: &[u8]) -> Result<(), InnerError>;
+}
+
+impl<R: Read, S: ChunkOptional + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
+    /// Optionally decode one chunk if it is present.
+    pub fn decode_optional(
+        mut self,
+    ) -> Result<DeserializerState<R, S::Next, Option<Chunk>>, InnerError> {
+        let chunk = self.next_chunk.next_chunk(&mut self.input)?;
+
+        let next_chunk = if chunk.name == S::FOURCC {
+            self.stage.decode_chunk(&chunk.data)?;
+            None
+        } else {
+            Some(chunk)
+        };
+
+        Ok(DeserializerState {
+            input: self.input,
+            stage: self.stage.into_next_stage(),
+            next_chunk,
+        })
+    }
+}
+
+impl<R: Read, S: ChunkOnce + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
+    /// Decode one chunk which must be present.
+    pub fn decode_once(mut self) -> Result<DeserializerState<R, S::Next, NoChunk>, InnerError> {
+        let chunk = self.next_chunk.next_chunk(&mut self.input)?;
+
+        if chunk.name == S::FOURCC {
+            self.stage.decode_chunk(&chunk.data)?;
+        } else {
+            return Err(InnerError::UnexpectedChunk {
+                expected: str::from_utf8(&S::FOURCC).unwrap_or("UTF8Error"),
+                actual: str::from_utf8(&chunk.name).unwrap_or("UTF8Error").into(),
+            });
+        }
+
+        Ok(DeserializerState {
+            input: self.input,
+            stage: self.stage.into_next_stage(),
+            next_chunk: NoChunk,
+        })
+    }
+}
+
+impl<R: Read, S: ChunkRepeated + Stage + DecodeChunk, C: NextChunk> DeserializerState<R, S, C> {
+    /// Decode chunks repeatedly zero or more times.
+    pub fn decode_repeated(mut self) -> Result<DeserializerState<R, S::Next, Chunk>, InnerError> {
+        let mut chunk = self.next_chunk.next_chunk(&mut self.input)?;
+
+        while chunk.name == S::FOURCC {
+            self.stage.decode_chunk(&chunk.data)?;
+            chunk = Chunk::decode(&mut self.input)?;
+        }
+
+        Ok(DeserializerState {
+            input: self.input,
+            stage: self.stage.into_next_stage(),
+            next_chunk: chunk,
+        })
+    }
 }
 
 /// Represents a unique instance class. Binary models define all their instance
@@ -199,39 +484,29 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
     }
 }
 
-impl<'db, R: Read> DeserializerState<'db, R> {
+impl<'db, R: Read> DeserializerState<R, MetaStage<'db>, NoChunk> {
+    /// Decode header and initialize the first stage `MetaStage`.
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
         mut input: R,
     ) -> Result<Self, InnerError> {
-        let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
-
         let header = FileHeader::decode(&mut input)?;
 
-        let type_infos = HashMap::with_capacity(header.num_types as usize);
-        let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
-
-        tree.reserve(header.num_instances as usize);
-
-        Ok(DeserializerState {
-            deserializer,
+        Ok(Self {
             input,
-            tree,
-            metadata: HashMap::new(),
-            shared_strings: Vec::new(),
-            type_infos,
-            instances_by_ref,
-            root_instance_refs: Vec::new(),
-            unknown_type_ids: HashSet::new(),
+            stage: MetaStage {
+                deserializer,
+                metadata: HashMap::new(),
+                header,
+            },
+            next_chunk: NoChunk,
         })
     }
+}
 
-    pub(super) fn next_chunk(&mut self) -> Result<Chunk, InnerError> {
-        Ok(Chunk::decode(&mut self.input)?)
-    }
-
+impl DecodeChunk for MetaStage<'_> {
     #[profiling::function]
-    pub(super) fn decode_meta_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let len = chunk.read_le_u32()?;
         self.metadata.reserve(len as usize);
 
@@ -244,9 +519,11 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         Ok(())
     }
+}
 
+impl DecodeChunk for SstrStage<'_> {
     #[profiling::function]
-    pub(super) fn decode_sstr_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_le_u32()?;
 
         if version != 0 {
@@ -257,6 +534,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         }
 
         let num_entries = chunk.read_le_u32()?;
+        self.shared_strings.reserve(num_entries as usize);
 
         for _ in 0..num_entries {
             chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
@@ -266,9 +544,11 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         Ok(())
     }
+}
 
+impl DecodeChunk for InstStage<'_> {
     #[profiling::function]
-    pub(super) fn decode_inst_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let type_name = chunk.read_string()?;
         let object_format = chunk.read_u8()?;
@@ -316,9 +596,11 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         Ok(())
     }
+}
 
+impl DecodeChunk for PropStage<'_> {
     #[profiling::function]
-    pub(super) fn decode_prop_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
 
@@ -1460,9 +1742,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
         Ok(())
     }
+}
 
+impl DecodeChunk for PrntStage {
     #[profiling::function]
-    pub(super) fn decode_prnt_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_u8()?;
 
         if version != 0 {
@@ -1490,9 +1774,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
         Ok(())
     }
+}
 
+impl DecodeChunk for EndStage {
     #[profiling::function]
-    pub(super) fn decode_end_chunk(&mut self, _chunk: &[u8]) -> Result<(), InnerError> {
+    fn decode_chunk(&mut self, _chunk: &[u8]) -> Result<(), InnerError> {
         log::trace!("END chunk");
 
         // We don't do any validation on the END chunk. There's no useful
@@ -1501,11 +1787,10 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
         Ok(())
     }
+}
 
-    /// Combines together all the decoded information to build and emplace
-    /// instances in our tree.
-    #[profiling::function]
-    pub(super) fn finish(mut self) -> WeakDom {
+impl FinishStage {
+    fn finish(mut self) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
 
         // Track all the instances we need to construct. Order of construction
