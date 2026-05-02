@@ -292,7 +292,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         // TODO: Check object_format and check for service markers if it's 1?
 
         for &referent in &referents {
-            self.instances_by_ref.insert(
+            let replaced_referent = self.instances_by_ref.insert(
                 referent,
                 Instance {
                     builder: InstanceBuilder::with_property_capacity(
@@ -302,9 +302,14 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                     children: Vec::new(),
                 },
             );
+
+            // Every referent should be unique
+            if replaced_referent.is_some() {
+                return Err(InnerError::DuplicateReferent { referent });
+            };
         }
 
-        self.type_infos.insert(
+        let replaced_type_info = self.type_infos.insert(
             type_id,
             TypeInfo {
                 type_id,
@@ -313,6 +318,11 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 class_descriptor,
             },
         );
+
+        // Every type_id should be unique
+        if replaced_type_info.is_some() {
+            return Err(InnerError::DuplicateInstChunk { type_id });
+        };
 
         Ok(())
     }
