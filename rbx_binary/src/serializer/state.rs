@@ -10,8 +10,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
         MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
-        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        OptionalRef, PhysicalProperties, Ray, Rect, SecurityCapabilities, SharedString, SomeRef,
+        Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
     Instance, Ustr, UstrMap, WeakDom,
 };
@@ -50,11 +50,11 @@ pub(super) struct SerializerState<'dom, 'db, W> {
 
     /// All of the instances, in a deterministic order, that we're going to be
     /// serializing.
-    relevant_instances: Vec<Ref>,
+    relevant_instances: Vec<SomeRef>,
 
     /// A map from rbx-dom's unique instance ID (Ref) to the ID space used in
     /// the binary model format, signed integers.
-    id_to_referent: HashMap<Ref, i32>,
+    id_to_referent: HashMap<SomeRef, i32>,
 
     /// All of the types of instance discovered by our serializer that we'll be
     /// writing into the output.
@@ -477,7 +477,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     /// Mark the given instance IDs and all of their descendants as intended for
     /// serialization with this serializer.
     #[profiling::function]
-    pub fn add_instances(&mut self, referents: &[Ref]) -> Result<(), InnerError> {
+    pub fn add_instances(&mut self, referents: &[SomeRef]) -> Result<(), InnerError> {
         // Populate relevant_instances with a depth-first post-order traversal over the
         // tree(s). This is important to ensure that the order of the PRNT chunk (later
         // written by SerializerState::serialize_parents) is correct.
@@ -496,23 +496,19 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
         to_visit.extend(referents.iter().rev());
 
-        while let Some(referent) = to_visit.last() {
+        while let Some(&referent) = to_visit.last() {
             let instance = self
                 .dom
-                .get_by_ref(*referent)
-                .ok_or(InnerError::InvalidInstanceId {
-                    referent: *referent,
-                })?;
+                .get_by_ref(referent)
+                .ok_or(InnerError::InvalidInstanceId { referent })?;
 
             to_visit.extend(instance.children().iter().rev());
 
-            while let Some(referent) = to_visit.last() {
-                let instance =
-                    self.dom
-                        .get_by_ref(*referent)
-                        .ok_or(InnerError::InvalidInstanceId {
-                            referent: *referent,
-                        })?;
+            while let Some(&referent) = to_visit.last() {
+                let instance = self
+                    .dom
+                    .get_by_ref(referent)
+                    .ok_or(InnerError::InvalidInstanceId { referent })?;
 
                 if !instance.children().is_empty()
                     && instance.children().last() != last_visited_child.as_ref()
@@ -520,7 +516,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     break;
                 }
 
-                self.relevant_instances.push(*referent);
+                self.relevant_instances.push(referent);
                 self.collect_type_info(instance)?;
                 last_visited_child = to_visit.pop();
             }
@@ -825,7 +821,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 prop_info: &mut PropInfo<'dom>,
                 chunk: &mut ChunkBuilder,
                 dom: &'dom WeakDom,
-                id_to_referent: &HashMap<Ref, i32>,
+                id_to_referent: &HashMap<SomeRef, i32>,
                 shared_string_ids: &HashMap<SharedString, u32>,
                 instances: &[&Instance],
                 type_name: &str,
@@ -900,7 +896,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             }
             fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
                 chunk: &mut ChunkBuilder,
-                id_to_referent: &HashMap<Ref, i32>,
+                id_to_referent: &HashMap<SomeRef, i32>,
                 shared_string_ids: &HashMap<SharedString, u32>,
                 prop_type: Type,
                 values: I,
@@ -1212,11 +1208,11 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::Ref(value) = rbx_value {
-                                if let Some(id) = id_to_referent.get(value) {
-                                    buf.push(*id);
-                                } else {
-                                    buf.push(-1);
-                                }
+                                let id = value
+                                    .to_some_ref()
+                                    .and_then(|some_ref| id_to_referent.get(&some_ref).copied())
+                                    .unwrap_or(-1);
+                                buf.push(id);
                             } else {
                                 return type_mismatch(i, rbx_value, "Ref");
                             }
@@ -1554,20 +1550,16 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             .iter()
             .map(|id| self.id_to_referent[id]);
 
-        let parent_referents = self.relevant_instances.iter().map(|id| {
-            let instance = self.dom.get_by_ref(*id).unwrap();
+        let parent_referents = self.relevant_instances.iter().map(|&id| {
+            let instance = self.dom.get_by_ref(id).unwrap();
 
             // If there's no parent set OR our parent is not one of the
             // instances we're serializing, we use -1 to represent a null
             // parent.
-            if instance.parent().is_some() {
-                self.id_to_referent
-                    .get(&instance.parent())
-                    .cloned()
-                    .unwrap_or(-1)
-            } else {
-                -1
-            }
+            instance
+                .parent()
+                .and_then(|some_ref| self.id_to_referent.get(&some_ref).copied())
+                .unwrap_or(-1)
         });
 
         chunk.write_referent_array(object_referents)?;
@@ -1615,7 +1607,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     static DEFAULT_COLOR3: Variant = Variant::Color3(Color3::new(0.0, 0.0, 0.0));
     static DEFAULT_VECTOR2: Variant = Variant::Vector2(Vector2::new(0.0, 0.0));
     static DEFAULT_VECTOR3: Variant = Variant::Vector3(Vector3::new(0.0, 0.0, 0.0));
-    static DEFAULT_REF: Variant = Variant::Ref(Ref::none());
+    static DEFAULT_REF: Variant = Variant::Ref(OptionalRef::none());
     static DEFAULT_VECTOR3INT16: Variant = Variant::Vector3int16(Vector3int16::new(0, 0, 0));
     static DEFAULT_NUMBERSEQUENCE: LazyLock<Variant> = LazyLock::new(|| {
         Variant::NumberSequence(NumberSequence {

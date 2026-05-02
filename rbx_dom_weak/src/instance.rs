@@ -1,4 +1,4 @@
-use rbx_types::{Ref, Variant};
+use rbx_types::{SomeRef, Variant};
 use ustr::{Ustr, UstrMap};
 
 /**
@@ -32,7 +32,7 @@ let dom = WeakDom::new(data_model);
 */
 #[derive(Debug)]
 pub struct InstanceBuilder {
-    pub(crate) referent: Ref,
+    pub(crate) referent: SomeRef,
     pub(crate) name: String,
     pub(crate) class: Ustr,
     pub(crate) properties: Vec<(Ustr, Variant)>,
@@ -47,7 +47,7 @@ impl InstanceBuilder {
         let name = class.to_string();
 
         InstanceBuilder {
-            referent: Ref::new(),
+            referent: SomeRef::new_random(),
             name,
             class,
             properties: Vec::new(),
@@ -62,7 +62,7 @@ impl InstanceBuilder {
         let name = class.to_string();
 
         InstanceBuilder {
-            referent: Ref::new(),
+            referent: SomeRef::new_random(),
             name,
             class,
             properties: Vec::with_capacity(capacity),
@@ -73,7 +73,7 @@ impl InstanceBuilder {
     /// Create a new `InstanceBuilder` with all values set to empty.
     pub fn empty() -> Self {
         InstanceBuilder {
-            referent: Ref::new(),
+            referent: SomeRef::new_random(),
             name: String::new(),
             class: Ustr::default(),
             properties: Vec::new(),
@@ -82,12 +82,12 @@ impl InstanceBuilder {
     }
 
     /// Return the referent of the instance that the `InstanceBuilder` refers to.
-    pub fn referent(&self) -> Ref {
+    pub fn referent(&self) -> SomeRef {
         self.referent
     }
 
     /// Change the referent of the `InstanceBuilder`.
-    pub fn with_referent<R: Into<Ref>>(self, referent: R) -> Self {
+    pub fn with_referent<R: Into<SomeRef>>(self, referent: R) -> Self {
         Self {
             referent: referent.into(),
             ..self
@@ -200,9 +200,9 @@ impl InstanceBuilder {
 /// [`WeakDom`][crate::WeakDom] cannot be performed on an `Instance` correctly.
 #[derive(Debug)]
 pub struct Instance {
-    pub(crate) referent: Ref,
-    pub(crate) children: Vec<Ref>,
-    pub(crate) parent: Ref,
+    pub(crate) referent: SomeRef,
+    pub(crate) children: Vec<SomeRef>,
+    pub(crate) parent: Option<SomeRef>,
 
     /// The instance's name, corresponding to the `Name` property.
     pub name: String,
@@ -215,9 +215,9 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Returns this instance's referent. It will always be non-null.
+    /// Returns this instance's referent.
     #[inline]
-    pub fn referent(&self) -> Ref {
+    pub fn referent(&self) -> SomeRef {
         self.referent
     }
 
@@ -225,7 +225,7 @@ impl Instance {
     /// children. All referents returned will be non-null and point to valid
     /// instances in the same [`WeakDom`][crate::WeakDom].
     #[inline]
-    pub fn children(&self) -> &[Ref] {
+    pub fn children(&self) -> &[SomeRef] {
         &self.children
     }
 
@@ -233,7 +233,7 @@ impl Instance {
     /// referent will either point to an instance in the same
     /// [`WeakDom`][crate::WeakDom] or be null.
     #[inline]
-    pub fn parent(&self) -> Ref {
+    pub fn parent(&self) -> Option<SomeRef> {
         self.parent
     }
 }
