@@ -1485,7 +1485,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
         let empty_ustr = Ustr::default();
 
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            // Replace each instance with an impostor!
+            // We need to drain the instances Vec in a random order without
+            // disturbing the indices. Replace each instance with an impostor!
             // We guarantee this is done once by removing the key from `instance_key_by_ref`.
             let instance_key = self.instance_key_by_ref.remove(&referent).unwrap().key;
             let impostor = Instance {
