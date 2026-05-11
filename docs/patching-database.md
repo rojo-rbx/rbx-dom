@@ -55,6 +55,34 @@ Finally, we say that `xmlRead_MaxDistance_3` is an alias for `MaxDistance`, the 
 
 For this property, we're done!
 
+## A property doesn't appear in the API dump at all
+Sometimes a property we need to support is completely absent from Roblox's API dump. In these cases, we can use an **Add** patch to introduce the property into the reflection database.
+
+Add patches require `DataType`, `Scriptability`, and either `Serialization` or `AliasFor` (but not both). You can also optionally specify a `DefaultValue`. Add patches are applied before Change patches, so you can reference added properties in Change patches.
+
+For example, `StyleRule.Properties` doesn't appear in the API dump, but `StyleRule.PropertiesSerialize` does. We want `Properties` to be the canonical property (with type `Attributes`) and `PropertiesSerialize` to be its alias, matching how `Instance.Attributes`/`AttributesSerialize` works:
+
+```yaml
+Add:
+  StyleRule:
+    Properties:
+      DataType:
+        Value: "Attributes"
+      Serialization:
+        Type: SerializesAs
+        As: PropertiesSerialize
+      Scriptability: Custom
+
+Change:
+  StyleRule:
+    PropertiesSerialize:
+      AliasFor: Properties
+```
+
+The `Add` section creates `StyleRule.Properties` as a new canonical property that serializes via `PropertiesSerialize`. The `Change` section then converts the existing `PropertiesSerialize` into an alias of `Properties`.
+
+If the API dump ever starts including the property you added, the patch will fail with an error, at that point convert the Add patch to a Change patch or remove it.
+
 ## Roblox added a new property, but it's a migration from an existing property, and the existing property no longer loads
 Sometimes Roblox migrates an existing property whose type is too constrained to a new property with a more flexible type.
 

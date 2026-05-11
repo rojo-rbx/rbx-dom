@@ -74310,21 +74310,34 @@
             }
           }
         },
-        "PropertiesSerialize": {
-          "Name": "PropertiesSerialize",
+        "Properties": {
+          "Name": "Properties",
           "Scriptability": "Custom",
           "DataType": {
             "Value": "Attributes"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": {
+                "SerializesAs": "PropertiesSerialize"
+              }
+            }
+          }
+        },
+        "PropertiesSerialize": {
+          "Name": "PropertiesSerialize",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "BinaryString"
           },
           "Tags": [
             "Hidden",
             "NotScriptable"
           ],
           "Kind": {
-            "Canonical": {
-              "Serialization": {
-                "SerializesAs": "PropertiesSerialize"
-              }
+            "Alias": {
+              "AliasFor": "Properties"
             }
           }
         },
@@ -74390,7 +74403,7 @@
         "Priority": {
           "Int32": 0
         },
-        "PropertiesSerialize": {
+        "Properties": {
           "Attributes": {}
         },
         "PropertyTransitionsSerialize": {
