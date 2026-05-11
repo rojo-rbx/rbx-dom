@@ -174,7 +174,7 @@ fn decode_chunk_header<R: Read>(source: &mut R) -> io::Result<ChunkHeader> {
     // Read the fields off of a slice
     let mut slice: &[u8] = &data;
 
-    let name = *slice.read_array()?;
+    let name = *slice.read_array_()?;
     let compressed_len = slice.read_le_u32()?;
     let len = slice.read_le_u32()?;
     let reserved = slice.read_le_u32()?;

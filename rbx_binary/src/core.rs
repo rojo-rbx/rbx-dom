@@ -41,35 +41,35 @@ impl<'a, const N: usize> Iterator for ReadInterleavedBytesIter<'a, N> {
 
 pub trait RbxReadExt<'a>: ReadSlice<'a> {
     fn read_le_u32(&mut self) -> io::Result<u32> {
-        Ok(u32::from_le_bytes(*self.read_array()?))
+        Ok(u32::from_le_bytes(*self.read_array_()?))
     }
 
     fn read_le_u16(&mut self) -> io::Result<u16> {
-        Ok(u16::from_le_bytes(*self.read_array()?))
+        Ok(u16::from_le_bytes(*self.read_array_()?))
     }
 
     fn read_le_i16(&mut self) -> io::Result<i16> {
-        Ok(i16::from_le_bytes(*self.read_array()?))
+        Ok(i16::from_le_bytes(*self.read_array_()?))
     }
 
     fn read_le_f32(&mut self) -> io::Result<f32> {
-        Ok(f32::from_le_bytes(*self.read_array()?))
+        Ok(f32::from_le_bytes(*self.read_array_()?))
     }
 
     fn read_le_f64(&mut self) -> io::Result<f64> {
-        Ok(f64::from_le_bytes(*self.read_array()?))
+        Ok(f64::from_le_bytes(*self.read_array_()?))
     }
 
     fn read_be_u32(&mut self) -> io::Result<u32> {
-        Ok(u32::from_be_bytes(*self.read_array()?))
+        Ok(u32::from_be_bytes(*self.read_array_()?))
     }
 
     fn read_be_i64(&mut self) -> io::Result<i64> {
-        Ok(i64::from_be_bytes(*self.read_array()?))
+        Ok(i64::from_be_bytes(*self.read_array_()?))
     }
 
     fn read_u8(&mut self) -> io::Result<u8> {
-        let [byte] = *self.read_array()?;
+        let [byte] = *self.read_array_()?;
         Ok(byte)
     }
 
@@ -110,7 +110,7 @@ pub trait ReadSlice<'a> {
     fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
     /// Read an array of length `N`, or return
     /// an error if the length overruns the source data.
-    fn read_array<const N: usize>(&mut self) -> io::Result<&'a [u8; N]> {
+    fn read_array_<const N: usize>(&mut self) -> io::Result<&'a [u8; N]> {
         use std::convert::TryInto;
 
         let slice = self.read_slice(N)?;
