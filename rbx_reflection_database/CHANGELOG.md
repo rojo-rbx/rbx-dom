@@ -1,5 +1,12 @@
 # rbx\_reflection_database Changelog
 
+## Unreleased
+* Aliased `StarterPlayer.AvatarJointUpgrade` to `StarterPlayer.AvatarJointUpgrade_SerializedRollout`. ([#599])
+* Updated to Roblox version 718. ([#604])
+
+[#599]: https://github.com/rojo-rbx/rbx-dom/pull/599
+[#604]: https://github.com/rojo-rbx/rbx-dom/pull/604
+
 ## 2.0.2+roblox-700 (2025-11-27)
 * Updated to Roblox version 700.
 * StyleRule's `PropertiesSerialize` property's is now serialized as the `Attributes` type.
