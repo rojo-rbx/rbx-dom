@@ -747,16 +747,24 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 .sort_by_key(|prop_info| prop_info.canonical_name);
 
             // Locate the index where "Name" could be inserted
-            let Err(name_index) = type_info
+            let name_location = type_info
                 .properties
-                .binary_search_by_key(&name_ustr, |prop_info| prop_info.canonical_name)
-            else {
-                panic!("Name property should not exist in Instance.properties");
-            };
+                .binary_search_by_key(&name_ustr, |prop_info| prop_info.canonical_name);
 
-            // Split properties at the sort location of "Name"
-            let (properties_before_name, properties_after_name) =
-                type_info.properties.split_at_mut(name_index);
+            let (properties_before_name, properties_after_name) = match name_location {
+                // Split properties at the sort location of "Name"
+                Err(name_insert_index) => type_info.properties.split_at_mut(name_insert_index),
+                // "Name" logical property exists.  Ignore it.
+                Ok(name_index) => {
+                    log::warn!("Name property should not exist in Instance.properties. Use Instance.name instead. Property was ignored.");
+
+                    let (properties_before_name, properties_after_name) =
+                        type_info.properties.split_at_mut(name_index);
+
+                    // Skip "Name" logical property
+                    (properties_before_name, &mut properties_after_name[1..])
+                }
+            };
 
             for prop_info in properties_before_name {
                 let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
@@ -844,12 +852,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                             prop_name: prop_info.canonical_name.to_string(),
                             valid_type_names,
                             actual_type_name: format!("{:?}", bad_value.ty()),
-                            instance_full_name: full_name_for(dom, instances[i].referent()),
+                            instance_full_name: dom.full_path_of(instances[i].referent(), "."),
                         })
                     };
 
                 let invalid_value = |i: usize, bad_value: &Variant| InnerError::InvalidPropValue {
-                    instance_full_name: full_name_for(dom, instances[i].referent()),
+                    instance_full_name: dom.full_path_of(instances[i].referent(), "."),
                     type_name: type_name.to_string(),
                     prop_name: prop_info.canonical_name.to_string(),
                     prop_type: format!("{:?}", bad_value.ty()),
@@ -1052,7 +1060,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                                 chunk.write_le_f32(value.origin.z)?;
                                 chunk.write_le_f32(value.direction.x)?;
                                 chunk.write_le_f32(value.direction.y)?;
-                                chunk.write_le_f32(value.direction.x)?;
+                                chunk.write_le_f32(value.direction.z)?;
                             } else {
                                 return type_mismatch(i, rbx_value, "Ray");
                             }
@@ -1583,26 +1591,6 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
         Ok(())
     }
-}
-/// Equivalent to Instance:GetFullName() from Roblox.
-fn full_name_for(dom: &WeakDom, subject_ref: Ref) -> String {
-    let mut components = Vec::new();
-    let mut current_id = subject_ref;
-
-    while current_id.is_some() {
-        let instance = dom.get_by_ref(current_id).unwrap();
-        components.push(instance.name.as_str());
-        current_id = instance.parent();
-    }
-
-    let mut name = String::new();
-    for component in components.iter().rev() {
-        name.push_str(component);
-        name.push('.');
-    }
-    name.pop();
-
-    name
 }
 fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     use std::sync::LazyLock;

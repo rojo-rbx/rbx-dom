@@ -37,6 +37,7 @@ jobs:
 
     - name: Setup Rust toolchain
       run: |
+        rustup update ${{ matrix.rust_version }}
         rustup default ${{ matrix.rust_version }}
         rustup component add rustfmt
 
