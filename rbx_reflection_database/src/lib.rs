@@ -65,7 +65,8 @@ static LOCAL_DATABASE: LazyLock<ResultOption<ReflectionDatabase<'static>>> = Laz
         return Ok(None);
     };
     if path.exists() {
-        let database: ReflectionDatabase<'static> = rmp_serde::from_slice(&fs::read(path)?)?;
+        let database_file = fs::read(path)?.leak();
+        let database: ReflectionDatabase<'static> = rmp_serde::from_slice(database_file)?;
         Ok(Some(database))
     } else {
         Ok(None)
@@ -226,8 +227,8 @@ mod test {
         class_descriptor_eq(iter.next(), part_class_descriptor);
 
         let mut current_class_descriptor = part_class_descriptor.unwrap();
-        while let Some(superclass) = current_class_descriptor.superclass.as_ref() {
-            let superclass_descriptor = database.classes.get(superclass.as_ref());
+        while let Some(superclass) = current_class_descriptor.superclass {
+            let superclass_descriptor = database.classes.get(superclass);
             class_descriptor_eq(iter.next(), superclass_descriptor);
             current_class_descriptor = superclass_descriptor.unwrap();
         }

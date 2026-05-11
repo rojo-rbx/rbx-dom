@@ -140,7 +140,7 @@ fn find_canonical_property<'de>(
             }
 
             // TODO: Do we need an additional fix here?
-            let canonical_name = &descriptors.canonical.name;
+            let canonical_name = descriptors.canonical.name;
             let canonical_type = descriptors.canonical.data_type.ty();
             let migration = match &descriptors.canonical.kind {
                 PropertyKind::Canonical {
@@ -154,7 +154,7 @@ fn find_canonical_property<'de>(
             );
 
             Some(CanonicalProperty {
-                name: canonical_name.as_ref().into(),
+                name: canonical_name.into(),
                 ty: canonical_type,
                 migration,
             })
@@ -181,7 +181,7 @@ fn find_canonical_property<'de>(
 
 fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty, value: Variant) {
     if let Some(PropertySerialization::Migrate(migration)) = canonical_property.migration {
-        let new_property_name = &migration.new_property_name;
+        let new_property_name = migration.new_property_name;
         let old_property_name = canonical_property.name;
 
         if !instance.builder.has_property(new_property_name) {
