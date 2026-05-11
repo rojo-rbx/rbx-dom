@@ -461,14 +461,13 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
-                        let value = Tags::decode(buffer).map_err(|_| {
-                            InnerError::InvalidPropData {
+                        let value =
+                            Tags::decode(buffer).map_err(|_| InnerError::InvalidPropData {
                                 type_name: type_name.to_string(),
                                 prop_name: prop_name.to_owned(),
                                 valid_value: "a list of valid null-delimited UTF-8 strings",
                                 actual_value: "invalid UTF-8".to_string(),
-                            }
-                        })?;
+                            })?;
 
                         add_property(instance, &property, value.into());
                     }
