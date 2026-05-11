@@ -216,11 +216,11 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         let header = FileHeader::decode(&mut input)?;
 
-        let type_infos = HashMap::with_capacity(header.num_types as usize);
-        let instance_key_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
-        let instances = Vec::with_capacity(1 + header.num_instances as usize);
+        let type_infos = HashMap::with_capacity(header.num_types() as usize);
+        let instance_key_by_ref = HashMap::with_capacity(1 + header.num_instances() as usize);
+        let instances = Vec::with_capacity(1 + header.num_instances() as usize);
 
-        tree.reserve(header.num_instances as usize);
+        tree.reserve(header.num_instances() as usize);
 
         Ok(DeserializerState {
             deserializer,
