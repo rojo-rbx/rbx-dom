@@ -108,7 +108,7 @@ impl ValuesSubcommand {
         values.insert("Int64", 23491023i64.into());
         values.insert(
             "MaterialColors",
-            MaterialColors::from([
+            MaterialColors::from_iter([
                 (TerrainMaterials::Grass, Color3uint8::new(106, 127, 63)),
                 (TerrainMaterials::Slate, Color3uint8::new(63, 127, 107)),
                 (TerrainMaterials::Concrete, Color3uint8::new(127, 102, 63)),
