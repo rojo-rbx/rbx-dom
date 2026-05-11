@@ -343,14 +343,9 @@ fn deserialize_root<R: Read>(
                     }
                 }
             }
-            XmlReadEvent::EndElement { name } => {
-                if name.local_name == "roblox" {
-                    reader.expect_next().unwrap();
-                    break;
-                } else {
-                    let event = reader.expect_next().unwrap();
-                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                }
+            XmlReadEvent::EndElement { name } if name.local_name == "roblox" => {
+                reader.expect_next().unwrap();
+                break;
             }
             XmlReadEvent::EndDocument => break,
             _ => {
@@ -396,21 +391,11 @@ fn deserialize_shared_string_dict<R: Read>(
 
     loop {
         match reader.expect_peek()? {
-            XmlReadEvent::StartElement { name, .. } => {
-                if name.local_name == "SharedString" {
-                    deserialize_shared_string(reader, state)?;
-                } else {
-                    let event = reader.expect_next().unwrap();
-                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                }
+            XmlReadEvent::StartElement { name, .. } if name.local_name == "SharedString" => {
+                deserialize_shared_string(reader, state)?;
             }
-            XmlReadEvent::EndElement { name } => {
-                if name.local_name == "SharedStrings" {
-                    break;
-                } else {
-                    let event = reader.expect_next().unwrap();
-                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                }
+            XmlReadEvent::EndElement { name } if name.local_name == "SharedStrings" => {
+                break;
             }
             _ => {
                 let event = reader.expect_next().unwrap();
@@ -584,14 +569,9 @@ fn deserialize_properties<R: Read>(
 
                     (name.local_name.to_owned(), xml_property_name)
                 }
-                XmlReadEvent::EndElement { name } => {
-                    if name.local_name == "Properties" {
-                        reader.expect_next()?;
-                        return Ok(());
-                    } else {
-                        let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
-                        return Err(reader.error(err));
-                    }
+                XmlReadEvent::EndElement { name } if name.local_name == "Properties" => {
+                    reader.expect_next()?;
+                    return Ok(());
                 }
                 _ => {
                     let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);

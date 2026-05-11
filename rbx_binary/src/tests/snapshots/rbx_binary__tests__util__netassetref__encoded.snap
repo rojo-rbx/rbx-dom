@@ -10,6 +10,8 @@ chunks:
       entries:
         - len: 2699
           hash: 5debab6cd87ea949a0b1f1ada74bf15103724dd039ee4b009c5891c8ebd5b7c9
+        - len: 15
+          hash: 8cc3bedee8c6f1665b095f856c22c4e527c622836340557c50ffaa83159a87b7
         - len: 1039
           hash: 976002d267f3468651e58f6d3a71405d6d05d072d36f0b5a93b5a9310eaf7d53
         - len: 2701
@@ -34,8 +36,8 @@ chunks:
       prop_name: AeroMeshData
       prop_type: SharedString
       values:
-        - 3
-        - 3
+        - 4
+        - 4
   - Prop:
       type_id: 0
       prop_name: Anchored
@@ -200,7 +202,7 @@ chunks:
       prop_name: ChildData2
       prop_type: SharedString
       values:
-        - 2
+        - 3
         - 0
   - Prop:
       type_id: 0
@@ -376,8 +378,8 @@ chunks:
       prop_name: MeshData2
       prop_type: SharedString
       values:
-        - 3
-        - 3
+        - 4
+        - 4
   - Prop:
       type_id: 0
       prop_name: Name
@@ -397,8 +399,8 @@ chunks:
       prop_name: PhysicalConfigData
       prop_type: SharedString
       values:
+        - 7
         - 6
-        - 5
   - Prop:
       type_id: 0
       prop_name: PhysicsData
@@ -529,8 +531,8 @@ chunks:
       prop_name: SolidMeshHolder
       prop_type: SharedString
       values:
-        - 4
-        - 1
+        - 5
+        - 2
   - Prop:
       type_id: 0
       prop_name: SourceAssetId
