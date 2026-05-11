@@ -461,7 +461,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
-                        let value = Tags::decode(buffer.as_ref()).map_err(|_| {
+                        let value = Tags::decode(buffer).map_err(|_| {
                             InnerError::InvalidPropData {
                                 type_name: type_name.to_string(),
                                 prop_name: prop_name.to_owned(),
