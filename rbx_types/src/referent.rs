@@ -5,51 +5,28 @@ use std::fmt;
 use std::num::NonZeroU128;
 use std::str::FromStr;
 
-/// An universally unique, optional reference to a Roblox instance.
+/// A universally unique reference to a Roblox instance.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct Ref(Option<NonZeroU128>);
+pub struct Ref(NonZeroU128);
 
 impl Ref {
     /// Generate a new random `Ref`.
     #[inline]
-    pub fn new() -> Self {
-        Ref(Some(rand::random()))
+    pub fn new_random() -> Self {
+        Self(rand::random())
     }
 
-    /// Generate a `Ref` that points to nothing.
+    /// Construct a `Ref`.
     #[inline]
-    pub const fn none() -> Self {
-        Ref(None)
-    }
-
-    /// Generate a `Ref` that points to something.
-    ///
-    /// ## Panics
-    /// Panics if `value` is 0. Use the Ref::none()
-    /// constructor instead to create a `Ref` that
-    /// points to nothing.
-    #[inline]
-    pub const fn some(value: u128) -> Self {
-        Ref(Some(NonZeroU128::new(value).expect("Ref value is 0")))
-    }
-
-    /// Tells whether this `Ref` points to something.
-    #[inline]
-    pub const fn is_some(&self) -> bool {
-        self.0.is_some()
-    }
-
-    /// Tells whether this `Ref` points to nothing.
-    #[inline]
-    pub const fn is_none(&self) -> bool {
-        self.0.is_none()
-    }
-
-    fn value(&self) -> u128 {
-        match self.0 {
-            Some(value) => value.get(),
-            None => 0,
+    pub const fn new(value: u128) -> Option<Self> {
+        match NonZeroU128::new(value) {
+            Some(value) => Some(Ref(value)),
+            None => None,
         }
+    }
+
+    const fn value(&self) -> u128 {
+        self.0.get()
     }
 }
 
@@ -66,7 +43,11 @@ impl FromStr for Ref {
     fn from_str(input: &str) -> Result<Self, Self::Err> {
         let value = u128::from_str_radix(input, 16)?;
 
-        Ok(Ref(NonZeroU128::new(value)))
+        Self::new(value).ok_or_else(|| {
+            // from_str_radix does not support NonZeroU128 so
+            // generate a ParseIntError with IntErrorKind::Zero
+            "0".parse::<NonZeroU128>().err().unwrap()
+        })
     }
 }
 
@@ -100,16 +81,16 @@ mod serde_impl {
         type Value = Ref;
 
         fn expecting(&self, out: &mut fmt::Formatter) -> fmt::Result {
-            write!(out, "a Roblox referent")
+            write!(out, "a non-nil Roblox referent")
         }
 
         fn visit_u128<E: Error>(self, value: u128) -> Result<Self::Value, E> {
-            Ok(Ref(NonZeroU128::new(value)))
+            Ref::new(value).ok_or_else(|| E::custom("Ref value is 0"))
         }
 
         fn visit_str<E: Error>(self, ref_str: &str) -> Result<Self::Value, E> {
             let ref_value = u128::from_str_radix(ref_str, 16).map_err(E::custom)?;
-            Ok(Ref(NonZeroU128::new(ref_value)))
+            Ref::new(ref_value).ok_or_else(|| E::custom("Ref value is 0"))
         }
     }
 
@@ -133,30 +114,23 @@ mod test {
 
     #[test]
     fn display() {
-        assert_eq!(Ref::none().to_string(), "00000000000000000000000000000000");
-
-        let thirty = Ref(NonZeroU128::new(30));
+        let thirty = Ref::new(30).unwrap();
         assert_eq!(thirty.to_string(), "0000000000000000000000000000001e");
 
-        let max = Ref(NonZeroU128::new(u128::MAX));
+        let max = Ref::new(u128::MAX).unwrap();
         assert_eq!(max.to_string(), "ffffffffffffffffffffffffffffffff");
     }
 
     #[test]
     fn from_str() {
         assert_eq!(
-            Ref::from_str("00000000000000000000000000000000").unwrap(),
-            Ref::none()
-        );
-
-        assert_eq!(
             Ref::from_str("00000000300000e00f00000000000001").unwrap(),
-            Ref(NonZeroU128::new(14855284604576099720297971713))
+            Ref::new(14855284604576099720297971713).unwrap()
         );
 
         assert_eq!(
             Ref::from_str("ffffffffffffffffffffffffffffffff").unwrap(),
-            Ref(NonZeroU128::new(u128::MAX))
+            Ref::new(u128::MAX).unwrap()
         );
     }
 
@@ -171,20 +145,8 @@ mod serde_test {
     use super::*;
 
     #[test]
-    fn human_none() {
-        let value = Ref::none();
-
-        let ser = serde_json::to_string(&value).unwrap();
-        assert_eq!(ser, "\"00000000000000000000000000000000\"");
-
-        let de: Ref = serde_json::from_str(&ser).unwrap();
-
-        assert_eq!(value, de);
-    }
-
-    #[test]
     fn human() {
-        let value = Ref::new();
+        let value = Ref::new_random();
 
         let ser = serde_json::to_string(&value).unwrap();
         let de = serde_json::from_str(&ser).unwrap();
@@ -194,7 +156,7 @@ mod serde_test {
 
     #[test]
     fn non_human() {
-        let value = Ref::new();
+        let value = Ref::new_random();
 
         let ser = bincode::serialize(&value).unwrap();
         let de = bincode::deserialize(&ser).unwrap();

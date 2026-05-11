@@ -496,23 +496,19 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
         to_visit.extend(referents.iter().rev());
 
-        while let Some(referent) = to_visit.last() {
+        while let Some(&referent) = to_visit.last() {
             let instance = self
                 .dom
-                .get_by_ref(*referent)
-                .ok_or(InnerError::InvalidInstanceId {
-                    referent: *referent,
-                })?;
+                .get_by_ref(referent)
+                .ok_or(InnerError::InvalidInstanceId { referent })?;
 
             to_visit.extend(instance.children().iter().rev());
 
-            while let Some(referent) = to_visit.last() {
-                let instance =
-                    self.dom
-                        .get_by_ref(*referent)
-                        .ok_or(InnerError::InvalidInstanceId {
-                            referent: *referent,
-                        })?;
+            while let Some(&referent) = to_visit.last() {
+                let instance = self
+                    .dom
+                    .get_by_ref(referent)
+                    .ok_or(InnerError::InvalidInstanceId { referent })?;
 
                 if !instance.children().is_empty()
                     && instance.children().last() != last_visited_child.as_ref()
@@ -520,7 +516,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     break;
                 }
 
-                self.relevant_instances.push(*referent);
+                self.relevant_instances.push(referent);
                 self.collect_type_info(instance)?;
                 last_visited_child = to_visit.pop();
             }
@@ -1212,11 +1208,10 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                         for (i, rbx_value) in values {
                             if let Variant::Ref(value) = rbx_value {
-                                if let Some(id) = id_to_referent.get(value) {
-                                    buf.push(*id);
-                                } else {
-                                    buf.push(-1);
-                                }
+                                let id = value
+                                    .and_then(|referent| id_to_referent.get(&referent).copied())
+                                    .unwrap_or(-1);
+                                buf.push(id);
                             } else {
                                 return type_mismatch(i, rbx_value, "Ref");
                             }
@@ -1554,20 +1549,16 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             .iter()
             .map(|id| self.id_to_referent[id]);
 
-        let parent_referents = self.relevant_instances.iter().map(|id| {
-            let instance = self.dom.get_by_ref(*id).unwrap();
+        let parent_referents = self.relevant_instances.iter().map(|&id| {
+            let instance = self.dom.get_by_ref(id).unwrap();
 
             // If there's no parent set OR our parent is not one of the
             // instances we're serializing, we use -1 to represent a null
             // parent.
-            if instance.parent().is_some() {
-                self.id_to_referent
-                    .get(&instance.parent())
-                    .cloned()
-                    .unwrap_or(-1)
-            } else {
-                -1
-            }
+            instance
+                .parent()
+                .and_then(|referent| self.id_to_referent.get(&referent).copied())
+                .unwrap_or(-1)
         });
 
         chunk.write_referent_array(object_referents)?;
@@ -1615,7 +1606,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     static DEFAULT_COLOR3: Variant = Variant::Color3(Color3::new(0.0, 0.0, 0.0));
     static DEFAULT_VECTOR2: Variant = Variant::Vector2(Vector2::new(0.0, 0.0));
     static DEFAULT_VECTOR3: Variant = Variant::Vector3(Vector3::new(0.0, 0.0, 0.0));
-    static DEFAULT_REF: Variant = Variant::Ref(Ref::none());
+    static DEFAULT_REF: Variant = Variant::Ref(None);
     static DEFAULT_VECTOR3INT16: Variant = Variant::Vector3int16(Vector3int16::new(0, 0, 0));
     static DEFAULT_NUMBERSEQUENCE: LazyLock<Variant> = LazyLock::new(|| {
         Variant::NumberSequence(NumberSequence {

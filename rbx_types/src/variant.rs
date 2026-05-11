@@ -112,7 +112,7 @@ make_variant! {
     PhysicalProperties(PhysicalProperties),
     Ray(Ray),
     Rect(Rect),
-    Ref(Ref),
+    Ref(Option<Ref>),
     Region3(Region3),
     Region3int16(Region3int16),
     SharedString(SharedString),
@@ -138,6 +138,12 @@ make_variant! {
 impl From<&'_ str> for Variant {
     fn from(value: &str) -> Self {
         Self::String(value.to_owned())
+    }
+}
+
+impl From<Ref> for Variant {
+    fn from(value: Ref) -> Self {
+        Self::Ref(Some(value))
     }
 }
 

@@ -43,7 +43,7 @@ impl RemovePropCommand {
                 .with_context(|| format!("Failed to read {}", self.input.display()))?,
         };
 
-        let mut queue = vec![dom.root_ref()];
+        let mut queue = vec![dom.root_ref().unwrap()];
         while let Some(referent) = queue.pop() {
             let inst = dom.get_by_ref_mut(referent).unwrap();
             if inst.class == self.class_name {

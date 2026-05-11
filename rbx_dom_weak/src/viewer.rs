@@ -33,7 +33,7 @@ impl DomViewer {
     /// View the given `WeakDom`, creating a `ViewedInstance` object that can be
     /// used in a snapshot test.
     pub fn view(&mut self, dom: &WeakDom) -> ViewedInstance {
-        let root_referent = dom.root_ref();
+        let root_referent = dom.root_ref().expect("Ref value is 0");
         self.populate_referent_map(dom, root_referent);
         self.view_instance(dom, root_referent)
     }
@@ -84,10 +84,10 @@ impl DomViewer {
             .map(|(key, value)| {
                 let new_value = match value {
                     Variant::Ref(referent) => {
-                        if referent.is_some() {
+                        if let Some(some_ref) = referent {
                             let referent_str = self
                                 .referent_to_id
-                                .get(referent)
+                                .get(some_ref)
                                 .cloned()
                                 .unwrap_or_else(|| "[unknown ID]".to_owned());
 
