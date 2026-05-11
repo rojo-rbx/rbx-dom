@@ -38,7 +38,7 @@ macro_rules! make_brick_color {
                 // There are collisions in names of some colors. This should
                 // work the same way that Roblox works when mapping names to
                 // BrickColors!
-                #[allow(unreachable_patterns)]
+                #[expect(unreachable_patterns)]
                 match name {
                     $(
                         $name => Some(BrickColor::$enum),

@@ -1,5 +1,5 @@
 // Refs are random, and so implementing Default doesn't really make sense.
-#![allow(clippy::new_without_default)]
+#![expect(clippy::new_without_default)]
 
 use std::fmt;
 use std::num::NonZeroU128;
