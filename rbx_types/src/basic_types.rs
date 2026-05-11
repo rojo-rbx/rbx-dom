@@ -98,11 +98,33 @@ pub struct Vector3 {
     pub z: f32,
 }
 
-fn approx_unit_or_zero(value: f32) -> Option<i32> {
-    if value.abs() <= f32::EPSILON {
+fn unit_or_zero(value: f32) -> Option<i32> {
+    // Exact equality check against 0.0 / ±1.0.
+    //
+    // The previous one-sided tolerance `value.abs() - 1.0 <= f32::EPSILON`
+    // evaluated true for ANY value less than 1.0 (including 0.5, 0.0,
+    // small negatives) because `x - 1.0 <= EPSILON` is true whenever
+    // `x <= 1.0 + EPSILON`. That caused `Matrix3::to_basic_rotation_id`
+    // to misclassify near-identity rotation matrices (e.g. diagonals
+    // of 0.9999987 from float-drift in imported bone transforms) as
+    // canonical, snapping them to exact ±1/0 tokens during binary
+    // serialization and silently altering CFrame entries on round-trip.
+    //
+    // Exact equality is the strictest possible check: only rotation
+    // matrices whose entries are bit-exact 0 / ±1 qualify for the
+    // basic-rotation-id token path. Everything else gets the full
+    // 9-float encoding and the original bits survive byte-exact.
+    //
+    // Trade-off: slightly larger `.rbxl` files for models with many
+    // near-identity rotation matrices (mesh / bone transforms in
+    // particular). File-size delta is O(matrices × 35 bytes) in the
+    // worst case — negligible relative to textures / scripts / audio.
+    if value == 0.0 {
         Some(0)
-    } else if value.abs() - 1.0 <= f32::EPSILON {
-        Some(1.0f32.copysign(value) as i32)
+    } else if value == 1.0 {
+        Some(1)
+    } else if value == -1.0 {
+        Some(-1)
     } else {
         None
     }
@@ -134,9 +156,9 @@ impl Vector3 {
             }
         }
 
-        let x = approx_unit_or_zero(self.x);
-        let y = approx_unit_or_zero(self.y);
-        let z = approx_unit_or_zero(self.z);
+        let x = unit_or_zero(self.x);
+        let y = unit_or_zero(self.y);
+        let z = unit_or_zero(self.z);
 
         match (x, y, z) {
             (Some(x), Some(0), Some(0)) => get_normal_id(0, x),
