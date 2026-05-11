@@ -42,10 +42,15 @@ pub(super) struct DeserializerState<'db, R> {
     shared_strings: Vec<SharedString>,
 
     /// All of the instance types described by the file so far.
+    /// The index is the type_id.
     type_infos: HashMap<u32, TypeInfo<'db>>,
 
+    /// Key into `instances`.  Contains a Ref to sidestep
+    /// mutable + immutable aliasing when reading Content and Ref properties.
+    instance_key_by_ref: HashMap<i32, InstanceKey>,
+
     /// All of the instances known by the deserializer.
-    instances_by_ref: HashMap<i32, Instance>,
+    instances: Vec<Instance>,
 
     /// Referents for all of the instances with no parent, in order they appear
     /// in the file.
@@ -60,19 +65,22 @@ pub(super) struct DeserializerState<'db, R> {
 /// Represents a unique instance class. Binary models define all their instance
 /// types up front and give them a short u32 identifier.
 struct TypeInfo<'db> {
-    /// The ID given to this type by the current file we're deserializing. This
-    /// ID can be different for different files.
-    type_id: u32,
-
     /// The common name for this type like `Folder` or `UserInputService`.
     type_name: Ustr,
 
-    /// A list of the instances described by this file that are this type.
-    referents: Vec<i32>,
+    /// A slice of `instances` which contains every instance of this class.
+    instances: core::ops::Range<usize>,
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
     class_descriptor: Option<&'db ClassDescriptor<'db>>,
+}
+
+/// A key into an array of instances which also contains the instance ref
+/// to sidestep mutable + immutable aliasing.
+struct InstanceKey {
+    key: usize,
+    referent: Ref,
 }
 
 /// Contains all the information we need to gather in order to construct an
@@ -209,7 +217,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let header = FileHeader::decode(&mut input)?;
 
         let type_infos = HashMap::with_capacity(header.num_types as usize);
-        let instances_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
+        let instance_key_by_ref = HashMap::with_capacity(1 + header.num_instances as usize);
+        let instances = Vec::with_capacity(1 + header.num_instances as usize);
 
         tree.reserve(header.num_instances as usize);
 
@@ -220,7 +229,8 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             metadata: HashMap::new(),
             shared_strings: Vec::new(),
             type_infos,
-            instances_by_ref,
+            instance_key_by_ref,
+            instances,
             root_instance_refs: Vec::new(),
             unknown_type_ids: HashSet::new(),
         })
@@ -278,9 +288,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             "INST chunk (type ID {type_id}, type name {type_name}, format {object_format}, {number_instances} instances)",
         );
 
-        let referents = chunk
-            .read_referent_array(number_instances as usize)?
-            .collect();
+        let referents = chunk.read_referent_array(number_instances as usize)?;
 
         let (class_descriptor, prop_capacity) =
             if let Some(class) = self.deserializer.database.classes.get(type_name) {
@@ -291,22 +299,30 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         // TODO: Check object_format and check for service markers if it's 1?
 
-        for &referent in &referents {
-            self.instances_by_ref.insert(
+        let start = self.instances.len();
+        for (key, referent) in referents.enumerate() {
+            let builder = InstanceBuilder::with_property_capacity(type_name, prop_capacity);
+            // TODO: assert / error when the ref already exists.
+            self.instance_key_by_ref.insert(
                 referent,
-                Instance {
-                    builder: InstanceBuilder::with_property_capacity(type_name, prop_capacity),
-                    children: Vec::new(),
+                InstanceKey {
+                    key: start + key,
+                    referent: builder.referent(),
                 },
             );
+            self.instances.push(Instance {
+                builder,
+                children: Vec::new(),
+            });
         }
+        let end = self.instances.len();
 
+        // TODO: assert / error when the type_id already exists.
         self.type_infos.insert(
             type_id,
             TypeInfo {
-                type_id,
                 type_name: type_name.into(),
-                referents,
+                instances: start..end,
                 class_descriptor,
             },
         );
@@ -319,7 +335,11 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
 
-        let type_info = self
+        let &TypeInfo {
+            type_name,
+            ref instances,
+            class_descriptor,
+        } = self
             .type_infos
             .get(&type_id)
             .ok_or(InnerError::InvalidTypeId { type_id })?;
@@ -344,7 +364,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                         "Unknown value type ID {byte:#04x} ({byte}) in Roblox \
                          binary model file. Found in property {class}.{prop}.",
                         byte = binary_type_byte,
-                        class = type_info.type_name,
+                        class = type_name,
                         prop = prop_name,
                     );
                 }
@@ -354,12 +374,13 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         };
 
         log::trace!(
-            "PROP chunk ({}.{}, instance type {}, prop type {}",
-            type_info.type_name,
+            "PROP chunk ({}.{}, instance type {}",
+            type_name,
             prop_name,
-            type_info.type_id,
             type_id
         );
+
+        let instances = &mut self.instances[instances.start..instances.end];
 
         // The `Name` prop is special and is routed to a different spot for
         // rbx_dom_weak, so we handle it specially here.
@@ -368,8 +389,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             // path, we should use the reflection database to figure out its
             // default name. This should be rare: effectively never!
 
-            for referent in &type_info.referents {
-                let instance = self.instances_by_ref.get_mut(referent).unwrap();
+            for instance in instances {
                 let binary_string = chunk.read_binary_string()?;
                 let value = match std::str::from_utf8(binary_string) {
                     Ok(value) => Cow::Borrowed(value),
@@ -377,7 +397,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                         log::warn!(
                             "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
 This may cause unexpected or broken behavior in your final results if you rely on this property being non UTF-8.",
-                            type_info.type_name,
+                            type_name,
                             prop_name
                         );
 
@@ -393,7 +413,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
         let property = if let Some(property) = find_canonical_property(
             self.deserializer.database,
             binary_type,
-            type_info.class_descriptor,
+            class_descriptor,
             prop_name,
         ) {
             property
@@ -406,8 +426,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
         match binary_type {
             Type::String => match canonical_type {
                 VariantType::String => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let binary_string = chunk.read_binary_string()?;
                         let value = match std::str::from_utf8(binary_string) {
                             Ok(value) => Cow::Borrowed(value),
@@ -415,7 +434,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                                 log::warn!(
                             "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
 This may cause unexpected or broken behavior in your final results if you rely on this property being non UTF-8.",
-                                    type_info.type_name,
+                                    type_name,
                                     property.name
                                 );
 
@@ -427,27 +446,24 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     }
                 }
                 VariantType::ContentId => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let value = chunk.read_string()?.to_owned();
                         add_property(instance, &property, ContentId::from(value).into());
                     }
                 }
                 VariantType::BinaryString => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let value: BinaryString = chunk.read_binary_string()?.to_owned().into();
                         add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::Tags => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
                         let value =
                             Tags::decode(buffer).map_err(|_| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.to_owned(),
                                 valid_value: "a list of valid null-delimited UTF-8 strings",
                                 actual_value: "invalid UTF-8".to_string(),
@@ -457,8 +473,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     }
                 }
                 VariantType::Attributes => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
                         match Attributes::from_reader(buffer) {
@@ -470,7 +485,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                                     "Failed to parse Attributes on {} because {:?}; falling back to BinaryString.
 
 rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
-                                    type_info.type_name,
+                                    type_name,
                                     err
                                 );
 
@@ -484,8 +499,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     }
                 }
                 VariantType::MaterialColors => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let buffer = chunk.read_binary_string()?;
                         match MaterialColors::decode(buffer) {
                             Ok(value) => add_property(instance, &property, value.into()),
@@ -494,7 +508,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                     "Failed to parse MaterialColors on {} because {:?}; falling back to BinaryString.
 
 rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning.",
-                                    type_info.type_name,
+                                    type_name,
                                     err
                                 );
 
@@ -509,7 +523,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names:
                             "String, ContentId, Content, Tags, Attributes, or BinaryString",
@@ -519,15 +533,14 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Bool => match canonical_type {
                 VariantType::Bool => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let value = chunk.read_bool()?;
                         add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Bool",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -536,10 +549,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Int32 => match canonical_type {
                 VariantType::Int32 => {
-                    let values = chunk.read_interleaved_i32_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_i32_array(instances.len())?;
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
@@ -547,17 +559,16 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 // Basically, we convert Int32 to Int64 when we expect a Int64 but read a Int32
                 // See: #301
                 VariantType::Int64 => {
-                    let values = chunk.read_interleaved_i32_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_i32_array(instances.len())?;
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         let value_converted = i64::from(value);
                         add_property(instance, &property, value_converted.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Int32",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -566,16 +577,15 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Float32 => match canonical_type {
                 VariantType::Float32 => {
-                    let values = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_f32_array(instances.len())?;
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Float32",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -584,8 +594,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Float64 => match canonical_type {
                 VariantType::Float64 => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let value = chunk.read_le_f64()?;
                         add_property(instance, &property, value.into());
                     }
@@ -594,17 +603,16 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 // Basically, we convert Float32 to Float64 when we expect a Float64 but read a Float32
                 // See: #301
                 VariantType::Float32 => {
-                    let values = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_f32_array(instances.len())?;
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         let converted_value = f64::from(value);
                         add_property(instance, &property, converted_value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Float64",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -613,21 +621,20 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::UDim => match canonical_type {
                 VariantType::UDim => {
-                    let scales = chunk.read_interleaved_f32_array(type_info.referents.len())?;
-                    let offsets = chunk.read_interleaved_i32_array(type_info.referents.len())?;
+                    let scales = chunk.read_interleaved_f32_array(instances.len())?;
+                    let offsets = chunk.read_interleaved_i32_array(instances.len())?;
 
                     let values = scales
                         .zip(offsets)
                         .map(|(scale, offset)| UDim::new(scale, offset));
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "UDim",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -636,7 +643,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::UDim2 => match canonical_type {
                 VariantType::UDim2 => {
-                    let prop_count = type_info.referents.len();
+                    let prop_count = instances.len();
                     let scale_x = chunk.read_interleaved_f32_array(prop_count)?;
                     let scale_y = chunk.read_interleaved_f32_array(prop_count)?;
                     let offset_x = chunk.read_interleaved_i32_array(prop_count)?;
@@ -652,14 +659,13 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
                     let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "UDim2",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -668,15 +674,13 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Ray => match canonical_type {
                 VariantType::Ray => {
-                    for referent in &type_info.referents {
+                    for instance in instances {
                         let origin_x = chunk.read_le_f32()?;
                         let origin_y = chunk.read_le_f32()?;
                         let origin_z = chunk.read_le_f32()?;
                         let direction_x = chunk.read_le_f32()?;
                         let direction_y = chunk.read_le_f32()?;
                         let direction_z = chunk.read_le_f32()?;
-
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
 
                         add_property(
                             instance,
@@ -691,7 +695,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Ray",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -700,12 +704,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Faces => match canonical_type {
                 VariantType::Faces => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let value = chunk.read_u8()?;
                         let faces =
                             Faces::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.to_owned(),
                                 valid_value: "less than 63",
                                 actual_value: value.to_string(),
@@ -716,7 +719,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Faces",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -725,13 +728,12 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Axes => match canonical_type {
                 VariantType::Axes => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let value = chunk.read_u8()?;
 
                         let axes =
                             Axes::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.to_owned(),
                                 valid_value: "less than 7",
                                 actual_value: value.to_string(),
@@ -742,7 +744,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Axes",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -751,16 +753,15 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::BrickColor => match canonical_type {
                 VariantType::BrickColor => {
-                    let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         let color = value
                             .try_into()
                             .ok()
                             .and_then(BrickColor::from_number)
                             .ok_or_else(|| InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.to_owned(),
                                 valid_value: "a valid BrickColor",
                                 actual_value: value.to_string(),
@@ -771,7 +772,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "BrickColor",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -780,20 +781,19 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Color3 => match canonical_type {
                 VariantType::Color3 => {
-                    let r = chunk.read_interleaved_f32_array(type_info.referents.len())?;
-                    let g = chunk.read_interleaved_f32_array(type_info.referents.len())?;
-                    let b = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let r = chunk.read_interleaved_f32_array(instances.len())?;
+                    let g = chunk.read_interleaved_f32_array(instances.len())?;
+                    let b = chunk.read_interleaved_f32_array(instances.len())?;
 
-                    let colors = r.zip(g).zip(b).map(|((r, g), b)| Color3::new(r, g, b));
+                    let values = r.zip(g).zip(b).map(|((r, g), b)| Color3::new(r, g, b));
 
-                    for (color, referent) in colors.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        add_property(instance, &property, color.into());
+                    for (value, instance) in values.zip(instances) {
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Color3",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -802,19 +802,18 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Vector2 => match canonical_type {
                 VariantType::Vector2 => {
-                    let x = chunk.read_interleaved_f32_array(type_info.referents.len())?;
-                    let y = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let x = chunk.read_interleaved_f32_array(instances.len())?;
+                    let y = chunk.read_interleaved_f32_array(instances.len())?;
 
                     let values = x.zip(y).map(|(x, y)| Vector2::new(x, y));
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Vector2",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -823,20 +822,19 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Vector3 => match canonical_type {
                 VariantType::Vector3 => {
-                    let x = chunk.read_interleaved_f32_array(type_info.referents.len())?;
-                    let y = chunk.read_interleaved_f32_array(type_info.referents.len())?;
-                    let z = chunk.read_interleaved_f32_array(type_info.referents.len())?;
+                    let x = chunk.read_interleaved_f32_array(instances.len())?;
+                    let y = chunk.read_interleaved_f32_array(instances.len())?;
+                    let z = chunk.read_interleaved_f32_array(instances.len())?;
 
                     let values = x.zip(y).zip(z).map(|((x, y), z)| Vector3::new(x, y, z));
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Vector3",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -845,10 +843,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::CFrame => match canonical_type {
                 VariantType::CFrame => {
-                    let referents = &type_info.referents;
-                    let mut rotations = Vec::with_capacity(referents.len());
+                    let mut rotations = Vec::with_capacity(instances.len());
 
-                    for _ in 0..referents.len() {
+                    for _ in 0..instances.len() {
                         let id = chunk.read_u8()?;
                         if id == 0 {
                             rotations.push(Matrix3::new(
@@ -872,16 +869,16 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
-                                type_name: type_info.type_name.to_string(),
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.to_owned(),
                                 id,
                             });
                         }
                     }
 
-                    let x = chunk.read_interleaved_f32_array(referents.len())?;
-                    let y = chunk.read_interleaved_f32_array(referents.len())?;
-                    let z = chunk.read_interleaved_f32_array(referents.len())?;
+                    let x = chunk.read_interleaved_f32_array(instances.len())?;
+                    let y = chunk.read_interleaved_f32_array(instances.len())?;
+                    let z = chunk.read_interleaved_f32_array(instances.len())?;
 
                     let values = x
                         .zip(y)
@@ -890,14 +887,13 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         .zip(rotations)
                         .map(|(position, rotation)| CFrame::new(position, rotation));
 
-                    for (cframe, referent) in values.zip(referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        add_property(instance, &property, cframe.into());
+                    for (value, instance) in values.zip(instances) {
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "CFrame",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -906,16 +902,15 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Enum => match canonical_type {
                 VariantType::Enum => {
-                    let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, Enum::from_u32(value).into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Enum",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -924,22 +919,20 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Ref => match canonical_type {
                 VariantType::Ref => {
-                    let refs = chunk.read_referent_array(type_info.referents.len())?;
+                    let values = chunk.read_referent_array(instances.len())?;
 
-                    for (value, referent) in refs.zip(&type_info.referents) {
-                        let rbx_value = if let Some(instance) = self.instances_by_ref.get(&value) {
-                            instance.builder.referent()
+                    for (value, instance) in values.zip(instances) {
+                        let rbx_value = if let Some(key) = self.instance_key_by_ref.get(&value) {
+                            key.referent
                         } else {
                             Ref::none()
                         };
-
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, rbx_value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Ref",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -948,8 +941,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Vector3int16 => match canonical_type {
                 VariantType::Vector3int16 => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         add_property(
                             instance,
                             &property,
@@ -964,7 +956,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Vector3int16",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -973,9 +965,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Font => match canonical_type {
                 VariantType::Font => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
-
+                    for instance in instances {
                         let family = chunk.read_string()?.to_owned();
                         let weight = FontWeight::from_u16(chunk.read_le_u16()?).unwrap_or_default();
                         let style = FontStyle::from_u8(chunk.read_u8()?).unwrap_or_default();
@@ -1002,7 +992,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Font",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1011,8 +1001,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::NumberSequence => match canonical_type {
                 VariantType::NumberSequence => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let keypoint_count = chunk.read_le_u32()?;
                         let mut keypoints = Vec::with_capacity(keypoint_count as usize);
 
@@ -1029,7 +1018,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "NumberSequence",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1038,8 +1027,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::ColorSequence => match canonical_type {
                 VariantType::ColorSequence => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let keypoint_count = chunk.read_le_u32()? as usize;
                         let mut keypoints = Vec::with_capacity(keypoint_count);
 
@@ -1062,7 +1050,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "ColorSequence",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1071,8 +1059,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::NumberRange => match canonical_type {
                 VariantType::NumberRange => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         add_property(
                             instance,
                             &property,
@@ -1082,7 +1069,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "NumberRange",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1091,7 +1078,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Rect => match canonical_type {
                 VariantType::Rect => {
-                    let len = type_info.referents.len();
+                    let len = instances.len();
                     let x_min = chunk.read_interleaved_f32_array(len)?;
                     let y_min = chunk.read_interleaved_f32_array(len)?;
                     let x_max = chunk.read_interleaved_f32_array(len)?;
@@ -1103,14 +1090,13 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         },
                     );
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into())
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Rect",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1119,8 +1105,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::PhysicalProperties => match canonical_type {
                 VariantType::PhysicalProperties => {
-                    for referent in &type_info.referents {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for instance in instances {
                         let discriminator = chunk.read_u8()?;
                         let value = match discriminator {
                             0b00 | 0b10 => Variant::PhysicalProperties(PhysicalProperties::Default),
@@ -1152,7 +1137,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "PhysicalProperties",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1161,25 +1146,24 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Color3uint8 => match canonical_type {
                 VariantType::Color3 => {
-                    let len = type_info.referents.len();
+                    let len = instances.len();
                     let r = chunk.read_slice(len)?;
                     let g = chunk.read_slice(len)?;
                     let b = chunk.read_slice(len)?;
 
-                    let colors = r
+                    let values = r
                         .iter()
                         .zip(g)
                         .zip(b)
                         .map(|((r, g), b)| Color3uint8::new(*r, *g, *b));
 
-                    for (color, referent) in colors.into_iter().zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        add_property(instance, &property, color.into());
+                    for (value, instance) in values.zip(instances) {
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Color3",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1188,16 +1172,15 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Int64 => match canonical_type {
                 VariantType::Int64 => {
-                    let values = chunk.read_interleaved_i64_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_i64_array(instances.len())?;
 
-                    for (value, referent) in values.zip(&type_info.referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Int64",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1206,33 +1189,31 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::SharedString => match canonical_type {
                 VariantType::SharedString => {
-                    let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
 
-                    for (value, referent) in values.zip(&type_info.referents) {
+                    for (value, instance) in values.zip(instances) {
                         let shared_string =
                             self.shared_strings.get(value as usize).ok_or_else(|| {
                                 InnerError::InvalidPropData {
-                                    type_name: type_info.type_name.to_string(),
+                                    type_name: type_name.to_string(),
                                     prop_name: prop_name.to_owned(),
                                     valid_value: "a valid SharedString",
                                     actual_value: format!("{value:?}"),
                                 }
                             })?;
 
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
-
                         add_property(instance, &property, shared_string.clone().into());
                     }
                 }
                 VariantType::NetAssetRef => {
-                    let values = chunk.read_interleaved_u32_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
 
-                    for (value, referent) in values.zip(&type_info.referents) {
+                    for (value, instance) in values.zip(instances) {
                         let net_asset = NetAssetRef::from(
                             self.shared_strings
                                 .get(value as usize)
                                 .ok_or_else(|| InnerError::InvalidPropData {
-                                    type_name: type_info.type_name.to_string(),
+                                    type_name: type_name.to_string(),
                                     prop_name: prop_name.to_owned(),
                                     valid_value: "a valid NetAssetRef",
                                     actual_value: format!("{value:?}"),
@@ -1240,14 +1221,12 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 .clone(),
                         );
 
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
-
                         add_property(instance, &property, net_asset.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "SharedString",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1256,8 +1235,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::OptionalCFrame => match canonical_type {
                 VariantType::OptionalCFrame => {
-                    let referents = &type_info.referents;
-                    let mut rotations = Vec::with_capacity(referents.len());
+                    let mut rotations = Vec::with_capacity(instances.len());
 
                     // Roblox writes a type marker for CFrame here that we don't
                     // need to use. We explicitly check for this right now just
@@ -1271,7 +1249,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         });
                     }
 
-                    for _ in 0..referents.len() {
+                    for _ in 0..instances.len() {
                         let id = chunk.read_u8()?;
                         if id == 0 {
                             rotations.push(Matrix3::new(
@@ -1295,16 +1273,16 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             rotations.push(basic_rotation);
                         } else {
                             return Err(InnerError::BadRotationId {
-                                type_name: type_info.type_name.to_string(),
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.to_owned(),
                                 id,
                             });
                         }
                     }
 
-                    let x = chunk.read_interleaved_f32_array(referents.len())?;
-                    let y = chunk.read_interleaved_f32_array(referents.len())?;
-                    let z = chunk.read_interleaved_f32_array(referents.len())?;
+                    let x = chunk.read_interleaved_f32_array(instances.len())?;
+                    let y = chunk.read_interleaved_f32_array(instances.len())?;
+                    let z = chunk.read_interleaved_f32_array(instances.len())?;
 
                     // Roblox writes a type marker for Bool here that we don't
                     // need to use. We explicitly check for this right now just
@@ -1331,14 +1309,13 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             }
                         });
 
-                    for (cframe, referent) in values.zip(referents) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
-                        add_property(instance, &property, cframe.into());
+                    for (value, instance) in values.zip(instances) {
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "OptionalCFrame",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1347,15 +1324,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::UniqueId => match canonical_type {
                 VariantType::UniqueId => {
-                    let n = type_info.referents.len();
+                    let n = instances.len();
                     let values = chunk.read_interleaved_bytes::<16>(n)?;
 
-                    for (i, value) in values.enumerate() {
+                    for (value, instance) in values.zip(instances) {
                         let mut value = value.as_slice();
-                        let instance = self
-                            .instances_by_ref
-                            .get_mut(&type_info.referents[i])
-                            .unwrap();
                         add_property(
                             instance,
                             &property,
@@ -1370,7 +1343,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "UniqueId",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1379,18 +1352,17 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::SecurityCapabilities => match canonical_type {
                 VariantType::SecurityCapabilities => {
-                    let values = chunk.read_interleaved_i64_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_i64_array(instances.len())?;
 
                     let values = values.map(|value| SecurityCapabilities::from_bits(value as u64));
 
-                    for (referent, value) in type_info.referents.iter().zip(values) {
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
+                    for (value, instance) in values.zip(instances) {
                         add_property(instance, &property, value.into())
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "SecurityCapabilities",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1399,8 +1371,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Content => match canonical_type {
                 VariantType::Content => {
-                    let source_types =
-                        chunk.read_interleaved_i32_array(type_info.referents.len())?;
+                    let values = chunk.read_interleaved_i32_array(instances.len())?;
 
                     let uri_count = chunk.read_le_u32()? as usize;
                     let mut uris = VecDeque::with_capacity(uri_count);
@@ -1412,35 +1383,32 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let mut objects: VecDeque<i32> =
                         chunk.read_referent_array(object_count)?.collect();
 
-                    let external_count = chunk.read_le_u32().unwrap() as usize;
+                    let external_count = chunk.read_le_u32()? as usize;
                     // We are advised by Roblox to just ignore this, as it's
                     // meant for internal use. If we want to use it in the
                     // future, it's a referent array.
                     let _bytes = chunk.read_slice(external_count * 4)?;
 
-                    for (referent, ty) in type_info.referents.iter().zip(source_types) {
+                    for (ty, instance) in values.zip(instances) {
                         let value = match ty {
                             0 => Content::none(),
                             1 => Content::from_uri(uris.pop_back().unwrap()),
                             2 => {
                                 let read_value = objects.pop_back().unwrap();
-                                Content::from_referent(
-                                    if let Some(instance) = self.instances_by_ref.get(&read_value) {
-                                        instance.builder.referent()
-                                    } else {
-                                        Ref::none()
-                                    },
-                                )
+                                if let Some(key) = self.instance_key_by_ref.get(&read_value) {
+                                    Content::from_referent(key.referent)
+                                } else {
+                                    Content::none()
+                                }
                             }
                             n => return Err(InnerError::BadContentType(n)),
                         };
-                        let instance = self.instances_by_ref.get_mut(referent).unwrap();
                         add_property(instance, &property, value.into())
                     }
                 }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
-                        type_name: type_info.type_name.to_string(),
+                        type_name: type_name.to_string(),
                         prop_name: prop_name.to_owned(),
                         valid_type_names: "Content",
                         actual_type_name: format!("{invalid_type:?}"),
@@ -1474,8 +1442,8 @@ rbx-dom may require changes to fully support this property. Please open an issue
             if parent_ref == -1 {
                 self.root_instance_refs.push(id);
             } else {
-                let instance = self.instances_by_ref.get_mut(&parent_ref).unwrap();
-                instance.children.push(id);
+                let instance_key = self.instance_key_by_ref[&parent_ref].key;
+                self.instances[instance_key].children.push(id);
             }
         }
 
@@ -1512,8 +1480,19 @@ rbx-dom may require changes to fully support this property. Please open an issue
             instances_to_construct.push_back((referent, root_ref));
         }
 
+        // Ensure we hit the global ustr lock array only once
+        let empty_ustr = Ustr::default();
+
         while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
-            let instance = self.instances_by_ref.remove(&referent).unwrap();
+            // We need to drain the instances Vec in a random order without
+            // disturbing the indices. Replace each instance with an impostor!
+            // We guarantee this is done once by removing the key from `instance_key_by_ref`.
+            let instance_key = self.instance_key_by_ref.remove(&referent).unwrap().key;
+            let impostor = Instance {
+                builder: InstanceBuilder::new(empty_ustr),
+                children: Vec::new(),
+            };
+            let instance = core::mem::replace(&mut self.instances[instance_key], impostor);
             let id = self.tree.insert(parent_ref, instance.builder);
 
             for referent in instance.children {
