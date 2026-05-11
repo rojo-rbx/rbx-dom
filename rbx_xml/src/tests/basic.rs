@@ -67,10 +67,11 @@ fn write_empty_tags() {
     let _ = env_logger::try_init();
 
     let part = InstanceBuilder::new("Part").with_property("Tags", Tags::new());
+    let root_ref = part.referent();
     let dom = WeakDom::new(part);
 
     let mut encoded = Vec::new();
-    crate::to_writer_default(&mut encoded, &dom, &[dom.root_ref()]).unwrap();
+    crate::to_writer_default(&mut encoded, &dom, &[root_ref]).unwrap();
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
 
@@ -83,10 +84,11 @@ fn write_tags() {
     tags.push("World");
 
     let part = InstanceBuilder::new("Part").with_property("Tags", tags);
+    let root_ref = part.referent();
     let dom = WeakDom::new(part);
 
     let mut encoded = Vec::new();
-    crate::to_writer_default(&mut encoded, &dom, &[dom.root_ref()]).unwrap();
+    crate::to_writer_default(&mut encoded, &dom, &[root_ref]).unwrap();
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
 
@@ -202,10 +204,11 @@ fn write_material_colors() {
 
     let terrain =
         InstanceBuilder::new("Terrain").with_property("MaterialColors", MaterialColors::new());
+    let root_ref = terrain.referent();
     let dom = WeakDom::new(terrain);
 
     let mut encoded = Vec::new();
-    crate::to_writer_default(&mut encoded, &dom, &[dom.root_ref()]).unwrap();
+    crate::to_writer_default(&mut encoded, &dom, &[root_ref]).unwrap();
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
 
@@ -327,7 +330,7 @@ fn number_widening() {
 
 #[test]
 fn migrated_properties() {
-    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children([
+    let builder = InstanceBuilder::new("Folder").with_children([
         InstanceBuilder::new("ScreenGui").with_property("ScreenInsets", Enum::from_u32(0)),
         InstanceBuilder::new("ScreenGui").with_property("IgnoreGuiInset", true),
         InstanceBuilder::new("Part").with_property("Color", Color3::new(1.0, 1.0, 1.0)),
@@ -335,36 +338,42 @@ fn migrated_properties() {
         InstanceBuilder::new("Part").with_property("brickColor", BrickColor::Alder),
         InstanceBuilder::new("TextLabel").with_property("FontFace", Font::default()),
         InstanceBuilder::new("TextLabel").with_property("Font", Enum::from_u32(8)),
-    ]));
+    ]);
+    let root_ref = builder.referent();
+    let tree = WeakDom::new(builder);
 
     let mut encoded = Vec::new();
-    crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
+    crate::to_writer_default(&mut encoded, &tree, &[root_ref]).unwrap();
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
 
 #[test]
 fn bad_migrated_property() {
-    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children([
-        InstanceBuilder::new("TextLabel").with_property("Font", Enum::from_u32(u32::MAX)),
-    ]));
+    let builder = InstanceBuilder::new("Folder").with_children([
+        InstanceBuilder::new("TextLabel").with_property("Font", Enum::from_u32(u32::MAX))
+    ]);
+    let root_ref = builder.referent();
+    let tree = WeakDom::new(builder);
 
     let mut encoded = Vec::new();
-    crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
+    crate::to_writer_default(&mut encoded, &tree, &[root_ref]).unwrap();
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
 
 #[test]
 fn enum_item_to_enum() {
-    let tree = WeakDom::new(InstanceBuilder::new("Part").with_property(
+    let builder = InstanceBuilder::new("Part").with_property(
         "Material",
         EnumItem {
             ty: "Material".into(),
             value: 256,
         },
-    ));
+    );
+    let root_ref = builder.referent();
+    let tree = WeakDom::new(builder);
 
     let mut encoded = Vec::new();
-    crate::to_writer_default(&mut encoded, &tree, &[tree.root_ref()]).unwrap();
+    crate::to_writer_default(&mut encoded, &tree, &[root_ref]).unwrap();
 
     let decoded = crate::from_reader_default(encoded.as_slice()).unwrap();
     let prop_type = decoded

@@ -6,8 +6,8 @@ use rbx_dom_weak::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
         ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, Faces, Font,
         FontStyle, FontWeight, MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence,
-        NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities,
-        SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
+        NumberSequenceKeypoint, OptionalRef, PhysicalProperties, Ray, Rect, SecurityCapabilities,
+        SharedString, SomeRef, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
         Vector3int16,
     },
     InstanceBuilder, Ustr, WeakDom,
@@ -80,7 +80,7 @@ struct TypeInfo<'db> {
 /// to sidestep mutable + immutable aliasing.
 struct InstanceKey {
     key: usize,
-    referent: Ref,
+    referent: SomeRef,
 }
 
 /// Contains all the information we need to gather in order to construct an
@@ -935,9 +935,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
                     for (value, instance) in values.zip(instances) {
                         let rbx_value = if let Some(key) = self.instance_key_by_ref.get(&value) {
-                            key.referent
+                            key.referent.to_optional_ref()
                         } else {
-                            Ref::none()
+                            OptionalRef::none()
                         };
                         add_property(instance, &property, rbx_value.into());
                     }
@@ -1413,7 +1413,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             2 => {
                                 let read_value = objects.pop_back().unwrap();
                                 if let Some(key) = self.instance_key_by_ref.get(&read_value) {
-                                    Content::from_referent(key.referent)
+                                    Content::from_some_ref(key.referent)
                                 } else {
                                     Content::none()
                                 }
@@ -1484,37 +1484,44 @@ rbx-dom may require changes to fully support this property. Please open an issue
     pub(super) fn finish(mut self) -> WeakDom {
         log::trace!("Constructing tree from deserialized data");
 
+        struct PendingInsert {
+            id: i32,
+            parent: Option<SomeRef>,
+        }
+
         // Track all the instances we need to construct. Order of construction
         // is important to preserve for both determinism and sometimes
         // functionality of models we handle.
-        let mut instances_to_construct = VecDeque::new();
+        let mut queue = VecDeque::new();
 
         // Any instance with a parent of -1 will be at the top level of the
         // tree. Because of the way rbx_dom_weak generally works, we need to
         // start at the top of the tree to begin construction.
         let root_ref = self.tree.root_ref();
-        for &referent in &self.root_instance_refs {
-            instances_to_construct.push_back((referent, root_ref));
-        }
+        queue.extend(self.root_instance_refs.iter().map(|&id| PendingInsert {
+            id,
+            parent: root_ref,
+        }));
 
         // Ensure we hit the global ustr lock array only once
         let empty_ustr = Ustr::default();
 
-        while let Some((referent, parent_ref)) = instances_to_construct.pop_front() {
+        while let Some(PendingInsert { id, parent }) = queue.pop_front() {
             // We need to drain the instances Vec in a random order without
             // disturbing the indices. Replace each instance with an impostor!
             // We guarantee this is done once by removing the key from `instance_key_by_ref`.
-            let instance_key = self.instance_key_by_ref.remove(&referent).unwrap().key;
+            let instance_key = self.instance_key_by_ref.remove(&id).unwrap().key;
             let impostor = Instance {
                 builder: InstanceBuilder::new(empty_ustr),
                 children: Vec::new(),
             };
             let instance = core::mem::replace(&mut self.instances[instance_key], impostor);
-            let id = self.tree.insert(parent_ref, instance.builder);
+            let referent = self.tree.insert(parent, instance.builder);
 
-            for referent in instance.children {
-                instances_to_construct.push_back((referent, id));
-            }
+            queue.extend(instance.children.into_iter().map(|id| PendingInsert {
+                id,
+                parent: Some(referent),
+            }));
         }
 
         self.tree
