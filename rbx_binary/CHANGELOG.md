@@ -1,5 +1,12 @@
 # rbx_binary Changelog
 
+## Unreleased
+* Changed serializer to not panic when Instance.properties contains Name entry. ([#596])
+* Used exact comparison when determining basic rotation IDs to exactly preserve CFrame inputs. ([#601])
+
+[#596]: https://github.com/rojo-rbx/rbx-dom/pull/596
+[#601]: https://github.com/rojo-rbx/rbx-dom/pull/601
+
 ## 2.0.1 (2025-11-27)
 * Improved performance in several ways. Serializing in particular has been dramatically improved.
 
