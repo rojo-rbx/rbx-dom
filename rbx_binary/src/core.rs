@@ -100,24 +100,30 @@ pub trait RbxReadExt: Read {
     /// no guarantees about encoding of things it calls strings. rbx_binary
     /// makes a semantic differentiation between strings and binary buffers,
     /// which makes it more strict than Roblox but more likely to be correct.
-    fn read_binary_string(&mut self) -> io::Result<Vec<u8>> {
+    fn read_binary_string<'a>(&mut self) -> io::Result<&'a [u8]>
+    where
+        Self: ReadSlice<'a>,
+    {
         let length = self.read_le_u32()?;
-
-        let mut value = Vec::with_capacity(length as usize);
-        self.take(length as u64).read_to_end(&mut value)?;
-
-        Ok(value)
+        let out = self.read_slice(length as usize)?;
+        Ok(out)
     }
 
     /// Read a UTF-8 encoded string encoded how Roblox model files encode
     /// strings. This function isn't always appropriate because Roblox's formats
     /// generally aren't dilligent about data being valid Unicode.
-    fn read_string(&mut self) -> io::Result<String> {
-        let length = self.read_le_u32()?;
-        let mut value = String::with_capacity(length as usize);
-        self.take(length as u64).read_to_string(&mut value)?;
+    fn read_string<'a>(&mut self) -> io::Result<&'a str>
+    where
+        Self: ReadSlice<'a>,
+    {
+        let out = self.read_binary_string()?;
 
-        Ok(value)
+        core::str::from_utf8(out).map_err(|_| {
+            io::Error::new(
+                io::ErrorKind::InvalidData,
+                "stream did not contain valid UTF-8",
+            )
+        })
     }
 
     fn read_bool(&mut self) -> io::Result<bool> {
@@ -201,6 +207,27 @@ pub trait RbxReadExt: Read {
 }
 
 impl<R> RbxReadExt for R where R: Read {}
+
+pub trait ReadSlice<'a> {
+    /// Read a slice of length `len`, or return
+    /// an error if the length overruns the source data.
+    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]>;
+}
+
+#[cold]
+fn unexpected_eof() -> io::Error {
+    io::Error::new(io::ErrorKind::UnexpectedEof, "failed to fill whole buffer")
+}
+
+impl<'a> ReadSlice<'a> for &'a [u8] {
+    fn read_slice(&mut self, len: usize) -> io::Result<&'a [u8]> {
+        let out;
+
+        (out, *self) = self.split_at_checked(len).ok_or_else(unexpected_eof)?;
+
+        Ok(out)
+    }
+}
 
 pub trait RbxWriteExt: Write {
     fn write_le_u32(&mut self, value: u32) -> io::Result<()> {
