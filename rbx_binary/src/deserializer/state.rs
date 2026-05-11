@@ -455,17 +455,18 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     }
                 }
                 VariantType::Tags => {
+                    let type_name = type_info.type_name;
                     for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
-                        let Ok(value) = Tags::decode(buffer.as_ref()) else {
-                            return Err(InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
+                        let value = Tags::decode(buffer.as_ref()).map_err(|_| {
+                            InnerError::InvalidPropData {
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "a list of valid null-delimited UTF-8 strings",
                                 actual_value: "invalid UTF-8".to_string(),
-                            });
-                        };
+                            }
+                        })?;
 
                         add_property(instance, &property, value.into());
                     }
@@ -702,16 +703,16 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Faces => match canonical_type {
                 VariantType::Faces => {
+                    let type_name = type_info.type_name;
                     for instance in instances {
                         let value = chunk.read_u8()?;
-                        let Some(faces) = Faces::from_bits(value) else {
-                            return Err(InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
+                        let faces =
+                            Faces::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "less than 63",
                                 actual_value: value.to_string(),
-                            });
-                        };
+                            })?;
 
                         add_property(instance, &property, faces.into());
                     }
@@ -727,17 +728,17 @@ rbx-dom may require changes to fully support this property. Please open an issue
             },
             Type::Axes => match canonical_type {
                 VariantType::Axes => {
+                    let type_name = type_info.type_name;
                     for instance in instances {
                         let value = chunk.read_u8()?;
 
-                        let Some(axes) = Axes::from_bits(value) else {
-                            return Err(InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
+                        let axes =
+                            Axes::from_bits(value).ok_or_else(|| InnerError::InvalidPropData {
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "less than 7",
                                 actual_value: value.to_string(),
-                            });
-                        };
+                            })?;
 
                         add_property(instance, &property, axes.into());
                     }
@@ -755,16 +756,18 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::BrickColor => {
                     let values = chunk.read_interleaved_u32_array(instances.len())?;
 
+                    let type_name = type_info.type_name;
                     for (value, instance) in values.zip(instances) {
-                        let Some(color) = value.try_into().ok().and_then(BrickColor::from_number)
-                        else {
-                            return Err(InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
+                        let color = value
+                            .try_into()
+                            .ok()
+                            .and_then(BrickColor::from_number)
+                            .ok_or_else(|| InnerError::InvalidPropData {
+                                type_name: type_name.to_string(),
                                 prop_name: prop_name.clone(),
                                 valid_value: "a valid BrickColor",
                                 actual_value: value.to_string(),
-                            });
-                        };
+                            })?;
 
                         add_property(instance, &property, color.into());
                     }
@@ -1194,15 +1197,17 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::SharedString => {
                     let values = chunk.read_interleaved_u32_array(instances.len())?;
 
+                    let type_name = type_info.type_name;
                     for (value, instance) in values.zip(instances) {
-                        let Some(shared_string) = self.shared_strings.get(value as usize) else {
-                            return Err(InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
-                                prop_name: prop_name.clone(),
-                                valid_value: "a valid SharedString",
-                                actual_value: format!("{value:?}"),
-                            });
-                        };
+                        let shared_string =
+                            self.shared_strings.get(value as usize).ok_or_else(|| {
+                                InnerError::InvalidPropData {
+                                    type_name: type_name.to_string(),
+                                    prop_name: prop_name.clone(),
+                                    valid_value: "a valid SharedString",
+                                    actual_value: format!("{value:?}"),
+                                }
+                            })?;
 
                         add_property(instance, &property, shared_string.clone().into());
                     }
@@ -1210,16 +1215,19 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::NetAssetRef => {
                     let values = chunk.read_interleaved_u32_array(instances.len())?;
 
+                    let type_name = type_info.type_name;
                     for (value, instance) in values.zip(instances) {
-                        let Some(shared_string) = self.shared_strings.get(value as usize) else {
-                            return Err(InnerError::InvalidPropData {
-                                type_name: type_info.type_name.to_string(),
-                                prop_name: prop_name.clone(),
-                                valid_value: "a valid NetAssetRef",
-                                actual_value: format!("{value:?}"),
-                            });
-                        };
-                        let net_asset = NetAssetRef::from(shared_string.clone());
+                        let net_asset = NetAssetRef::from(
+                            self.shared_strings
+                                .get(value as usize)
+                                .ok_or_else(|| InnerError::InvalidPropData {
+                                    type_name: type_name.to_string(),
+                                    prop_name: prop_name.clone(),
+                                    valid_value: "a valid NetAssetRef",
+                                    actual_value: format!("{value:?}"),
+                                })?
+                                .clone(),
+                        );
 
                         add_property(instance, &property, net_asset.into());
                     }
