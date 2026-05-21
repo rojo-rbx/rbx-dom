@@ -1,6 +1,6 @@
 use std::{
     borrow::Cow,
-    collections::{btree_map, BTreeMap, HashSet},
+    collections::{btree_map, BTreeMap},
     io::Write,
 };
 
@@ -171,6 +171,19 @@ impl<'dom> PropInfo<'dom> {
         self.values
             .extend(core::iter::repeat_n(self.default_value, additional));
     }
+
+    /// Add this instance's value, unless this logical property already has one.
+    fn push_value_for_instance(&mut self, desired_len: usize, value: &'dom Variant) {
+        if self.values.len() > desired_len {
+            // This property for this instance has already been assigned a
+            // value, skip it
+            return;
+        }
+
+        self.extend_with_default(desired_len);
+        self.values.push(value);
+    }
+
     /// Set the migration
     fn set_migration(&mut self, m_new: &'dom PropertyMigration) {
         if let Some(m_old) = self.migration {
@@ -596,7 +609,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         // Some instances may have missing properties, meaning the
         // corresponding PropInfo is never visited and no value is inserted.
         //
-        // Used in the loop below (extend_with_default)
+        // Used in the loop below (push_value_for_instance)
         let desired_len = type_info.instances.len();
         type_info.instances.push(instance);
 
@@ -618,7 +631,6 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             }
         };
 
-        let mut seen_logical_properties = HashSet::new();
         let mut deferred_migrations: SmallVec<[(LogicalPropertyIndexList, &'dom Variant); 1]> =
             SmallVec::new();
 
@@ -643,22 +655,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             push_sstr(prop_value);
 
             for logical_index in logical_properties.indices {
-                if !seen_logical_properties.insert(logical_index) {
-                    continue;
-                }
-
                 let logical_property = &mut type_info.properties[logical_index];
-
-                // Add default values until the desired len is reached.
-                // This happens when instances of the same class have different
-                // sets of properties. This is cheaper than checking
-                // for missing properties using set differences.
-                logical_property.extend_with_default(desired_len);
-
-                // Append value reference to prop_info.values. This avoids
-                // getting all properties of all instances again in
-                // `serialize_properties`.
-                logical_property.values.push(prop_value);
+                logical_property.push_value_for_instance(desired_len, prop_value);
             }
         }
 
@@ -667,13 +665,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             push_sstr(prop_value);
 
             for logical_index in logical_indices {
-                if !seen_logical_properties.insert(logical_index) {
-                    continue;
-                }
-
                 let logical_property = &mut type_info.properties[logical_index];
-                logical_property.extend_with_default(desired_len);
-                logical_property.values.push(prop_value);
+                logical_property.push_value_for_instance(desired_len, prop_value);
             }
         }
 
