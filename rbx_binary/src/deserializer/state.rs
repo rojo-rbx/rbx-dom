@@ -182,31 +182,28 @@ fn find_canonical_property<'de>(
 fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty, value: Variant) {
     if let Some(PropertySerialization::Migrate(migration)) = canonical_property.migration {
         let old_property_name = canonical_property.name;
-        let new_property_names: Vec<_> = migration
+        let should_migrate = migration
             .new_property_names()
-            .filter(|new_property_name| !instance.builder.has_property(*new_property_name))
-            .collect();
+            .any(|name| !instance.builder.has_property(name));
 
-        if !new_property_names.is_empty() {
+        if should_migrate {
             match migration.perform(&value) {
                 Ok(new_value) => {
-                    log::trace!(
-                        "Attempting to migrate property {old_property_name} to {new_property_names:?}"
-                    );
-                    for new_property_name in new_property_names.iter() {
-                        instance
-                            .builder
-                            .add_property(*new_property_name, new_value.clone());
+                    for new_property_name in migration.new_property_names() {
+                        if !instance.builder.has_property(new_property_name) {
+                            log::trace!(
+                                "Attempting to migrate property {old_property_name} to {new_property_name}"
+                            );
+
+                            instance
+                                .builder
+                                .add_property(new_property_name, new_value.clone());
+                        }
                     }
-                    log::trace!(
-                        "Successfully migrated property {old_property_name} to {new_property_names:?}"
-                    );
                 }
 
                 Err(e) => {
-                    log::warn!(
-                        "Failed to migrate property {old_property_name} to {new_property_names:?} because: {e}"
-                    );
+                    log::warn!("Failed to migrate property {old_property_name} because: {e}");
                 }
             };
         }
