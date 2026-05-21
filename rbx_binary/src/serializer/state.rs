@@ -409,14 +409,12 @@ enum LogicalProperty {
 }
 
 impl LogicalProperty {
-    fn indices(&self) -> impl Iterator<Item = usize> + '_ {
+    fn indices(&self) -> &[usize] {
         match self {
             LogicalProperty::Migration(indices) => indices.as_slice(),
             LogicalProperty::Serializes(index) => std::slice::from_ref(index),
             _ => &[],
         }
-        .iter()
-        .copied()
     }
 }
 
@@ -475,13 +473,13 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                     self.properties_visited.get(&canonical_name).cloned()
                 {
                     for logical_index in existing_logical_property.indices() {
-                        let prop_info = &mut self.properties[logical_index];
+                        let prop_info = &mut self.properties[*logical_index];
                         // The visited property may contain a migration that
                         // the logical property has not been made aware of yet.
                         if let Some(migration) = ser_info.migration {
                             prop_info.set_migration(migration);
                         }
-                        logical_indices.push(logical_index);
+                        logical_indices.push(*logical_index);
                     }
 
                     continue;
