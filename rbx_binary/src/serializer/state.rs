@@ -1,6 +1,6 @@
 use std::{
     borrow::Cow,
-    collections::{btree_map, BTreeMap},
+    collections::{btree_map, BTreeMap, HashSet},
     io::Write,
 };
 
@@ -98,9 +98,13 @@ struct TypeInfo<'dom, 'db> {
     /// A set containing the properties that we have seen so far in the file and
     /// processed. This helps us avoid traversing the reflection database
     /// multiple times if there are many copies of the same kind of instance.
-    /// This acts as the key to `self.properties`.  It is None for properties
+    /// This acts as the key to `self.properties`. It is None for properties
     /// that do not serialize.
-    properties_visited: UstrMap<Option<usize>>,
+    ///
+    /// Most property names map to one logical property. Migration source
+    /// properties may map to several logical properties when one old property
+    /// expands into multiple new properties.
+    properties_visited: UstrMap<Option<LogicalPropertyIndices>>,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -304,11 +308,10 @@ impl<'db> SerializationInfo<'db> {
         database: &'db ReflectionDatabase<'db>,
         prop_name: Ustr,
         sample_value: &Variant,
-    ) -> Option<SerializationInfo<'db>> {
+    ) -> Option<Vec<SerializationInfo<'db>>> {
         let canonical_name;
         let serialized_name;
         let serialized_ty;
-        let mut migration = None;
 
         match find_property_descriptors(database, class_descriptor, &prop_name) {
             Some((superclass_descriptor, descriptors)) => {
@@ -321,33 +324,34 @@ impl<'db> SerializationInfo<'db> {
                         } = &descriptor.kind
                         {
                             // If the property migrates, we need to look up the
-                            // property it should migrate to and use the reflection
+                            // properties it should migrate to and use the reflection
                             // information of the new property instead of the old
                             // property, because migrated properties should not
                             // serialize
                             //
-                            // Assume that the migration will always be
-                            // directed to a property on the same class.
+                            // Assume that the migration will always be directed
+                            // to properties on the same class.
                             // This avoids re-walking the superclasses.
-                            let new_descriptors = superclass_descriptor
-                                .properties
-                                .get(prop_migration.new_property_name.as_str())
-                                .and_then(|prop| {
-                                    PropertyDescriptors::new(superclass_descriptor, prop)
+                            let mut infos = Vec::new();
+                            for new_property_name in prop_migration.new_property_names() {
+                                let new_descriptors = superclass_descriptor
+                                    .properties
+                                    .get(new_property_name)
+                                    .and_then(|prop| {
+                                        PropertyDescriptors::new(superclass_descriptor, prop)
+                                    });
+
+                                let descriptor = new_descriptors?;
+                                let serialized = descriptor.serialized?;
+                                infos.push(SerializationInfo {
+                                    migration: Some(prop_migration),
+                                    canonical_name: descriptor.canonical.name.as_ref().into(),
+                                    serialized_name: serialized.name.as_ref().into(),
+                                    serialized_ty: serialized.data_type.ty(),
                                 });
-
-                            migration = Some(prop_migration);
-
-                            match new_descriptors {
-                                Some(descriptor) => match descriptor.serialized {
-                                    Some(serialized) => {
-                                        canonical_name = descriptor.canonical.name.as_ref().into();
-                                        serialized
-                                    }
-                                    None => return None,
-                                },
-                                None => return None,
                             }
+
+                            return Some(infos);
                         } else {
                             canonical_name = descriptors.canonical.name.as_ref().into();
                             descriptor
@@ -368,95 +372,123 @@ impl<'db> SerializationInfo<'db> {
             }
         }
 
-        Some(SerializationInfo {
-            migration,
+        Some(vec![SerializationInfo {
+            migration: None,
             canonical_name,
             serialized_name,
             serialized_ty,
-        })
+        }])
     }
+}
+
+#[derive(Debug, Clone)]
+struct LogicalPropertyIndices {
+    indices: Vec<usize>,
+    is_migration_source: bool,
 }
 
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     /// Helper function for `TypeInfo::get_or_create_logical_property`.
     /// Push a new PropInfo into properties and add a list of aliases which point to it.
+    /// Return the index into self.properties where we inserted the new PropInfo.
     fn push_prop_info_with_names(
         &mut self,
         prop_info: PropInfo<'dom>,
         prop_names: impl IntoIterator<Item = Ustr>,
-    ) -> &mut PropInfo<'dom> {
+    ) -> usize {
         let logical_index = self.properties.len();
         self.properties.push(prop_info);
-        let prop_info = &mut self.properties[logical_index];
         for prop_name in prop_names {
-            self.properties_visited
-                .insert(prop_name, Some(logical_index));
+            self.properties_visited.insert(
+                prop_name,
+                Some(LogicalPropertyIndices {
+                    indices: vec![logical_index],
+                    is_migration_source: false,
+                }),
+            );
         }
-        prop_info
+        logical_index
     }
 
-    /// Get or create a logical property from a visited property.
-    fn get_or_create_logical_property<'a>(
-        &'a mut self,
+    /// Get or create logical properties from a visited property.
+    fn get_or_create_logical_properties(
+        &mut self,
         push_sstr: &mut impl FnMut(&Variant),
         database: &'db ReflectionDatabase<'db>,
         type_name: Ustr,
         prop_name: Ustr,
         sample_value: &Variant,
-    ) -> Result<Option<&'a mut PropInfo<'dom>>, InnerError> {
+    ) -> Result<Option<LogicalPropertyIndices>, InnerError> {
         let class = self.class_descriptor;
 
         // Check if prop_name is already in properties_visited, return it
-        if let Some(&logical_index) = self.properties_visited.get(&prop_name) {
-            let prop_info = match logical_index {
-                Some(logical_index) => Some(&mut self.properties[logical_index]),
-                // Does not serialize, no logical property
-                None => None,
-            };
-            return Ok(prop_info);
+        if let Some(logical_indices) = self.properties_visited.get(&prop_name) {
+            return Ok(logical_indices.clone());
         }
 
-        let Some(ser_info) = SerializationInfo::new(class, database, prop_name, sample_value)
+        let Some(ser_infos) = SerializationInfo::new(class, database, prop_name, sample_value)
         else {
             // Remember that this visited property does not serialize
             self.properties_visited.insert(prop_name, None);
             return Ok(None);
         };
 
-        // Is this property the canonical representation?
-        let canonical_name = ser_info.canonical_name;
-        if canonical_name != prop_name {
-            // Check if canonical name is already in properties_visited, return it
-            if let Some(&logical_index) = self.properties_visited.get(&canonical_name) {
-                // Add the new alias
-                self.properties_visited.insert(prop_name, logical_index);
+        let is_migration_source = ser_infos
+            .iter()
+            .any(|ser_info| ser_info.migration.is_some());
+        let mut logical_indices = Vec::new();
 
-                let prop_info = match logical_index {
-                    Some(logical_index) => {
-                        let prop_info = &mut self.properties[logical_index];
-                        // The visited property may contain a migration that
-                        // the logical property has not been made aware of yet.
-                        if let Some(migration) = ser_info.migration {
-                            prop_info.set_migration(migration);
+        for ser_info in ser_infos {
+            let canonical_name = ser_info.canonical_name;
+            if canonical_name != prop_name {
+                // Check if canonical name is already in properties_visited, return it
+                if let Some(existing_logical_indices) =
+                    self.properties_visited.get(&canonical_name).cloned()
+                {
+                    if let Some(existing_logical_indices) = existing_logical_indices {
+                        for logical_index in existing_logical_indices.indices {
+                            let prop_info = &mut self.properties[logical_index];
+                            // The visited property may contain a migration that
+                            // the logical property has not been made aware of yet.
+                            if let Some(migration) = ser_info.migration {
+                                prop_info.set_migration(migration);
+                            }
+                            logical_indices.push(logical_index);
                         }
-                        Some(prop_info)
                     }
-                    // Does not serialize, no logical property
-                    None => None,
-                };
 
-                return Ok(prop_info);
+                    continue;
+                }
+
+                // Create logical property with the canonical name. The visited
+                // property name is added below after all targets are known.
+                let prop_info = PropInfo::new(ser_info, class, push_sstr, database, type_name)?;
+                let logical_index = self.push_prop_info_with_names(prop_info, [canonical_name]);
+                logical_indices.push(logical_index);
+            } else {
+                // Create logical property with one new name.
+                let prop_info = PropInfo::new(ser_info, class, push_sstr, database, type_name)?;
+                let logical_index = self.push_prop_info_with_names(prop_info, [prop_name]);
+                logical_indices.push(logical_index);
             }
-            // Create logical property with two new names
-            let prop_info = PropInfo::new(ser_info, class, push_sstr, database, type_name)?;
-            let prop_info = self.push_prop_info_with_names(prop_info, [canonical_name, prop_name]);
-            Ok(Some(prop_info))
-        } else {
-            // Create logical property with one new name
-            let prop_info = PropInfo::new(ser_info, class, push_sstr, database, type_name)?;
-            let prop_info = self.push_prop_info_with_names(prop_info, [prop_name]);
-            Ok(Some(prop_info))
         }
+
+        if logical_indices.is_empty() {
+            self.properties_visited.insert(prop_name, None);
+            return Ok(None);
+        }
+
+        self.properties_visited.insert(
+            prop_name,
+            Some(LogicalPropertyIndices {
+                indices: logical_indices.clone(),
+                is_migration_source,
+            }),
+        );
+        Ok(Some(LogicalPropertyIndices {
+            indices: logical_indices,
+            is_migration_source,
+        }))
     }
 }
 
@@ -583,8 +615,11 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             }
         };
 
+        let mut seen_logical_properties = HashSet::new();
+        let mut deferred_migrations = Vec::new();
+
         for (prop_name, prop_value) in &instance.properties {
-            let Some(logical_property) = type_info.get_or_create_logical_property(
+            let Some(logical_properties) = type_info.get_or_create_logical_properties(
                 &mut push_sstr,
                 database,
                 instance.class,
@@ -595,18 +630,47 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 continue;
             };
 
+            if logical_properties.is_migration_source {
+                deferred_migrations.push((logical_properties.indices, prop_value));
+                continue;
+            }
+
             // Discover and track any shared strings we come across.
             push_sstr(prop_value);
 
-            // Add default values until the desired len is reached.
-            // This happens when instances of the same class have different
-            // sets of properties.  This is cheaper than checking
-            // for missing properties using set differences.
-            logical_property.extend_with_default(desired_len);
+            for logical_index in logical_properties.indices {
+                if !seen_logical_properties.insert(logical_index) {
+                    continue;
+                }
 
-            // Append value reference to prop_info.values.  This avoids
-            // getting all properties of all instances again in `serialize_properties`.
-            logical_property.values.push(prop_value);
+                let logical_property = &mut type_info.properties[logical_index];
+
+                // Add default values until the desired len is reached.
+                // This happens when instances of the same class have different
+                // sets of properties. This is cheaper than checking
+                // for missing properties using set differences.
+                logical_property.extend_with_default(desired_len);
+
+                // Append value reference to prop_info.values. This avoids
+                // getting all properties of all instances again in
+                // `serialize_properties`.
+                logical_property.values.push(prop_value);
+            }
+        }
+
+        for (logical_indices, prop_value) in deferred_migrations {
+            // Discover and track any shared strings we come across.
+            push_sstr(prop_value);
+
+            for logical_index in logical_indices {
+                if !seen_logical_properties.insert(logical_index) {
+                    continue;
+                }
+
+                let logical_property = &mut type_info.properties[logical_index];
+                logical_property.extend_with_default(desired_len);
+                logical_property.values.push(prop_value);
+            }
         }
 
         Ok(())
