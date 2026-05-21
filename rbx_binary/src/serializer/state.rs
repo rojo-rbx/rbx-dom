@@ -438,7 +438,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     }
 
     /// Get or create logical properties from a visited property.
-    fn get_or_create_logical_properties(
+    fn get_or_create_logical_property(
         &mut self,
         push_sstr: &mut impl FnMut(&Variant),
         database: &'db ReflectionDatabase<'db>,
@@ -646,7 +646,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         let mut deferred_migrations = SmallVec::<[(MigrationIndices, &Variant); 1]>::new();
 
         for (prop_name, prop_value) in &instance.properties {
-            let logical_properties = type_info.get_or_create_logical_properties(
+            let logical_property = type_info.get_or_create_logical_property(
                 &mut push_sstr,
                 database,
                 instance.class,
@@ -654,7 +654,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 prop_value,
             )?;
 
-            match &logical_properties {
+            match &logical_property {
                 LogicalProperty::DoesNotSerialize => continue,
                 LogicalProperty::Migration(indices) => {
                     // This property migrates to one or more other properties. Populate
@@ -674,7 +674,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             // Discover and track any shared strings we come across.
             push_sstr(prop_value);
 
-            for logical_index in logical_properties.indices() {
+            for logical_index in logical_property.indices() {
                 let logical_property = &mut type_info.properties[logical_index];
                 logical_property.push_value_for_instance(desired_len, prop_value);
             }
