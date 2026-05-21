@@ -415,7 +415,7 @@ impl LogicalProperty {
             LogicalProperty::Serializes(index) => std::slice::from_ref(index),
             _ => &[],
         }
-        .into_iter()
+        .iter()
         .copied()
     }
 }
