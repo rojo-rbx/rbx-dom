@@ -42,6 +42,7 @@ pub enum MigrationOperation {
     FontToFontFace,
     BrickColorToColor,
     ContentIdToContent,
+    CornerRadiusToCornerRadii,
 }
 
 impl PropertyMigration {
@@ -193,6 +194,17 @@ impl PropertyMigration {
                     Err(MigrationError::InvalidTypeForMigration {
                         migration: MigrationOperation::ContentIdToContent,
                         expected: "ContentId",
+                        actual: input.clone(),
+                    })
+                }
+            }
+            MigrationOperation::CornerRadiusToCornerRadii => {
+                if let Variant::UDim(_) = input {
+                    Ok(input.clone())
+                } else {
+                    Err(MigrationError::InvalidTypeForMigration {
+                        migration: MigrationOperation::CornerRadiusToCornerRadii,
+                        expected: "UDim",
                         actual: input.clone(),
                     })
                 }
