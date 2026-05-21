@@ -666,19 +666,17 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     deferred_migrations.push((*indices.clone(), prop_value));
                     continue;
                 }
-                _ => {
+                LogicalProperty::Serializes(index) => {
                     // This property does not migrate, no need to fill deferred_migrations
-                    // and we may proceed normally
+                    // and we may proceed
+
+                    // Discover and track any shared strings we come across.
+                    push_sstr(prop_value);
+
+                    let logical_property = &mut type_info.properties[*index];
+                    logical_property.push_value_for_instance(desired_len, prop_value);
                 }
             };
-
-            // Discover and track any shared strings we come across.
-            push_sstr(prop_value);
-
-            for logical_index in logical_property.indices() {
-                let logical_property = &mut type_info.properties[logical_index];
-                logical_property.push_value_for_instance(desired_len, prop_value);
-            }
         }
 
         for (logical_indices, prop_value) in deferred_migrations {
