@@ -99,8 +99,7 @@ struct TypeInfo<'dom, 'db> {
     /// A set containing the properties that we have seen so far in the file and
     /// processed. This helps us avoid traversing the reflection database
     /// multiple times if there are many copies of the same kind of instance.
-    /// This acts as the key to `self.properties`. It is None for properties
-    /// that do not serialize.
+    /// This acts as the key(s) to `self.properties`.
     ///
     /// Most property names map to one logical property. Migration source
     /// properties may map to several logical properties when one old property
