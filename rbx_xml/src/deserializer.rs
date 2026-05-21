@@ -639,27 +639,22 @@ fn deserialize_properties<R: Read>(
                     serialization: PropertySerialization::Migrate(migration),
                 } => {
                     let old_property_name = &descriptor.name;
-                    let new_property_names: Vec<_> = migration
-                        .new_property_names()
-                        .filter(|new_property_name| {
-                            !props.contains_key(&Ustr::from(new_property_name))
-                        })
-                        .map(ToOwned::to_owned)
-                        .collect();
 
-                    if !new_property_names.is_empty() {
-                        log::trace!(
-                            "Attempting to migrate property {old_property_name} to {new_property_names:?}"
-                        );
-                        match migration.perform(&value) {
-                            Ok(migrated_value) => {
-                                for new_property_name in new_property_names {
-                                    props.insert(new_property_name.into(), migrated_value.clone());
-                                }
+                    match migration.perform(&value) {
+                        Ok(migrated_value) => {
+                            for new_property_name in migration.new_property_names() {
+                                let new_property_name = Ustr::from(new_property_name);
+                                props.entry(new_property_name).or_insert_with(|| {
+                                    log::trace!(
+                                        "Attempting to migrate property {old_property_name} to {new_property_name}"
+                                    );
+
+                                    migrated_value.clone()
+                                });
                             }
-                            Err(error) => {
-                                return Err(reader.error(DecodeErrorKind::MigrationError(error)));
-                            }
+                        }
+                        Err(error) => {
+                            return Err(reader.error(DecodeErrorKind::MigrationError(error)));
                         }
                     }
                 }
