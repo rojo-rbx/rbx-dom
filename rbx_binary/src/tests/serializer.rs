@@ -1,11 +1,12 @@
 use rbx_dom_weak::{
     types::{
-        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Vector3,
+        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, UDim,
+        Variant, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
 
-use crate::{text_deserializer::DecodedModel, to_writer};
+use crate::{text_deserializer::DecodedModel, to_writer, Deserializer, Serializer};
 
 /// A basic test to make sure we can serialize the simplest instance: a Folder.
 #[test]
@@ -119,6 +120,56 @@ fn migrated_properties() {
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
+}
+
+#[test]
+fn one_to_many_migrated_properties() {
+    let tree = WeakDom::new(
+        InstanceBuilder::new("UICorner").with_property("CornerRadius", UDim::new(0.5, 12)),
+    );
+
+    let mut buffer = Vec::new();
+    Serializer::new()
+        .serialize(&mut buffer, &tree, &[tree.root_ref()])
+        .expect("failed to encode model");
+
+    let decoded = DecodedModel::from_reader(buffer.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
+#[test]
+fn one_to_many_migrated_properties_deserialize() {
+    let tree = WeakDom::new(
+        InstanceBuilder::new("UICorner").with_property("CornerRadius", UDim::new(0.5, 12)),
+    );
+
+    let mut buffer = Vec::new();
+    Serializer::new()
+        .serialize(&mut buffer, &tree, &[tree.root_ref()])
+        .expect("failed to encode model");
+
+    let decoded = Deserializer::new()
+        .deserialize(buffer.as_slice())
+        .expect("failed to decode model");
+
+    let ui_corner = decoded
+        .get_by_ref(decoded.root().children()[0])
+        .expect("missing UICorner");
+    let expected = Variant::UDim(UDim::new(0.5, 12));
+
+    for property_name in [
+        "BottomLeftRadius",
+        "BottomRightRadius",
+        "TopLeftRadius",
+        "TopRightRadius",
+    ] {
+        assert_eq!(
+            ui_corner.properties.get(&property_name.into()),
+            Some(&expected),
+            "{property_name} should receive the migrated CornerRadius value",
+        );
+    }
+    assert!(!ui_corner.properties.contains_key(&"CornerRadius".into()));
 }
 
 /// Ensures that only one name for each logical property is serialized to a
