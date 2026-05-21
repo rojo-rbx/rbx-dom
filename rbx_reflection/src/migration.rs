@@ -52,7 +52,7 @@ impl PropertyMigration {
             PropertyMigrationTarget::Many(strings) => strings.as_slice(),
         };
 
-        return property_names.iter().map(String::as_str);
+        property_names.iter().map(String::as_str)
     }
 
     pub fn perform(&self, input: &Variant) -> Result<Variant, MigrationError> {
