@@ -105,7 +105,7 @@ struct TypeInfo<'dom, 'db> {
     /// Most property names map to one logical property. Migration source
     /// properties may map to several logical properties when one old property
     /// expands into multiple new properties.
-    properties_visited: UstrMap<Option<LogicalPropertyIndices>>,
+    properties_visited: UstrMap<LogicalProperty>,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -395,12 +395,28 @@ impl<'db> SerializationInfo<'db> {
     }
 }
 
-type LogicalPropertyIndexList = SmallVec<[usize; 4]>;
-
+type MigrationIndices = SmallVec<[usize; 4]>;
 #[derive(Debug, Clone)]
-struct LogicalPropertyIndices {
-    indices: LogicalPropertyIndexList,
-    is_migration_source: bool,
+enum LogicalProperty {
+    Migration(Box<MigrationIndices>),
+    Serializes(usize),
+    DoesNotSerialize,
+}
+
+impl LogicalProperty {
+    fn indices(&self) -> impl Iterator<Item = usize> + '_ {
+        let migration_indices = match self {
+            LogicalProperty::Migration(indices) => indices.as_slice(),
+            _ => &[],
+        };
+
+        let serialized_index = match self {
+            LogicalProperty::Serializes(index) => Some(*index),
+            _ => None,
+        };
+
+        migration_indices.iter().copied().chain(serialized_index)
+    }
 }
 
 impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
@@ -415,13 +431,8 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         let logical_index = self.properties.len();
         self.properties.push(prop_info);
         for prop_name in prop_names {
-            self.properties_visited.insert(
-                prop_name,
-                Some(LogicalPropertyIndices {
-                    indices: smallvec![logical_index],
-                    is_migration_source: false,
-                }),
-            );
+            self.properties_visited
+                .insert(prop_name, LogicalProperty::Serializes(logical_index));
         }
         logical_index
     }
@@ -434,19 +445,20 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         type_name: Ustr,
         prop_name: Ustr,
         sample_value: &Variant,
-    ) -> Result<Option<LogicalPropertyIndices>, InnerError> {
+    ) -> Result<LogicalProperty, InnerError> {
         let class = self.class_descriptor;
 
         // Check if prop_name is already in properties_visited, return it
-        if let Some(logical_indices) = self.properties_visited.get(&prop_name) {
-            return Ok(logical_indices.clone());
+        if let Some(logical_property) = self.properties_visited.get(&prop_name) {
+            return Ok(logical_property.clone());
         }
 
         let Some(ser_infos) = SerializationInfo::new(class, database, prop_name, sample_value)
         else {
             // Remember that this visited property does not serialize
-            self.properties_visited.insert(prop_name, None);
-            return Ok(None);
+            self.properties_visited
+                .insert(prop_name, LogicalProperty::DoesNotSerialize);
+            return Ok(LogicalProperty::DoesNotSerialize);
         };
 
         let is_migration_source = ser_infos
@@ -458,19 +470,17 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             let canonical_name = ser_info.canonical_name;
             if canonical_name != prop_name {
                 // Check if canonical name is already in properties_visited, return it
-                if let Some(existing_logical_indices) =
+                if let Some(existing_logical_property) =
                     self.properties_visited.get(&canonical_name).cloned()
                 {
-                    if let Some(existing_logical_indices) = existing_logical_indices {
-                        for logical_index in existing_logical_indices.indices {
-                            let prop_info = &mut self.properties[logical_index];
-                            // The visited property may contain a migration that
-                            // the logical property has not been made aware of yet.
-                            if let Some(migration) = ser_info.migration {
-                                prop_info.set_migration(migration);
-                            }
-                            logical_indices.push(logical_index);
+                    for logical_index in existing_logical_property.indices() {
+                        let prop_info = &mut self.properties[logical_index];
+                        // The visited property may contain a migration that
+                        // the logical property has not been made aware of yet.
+                        if let Some(migration) = ser_info.migration {
+                            prop_info.set_migration(migration);
                         }
+                        logical_indices.push(logical_index);
                     }
 
                     continue;
@@ -490,21 +500,21 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         }
 
         if logical_indices.is_empty() {
-            self.properties_visited.insert(prop_name, None);
-            return Ok(None);
+            self.properties_visited
+                .insert(prop_name, LogicalProperty::DoesNotSerialize);
+            return Ok(LogicalProperty::DoesNotSerialize);
         }
 
-        self.properties_visited.insert(
-            prop_name,
-            Some(LogicalPropertyIndices {
-                indices: logical_indices.clone(),
-                is_migration_source,
-            }),
-        );
-        Ok(Some(LogicalPropertyIndices {
-            indices: logical_indices,
-            is_migration_source,
-        }))
+        let logical_property = if is_migration_source {
+            LogicalProperty::Migration(Box::new(logical_indices))
+        } else {
+            LogicalProperty::Serializes(logical_indices[0])
+        };
+
+        self.properties_visited
+            .insert(prop_name, logical_property.clone());
+
+        Ok(logical_property)
     }
 }
 
@@ -631,30 +641,40 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             }
         };
 
-        let mut deferred_migrations: SmallVec<[(LogicalPropertyIndexList, &'dom Variant); 1]> =
-            SmallVec::new();
+        // List mapping logical property indices to a property value reference, for any
+        // migrated properties.
+        let mut deferred_migrations = SmallVec::<[(MigrationIndices, &Variant); 1]>::new();
 
         for (prop_name, prop_value) in &instance.properties {
-            let Some(logical_properties) = type_info.get_or_create_logical_properties(
+            let logical_properties = type_info.get_or_create_logical_properties(
                 &mut push_sstr,
                 database,
                 instance.class,
                 *prop_name,
                 prop_value,
-            )?
-            else {
-                continue;
-            };
+            )?;
 
-            if logical_properties.is_migration_source {
-                deferred_migrations.push((logical_properties.indices, prop_value));
-                continue;
-            }
+            match &logical_properties {
+                LogicalProperty::DoesNotSerialize => continue,
+                LogicalProperty::Migration(indices) => {
+                    // This property migrates to one or more other properties. Populate
+                    // deferred_migrations with its indices and value, and wait until
+                    // later to push its instance value, because we don't know yet if the
+                    // instance specifies any of the migration target properties, which
+                    // should take precedence.
+                    deferred_migrations.push((*indices.clone(), prop_value));
+                    continue;
+                }
+                _ => {
+                    // This property does not migrate, no need to fill deferred_migrations
+                    // and we may proceed normally
+                }
+            };
 
             // Discover and track any shared strings we come across.
             push_sstr(prop_value);
 
-            for logical_index in logical_properties.indices {
+            for logical_index in logical_properties.indices() {
                 let logical_property = &mut type_info.properties[logical_index];
                 logical_property.push_value_for_instance(desired_len, prop_value);
             }
@@ -664,8 +684,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
             // Discover and track any shared strings we come across.
             push_sstr(prop_value);
 
-            for logical_index in logical_indices {
-                let logical_property = &mut type_info.properties[logical_index];
+            for logical_index in logical_indices.iter() {
+                let logical_property = &mut type_info.properties[*logical_index];
                 logical_property.push_value_for_instance(desired_len, prop_value);
             }
         }
