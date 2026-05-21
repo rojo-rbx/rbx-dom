@@ -21,10 +21,17 @@ pub enum MigrationError {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(untagged)]
+enum PropertyMigrationTarget {
+    One(String),
+    Many(Vec<String>),
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
 pub struct PropertyMigration {
     #[serde(rename = "To")]
-    pub new_property_name: String,
+    new_property_names: PropertyMigrationTarget,
     migration: MigrationOperation,
 }
 
@@ -38,6 +45,15 @@ pub enum MigrationOperation {
 }
 
 impl PropertyMigration {
+    pub fn new_property_names(&self) -> impl Iterator<Item = &str> {
+        let property_names = match &self.new_property_names {
+            PropertyMigrationTarget::One(string) => std::slice::from_ref(string),
+            PropertyMigrationTarget::Many(strings) => strings.as_slice(),
+        };
+
+        return property_names.iter().map(String::as_str);
+    }
+
     pub fn perform(&self, input: &Variant) -> Result<Variant, MigrationError> {
         match self.migration {
             MigrationOperation::IgnoreGuiInsetToScreenInsets => {

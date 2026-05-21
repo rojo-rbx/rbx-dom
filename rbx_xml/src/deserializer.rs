@@ -1,4 +1,4 @@
-use std::{collections::hash_map::Entry, io::Read};
+use std::io::Read;
 
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
@@ -638,19 +638,24 @@ fn deserialize_properties<R: Read>(
                 PropertyKind::Canonical {
                     serialization: PropertySerialization::Migrate(migration),
                 } => {
-                    let new_property_name = &migration.new_property_name;
                     let old_property_name = &descriptor.name;
+                    let new_property_names: Vec<_> = migration
+                        .new_property_names()
+                        .filter(|new_property_name| {
+                            !props.contains_key(&Ustr::from(*new_property_name))
+                        })
+                        .map(ToOwned::to_owned)
+                        .collect();
 
-                    if let Entry::Vacant(entry) = props.entry(new_property_name.into()) {
+                    if !new_property_names.is_empty() {
                         log::trace!(
-                            "Attempting to migrate property {old_property_name} to {new_property_name}"
+                            "Attempting to migrate property {old_property_name} to {new_property_names:?}"
                         );
                         match migration.perform(&value) {
                             Ok(migrated_value) => {
-                                entry.insert(migrated_value);
-                                log::trace!(
-                                    "Successfully migrated property {old_property_name} to {new_property_name}"
-                                );
+                                for new_property_name in new_property_names {
+                                    props.insert(new_property_name.into(), migrated_value.clone());
+                                }
                             }
                             Err(error) => {
                                 return Err(reader.error(DecodeErrorKind::MigrationError(error)));
