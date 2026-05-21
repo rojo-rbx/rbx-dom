@@ -642,7 +642,7 @@ fn deserialize_properties<R: Read>(
                     let new_property_names: Vec<_> = migration
                         .new_property_names()
                         .filter(|new_property_name| {
-                            !props.contains_key(&Ustr::from(*new_property_name))
+                            !props.contains_key(&Ustr::from(new_property_name))
                         })
                         .map(ToOwned::to_owned)
                         .collect();
