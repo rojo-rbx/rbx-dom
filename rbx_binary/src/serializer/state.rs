@@ -20,6 +20,7 @@ use rbx_reflection::{
     ClassDescriptor, ClassTag, PropertyKind, PropertyMigration, PropertySerialization,
     ReflectionDatabase,
 };
+use smallvec::{smallvec, SmallVec};
 
 use crate::{
     chunk::ChunkBuilder,
@@ -308,7 +309,7 @@ impl<'db> SerializationInfo<'db> {
         database: &'db ReflectionDatabase<'db>,
         prop_name: Ustr,
         sample_value: &Variant,
-    ) -> Option<Vec<SerializationInfo<'db>>> {
+    ) -> Option<SmallVec<[SerializationInfo<'db>; 4]>> {
         let canonical_name;
         let serialized_name;
         let serialized_ty;
@@ -332,7 +333,7 @@ impl<'db> SerializationInfo<'db> {
                             // Assume that the migration will always be directed
                             // to properties on the same class.
                             // This avoids re-walking the superclasses.
-                            let mut infos = Vec::new();
+                            let mut infos = SmallVec::new();
                             for new_property_name in prop_migration.new_property_names() {
                                 let new_descriptors = superclass_descriptor
                                     .properties
@@ -372,7 +373,7 @@ impl<'db> SerializationInfo<'db> {
             }
         }
 
-        Some(vec![SerializationInfo {
+        Some(smallvec![SerializationInfo {
             migration: None,
             canonical_name,
             serialized_name,
@@ -381,9 +382,11 @@ impl<'db> SerializationInfo<'db> {
     }
 }
 
+type LogicalPropertyIndexList = SmallVec<[usize; 4]>;
+
 #[derive(Debug, Clone)]
 struct LogicalPropertyIndices {
-    indices: Vec<usize>,
+    indices: LogicalPropertyIndexList,
     is_migration_source: bool,
 }
 
@@ -402,7 +405,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             self.properties_visited.insert(
                 prop_name,
                 Some(LogicalPropertyIndices {
-                    indices: vec![logical_index],
+                    indices: smallvec![logical_index],
                     is_migration_source: false,
                 }),
             );
@@ -436,7 +439,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         let is_migration_source = ser_infos
             .iter()
             .any(|ser_info| ser_info.migration.is_some());
-        let mut logical_indices = Vec::new();
+        let mut logical_indices = SmallVec::new();
 
         for ser_info in ser_infos {
             let canonical_name = ser_info.canonical_name;
@@ -616,7 +619,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         };
 
         let mut seen_logical_properties = HashSet::new();
-        let mut deferred_migrations = Vec::new();
+        let mut deferred_migrations: SmallVec<[(LogicalPropertyIndexList, &'dom Variant); 1]> =
+            SmallVec::new();
 
         for (prop_name, prop_value) in &instance.properties {
             let Some(logical_properties) = type_info.get_or_create_logical_properties(
