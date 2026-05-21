@@ -175,8 +175,14 @@ impl<'dom> PropInfo<'dom> {
     /// Add this instance's value, unless this logical property already has one.
     fn push_value_for_instance(&mut self, desired_len: usize, value: &'dom Variant) {
         if self.values.len() > desired_len {
-            // This property for this instance has already been assigned a
-            // value, skip it
+            // This property for this instance has already been assigned a value. This can
+            // happen when this property is a migration target, and the instance has
+            // specified both the *new* migration target property and the *old* migration
+            // source property.
+            //
+            // That's very strange, but the specified value should take precedence, and we
+            // cannot push an additional value because that would corrupt the alignment
+            // between PropInfo.values and TypeInfo.instances.
             return;
         }
 
