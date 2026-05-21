@@ -410,17 +410,13 @@ enum LogicalProperty {
 
 impl LogicalProperty {
     fn indices(&self) -> impl Iterator<Item = usize> + '_ {
-        let migration_indices = match self {
+        match self {
             LogicalProperty::Migration(indices) => indices.as_slice(),
+            LogicalProperty::Serializes(index) => std::slice::from_ref(index),
             _ => &[],
-        };
-
-        let serialized_index = match self {
-            LogicalProperty::Serializes(index) => Some(*index),
-            _ => None,
-        };
-
-        migration_indices.iter().copied().chain(serialized_index)
+        }
+        .into_iter()
+        .copied()
     }
 }
 
