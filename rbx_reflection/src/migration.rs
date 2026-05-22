@@ -1,5 +1,5 @@
 use rbx_types::{Content, Enum, Font, FontStyle, FontWeight, Variant};
-use serde::{Deserialize, Serialize};
+use serde::{de, Deserialize, Deserializer, Serialize};
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -27,12 +27,42 @@ enum PropertyMigrationTarget {
     Many(Vec<String>),
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
 pub struct PropertyMigration {
     #[serde(rename = "To")]
     new_property_names: PropertyMigrationTarget,
     migration: MigrationOperation,
+}
+
+impl<'de> Deserialize<'de> for PropertyMigration {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        #[derive(Deserialize)]
+        #[serde(rename_all = "PascalCase")]
+        struct PropertyMigrationDeserialize {
+            #[serde(rename = "To")]
+            new_property_names: PropertyMigrationTarget,
+            migration: MigrationOperation,
+        }
+
+        let migration = PropertyMigrationDeserialize::deserialize(deserializer)?;
+
+        if let PropertyMigrationTarget::Many(names) = &migration.new_property_names {
+            if names.is_empty() {
+                return Err(de::Error::custom(
+                    "property migration target list cannot be empty",
+                ));
+            }
+        }
+
+        Ok(Self {
+            new_property_names: migration.new_property_names,
+            migration: migration.migration,
+        })
+    }
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq)]
@@ -208,5 +238,35 @@ impl PropertyMigration {
                 }
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn deserialize_rejects_empty_property_target_list() {
+        let error = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":[],"Migration":"CornerRadiusToCornerRadii"}"#,
+        )
+        .expect_err("empty target lists should fail to deserialize");
+
+        assert!(error
+            .to_string()
+            .contains("property migration target list cannot be empty"));
+    }
+
+    #[test]
+    fn deserialize_accepts_property_target_list_with_values() {
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":["BottomLeftRadius","BottomRightRadius"],"Migration":"CornerRadiusToCornerRadii"}"#,
+        )
+        .expect("non-empty target lists should deserialize");
+
+        assert_eq!(
+            migration.new_property_names(),
+            ["BottomLeftRadius", "BottomRightRadius"]
+        );
     }
 }

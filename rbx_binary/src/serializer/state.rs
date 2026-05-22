@@ -498,19 +498,9 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                     prop_info_indices.push(prop_info_index);
                 }
 
-                if prop_info_indices.is_empty() {
-                    PropInfoResolution::DoesNotSerialize
-                } else {
-                    PropInfoResolution::MigratesTo(prop_info_indices)
-                }
+                PropInfoResolution::MigratesTo(prop_info_indices)
             }
         };
-
-        if matches!(resolved_property, PropInfoResolution::DoesNotSerialize) {
-            self.resolved_properties_by_visited_name
-                .insert(prop_name, PropInfoResolution::DoesNotSerialize);
-            return Ok(PropInfoResolution::DoesNotSerialize);
-        }
 
         self.resolved_properties_by_visited_name
             .insert(prop_name, resolved_property.clone());
