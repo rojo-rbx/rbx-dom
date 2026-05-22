@@ -1,5 +1,10 @@
 # rbx_reflection Changelog
 
+## Unreleased
+* Added support for one-to-many property migrations and added migrations for `UICorner.CornerRadius`. ([#612])
+
+[#612]: https://github.com/rojo-rbx/rbx-dom/pull/612
+
 ## 6.1.0 (2025-11-27)
 * Added `DataType::ty` to convert to `VariantType` infallibly. ([#540])
 
