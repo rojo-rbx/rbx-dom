@@ -681,8 +681,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         }
 
         for (prop_info_indices, prop_value) in deferred_migrations {
-            for prop_info_index in prop_info_indices.iter() {
-                let prop_info = &mut type_info.properties[*prop_info_index];
+            for prop_info_index in prop_info_indices {
+                let prop_info = &mut type_info.properties[prop_info_index];
                 prop_info.push_value_for_instance(desired_len, prop_value);
             }
         }
