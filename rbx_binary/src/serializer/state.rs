@@ -336,7 +336,7 @@ impl<'db> SerializationResolution<'db> {
                     for new_property_name in prop_migration.new_property_names() {
                         let new_descriptors = superclass_descriptor
                             .properties
-                            .get(new_property_name)
+                            .get(new_property_name.as_str())
                             .and_then(|prop| PropertyDescriptors::new(superclass_descriptor, prop));
 
                         targets.push(SerializedProperty::from_descriptors(new_descriptors?)?);

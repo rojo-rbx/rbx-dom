@@ -46,13 +46,11 @@ pub enum MigrationOperation {
 }
 
 impl PropertyMigration {
-    pub fn new_property_names(&self) -> impl Iterator<Item = &str> {
-        let property_names = match &self.new_property_names {
+    pub fn new_property_names(&self) -> &[String] {
+        match &self.new_property_names {
             PropertyMigrationTarget::One(string) => std::slice::from_ref(string),
             PropertyMigrationTarget::Many(strings) => strings.as_slice(),
-        };
-
-        property_names.iter().map(String::as_str)
+        }
     }
 
     pub fn perform(&self, input: &Variant) -> Result<Variant, MigrationError> {
