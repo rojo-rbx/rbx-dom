@@ -631,7 +631,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
         // List mapping PropInfo indices to a property value reference, for any
         // migrated properties.
-        let mut deferred_migrations = Vec::<(Vec<usize>, &Variant)>::new();
+        let mut deferred_migrations = Vec::new();
 
         for (prop_name, prop_value) in &instance.properties {
             let resolved_property = type_info.resolve_visited_property(
