@@ -1,6 +1,7 @@
 use std::{collections::hash_map::Entry, io::Read};
 
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
+use blake2::{Blake2b, Digest};
 use log::trace;
 use rbx_dom_weak::{
     types::{Ref, SharedString, Variant},
@@ -422,10 +423,15 @@ fn deserialize_shared_string<R: Read>(
         }
     }
 
-    let md5_hash =
-        md5_hash.ok_or_else(|| reader.error(DecodeErrorKind::MissingAttribute("md5")))?;
-
     let buffer = reader.read_base64_characters()?;
+
+    let md5_hash =
+        md5_hash.unwrap_or_else(|| {
+            let mut blake2b = Blake2b::<blake2::digest::consts::U16>::new();
+            blake2b.update(buffer.as_slice());
+            base64::encode(blake2b.finalize())
+        }
+        );
 
     let value = SharedString::new(buffer);
 
