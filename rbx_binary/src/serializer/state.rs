@@ -20,7 +20,6 @@ use rbx_reflection::{
     ClassDescriptor, ClassTag, PropertyKind, PropertyMigration, PropertySerialization,
     ReflectionDatabase,
 };
-use smallvec::SmallVec;
 
 use crate::{
     chunk::ChunkBuilder,
@@ -70,10 +69,9 @@ pub(super) struct SerializerState<'dom, 'db, W> {
     shared_string_ids: HashMap<SharedString, u32>,
 }
 
-type MigrationTargetIndices = SmallVec<[usize; 4]>;
 #[derive(Debug, Clone)]
 enum PropInfoResolution {
-    MigratesTo(MigrationTargetIndices),
+    MigratesTo(Vec<usize>),
     SerializesTo(usize),
     DoesNotSerialize,
 }
@@ -300,7 +298,7 @@ enum SerializationResolution<'db> {
     Property(SerializedProperty),
     Migration {
         migration: &'db PropertyMigration,
-        targets: SmallVec<[SerializedProperty; 4]>,
+        targets: Vec<SerializedProperty>,
     },
 }
 
@@ -332,7 +330,7 @@ impl<'db> SerializationResolution<'db> {
                     // Assume that the migration will always be directed
                     // to properties on the same class.
                     // This avoids re-walking the superclasses.
-                    let mut targets = SmallVec::new();
+                    let mut targets = Vec::new();
                     for new_property_name in prop_migration.new_property_names() {
                         let new_descriptors = superclass_descriptor
                             .properties
@@ -481,7 +479,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 PropInfoResolution::SerializesTo(prop_info_index)
             }
             SerializationResolution::Migration { migration, targets } => {
-                let mut prop_info_indices = SmallVec::new();
+                let mut prop_info_indices = Vec::new();
 
                 for serialized_property in targets {
                     let prop_info_index = self.get_or_create_prop_info(
@@ -638,7 +636,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
         // List mapping PropInfo indices to a property value reference, for any
         // migrated properties.
-        let mut deferred_migrations = SmallVec::<[(MigrationTargetIndices, &Variant); 1]>::new();
+        let mut deferred_migrations = Vec::<(Vec<usize>, &Variant)>::new();
 
         for (prop_name, prop_value) in &instance.properties {
             let resolved_property = type_info.resolve_visited_property(
