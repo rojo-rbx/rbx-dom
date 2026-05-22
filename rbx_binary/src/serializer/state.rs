@@ -335,9 +335,14 @@ impl<'db> SerializationResolution<'db> {
                         let new_descriptors = superclass_descriptor
                             .properties
                             .get(new_property_name.as_str())
-                            .and_then(|prop| PropertyDescriptors::new(superclass_descriptor, prop));
+                            .and_then(|prop| PropertyDescriptors::new(superclass_descriptor, prop))
+                            .expect("migration targets should have property descriptors");
 
-                        targets.push(SerializedProperty::from_descriptors(new_descriptors?)?);
+                        let serialized_property =
+                            SerializedProperty::from_descriptors(new_descriptors)
+                                .expect("migration target property descriptors should serialize");
+
+                        targets.push(serialized_property);
                     }
 
                     return Some(SerializationResolution::Migration {
