@@ -1,0 +1,8 @@
+Change:
+  StarterPlayer:
+    AvatarJointUpgrade:
+      Serialization:
+        Type: SerializesAs
+        As: AvatarJointUpgrade_SerializedRollout
+    AvatarJointUpgrade_SerializedRollout:
+      AliasFor: AvatarJointUpgrade

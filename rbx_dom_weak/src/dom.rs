@@ -54,6 +54,8 @@ impl WeakDom {
         );
         let mut unique_ids = AHashSet::with_capacity(instances.len());
         for inst in instances.values() {
+            // This `if` cannot be collapsed into the match with an if guard.
+            #[expect(clippy::collapsible_match)]
             match inst.properties.get(&ustr("UniqueId")) {
                 Some(Variant::UniqueId(id)) => {
                     if !unique_ids.insert(*id) {
@@ -170,6 +172,24 @@ impl WeakDom {
         std::iter::successors(initial_instance, move |&instance| {
             self.get_by_ref(instance.parent())
         })
+    }
+
+    /// Equivalent to Instance:GetFullName() from Roblox,
+    /// but with a custom separator.
+    ///
+    /// ## Panics
+    /// Panics if `subject_ref` is not a member of this DOM.
+    pub fn full_path_of(&self, subject_ref: Ref, separator: &str) -> String {
+        let root_ref = self.root_ref();
+        let mut components: Vec<_> = self
+            .ancestors_of(subject_ref)
+            // Drop "DataModel" from the full name
+            .filter(|instance| instance.referent() != root_ref)
+            .map(|instance| instance.name.as_str())
+            .collect();
+
+        components.reverse();
+        components.join(separator)
     }
 
     /// Insert a new instance into the DOM with the given parent. The parent is allowed to
@@ -902,6 +922,18 @@ mod test {
         assert_eq!(descendants_2.next().unwrap().referent(), sibling_1);
         assert_eq!(descendants_2.next().unwrap().referent(), sibling_2);
         assert!(descendants_2.next().is_none());
+    }
+
+    #[test]
+    fn full_name() {
+        let root = InstanceBuilder::new("DataModel");
+        let root_ref = root.referent();
+        let mut dom = WeakDom::new(root);
+        let child_1 = dom.insert(root_ref, InstanceBuilder::new("Workspace"));
+        let child_2 = dom.insert(child_1, InstanceBuilder::new("Part"));
+        let child_3 = dom.insert(child_2, InstanceBuilder::new("Texture"));
+
+        assert_eq!(dom.full_path_of(child_3, "."), "Workspace.Part.Texture");
     }
 
     #[test]
