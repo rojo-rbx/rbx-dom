@@ -338,6 +338,7 @@ struct PropertyMigration {
 }
 
 #[derive(Debug, Clone, Deserialize)]
+#[serde(untagged)]
 enum PropertyMigrationTarget {
     One(String),
     Many(Vec<String>),
