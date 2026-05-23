@@ -211,33 +211,3 @@ impl PropertyMigration<'_> {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn deserialize_rejects_empty_property_target_list() {
-        let error = serde_json::from_str::<PropertyMigration>(
-            r#"{"To":[],"Migration":"CornerRadiusToCornerRadii"}"#,
-        )
-        .expect_err("empty target lists should fail to deserialize");
-
-        assert!(error
-            .to_string()
-            .contains("property migration target list cannot be empty"));
-    }
-
-    #[test]
-    fn deserialize_accepts_property_target_list_with_values() {
-        let migration = serde_json::from_str::<PropertyMigration>(
-            r#"{"To":["BottomLeftRadius","BottomRightRadius"],"Migration":"CornerRadiusToCornerRadii"}"#,
-        )
-        .expect("non-empty target lists should deserialize");
-
-        assert_eq!(
-            migration.new_property_names(),
-            ["BottomLeftRadius", "BottomRightRadius"]
-        );
-    }
-}

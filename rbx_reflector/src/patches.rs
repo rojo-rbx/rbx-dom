@@ -379,3 +379,33 @@ impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+    fn deserialize_rejects_empty_property_target_list() {
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":[],"Migration":"CornerRadiusToCornerRadii"}"#,
+        )
+        .unwrap();
+        let _migration_converted: rbx_reflection::PropertyMigrationTarget =
+            (&migration.new_property_names).into();
+    }
+
+    #[test]
+    fn deserialize_accepts_property_target_list_with_values() {
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":["BottomLeftRadius","BottomRightRadius"],"Migration":"CornerRadiusToCornerRadii"}"#,
+        )
+        .expect("non-empty target lists should deserialize");
+
+        assert!(matches!(
+            migration.new_property_names,
+            PropertyMigrationTarget::Many(strings)
+                if strings == ["BottomLeftRadius", "BottomRightRadius"],
+        ));
+    }
+}
