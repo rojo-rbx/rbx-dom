@@ -30,14 +30,13 @@ pub enum PropertyMigrationTarget<'a> {
 #[derive(Debug, Clone, Serialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
 pub struct PropertyMigration<'a> {
-    #[serde(borrow)]
     #[serde(rename = "To")]
     pub new_property_names: PropertyMigrationTarget<'a>,
     pub migration: MigrationOperation,
 }
 
 impl<'de> Deserialize<'de> for PropertyMigration<'de> {
-    fn deserialize<D>(deserializer: D) -> Result<PropertyMigration<'de>, D::Error>
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
     {
