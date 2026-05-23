@@ -65,8 +65,8 @@ static LOCAL_DATABASE: LazyLock<ResultOption<ReflectionDatabase<'static>>> = Laz
         return Ok(None);
     };
     if path.exists() {
-        static DATABASE: std::sync::OnceLock<Vec<u8>> = std::sync::OnceLock::new();
-        let database_file = fs::read(path)?;
+        static DATABASE: std::sync::OnceLock<Box<[u8]>> = std::sync::OnceLock::new();
+        let database_file = fs::read(path)?.into_boxed_slice();
         // The database is guaranteed to be set, though not guaranteed to be set by this thread.
         let _ = DATABASE.set(database_file);
         let database: ReflectionDatabase<'static> = rmp_serde::from_slice(DATABASE.get().unwrap())?;
