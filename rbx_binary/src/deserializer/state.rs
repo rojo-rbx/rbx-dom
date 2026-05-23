@@ -181,25 +181,26 @@ fn find_canonical_property<'de>(
 
 fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty, value: Variant) {
     if let Some(PropertySerialization::Migrate(migration)) = canonical_property.migration {
-        let new_property_name = migration.new_property_name;
         let old_property_name = canonical_property.name;
+        match migration.perform(&value) {
+            Ok(new_value) => {
+                for &new_property_name in migration.new_property_names() {
+                    if !instance.builder.has_property(new_property_name) {
+                        log::trace!(
+                                "Attempting to migrate property {old_property_name} to {new_property_name}"
+                            );
 
-        if !instance.builder.has_property(new_property_name) {
-            log::trace!(
-                "Attempting to migrate property {old_property_name} to {new_property_name}"
-            );
-            match migration.perform(&value) {
-                Ok(new_value) => {
-                    instance.builder.add_property(new_property_name, new_value);
-                    log::trace!(
-                        "Successfully migrated property {old_property_name} to {new_property_name}"
-                    );
+                        instance
+                            .builder
+                            .add_property(new_property_name, new_value.clone());
+                    }
                 }
-                Err(e) => {
-                    log::warn!("Failed to migrate property {old_property_name} to {new_property_name} because: {e}");
-                }
-            };
-        }
+            }
+
+            Err(e) => {
+                log::warn!("Failed to migrate property {old_property_name} because: {e}");
+            }
+        };
     } else {
         instance
             .builder
@@ -303,14 +304,20 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         for (key, referent) in referents.enumerate() {
             let builder =
                 InstanceBuilder::with_property_capacity(type_name.as_str(), prop_capacity);
-            // TODO: assert / error when the ref already exists.
-            self.instance_key_by_ref.insert(
+
+            let replaced_referent = self.instance_key_by_ref.insert(
                 referent,
                 InstanceKey {
                     key: start + key,
                     referent: builder.referent(),
                 },
             );
+
+            // Every referent should be unique
+            if replaced_referent.is_some() {
+                return Err(InnerError::DuplicateReferent { referent });
+            };
+
             self.instances.push(Instance {
                 builder,
                 children: Vec::new(),
@@ -318,8 +325,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         }
         let end = self.instances.len();
 
-        // TODO: assert / error when the type_id already exists.
-        self.type_infos.insert(
+        let replaced_type_info = self.type_infos.insert(
             type_id,
             TypeInfo {
                 type_name: type_name.into(),
@@ -327,6 +333,11 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 class_descriptor,
             },
         );
+
+        // Every type_id should be unique
+        if replaced_type_info.is_some() {
+            return Err(InnerError::DuplicateInstChunk { type_id });
+        };
 
         Ok(())
     }

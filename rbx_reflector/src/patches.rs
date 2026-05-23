@@ -318,7 +318,7 @@ impl PropertyAdd {
 
 #[derive(Clone, Deserialize)]
 #[serde(tag = "Type", rename_all = "PascalCase", deny_unknown_fields)]
-pub enum Serialization {
+enum Serialization {
     Serializes,
     DoesNotSerialize,
     #[serde(rename_all = "PascalCase")]
@@ -331,10 +331,30 @@ pub enum Serialization {
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "PascalCase")]
-pub struct PropertyMigration {
+struct PropertyMigration {
     #[serde(rename = "To")]
-    new_property_name: String,
+    new_property_names: PropertyMigrationTarget,
     migration: MigrationOperation,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+enum PropertyMigrationTarget {
+    One(String),
+    Many(Vec<String>),
+}
+impl<'db> From<&'db PropertyMigrationTarget> for rbx_reflection::PropertyMigrationTarget<'db> {
+    fn from(value: &'db PropertyMigrationTarget) -> Self {
+        match value {
+            PropertyMigrationTarget::One(string) => {
+                rbx_reflection::PropertyMigrationTarget::One(string)
+            }
+            PropertyMigrationTarget::Many(strings) => {
+                rbx_reflection::PropertyMigrationTarget::Many(
+                    strings.iter().map(String::as_str).collect(),
+                )
+            }
+        }
+    }
 }
 
 impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
@@ -346,10 +366,10 @@ impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
                 PropertySerialization::SerializesAs(serializes_as)
             }
             Serialization::Migrate(PropertyMigration {
-                new_property_name,
+                new_property_names,
                 migration,
             }) => PropertySerialization::Migrate(rbx_reflection::PropertyMigration {
-                new_property_name,
+                new_property_names: new_property_names.into(),
                 migration: *migration,
             }),
         }
