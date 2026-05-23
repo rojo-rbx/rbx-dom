@@ -49,7 +49,7 @@ impl<'de> Deserialize<'de> for PropertyMigration<'de> {
             migration: MigrationOperation,
         }
 
-        let migration = PropertyMigrationDeserialize::<'de>::deserialize(deserializer)?;
+        let migration = PropertyMigrationDeserialize::deserialize(deserializer)?;
 
         if let PropertyMigrationTarget::Many(names) = &migration.new_property_names {
             if names.is_empty() {
