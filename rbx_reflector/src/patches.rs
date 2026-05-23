@@ -349,6 +349,10 @@ impl<'db> From<&'db PropertyMigrationTarget> for rbx_reflection::PropertyMigrati
                 rbx_reflection::PropertyMigrationTarget::One(string)
             }
             PropertyMigrationTarget::Many(strings) => {
+                assert!(
+                    !strings.is_empty(),
+                    "property migration target list cannot be empty"
+                );
                 rbx_reflection::PropertyMigrationTarget::Many(
                     strings.iter().map(String::as_str).collect(),
                 )
