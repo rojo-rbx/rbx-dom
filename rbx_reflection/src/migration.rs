@@ -27,7 +27,7 @@ pub enum PropertyMigrationTarget<'a> {
     Many(#[serde(borrow)] Vec<&'a str>),
 }
 
-#[derive(Debug, Clone, Serialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, PartialEq, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct PropertyMigration<'a> {
     #[serde(borrow)]
@@ -36,36 +36,36 @@ pub struct PropertyMigration<'a> {
     pub migration: MigrationOperation,
 }
 
-impl<'de> Deserialize<'de> for PropertyMigration<'de> {
-    fn deserialize<D>(deserializer: D) -> Result<PropertyMigration<'de>, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        #[derive(Deserialize)]
-        #[serde(rename_all = "PascalCase")]
-        struct PropertyMigrationDeserialize<'a> {
-            #[serde(borrow)]
-            #[serde(rename = "To")]
-            new_property_names: PropertyMigrationTarget<'a>,
-            migration: MigrationOperation,
-        }
+// impl<'de> Deserialize<'de> for PropertyMigration<'de> {
+//     fn deserialize<D>(deserializer: D) -> Result<PropertyMigration<'de>, D::Error>
+//     where
+//         D: Deserializer<'de>,
+//     {
+//         #[derive(Deserialize)]
+//         #[serde(rename_all = "PascalCase")]
+//         struct PropertyMigrationDeserialize<'a> {
+//             #[serde(borrow)]
+//             #[serde(rename = "To")]
+//             new_property_names: PropertyMigrationTarget<'a>,
+//             migration: MigrationOperation,
+//         }
 
-        let migration = PropertyMigrationDeserialize::<'de>::deserialize(deserializer)?;
+//         let migration = PropertyMigrationDeserialize::<'de>::deserialize(deserializer)?;
 
-        if let PropertyMigrationTarget::Many(names) = &migration.new_property_names {
-            if names.is_empty() {
-                return Err(de::Error::custom(
-                    "property migration target list cannot be empty",
-                ));
-            }
-        }
+//         if let PropertyMigrationTarget::Many(names) = &migration.new_property_names {
+//             if names.is_empty() {
+//                 return Err(de::Error::custom(
+//                     "property migration target list cannot be empty",
+//                 ));
+//             }
+//         }
 
-        Ok(Self {
-            new_property_names: migration.new_property_names,
-            migration: migration.migration,
-        })
-    }
-}
+//         Ok(Self {
+//             new_property_names: migration.new_property_names,
+//             migration: migration.migration,
+//         })
+//     }
+// }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq)]
 #[non_exhaustive]
