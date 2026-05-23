@@ -343,6 +343,59 @@ fn migrated_properties() {
 }
 
 #[test]
+fn one_to_many_migrated_properties() {
+    let tree = WeakDom::new(
+        InstanceBuilder::new("UICorner").with_property("CornerRadius", UDim::new(0.5, 12)),
+    );
+
+    let mut encoded = Vec::new();
+    crate::to_writer(
+        &mut encoded,
+        &tree,
+        &[tree.root_ref()],
+        crate::EncodeOptions::default(),
+    )
+    .unwrap();
+
+    insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
+}
+
+#[test]
+fn one_to_many_migrated_properties_deserialize() {
+    let document = r#"
+        <roblox version="4">
+            <Item class="UICorner" referent="0">
+                <Properties>
+                    <UDim name="CornerRadius">
+                        <S>0.5</S>
+                        <O>12</O>
+                    </UDim>
+                </Properties>
+            </Item>
+        </roblox>
+    "#;
+
+    let tree = crate::from_str(document, crate::DecodeOptions::default()).unwrap();
+
+    let ui_corner = tree.get_by_ref(tree.root().children()[0]).unwrap();
+    let expected = Variant::UDim(UDim::new(0.5, 12));
+
+    for property_name in [
+        "BottomLeftRadius",
+        "BottomRightRadius",
+        "TopLeftRadius",
+        "TopRightRadius",
+    ] {
+        assert_eq!(
+            ui_corner.properties.get(&ustr(property_name)),
+            Some(&expected),
+            "{property_name} should receive the migrated CornerRadius value",
+        );
+    }
+    assert!(!ui_corner.properties.contains_key(&ustr("CornerRadius")));
+}
+
+#[test]
 fn bad_migrated_property() {
     let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children([
         InstanceBuilder::new("TextLabel").with_property("Font", Enum::from_u32(u32::MAX)),

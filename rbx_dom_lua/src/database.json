@@ -83384,7 +83384,17 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "Migrate": {
+                  "To": [
+                    "BottomLeftRadius",
+                    "BottomRightRadius",
+                    "TopLeftRadius",
+                    "TopRightRadius"
+                  ],
+                  "Migration": "CornerRadiusToCornerRadii"
+                }
+              }
             }
           }
         },
