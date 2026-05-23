@@ -218,7 +218,8 @@ pub enum PropertySerialization<'a> {
     /// The property was originally serialized as itself, but should be migrated
     /// to a new property on deserialization. If the new property already
     /// exists, this property should be ignored.
-    Migrate(#[serde(borrow)] PropertyMigration<'a>),
+    #[serde(borrow)]
+    Migrate(PropertyMigration<'a>),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
