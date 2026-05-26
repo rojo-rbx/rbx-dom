@@ -374,10 +374,8 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     fn get_or_create_prop_info(
         properties: &mut Vec<PropInfo<'dom>>,
         prop_info_indices_by_canonical_name: &mut UstrMap<usize>,
-        push_sstr: &mut impl FnMut(&Variant),
-        class_descriptor: Option<&'db ClassDescriptor<'db>>,
-        database: &'db ReflectionDatabase<'db>,
         type_name: Ustr,
+        default_value: &'dom Variant,
         SerializedProperty {
             canonical_name,
             serialized_name,
@@ -409,24 +407,6 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 prop_type: format!("{:?}", serialized_ty),
             });
         };
-
-        let default_value = class_descriptor
-            .and_then(|class| database.find_default_property(class, &canonical_name))
-            .or_else(|| fallback_default_value(serialized_ty))
-            .ok_or_else(|| {
-                // Since we don't know how to generate the default value
-                // for this property, we consider it unsupported.
-                InnerError::UnsupportedPropType {
-                    type_name: type_name.to_string(),
-                    prop_name: canonical_name.to_string(),
-                    prop_type: format!("{:?}", serialized_ty),
-                }
-            })?;
-
-        // There's no assurance that the default SharedString value
-        // will actually get serialized inside of the SSTR chunk, so we
-        // check here just to make sure.
-        push_sstr(default_value);
 
         let prop_info = PropInfo {
             prop_type,
@@ -470,15 +450,39 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             return Ok(vacant_entry.insert(PropInfoResolution::DoesNotSerialize));
         };
 
+        let class_descriptor = self.class_descriptor;
+        let mut default_value =
+            |serialized_property: &SerializedProperty| -> Result<_, InnerError> {
+                let default_value = class_descriptor
+                    .and_then(|class| {
+                        database.find_default_property(class, &serialized_property.canonical_name)
+                    })
+                    .or_else(|| fallback_default_value(serialized_property.serialized_ty))
+                    .ok_or_else(|| {
+                        // Since we don't know how to generate the default value
+                        // for this property, we consider it unsupported.
+                        InnerError::UnsupportedPropType {
+                            type_name: type_name.to_string(),
+                            prop_name: serialized_property.canonical_name.to_string(),
+                            prop_type: format!("{:?}", serialized_property.serialized_ty),
+                        }
+                    })?;
+
+                // There's no assurance that the default SharedString value
+                // will actually get serialized inside of the SSTR chunk, so we
+                // check here just to make sure.
+                push_sstr(default_value);
+
+                Ok(default_value)
+            };
+
         let resolved_property = match serialization {
             SerializationResolution::Property(serialized_property) => {
                 let prop_info_index = TypeInfo::get_or_create_prop_info(
                     &mut self.properties,
                     &mut self.prop_info_indices_by_canonical_name,
-                    push_sstr,
-                    self.class_descriptor,
-                    database,
                     type_name,
+                    default_value(&serialized_property)?,
                     serialized_property,
                     None,
                 )?;
@@ -491,10 +495,8 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                     let prop_info_index = TypeInfo::get_or_create_prop_info(
                         &mut self.properties,
                         &mut self.prop_info_indices_by_canonical_name,
-                        push_sstr,
-                        self.class_descriptor,
-                        database,
                         type_name,
+                        default_value(&serialized_property)?,
                         serialized_property,
                         Some(migration),
                     )?;
