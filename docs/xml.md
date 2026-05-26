@@ -151,13 +151,13 @@ This element defines a single `SharedString` value for reference by [Type Elemen
 
 This element shares a name with a type element. That element is documented [here][SharedString-use].
 
-The following attributes are REQUIRED for this element:
+The following attributes MAY be present:
 
 | Name  | Contents                                                               |
 |:------|:-----------------------------------------------------------------------|
 | `md5` | A unique identifier for this element, for reference by a type element. |
 
-The value of `md5` MUST be unique across all `SharedString` definitions. Despite the name, the value does not have to be the MD5 hash of the `SharedString` contents.
+The value of `md5` MUST be unique across all `SharedString` definitions. Despite the name, the value does not have to be the MD5 hash of the `SharedString` contents. When this attribute is missing, it MUST be computed using 128 bit BLAKE2b hash. This identifier is used to reference the actual string.
 
 The content of `SharedString` elements MUST be Base64 encoded as per [RFC 2045](https://www.rfc-editor.org/rfc/rfc2045).
 

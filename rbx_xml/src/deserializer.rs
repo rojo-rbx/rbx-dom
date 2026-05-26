@@ -425,13 +425,11 @@ fn deserialize_shared_string<R: Read>(
 
     let buffer = reader.read_base64_characters()?;
 
-    let md5_hash =
-        md5_hash.unwrap_or_else(|| {
-            let mut blake2b = Blake2b::<blake2::digest::consts::U16>::new();
-            blake2b.update(buffer.as_slice());
-            base64::encode(blake2b.finalize())
-        }
-        );
+    let md5_hash = md5_hash.unwrap_or_else(|| {
+        let mut blake2b = Blake2b::<blake2::digest::consts::U16>::new();
+        blake2b.update(buffer.as_slice());
+        base64::encode(blake2b.finalize())
+    });
 
     let value = SharedString::new(buffer);
 
