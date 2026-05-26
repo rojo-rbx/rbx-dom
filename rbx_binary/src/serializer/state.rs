@@ -1,6 +1,6 @@
 use std::{
     borrow::Cow,
-    collections::{btree_map, BTreeMap},
+    collections::{btree_map, hash_map, BTreeMap},
     io::Write,
 };
 
@@ -372,8 +372,10 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     /// Get or create a PropInfo given a serialized property.
     //  Return the index into self.properties where the PropInfo is located.
     fn get_or_create_prop_info(
-        &mut self,
+        properties: &mut Vec<PropInfo<'dom>>,
+        prop_info_indices_by_canonical_name: &mut UstrMap<usize>,
         push_sstr: &mut impl FnMut(&Variant),
+        class_descriptor: Option<&'db ClassDescriptor<'db>>,
         database: &'db ReflectionDatabase<'db>,
         type_name: Ustr,
         SerializedProperty {
@@ -383,18 +385,19 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         }: SerializedProperty,
         migration: Option<&'dom PropertyMigration>,
     ) -> Result<usize, InnerError> {
-        if let Some(&prop_info_index) = self
-            .prop_info_indices_by_canonical_name
-            .get(&canonical_name)
-        {
-            // The visited property may contain a migration that the logical
-            // property has not been made aware of yet.
-            if let Some(migration) = migration {
-                self.properties[prop_info_index].set_migration(migration);
-            }
+        let vacant_entry = match prop_info_indices_by_canonical_name.entry(canonical_name) {
+            hash_map::Entry::Occupied(occupied_entry) => {
+                let &prop_info_index = occupied_entry.get();
+                // The visited property may contain a migration that the logical
+                // property has not been made aware of yet.
+                if let Some(migration) = migration {
+                    properties[prop_info_index].set_migration(migration);
+                }
 
-            return Ok(prop_info_index);
-        }
+                return Ok(prop_info_index);
+            }
+            hash_map::Entry::Vacant(vacant_entry) => vacant_entry,
+        };
 
         let Some(prop_type) = Type::from_rbx_type(serialized_ty) else {
             // This is a known value type, but rbx_binary doesn't have a
@@ -407,8 +410,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             });
         };
 
-        let default_value = self
-            .class_descriptor
+        let default_value = class_descriptor
             .and_then(|class| database.find_default_property(class, &canonical_name))
             .or_else(|| fallback_default_value(serialized_ty))
             .ok_or_else(|| {
@@ -436,15 +438,12 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         };
 
         // Insert the new PropInfo into our properties list, and record its index
-        let prop_info_index = self.properties.len();
-        let canonical_name = prop_info.canonical_name;
-        self.properties.push(prop_info);
-        self.prop_info_indices_by_canonical_name
-            .insert(canonical_name, prop_info_index);
+        let prop_info_index = properties.len();
+        properties.push(prop_info);
+        vacant_entry.insert(prop_info_index);
 
         Ok(prop_info_index)
     }
-
     /// Resolve a visited property name into a PropInfoResolution, which
     /// contains the indices into TypeInfo.properties of the relevant PropInfos.
     fn resolve_visited_property(
@@ -454,28 +453,30 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         type_name: Ustr,
         prop_name: Ustr,
         sample_value: &Variant,
-    ) -> Result<PropInfoResolution, InnerError> {
+    ) -> Result<&PropInfoResolution, InnerError> {
         let class = self.class_descriptor;
 
         // Check if visited property has already been resolved, return the
         // resolved property if so
-        if let Some(resolved_property) = self.resolved_properties_by_visited_name.get(&prop_name) {
-            return Ok(resolved_property.clone());
-        }
+        let vacant_entry = match self.resolved_properties_by_visited_name.entry(prop_name) {
+            hash_map::Entry::Occupied(resolved_property) => return Ok(resolved_property.into_mut()),
+            hash_map::Entry::Vacant(vacant_entry) => vacant_entry,
+        };
 
         let Some(serialization) =
             SerializationResolution::new(class, database, prop_name, sample_value)
         else {
             // Remember that this visited property does not serialize
-            self.resolved_properties_by_visited_name
-                .insert(prop_name, PropInfoResolution::DoesNotSerialize);
-            return Ok(PropInfoResolution::DoesNotSerialize);
+            return Ok(vacant_entry.insert(PropInfoResolution::DoesNotSerialize));
         };
 
         let resolved_property = match serialization {
             SerializationResolution::Property(serialized_property) => {
-                let prop_info_index = self.get_or_create_prop_info(
+                let prop_info_index = TypeInfo::get_or_create_prop_info(
+                    &mut self.properties,
+                    &mut self.prop_info_indices_by_canonical_name,
                     push_sstr,
+                    self.class_descriptor,
                     database,
                     type_name,
                     serialized_property,
@@ -484,11 +485,14 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 PropInfoResolution::SerializesTo(prop_info_index)
             }
             SerializationResolution::Migration { migration, targets } => {
-                let mut prop_info_indices = Vec::new();
+                let mut prop_info_indices = Vec::with_capacity(targets.len());
 
                 for serialized_property in targets {
-                    let prop_info_index = self.get_or_create_prop_info(
+                    let prop_info_index = TypeInfo::get_or_create_prop_info(
+                        &mut self.properties,
+                        &mut self.prop_info_indices_by_canonical_name,
                         push_sstr,
+                        self.class_descriptor,
                         database,
                         type_name,
                         serialized_property,
@@ -502,10 +506,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             }
         };
 
-        self.resolved_properties_by_visited_name
-            .insert(prop_name, resolved_property.clone());
-
-        Ok(resolved_property)
+        Ok(vacant_entry.insert(resolved_property))
     }
 }
 
@@ -655,9 +656,9 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                     // later to push its instance value, because we don't know yet if the
                     // instance specifies any of the migration target properties, which
                     // should take precedence.
-                    deferred_migrations.push((prop_info_indices, prop_value));
+                    deferred_migrations.push((prop_info_indices.clone(), prop_value));
                 }
-                PropInfoResolution::SerializesTo(prop_info_index) => {
+                &PropInfoResolution::SerializesTo(prop_info_index) => {
                     // This property does not migrate, so no need to fill deferred_migrations
                     // and we may proceed
 
