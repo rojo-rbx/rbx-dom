@@ -368,62 +368,63 @@ impl<'db> SerializationResolution<'db> {
     }
 }
 
-impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
-    /// Get or create a PropInfo given a serialized property.
-    //  Return the index into self.properties where the PropInfo is located.
-    fn get_or_create_prop_info(
-        properties: &mut Vec<PropInfo<'dom>>,
-        prop_info_indices_by_canonical_name: &mut UstrMap<usize>,
-        type_name: Ustr,
-        default_value: &'dom Variant,
-        SerializedProperty {
-            canonical_name,
-            serialized_name,
-            serialized_ty,
-        }: SerializedProperty,
-        migration: Option<&'dom PropertyMigration>,
-    ) -> Result<usize, InnerError> {
-        let vacant_entry = match prop_info_indices_by_canonical_name.entry(canonical_name) {
-            hash_map::Entry::Occupied(occupied_entry) => {
-                let &prop_info_index = occupied_entry.get();
-                // The visited property may contain a migration that the logical
-                // property has not been made aware of yet.
-                if let Some(migration) = migration {
-                    properties[prop_info_index].set_migration(migration);
-                }
-
-                return Ok(prop_info_index);
+/// Get or create a PropInfo given a serialized property.
+//  Return the index into self.properties where the PropInfo is located.
+fn get_or_create_prop_info<'dom, 'db: 'dom>(
+    properties: &mut Vec<PropInfo<'dom>>,
+    prop_info_indices_by_canonical_name: &mut UstrMap<usize>,
+    type_name: Ustr,
+    default_value: &'dom Variant,
+    SerializedProperty {
+        canonical_name,
+        serialized_name,
+        serialized_ty,
+    }: SerializedProperty,
+    migration: Option<&'dom PropertyMigration>,
+) -> Result<usize, InnerError> {
+    let vacant_entry = match prop_info_indices_by_canonical_name.entry(canonical_name) {
+        hash_map::Entry::Occupied(occupied_entry) => {
+            let &prop_info_index = occupied_entry.get();
+            // The visited property may contain a migration that the logical
+            // property has not been made aware of yet.
+            if let Some(migration) = migration {
+                properties[prop_info_index].set_migration(migration);
             }
-            hash_map::Entry::Vacant(vacant_entry) => vacant_entry,
-        };
 
-        let Some(prop_type) = Type::from_rbx_type(serialized_ty) else {
-            // This is a known value type, but rbx_binary doesn't have a
-            // binary type value for it. rbx_binary might be out of
-            // date?
-            return Err(InnerError::UnsupportedPropType {
-                type_name: type_name.to_string(),
-                prop_name: serialized_name.to_string(),
-                prop_type: format!("{:?}", serialized_ty),
-            });
-        };
+            return Ok(prop_info_index);
+        }
+        hash_map::Entry::Vacant(vacant_entry) => vacant_entry,
+    };
 
-        let prop_info = PropInfo {
-            prop_type,
-            canonical_name,
-            serialized_name,
-            values: Vec::new(),
-            default_value,
-            migration,
-        };
+    let Some(prop_type) = Type::from_rbx_type(serialized_ty) else {
+        // This is a known value type, but rbx_binary doesn't have a
+        // binary type value for it. rbx_binary might be out of
+        // date?
+        return Err(InnerError::UnsupportedPropType {
+            type_name: type_name.to_string(),
+            prop_name: serialized_name.to_string(),
+            prop_type: format!("{:?}", serialized_ty),
+        });
+    };
 
-        // Insert the new PropInfo into our properties list, and record its index
-        let prop_info_index = properties.len();
-        properties.push(prop_info);
-        vacant_entry.insert(prop_info_index);
+    let prop_info = PropInfo {
+        prop_type,
+        canonical_name,
+        serialized_name,
+        values: Vec::new(),
+        default_value,
+        migration,
+    };
 
-        Ok(prop_info_index)
-    }
+    // Insert the new PropInfo into our properties list, and record its index
+    let prop_info_index = properties.len();
+    properties.push(prop_info);
+    vacant_entry.insert(prop_info_index);
+
+    Ok(prop_info_index)
+}
+
+impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     /// Resolve a visited property name into a PropInfoResolution, which
     /// contains the indices into TypeInfo.properties of the relevant PropInfos.
     fn resolve_visited_property(
@@ -478,7 +479,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
 
         let resolved_property = match serialization {
             SerializationResolution::Property(serialized_property) => {
-                let prop_info_index = TypeInfo::get_or_create_prop_info(
+                let prop_info_index = get_or_create_prop_info(
                     &mut self.properties,
                     &mut self.prop_info_indices_by_canonical_name,
                     type_name,
@@ -492,7 +493,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 let mut prop_info_indices = Vec::with_capacity(targets.len());
 
                 for serialized_property in targets {
-                    let prop_info_index = TypeInfo::get_or_create_prop_info(
+                    let prop_info_index = get_or_create_prop_info(
                         &mut self.properties,
                         &mut self.prop_info_indices_by_canonical_name,
                         type_name,
