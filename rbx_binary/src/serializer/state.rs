@@ -396,16 +396,15 @@ fn get_or_create_prop_info<'dom, 'db: 'dom>(
         hash_map::Entry::Vacant(vacant_entry) => vacant_entry,
     };
 
-    let Some(prop_type) = Type::from_rbx_type(serialized_ty) else {
-        // This is a known value type, but rbx_binary doesn't have a
-        // binary type value for it. rbx_binary might be out of
-        // date?
-        return Err(InnerError::UnsupportedPropType {
+    // This is a known value type, but rbx_binary doesn't have a
+    // binary type value for it. rbx_binary might be out of
+    // date?
+    let prop_type =
+        Type::from_rbx_type(serialized_ty).ok_or_else(|| InnerError::UnsupportedPropType {
             type_name: type_name.to_string(),
             prop_name: serialized_name.to_string(),
             prop_type: format!("{:?}", serialized_ty),
-        });
-    };
+        })?;
 
     let prop_info = PropInfo {
         prop_type,
