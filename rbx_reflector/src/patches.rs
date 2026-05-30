@@ -343,20 +343,6 @@ enum PropertyMigrationTarget {
     One(String),
     Many(Vec<String>),
 }
-impl<'db> From<&'db PropertyMigrationTarget> for rbx_reflection::PropertyMigrationTarget<'db> {
-    fn from(value: &'db PropertyMigrationTarget) -> Self {
-        match value {
-            PropertyMigrationTarget::One(string) => {
-                rbx_reflection::PropertyMigrationTarget::One(string)
-            }
-            PropertyMigrationTarget::Many(strings) => {
-                rbx_reflection::PropertyMigrationTarget::Many(
-                    strings.iter().map(String::as_str).collect(),
-                )
-            }
-        }
-    }
-}
 
 impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
     fn from(value: &'db Serialization) -> Self {
@@ -369,9 +355,15 @@ impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
             Serialization::Migrate(PropertyMigration {
                 new_property_names,
                 migration,
-            }) => PropertySerialization::Migrate(rbx_reflection::PropertyMigration {
-                new_property_names: new_property_names.into(),
-                migration: *migration,
+            }) => PropertySerialization::Migrate(match new_property_names {
+                PropertyMigrationTarget::One(target) => {
+                    rbx_reflection::PropertyMigration::new(*migration, [target.as_str()]).unwrap()
+                }
+                PropertyMigrationTarget::Many(targets) => rbx_reflection::PropertyMigration::new(
+                    *migration,
+                    targets.iter().map(String::as_str),
+                )
+                .unwrap(),
             }),
         }
     }

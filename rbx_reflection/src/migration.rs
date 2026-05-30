@@ -22,7 +22,7 @@ pub enum MigrationError {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
-pub enum PropertyMigrationTarget<'a> {
+enum PropertyMigrationTarget<'a> {
     One(&'a str),
     Many(Vec<&'a str>),
 }
@@ -31,8 +31,30 @@ pub enum PropertyMigrationTarget<'a> {
 #[serde(rename_all = "PascalCase")]
 pub struct PropertyMigration<'a> {
     #[serde(rename = "To")]
-    pub new_property_names: PropertyMigrationTarget<'a>,
-    pub migration: MigrationOperation,
+    new_property_names: PropertyMigrationTarget<'a>,
+    migration: MigrationOperation,
+}
+impl<'a> PropertyMigration<'a> {
+    /// Create a new PropertyMigration with the specified targets.
+    /// Returns None when there is no targets.
+    pub fn new<Targets>(migration: MigrationOperation, targets: Targets) -> Option<Self>
+    where
+        Targets: IntoIterator<Item = &'a str>,
+        <Targets as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        let mut targets = targets.into_iter();
+        Some(match targets.len() {
+            0 => return None,
+            1 => Self {
+                new_property_names: PropertyMigrationTarget::One(targets.next().unwrap()),
+                migration,
+            },
+            _ => Self {
+                new_property_names: PropertyMigrationTarget::Many(targets.collect()),
+                migration,
+            },
+        })
+    }
 }
 
 impl<'de> Deserialize<'de> for PropertyMigration<'de> {
