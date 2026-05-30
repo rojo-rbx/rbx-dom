@@ -363,7 +363,7 @@ impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
                     *migration,
                     targets.iter().map(String::as_str),
                 )
-                .unwrap(),
+                .expect("PropertyMigration can not have 0 targets"),
             }),
         }
     }
