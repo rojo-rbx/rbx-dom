@@ -370,7 +370,7 @@ impl<'db> SerializationResolution<'db> {
 
 /// Get or create a PropInfo given a serialized property.
 //  Return the index into self.properties where the PropInfo is located.
-fn get_or_create_prop_info<'dom, 'db: 'dom>(
+fn get_or_create_prop_info<'dom>(
     properties: &mut Vec<PropInfo<'dom>>,
     prop_info_indices_by_canonical_name: &mut UstrMap<usize>,
     type_name: Ustr,
