@@ -251,7 +251,6 @@ struct PropertyChange {
 }
 
 #[derive(Debug, Clone, Deserialize)]
-#[non_exhaustive]
 enum DataType {
     /// The property is a regular value of the given type.
     Value(VariantType),
