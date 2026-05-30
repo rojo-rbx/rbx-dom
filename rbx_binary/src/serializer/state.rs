@@ -479,11 +479,12 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
 
         let resolved_property = match serialization {
             SerializationResolution::Property(serialized_property) => {
+                let default_value = default_value(&serialized_property)?;
                 let prop_info_index = get_or_create_prop_info(
                     &mut self.properties,
                     &mut self.prop_info_indices_by_canonical_name,
                     type_name,
-                    default_value(&serialized_property)?,
+                    default_value,
                     serialized_property,
                     None,
                 )?;
@@ -493,11 +494,12 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
                 let mut prop_info_indices = Vec::with_capacity(targets.len());
 
                 for serialized_property in targets {
+                    let default_value = default_value(&serialized_property)?;
                     let prop_info_index = get_or_create_prop_info(
                         &mut self.properties,
                         &mut self.prop_info_indices_by_canonical_name,
                         type_name,
-                        default_value(&serialized_property)?,
+                        default_value,
                         serialized_property,
                         Some(migration),
                     )?;
