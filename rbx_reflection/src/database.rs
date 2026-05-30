@@ -25,7 +25,6 @@ pub struct ReflectionDatabase<'a> {
     pub classes: HashMap<&'a str, ClassDescriptor<'a>>,
 
     /// All of the known enums in the database.
-    #[serde(borrow)]
     #[serde(default, serialize_with = "crate::serde_util::ordered_map")]
     pub enums: HashMap<&'a str, EnumDescriptor<'a>>,
 }
@@ -111,7 +110,6 @@ impl<'a> ReflectionDatabase<'a> {
 #[non_exhaustive]
 pub struct ClassDescriptor<'a> {
     /// The name of the class, like "Folder" or "FlagStand".
-    #[serde(borrow)]
     pub name: &'a str,
 
     /// A set of all of the tags attached to this class.
@@ -120,18 +118,15 @@ pub struct ClassDescriptor<'a> {
 
     /// If this class descends from another class, contains the name of that
     /// class.
-    #[serde(borrow)]
     #[serde(default)]
     pub superclass: Option<&'a str>,
 
     /// A map of all of the properties available on this class.
-    #[serde(borrow)]
     #[serde(serialize_with = "crate::serde_util::ordered_map")]
     pub properties: HashMap<&'a str, PropertyDescriptor<'a>>,
 
     /// A map of the default properties for this instance if a value is not
     /// defined in serialization or freshly inserted with `Instance.new`.
-    #[serde(borrow)]
     #[serde(serialize_with = "crate::serde_util::ordered_map")]
     pub default_properties: HashMap<&'a str, Variant>,
 }
@@ -156,7 +151,6 @@ impl<'a> ClassDescriptor<'a> {
 #[non_exhaustive]
 pub struct PropertyDescriptor<'a> {
     /// The name of the property, like "Position" or "heat_xml".
-    #[serde(borrow)]
     pub name: &'a str,
 
     /// The maximum access to this property available to Lua.
@@ -200,10 +194,7 @@ pub enum PropertyKind<'a> {
 
     /// This property is an alias to another property that is canonical.
     #[serde(rename_all = "PascalCase")]
-    Alias {
-        #[serde(borrow)]
-        alias_for: &'a str,
-    },
+    Alias { alias_for: &'a str },
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -218,13 +209,11 @@ pub enum PropertySerialization<'a> {
 
     /// The property aliases a property with the given name and should serialize
     /// from that property descriptor instead.
-    #[serde(borrow)]
     SerializesAs(&'a str),
 
     /// The property was originally serialized as itself, but should be migrated
     /// to a new property on deserialization. If the new property already
     /// exists, this property should be ignored.
-    #[serde(borrow)]
     Migrate(PropertyMigration<'a>),
 }
 
@@ -235,7 +224,6 @@ pub enum DataType<'a> {
     Value(VariantType),
 
     /// The property is an enum with the given name.
-    #[serde(borrow)]
     Enum(&'a str),
 }
 
@@ -276,11 +264,9 @@ pub enum Scriptability {
 #[non_exhaustive]
 pub struct EnumDescriptor<'a> {
     /// The name of the enum, like "FormFactor" or "Material".
-    #[serde(borrow)]
     pub name: &'a str,
 
     /// All of the members of this enum, stored as a map from names to values.
-    #[serde(borrow)]
     #[serde(serialize_with = "crate::serde_util::ordered_map")]
     pub items: HashMap<&'a str, u32>,
 }
