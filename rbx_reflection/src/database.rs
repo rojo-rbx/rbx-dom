@@ -218,7 +218,8 @@ pub enum PropertySerialization<'a> {
 
     /// The property aliases a property with the given name and should serialize
     /// from that property descriptor instead.
-    SerializesAs(#[serde(borrow)] &'a str),
+    #[serde(borrow)]
+    SerializesAs(&'a str),
 
     /// The property was originally serialized as itself, but should be migrated
     /// to a new property on deserialization. If the new property already
@@ -234,7 +235,8 @@ pub enum DataType<'a> {
     Value(VariantType),
 
     /// The property is an enum with the given name.
-    Enum(#[serde(borrow)] &'a str),
+    #[serde(borrow)]
+    Enum(&'a str),
 }
 
 impl DataType<'_> {

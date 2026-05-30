@@ -23,8 +23,10 @@ pub enum MigrationError {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
 pub enum PropertyMigrationTarget<'a> {
-    One(#[serde(borrow)] &'a str),
-    Many(#[serde(borrow)] Vec<&'a str>),
+    #[serde(borrow)]
+    One(&'a str),
+    #[serde(borrow)]
+    Many(Vec<&'a str>),
 }
 
 #[derive(Debug, Clone, Serialize, PartialEq)]
