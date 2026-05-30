@@ -65,6 +65,8 @@ static LOCAL_DATABASE: LazyLock<ResultOption<ReflectionDatabase<'static>>> = Laz
         return Ok(None);
     };
     if path.exists() {
+        // We need a OnceLock to hold the file contents so that the
+        // zero-copy decoded database can hold 'static references into it.
         static DATABASE: std::sync::OnceLock<Box<[u8]>> = std::sync::OnceLock::new();
         let database_file = fs::read(path)?.into_boxed_slice();
         // The database is guaranteed to be set, though not guaranteed to be set by this thread.
