@@ -36,7 +36,7 @@ pub struct PropertyMigration<'a> {
 }
 impl<'a> PropertyMigration<'a> {
     /// Create a new PropertyMigration with the specified targets.
-    /// Returns None when there is no targets.
+    /// Returns None when there is zero targets.
     pub fn new<Targets>(migration: MigrationOperation, targets: Targets) -> Option<Self>
     where
         Targets: IntoIterator<Item = &'a str>,
