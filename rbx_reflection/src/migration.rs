@@ -43,16 +43,14 @@ impl<'a> PropertyMigration<'a> {
         <Targets as IntoIterator>::IntoIter: ExactSizeIterator,
     {
         let mut targets = targets.into_iter();
-        Some(match targets.len() {
+        let new_property_names = match targets.len() {
             0 => return None,
-            1 => Self {
-                new_property_names: PropertyMigrationTarget::One(targets.next().unwrap()),
-                migration,
-            },
-            _ => Self {
-                new_property_names: PropertyMigrationTarget::Many(targets.collect()),
-                migration,
-            },
+            1 => PropertyMigrationTarget::One(targets.next().unwrap()),
+            _ => PropertyMigrationTarget::Many(targets.collect()),
+        };
+        Some(Self {
+            new_property_names,
+            migration,
         })
     }
 }
