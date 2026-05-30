@@ -450,6 +450,7 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
             return Ok(vacant_entry.insert(PropInfoResolution::DoesNotSerialize));
         };
 
+        // Use a closure to reduce the argument count of get_or_create_prop_info
         let class_descriptor = self.class_descriptor;
         let mut default_value =
             |serialized_property: &SerializedProperty| -> Result<_, InnerError> {
