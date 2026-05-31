@@ -13,7 +13,6 @@ use crate::{ClassTag, PropertyMigration, PropertyTag};
 /// and enums.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
-#[serde(bound(deserialize = "'a: 'de"))]
 #[non_exhaustive]
 pub struct ReflectionDatabase<'a> {
     /// The Roblox release that this reflection database was generated from.
@@ -106,7 +105,6 @@ impl<'a> ReflectionDatabase<'a> {
 /// classes of Instance.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
-#[serde(bound(deserialize = "'a: 'de"))]
 #[non_exhaustive]
 pub struct ClassDescriptor<'a> {
     /// The name of the class, like "Folder" or "FlagStand".
@@ -147,7 +145,6 @@ impl<'a> ClassDescriptor<'a> {
 /// Describes a property on an Instance.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
-#[serde(bound(deserialize = "'a: 'de"))]
 #[non_exhaustive]
 pub struct PropertyDescriptor<'a> {
     /// The name of the property, like "Position" or "heat_xml".
@@ -184,7 +181,6 @@ impl<'a> PropertyDescriptor<'a> {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[non_exhaustive]
-#[serde(bound(deserialize = "'a: 'de"))]
 pub enum PropertyKind<'a> {
     /// This property is canonical.
     #[serde(rename_all = "PascalCase")]
@@ -199,7 +195,6 @@ pub enum PropertyKind<'a> {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[non_exhaustive]
-#[serde(bound(deserialize = "'a: 'de"))]
 pub enum PropertySerialization<'a> {
     /// The property serializes as itself.
     Serializes,

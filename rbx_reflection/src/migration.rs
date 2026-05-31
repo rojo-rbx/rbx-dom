@@ -55,7 +55,7 @@ impl<'a> PropertyMigration<'a> {
     }
 }
 
-impl<'de> Deserialize<'de> for PropertyMigration<'de> {
+impl<'a, 'de: 'a> Deserialize<'de> for PropertyMigration<'a> {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
