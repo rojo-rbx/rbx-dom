@@ -65,8 +65,14 @@ impl GenerateSubcommand {
 
         apply_dump(&mut database, &dump)?;
 
-        let patches = if let Some(patches_path) = &self.patches {
+        let patch_sources = if let Some(patches_path) = &self.patches {
             let patch_sources = PatchSources::load(patches_path)?;
+            Some(patch_sources)
+        } else {
+            None
+        };
+
+        let patches = if let Some(patch_sources) = &patch_sources {
             Some(patch_sources.parse()?)
         } else {
             None

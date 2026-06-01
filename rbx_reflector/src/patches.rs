@@ -6,10 +6,10 @@ use std::{
 
 use anyhow::{anyhow, bail, Context};
 use rbx_reflection::{
-    MigrationOperation, PropertyDescriptor, PropertyKind, PropertySerialization,
+    DataType, PropertyDescriptor, PropertyKind, PropertyMigration, PropertySerialization,
     ReflectionDatabase, Scriptability,
 };
-use rbx_types::{Variant, VariantType};
+use rbx_types::Variant;
 use serde::Deserialize;
 
 pub struct PatchSource {
@@ -35,12 +35,12 @@ impl PatchSources {
         Ok(Self { files })
     }
 
-    pub fn parse(&self) -> anyhow::Result<Patches> {
+    pub fn parse(&self) -> anyhow::Result<Patches<'_>> {
         let mut change = HashMap::new();
         let mut add = HashMap::new();
 
         for file in &self.files {
-            let patch: Patch = serde_yaml::from_str(&file.contents)
+            let patch: Patch = yaml_serde::from_str(&file.contents)
                 .with_context(|| format!("Error parsing patch file {}", file.path.display()))?;
 
             change.extend(patch.change);
@@ -51,29 +51,26 @@ impl PatchSources {
     }
 }
 
-pub struct Patches {
-    change: HashMap<String, HashMap<String, PropertyChange>>,
-    add: HashMap<String, HashMap<String, PropertyAdd>>,
+pub struct Patches<'a> {
+    change: HashMap<&'a str, HashMap<&'a str, PropertyChange<'a>>>,
+    add: HashMap<&'a str, HashMap<&'a str, PropertyAdd<'a>>>,
 }
 
-impl Patches {
+impl<'a> Patches<'a> {
     pub fn apply_pre_default<'db>(
         &'db self,
         database: &mut ReflectionDatabase<'db>,
     ) -> anyhow::Result<()> {
         for (class_name, class_adds) in &self.add {
-            let class = database
-                .classes
-                .get_mut(class_name.as_str())
-                .ok_or_else(|| {
-                    anyhow!(
-                        "Class {} referenced in add patch does not exist in database",
-                        class_name
-                    )
-                })?;
+            let class = database.classes.get_mut(class_name).ok_or_else(|| {
+                anyhow!(
+                    "Class {} referenced in add patch does not exist in database",
+                    class_name
+                )
+            })?;
 
             for (property_name, property_add) in class_adds {
-                if class.properties.contains_key(property_name.as_str()) {
+                if class.properties.contains_key(property_name) {
                     bail!(
                         "Property {}.{} added in patch file already exists in database",
                         class_name,
@@ -81,33 +78,26 @@ impl Patches {
                     );
                 }
 
-                let mut property = PropertyDescriptor::new(
-                    property_name.as_str(),
-                    (&property_add.data_type).into(),
-                );
+                let mut property =
+                    PropertyDescriptor::new(property_name, property_add.data_type.clone());
                 property.kind = property_add.kind();
                 property.scriptability = property_add.scriptability;
 
-                class.properties.insert(property_name.as_str(), property);
+                class.properties.insert(property_name, property);
             }
         }
 
         for (class_name, class_changes) in &self.change {
-            let class = database
-                .classes
-                .get_mut(class_name.as_str())
-                .ok_or_else(|| {
-                    anyhow!(
-                        "Class {} modified in patch file does not exist in database",
-                        class_name
-                    )
-                })?;
+            let class = database.classes.get_mut(class_name).ok_or_else(|| {
+                anyhow!(
+                    "Class {} modified in patch file does not exist in database",
+                    class_name
+                )
+            })?;
 
             for (property_name, property_change) in class_changes {
-                let existing_property = class
-                    .properties
-                    .get_mut(property_name.as_str())
-                    .ok_or_else(|| {
+                let existing_property =
+                    class.properties.get_mut(property_name).ok_or_else(|| {
                         anyhow!(
                             "Property {}.{} modified in patch file does not exist in database",
                             class_name,
@@ -116,7 +106,7 @@ impl Patches {
                     })?;
 
                 if let Some(data_type) = &property_change.data_type {
-                    existing_property.data_type = data_type.into();
+                    existing_property.data_type = data_type.clone();
                 }
 
                 if let Some(kind) = property_change.kind() {
@@ -182,11 +172,11 @@ impl Patches {
                 };
                 let prop_data = database
                     .classes
-                    .get(class_name.as_str())
+                    .get(class_name)
                     // This is already validated pre-default application, so unwrap is fine
                     .unwrap()
                     .properties
-                    .get(prop_name.as_str());
+                    .get(prop_name);
                 if let Some(prop_data) = prop_data {
                     match (prop_data.data_type.ty(), default_value.ty()) {
                         (existing, new) if existing == new => {}
@@ -196,7 +186,7 @@ impl Patches {
                         ),
                     }
                 }
-                let subclass_list = subclass_map.get(class_name).ok_or_else(|| {
+                let subclass_list = subclass_map.get(*class_name).ok_or_else(|| {
                     anyhow!(
                         "Class {} modified in patch file does not exist in database",
                         class_name
@@ -209,7 +199,7 @@ impl Patches {
                         .expect("class listed in subclass map should exist");
                     class
                         .default_properties
-                        .insert(prop_name.as_str(), default_value.clone());
+                        .insert(prop_name, default_value.clone());
                 }
             }
         }
@@ -222,10 +212,10 @@ impl Patches {
                 };
                 let prop_data = database
                     .classes
-                    .get(class_name.as_str())
+                    .get(class_name)
                     .unwrap()
                     .properties
-                    .get(prop_name.as_str());
+                    .get(prop_name);
                 if let Some(prop_data) = prop_data {
                     match (prop_data.data_type.ty(), default_value.ty()) {
                         (existing, new) if existing == new => {}
@@ -235,7 +225,7 @@ impl Patches {
                         ),
                     }
                 }
-                let subclass_list = subclass_map.get(class_name).ok_or_else(|| {
+                let subclass_list = subclass_map.get(*class_name).ok_or_else(|| {
                     anyhow!(
                         "Class {} referenced in add patch does not exist in database",
                         class_name
@@ -248,7 +238,7 @@ impl Patches {
                         .expect("class listed in subclass map should exist");
                     class
                         .default_properties
-                        .insert(prop_name.as_str(), default_value.clone());
+                        .insert(prop_name, default_value.clone());
                 }
             }
         }
@@ -259,41 +249,31 @@ impl Patches {
 
 #[derive(Deserialize)]
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
-struct Patch {
+struct Patch<'a> {
     #[serde(default)]
-    change: HashMap<String, HashMap<String, PropertyChange>>,
+    #[serde(borrow)]
+    change: HashMap<&'a str, HashMap<&'a str, PropertyChange<'a>>>,
     #[serde(default)]
-    add: HashMap<String, HashMap<String, PropertyAdd>>,
+    add: HashMap<&'a str, HashMap<&'a str, PropertyAdd<'a>>>,
 }
 
 #[derive(Deserialize)]
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
-struct PropertyChange {
-    data_type: Option<DataType>,
-    alias_for: Option<String>,
-    serialization: Option<Serialization>,
+struct PropertyChange<'a> {
+    #[serde(with = "yaml_serde::with::singleton_map_recursive")]
+    #[serde(default)]
+    data_type: Option<DataType<'a>>,
+
+    alias_for: Option<&'a str>,
+    serialization: Option<Serialization<'a>>,
     scriptability: Option<Scriptability>,
+
+    #[serde(with = "yaml_serde::with::singleton_map_recursive")]
+    #[serde(default)]
     default_value: Option<Variant>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
-enum DataType {
-    /// The property is a regular value of the given type.
-    Value(VariantType),
-
-    /// The property is an enum with the given name.
-    Enum(String),
-}
-impl<'db> From<&'db DataType> for rbx_reflection::DataType<'db> {
-    fn from(value: &'db DataType) -> Self {
-        match value {
-            DataType::Value(variant_type) => rbx_reflection::DataType::Value(*variant_type),
-            DataType::Enum(e) => rbx_reflection::DataType::Enum(e),
-        }
-    }
-}
-
-impl PropertyChange {
+impl<'a> PropertyChange<'a> {
     fn kind(&self) -> Option<PropertyKind<'_>> {
         match (&self.alias_for, &self.serialization) {
             (Some(alias_for), None) => Some(PropertyKind::Alias { alias_for }),
@@ -311,20 +291,23 @@ impl PropertyChange {
 
 #[derive(Deserialize)]
 #[serde(rename_all = "PascalCase", deny_unknown_fields)]
-struct PropertyAdd {
-    data_type: DataType,
-    alias_for: Option<String>,
-    serialization: Option<Serialization>,
+struct PropertyAdd<'a> {
+    #[serde(with = "yaml_serde::with::singleton_map_recursive")]
+    data_type: DataType<'a>,
+
+    alias_for: Option<&'a str>,
+    serialization: Option<Serialization<'a>>,
     scriptability: Scriptability,
+
+    #[serde(with = "yaml_serde::with::singleton_map_recursive")]
+    #[serde(default)]
     default_value: Option<Variant>,
 }
 
-impl PropertyAdd {
+impl<'a> PropertyAdd<'a> {
     fn kind<'db>(&'db self) -> PropertyKind<'db> {
         match (&self.alias_for, &self.serialization) {
-            (Some(alias), None) => PropertyKind::Alias {
-                alias_for: alias.as_str(),
-            },
+            (Some(alias), None) => PropertyKind::Alias { alias_for: alias },
 
             (None, Some(serialization)) => PropertyKind::Canonical {
                 serialization: serialization.into(),
@@ -343,33 +326,18 @@ impl PropertyAdd {
 
 #[derive(Clone, Deserialize)]
 #[serde(tag = "Type", rename_all = "PascalCase", deny_unknown_fields)]
-enum Serialization {
+enum Serialization<'a> {
     Serializes,
     DoesNotSerialize,
     #[serde(rename_all = "PascalCase")]
     SerializesAs {
         #[serde(rename = "As")]
-        serializes_as: String,
+        serializes_as: &'a str,
     },
-    Migrate(PropertyMigration),
+    Migrate(PropertyMigration<'a>),
 }
 
-#[derive(Debug, Clone, Deserialize)]
-#[serde(rename_all = "PascalCase")]
-struct PropertyMigration {
-    #[serde(rename = "To")]
-    new_property_names: PropertyMigrationTarget,
-    migration: MigrationOperation,
-}
-
-#[derive(Debug, Clone, Deserialize)]
-#[serde(untagged)]
-enum PropertyMigrationTarget {
-    One(String),
-    Many(Vec<String>),
-}
-
-impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
+impl<'db, 'a> From<&'db Serialization<'a>> for PropertySerialization<'db> {
     fn from(value: &'db Serialization) -> Self {
         match value {
             Serialization::Serializes => PropertySerialization::Serializes,
@@ -377,19 +345,7 @@ impl<'db> From<&'db Serialization> for PropertySerialization<'db> {
             Serialization::SerializesAs { serializes_as } => {
                 PropertySerialization::SerializesAs(serializes_as)
             }
-            Serialization::Migrate(PropertyMigration {
-                new_property_names,
-                migration,
-            }) => PropertySerialization::Migrate(match new_property_names {
-                PropertyMigrationTarget::One(target) => {
-                    rbx_reflection::PropertyMigration::new(*migration, [target.as_str()]).unwrap()
-                }
-                PropertyMigrationTarget::Many(targets) => rbx_reflection::PropertyMigration::new(
-                    *migration,
-                    targets.iter().map(String::as_str),
-                )
-                .expect("PropertyMigration can not have 0 targets"),
-            }),
+            Serialization::Migrate(migration) => PropertySerialization::Migrate(migration.clone()),
         }
     }
 }
