@@ -307,7 +307,7 @@ struct PropertyAdd<'a> {
 impl<'a> PropertyAdd<'a> {
     fn kind<'db>(&'db self) -> PropertyKind<'db> {
         match (&self.alias_for, &self.serialization) {
-            (Some(alias), None) => PropertyKind::Alias { alias_for: alias },
+            (Some(alias_for), None) => PropertyKind::Alias { alias_for },
 
             (None, Some(serialization)) => PropertyKind::Canonical {
                 serialization: serialization.into(),
