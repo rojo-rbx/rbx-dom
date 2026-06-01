@@ -24,6 +24,7 @@ pub struct ReflectionDatabase<'a> {
     pub classes: HashMap<&'a str, ClassDescriptor<'a>>,
 
     /// All of the known enums in the database.
+    #[serde(borrow)]
     #[serde(default, serialize_with = "crate::serde_util::ordered_map")]
     pub enums: HashMap<&'a str, EnumDescriptor<'a>>,
 }
