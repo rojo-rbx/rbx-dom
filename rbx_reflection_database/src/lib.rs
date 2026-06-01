@@ -65,7 +65,13 @@ static LOCAL_DATABASE: LazyLock<ResultOption<ReflectionDatabase<'static>>> = Laz
         return Ok(None);
     };
     if path.exists() {
-        let database: ReflectionDatabase<'static> = rmp_serde::from_slice(&fs::read(path)?)?;
+        // We need a OnceLock to hold the file contents so that the
+        // zero-copy decoded database can hold 'static references into it.
+        static DATABASE: std::sync::OnceLock<Box<[u8]>> = std::sync::OnceLock::new();
+        let database_file = fs::read(path)?.into_boxed_slice();
+        // The database is guaranteed to be set, though not guaranteed to be set by this thread.
+        let database_bytes = DATABASE.get_or_init(|| database_file);
+        let database: ReflectionDatabase<'static> = rmp_serde::from_slice(database_bytes)?;
         Ok(Some(database))
     } else {
         Ok(None)
@@ -226,8 +232,8 @@ mod test {
         class_descriptor_eq(iter.next(), part_class_descriptor);
 
         let mut current_class_descriptor = part_class_descriptor.unwrap();
-        while let Some(superclass) = current_class_descriptor.superclass.as_ref() {
-            let superclass_descriptor = database.classes.get(superclass.as_ref());
+        while let Some(superclass) = current_class_descriptor.superclass {
+            let superclass_descriptor = database.classes.get(superclass);
             class_descriptor_eq(iter.next(), superclass_descriptor);
             current_class_descriptor = superclass_descriptor.unwrap();
         }

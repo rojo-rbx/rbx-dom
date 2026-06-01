@@ -168,7 +168,7 @@ struct PropInfo<'dom> {
     /// If a logical property has a migration associated with it (i.e. BrickColor ->
     /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
     /// it is None.
-    migration: Option<&'dom PropertyMigration>,
+    migration: Option<&'dom PropertyMigration<'dom>>,
 }
 impl<'dom> PropInfo<'dom> {
     /// This function extends `self.values` with `self.default_value` values.
@@ -287,8 +287,8 @@ impl SerializedProperty {
         let serialized = descriptors.serialized?;
 
         Some(SerializedProperty {
-            canonical_name: descriptors.canonical.name.as_ref().into(),
-            serialized_name: serialized.name.as_ref().into(),
+            canonical_name: descriptors.canonical.name.into(),
+            serialized_name: serialized.name.into(),
             serialized_ty: serialized.data_type.ty(),
         })
     }
@@ -297,7 +297,7 @@ impl SerializedProperty {
 enum SerializationResolution<'db> {
     Property(SerializedProperty),
     Migration {
-        migration: &'db PropertyMigration,
+        migration: &'db PropertyMigration<'db>,
         targets: Vec<SerializedProperty>,
     },
 }
@@ -331,10 +331,10 @@ impl<'db> SerializationResolution<'db> {
                     // to properties on the same class.
                     // This avoids re-walking the superclasses.
                     let mut targets = Vec::new();
-                    for new_property_name in prop_migration.new_property_names() {
+                    for &new_property_name in prop_migration.new_property_names() {
                         let new_descriptors = superclass_descriptor
                             .properties
-                            .get(new_property_name.as_str())
+                            .get(new_property_name)
                             .and_then(|prop| PropertyDescriptors::new(superclass_descriptor, prop))
                             .expect("migration targets should have property descriptors");
 

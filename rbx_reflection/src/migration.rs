@@ -22,29 +22,50 @@ pub enum MigrationError {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
-enum PropertyMigrationTarget {
-    One(String),
-    Many(Vec<String>),
+enum PropertyMigrationTarget<'a> {
+    One(&'a str),
+    Many(Vec<&'a str>),
 }
 
 #[derive(Debug, Clone, Serialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
-pub struct PropertyMigration {
+pub struct PropertyMigration<'a> {
     #[serde(rename = "To")]
-    new_property_names: PropertyMigrationTarget,
+    new_property_names: PropertyMigrationTarget<'a>,
     migration: MigrationOperation,
 }
+impl<'a> PropertyMigration<'a> {
+    /// Create a new PropertyMigration with the specified targets.
+    /// Returns None when there is zero targets.
+    pub fn new<Targets>(migration: MigrationOperation, targets: Targets) -> Option<Self>
+    where
+        Targets: IntoIterator<Item = &'a str>,
+        <Targets as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        let mut targets = targets.into_iter();
+        let new_property_names = match targets.len() {
+            0 => return None,
+            1 => PropertyMigrationTarget::One(targets.next().unwrap()),
+            _ => PropertyMigrationTarget::Many(targets.collect()),
+        };
+        Some(Self {
+            new_property_names,
+            migration,
+        })
+    }
+}
 
-impl<'de> Deserialize<'de> for PropertyMigration {
+impl<'a, 'de: 'a> Deserialize<'de> for PropertyMigration<'a> {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
     {
         #[derive(Deserialize)]
         #[serde(rename_all = "PascalCase")]
-        struct PropertyMigrationDeserialize {
+        struct PropertyMigrationDeserialize<'a> {
+            #[serde(borrow)]
             #[serde(rename = "To")]
-            new_property_names: PropertyMigrationTarget,
+            new_property_names: PropertyMigrationTarget<'a>,
             migration: MigrationOperation,
         }
 
@@ -75,8 +96,8 @@ pub enum MigrationOperation {
     CornerRadiusToCornerRadii,
 }
 
-impl PropertyMigration {
-    pub fn new_property_names(&self) -> &[String] {
+impl PropertyMigration<'_> {
+    pub fn new_property_names(&self) -> &[&str] {
         match &self.new_property_names {
             PropertyMigrationTarget::One(string) => std::slice::from_ref(string),
             PropertyMigrationTarget::Many(strings) => strings.as_slice(),
