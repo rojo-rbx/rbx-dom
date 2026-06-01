@@ -1,4 +1,8 @@
-use std::{collections::HashMap, fs, path::Path};
+use std::{
+    collections::HashMap,
+    fs,
+    path::{Path, PathBuf},
+};
 
 use anyhow::{anyhow, bail, Context};
 use rbx_reflection::{
@@ -8,29 +12,51 @@ use rbx_reflection::{
 use rbx_types::{Variant, VariantType};
 use serde::Deserialize;
 
+pub struct PatchSource {
+    path: PathBuf,
+    contents: String,
+}
+
+pub struct PatchSources {
+    files: Vec<PatchSource>,
+}
+
+impl PatchSources {
+    pub fn load(dir: &Path) -> anyhow::Result<Self> {
+        let mut files = Vec::new();
+
+        for entry in fs::read_dir(dir)? {
+            let path = entry?.path();
+            let contents = fs::read_to_string(&path)?;
+
+            files.push(PatchSource { path, contents });
+        }
+
+        Ok(Self { files })
+    }
+
+    pub fn parse(&self) -> anyhow::Result<Patches> {
+        let mut change = HashMap::new();
+        let mut add = HashMap::new();
+
+        for file in &self.files {
+            let patch: Patch = serde_yaml::from_str(&file.contents)
+                .with_context(|| format!("Error parsing patch file {}", file.path.display()))?;
+
+            change.extend(patch.change);
+            add.extend(patch.add);
+        }
+
+        Ok(Patches { change, add })
+    }
+}
+
 pub struct Patches {
     change: HashMap<String, HashMap<String, PropertyChange>>,
     add: HashMap<String, HashMap<String, PropertyAdd>>,
 }
 
 impl Patches {
-    pub fn load(dir: &Path) -> anyhow::Result<Self> {
-        let mut change = HashMap::new();
-        let mut add = HashMap::new();
-
-        for entry in fs::read_dir(dir)? {
-            let entry = entry?;
-            let contents = fs::read_to_string(entry.path())?;
-            let patch: Patch = serde_yaml::from_str(&contents)
-                .with_context(|| format!("Error parsing patch file {}", entry.path().display()))?;
-
-            change.extend(patch.change);
-            add.extend(patch.add);
-        }
-
-        Ok(Self { change, add })
-    }
-
     pub fn apply_pre_default<'db>(
         &'db self,
         database: &mut ReflectionDatabase<'db>,
