@@ -260,7 +260,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
     pub(super) fn decode_sstr_chunk(&mut self, mut chunk: &[u8]) -> Result<(), InnerError> {
         let version = chunk.read_le_u32()?;
 
-        if version != 0 {
+        if version > 1 {
             return Err(InnerError::UnknownChunkVersion {
                 chunk_name: "SSTR",
                 version,
@@ -270,7 +270,9 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let num_entries = chunk.read_le_u32()?;
 
         for _ in 0..num_entries {
-            chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
+            if version == 0 {
+                chunk.read_exact(&mut [0; 16])?; // We don't do anything with the hash.
+            }
             let data = chunk.read_binary_string()?;
             self.shared_strings.push(SharedString::new(data));
         }
