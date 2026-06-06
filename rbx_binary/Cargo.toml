@@ -24,16 +24,16 @@ rbx_reflection_database = { version = "2.0.2", path = "../rbx_reflection_databas
 
 ahash = "0.8.11"
 log = "0.4.17"
-lz4_flex = "0.11"
+lz4_flex = "0.13.1"
 thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }
 profiling = "1.0.6"
 zstd = "0.13.2"
 
 [dev-dependencies]
-criterion = "0.5.1"
-env_logger = "0.9.0"
-heck = "0.4.0"
+criterion = "0.8.2"
+env_logger = "0.11.10"
+heck = "0.5.0"
 insta = { version = "1.14.1", features = ["yaml"] }
 serde = { version = "1.0.137", features = ["derive"] }
 rbx_reflection_database = { path = "../rbx_reflection_database", features = [

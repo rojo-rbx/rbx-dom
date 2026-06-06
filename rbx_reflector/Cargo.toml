@@ -18,10 +18,10 @@ rbx_xml = { path = "../rbx_xml" }
 
 anyhow = "1.0.57"
 clap = { version = "4.1.4", features = ["derive"] }
-env_logger = "0.10.0"
+env_logger = "0.11.10"
 log = "0.4.17"
-notify = "5.0.0"
-reqwest = { version = "0.11.14", features = ["blocking", "json"] }
+notify = "8.2.0"
+reqwest = { version = "0.13.4", features = ["blocking", "json"] }
 rmp-serde = "1.1.0"
 roblox_install = "1.0.0"
 serde = { version = "1.0.136", features = ["derive"] }
