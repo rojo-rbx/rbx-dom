@@ -318,17 +318,16 @@ mod test {
     #[cfg(feature = "serde")]
     #[test]
     fn serde_non_human() {
-        use std::{io::Write, mem};
+        use std::io::Write;
 
         let sstr = SharedString::new(b"a test string".to_vec());
         let data = sstr.data();
         let serialized = rmp_serde::to_vec(&sstr).unwrap();
 
-        // Write the length of the string as little-endian u64 followed by the
-        // bytes of the string. This is analoglous to how bincode does.
-        let mut expected = Vec::with_capacity(mem::size_of::<u64>() + data.len());
+        // rmp_serde uses special markers for short arrays
+        let mut expected = Vec::with_capacity(1 + data.len());
         expected
-            .write_all(&(data.len() as u64).to_le_bytes())
+            .write_all(&[rmp::Marker::FixArray(data.len() as u8).to_u8()])
             .unwrap();
         expected.write_all(data).unwrap();
 
