@@ -322,7 +322,7 @@ mod test {
 
         let sstr = SharedString::new(b"a test string".to_vec());
         let data = sstr.data();
-        let serialized = bincode::serialize(&sstr).unwrap();
+        let serialized = rmp_serde::to_vec(&sstr).unwrap();
 
         // Write the length of the string as little-endian u64 followed by the
         // bytes of the string. This is analoglous to how bincode does.
@@ -334,7 +334,7 @@ mod test {
 
         assert_eq!(serialized, expected);
 
-        let deserialized: SharedString = bincode::deserialize(&serialized).unwrap();
+        let deserialized: SharedString = rmp_serde::from_slice(&serialized).unwrap();
 
         assert_eq!(sstr, deserialized);
     }
@@ -354,12 +354,12 @@ mod test {
 
         assert_eq!(net, de_net_1);
 
-        let ser_sstr_2 = bincode::serialize(&sstr).unwrap();
-        let ser_net_2 = bincode::serialize(&net).unwrap();
+        let ser_sstr_2 = rmp_serde::to_vec(&sstr).unwrap();
+        let ser_net_2 = rmp_serde::to_vec(&net).unwrap();
 
         assert_eq!(ser_sstr_2, ser_net_2);
 
-        let de_net_2: NetAssetRef = bincode::deserialize(&ser_net_2).unwrap();
+        let de_net_2: NetAssetRef = rmp_serde::from_slice(&ser_net_2).unwrap();
 
         assert_eq!(net, de_net_2);
     }

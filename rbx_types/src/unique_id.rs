@@ -258,8 +258,8 @@ mod test {
     #[test]
     fn not_human_roundtrip() {
         let uid = UniqueId::new(0x1337_0000, 0xfaca_de00, 0x1020_3040_5060_7080);
-        let ser = bincode::serialize(&uid).unwrap();
-        let de: UniqueId = bincode::deserialize(&ser).unwrap();
+        let ser = rmp_serde::to_vec(&uid).unwrap();
+        let de: UniqueId = rmp_serde::from_slice(&ser).unwrap();
 
         // Bincode prefixes vectors with the vector's length as a little-endian `u64`
         assert_eq!(ser[0..8].as_ref(), 16_u64.to_le_bytes());
