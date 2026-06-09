@@ -78,8 +78,10 @@ pub mod text_format {
 
 pub use crate::{
     deserializer::{Deserializer, Error as DecodeError},
-    serializer::{CompressionType, Error as EncodeError, Serializer},
+    serializer::{Error as EncodeError, Serializer},
 };
+
+pub use chunk::CompressionType;
 
 /// Deserialize a Roblox binary model or place from a stream.
 pub fn from_reader<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {

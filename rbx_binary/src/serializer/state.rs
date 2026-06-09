@@ -32,7 +32,7 @@ use crate::{
 };
 
 use super::error::InnerError;
-use super::CompressionType;
+use crate::chunk::CompressionType;
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
