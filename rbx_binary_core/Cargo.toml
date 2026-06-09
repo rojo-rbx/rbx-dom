@@ -1,5 +1,6 @@
 [package]
 name = "rbx_binary_core"
+description = "rbx_binary internal code.  Use rbx_binary for decoding Roblox files."
 version = "0.1.0"
 license = "MIT"
 documentation = "https://docs.rs/rbx_binary_core"
