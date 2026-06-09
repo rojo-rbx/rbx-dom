@@ -22,7 +22,7 @@ use serde::{ser::SerializeSeq, Serialize, Serializer};
 use crate::{
     chunk::Chunk,
     core::{RbxReadExt, RbxReadInterleaved, ReadSlice},
-    deserializer::FileHeader,
+    header::FileHeader,
     types::Type,
 };
 
@@ -71,8 +71,8 @@ impl DecodedModel {
         }
 
         DecodedModel {
-            num_types: header.num_types,
-            num_instances: header.num_instances,
+            num_types: header.num_types(),
+            num_instances: header.num_instances(),
             chunks,
         }
     }
