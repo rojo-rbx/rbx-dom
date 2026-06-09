@@ -2,7 +2,7 @@ use std::io;
 
 use thiserror::Error;
 
-use crate::types::InvalidTypeError;
+use crate::{header::HeaderError, types::InvalidTypeError};
 
 /// Represents an error that occurred during deserialization.
 #[derive(Debug, Error)]
@@ -27,11 +27,8 @@ pub(crate) enum InnerError {
         source: io::Error,
     },
 
-    #[error("Invalid file header")]
-    BadHeader,
-
-    #[error("Unknown file version {version}. Known versions are: 0")]
-    UnknownFileVersion { version: u16 },
+    #[error("Header error: {0}")]
+    Header(#[from] HeaderError),
 
     #[error("Unknown version {version} for chunk {chunk_name}")]
     UnknownChunkVersion {
