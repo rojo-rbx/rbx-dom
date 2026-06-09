@@ -77,7 +77,7 @@ pub use crate::{
     serializer::{Error as EncodeError, Serializer},
 };
 
-pub use chunk::CompressionType;
+pub use rbx_binary_core::chunk::CompressionType;
 
 /// Deserialize a Roblox binary model or place from a stream.
 pub fn from_reader<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {

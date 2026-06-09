@@ -14,7 +14,7 @@ use rbx_dom_weak::{
 };
 use rbx_reflection::{ClassDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
 
-use crate::{
+use rbx_binary_core::{
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt, RbxReadInterleaved, ReadSlice},
     header::FileHeader,

@@ -2,7 +2,7 @@ use std::io;
 
 use thiserror::Error;
 
-use crate::{header::HeaderError, types::InvalidTypeError};
+use rbx_binary_core::{header::HeaderError, types::InvalidTypeError};
 
 /// Represents an error that occurred during deserialization.
 #[derive(Debug, Error)]

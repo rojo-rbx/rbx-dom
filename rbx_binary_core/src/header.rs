@@ -1,7 +1,7 @@
 use std::io::Read;
 use thiserror::Error;
 
-use crate::core::{RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION};
+use crate::core::{FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION, RbxReadExt};
 
 #[derive(Debug, Error)]
 pub enum HeaderError {

@@ -21,18 +21,17 @@ use rbx_reflection::{
     ReflectionDatabase,
 };
 
-use crate::{
-    chunk::ChunkBuilder,
+use rbx_binary_core::{
+    chunk::{ChunkBuilder, CompressionType},
     core::{
         find_property_descriptors, PropertyDescriptors, RbxWriteExt, RbxWriteInterleaved,
         FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
     },
     types::Type,
-    Serializer,
 };
 
 use super::error::InnerError;
-use crate::chunk::CompressionType;
+use super::Serializer;
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 

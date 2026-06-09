@@ -6,7 +6,7 @@ use std::io::Write;
 use rbx_dom_weak::{types::Ref, WeakDom};
 use rbx_reflection::ReflectionDatabase;
 
-use crate::chunk::CompressionType;
+use rbx_binary_core::chunk::CompressionType;
 
 use self::state::SerializerState;
 

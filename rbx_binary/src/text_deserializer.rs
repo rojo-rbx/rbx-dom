@@ -19,7 +19,7 @@ use rbx_dom_weak::types::{
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
-use crate::{
+use rbx_binary_core::{
     chunk::Chunk,
     core::{RbxReadExt, RbxReadInterleaved, ReadSlice},
     header::FileHeader,
