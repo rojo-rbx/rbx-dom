@@ -53,12 +53,8 @@ rbx_binary::to_writer(output, &dom, &[dom.root_ref()])?;
 
 #![deny(missing_docs)]
 
-mod chunk;
-mod core;
 mod deserializer;
-mod header;
 mod serializer;
-mod types;
 
 #[cfg(any(test, feature = "unstable_text_format"))]
 mod text_deserializer;
