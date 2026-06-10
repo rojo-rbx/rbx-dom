@@ -18,6 +18,17 @@ impl From<InnerError> for Error {
         }
     }
 }
+impl From<HeaderError> for InnerError {
+    fn from(error: HeaderError) -> Self {
+        match error {
+            HeaderError::Io { source } => InnerError::Io { source },
+            HeaderError::BadHeader => InnerError::BadHeader,
+            HeaderError::UnknownFileVersion { version } => {
+                InnerError::UnknownFileVersion { version }
+            }
+        }
+    }
+}
 
 #[derive(Debug, Error)]
 pub(crate) enum InnerError {
@@ -27,8 +38,11 @@ pub(crate) enum InnerError {
         source: io::Error,
     },
 
-    #[error("Header error: {0}")]
-    Header(#[from] HeaderError),
+    #[error("Invalid file header")]
+    BadHeader,
+
+    #[error("Unknown file version {version}. Known versions are: 0")]
+    UnknownFileVersion { version: u16 },
 
     #[error("Unknown version {version} for chunk {chunk_name}")]
     UnknownChunkVersion {
