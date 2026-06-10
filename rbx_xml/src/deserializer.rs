@@ -1,4 +1,4 @@
-use std::{collections::hash_map::Entry, io::Read};
+use std::io::Read;
 
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
@@ -343,14 +343,9 @@ fn deserialize_root<R: Read>(
                     }
                 }
             }
-            XmlReadEvent::EndElement { name } => {
-                if name.local_name == "roblox" {
-                    reader.expect_next().unwrap();
-                    break;
-                } else {
-                    let event = reader.expect_next().unwrap();
-                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                }
+            XmlReadEvent::EndElement { name } if name.local_name == "roblox" => {
+                reader.expect_next().unwrap();
+                break;
             }
             XmlReadEvent::EndDocument => break,
             _ => {
@@ -396,21 +391,11 @@ fn deserialize_shared_string_dict<R: Read>(
 
     loop {
         match reader.expect_peek()? {
-            XmlReadEvent::StartElement { name, .. } => {
-                if name.local_name == "SharedString" {
-                    deserialize_shared_string(reader, state)?;
-                } else {
-                    let event = reader.expect_next().unwrap();
-                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                }
+            XmlReadEvent::StartElement { name, .. } if name.local_name == "SharedString" => {
+                deserialize_shared_string(reader, state)?;
             }
-            XmlReadEvent::EndElement { name } => {
-                if name.local_name == "SharedStrings" {
-                    break;
-                } else {
-                    let event = reader.expect_next().unwrap();
-                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                }
+            XmlReadEvent::EndElement { name } if name.local_name == "SharedStrings" => {
+                break;
             }
             _ => {
                 let event = reader.expect_next().unwrap();
@@ -584,14 +569,9 @@ fn deserialize_properties<R: Read>(
 
                     (name.local_name.to_owned(), xml_property_name)
                 }
-                XmlReadEvent::EndElement { name } => {
-                    if name.local_name == "Properties" {
-                        reader.expect_next()?;
-                        return Ok(());
-                    } else {
-                        let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
-                        return Err(reader.error(err));
-                    }
+                XmlReadEvent::EndElement { name } if name.local_name == "Properties" => {
+                    reader.expect_next()?;
+                    return Ok(());
                 }
                 _ => {
                     let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
@@ -615,12 +595,11 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let value =
-                match read_value_xml(reader, state, &xml_type_name, instance_id, &descriptor.name)?
-                {
-                    Some(value) => value,
-                    None => continue,
-                };
+            let Some(value) =
+                read_value_xml(reader, state, &xml_type_name, instance_id, descriptor.name)?
+            else {
+                continue;
+            };
 
             let xml_ty = value.ty();
 
@@ -658,28 +637,28 @@ fn deserialize_properties<R: Read>(
                 PropertyKind::Canonical {
                     serialization: PropertySerialization::Migrate(migration),
                 } => {
-                    let new_property_name = &migration.new_property_name;
-                    let old_property_name = &descriptor.name;
+                    let old_property_name = descriptor.name;
 
-                    if let Entry::Vacant(entry) = props.entry(new_property_name.into()) {
-                        log::trace!(
-                            "Attempting to migrate property {old_property_name} to {new_property_name}"
-                        );
-                        match migration.perform(&value) {
-                            Ok(migrated_value) => {
-                                entry.insert(migrated_value);
-                                log::trace!(
-                                    "Successfully migrated property {old_property_name} to {new_property_name}"
-                                );
+                    match migration.perform(&value) {
+                        Ok(migrated_value) => {
+                            for &new_property_name in migration.new_property_names() {
+                                let new_property_name = Ustr::from(new_property_name);
+                                props.entry(new_property_name).or_insert_with(|| {
+                                    log::trace!(
+                                        "Attempting to migrate property {old_property_name} to {new_property_name}"
+                                    );
+
+                                    migrated_value.clone()
+                                });
                             }
-                            Err(error) => {
-                                return Err(reader.error(DecodeErrorKind::MigrationError(error)));
-                            }
+                        }
+                        Err(error) => {
+                            return Err(reader.error(DecodeErrorKind::MigrationError(error)));
                         }
                     }
                 }
                 _ => {
-                    props.insert(descriptor.name.as_ref().into(), value);
+                    props.insert(descriptor.name.into(), value);
                 }
             };
         } else {

@@ -1,4 +1,4 @@
-use std::{borrow::Cow, collections::BTreeMap, io::Write};
+use std::{collections::BTreeMap, io::Write};
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
@@ -204,9 +204,9 @@ fn serialize_instance<'dom, W: Write>(
         if let Some(serialized_descriptor) = maybe_serialized_descriptor {
             let data_type = serialized_descriptor.data_type.ty();
 
-            let mut serialized_name = serialized_descriptor.name.as_ref();
+            let serialized_name = serialized_descriptor.name;
 
-            let mut converted_value = match value.try_convert_ref(instance.class, data_type) {
+            let converted_value = match value.try_convert_ref(instance.class, data_type) {
                 Ok(value) => value,
                 Err(message) => {
                     return Err(
@@ -229,8 +229,11 @@ fn serialize_instance<'dom, W: Write>(
                 // If the migration fails, there's no harm in us doing nothing
                 // since old values will still load in Studio.
                 if let Ok(new_value) = migration.perform(&converted_value) {
-                    converted_value = Cow::Owned(new_value);
-                    serialized_name = &migration.new_property_name
+                    for &new_property_name in migration.new_property_names() {
+                        write_value_xml(writer, state, new_property_name, &new_value)?;
+                    }
+
+                    continue;
                 }
             }
 

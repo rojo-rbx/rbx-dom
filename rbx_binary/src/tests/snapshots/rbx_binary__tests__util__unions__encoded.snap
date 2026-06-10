@@ -8,8 +8,8 @@ chunks:
   - Sstr:
       version: 0
       entries:
-        - len: 0
-          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        - len: 15
+          hash: 8cc3bedee8c6f1665b095f856c22c4e527c622836340557c50ffaa83159a87b7
         - len: 1367
           hash: cc62d7045ec238081b7ebbd97ce5ce7dc15166e688168c307247089135718bdb
         - len: 1803
@@ -541,4 +541,3 @@ chunks:
         - - 2
           - -1
   - End
-
