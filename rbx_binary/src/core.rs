@@ -258,15 +258,13 @@ pub trait RbxWriteInterleaved {
     /// interleaved by `N` bytes.
     fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
     where
-        I: IntoIterator<Item = [u8; N]>,
-        <I as IntoIterator>::IntoIter: ExactSizeIterator;
+        I: IntoIterator<Item = [u8; N], IntoIter: ExactSizeIterator>;
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Transformation is applied to the values as they're written.
     fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: IntoIterator<Item = i32>,
-        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+        I: IntoIterator<Item = i32, IntoIter: ExactSizeIterator>,
     {
         self.write_interleaved_bytes(values.into_iter().map(|v| transform_i32(v).to_be_bytes()))
     }
@@ -275,8 +273,7 @@ pub trait RbxWriteInterleaved {
     /// bytes.
     fn write_interleaved_u32_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: IntoIterator<Item = u32>,
-        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+        I: IntoIterator<Item = u32, IntoIter: ExactSizeIterator>,
     {
         self.write_interleaved_bytes(values.into_iter().map(|v| v.to_be_bytes()))
     }
@@ -285,8 +282,7 @@ pub trait RbxWriteInterleaved {
     /// bytes. Rotation is applied to the values as they're written.
     fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: IntoIterator<Item = f32>,
-        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+        I: IntoIterator<Item = f32, IntoIter: ExactSizeIterator>,
     {
         self.write_interleaved_bytes(
             values
@@ -300,8 +296,7 @@ pub trait RbxWriteInterleaved {
     /// values are written.
     fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: IntoIterator<Item = i32>,
-        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+        I: IntoIterator<Item = i32, IntoIter: ExactSizeIterator>,
     {
         let mut last_value = 0;
         let delta_encoded = values.into_iter().map(|value| {
@@ -317,8 +312,7 @@ pub trait RbxWriteInterleaved {
     /// bytes. Transformation is applied to the values as they're written.
     fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: IntoIterator<Item = i64>,
-        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+        I: IntoIterator<Item = i64, IntoIter: ExactSizeIterator>,
     {
         self.write_interleaved_bytes(values.into_iter().map(|v| transform_i64(v).to_be_bytes()))
     }
@@ -327,8 +321,7 @@ pub trait RbxWriteInterleaved {
 impl RbxWriteInterleaved for Vec<u8> {
     fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
     where
-        I: IntoIterator<Item = [u8; N]>,
-        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+        I: IntoIterator<Item = [u8; N], IntoIter: ExactSizeIterator>,
     {
         let values = values.into_iter();
         let values_len = values.len();

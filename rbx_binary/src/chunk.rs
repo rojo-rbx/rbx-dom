@@ -129,8 +129,7 @@ impl Write for ChunkBuilder {
 impl RbxWriteInterleaved for ChunkBuilder {
     fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
     where
-        I: IntoIterator<Item = [u8; N]>,
-        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+        I: IntoIterator<Item = [u8; N], IntoIter: ExactSizeIterator>,
     {
         self.buffer.write_interleaved_bytes(values)
     }
