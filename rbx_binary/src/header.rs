@@ -1,7 +1,11 @@
 use std::io::Read;
 use thiserror::Error;
 
-use crate::core::{RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION};
+use crate::core::RbxReadExt;
+
+pub static FILE_MAGIC_HEADER: [u8; 8] = *b"<roblox!";
+pub static FILE_SIGNATURE: [u8; 6] = *b"\x89\xff\x0d\x0a\x1a\x0a";
+pub const FILE_VERSION: u16 = 0;
 
 #[derive(Debug, Error)]
 pub enum HeaderError {
