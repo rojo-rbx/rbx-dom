@@ -56,6 +56,7 @@ rbx_binary::to_writer(output, &dom, &[dom.root_ref()])?;
 mod chunk;
 mod core;
 mod deserializer;
+mod header;
 mod serializer;
 mod types;
 
