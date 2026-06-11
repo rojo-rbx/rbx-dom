@@ -3,7 +3,7 @@ mod state;
 
 use std::io::Write;
 
-use rbx_dom_weak::{types::Ref, WeakDom};
+use rbx_dom_weak::{types::SomeRef, WeakDom};
 use rbx_reflection::ReflectionDatabase;
 
 use self::state::SerializerState;
@@ -24,7 +24,7 @@ pub use self::error::Error;
 ///
 /// let output = BufWriter::new(File::create("PlainFolder.rbxm")?);
 /// let serializer = Serializer::new();
-/// serializer.serialize(output, &dom, &[dom.root_ref()])?;
+/// serializer.serialize(output, &dom, &[dom.root_ref().unwrap()])?;
 ///
 /// # Ok::<(), Box<dyn std::error::Error>>(())
 /// ```
@@ -75,7 +75,10 @@ impl<'db> Serializer<'db> {
 
     /// Serialize a Roblox binary model or place into the given stream using
     /// this serializer.
-    pub fn serialize<W: Write>(&self, writer: W, dom: &WeakDom, refs: &[Ref]) -> Result<(), Error> {
+    pub fn serialize<W>(&self, writer: W, dom: &WeakDom, refs: &[SomeRef]) -> Result<(), Error>
+    where
+        W: Write,
+    {
         profiling::scope!("rbx_binary::seserialize");
 
         let mut serializer = SerializerState::new(self, dom, writer);

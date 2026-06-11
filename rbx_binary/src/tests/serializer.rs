@@ -1,6 +1,6 @@
 use rbx_dom_weak::{
     types::{
-        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, UDim,
+        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Region3, SharedString, SomeRef, UDim,
         Variant, Vector3,
     },
     InstanceBuilder, WeakDom,
@@ -11,10 +11,12 @@ use crate::{text_deserializer::DecodedModel, to_writer, Deserializer, Serializer
 /// A basic test to make sure we can serialize the simplest instance: a Folder.
 #[test]
 fn just_folder() {
-    let tree = WeakDom::new(InstanceBuilder::new("Folder"));
+    let root_builder = InstanceBuilder::new("Folder");
+    let root_ref = root_builder.referent();
+    let tree = WeakDom::new(root_builder);
     let mut buffer = Vec::new();
 
-    to_writer(&mut buffer, &tree, &[tree.root_ref()]).expect("failed to encode model");
+    to_writer(&mut buffer, &tree, &[root_ref]).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -43,11 +45,12 @@ fn partially_present() {
 /// Ensures that unknown properties get serialized on instances.
 #[test]
 fn unknown_property() {
-    let tree =
-        WeakDom::new(InstanceBuilder::new("Folder").with_property("WILL_NEVER_EXIST", "Hi, mom!"));
+    let root_builder = InstanceBuilder::new("Folder").with_property("WILL_NEVER_EXIST", "Hi, mom!");
+    let root_ref = root_builder.referent();
+    let tree = WeakDom::new(root_builder);
 
     let mut buffer = Vec::new();
-    to_writer(&mut buffer, &tree, &[tree.root_ref()]).expect("failed to encode model");
+    to_writer(&mut buffer, &tree, &[root_ref]).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -59,13 +62,15 @@ fn unknown_property() {
 /// This test will need to be updated once we implement the type used here.
 #[test]
 fn unimplemented_type_known_property() {
-    let tree = WeakDom::new(InstanceBuilder::new("UIListLayout").with_property(
+    let root_builder = InstanceBuilder::new("UIListLayout").with_property(
         "Padding",
         Region3::new(Vector3::new(0.0, 0.0, 50.0), Vector3::new(0.0, 0.0, 50.0)),
-    ));
+    );
+    let root_ref = root_builder.referent();
+    let tree = WeakDom::new(root_builder);
 
     let mut buffer = Vec::new();
-    let result = to_writer(&mut buffer, &tree, &[tree.root_ref()]);
+    let result = to_writer(&mut buffer, &tree, &[root_ref]);
 
     assert!(result.is_err());
 }
@@ -79,13 +84,15 @@ fn unimplemented_type_known_property() {
 /// This test will need to be updated once we implement the type used here.
 #[test]
 fn unimplemented_type_unknown_property() {
-    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_property(
+    let root_builder = InstanceBuilder::new("Folder").with_property(
         "WILL_NEVER_EXIST",
         Region3::new(Vector3::new(0.0, 0.0, 50.0), Vector3::new(0.0, 0.0, 50.0)),
-    ));
+    );
+    let root_ref = root_builder.referent();
+    let tree = WeakDom::new(root_builder);
 
     let mut buffer = Vec::new();
-    let result = to_writer(&mut buffer, &tree, &[tree.root_ref()]);
+    let result = to_writer(&mut buffer, &tree, &[root_ref]);
 
     assert!(result.is_err());
 }
@@ -97,14 +104,14 @@ fn unknown_id() {
     let tree = WeakDom::new(InstanceBuilder::new("Folder"));
 
     let mut buffer = Vec::new();
-    let result = to_writer(&mut buffer, &tree, &[Ref::new()]);
+    let result = to_writer(&mut buffer, &tree, &[SomeRef::new_random()]);
 
     assert!(result.is_err());
 }
 
 #[test]
 fn migrated_properties() {
-    let tree = WeakDom::new(InstanceBuilder::new("Folder").with_children([
+    let root_builder = InstanceBuilder::new("Folder").with_children([
         InstanceBuilder::new("ScreenGui").with_property("ScreenInsets", Enum::from_u32(0)),
         InstanceBuilder::new("ScreenGui").with_property("IgnoreGuiInset", true),
         InstanceBuilder::new("Part").with_property("Color", Color3::new(1.0, 1.0, 1.0)),
@@ -112,11 +119,13 @@ fn migrated_properties() {
         InstanceBuilder::new("Part").with_property("brickColor", BrickColor::Alder),
         InstanceBuilder::new("TextLabel").with_property("FontFace", Font::default()),
         InstanceBuilder::new("TextLabel").with_property("Font", Enum::from_u32(8)),
-    ]));
+    ]);
+    let root_ref = root_builder.referent();
+    let tree = WeakDom::new(root_builder);
 
     let mut buffer = Vec::new();
 
-    to_writer(&mut buffer, &tree, &[tree.root_ref()]).expect("failed to encode model");
+    to_writer(&mut buffer, &tree, &[root_ref]).expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
@@ -130,7 +139,7 @@ fn one_to_many_migrated_properties() {
 
     let mut buffer = Vec::new();
     Serializer::new()
-        .serialize(&mut buffer, &tree, &[tree.root_ref()])
+        .serialize(&mut buffer, &tree, &[tree.root_ref().unwrap()])
         .expect("failed to encode model");
 
     let decoded = DecodedModel::from_reader(buffer.as_slice());
@@ -145,7 +154,7 @@ fn one_to_many_migrated_properties_deserialize() {
 
     let mut buffer = Vec::new();
     Serializer::new()
-        .serialize(&mut buffer, &tree, &[tree.root_ref()])
+        .serialize(&mut buffer, &tree, &[tree.root_ref().unwrap()])
         .expect("failed to encode model");
 
     let decoded = Deserializer::new()
@@ -184,7 +193,7 @@ fn one_to_many_migrated_properties_preserve_explicit_targets() {
 
     let mut buffer = Vec::new();
     Serializer::new()
-        .serialize(&mut buffer, &tree, &[tree.root_ref()])
+        .serialize(&mut buffer, &tree, &[tree.root_ref().unwrap()])
         .expect("failed to encode model");
 
     let decoded = Deserializer::new()
