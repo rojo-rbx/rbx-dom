@@ -94,6 +94,7 @@ pub enum MigrationOperation {
     BrickColorToColor,
     ContentIdToContent,
     CornerRadiusToCornerRadii,
+    Int64ToContent,
 }
 
 impl PropertyMigration<'_> {
@@ -258,6 +259,21 @@ impl PropertyMigration<'_> {
                     })
                 }
             }
+            MigrationOperation::Int64ToContent => {
+                if let Variant::Int64(id) = input {
+                    if *id == 0 {
+                        Ok(Content::none().into())
+                    } else {
+                        Ok(Content::from_uri(format!("rbxassetid://{id}")).into())
+                    }
+                } else {
+                    Err(MigrationError::InvalidTypeForMigration {
+                        migration: MigrationOperation::Int64ToContent,
+                        expected: "Int64",
+                        actual: input.clone(),
+                    })
+                }
+            }
         }
     }
 }
@@ -289,5 +305,52 @@ mod tests {
             migration.new_property_names(),
             ["BottomLeftRadius", "BottomRightRadius"]
         );
+    }
+
+    #[test]
+    fn int64_to_content_zero() {
+        use rbx_types::ContentType;
+
+        let migration = PropertyMigration::new(
+            MigrationOperation::Int64ToContent,
+            ["ObivouslyFakeProperty"],
+        )
+        .unwrap();
+        let new_value = migration.perform(&0i64.into()).unwrap();
+
+        match new_value {
+            Variant::Content(content) => match content.value() {
+                ContentType::None => {}
+                other => panic!("expected ContentType::None, got {:?}", other),
+            },
+            other => {
+                panic!("expected Variant::Content, got Variant::{:?}", other.ty())
+            }
+        }
+    }
+
+    #[test]
+    fn int64_to_content_non_zero() {
+        use rbx_types::ContentType;
+
+        let migration = PropertyMigration::new(
+            MigrationOperation::Int64ToContent,
+            ["ObivouslyFakeProperty"],
+        )
+        .unwrap();
+        let new_value = migration.perform(&1337i64.into()).unwrap();
+
+        match new_value {
+            Variant::Content(content) => match content.value() {
+                ContentType::Uri(uri) => assert_eq!(uri, "rbxassetid://1337"),
+                other => panic!(
+                    "expected ContentType::Uri(\"rbxassetid://1337\"), got {:?}",
+                    other
+                ),
+            },
+            other => {
+                panic!("expected Variant::Content, got Variant::{:?}", other.ty())
+            }
+        }
     }
 }

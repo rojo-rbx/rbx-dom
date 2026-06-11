@@ -211,11 +211,11 @@ chunks:
         - ""
   - Prop:
       type_id: 0
-      prop_name: Texture
-      prop_type: String
+      prop_name: TextureContent
+      prop_type: Content
       values:
-        - "rbxasset://textures/particles/sparkles_main.dds"
-        - "rbxasset://textures/particles/sparkles_main.dds"
+        - Uri: "rbxasset://textures/particles/sparkles_main.dds"
+        - Uri: "rbxasset://textures/particles/sparkles_main.dds"
   - Prop:
       type_id: 0
       prop_name: Transparency
@@ -257,4 +257,3 @@ chunks:
         - - 1
           - -1
   - End
-
