@@ -1,0 +1,7 @@
+Change:
+  Animation:
+    AnimationId:
+      Serialization:
+        Type: Migrate
+        To: AnimationContent
+        Migration: ContentIdToContent
