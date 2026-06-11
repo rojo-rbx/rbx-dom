@@ -1,5 +1,4 @@
 use lazy_static::lazy_static;
-use rand::{thread_rng, Rng};
 use thiserror::Error;
 
 use std::{
@@ -80,7 +79,7 @@ impl UniqueId {
                 .map_err(|_| CrateError::from(UniqueIdError::Overflow))?,
             // This matches Roblox's behavior, where the value is both an i64
             // but is also always positive.
-            random: thread_rng().gen_range(0..i64::MAX),
+            random: rand::random_range(0..=i64::MAX),
         })
     }
 
