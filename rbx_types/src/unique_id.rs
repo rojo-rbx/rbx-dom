@@ -1,5 +1,4 @@
 use lazy_static::lazy_static;
-use rand::{thread_rng, Rng};
 use thiserror::Error;
 
 use std::{
@@ -80,7 +79,7 @@ impl UniqueId {
                 .map_err(|_| CrateError::from(UniqueIdError::Overflow))?,
             // This matches Roblox's behavior, where the value is both an i64
             // but is also always positive.
-            random: thread_rng().gen_range(0..i64::MAX),
+            random: rand::random_range(0..=i64::MAX),
         })
     }
 
@@ -258,14 +257,15 @@ mod test {
     #[test]
     fn not_human_roundtrip() {
         let uid = UniqueId::new(0x1337_0000, 0xfaca_de00, 0x1020_3040_5060_7080);
-        let ser = bincode::serialize(&uid).unwrap();
-        let de: UniqueId = bincode::deserialize(&ser).unwrap();
+        let ser = rmp_serde::to_vec(&uid).unwrap();
+        let de: UniqueId = rmp_serde::from_slice(&ser).unwrap();
 
-        // Bincode prefixes vectors with the vector's length as a little-endian `u64`
-        assert_eq!(ser[0..8].as_ref(), 16_u64.to_le_bytes());
+        // rmp_serde uses a marker to specify the size of the length
+        assert_eq!(ser[0], rmp::Marker::Bin8.to_u8());
+        assert_eq!(ser[1], 16);
 
         assert_eq!(
-            ser[8..].as_ref(),
+            ser[2..].as_ref(),
             b"\x10\x20\x30\x40\x50\x60\x70\x80\xfa\xca\xde\x00\x13\x37\x00\x00"
         );
         assert_eq!(de, uid);
