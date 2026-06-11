@@ -607,7 +607,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "FallbackImageContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -1579,14 +1584,19 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "AnimationContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         }
       },
       "DefaultProperties": {
-        "AnimationId": {
-          "ContentId": ""
+        "AnimationContent": {
+          "Content": "None"
         },
         "Archivable": {
           "Bool": true
@@ -13165,7 +13175,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "TextureContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -13342,8 +13357,8 @@
         "Tags": {
           "Tags": []
         },
-        "Texture": {
-          "ContentId": ""
+        "TextureContent": {
+          "Content": "None"
         },
         "TextureLength": {
           "Float32": 1.0
@@ -17553,7 +17568,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "BaseTextureContent",
+                  "Migration": "Int64ToContent"
+                }
+              }
             }
           }
         },
@@ -17592,7 +17612,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "MeshContent",
+                  "Migration": "Int64ToContent"
+                }
+              }
             }
           }
         },
@@ -17630,8 +17655,8 @@
         "Attributes": {
           "Attributes": {}
         },
-        "BaseTextureId": {
-          "Int64": 0
+        "BaseTextureContent": {
+          "Content": "None"
         },
         "BodyPart": {
           "Enum": 0
@@ -17642,8 +17667,8 @@
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
-        "MeshId": {
-          "Int64": 0
+        "MeshContent": {
+          "Content": "None"
         },
         "OverlayTextureId": {
           "Int64": 0
@@ -29076,7 +29101,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "MeshContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -29102,7 +29132,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "TextureContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         }
@@ -29120,8 +29155,8 @@
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
-        "MeshId": {
-          "ContentId": ""
+        "MeshContent": {
+          "Content": "None"
         },
         "Offset": {
           "Vector3": [
@@ -29146,8 +29181,8 @@
         "Tags": {
           "Tags": []
         },
-        "TextureId": {
-          "ContentId": ""
+        "TextureContent": {
+          "Content": "None"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -39579,7 +39614,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "ImageContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -39662,8 +39702,10 @@
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
-        "Image": {
-          "ContentId": "rbxasset://textures/SurfacesDefault.png"
+        "ImageContent": {
+          "Content": {
+            "Uri": "rbxasset://textures/SurfacesDefault.png"
+          }
         },
         "Sandboxed": {
           "Bool": false
@@ -50373,7 +50415,9 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "SerializesAs": "PackageContentSerialize"
+              }
             }
           }
         },
@@ -50388,8 +50432,8 @@
             "NotScriptable"
           ],
           "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
+            "Alias": {
+              "AliasFor": "PackageContent"
             }
           }
         },
@@ -50422,7 +50466,10 @@
           "Kind": {
             "Canonical": {
               "Serialization": {
-                "SerializesAs": "PackageIdSerialize"
+                "Migrate": {
+                  "To": "PackageContent",
+                  "Migration": "ContentIdToContent"
+                }
               }
             }
           }
@@ -52268,7 +52315,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "TextureContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -52546,8 +52598,10 @@
         "Tags": {
           "Tags": []
         },
-        "Texture": {
-          "ContentId": "rbxasset://textures/particles/sparkles_main.dds"
+        "TextureContent": {
+          "Content": {
+            "Uri": "rbxasset://textures/particles/sparkles_main.dds"
+          }
         },
         "TimeScale": {
           "Float32": 1.0
@@ -62670,7 +62724,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "CameraButtonIconContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65730,7 +65789,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "MoonTextureContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65756,7 +65820,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "SkyboxBackContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65769,7 +65838,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "SkyboxDownContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65808,7 +65882,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "SkyboxFrontContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65834,7 +65913,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "SkyboxLeftContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65873,7 +65957,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "SkyboxRightContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65886,7 +65975,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "SkyboxUpContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65951,7 +66045,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "SunTextureContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         }
@@ -65975,23 +66074,33 @@
         "MoonAngularSize": {
           "Float32": 11.0
         },
-        "MoonTextureId": {
-          "ContentId": "rbxasset://sky/moon.jpg"
+        "MoonTextureContent": {
+          "Content": {
+            "Uri": "rbxasset://sky/moon.jpg"
+          }
         },
         "Sandboxed": {
           "Bool": false
         },
-        "SkyboxBk": {
-          "ContentId": "rbxasset://textures/sky/sky512_bk.tex"
+        "SkyboxBackContent": {
+          "Content": {
+            "Uri": "rbxasset://textures/sky/sky512_bk.tex"
+          }
         },
-        "SkyboxDn": {
-          "ContentId": "rbxasset://textures/sky/sky512_dn.tex"
+        "SkyboxDownContent": {
+          "Content": {
+            "Uri": "rbxasset://textures/sky/sky512_dn.tex"
+          }
         },
-        "SkyboxFt": {
-          "ContentId": "rbxasset://textures/sky/sky512_ft.tex"
+        "SkyboxFrontContent": {
+          "Content": {
+            "Uri": "rbxasset://textures/sky/sky512_ft.tex"
+          }
         },
-        "SkyboxLf": {
-          "ContentId": "rbxasset://textures/sky/sky512_lf.tex"
+        "SkyboxLeftContent": {
+          "Content": {
+            "Uri": "rbxasset://textures/sky/sky512_lf.tex"
+          }
         },
         "SkyboxOrientation": {
           "Vector3": [
@@ -66000,11 +66109,15 @@
             0.0
           ]
         },
-        "SkyboxRt": {
-          "ContentId": "rbxasset://textures/sky/sky512_rt.tex"
+        "SkyboxRightContent": {
+          "Content": {
+            "Uri": "rbxasset://textures/sky/sky512_rt.tex"
+          }
         },
-        "SkyboxUp": {
-          "ContentId": "rbxasset://textures/sky/sky512_up.tex"
+        "SkyboxUpContent": {
+          "Content": {
+            "Uri": "rbxasset://textures/sky/sky512_up.tex"
+          }
         },
         "SourceAssetId": {
           "Int64": -1
@@ -66015,8 +66128,10 @@
         "SunAngularSize": {
           "Float32": 21.0
         },
-        "SunTextureId": {
-          "ContentId": "rbxasset://sky/sun.jpg"
+        "SunTextureContent": {
+          "Content": {
+            "Uri": "rbxasset://sky/sun.jpg"
+          }
         },
         "Tags": {
           "Tags": []
@@ -68321,8 +68436,8 @@
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
-        "MeshId": {
-          "ContentId": ""
+        "MeshContent": {
+          "Content": "None"
         },
         "MeshType": {
           "Enum": 0
@@ -68350,8 +68465,8 @@
         "Tags": {
           "Tags": []
         },
-        "TextureId": {
-          "ContentId": ""
+        "TextureContent": {
+          "Content": "None"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -82589,7 +82704,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "TextureContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -82727,8 +82847,8 @@
         "Tags": {
           "Tags": []
         },
-        "Texture": {
-          "ContentId": ""
+        "TextureContent": {
+          "Content": "None"
         },
         "TextureLength": {
           "Float32": 1.0
