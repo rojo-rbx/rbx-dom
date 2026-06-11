@@ -19,7 +19,7 @@ use tempfile::tempdir;
 use crate::{
     api_dump::{Dump, DumpClassMember, Security, Tag, ValueCategory},
     defaults::apply_defaults,
-    patches::Patches,
+    patches::PatchSources,
 };
 
 use super::{defaults_place::DefaultsPlaceSubcommand, dump::DumpSubcommand};
@@ -65,8 +65,15 @@ impl GenerateSubcommand {
 
         apply_dump(&mut database, &dump)?;
 
-        let patches = if let Some(patches_path) = &self.patches {
-            Some(Patches::load(patches_path)?)
+        let patch_sources = if let Some(patches_path) = &self.patches {
+            let patch_sources = PatchSources::load(patches_path)?;
+            Some(patch_sources)
+        } else {
+            None
+        };
+
+        let patches = if let Some(patch_sources) = &patch_sources {
+            Some(patch_sources.parse()?)
         } else {
             None
         };
