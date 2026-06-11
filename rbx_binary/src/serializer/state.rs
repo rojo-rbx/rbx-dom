@@ -21,18 +21,17 @@ use rbx_reflection::{
     ReflectionDatabase,
 };
 
-use crate::{
-    chunk::ChunkBuilder,
+use rbx_binary_core::{
+    chunk::{ChunkBuilder, CompressionType},
     core::{
-        find_property_descriptors, PropertyDescriptors, RbxWriteExt, FILE_MAGIC_HEADER,
-        FILE_SIGNATURE, FILE_VERSION,
+        find_property_descriptors, PropertyDescriptors, RbxWriteExt, RbxWriteInterleaved,
+        FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
     },
     types::Type,
-    Serializer,
 };
 
 use super::error::InnerError;
-use super::CompressionType;
+use super::Serializer;
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
@@ -1549,7 +1548,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                             }
                         }
 
-                        chunk.write_interleaved_bytes::<16, _>(blobs)?;
+                        chunk.write_interleaved_bytes(blobs)?;
                     }
                     Type::SecurityCapabilities => {
                         let mut capabilities = Vec::with_capacity(values.len());

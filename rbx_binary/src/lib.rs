@@ -53,11 +53,8 @@ rbx_binary::to_writer(output, &dom, &[dom.root_ref()])?;
 
 #![deny(missing_docs)]
 
-mod chunk;
-mod core;
 mod deserializer;
 mod serializer;
-mod types;
 
 #[cfg(any(test, feature = "unstable_text_format"))]
 mod text_deserializer;
@@ -77,8 +74,10 @@ pub mod text_format {
 
 pub use crate::{
     deserializer::{Deserializer, Error as DecodeError},
-    serializer::{CompressionType, Error as EncodeError, Serializer},
+    serializer::{Error as EncodeError, Serializer},
 };
+
+pub use rbx_binary_core::chunk::CompressionType;
 
 /// Deserialize a Roblox binary model or place from a stream.
 pub fn from_reader<R: Read>(reader: R) -> Result<WeakDom, DecodeError> {
