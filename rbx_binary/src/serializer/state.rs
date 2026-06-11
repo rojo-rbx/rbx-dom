@@ -982,8 +982,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 invalid_value: InvalidValue,
             ) -> Result<(), InnerError>
             where
-                I: IntoIterator<Item = (usize, &'a Variant)>,
-                I: ExactSizeIterator,
+                I: ExactSizeIterator<Item = (usize, &'a Variant)>,
                 TypeMismatch: Fn(usize, &Variant, &'static str) -> Result<(), InnerError>,
                 InvalidValue: Fn(usize, &Variant) -> InnerError,
             {
