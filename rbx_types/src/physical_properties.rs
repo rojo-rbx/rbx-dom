@@ -256,8 +256,8 @@ mod serde_test {
     fn bincode_default() {
         let default = PhysicalProperties::Default;
 
-        let ser = bincode::serialize(&default).unwrap();
-        let de: PhysicalProperties = bincode::deserialize(&ser).unwrap();
+        let ser = rmp_serde::to_vec(&default).unwrap();
+        let de: PhysicalProperties = rmp_serde::from_slice(&ser).unwrap();
 
         assert_eq!(de, default);
     }
@@ -273,8 +273,8 @@ mod serde_test {
             acoustic_absorption: 1.0,
         });
 
-        let ser = bincode::serialize(&custom).unwrap();
-        let de: PhysicalProperties = bincode::deserialize(&ser).unwrap();
+        let ser = rmp_serde::to_vec(&custom).unwrap();
+        let de: PhysicalProperties = rmp_serde::from_slice(&ser).unwrap();
 
         assert_eq!(de, custom);
     }
