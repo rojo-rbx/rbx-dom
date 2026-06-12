@@ -1,4 +1,4 @@
-use std::{borrow::Cow, collections::VecDeque, convert::TryInto, io::Read};
+use std::{collections::VecDeque, convert::TryInto, io::Read};
 
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use rbx_dom_weak::{
@@ -404,7 +404,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             for instance in instances {
                 let binary_string = chunk.read_binary_string()?;
                 let value = match std::str::from_utf8(&binary_string) {
-                    Ok(value) => Cow::Borrowed(value),
+                    Ok(value) => value.to_owned(),
                     Err(_) => {
                         log::warn!(
                             "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
@@ -413,7 +413,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                             prop_name
                         );
 
-                        String::from_utf8_lossy(binary_string.as_ref())
+                        String::from_utf8_lossy(binary_string.as_ref()).into_owned()
                     }
                 };
                 instance.builder.set_name(value);
@@ -441,7 +441,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     for instance in instances {
                         let binary_string = chunk.read_binary_string()?;
                         let value = match std::str::from_utf8(&binary_string) {
-                            Ok(value) => Cow::Borrowed(value),
+                            Ok(value) => value.to_owned(),
                             Err(_) => {
                                 log::warn!(
                             "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
@@ -450,11 +450,11 @@ This may cause unexpected or broken behavior in your final results if you rely o
                                     property.name
                                 );
 
-                                String::from_utf8_lossy(&binary_string)
+                                String::from_utf8_lossy(&binary_string).into_owned()
                             }
                         };
 
-                        add_property(instance, &property, value.as_ref().into());
+                        add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::ContentId => {
