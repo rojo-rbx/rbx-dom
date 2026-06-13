@@ -46,8 +46,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Int64: -1
     Tags:
       Tags: []
-    Texture:
-      ContentId: ""
+    TextureContent:
+      Content: None
     TextureLength:
       Float32: 1
     TextureMode:
@@ -109,8 +109,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Int64: -1
     Tags:
       Tags: []
-    Texture:
-      ContentId: ""
+    TextureContent:
+      Content: None
     TextureLength:
       Float32: 1
     TextureMode:
@@ -177,8 +177,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Int64: -1
     Tags:
       Tags: []
-    Texture:
-      ContentId: ""
+    TextureContent:
+      Content: None
     TextureLength:
       Float32: 1
     TextureMode:
@@ -201,4 +201,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     ZOffset:
       Float32: 0
   children: []
-

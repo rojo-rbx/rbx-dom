@@ -40,9 +40,9 @@ expression: encoded_text
         <string name="Name">PackageLink</string>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <bool name="AutoUpdate">false</bool>
-        <ContentId name="PackageIdSerialize">
-          <url>rbxassetid://9111823334</url>
-        </ContentId>
+        <Content name="PackageContentSerialize">
+          <uri>rbxassetid://9111823334</uri>
+        </Content>
         <int64 name="SourceAssetId">-1</int64>
         <BinaryString name="Tags"></BinaryString>
         <int64 name="VersionIdSerialize">1</int64>

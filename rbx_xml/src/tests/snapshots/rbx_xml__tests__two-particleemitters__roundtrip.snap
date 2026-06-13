@@ -82,8 +82,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - 0
     Tags:
       Tags: []
-    Texture:
-      ContentId: "rbxasset://textures/particles/sparkles_main.dds"
+    TextureContent:
+      Content:
+        Uri: "rbxasset://textures/particles/sparkles_main.dds"
     Transparency:
       NumberSequence:
         keypoints:
@@ -178,8 +179,9 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - 0
     Tags:
       Tags: []
-    Texture:
-      ContentId: "rbxasset://textures/particles/sparkles_main.dds"
+    TextureContent:
+      Content:
+        Uri: "rbxasset://textures/particles/sparkles_main.dds"
     Transparency:
       NumberSequence:
         keypoints:
@@ -194,4 +196,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
     ZOffset:
       Float32: 0
   children: []
-

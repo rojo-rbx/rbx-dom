@@ -31,9 +31,9 @@ expression: encoded_text
         <Y>0</Y>
       </Vector2>
       <BinaryString name="Tags"></BinaryString>
-      <ContentId name="Texture">
-        <url>rbxasset://textures/particles/sparkles_main.dds</url>
-      </ContentId>
+      <Content name="TextureContent">
+        <uri>rbxasset://textures/particles/sparkles_main.dds</uri>
+      </Content>
       <NumberSequence name="Transparency">0 0 0 1 0 0 </NumberSequence>
       <float name="VelocityInheritance">0</float>
       <float name="ZOffset">0</float>
@@ -67,9 +67,9 @@ expression: encoded_text
         <Y>0</Y>
       </Vector2>
       <BinaryString name="Tags"></BinaryString>
-      <ContentId name="Texture">
-        <url>rbxasset://textures/particles/sparkles_main.dds</url>
-      </ContentId>
+      <Content name="TextureContent">
+        <uri>rbxasset://textures/particles/sparkles_main.dds</uri>
+      </Content>
       <NumberSequence name="Transparency">0 0 0 1 0 0 </NumberSequence>
       <float name="VelocityInheritance">0</float>
       <float name="ZOffset">0</float>

@@ -1,0 +1,13 @@
+Change:
+  CharacterMesh:
+    # CharacterMesh content properties are numbers, not strings!
+    BaseTextureId:
+      Serialization:
+        Type: Migrate
+        To: BaseTextureContent
+        Migration: Int64ToContent
+    MeshId:
+      Serialization:
+        Type: Migrate
+        To: MeshContent
+        Migration: Int64ToContent
