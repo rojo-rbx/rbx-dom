@@ -19,10 +19,10 @@ expression: encoded_text
       <int name="Segments">10</int>
       <int64 name="SourceAssetId">-1</int64>
       <BinaryString name="Tags"></BinaryString>
-      <ContentId name="Texture">
+      <Content name="TextureContent">
         <null>
         </null>
-      </ContentId>
+      </Content>
       <float name="TextureLength">1</float>
       <token name="TextureMode">0</token>
       <float name="TextureSpeed">1</float>
@@ -48,10 +48,10 @@ expression: encoded_text
       <int name="Segments">10</int>
       <int64 name="SourceAssetId">-1</int64>
       <BinaryString name="Tags"></BinaryString>
-      <ContentId name="Texture">
+      <Content name="TextureContent">
         <null>
         </null>
-      </ContentId>
+      </Content>
       <float name="TextureLength">1</float>
       <token name="TextureMode">0</token>
       <float name="TextureSpeed">1</float>
@@ -77,10 +77,10 @@ expression: encoded_text
       <int name="Segments">10</int>
       <int64 name="SourceAssetId">-1</int64>
       <BinaryString name="Tags"></BinaryString>
-      <ContentId name="Texture">
+      <Content name="TextureContent">
         <null>
         </null>
-      </ContentId>
+      </Content>
       <float name="TextureLength">1</float>
       <token name="TextureMode">0</token>
       <float name="TextureSpeed">1</float>
