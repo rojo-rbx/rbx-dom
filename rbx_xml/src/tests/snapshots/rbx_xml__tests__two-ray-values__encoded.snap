@@ -1,0 +1,46 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="RayValue" referent="0">
+    <Properties>
+      <string name="Name">{1, 2, 3}, {-4, -5, -6}</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <Ray name="Value">
+        <origin>
+          <X>1</X>
+          <Y>2</Y>
+          <Z>3</Z>
+        </origin>
+        <direction>
+          <X>-4</X>
+          <Y>-5</Y>
+          <Z>-6</Z>
+        </direction>
+      </Ray>
+    </Properties>
+  </Item>
+  <Item class="RayValue" referent="1">
+    <Properties>
+      <string name="Name">{inf, -inf, nan}, {0.5, 0.15625, 0.1}</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <Ray name="Value">
+        <origin>
+          <X>INF</X>
+          <Y>-INF</Y>
+          <Z>NAN</Z>
+        </origin>
+        <direction>
+          <X>0.5</X>
+          <Y>0.15625</Y>
+          <Z>0.1</Z>
+        </direction>
+      </Ray>
+    </Properties>
+  </Item>
+</roblox>
