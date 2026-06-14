@@ -1,0 +1,7 @@
+Change:
+  Trail:
+    Texture:
+      Serialization:
+        Type: Migrate
+        To: TextureContent
+        Migration: ContentIdToContent

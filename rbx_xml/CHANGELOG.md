@@ -1,5 +1,10 @@
 # rbx_xml Changelog
 
+## Unreleased
+* Added support for one-to-many property migrations. ([#612])
+
+[#612]: https://github.com/rojo-rbx/rbx-dom/pull/612
+
 ## 2.0.1 (2025-11-27)
 * Upgrade rbx-dom dependencies.
 

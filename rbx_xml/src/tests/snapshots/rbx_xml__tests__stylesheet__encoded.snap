@@ -1,0 +1,44 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="StyleSheet" referent="0">
+    <Properties>
+      <string name="Name">StyleSheet</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+      <bool name="DefinesCapabilities">false</bool>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+    </Properties>
+    <Item class="StyleRule" referent="1">
+      <Properties>
+        <string name="Name">Frame</string>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+        <int name="Priority">0</int>
+        <BinaryString name="PropertiesSerialize">AQAAAAQAAABTaXplCgAAgD8AAAAAAAAAPwAAAAA=</BinaryString>
+        <BinaryString name="PropertyTransitionsSerialize"><![CDATA[AgABAAAABAAAAFNpemUkzcxMPgAAAAAAAAAACAAAAAEAAAAA]]></BinaryString>
+        <bool name="DefinesCapabilities">false</bool>
+        <string name="Selector">Frame</string>
+        <int64 name="SourceAssetId">-1</int64>
+        <BinaryString name="Tags"></BinaryString>
+      </Properties>
+      <Item class="StyleRule" referent="2">
+        <Properties>
+          <string name="Name">:hover</string>
+          <BinaryString name="AttributesSerialize"></BinaryString>
+          <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+          <int name="Priority">0</int>
+          <BinaryString name="PropertiesSerialize">AQAAAAQAAABTaXplCgAAgD8AAAAAmplZPwAAAAA=</BinaryString>
+          <BinaryString name="PropertyTransitionsSerialize"><![CDATA[AgAAAAAA]]></BinaryString>
+          <bool name="DefinesCapabilities">false</bool>
+          <string name="Selector">:hover</string>
+          <int64 name="SourceAssetId">-1</int64>
+          <BinaryString name="Tags"></BinaryString>
+        </Properties>
+      </Item>
+    </Item>
+  </Item>
+</roblox>
