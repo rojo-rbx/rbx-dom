@@ -38,6 +38,11 @@ impl<'a, const N: usize> Iterator for ReadInterleavedBytesIter<'a, N> {
         (self.len, Some(self.len))
     }
 }
+impl<'a, const N: usize> ExactSizeIterator for ReadInterleavedBytesIter<'a, N> {
+    fn len(&self) -> usize {
+        self.len
+    }
+}
 
 pub trait RbxReadExt: Read {
     fn read_le_u32(&mut self) -> io::Result<u32> {
@@ -150,7 +155,7 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_i32_array(
         &mut self,
         len: usize,
-    ) -> io::Result<impl Iterator<Item = i32> + 'a> {
+    ) -> io::Result<impl ExactSizeIterator<Item = i32> + 'a> {
         Ok(self
             .read_interleaved_bytes(len)?
             .map(|out| untransform_i32(i32::from_be_bytes(out))))
@@ -161,7 +166,7 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_u32_array(
         &mut self,
         len: usize,
-    ) -> io::Result<impl Iterator<Item = u32> + 'a> {
+    ) -> io::Result<impl ExactSizeIterator<Item = u32> + 'a> {
         Ok(self.read_interleaved_bytes(len)?.map(u32::from_be_bytes))
     }
 
@@ -170,7 +175,7 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_f32_array(
         &mut self,
         len: usize,
-    ) -> io::Result<impl Iterator<Item = f32> + 'a> {
+    ) -> io::Result<impl ExactSizeIterator<Item = f32> + 'a> {
         Ok(self
             .read_interleaved_bytes(len)?
             .map(|out| f32::from_bits(u32::from_be_bytes(out).rotate_right(1))))
@@ -179,7 +184,10 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     /// Creates an iterator of `len` big-endian i32 values.
     /// The values are properly untransformed and accumulated
     /// so as to properly read arrays of referent values.
-    fn read_referent_array(&mut self, len: usize) -> io::Result<impl Iterator<Item = i32> + 'a> {
+    fn read_referent_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl ExactSizeIterator<Item = i32> + 'a> {
         let mut last = 0;
         Ok(self
             .read_interleaved_i32_array(len)?
@@ -195,7 +203,7 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_i64_array(
         &mut self,
         len: usize,
-    ) -> io::Result<impl Iterator<Item = i64> + 'a> {
+    ) -> io::Result<impl ExactSizeIterator<Item = i64> + 'a> {
         Ok(self
             .read_interleaved_bytes(len)?
             .map(|out| untransform_i64(i64::from_be_bytes(out))))
