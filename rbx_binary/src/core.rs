@@ -10,20 +10,20 @@ pub static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
 pub static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
 pub const FILE_VERSION: u16 = 0;
 
-pub struct ReadInterleavedBytesIter<'a, const N: usize> {
+pub struct InterleavedArrayIter<'a, const N: usize> {
     bytes: &'a [u8],
     index: usize,
     len: usize,
 }
 
-impl<'a, const N: usize> ReadInterleavedBytesIter<'a, N> {
+impl<'a, const N: usize> InterleavedArrayIter<'a, N> {
     fn new(bytes: &'a [u8], len: usize) -> Self {
         let index = 0;
         Self { bytes, index, len }
     }
 }
 
-impl<'a, const N: usize> Iterator for ReadInterleavedBytesIter<'a, N> {
+impl<'a, const N: usize> Iterator for InterleavedArrayIter<'a, N> {
     type Item = [u8; N];
     fn next(&mut self) -> Option<Self::Item> {
         if self.index < self.len {
@@ -38,7 +38,7 @@ impl<'a, const N: usize> Iterator for ReadInterleavedBytesIter<'a, N> {
         (self.len, Some(self.len))
     }
 }
-impl<'a, const N: usize> ExactSizeIterator for ReadInterleavedBytesIter<'a, N> {
+impl<'a, const N: usize> ExactSizeIterator for InterleavedArrayIter<'a, N> {
     fn len(&self) -> usize {
         self.len
     }
@@ -144,10 +144,10 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_bytes<const N: usize>(
         &mut self,
         len: usize,
-    ) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
+    ) -> io::Result<InterleavedArrayIter<'a, N>> {
         let out = self.read_slice(len * N)?;
 
-        Ok(ReadInterleavedBytesIter::new(out, len))
+        Ok(InterleavedArrayIter::new(out, len))
     }
 
     /// Creates an iterator of `len` big-endian i32 values.
