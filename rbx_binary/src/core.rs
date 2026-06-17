@@ -128,9 +128,6 @@ impl<'a, const N: usize> Iterator for InterleavedArrayIter<'a, N> {
             None
         }
     }
-    fn size_hint(&self) -> (usize, Option<usize>) {
-        (self.len, Some(self.len))
-    }
 }
 impl<'a, const N: usize> ExactSizeIterator for InterleavedArrayIter<'a, N> {
     fn len(&self) -> usize {
