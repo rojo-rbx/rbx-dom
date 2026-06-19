@@ -291,9 +291,8 @@ mod tests {
     fn int64_to_content_zero() {
         use rbx_types::ContentType;
 
-        let migration = PropertyMigration::new(
-            MigrationOperation::Int64ToContent,
-            ["ObivouslyFakeProperty"],
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":["ObviouslyFakeProperty"],"Migration":"Int64ToContent"}"#,
         )
         .unwrap();
         let new_value = migration.perform(&0i64.into()).unwrap();
@@ -313,9 +312,8 @@ mod tests {
     fn int64_to_content_non_zero() {
         use rbx_types::ContentType;
 
-        let migration = PropertyMigration::new(
-            MigrationOperation::Int64ToContent,
-            ["ObivouslyFakeProperty"],
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":["ObviouslyFakeProperty"],"Migration":"Int64ToContent"}"#,
         )
         .unwrap();
         let new_value = migration.perform(&1337i64.into()).unwrap();
