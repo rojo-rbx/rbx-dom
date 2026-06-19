@@ -31,7 +31,7 @@ This blob serializes the collision groups registered in `Workspace`. It encodes 
 | `1`          | Version (?)  | Constant (`0x01`).                         |
 | `1`          | Group Count  | Total number of collision groups (`u8`).   |
 | `1`          | ID           | Group ID (`u8`).                           |
-| `1`          | Unknown (?)  | Constant value (`0x04`, possibly a reserved byte). |
+| `1`          | Int32TypeID  | Constant (`0x04`).                           |
 | `4`          | Mask         | Collision mask (`i32`).                    |
 | `1`          | Name Length  | Length of the group name (`u8`).           |
 | `N`          | Name         | Group name (`string`).                     |
