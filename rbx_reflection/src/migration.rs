@@ -34,26 +34,6 @@ pub struct PropertyMigration<'a> {
     new_property_names: PropertyMigrationTarget<'a>,
     migration: MigrationOperation,
 }
-impl<'a> PropertyMigration<'a> {
-    /// Create a new PropertyMigration with the specified targets.
-    /// Returns None when there is zero targets.
-    pub fn new<Targets>(migration: MigrationOperation, targets: Targets) -> Option<Self>
-    where
-        Targets: IntoIterator<Item = &'a str>,
-        <Targets as IntoIterator>::IntoIter: ExactSizeIterator,
-    {
-        let mut targets = targets.into_iter();
-        let new_property_names = match targets.len() {
-            0 => return None,
-            1 => PropertyMigrationTarget::One(targets.next().unwrap()),
-            _ => PropertyMigrationTarget::Many(targets.collect()),
-        };
-        Some(Self {
-            new_property_names,
-            migration,
-        })
-    }
-}
 
 impl<'a, 'de: 'a> Deserialize<'de> for PropertyMigration<'a> {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
@@ -311,9 +291,8 @@ mod tests {
     fn int64_to_content_zero() {
         use rbx_types::ContentType;
 
-        let migration = PropertyMigration::new(
-            MigrationOperation::Int64ToContent,
-            ["ObivouslyFakeProperty"],
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":["ObviouslyFakeProperty"],"Migration":"Int64ToContent"}"#,
         )
         .unwrap();
         let new_value = migration.perform(&0i64.into()).unwrap();
@@ -333,9 +312,8 @@ mod tests {
     fn int64_to_content_non_zero() {
         use rbx_types::ContentType;
 
-        let migration = PropertyMigration::new(
-            MigrationOperation::Int64ToContent,
-            ["ObivouslyFakeProperty"],
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":["ObviouslyFakeProperty"],"Migration":"Int64ToContent"}"#,
         )
         .unwrap();
         let new_value = migration.perform(&1337i64.into()).unwrap();
