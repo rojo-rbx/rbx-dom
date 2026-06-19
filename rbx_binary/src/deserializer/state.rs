@@ -1319,15 +1319,17 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         .map(|((x, y), z)| Vector3::new(x, y, z))
                         .zip(rotations)
                         .map(|(position, rotation)| {
-                            if chunk.read_u8().ok()? == 0 {
-                                None
-                            } else {
-                                Some(CFrame::new(position, rotation))
-                            }
+                            chunk.read_u8().map(|byte| {
+                                if byte == 0 {
+                                    None
+                                } else {
+                                    Some(CFrame::new(position, rotation))
+                                }
+                            })
                         });
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        add_property(instance, &property, value?.into());
                     }
                 }
                 invalid_type => {
