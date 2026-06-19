@@ -30,6 +30,11 @@ Change:
         Type: SerializesAs
         As: DefinesCapabilities
 
+    # Setting capabilities is beyond our ability right now so we're going to
+    # ignore it.
+    Capabilities:
+      Scriptability: None
+
     # Attributes serialize as a BinaryString with a strange name, but we want to
     # refer to them with a different name.
     Attributes:

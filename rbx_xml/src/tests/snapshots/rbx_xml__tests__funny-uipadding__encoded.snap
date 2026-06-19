@@ -1,0 +1,29 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="UIPadding" referent="0">
+    <Properties>
+      <string name="Name">UIPadding</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <UDim name="PaddingBottom">
+        <S>13.37</S>
+        <O>42</O>
+      </UDim>
+      <UDim name="PaddingLeft">
+        <S>-13.37</S>
+        <O>42</O>
+      </UDim>
+      <UDim name="PaddingRight">
+        <S>13.37</S>
+        <O>-42</O>
+      </UDim>
+      <UDim name="PaddingTop">
+        <S>-13.37</S>
+        <O>-42</O>
+      </UDim>
+      <BinaryString name="Tags"></BinaryString>
+    </Properties>
+  </Item>
+</roblox>

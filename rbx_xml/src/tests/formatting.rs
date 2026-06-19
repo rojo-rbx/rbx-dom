@@ -28,8 +28,10 @@ const INPUT: &str = r#"<roblox version="4">
                 <G>0.5</G>
                 <B>125600</B>
             </Color3>
-            <Content name="TestContent1"><url>Wow!</url></Content>
-            <Content name="TestContent2"><null></null></Content>
+            <ContentId name="TestContentId_Url"><url>Wow!</url></ContentId>
+            <ContentId name="TestContentId_None"><null></null></ContentId>
+            <Content name="TestContent_Url"><uri>Wow!</uri></Content>
+            <Content name="TestContent_None"><null></null></Content>
         </Properties>
         <Item class="TestClass" referent="Child1">
             <Properties>
@@ -80,6 +82,15 @@ const INPUT: &str = r#"<roblox version="4">
                         <Elasticity>0.15625</Elasticity>
                         <FrictionWeight>-0.15625</FrictionWeight>
                         <ElasticityWeight>NAN</ElasticityWeight>
+                    </PhysicalProperties>
+                    <PhysicalProperties name="TestPhysicalProperties3">
+                        <CustomPhysics>true</CustomPhysics>
+                        <Density>1</Density>
+                        <Friction>-1</Friction>
+                        <Elasticity>0.15625</Elasticity>
+                        <FrictionWeight>-0.15625</FrictionWeight>
+                        <ElasticityWeight>NAN</ElasticityWeight>
+                        <AcousticAbsorption>1337</AcousticAbsorption>
                     </PhysicalProperties>
                     <ProtectedString name="TestProtectedString">Hello world, again!</ProtectedString>
                     <Ray name="TestRay">

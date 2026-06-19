@@ -42,6 +42,7 @@ pub enum Type {
     UniqueId = 0x1F,
     Font = 0x20,
     SecurityCapabilities = 0x21,
+    Content = 0x22,
 }
 
 impl Type {
@@ -50,9 +51,12 @@ impl Type {
             // These types all serialize the same way in the binary format.
             VariantType::String => Type::String,
             VariantType::BinaryString => Type::String,
-            VariantType::Content => Type::String,
+            VariantType::ContentId => Type::String,
             VariantType::Tags => Type::String,
             VariantType::MaterialColors => Type::String,
+
+            VariantType::SharedString => Type::SharedString,
+            VariantType::NetAssetRef => Type::SharedString,
 
             VariantType::Bool => Type::Bool,
             VariantType::Int32 => Type::Int32,
@@ -78,11 +82,11 @@ impl Type {
             VariantType::PhysicalProperties => Type::PhysicalProperties,
             VariantType::Color3uint8 => Type::Color3uint8,
             VariantType::Int64 => Type::Int64,
-            VariantType::SharedString => Type::SharedString,
             VariantType::OptionalCFrame => Type::OptionalCFrame,
             VariantType::UniqueId => Type::UniqueId,
             VariantType::Font => Type::Font,
             VariantType::SecurityCapabilities => Type::SecurityCapabilities,
+            VariantType::Content => Type::Content,
             _ => return None,
         })
     }
@@ -121,6 +125,7 @@ impl Type {
             Type::UniqueId => VariantType::UniqueId,
             Type::Font => VariantType::Font,
             Type::SecurityCapabilities => VariantType::SecurityCapabilities,
+            Type::Content => VariantType::Content,
         })
     }
 }
@@ -162,6 +167,7 @@ impl TryFrom<u8> for Type {
             0x1F => UniqueId,
             0x20 => Font,
             0x21 => SecurityCapabilities,
+            0x22 => Content,
             _ => return Err(InvalidTypeError(value)),
         })
     }

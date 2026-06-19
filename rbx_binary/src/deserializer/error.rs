@@ -79,4 +79,16 @@ pub(crate) enum InnerError {
         expected_type_id: u8,
         actual_type_id: u8,
     },
+
+    #[error("'Content' type {0} is not implemented")]
+    BadContentType(i32),
+
+    #[error("'PhysicalProperties' discriminator {0:b} is not supported")]
+    BadPhysicalPropertiesType(u8),
+
+    #[error("Malformed file: Referent {referent} has already appeared in the file")]
+    DuplicateReferent { referent: i32 },
+
+    #[error("Malformed file: INST Chunk with type_id {type_id} has already appeared in the file")]
+    DuplicateInstChunk { type_id: u32 },
 }

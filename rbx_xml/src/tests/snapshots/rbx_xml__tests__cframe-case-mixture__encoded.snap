@@ -1,0 +1,50 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="CFrameValue" referent="0">
+    <Properties>
+      <string name="Name">0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <CoordinateFrame name="Value">
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+        <R00>1</R00>
+        <R01>0</R01>
+        <R02>0</R02>
+        <R10>0</R10>
+        <R11>0</R11>
+        <R12>-1</R12>
+        <R20>0</R20>
+        <R21>1</R21>
+        <R22>0</R22>
+      </CoordinateFrame>
+    </Properties>
+  </Item>
+  <Item class="CFrameValue" referent="1">
+    <Properties>
+      <string name="Name">0.15625, -0.15625, 0.1, -0.1, 0, 0, 1337, -1337, inf, -inf, nan, nan</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <CoordinateFrame name="Value">
+        <X>0.15625</X>
+        <Y>-0.15625</Y>
+        <Z>0.1</Z>
+        <R00>-0.1</R00>
+        <R01>0</R01>
+        <R02>0</R02>
+        <R10>1337</R10>
+        <R11>-1337</R11>
+        <R12>inf</R12>
+        <R20>-inf</R20>
+        <R21>NaN</R21>
+        <R22>NaN</R22>
+      </CoordinateFrame>
+    </Properties>
+  </Item>
+</roblox>

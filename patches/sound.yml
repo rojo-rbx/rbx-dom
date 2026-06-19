@@ -20,3 +20,10 @@ Change:
         As: xmlRead_MaxDistance_3
     xmlRead_MaxDistance_3:
       AliasFor: RollOffMaxDistance
+
+    SoundId:
+      Serialization:
+        Type: Migrate
+        To: AudioContent
+        Migration: ContentIdToContent
+

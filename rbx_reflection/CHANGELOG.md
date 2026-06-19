@@ -1,8 +1,22 @@
 # rbx_reflection Changelog
 
-## Unreleased Changes
+## Unreleased
+* Added support for one-to-many property migrations and added migrations for `UICorner.CornerRadius`. ([#612])
+
+[#612]: https://github.com/rojo-rbx/rbx-dom/pull/612
+
+## 6.1.0 (2025-11-27)
+* Added `DataType::ty` to convert to `VariantType` infallibly. ([#540])
+
+[#540]: https://github.com/rojo-rbx/rbx-dom/pull/540
+
+## 6.0.0 (2025-10-10)
+* Updated to rbx_types 3.0.0. As this is a major version bump for a dependency, this crate has also gone up a major version to avoid mismatched versions. It is otherwise unchanged.
+
+## 5.0.0 (2025-03-28)
 * Added `ReflectionDatabase::superclasses_iter`
 * Added `ReflectionDatabase::has_superclass`, like `Instance:IsA(ClassName)`
+* Updated rbx_types to 2.0.0, which includes breaking changes to how a `ReflectionDatabase` serializes
 
 ## 4.7.0 (2024-08-22)
 * Update to rbx_types 1.10

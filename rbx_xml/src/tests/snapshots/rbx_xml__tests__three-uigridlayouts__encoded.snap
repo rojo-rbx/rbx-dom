@@ -1,0 +1,81 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="UIGridLayout" referent="0">
+    <Properties>
+      <string name="Name">UIGridLayout</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <UDim2 name="CellPadding">
+        <XS>0</XS>
+        <XO>0</XO>
+        <YS>-0.1</YS>
+        <YO>100</YO>
+      </UDim2>
+      <UDim2 name="CellSize">
+        <XS>0.2</XS>
+        <XO>-150</XO>
+        <YS>-0.3</YS>
+        <YO>300</YO>
+      </UDim2>
+      <token name="FillDirection">0</token>
+      <int name="FillDirectionMaxCells">0</int>
+      <token name="HorizontalAlignment">1</token>
+      <token name="SortOrder">0</token>
+      <token name="StartCorner">0</token>
+      <BinaryString name="Tags"></BinaryString>
+      <token name="VerticalAlignment">1</token>
+    </Properties>
+  </Item>
+  <Item class="UIGridLayout" referent="1">
+    <Properties>
+      <string name="Name">UIGridLayout</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <UDim2 name="CellPadding">
+        <XS>0.4</XS>
+        <XO>-500</XO>
+        <YS>-0.5</YS>
+        <YO>600</YO>
+      </UDim2>
+      <UDim2 name="CellSize">
+        <XS>0.6</XS>
+        <XO>-1200</XO>
+        <YS>-0.7</YS>
+        <YO>1000</YO>
+      </UDim2>
+      <token name="FillDirection">0</token>
+      <int name="FillDirectionMaxCells">0</int>
+      <token name="HorizontalAlignment">1</token>
+      <token name="SortOrder">0</token>
+      <token name="StartCorner">0</token>
+      <BinaryString name="Tags"></BinaryString>
+      <token name="VerticalAlignment">1</token>
+    </Properties>
+  </Item>
+  <Item class="UIGridLayout" referent="2">
+    <Properties>
+      <string name="Name">UIGridLayout</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <UDim2 name="CellPadding">
+        <XS>0.8</XS>
+        <XO>-200</XO>
+        <YS>-0.9</YS>
+        <YO>250</YO>
+      </UDim2>
+      <UDim2 name="CellSize">
+        <XS>1</XS>
+        <XO>-300</XO>
+        <YS>-1.1</YS>
+        <YO>1200</YO>
+      </UDim2>
+      <token name="FillDirection">0</token>
+      <int name="FillDirectionMaxCells">0</int>
+      <token name="HorizontalAlignment">1</token>
+      <token name="SortOrder">0</token>
+      <token name="StartCorner">0</token>
+      <BinaryString name="Tags"></BinaryString>
+      <token name="VerticalAlignment">1</token>
+    </Properties>
+  </Item>
+</roblox>

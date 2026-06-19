@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 46
 expression: text_roundtrip
 ---
 num_types: 60
@@ -1068,10 +1067,10 @@ chunks:
         - ""
   - Prop:
       type_id: 4
-      prop_name: Texture
-      prop_type: String
+      prop_name: TextureContent
+      prop_type: Content
       values:
-        - "rbxasset://textures/SpawnLocation.png"
+        - Uri: "rbxasset://textures/SpawnLocation.png"
   - Prop:
       type_id: 4
       prop_name: Transparency
@@ -2756,10 +2755,10 @@ chunks:
         - 11
   - Prop:
       type_id: 48
-      prop_name: MoonTextureId
-      prop_type: String
+      prop_name: MoonTextureContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444320592"
+        - Uri: "rbxassetid://6444320592"
   - Prop:
       type_id: 48
       prop_name: Name
@@ -2768,40 +2767,40 @@ chunks:
         - Sky
   - Prop:
       type_id: 48
-      prop_name: SkyboxBk
-      prop_type: String
+      prop_name: SkyboxBackContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884337"
+        - Uri: "rbxassetid://6444884337"
   - Prop:
       type_id: 48
-      prop_name: SkyboxDn
-      prop_type: String
+      prop_name: SkyboxDownContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884785"
+        - Uri: "rbxassetid://6444884785"
   - Prop:
       type_id: 48
-      prop_name: SkyboxFt
-      prop_type: String
+      prop_name: SkyboxFrontContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884337"
+        - Uri: "rbxassetid://6444884337"
   - Prop:
       type_id: 48
-      prop_name: SkyboxLf
-      prop_type: String
+      prop_name: SkyboxLeftContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884337"
+        - Uri: "rbxassetid://6444884337"
   - Prop:
       type_id: 48
-      prop_name: SkyboxRt
-      prop_type: String
+      prop_name: SkyboxRightContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884337"
+        - Uri: "rbxassetid://6444884337"
   - Prop:
       type_id: 48
-      prop_name: SkyboxUp
-      prop_type: String
+      prop_name: SkyboxUpContent
+      prop_type: Content
       values:
-        - "rbxassetid://6412503613"
+        - Uri: "rbxassetid://6412503613"
   - Prop:
       type_id: 48
       prop_name: SourceAssetId
@@ -2822,10 +2821,10 @@ chunks:
         - 11
   - Prop:
       type_id: 48
-      prop_name: SunTextureId
-      prop_type: String
+      prop_name: SunTextureContent
+      prop_type: Content
       values:
-        - "rbxassetid://6196665106"
+        - Uri: "rbxassetid://6196665106"
   - Prop:
       type_id: 48
       prop_name: Tags
@@ -4403,12 +4402,6 @@ chunks:
         - "00000000000000000000000000000000"
   - Prop:
       type_id: 58
-      prop_name: Is30FpsThrottleEnabled
-      prop_type: Bool
-      values:
-        - true
-  - Prop:
-      type_id: 58
       prop_name: IsPhysicsEnvironmentalThrottled
       prop_type: Bool
       values:
@@ -4531,10 +4524,10 @@ chunks:
         - ""
   - Prop:
       type_id: 1
-      prop_name: Texture
-      prop_type: String
+      prop_name: TextureContent
+      prop_type: Content
       values:
-        - "rbxassetid://6372755229"
+        - Uri: "rbxassetid://6372755229"
   - Prop:
       type_id: 1
       prop_name: Transparency
@@ -5115,4 +5108,3 @@ chunks:
         - - 59
           - -1
   - End
-

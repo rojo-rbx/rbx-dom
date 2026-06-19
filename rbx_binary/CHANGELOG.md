@@ -1,14 +1,37 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Changed serializer to not panic when Instance.properties contains Name entry. ([#596])
+* Used exact comparison when determining basic rotation IDs to exactly preserve CFrame inputs. ([#601])
+* Added support for one-to-many property migrations. ([#612])
+
+[#596]: https://github.com/rojo-rbx/rbx-dom/pull/596
+[#601]: https://github.com/rojo-rbx/rbx-dom/pull/601
+[#612]: https://github.com/rojo-rbx/rbx-dom/pull/612
+
+## 2.0.1 (2025-11-27)
+* Improved performance in several ways. Serializing in particular has been dramatically improved.
+
+## 2.0.0 (2025-10-10)
+* Upgrade rbx-dom dependencies, which results in breaking changes to some data types.
+* Implement support for serializing and deserializing the `NetAssetRef` type. ([#555])
+* Implement support for `AcousticAbsorption` in `PhysicalProperties`. ([#556])
+
+[#555]: https://github.com/rojo-rbx/rbx-dom/pull/555
+[#556]: https://github.com/rojo-rbx/rbx-dom/pull/556
+
+## 1.0.0 (2025-03-28)
 * Dramatically improved performance of serializer and deserializer by using `Ustr` to represent property and class names ([#462]).
 * Added the ability to specify what type of compression to use for serializing. This takes the form of `Serializer::compression_type`. ([#446])
 * Added support for ZSTD compressed files ([#446])
 * Implicit lossy conversion of non-UTF-8 `Instance.Name` and `*Script.Source` properties when decoding.  The previous behaviour was returning an error. ([#380])
+* Implement support for serializing and deserializing the `Content` type. ([#495])
+* Updated rbx-dom dependencies, which results in breaking changes to `WeakDom` and `Variant`.
 
 [#462]: https://github.com/rojo-rbx/rbx-dom/pull/462
 [#446]: https://github.com/rojo-rbx/rbx-dom/pull/446
 [#380]: https://github.com/rojo-rbx/rbx-dom/pull/380
+[#495]: https://github.com/rojo-rbx/rbx-dom/pull/495
 
 ## 0.7.7 (2024-08-22)
 * Updated rbx-dom dependencies

@@ -1,6 +1,5 @@
 ---
 source: rbx_binary/src/tests/util.rs
-assertion_line: 33
 expression: decoded_viewed
 ---
 - referent: referent-0
@@ -258,7 +257,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 256
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         PivotOffset:
           CFrame:
@@ -349,8 +348,9 @@ expression: decoded_viewed
               Float32: 8
             Tags:
               Tags: []
-            Texture:
-              Content: "rbxassetid://6372755229"
+            TextureContent:
+              Content:
+                Uri: "rbxassetid://6372755229"
             Transparency:
               Float32: 0.8
             UniqueId:
@@ -531,7 +531,7 @@ expression: decoded_viewed
               - 143
               - 144
               - 135
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         PhysicsGrid:
           BinaryString: AgMAAAAAAAAAAAAAAAA=
@@ -705,7 +705,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 256
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         Neutral:
           Bool: true
@@ -792,8 +792,9 @@ expression: decoded_viewed
               Int64: -1
             Tags:
               Tags: []
-            Texture:
-              Content: "rbxasset://textures/SpawnLocation.png"
+            TextureContent:
+              Content:
+                Uri: "rbxasset://textures/SpawnLocation.png"
             Transparency:
               Float32: 0
             UniqueId:
@@ -1710,28 +1711,36 @@ expression: decoded_viewed
           UniqueId: "00000000000000000000000000000000"
         MoonAngularSize:
           Float32: 11
-        MoonTextureId:
-          Content: "rbxassetid://6444320592"
-        SkyboxBk:
-          Content: "rbxassetid://6444884337"
-        SkyboxDn:
-          Content: "rbxassetid://6444884785"
-        SkyboxFt:
-          Content: "rbxassetid://6444884337"
-        SkyboxLf:
-          Content: "rbxassetid://6444884337"
-        SkyboxRt:
-          Content: "rbxassetid://6444884337"
-        SkyboxUp:
-          Content: "rbxassetid://6412503613"
+        MoonTextureContent:
+          Content:
+            Uri: "rbxassetid://6444320592"
+        SkyboxBackContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxDownContent:
+          Content:
+            Uri: "rbxassetid://6444884785"
+        SkyboxFrontContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxLeftContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxRightContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxUpContent:
+          Content:
+            Uri: "rbxassetid://6412503613"
         SourceAssetId:
           Int64: 332039975
         StarCount:
           Int32: 3000
         SunAngularSize:
           Float32: 11
-        SunTextureId:
-          Content: "rbxassetid://6196665106"
+        SunTextureContent:
+          Content:
+            Uri: "rbxassetid://6196665106"
         Tags:
           Tags: []
         UniqueId:
@@ -1919,8 +1928,6 @@ expression: decoded_viewed
       Bool: false
     HistoryId:
       UniqueId: "00000000000000000000000000000000"
-    Is30FpsThrottleEnabled:
-      Bool: true
     IsPhysicsEnvironmentalThrottled:
       Bool: true
     IsSleepAllowed:
@@ -1953,4 +1960,3 @@ expression: decoded_viewed
     UniqueId:
       UniqueId: 44b188dace632b4702e9c68d00483208
   children: []
-

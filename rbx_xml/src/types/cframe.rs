@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{CFrame, Matrix3, Vector3};
+use rbx_dom_weak::types::CFrame;
 
 use crate::{
     core::XmlType,
@@ -39,7 +39,7 @@ impl XmlType for CFrame {
     }
 
     fn read_xml<R: Read>(reader: &mut XmlEventReader<R>) -> Result<Self, DecodeError> {
-        let mut value = CFrame::new(Vector3::new(0.0, 0.0, 0.0), Matrix3::identity());
+        let mut value = CFrame::identity();
 
         for &tag_name in &TAG_NAMES {
             let component: f32 = reader.read_value_in_tag(tag_name)?;
@@ -74,6 +74,7 @@ mod test {
     use super::*;
 
     use crate::test_util;
+    use rbx_dom_weak::types::{Matrix3, Vector3};
 
     #[test]
     fn round_trip() {

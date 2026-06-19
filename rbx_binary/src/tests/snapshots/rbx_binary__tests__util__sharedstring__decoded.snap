@@ -69,7 +69,7 @@ expression: decoded_viewed
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -157,7 +157,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -240,7 +240,7 @@ expression: decoded_viewed
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -328,7 +328,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -411,7 +411,7 @@ expression: decoded_viewed
         Anchored:
           Bool: false
         AssetId:
-          Content: ""
+          ContentId: ""
         Attributes:
           Attributes: {}
         BackParamA:
@@ -499,7 +499,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 1088
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -582,7 +582,7 @@ expression: decoded_viewed
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -670,7 +670,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -753,7 +753,7 @@ expression: decoded_viewed
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -841,7 +841,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -924,7 +924,7 @@ expression: decoded_viewed
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -1012,7 +1012,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -1095,7 +1095,7 @@ expression: decoded_viewed
         Anchored:
           Bool: false
         AssetId:
-          Content: ""
+          ContentId: ""
         Attributes:
           Attributes: {}
         BackParamA:
@@ -1183,7 +1183,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 1088
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -1266,7 +1266,7 @@ expression: decoded_viewed
         Anchored:
           Bool: false
         AssetId:
-          Content: "https://www.roblox.com//asset/?id=2892119179"
+          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -1354,7 +1354,7 @@ expression: decoded_viewed
           Bool: false
         Material:
           Enum: 272
-        MaterialVariantSerialized:
+        MaterialVariant:
           String: ""
         MeshData:
           BinaryString: ""
@@ -1430,4 +1430,3 @@ expression: decoded_viewed
             - 0
             - 0
       children: []
-

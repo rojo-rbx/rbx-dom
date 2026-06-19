@@ -1,0 +1,7 @@
+Change:
+  AudioPlayer:
+    Asset:
+      Serialization:
+        Type: Migrate
+        To: AudioContent
+        Migration: ContentIdToContent

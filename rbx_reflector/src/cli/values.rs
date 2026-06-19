@@ -4,8 +4,8 @@ use anyhow::bail;
 use clap::Parser;
 use rbx_types::{
     Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-    ColorSequenceKeypoint, Content, CustomPhysicalProperties, Enum, EnumItem, Faces, Font,
-    MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+    ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, EnumItem, Faces,
+    Font, MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
     PhysicalProperties, Ray, Rect, Region3int16, Tags, TerrainMaterials, UDim, UDim2, Variant,
     VariantType, Vector2, Vector2int16, Vector3, Vector3int16,
 };
@@ -85,7 +85,12 @@ impl ValuesSubcommand {
             }
             .into(),
         );
-        values.insert("Content", Content::from("rbxassetid://12345").into());
+        values.insert("Content_None", Content::none().into());
+        values.insert(
+            "Content_Uri",
+            Content::from_uri("rbxasset://abc/123.rojo").into(),
+        );
+        values.insert("ContentId", ContentId::from("rbxassetid://12345").into());
         values.insert("Enum", Enum::from_u32(1234).into());
         values.insert(
             "EnumItem",
@@ -157,20 +162,13 @@ impl ValuesSubcommand {
         values.insert("OptionalCFrame-None", Variant::OptionalCFrame(None));
         values.insert(
             "OptionalCFrame-Some",
-            Variant::OptionalCFrame(Some(CFrame::new(
-                Vector3::new(0.0, 0.0, 0.0),
-                Matrix3::identity(),
-            ))),
+            Variant::OptionalCFrame(Some(CFrame::identity())),
         );
         values.insert(
             "PhysicalProperties-Custom",
-            PhysicalProperties::Custom(CustomPhysicalProperties {
-                density: 0.5,
-                friction: 1.0,
-                elasticity: 0.0,
-                friction_weight: 50.0,
-                elasticity_weight: 25.0,
-            })
+            PhysicalProperties::Custom(CustomPhysicalProperties::new(
+                0.5, 1.0, 0.0, 50.0, 25.0, 0.15625,
+            ))
             .into(),
         );
         values.insert(

@@ -1,0 +1,310 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&decoded)"
+---
+- referent: referent-0
+  name: Decal_None
+  class: Decal
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    Color3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    Face:
+      Enum: 5
+    Sandboxed:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    TextureContent:
+      Content: None
+    Transparency:
+      Float32: 0
+    ZIndex:
+      Int32: 1
+  children: []
+- referent: referent-1
+  name: Decal_SpawnLocation
+  class: Decal
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    Color3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    Face:
+      Enum: 5
+    Sandboxed:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    TextureContent:
+      Content:
+        Uri: "rbxasset://textures/SpawnLocation.png"
+    Transparency:
+      Float32: 0
+    ZIndex:
+      Int32: 1
+  children: []
+- referent: referent-2
+  name: ImageLabel_None
+  class: ImageLabel
+  properties:
+    Active:
+      Bool: false
+    AnchorPoint:
+      Vector2:
+        - 0
+        - 0
+    Attributes:
+      Attributes: {}
+    AutoLocalize:
+      Bool: true
+    AutomaticSize:
+      Enum: 0
+    BackgroundColor3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    BackgroundTransparency:
+      Float32: 0
+    BorderColor3:
+      Color3:
+        - 0
+        - 0
+        - 0
+    BorderMode:
+      Enum: 0
+    BorderSizePixel:
+      Int32: 0
+    Capabilities:
+      SecurityCapabilities: 0
+    ClipsDescendants:
+      Bool: false
+    Draggable:
+      Bool: false
+    ImageColor3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    ImageContent:
+      Content: None
+    ImageRectOffset:
+      Vector2:
+        - 0
+        - 0
+    ImageRectSize:
+      Vector2:
+        - 0
+        - 0
+    ImageTransparency:
+      Float32: 0
+    Interactable:
+      Bool: true
+    LayoutOrder:
+      Int32: 0
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      UDim2:
+        - - 0
+          - 0
+        - - 0
+          - 0
+    ResampleMode:
+      Enum: 0
+    RootLocalizationTable: "null"
+    Rotation:
+      Float32: 0
+    Sandboxed:
+      Bool: false
+    ScaleType:
+      Enum: 0
+    Selectable:
+      Bool: false
+    SelectionBehaviorDown:
+      Enum: 0
+    SelectionBehaviorLeft:
+      Enum: 0
+    SelectionBehaviorRight:
+      Enum: 0
+    SelectionBehaviorUp:
+      Enum: 0
+    SelectionGroup:
+      Bool: false
+    SelectionImageObject: "null"
+    SelectionOrder:
+      Int32: 0
+    Size:
+      UDim2:
+        - - 0
+          - 100
+        - - 0
+          - 100
+    SizeConstraint:
+      Enum: 0
+    SliceCenter:
+      Rect:
+        - - 0
+          - 0
+        - - 0
+          - 0
+    SliceScale:
+      Float32: 1
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    TileSize:
+      UDim2:
+        - - 1
+          - 0
+        - - 1
+          - 0
+    Visible:
+      Bool: true
+    ZIndex:
+      Int32: 1
+  children: []
+- referent: referent-3
+  name: ImageLabel_SpawnLocation
+  class: ImageLabel
+  properties:
+    Active:
+      Bool: false
+    AnchorPoint:
+      Vector2:
+        - 0
+        - 0
+    Attributes:
+      Attributes: {}
+    AutoLocalize:
+      Bool: true
+    AutomaticSize:
+      Enum: 0
+    BackgroundColor3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    BackgroundTransparency:
+      Float32: 0
+    BorderColor3:
+      Color3:
+        - 0
+        - 0
+        - 0
+    BorderMode:
+      Enum: 0
+    BorderSizePixel:
+      Int32: 0
+    Capabilities:
+      SecurityCapabilities: 0
+    ClipsDescendants:
+      Bool: false
+    Draggable:
+      Bool: false
+    ImageColor3:
+      Color3:
+        - 1
+        - 1
+        - 1
+    ImageContent:
+      Content:
+        Uri: "rbxasset://textures/SpawnLocation.png"
+    ImageRectOffset:
+      Vector2:
+        - 0
+        - 0
+    ImageRectSize:
+      Vector2:
+        - 0
+        - 0
+    ImageTransparency:
+      Float32: 0
+    Interactable:
+      Bool: true
+    LayoutOrder:
+      Int32: 0
+    NextSelectionDown: "null"
+    NextSelectionLeft: "null"
+    NextSelectionRight: "null"
+    NextSelectionUp: "null"
+    Position:
+      UDim2:
+        - - 0
+          - 0
+        - - 0
+          - 0
+    ResampleMode:
+      Enum: 0
+    RootLocalizationTable: "null"
+    Rotation:
+      Float32: 0
+    Sandboxed:
+      Bool: false
+    ScaleType:
+      Enum: 0
+    Selectable:
+      Bool: false
+    SelectionBehaviorDown:
+      Enum: 0
+    SelectionBehaviorLeft:
+      Enum: 0
+    SelectionBehaviorRight:
+      Enum: 0
+    SelectionBehaviorUp:
+      Enum: 0
+    SelectionGroup:
+      Bool: false
+    SelectionImageObject: "null"
+    SelectionOrder:
+      Int32: 0
+    Size:
+      UDim2:
+        - - 0
+          - 100
+        - - 0
+          - 100
+    SizeConstraint:
+      Enum: 0
+    SliceCenter:
+      Rect:
+        - - 0
+          - 0
+        - - 0
+          - 0
+    SliceScale:
+      Float32: 1
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    TileSize:
+      UDim2:
+        - - 1
+          - 0
+        - - 1
+          - 0
+    Visible:
+      Bool: true
+    ZIndex:
+      Int32: 1
+  children: []

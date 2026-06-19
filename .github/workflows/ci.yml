@@ -36,7 +36,10 @@ jobs:
         submodules: true
 
     - name: Setup Rust toolchain
-      run: rustup default ${{ matrix.rust_version }}
+      run: |
+        rustup update ${{ matrix.rust_version }}
+        rustup default ${{ matrix.rust_version }}
+        rustup component add rustfmt
 
     - name: Build
       run: cargo build --verbose

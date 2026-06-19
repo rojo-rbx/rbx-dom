@@ -1,0 +1,44 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="TerrainRegion" referent="0">
+    <Properties>
+      <string name="Name">Region 1</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <Vector3int16 name="ExtentsMax">
+        <X>1</X>
+        <Y>2</Y>
+        <Z>3</Z>
+      </Vector3int16>
+      <Vector3int16 name="ExtentsMin">
+        <X>-1</X>
+        <Y>-2</Y>
+        <Z>-3</Z>
+      </Vector3int16>
+      <BinaryString name="SmoothGrid"><![CDATA[AQU=]]></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+    </Properties>
+  </Item>
+  <Item class="TerrainRegion" referent="1">
+    <Properties>
+      <string name="Name">Region 2</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <Vector3int16 name="ExtentsMax">
+        <X>1337</X>
+        <Y>100</Y>
+        <Z>9001</Z>
+      </Vector3int16>
+      <Vector3int16 name="ExtentsMin">
+        <X>-1337</X>
+        <Y>-100</Y>
+        <Z>-9001</Z>
+      </Vector3int16>
+      <BinaryString name="SmoothGrid"><![CDATA[AQU=]]></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+    </Properties>
+  </Item>
+</roblox>

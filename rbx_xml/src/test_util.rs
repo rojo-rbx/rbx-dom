@@ -51,8 +51,8 @@ where
         match (expected.is_some(), actual.is_some()) {
             (true, true) => {
                 if expected != actual {
-                    println!("Expected event: {:#?}", expected);
-                    println!("Actual event: {:#?}", actual);
+                    println!("Expected event: {expected:#?}");
+                    println!("Actual event: {actual:#?}");
 
                     fail();
                 }

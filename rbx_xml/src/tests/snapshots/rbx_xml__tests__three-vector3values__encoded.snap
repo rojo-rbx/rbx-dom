@@ -1,0 +1,45 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="Vector3Value" referent="0">
+    <Properties>
+      <string name="Name">1337, -1337, 0</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <Vector3 name="Value">
+        <X>1337</X>
+        <Y>-1337</Y>
+        <Z>0</Z>
+      </Vector3>
+    </Properties>
+  </Item>
+  <Item class="Vector3Value" referent="1">
+    <Properties>
+      <string name="Name">0.15625, -0.15625, 0.1</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <Vector3 name="Value">
+        <X>0.15625</X>
+        <Y>-0.15625</Y>
+        <Z>0.1</Z>
+      </Vector3>
+    </Properties>
+  </Item>
+  <Item class="Vector3Value" referent="2">
+    <Properties>
+      <string name="Name">inf, -inf, nan</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <Vector3 name="Value">
+        <X>INF</X>
+        <Y>-INF</Y>
+        <Z>NAN</Z>
+      </Vector3>
+    </Properties>
+  </Item>
+</roblox>

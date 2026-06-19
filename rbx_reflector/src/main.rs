@@ -18,7 +18,7 @@ fn main() {
         .init();
 
     if let Err(err) = args.run() {
-        eprintln!("Error: {:?}", err);
+        eprintln!("Error: {err:?}");
         std::process::exit(1);
     }
 }

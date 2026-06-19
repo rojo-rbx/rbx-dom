@@ -3,6 +3,7 @@ use std::fmt;
 use crate::lister::Lister;
 
 bitflags::bitflags! {
+    #[derive(Clone, Copy, PartialEq, Eq)]
     struct AxisFlags: u8 {
         const X = 1;
         const Y = 2;
@@ -54,8 +55,11 @@ impl Axes {
         self.flags.bits()
     }
 
-    pub fn from_bits(bits: u8) -> Option<Self> {
-        AxisFlags::from_bits(bits).map(|flags| Self { flags })
+    pub const fn from_bits(bits: u8) -> Option<Self> {
+        match AxisFlags::from_bits(bits) {
+            Some(flags) => Some(Self { flags }),
+            None => None,
+        }
     }
 
     #[cfg(feature = "serde")]
@@ -134,13 +138,13 @@ mod serde_impl {
         fn visit_seq<A: SeqAccess<'de>>(self, mut seq: A) -> Result<Self::Value, A::Error> {
             let mut flags = AxisFlags::empty();
 
-            while let Some(axis_str) = seq.next_element::<&str>()? {
-                match axis_str {
+            while let Some(axis_str) = seq.next_element::<String>()? {
+                match axis_str.as_str() {
                     "X" => flags |= AxisFlags::X,
                     "Y" => flags |= AxisFlags::Y,
                     "Z" => flags |= AxisFlags::Z,
                     _ => {
-                        return Err(A::Error::custom(format!("invalid axis '{}'", axis_str)));
+                        return Err(A::Error::custom(format!("invalid axis '{axis_str}'")));
                     }
                 }
             }
@@ -207,18 +211,18 @@ mod serde_test {
     #[test]
     fn non_human() {
         let empty = Axes::empty();
-        let ser_empty = bincode::serialize(&empty).unwrap();
-        let de_empty = bincode::deserialize(&ser_empty).unwrap();
+        let ser_empty = rmp_serde::to_vec(&empty).unwrap();
+        let de_empty = rmp_serde::from_slice(&ser_empty).unwrap();
         assert_eq!(empty, de_empty);
 
         let x = Axes::X;
-        let ser_x = bincode::serialize(&x).unwrap();
-        let de_x = bincode::deserialize(&ser_x).unwrap();
+        let ser_x = rmp_serde::to_vec(&x).unwrap();
+        let de_x = rmp_serde::from_slice(&ser_x).unwrap();
         assert_eq!(x, de_x);
 
         let all = Axes::all();
-        let ser_all = bincode::serialize(&all).unwrap();
-        let de_all = bincode::deserialize(&ser_all).unwrap();
+        let ser_all = rmp_serde::to_vec(&all).unwrap();
+        let de_all = rmp_serde::from_slice(&ser_all).unwrap();
         assert_eq!(all, de_all);
     }
 }
