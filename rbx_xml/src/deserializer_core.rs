@@ -281,11 +281,11 @@ impl<R: Read> XmlEventReader<R> {
         loop {
             match self.expect_next()? {
                 XmlReadEvent::StartElement { name, .. } => {
-                    trace!("Eat unknown start: {:?}", name);
+                    trace!("Eat unknown start: {name:?}");
                     depth += 1;
                 }
                 XmlReadEvent::EndElement { name } => {
-                    trace!("Eat unknown end: {:?}", name);
+                    trace!("Eat unknown end: {name:?}");
                     depth -= 1;
 
                     if depth == 0 {
@@ -294,7 +294,7 @@ impl<R: Read> XmlEventReader<R> {
                     }
                 }
                 other => {
-                    trace!("Eat unknown: {:?}", other);
+                    trace!("Eat unknown: {other:?}");
                 }
             }
         }

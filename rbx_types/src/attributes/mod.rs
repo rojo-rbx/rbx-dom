@@ -34,8 +34,10 @@ pub struct Attributes {
 
 impl Attributes {
     /// Creates an empty `Attributes` struct
-    pub fn new() -> Self {
-        Self::default()
+    pub const fn new() -> Self {
+        Self {
+            data: BTreeMap::new(),
+        }
     }
 
     /// Reads from a serialized attributes string, and produces a new `Attributes` from it.

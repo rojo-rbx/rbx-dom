@@ -18,7 +18,7 @@ pub struct Tags {
 
 impl Tags {
     /// Create a new `Tags` empty container.
-    pub fn new() -> Tags {
+    pub const fn new() -> Tags {
         Self {
             members: Vec::new(),
         }

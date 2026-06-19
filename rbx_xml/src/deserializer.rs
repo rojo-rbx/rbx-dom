@@ -1,12 +1,12 @@
-use std::{collections::hash_map::Entry, io::Read};
+use std::io::Read;
 
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
-    types::{Ref, SharedString, Variant, VariantType},
+    types::{Ref, SharedString, Variant},
     InstanceBuilder, Ustr, WeakDom,
 };
-use rbx_reflection::{DataType, PropertyKind, PropertySerialization, ReflectionDatabase};
+use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     conversion::ConvertVariant,
@@ -28,6 +28,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Wea
     deserialize_root(&mut iterator, &mut state, root_id)?;
     apply_referent_rewrites(&mut state);
     apply_shared_string_rewrites(&mut state);
+    apply_net_asset_rewrites(&mut state);
 
     Ok(tree)
 }
@@ -78,7 +79,7 @@ impl<'db> DecodeOptions<'db> {
     pub fn new() -> Self {
         DecodeOptions {
             property_behavior: DecodePropertyBehavior::IgnoreUnknown,
-            database: rbx_reflection_database::get(),
+            database: rbx_reflection_database::get().unwrap(),
         }
     }
 
@@ -142,7 +143,12 @@ pub struct ParseState<'dom, 'db> {
     /// A list of SharedString properties to set in the tree as a secondary
     /// pass. This works just like referent rewriting since the shared string
     /// dictionary is usually at the end of the XML file.
-    shared_string_rewrites: Vec<SharedStringRewrite>,
+    shared_string_rewrites: Vec<HashRewrites>,
+
+    /// A list of NetAssetRef properties to set in the tree as a secondary
+    /// pass. This works just like the `SharedString` rewriting, since
+    /// `NetAssetRef` uses the same repository as `SharedString`.
+    net_asset_rewrites: Vec<HashRewrites>,
 
     /// Contains all of the unknown types that have been found so far. Tracking
     /// them here helps ensure that we only output a warning once per type.
@@ -155,10 +161,10 @@ struct ReferentRewrite {
     referent_value: String,
 }
 
-struct SharedStringRewrite {
+struct HashRewrites {
     id: Ref,
     property_name: Ustr,
-    shared_string_hash: String,
+    hash: String,
 }
 
 impl<'dom, 'db> ParseState<'dom, 'db> {
@@ -171,6 +177,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
             referent_rewrites: Vec::new(),
             known_shared_strings: HashMap::new(),
             shared_string_rewrites: Vec::new(),
+            net_asset_rewrites: Vec::new(),
             unknown_type_names: HashSet::new(),
         }
     }
@@ -206,19 +213,26 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
     }
 
     /// Marks that a property on this instance needs to be rewritten once we
-    /// have a complete view of how referents map to Ref values.
+    /// have a complete view of values in the `SharedString` repository.
     ///
-    /// This is used to deserialize non-null Ref values correctly.
-    pub fn add_shared_string_rewrite(
-        &mut self,
-        id: Ref,
-        property_name: Ustr,
-        shared_string_hash: String,
-    ) {
-        self.shared_string_rewrites.push(SharedStringRewrite {
+    /// This is used to deserialize `SharedString` values correctly.
+    pub fn add_shared_string_rewrite(&mut self, id: Ref, property_name: Ustr, hash: String) {
+        self.shared_string_rewrites.push(HashRewrites {
             id,
             property_name,
-            shared_string_hash,
+            hash,
+        });
+    }
+
+    /// Marks that a property on this instance needs to be rewritten once we
+    /// have a complete view of values in the `SharedString` repository.
+    ///
+    /// This is used to deserialize `NetAssetRefs` values correctly.
+    pub fn add_net_asset_rewrite(&mut self, id: Ref, property_name: Ustr, hash: String) {
+        self.net_asset_rewrites.push(HashRewrites {
+            id,
+            property_name,
+            hash,
         });
     }
 }
@@ -242,9 +256,27 @@ fn apply_referent_rewrites(state: &mut ParseState) {
     }
 }
 
+fn apply_net_asset_rewrites(state: &mut ParseState) {
+    for rewrite in &state.net_asset_rewrites {
+        let new_value = match state.known_shared_strings.get(&rewrite.hash) {
+            Some(v) => v.clone(),
+            None => continue,
+        };
+
+        let instance = state.tree.get_by_ref_mut(rewrite.id).expect(
+            "rbx_xml bug: had ID in NetAssetRef rewrite list that didn't end up in the tree",
+        );
+
+        instance.properties.insert(
+            rewrite.property_name.as_str().into(),
+            Variant::NetAssetRef(new_value.into()),
+        );
+    }
+}
+
 fn apply_shared_string_rewrites(state: &mut ParseState) {
     for rewrite in &state.shared_string_rewrites {
-        let new_value = match state.known_shared_strings.get(&rewrite.shared_string_hash) {
+        let new_value = match state.known_shared_strings.get(&rewrite.hash) {
             Some(v) => v.clone(),
             None => continue,
         };
@@ -311,14 +343,9 @@ fn deserialize_root<R: Read>(
                     }
                 }
             }
-            XmlReadEvent::EndElement { name } => {
-                if name.local_name == "roblox" {
-                    reader.expect_next().unwrap();
-                    break;
-                } else {
-                    let event = reader.expect_next().unwrap();
-                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                }
+            XmlReadEvent::EndElement { name } if name.local_name == "roblox" => {
+                reader.expect_next().unwrap();
+                break;
             }
             XmlReadEvent::EndDocument => break,
             _ => {
@@ -364,21 +391,11 @@ fn deserialize_shared_string_dict<R: Read>(
 
     loop {
         match reader.expect_peek()? {
-            XmlReadEvent::StartElement { name, .. } => {
-                if name.local_name == "SharedString" {
-                    deserialize_shared_string(reader, state)?;
-                } else {
-                    let event = reader.expect_next().unwrap();
-                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                }
+            XmlReadEvent::StartElement { name, .. } if name.local_name == "SharedString" => {
+                deserialize_shared_string(reader, state)?;
             }
-            XmlReadEvent::EndElement { name } => {
-                if name.local_name == "SharedStrings" {
-                    break;
-                } else {
-                    let event = reader.expect_next().unwrap();
-                    return Err(reader.error(DecodeErrorKind::UnexpectedXmlEvent(event)));
-                }
+            XmlReadEvent::EndElement { name } if name.local_name == "SharedStrings" => {
+                break;
             }
             _ => {
                 let event = reader.expect_next().unwrap();
@@ -443,7 +460,7 @@ fn deserialize_instance<R: Read>(
         (class, referent)
     };
 
-    trace!("Class {} with referent {:?}", class_name, referent);
+    trace!("Class {class_name} with referent {referent:?}");
 
     let prop_capacity = state
         .options
@@ -527,9 +544,7 @@ fn deserialize_properties<R: Read>(
         .class;
 
     log::trace!(
-        "Deserializing properties for instance {:?}, whose ClassName is {}",
-        instance_id,
-        class_name
+        "Deserializing properties for instance {instance_id:?}, whose ClassName is {class_name}"
     );
 
     loop {
@@ -554,14 +569,9 @@ fn deserialize_properties<R: Read>(
 
                     (name.local_name.to_owned(), xml_property_name)
                 }
-                XmlReadEvent::EndElement { name } => {
-                    if name.local_name == "Properties" {
-                        reader.expect_next()?;
-                        return Ok(());
-                    } else {
-                        let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
-                        return Err(reader.error(err));
-                    }
+                XmlReadEvent::EndElement { name } if name.local_name == "Properties" => {
+                    reader.expect_next()?;
+                    return Ok(());
                 }
                 _ => {
                     let err = DecodeErrorKind::UnexpectedXmlEvent(reader.expect_next()?);
@@ -571,10 +581,7 @@ fn deserialize_properties<R: Read>(
         };
 
         log::trace!(
-            "Deserializing property {}.{}, of type {}",
-            class_name,
-            xml_property_name,
-            xml_type_name
+            "Deserializing property {class_name}.{xml_property_name}, of type {xml_type_name}"
         );
 
         let maybe_descriptor = if state.options.use_reflection() {
@@ -588,12 +595,11 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let value =
-                match read_value_xml(reader, state, &xml_type_name, instance_id, &descriptor.name)?
-                {
-                    Some(value) => value,
-                    None => continue,
-                };
+            let Some(value) =
+                read_value_xml(reader, state, &xml_type_name, instance_id, descriptor.name)?
+            else {
+                continue;
+            };
 
             let xml_ty = value.ty();
 
@@ -606,11 +612,7 @@ fn deserialize_properties<R: Read>(
             // For example:
             // - Int/Float widening from 32-bit to 64-bit
             // - BrickColor properties turning into Color3
-            let expected_type = match &descriptor.data_type {
-                DataType::Value(data_type) => *data_type,
-                DataType::Enum(_enum_name) => VariantType::Enum,
-                _ => unimplemented!(),
-            };
+            let expected_type = descriptor.data_type.ty();
             log::trace!("property's read type: {xml_ty:?}, canonical type: {expected_type:?}");
 
             let value = match value.try_convert(class_name, expected_type) {
@@ -635,28 +637,28 @@ fn deserialize_properties<R: Read>(
                 PropertyKind::Canonical {
                     serialization: PropertySerialization::Migrate(migration),
                 } => {
-                    let new_property_name = &migration.new_property_name;
-                    let old_property_name = &descriptor.name;
+                    let old_property_name = descriptor.name;
 
-                    if let Entry::Vacant(entry) = props.entry(new_property_name.into()) {
-                        log::trace!(
-                            "Attempting to migrate property {old_property_name} to {new_property_name}"
-                        );
-                        match migration.perform(&value) {
-                            Ok(migrated_value) => {
-                                entry.insert(migrated_value);
-                                log::trace!(
-                                    "Successfully migrated property {old_property_name} to {new_property_name}"
-                                );
+                    match migration.perform(&value) {
+                        Ok(migrated_value) => {
+                            for &new_property_name in migration.new_property_names() {
+                                let new_property_name = Ustr::from(new_property_name);
+                                props.entry(new_property_name).or_insert_with(|| {
+                                    log::trace!(
+                                        "Attempting to migrate property {old_property_name} to {new_property_name}"
+                                    );
+
+                                    migrated_value.clone()
+                                });
                             }
-                            Err(error) => {
-                                return Err(reader.error(DecodeErrorKind::MigrationError(error)));
-                            }
+                        }
+                        Err(error) => {
+                            return Err(reader.error(DecodeErrorKind::MigrationError(error)));
                         }
                     }
                 }
                 _ => {
-                    props.insert(descriptor.name.as_ref().into(), value);
+                    props.insert(descriptor.name.into(), value);
                 }
             };
         } else {

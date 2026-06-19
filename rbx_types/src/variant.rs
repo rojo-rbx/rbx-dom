@@ -1,8 +1,9 @@
 use crate::{
     Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-    Content, Enum, EnumItem, Faces, Font, MaterialColors, NumberRange, NumberSequence,
-    PhysicalProperties, Ray, Rect, Ref, Region3, Region3int16, SecurityCapabilities, SharedString,
-    Tags, UDim, UDim2, UniqueId, Vector2, Vector2int16, Vector3, Vector3int16,
+    Content, ContentId, Enum, EnumItem, Faces, Font, MaterialColors, NetAssetRef, NumberRange,
+    NumberSequence, PhysicalProperties, Ray, Rect, Ref, Region3, Region3int16,
+    SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Vector2, Vector2int16,
+    Vector3, Vector3int16,
 };
 
 /// Reduces boilerplate from listing different values of Variant by wrapping
@@ -99,7 +100,7 @@ make_variant! {
     Color3(Color3),
     Color3uint8(Color3uint8),
     ColorSequence(ColorSequence),
-    Content(Content),
+    ContentId(ContentId),
     Enum(Enum),
     Faces(Faces),
     Float32(f32),
@@ -130,6 +131,8 @@ make_variant! {
     MaterialColors(MaterialColors),
     SecurityCapabilities(SecurityCapabilities),
     EnumItem(EnumItem),
+    Content(Content),
+    NetAssetRef(NetAssetRef),
 }
 
 impl From<&'_ str> for Variant {
@@ -157,9 +160,9 @@ mod serde_test {
     fn non_human() {
         let vec2 = Variant::Vector2(Vector2::new(5.0, 7.0));
 
-        let ser = bincode::serialize(&vec2).unwrap();
+        let ser = rmp_serde::to_vec(&vec2).unwrap();
 
-        let de: Variant = bincode::deserialize(&ser).unwrap();
+        let de: Variant = rmp_serde::from_slice(&ser).unwrap();
         assert_eq!(de, vec2);
     }
 }

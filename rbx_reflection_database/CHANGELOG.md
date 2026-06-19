@@ -1,14 +1,66 @@
 # rbx\_reflection_database Changelog
 
-## Unreleased Changes
-* Update to Roblox version 653.
+## Unreleased
+* Aliased `StarterPlayer.AvatarJointUpgrade` to `StarterPlayer.AvatarJointUpgrade_SerializedRollout`. ([#599])
+* Updated to Roblox version 718. ([#604])
+* Added migrations for `UICorner.CornerRadius`. ([#612])
+
+[#599]: https://github.com/rojo-rbx/rbx-dom/pull/599
+[#604]: https://github.com/rojo-rbx/rbx-dom/pull/604
+[#612]: https://github.com/rojo-rbx/rbx-dom/pull/612
+
+## 2.0.2+roblox-700 (2025-11-27)
+* Updated to Roblox version 700.
+* StyleRule's `PropertiesSerialize` property's is now serialized as the `Attributes` type.
+
+## 2.0.1+roblox-697 (2025-11-06)
+* Updated to Roblox version 697.
+
+## 2.0.0+roblox-694 (2025-10-10)
+* Updated to Roblox version 694.
+* The database may now be loaded dynamically from the local file system. ([#376])
+  The location is OS-dependent but it will only be loaded if one exists. The location may also be manually specified using the `RBX_DATABASE` environment variable.
+
+	`get` has been changed to return a `Result<Path, Error>` instead of always succeeding, and will return the locally stored database if it exists and the bundled one if not. Two methods (`get_bundled` and `get_local`) will only fetch the bundled database and one that's stored locally respectively if you want to do that. It is recommended you continue using `get`, but `get_bundled` is a true replacement for its old behavior and will never fail.
+
+[#376]: https://github.com/rojo-rbx/rbx-dom/pull/376
+
+## 1.0.3+roblox-670 (2025-04-25)
+* Set `Instance.Capabilities` to be unscriptable ([#523])
+
+[#523]: https://github.com/rojo-rbx/rbx-dom/pull/523
+
+## 1.0.2+roblox-670 (2025-04-23)
+* Updated to Roblox version 670.
+* Added a migration for ([#518], [#519]):
+  * `Decal.Texture` to `Decal.TextureContent`
+  * `SurfaceAppearance.RoughnessMap` to `SurfaceAppearance.RoughnessMapContent`
+  * `SurfaceAppearance.NormalMap` to `SurfaceAppearance.NormalMapContent`
+  * `SurfaceAppearance.MetalnessMap` to `SurfaceAppearance.MetalnessMapContent`
+  * `SurfaceAppearance.ColorMap` to `SurfaceAppearance.ColorMapContent`
+  * `ImageButton.PressedImage` to `ImageButton.PressedImageContent`
+  * `ImageButton.HoverImage` to `ImageButton.HoverImageContent`
+
+[#518]: https://github.com/rojo-rbx/rbx-dom/pull/518
+[#519]: https://github.com/rojo-rbx/rbx-dom/pull/519
+
+## 1.0.1+roblox-666 (2025-03-31)
+* Corrected the serialization of `MeshPart.TextureID` to migrate to `MeshPart.TextureContent` ([#505])
+
+[#505]: https://github.com/rojo-rbx/rbx-dom/pull/505
+
+## 1.0.0+roblox-666 (2025-03-28)
+* Update to Roblox version 666.
 * `Model.WorldPivotData`'s default value is now `null`. ([#450])
 * `SharedString` properties now have default values. ([#458])
 * `Instance.DefinesCapabilities` is now an alias for `Instance.Sandboxed` ([#459])
+* `BasePart.MaterialVariant` is now an alias for `BasePart.MaterialVariantSerialized` ([#474])
+* Updated other rbx_dom dependencies, which results in a breaking change to `Variant`
 
 [#458]: https://github.com/rojo-rbx/rbx-dom/pull/458
 [#450]: https://github.com/rojo-rbx/rbx-dom/pull/450
 [#459]: https://github.com/rojo-rbx/rbx-dom/pull/459
+[#474]: https://github.com/rojo-rbx/rbx-dom/pull/474
 
 ## 0.2.12+roblox-638 (2024-08-22)
 * Update to Roblox version 638.

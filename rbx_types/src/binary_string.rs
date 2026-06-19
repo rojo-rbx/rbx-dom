@@ -10,7 +10,7 @@ pub struct BinaryString {
 
 impl BinaryString {
     #[inline]
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         Self { buffer: Vec::new() }
     }
 
@@ -68,7 +68,10 @@ impl AsMut<Vec<u8>> for BinaryString {
 mod serde_impl {
     use super::*;
 
-    use serde::{de::Error as _, Deserialize, Deserializer, Serialize, Serializer};
+    use serde::{
+        de::{Error, Visitor},
+        Deserialize, Deserializer, Serialize, Serializer,
+    };
 
     impl Serialize for BinaryString {
         fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
@@ -85,14 +88,28 @@ mod serde_impl {
         }
     }
 
+    struct BinaryStringVisitor;
+
+    impl Visitor<'_> for BinaryStringVisitor {
+        type Value = BinaryString;
+
+        fn expecting(&self, out: &mut std::fmt::Formatter) -> std::fmt::Result {
+            write!(out, "a BinaryString value")
+        }
+
+        fn visit_str<E: Error>(self, str: &str) -> Result<Self::Value, E> {
+            let buffer = base64::decode(str).map_err(E::custom)?;
+            Ok(BinaryString { buffer })
+        }
+    }
+
     impl<'de> Deserialize<'de> for BinaryString {
         fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
             if deserializer.is_human_readable() {
-                let encoded = <&str>::deserialize(deserializer)?;
-                let buffer = base64::decode(encoded).map_err(D::Error::custom)?;
-
-                Ok(BinaryString { buffer })
+                deserializer.deserialize_str(BinaryStringVisitor)
             } else {
+                // For compatibility reasons, we use `Vec<u8>`'s implementation
+                // of deserialize.
                 let buffer = <Vec<u8>>::deserialize(deserializer)?;
                 Ok(BinaryString { buffer })
             }
@@ -119,8 +136,8 @@ mod serde_test {
     fn non_human() {
         let data = BinaryString::from(b"world".to_vec());
 
-        let ser = bincode::serialize(&data).unwrap();
-        let de: BinaryString = bincode::deserialize(&ser).unwrap();
+        let ser = rmp_serde::to_vec(&data).unwrap();
+        let de: BinaryString = rmp_serde::from_slice(&ser).unwrap();
 
         assert_eq!(de, data);
     }

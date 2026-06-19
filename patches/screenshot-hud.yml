@@ -1,0 +1,7 @@
+Change:
+  ScreenshotHud:
+    CameraButtonIcon:
+      Serialization:
+        Type: Migrate
+        To: CameraButtonIconContent
+        Migration: ContentIdToContent

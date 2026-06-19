@@ -1,0 +1,7 @@
+Change:
+  Mouse:
+    Icon:
+      Serialization:
+        Type: Migrate
+        To: IconContent
+        Migration: ContentIdToContent

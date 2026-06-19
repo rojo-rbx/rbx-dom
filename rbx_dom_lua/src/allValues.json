@@ -176,9 +176,23 @@
     },
     "ty": "ColorSequence"
   },
-  "Content": {
+  "ContentId": {
     "value": {
-      "Content": "rbxassetid://12345"
+      "ContentId": "rbxassetid://12345"
+    },
+    "ty": "ContentId"
+  },
+  "Content_None": {
+    "value": {
+      "Content": "None"
+    },
+    "ty": "Content"
+  },
+  "Content_Uri": {
+    "value": {
+      "Content": {
+        "Uri": "rbxasset://abc/123.rojo"
+      }
     },
     "ty": "Content"
   },
@@ -427,7 +441,8 @@
         "friction": 1.0,
         "elasticity": 0.0,
         "frictionWeight": 50.0,
-        "elasticityWeight": 25.0
+        "elasticityWeight": 25.0,
+        "acousticAbsorption": 0.15625
       }
     },
     "ty": "PhysicalProperties"

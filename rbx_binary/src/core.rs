@@ -1,16 +1,41 @@
-use std::{
-    io::{self, Read, Write},
-    mem,
-};
+use std::io::{self, Read, Write};
 
-use rbx_dom_weak::Ustr;
 use rbx_reflection::{
     ClassDescriptor, PropertyDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase,
 };
 
+use crate::chunk::ChunkBuilder;
+
 pub static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
 pub static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
 pub const FILE_VERSION: u16 = 0;
+
+pub struct ReadInterleavedBufferIter<const N: usize> {
+    buffer: Vec<u8>,
+    index: usize,
+    len: usize,
+}
+
+impl<const N: usize> ReadInterleavedBufferIter<N> {
+    fn new(len: usize) -> Self {
+        let index = 0;
+        let buffer = vec![0; len * N];
+        Self { buffer, index, len }
+    }
+}
+
+impl<const N: usize> Iterator for ReadInterleavedBufferIter<N> {
+    type Item = [u8; N];
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.index < self.len {
+            let output = core::array::from_fn(|i| self.buffer[self.index + self.len * i]);
+            self.index += 1;
+            Some(output)
+        } else {
+            None
+        }
+    }
+}
 
 pub trait RbxReadExt: Read {
     fn read_le_u32(&mut self) -> io::Result<u32> {
@@ -99,89 +124,79 @@ pub trait RbxReadExt: Read {
         Ok(self.read_u8()? != 0)
     }
 
-    /// Fills `output` with blocks of `N` bytes from the buffer,
-    /// deinterleaving them in the process.
-    ///
-    /// This function allocates `N * output.len()` bytes before reading.
-    fn read_interleaved_bytes<const N: usize>(&mut self, output: &mut [[u8; N]]) -> io::Result<()> {
-        let len = output.len();
-        let mut buffer = vec![0; len * N];
-        self.read_exact(&mut buffer)?;
-
-        for (i, array) in output.iter_mut().enumerate() {
-            for (j, byte) in array.iter_mut().enumerate() {
-                *byte = buffer[i + len * j];
-            }
-        }
-
-        Ok(())
+    /// Create an iterator that reads chunks of N interleaved bytes.
+    /// This function allocates `N * len` bytes before reading.
+    fn read_interleaved_bytes<const N: usize>(
+        &mut self,
+        len: usize,
+    ) -> io::Result<ReadInterleavedBufferIter<N>> {
+        let mut it = ReadInterleavedBufferIter::new(len);
+        self.read_exact(&mut it.buffer)?;
+        Ok(it)
     }
 
-    /// Fills `output` with big-endian `i32` values read from the buffer.
-    /// These values are untransformed while being read.
-    fn read_interleaved_i32_array(&mut self, output: &mut [i32]) -> io::Result<()> {
-        let mut read = vec![[0; mem::size_of::<i32>()]; output.len()];
-        self.read_interleaved_bytes(&mut read)?;
-
-        for (chunk, out) in read.into_iter().zip(output) {
-            *out = untransform_i32(i32::from_be_bytes(chunk));
-        }
-
-        Ok(())
+    /// Creates an iterator of `len` big-endian i32 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are transformed during iteration.
+    fn read_interleaved_i32_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = i32> + use<Self>> {
+        Ok(self
+            .read_interleaved_bytes(len)?
+            .map(|out| untransform_i32(i32::from_be_bytes(out))))
     }
 
-    /// Fills `output` with big-endian `u32` values read from the buffer.
-    fn read_interleaved_u32_array(&mut self, output: &mut [u32]) -> io::Result<()> {
-        let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
-        self.read_interleaved_bytes(&mut read)?;
-
-        for (chunk, out) in read.into_iter().zip(output) {
-            *out = u32::from_be_bytes(chunk);
-        }
-
-        Ok(())
+    /// Creates an iterator of `len` big-endian u32 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are transformed during iteration.
+    fn read_interleaved_u32_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = u32> + use<Self>> {
+        Ok(self.read_interleaved_bytes(len)?.map(u32::from_be_bytes))
     }
 
-    /// Fills `output` with big-endian `f32` values read from the buffer.
-    /// These values are properly unrotated while being read.
-    fn read_interleaved_f32_array(&mut self, output: &mut [f32]) -> io::Result<()> {
-        let mut read = vec![[0; mem::size_of::<u32>()]; output.len()];
-        self.read_interleaved_bytes(&mut read)?;
-
-        for (chunk, out) in read.into_iter().zip(output) {
-            *out = f32::from_bits(u32::from_be_bytes(chunk).rotate_right(1));
-        }
-
-        Ok(())
+    /// Creates an iterator of `len` big-endian f32 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are properly unrotated during iteration.
+    fn read_interleaved_f32_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = f32> + use<Self>> {
+        Ok(self
+            .read_interleaved_bytes(len)?
+            .map(|out| f32::from_bits(u32::from_be_bytes(out).rotate_right(1))))
     }
 
-    /// Fills `output` with big-endian `i32` values read from the buffer.
-    /// The values are properly untransformed and accumulated so as to properly
-    /// read arrays of referent values.
-    fn read_referent_array(&mut self, output: &mut [i32]) -> io::Result<()> {
-        self.read_interleaved_i32_array(output)?;
-
+    /// Creates an iterator of `len` big-endian i32 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are properly untransformed and accumulated
+    /// so as to properly read arrays of referent values.
+    fn read_referent_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = i32> + use<Self>> {
         let mut last = 0;
-
-        for referent in output.iter_mut() {
-            *referent += last;
-            last = *referent;
-        }
-
-        Ok(())
+        Ok(self
+            .read_interleaved_i32_array(len)?
+            .map(move |mut referent| {
+                referent += last;
+                last = referent;
+                referent
+            }))
     }
 
-    /// Fills `output` with big-endian `64` values read from the buffer.
-    /// These values are untransformed while being read.
-    fn read_interleaved_i64_array(&mut self, output: &mut [i64]) -> io::Result<()> {
-        let mut read = vec![[0; mem::size_of::<i64>()]; output.len()];
-        self.read_interleaved_bytes(&mut read)?;
-
-        for (chunk, out) in read.into_iter().zip(output) {
-            *out = untransform_i64(i64::from_be_bytes(chunk));
-        }
-
-        Ok(())
+    /// Creates an iterator of `len` big-endian i64 values.
+    /// The bytes are read into a buffer immediately,
+    /// and the values are transformed during iteration.
+    fn read_interleaved_i64_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl Iterator<Item = i64> + use<Self>> {
+        Ok(self
+            .read_interleaved_bytes(len)?
+            .map(|out| untransform_i64(i64::from_be_bytes(out))))
     }
 }
 
@@ -238,62 +253,77 @@ pub trait RbxWriteExt: Write {
     fn write_bool(&mut self, value: bool) -> io::Result<()> {
         self.write_u8(value as u8)
     }
+}
 
+impl ChunkBuilder {
     /// Takes `values` and writes it as a blob of data with each value
     /// interleaved by `N` bytes.
-    ///
-    /// This function allocates `N * values.len()` bytes before writing.
-    fn write_interleaved_bytes<const N: usize>(&mut self, values: &[[u8; N]]) -> io::Result<()> {
-        let len = values.len();
-        let mut blob = vec![0; len * N];
-        for (i, bytes) in values.iter().enumerate() {
-            for (j, byte) in bytes.iter().enumerate() {
-                blob[i + len * j] = *byte;
+    pub fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: IntoIterator<Item = [u8; N]>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        let values = values.into_iter();
+        let values_len = values.len();
+        let bytes_len = values_len * N;
+
+        let initialize_bytes = |buffer: &mut [u8]| {
+            for (i, bytes) in values.enumerate() {
+                for (b, byte) in IntoIterator::into_iter(bytes).enumerate() {
+                    buffer[i + b * values_len] = byte;
+                }
             }
-        }
-        self.write_all(&blob)?;
+        };
+
+        self.initialize_bytes_with(bytes_len, initialize_bytes);
 
         Ok(())
     }
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Transformation is applied to the values as they're written.
-    fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
+    pub fn write_interleaved_i32_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = i32>,
+        I: IntoIterator<Item = i32>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
-        let values: Vec<_> = values.map(|v| transform_i32(v).to_be_bytes()).collect();
-        self.write_interleaved_bytes(&values)
+        self.write_interleaved_bytes(values.into_iter().map(|v| transform_i32(v).to_be_bytes()))
     }
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes.
-    fn write_interleaved_u32_array(&mut self, values: &[u32]) -> io::Result<()> {
-        let values: Vec<_> = values.iter().map(|v| v.to_be_bytes()).collect();
-        self.write_interleaved_bytes(&values)
+    pub fn write_interleaved_u32_array<I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: IntoIterator<Item = u32>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        self.write_interleaved_bytes(values.into_iter().map(|v| v.to_be_bytes()))
     }
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Rotation is applied to the values as they're written.
-    fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
+    pub fn write_interleaved_f32_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = f32>,
+        I: IntoIterator<Item = f32>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
-        let values: Vec<_> = values
-            .map(|v| v.to_bits().rotate_left(1).to_be_bytes())
-            .collect();
-        self.write_interleaved_bytes(&values)
+        self.write_interleaved_bytes(
+            values
+                .into_iter()
+                .map(|v| v.to_bits().rotate_left(1).to_be_bytes()),
+        )
     }
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. The appropriate transformation and de-accumulation is done as
     /// values are written.
-    fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
+    pub fn write_referent_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = i32>,
+        I: IntoIterator<Item = i32>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
         let mut last_value = 0;
-        let delta_encoded = values.map(|value| {
+        let delta_encoded = values.into_iter().map(|value| {
             let encoded = value - last_value;
             last_value = value;
             encoded
@@ -304,12 +334,12 @@ pub trait RbxWriteExt: Write {
 
     /// Writes all items from `values` into the buffer as a blob of interleaved
     /// bytes. Transformation is applied to the values as they're written.
-    fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
+    pub fn write_interleaved_i64_array<I>(&mut self, values: I) -> io::Result<()>
     where
-        I: Iterator<Item = i64>,
+        I: IntoIterator<Item = i64>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
     {
-        let values: Vec<_> = values.map(|v| transform_i64(v).to_be_bytes()).collect();
-        self.write_interleaved_bytes(&values)
+        self.write_interleaved_bytes(values.into_iter().map(|v| transform_i64(v).to_be_bytes()))
     }
 }
 
@@ -342,97 +372,93 @@ pub struct PropertyDescriptors<'db> {
     pub serialized: Option<&'db PropertyDescriptor<'db>>,
 }
 
-/// Find both the canonical and serialized property descriptors for a given
-/// class and property name pair. These might be the same descriptor!
-pub fn find_property_descriptors<'db>(
-    database: &'db ReflectionDatabase<'db>,
-    class_name: Ustr,
-    property_name: Ustr,
-) -> Option<PropertyDescriptors<'db>> {
-    let mut class_descriptor = database.classes.get(class_name.as_str())?;
+impl<'db> PropertyDescriptors<'db> {
+    /// Get both the canonical and serialized property descriptors for a given
+    /// class and property descriptor. The canonical and serialized descriptors
+    /// might be the same descriptor!
+    pub fn new(
+        class_descriptor: &'db ClassDescriptor<'db>,
+        property_descriptor: &'db PropertyDescriptor<'db>,
+    ) -> Option<PropertyDescriptors<'db>> {
+        match &property_descriptor.kind {
+            // This property descriptor is the canonical form of this
+            // logical property.
+            PropertyKind::Canonical { serialization } => {
+                let serialized = find_serialized_from_canonical(
+                    class_descriptor,
+                    property_descriptor,
+                    serialization,
+                );
 
-    // We need to find the canonical property descriptor associated with
-    // the property we're working with.
-    //
-    // At each step of the loop, we're checking a new class descriptor to see if
-    // it has an entry for the property name we're looking for. If that class
-    // doesn't have the property, we'll check its superclass until we reach the
-    // root.
-    loop {
-        // If this class descriptor knows about this property name, we're pretty
-        // much done!
-        if let Some(property_descriptor) = class_descriptor.properties.get(property_name.as_str()) {
-            match &property_descriptor.kind {
-                // This property descriptor is the canonical form of this
-                // logical property. That means we've found one of the two
-                // descriptors we're looking for!
-                PropertyKind::Canonical { serialization } => {
-                    let serialized = find_serialized_from_canonical(
-                        class_descriptor,
-                        property_descriptor,
-                        serialization,
+                Some(PropertyDescriptors {
+                    canonical: property_descriptor,
+                    serialized,
+                })
+            }
+
+            // This descriptor is an alias for another property. While this
+            // descriptor might be one of the two descriptors we need to
+            // return, it's possible that both the canonical and serialized
+            // forms are different.
+            PropertyKind::Alias { alias_for } => {
+                let canonical = class_descriptor.properties.get(*alias_for).unwrap();
+
+                if let PropertyKind::Canonical { serialization } = &canonical.kind {
+                    let serialized =
+                        find_serialized_from_canonical(class_descriptor, canonical, serialization);
+
+                    Some(PropertyDescriptors {
+                        canonical,
+                        serialized,
+                    })
+                } else {
+                    // If one property in the database calls itself an alias
+                    // of another property, that property must be canonical.
+                    log::error!(
+                        "Property {}.{} is marked as an alias for {}.{}, but the latter is not canonical.",
+                        class_descriptor.name,
+                        property_descriptor.name,
+                        class_descriptor.name,
+                        alias_for
                     );
 
-                    return Some(PropertyDescriptors {
-                        canonical: property_descriptor,
-                        serialized,
-                    });
+                    None
                 }
-
-                // This descriptor is an alias for another property. While this
-                // descriptor might be one of the two descriptors we need to
-                // return, it's possible that both the canonical and serialized
-                // forms are different.
-                PropertyKind::Alias { alias_for } => {
-                    let canonical = class_descriptor.properties.get(alias_for.as_ref()).unwrap();
-
-                    if let PropertyKind::Canonical { serialization } = &canonical.kind {
-                        let serialized = find_serialized_from_canonical(
-                            class_descriptor,
-                            canonical,
-                            serialization,
-                        );
-
-                        return Some(PropertyDescriptors {
-                            canonical,
-                            serialized,
-                        });
-                    } else {
-                        // If one property in the database calls itself an alias
-                        // of another property, that property must be canonical.
-                        log::error!(
-                            "Property {}.{} is marked as an alias for {}.{}, but the latter is not canonical.",
-                            class_descriptor.name,
-                            property_descriptor.name,
-                            class_descriptor.name,
-                            alias_for
-                        );
-
-                        return None;
-                    }
-                }
-
-                // This descriptor is of an unknown kind and we don't know how
-                // to deal with it -- maybe rbx_binary is out of date?
-                _ => return None,
             }
-        }
 
-        if let Some(superclass_name) = &class_descriptor.superclass {
-            // If a property descriptor isn't found in our class, check our
-            // superclass.
-
-            class_descriptor = database
-                .classes
-                .get(superclass_name)
-                .expect("Superclass in reflection database didn't exist");
-        } else {
-            // This property isn't known by any class in the reflection
-            // database.
-
-            return None;
+            // This descriptor is of an unknown kind and we don't know how
+            // to deal with it -- maybe rbx_binary is out of date?
+            _ => None,
         }
     }
+}
+
+/// Find the superclass which contains the specified property,
+/// extract the canonical and serialized property descriptors,
+/// and return both.
+pub fn find_property_descriptors<'db>(
+    database: &'db ReflectionDatabase<'db>,
+    class_descriptor: Option<&'db ClassDescriptor<'db>>,
+    property_name: &str,
+) -> Option<(&'db ClassDescriptor<'db>, PropertyDescriptors<'db>)> {
+    // Checking the class descriptor is ugly without an optional
+    // return value, and all the call sites need this precise logic.
+    let class_descriptor = class_descriptor?;
+
+    // We need to find the canonical property descriptor associated with
+    // the property we're working with. Walk superclasses and
+    // find a class descriptor which knows about this property name.
+    let (class, prop) = database
+        .superclasses_iter(class_descriptor)
+        .find_map(|class| {
+            let prop = class.properties.get(property_name)?;
+            Some((class, prop))
+        })?;
+
+    // Extract the canonical and serialized property descriptors
+    // from the class and property descriptors
+    let descriptors = PropertyDescriptors::new(class, prop)?;
+    Some((class, descriptors))
 }
 
 /// Given the canonical property descriptor for a logical property along with
@@ -453,7 +479,7 @@ fn find_serialized_from_canonical<'db>(
         // This property serializes under an alias. That property should have a
         // corresponding property descriptor within the same class descriptor.
         PropertySerialization::SerializesAs(serialized_name) => {
-            let serialized_descriptor = class.properties.get(serialized_name.as_ref()).unwrap();
+            let serialized_descriptor = class.properties.get(*serialized_name).unwrap();
 
             Some(serialized_descriptor)
         }

@@ -1,5 +1,5 @@
-use rbx_types::{Enum, Font, FontStyle, FontWeight, Variant};
-use serde::{Deserialize, Serialize};
+use rbx_types::{Content, Enum, Font, FontStyle, FontWeight, Variant};
+use serde::{de, Deserialize, Deserializer, Serialize};
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -20,23 +20,91 @@ pub enum MigrationError {
     },
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "PascalCase")]
-pub struct PropertyMigration {
-    #[serde(rename = "To")]
-    pub new_property_name: String,
-    migration: MigrationOperation,
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(untagged)]
+enum PropertyMigrationTarget<'a> {
+    One(&'a str),
+    Many(Vec<&'a str>),
 }
 
-#[derive(Debug, Copy, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, PartialEq)]
+#[serde(rename_all = "PascalCase")]
+pub struct PropertyMigration<'a> {
+    #[serde(rename = "To")]
+    new_property_names: PropertyMigrationTarget<'a>,
+    migration: MigrationOperation,
+}
+impl<'a> PropertyMigration<'a> {
+    /// Create a new PropertyMigration with the specified targets.
+    /// Returns None when there is zero targets.
+    pub fn new<Targets>(migration: MigrationOperation, targets: Targets) -> Option<Self>
+    where
+        Targets: IntoIterator<Item = &'a str>,
+        <Targets as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        let mut targets = targets.into_iter();
+        let new_property_names = match targets.len() {
+            0 => return None,
+            1 => PropertyMigrationTarget::One(targets.next().unwrap()),
+            _ => PropertyMigrationTarget::Many(targets.collect()),
+        };
+        Some(Self {
+            new_property_names,
+            migration,
+        })
+    }
+}
+
+impl<'a, 'de: 'a> Deserialize<'de> for PropertyMigration<'a> {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        #[derive(Deserialize)]
+        #[serde(rename_all = "PascalCase")]
+        struct PropertyMigrationDeserialize<'a> {
+            #[serde(borrow)]
+            #[serde(rename = "To")]
+            new_property_names: PropertyMigrationTarget<'a>,
+            migration: MigrationOperation,
+        }
+
+        let migration = PropertyMigrationDeserialize::deserialize(deserializer)?;
+
+        if let PropertyMigrationTarget::Many(names) = &migration.new_property_names {
+            if names.is_empty() {
+                return Err(de::Error::custom(
+                    "property migration target list cannot be empty",
+                ));
+            }
+        }
+
+        Ok(Self {
+            new_property_names: migration.new_property_names,
+            migration: migration.migration,
+        })
+    }
+}
+
+#[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq)]
 #[non_exhaustive]
 pub enum MigrationOperation {
     IgnoreGuiInsetToScreenInsets,
     FontToFontFace,
     BrickColorToColor,
+    ContentIdToContent,
+    CornerRadiusToCornerRadii,
+    Int64ToContent,
 }
 
-impl PropertyMigration {
+impl PropertyMigration<'_> {
+    pub fn new_property_names(&self) -> &[&str] {
+        match &self.new_property_names {
+            PropertyMigrationTarget::One(string) => std::slice::from_ref(string),
+            PropertyMigrationTarget::Many(strings) => strings.as_slice(),
+        }
+    }
+
     pub fn perform(&self, input: &Variant) -> Result<Variant, MigrationError> {
         match self.migration {
             MigrationOperation::IgnoreGuiInsetToScreenInsets => {
@@ -163,6 +231,125 @@ impl PropertyMigration {
                         actual: input.clone(),
                     })
                 }
+            }
+            MigrationOperation::ContentIdToContent => {
+                if let Variant::ContentId(uri) = input {
+                    let uri = uri.as_str();
+                    if uri.is_empty() {
+                        Ok(Content::none().into())
+                    } else {
+                        Ok(Content::from_uri(uri).into())
+                    }
+                } else {
+                    Err(MigrationError::InvalidTypeForMigration {
+                        migration: MigrationOperation::ContentIdToContent,
+                        expected: "ContentId",
+                        actual: input.clone(),
+                    })
+                }
+            }
+            MigrationOperation::CornerRadiusToCornerRadii => {
+                if let Variant::UDim(_) = input {
+                    Ok(input.clone())
+                } else {
+                    Err(MigrationError::InvalidTypeForMigration {
+                        migration: MigrationOperation::CornerRadiusToCornerRadii,
+                        expected: "UDim",
+                        actual: input.clone(),
+                    })
+                }
+            }
+            MigrationOperation::Int64ToContent => {
+                if let Variant::Int64(id) = input {
+                    if *id == 0 {
+                        Ok(Content::none().into())
+                    } else {
+                        Ok(Content::from_uri(format!("rbxassetid://{id}")).into())
+                    }
+                } else {
+                    Err(MigrationError::InvalidTypeForMigration {
+                        migration: MigrationOperation::Int64ToContent,
+                        expected: "Int64",
+                        actual: input.clone(),
+                    })
+                }
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn deserialize_rejects_empty_property_target_list() {
+        let error = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":[],"Migration":"CornerRadiusToCornerRadii"}"#,
+        )
+        .expect_err("empty target lists should fail to deserialize");
+
+        assert!(error
+            .to_string()
+            .contains("property migration target list cannot be empty"));
+    }
+
+    #[test]
+    fn deserialize_accepts_property_target_list_with_values() {
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":["BottomLeftRadius","BottomRightRadius"],"Migration":"CornerRadiusToCornerRadii"}"#,
+        )
+        .expect("non-empty target lists should deserialize");
+
+        assert_eq!(
+            migration.new_property_names(),
+            ["BottomLeftRadius", "BottomRightRadius"]
+        );
+    }
+
+    #[test]
+    fn int64_to_content_zero() {
+        use rbx_types::ContentType;
+
+        let migration = PropertyMigration::new(
+            MigrationOperation::Int64ToContent,
+            ["ObivouslyFakeProperty"],
+        )
+        .unwrap();
+        let new_value = migration.perform(&0i64.into()).unwrap();
+
+        match new_value {
+            Variant::Content(content) => match content.value() {
+                ContentType::None => {}
+                other => panic!("expected ContentType::None, got {:?}", other),
+            },
+            other => {
+                panic!("expected Variant::Content, got Variant::{:?}", other.ty())
+            }
+        }
+    }
+
+    #[test]
+    fn int64_to_content_non_zero() {
+        use rbx_types::ContentType;
+
+        let migration = PropertyMigration::new(
+            MigrationOperation::Int64ToContent,
+            ["ObivouslyFakeProperty"],
+        )
+        .unwrap();
+        let new_value = migration.perform(&1337i64.into()).unwrap();
+
+        match new_value {
+            Variant::Content(content) => match content.value() {
+                ContentType::Uri(uri) => assert_eq!(uri, "rbxassetid://1337"),
+                other => panic!(
+                    "expected ContentType::Uri(\"rbxassetid://1337\"), got {:?}",
+                    other
+                ),
+            },
+            other => {
+                panic!("expected Variant::Content, got Variant::{:?}", other.ty())
             }
         }
     }

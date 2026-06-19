@@ -54,6 +54,7 @@ impl WeakDom {
         );
         let mut unique_ids = AHashSet::with_capacity(instances.len());
         for inst in instances.values() {
+            // This `if` cannot be collapsed into the match with an if guard.
             match inst.properties.get(&ustr("UniqueId")) {
                 Some(Variant::UniqueId(id)) => {
                     if !unique_ids.insert(*id) {
@@ -134,7 +135,7 @@ impl WeakDom {
     /// The descendants are guaranteed to be top-down such that children come
     /// after their parents.
     #[inline]
-    pub fn descendants(&self) -> WeakDomDescendants {
+    pub fn descendants(&self) -> WeakDomDescendants<'_> {
         self.descendants_of(self.root_ref)
     }
 
@@ -145,7 +146,7 @@ impl WeakDom {
     ///
     /// Panics if `referent` is not a member of this DOM.
     #[inline]
-    pub fn descendants_of(&self, referent: Ref) -> WeakDomDescendants {
+    pub fn descendants_of(&self, referent: Ref) -> WeakDomDescendants<'_> {
         if !self.instances.contains_key(&referent) {
             panic!("the referent provided to `descendants_of` must be a part of the DOM")
         }
@@ -153,6 +154,41 @@ impl WeakDom {
             dom: self,
             queue: [referent].into(),
         }
+    }
+
+    /// Returns an iterator that goes through the ancestors of a particular
+    /// [`Ref`]. The passed `Ref` *must* be a part of this `WeakDom`.
+    ///
+    /// ## Panics
+    ///
+    /// Panics if `referent` is not a member of this DOM.
+    #[inline]
+    pub fn ancestors_of(&self, referent: Ref) -> impl Iterator<Item = &Instance> {
+        let initial_instance = self.get_by_ref(referent);
+        if initial_instance.is_none() {
+            panic!("the referent provided to `ancestors_of` must be a part of the DOM");
+        }
+        std::iter::successors(initial_instance, move |&instance| {
+            self.get_by_ref(instance.parent())
+        })
+    }
+
+    /// Equivalent to Instance:GetFullName() from Roblox,
+    /// but with a custom separator.
+    ///
+    /// ## Panics
+    /// Panics if `subject_ref` is not a member of this DOM.
+    pub fn full_path_of(&self, subject_ref: Ref, separator: &str) -> String {
+        let root_ref = self.root_ref();
+        let mut components: Vec<_> = self
+            .ancestors_of(subject_ref)
+            // Drop "DataModel" from the full name
+            .filter(|instance| instance.referent() != root_ref)
+            .map(|instance| instance.name.as_str())
+            .collect();
+
+        components.reverse();
+        components.join(separator)
     }
 
     /// Insert a new instance into the DOM with the given parent. The parent is allowed to
@@ -305,6 +341,7 @@ impl WeakDom {
 
     /// Move the instance with the given referent to a new parent within the
     /// same `WeakDom`. To move to another DOM, use [`WeakDom::transfer`].
+    /// The new parent `dest_parent_ref` is allowed to be the none Ref.
     ///
     /// This function would be called `move_within`, but `move` is a Rust
     /// keyword and consistency with `transfer` is valuable.
@@ -336,11 +373,13 @@ impl WeakDom {
         }
 
         // Add the instance's referent to its new parent's list of children.
-        let dest_parent = self
-            .instances
-            .get_mut(&dest_parent_ref)
-            .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
-        dest_parent.children.push(referent);
+        if dest_parent_ref.is_some() {
+            let dest_parent = self
+                .instances
+                .get_mut(&dest_parent_ref)
+                .unwrap_or_else(|| panic!("cannot move into an instance that does not exist"));
+            dest_parent.children.push(referent);
+        }
     }
 
     /// Clone the instance with the given `referent` and all its descendants
@@ -882,6 +921,18 @@ mod test {
         assert_eq!(descendants_2.next().unwrap().referent(), sibling_1);
         assert_eq!(descendants_2.next().unwrap().referent(), sibling_2);
         assert!(descendants_2.next().is_none());
+    }
+
+    #[test]
+    fn full_name() {
+        let root = InstanceBuilder::new("DataModel");
+        let root_ref = root.referent();
+        let mut dom = WeakDom::new(root);
+        let child_1 = dom.insert(root_ref, InstanceBuilder::new("Workspace"));
+        let child_2 = dom.insert(child_1, InstanceBuilder::new("Part"));
+        let child_3 = dom.insert(child_2, InstanceBuilder::new("Texture"));
+
+        assert_eq!(dom.full_path_of(child_3, "."), "Workspace.Part.Texture");
     }
 
     #[test]

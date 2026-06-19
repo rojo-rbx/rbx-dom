@@ -1,17 +1,21 @@
 [package]
 name = "rbx_dom_weak"
 description = "Weakly-typed Roblox DOM implementation for Rust"
-version = "2.9.0"
+version = "4.1.0"
 license = "MIT"
 documentation = "https://docs.rs/rbx_dom_weak"
 homepage = "https://github.com/rojo-rbx/rbx-dom"
 repository = "https://github.com/rojo-rbx/rbx-dom.git"
 readme = "README.md"
-authors = ["Lucien Greathouse <me@lpghatguy.com>"]
+authors = [
+    "Lucien Greathouse <me@lpghatguy.com>",
+    "Micah Reid <git@dekkonot.com>",
+    "Ken Loeffler <kenloef@gmail.com>",
+]
 edition = "2018"
 
 [dependencies]
-rbx_types = { version = "1.10.0", path = "../rbx_types", features = ["serde"] }
+rbx_types = { version = "3.1.0", path = "../rbx_types", features = ["serde"] }
 ustr = { version = "1.1.0", features = ["serde"] }
 
 ahash = "0.8.11"

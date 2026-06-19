@@ -115,18 +115,11 @@ chunks:
         - false
   - Prop:
       type_id: 0
-      prop_name: HoverImage
-      prop_type: String
+      prop_name: HoverImageContent
+      prop_type: Content
       values:
-        - ""
-        - ""
-  - Prop:
-      type_id: 0
-      prop_name: Image
-      prop_type: String
-      values:
-        - "rbxasset://textures/ui/GuiImagePlaceholder.png"
-        - "rbxasset://textures/ui/GuiImagePlaceholder.png"
+        - None
+        - None
   - Prop:
       type_id: 0
       prop_name: ImageColor3
@@ -138,6 +131,13 @@ chunks:
         - - 1
           - 1
           - 1
+  - Prop:
+      type_id: 0
+      prop_name: ImageContent
+      prop_type: Content
+      values:
+        - Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
+        - Uri: "rbxasset://textures/ui/GuiImagePlaceholder.png"
   - Prop:
       type_id: 0
       prop_name: ImageRectOffset
@@ -227,11 +227,11 @@ chunks:
             - 0
   - Prop:
       type_id: 0
-      prop_name: PressedImage
-      prop_type: String
+      prop_name: PressedImageContent
+      prop_type: Content
       values:
-        - ""
-        - ""
+        - None
+        - None
   - Prop:
       type_id: 0
       prop_name: RootLocalizationTable
@@ -370,4 +370,3 @@ chunks:
         - - 1
           - -1
   - End
-

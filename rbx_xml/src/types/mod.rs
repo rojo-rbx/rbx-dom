@@ -19,6 +19,7 @@ mod enumeration;
 mod faces;
 mod font;
 mod material_colors;
+mod net_asset_ref;
 mod number_range;
 mod number_sequence;
 mod numbers;
@@ -38,9 +39,10 @@ mod vectors;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
-    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, Enum, Faces, Font,
-    NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, UDim,
-    UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3, Vector3int16,
+    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, ContentId, Enum,
+    Faces, Font, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref,
+    SecurityCapabilities, UDim, UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3,
+    Vector3int16,
 };
 
 use crate::{
@@ -55,6 +57,7 @@ use crate::{
 use self::{
     attributes::write_attributes,
     material_colors::write_material_colors,
+    net_asset_ref::{read_net_asset_ref, write_net_asset_ref},
     referent::{read_ref, write_ref},
     shared_string::{read_shared_string, write_shared_string},
     tags::write_tags,
@@ -83,13 +86,10 @@ macro_rules! declare_rbx_types {
                     let value = self::strings::ProtectedStringDummy::read_outer_xml(reader)?;
                     Ok(Some(Variant::String(value.0)))
                 },
-                self::content::ContentDummy::XML_TAG_NAME => {
-                    let value = self::content::ContentDummy::read_outer_xml(reader)?;
-                    Ok(Some(Variant::Content(value.0)))
-                }
 
                 self::referent::XML_TAG_NAME => Ok(Some(Variant::Ref(read_ref(reader, instance_id, property_name, state)?))),
                 self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state).map(Some),
+                self::net_asset_ref::XML_TAG_NAME => read_net_asset_ref(reader, instance_id, property_name, state).map(Some),
 
                 _ => {
                     state.unknown_type_visited(instance_id, property_name, xml_type_name);
@@ -121,6 +121,7 @@ macro_rules! declare_rbx_types {
                 Variant::Tags(value) => write_tags(writer, xml_property_name, value),
                 Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
                 Variant::MaterialColors(value) => write_material_colors(writer, xml_property_name, value),
+                Variant::NetAssetRef(value) => write_net_asset_ref(writer, xml_property_name, value, state),
 
                 unknown => {
                     Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(unknown.ty())))
@@ -139,6 +140,7 @@ declare_rbx_types! {
     Color3uint8: Color3uint8,
     ColorSequence: ColorSequence,
     Content: Content,
+    ContentId: ContentId,
     Enum: Enum,
     Faces: Faces,
     Float32: f32,

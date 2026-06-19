@@ -1,0 +1,13 @@
+Change:
+  BaseWrap:
+    CageMeshId:
+      Serialization:
+        Type: Migrate
+        To: CageMeshContent
+        Migration: ContentIdToContent
+  WrapLayer:
+    ReferenceMeshId:
+      Serialization:
+        Type: Migrate
+        To: ReferenceMeshContent
+        Migration: ContentIdToContent

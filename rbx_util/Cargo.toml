@@ -6,7 +6,11 @@ license = "MIT"
 documentation = "https://docs.rs/rbx_util"
 homepage = "https://github.com/rojo-rbx/rbx-dom"
 repository = "https://github.com/rojo-rbx/rbx-dom.git"
-authors = ["Lucien Greathouse <me@lpghatguy.com>"]
+authors = [
+    "Lucien Greathouse <me@lpghatguy.com>",
+    "Micah Reid <git@dekkonot.com>",
+    "Ken Loeffler <kenloef@gmail.com>",
+]
 edition = "2018"
 readme = "README.md"
 
@@ -24,9 +28,9 @@ rbx_binary = { path = "../rbx_binary", features = ["unstable_text_format"] }
 rbx_xml = { path = "../rbx_xml" }
 
 serde_yaml = "0.8.24"
-clap = { version = "4.5.4", features = ["derive"] }
+clap = { version = "4.6.1", features = ["derive"] }
 
-fs-err = "2.7.0"
+fs-err = "3.3.0"
 anyhow = "1.0.57"
-env_logger = "0.11.3"
+env_logger = "0.11.10"
 log = "0.4.21"

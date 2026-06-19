@@ -1,0 +1,12 @@
+Change:
+  UIDragDetector:
+    ActivatedCursorIcon:
+      Serialization:
+        Type: Migrate
+        To: ActivatedCursorIconContent
+        Migration: ContentIdToContent
+    CursorIcon:
+      Serialization:
+        Type: Migrate
+        To: CursorIconContent
+        Migration: ContentIdToContent

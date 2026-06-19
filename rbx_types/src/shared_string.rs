@@ -151,7 +151,10 @@ impl fmt::Display for SharedStringHash {
 pub(crate) mod serde_impl {
     use super::*;
 
-    use serde::{de::Error as _, Deserialize, Deserializer, Serialize, Serializer};
+    use serde::{
+        de::{Error, Visitor},
+        Deserialize, Deserializer, Serialize, Serializer,
+    };
 
     impl Serialize for SharedString {
         fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
@@ -165,18 +168,111 @@ pub(crate) mod serde_impl {
         }
     }
 
+    struct SharedStringVisitor;
+
+    impl Visitor<'_> for SharedStringVisitor {
+        type Value = SharedString;
+
+        fn expecting(&self, out: &mut std::fmt::Formatter) -> std::fmt::Result {
+            write!(out, "a SharedString value")
+        }
+
+        fn visit_str<E: Error>(self, str: &str) -> Result<Self::Value, E> {
+            let buffer = base64::decode(str).map_err(E::custom)?;
+            Ok(SharedString::new(buffer))
+        }
+    }
+
     impl<'de> Deserialize<'de> for SharedString {
         fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
             if deserializer.is_human_readable() {
-                let encoded = <&str>::deserialize(deserializer)?;
-                let buffer = base64::decode(encoded).map_err(D::Error::custom)?;
-
-                Ok(SharedString::new(buffer))
+                deserializer.deserialize_str(SharedStringVisitor)
             } else {
+                // For compatibility reasons, we use `Vec<u8>`'s implementation
+                // of deserialize.
                 let buffer = <Vec<u8>>::deserialize(deserializer)?;
                 Ok(SharedString::new(buffer))
             }
         }
+    }
+}
+
+/// A type used by Roblox for certain networking and memory guarantees.
+///
+/// This type is functionally identical to a `SharedString` when serialized.
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(transparent)
+)]
+pub struct NetAssetRef(SharedString);
+
+impl NetAssetRef {
+    /// Construct a `NetAssetRef` from an owned buffer of data.
+    pub fn new(data: Vec<u8>) -> Self {
+        Self(SharedString::new(data))
+    }
+
+    #[inline]
+    pub fn data(&self) -> &[u8] {
+        self.0.data()
+    }
+
+    pub fn hash(&self) -> NetAssetRefHash {
+        NetAssetRefHash(self.0.hash)
+    }
+}
+
+impl AsRef<[u8]> for NetAssetRef {
+    fn as_ref(&self) -> &[u8] {
+        self.data()
+    }
+}
+
+impl AsRef<SharedString> for NetAssetRef {
+    fn as_ref(&self) -> &SharedString {
+        &self.0
+    }
+}
+
+impl From<SharedString> for NetAssetRef {
+    fn from(value: SharedString) -> Self {
+        Self(value)
+    }
+}
+
+impl From<NetAssetRef> for SharedString {
+    fn from(value: NetAssetRef) -> Self {
+        value.0
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct NetAssetRefHash(Blake3Hash);
+
+impl NetAssetRefHash {
+    #[inline]
+    pub fn as_bytes(&self) -> &[u8] {
+        self.0.as_bytes().as_ref()
+    }
+}
+
+impl Ord for NetAssetRefHash {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.as_bytes().cmp(other.as_bytes())
+    }
+}
+
+impl PartialOrd for NetAssetRefHash {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl fmt::Display for NetAssetRefHash {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(self.0.to_hex().as_str())
     }
 }
 
@@ -222,24 +318,48 @@ mod test {
     #[cfg(feature = "serde")]
     #[test]
     fn serde_non_human() {
-        use std::{io::Write, mem};
+        use std::io::Write;
 
         let sstr = SharedString::new(b"a test string".to_vec());
         let data = sstr.data();
-        let serialized = bincode::serialize(&sstr).unwrap();
+        let serialized = rmp_serde::to_vec(&sstr).unwrap();
 
-        // Write the length of the string as little-endian u64 followed by the
-        // bytes of the string. This is analoglous to how bincode does.
-        let mut expected = Vec::with_capacity(mem::size_of::<u64>() + data.len());
+        // rmp_serde uses special markers for short arrays
+        let mut expected = Vec::with_capacity(1 + data.len());
         expected
-            .write_all(&(data.len() as u64).to_le_bytes())
+            .write_all(&[rmp::Marker::FixArray(data.len() as u8).to_u8()])
             .unwrap();
         expected.write_all(data).unwrap();
 
         assert_eq!(serialized, expected);
 
-        let deserialized: SharedString = bincode::deserialize(&serialized).unwrap();
+        let deserialized: SharedString = rmp_serde::from_slice(&serialized).unwrap();
 
         assert_eq!(sstr, deserialized);
+    }
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn netassetref_serde() {
+        let sstr = SharedString::new(vec![13, 37]);
+        let net = NetAssetRef::new(vec![13, 37]);
+
+        let ser_sstr_1 = serde_json::to_string(&sstr).unwrap();
+        let ser_net_1 = serde_json::to_string(&net).unwrap();
+
+        assert_eq!(ser_sstr_1, ser_net_1);
+
+        let de_net_1: NetAssetRef = serde_json::from_str(&ser_net_1).unwrap();
+
+        assert_eq!(net, de_net_1);
+
+        let ser_sstr_2 = rmp_serde::to_vec(&sstr).unwrap();
+        let ser_net_2 = rmp_serde::to_vec(&net).unwrap();
+
+        assert_eq!(ser_sstr_2, ser_net_2);
+
+        let de_net_2: NetAssetRef = rmp_serde::from_slice(&ser_net_2).unwrap();
+
+        assert_eq!(net, de_net_2);
     }
 }

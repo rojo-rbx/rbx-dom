@@ -67,4 +67,9 @@ binary_tests! {
     number_values_with_security_capabilities,
     lighting_with_int32_attribute,
     folder_with_enum_attribute,
+    imagelabel_content,
+    content_mixed,
+    physical_properties_acoustics,
+    netassetref,
+    stylesheet,
 }

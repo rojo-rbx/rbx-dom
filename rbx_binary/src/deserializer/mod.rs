@@ -9,6 +9,7 @@ use rbx_reflection::ReflectionDatabase;
 
 use self::state::DeserializerState;
 
+#[cfg(any(test, feature = "unstable_text_format"))]
 pub(crate) use self::header::FileHeader;
 
 pub use self::error::Error;
@@ -54,7 +55,7 @@ impl<'db> Deserializer<'db> {
     /// Create a new `Deserializer` with the default settings.
     pub fn new() -> Self {
         Self {
-            database: rbx_reflection_database::get(),
+            database: rbx_reflection_database::get().unwrap(),
         }
     }
 
@@ -85,7 +86,7 @@ impl<'db> Deserializer<'db> {
                     break;
                 }
                 _ => match str::from_utf8(&chunk.name) {
-                    Ok(name) => log::info!("Unknown binary chunk name {}", name),
+                    Ok(name) => log::info!("Unknown binary chunk name {name}"),
                     Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
                 },
             }

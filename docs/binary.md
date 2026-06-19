@@ -9,6 +9,7 @@ This document is based on:
 - [rbxfile by Anaminus](https://github.com/RobloxAPI/rbxfile)
 - [Roblox-File-Format by CloneTrooper1019](https://github.com/CloneTrooper1019/Roblox-File-Format)
 - Observing `rbxm` and `rbxl` output from Roblox Studio
+- Information directly communicated by Roblox when necessary
 
 ## Contents
 - [Document Conventions](#document-conventions)
@@ -52,6 +53,7 @@ This document is based on:
 	- [OptionalCoordinateFrame](#optionalcoordinateframe)
 	- [UniqueId](#uniqueid)
 	- [Font](#font)
+	- [Content](#content)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
@@ -233,9 +235,36 @@ There should be exactly one `PRNT` chunk.
 
 **Instance Count** should be equal to the number of instances in the file header chunk, since each object should have a parent.
 
-**Child Referents** and **Parent Referents** should both have length equal to **Instance Count**. The parent of the ID at position *N* in **Child Referents** is a child of the ID at position *N* in **Parent Referents**.
+**Child Referents** and **Parent Referents** should both have length equal to **Instance Count**. The instance identified by the referent at position *N* in **Child Referents** has the parent instance identified by the referent at position *N* in **Parent Referents**.
 
 A null parent referent (`-1`) indicates that the object is a root instance. In a place, that means the object is a child of `DataModel`. In a model, that means the object should be placed directly under the object the model is being inserted into.
+
+#### Ordering
+
+Although the `PRNT` chunk can be interpreted as a set of child-parent relationships, in practice, Roblox Studio appears to apply the relationships in the order stored in the chunk. This order can affect load-time behavior for some instance types, because parenting an instance may trigger engine side effects.
+
+For best compatibility with Roblox Studio, serializers should write `PRNT` entries in depth-first post-order over the instance tree: recursively write all children of an instance before writing the instance itself, preserving sibling order. This means that descendants are parented before their ancestors.
+
+For example, given referents arranged as the following tree:
+```text
+1
+├── 2
+├── 3
+│   ├── 5
+│   └── 6
+└── 4
+    └── 7
+```
+Roblox Studio has been observed to write the child referents in this order:
+```text
+2, 5, 6, 3, 7, 4, 1
+```
+And write the parent referents in this order:
+```text
+1, 3, 3, 1, 4, 1, -1
+```
+
+Decoders should still treat the child and parent arrays as paired arrays. A file should not be rejected solely because its PRNT entries are not in this order, but serializers targeting Roblox Studio compatibility should follow this order.
 
 ### `END` Chunk
 The `END` chunk has this layout:
@@ -584,19 +613,43 @@ Two encoded `Rect` values with values `Rect.new(-1, -10, 8, 9)` and `Rect.new(0,
 ### PhysicalProperties
 **Type ID `0x19`**
 
-The `PhysicalProperties` type contains a flag which may be followed by a `CustomPhysicalProperties` value. `CustomPhysicalProperties` is a struct composed of five `f32` values:
+The `PhysicalProperties` type contains a bitfield which indicates whether the value is custom, along with whether it has an `AudioAbsorption` field. This flag is a single byte. These bits are described below, where bit `0` is the least-significant bit. When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
 
-| Field Name       | Format | Value                                                        |
-|:-----------------|:-------|:-------------------------------------------------------------|
-| Density          | `f32`  | The density set for the custom physical properties           |
-| Friction         | `f32`  | The friction set for the custom physical properties          |
-| Elasticity       | `f32`  | The elasticity set for the custom physical properties        |
-| FrictionWeight   | `f32`  | The friction weight set for the custom physical properties   |
-| ElasticityWeight | `f32`  | The elasticity weight set for the custom physical properties |
+| Bit Number | Purpose                                                                    |
+|:-----------|:---------------------------------------------------------------------------|
+| `0`        | Whether the value is custom or not                                         |
+| `1`        | Whether the value has `AcousticAbsorption` or not                          |
 
-If there is no `CustomPhysicalProperties` value, a `PhysicalProperties` is stored as a single byte of value `0`. Otherwise, it is stored as a byte of value `1` immediately followed by a `CustomPhysicalProperties` stored as little-endian floats (in the same order as the above table). When there are multiple `PhysicalProperties` present, they are stored in sequence with no transformations or interleaving.
+If bit `0` is set, then the value is followed by a `CustomPhysicalProperties`. This is a struct of 6 `f32` values:
 
-A default `PhysicalProperties` (i.e. no custom properties set) followed by a `PhysicalProperties` of value `PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)` looks like this: `00 01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f`.
+| Field Name         | Format | Value                                                          |
+|:-------------------|:-------|:---------------------------------------------------------------|
+| Density            | `f32`  | The density set for the custom physical properties             |
+| Friction           | `f32`  | The friction set for the custom physical properties            |
+| Elasticity         | `f32`  | The elasticity set for the custom physical properties          |
+| FrictionWeight     | `f32`  | The friction weight set for the custom physical properties     |
+| ElasticityWeight   | `f32`  | The elasticity weight set for the custom physical properties   |
+| AcousticAbsorption | `f32`  | The acoustic absorption set for the custom physical properties |
+
+The `AcousticAbsorption` field is only present if bit `1` is set. Otherwise, it is left out and may be assumed to be `1.0` when deserializing a `CustomPhysicalProperties`.
+
+If bit `0` is not set, but bit `1` is set, there is no `CustomPhysicalProperties` present.
+
+The `PhysicalProperties` type is stored as a `u8` representing the bitfield, followed by a `CustomPhysicalProperties` if bit `0` is set.
+
+
+If you had 4 physical properties with the following characteristics:
+1. No custom properties set, no `AcousticAbsorption`
+2. `PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)`, no `AcousticAbsorption`
+3. No custom properties set, has `AcousticAbsorption`
+3. `PhysicalProperties.new(0.25, 0.5, 0.125, 1, 0.25, 0.5)`, has `AcousticAbsorption`
+
+They would be serialized as follows: `00 01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f 02 03 00 00 80 3e 00 00 00 3f 00 00 00 3e 00 00 80 3f 00 00 80 3e 00 00 00 3f`.
+
+1. is represented as `00`
+2. is represented as `01 33 33 33 3f 9a 99 99 3e 00 00 00 3f 00 00 80 3f 00 00 80 3f`
+3. is represented as `02`
+4. is represented as `03 00 00 80 3e 00 00 00 3f 00 00 00 3e 00 00 80 3f 00 00 80 3e 00 00 00 3f`
 
 ### Color3uint8
 **Type ID `0x1a`**
@@ -623,7 +676,9 @@ When an array of `Int64` values is present, the bytes of the integers are subjec
 ### SharedString
 **Type ID `0x1c`**
 
-`SharedString` values are stored as an [Interleaved Array](#byte-interleaving) of `u32` values that represent indices in the [`SSTR`](#sstr-chunk) string array.
+`SharedString` values are stored as an [Interleaved Array](#byte-interleaving) of big-endian `u32` values that represent indices in the [`SSTR`](#sstr-chunk) string array. 
+
+`NetAssetRef` properties are stored identically to this format and use the same type ID.
 
 ### Bytecode
 **Type ID `0x1d`**
@@ -679,6 +734,40 @@ The `Font` type is a struct composed of two `String` values, a `u8`, and a `u16`
 The `Weight` and `Style` fields are stored as little-endian unsigned integers. These are usually treated like enums, and to assign them in Roblox Studio an Enum is used. Interestingly, the `Weight` is *always* stored as a number in binary and XML, but `Style` is stored as a number in binary and as text in XML.
 
 The `CachedFaceId` field is always present, but is allowed to be an empty string (a string of length `0`). When represented in XML, this property will be omitted if it is an empty string. This property is not visible via any user APIs in Roblox Studio.
+
+### Content
+**Type ID `0x22`**
+
+Note that the [`Content`][Content-type] type should not be confused with the legacy `ContentId` type, which was renamed from `Content` in Roblox release 645.
+
+The `Content` type is a struct composed of the following fields:
+
+| Field Name          | Format          | Value                                                                                        |
+|:--------------------|:----------------|:---------------------------------------------------------------------------------------------|
+| SourceTypes         | Array(`Enum`)   | A list of types for items in this chunk                                                      |
+| UriCount            | `u32`           | Indicates how many items in this chunk are `Uri`s                                            |
+| Uris                | Array(`String`) | A list of the `URI`s for items in this chunk with that type                                  |
+| ObjectCount         | `u32`           | Indicates how many items in this chunk are `Object`s                                         |
+| ObjectRefs          | Array(`Ref`)    | A list of referents for `Object`s for items in this chunk                                    |
+| ExternalObjectCount | `u32`           | Indicates how many items in this chunk are `Objects` that are **external** to this file      |
+| ExternalObjectRefs  | Array(`Ref`)    | A list of referents for `Object`s for items in this chunk that are **external** to this file |
+
+`SourceTypes` is a series of values representing a type for a given `Content`. At this moment it can have one of three values:
+
+| Name    | Value |
+|:--------|:------|
+| `None`  | `0`   |
+| `Uri`   | `1`   |
+| `Object`| `2`   |
+
+`Uris` is an array `UriCount` elements long which contains a sequential list of every `Uri` included in `SourceTypes`.
+
+`ObjectRefs` is a [referent array](#referent) that is `ObjectCount` elements long and contains a list of referents pointing to [`Object`][Object-class]s that can be used for `Content`, such as `EditableImage`. `ObjectRefs` are not populated outside of copy-and-pasting within Studio, but this may change in the future.
+
+`ExternalObjectRefs` is similar in purpose to `ObjectRefs` but contains a list of referents that are external to this file. This is used internally by Roblox to minimize memory overhead when copy-and-pasting. Both `ExternalObjectCount` and `ExternalObjectRefs` are not applicable to implementors because referents are not static outside of files. They are included for completeness's sake.
+
+[Content-type]: https://create.roblox.com/docs/reference/engine/datatypes/Content
+[Object-class]: https://create.roblox.com/docs/reference/engine/classes/Object
 
 ## Data Storage Notes
 

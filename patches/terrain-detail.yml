@@ -1,0 +1,22 @@
+Change:
+  TerrainDetail:
+    RoughnessMap:
+      Serialization:
+        Type: Migrate
+        To: RoughnessMapContent
+        Migration: ContentIdToContent
+    NormalMap:
+      Serialization:
+        Type: Migrate
+        To: NormalMapContent
+        Migration: ContentIdToContent
+    MetalnessMap:
+      Serialization:
+        Type: Migrate
+        To: MetalnessMapContent
+        Migration: ContentIdToContent
+    ColorMap:
+      Serialization:
+        Type: Migrate
+        To: ColorMapContent
+        Migration: ContentIdToContent

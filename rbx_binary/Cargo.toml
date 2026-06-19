@@ -1,37 +1,44 @@
 [package]
 name = "rbx_binary"
 description = "Implementation of Roblox's binary model (rbxm) and place (rbxl) file formats"
-version = "0.7.7"
+version = "2.0.1"
 license = "MIT"
 documentation = "https://docs.rs/rbx_binary"
 homepage = "https://github.com/rojo-rbx/rbx-dom"
 repository = "https://github.com/rojo-rbx/rbx-dom.git"
 readme = "README.md"
-authors = ["Lucien Greathouse <me@lpghatguy.com>"]
+authors = [
+    "Lucien Greathouse <me@lpghatguy.com>",
+    "Micah Reid <git@dekkonot.com>",
+    "Ken Loeffler <kenloef@gmail.com>",
+]
 edition = "2018"
 
 [features]
 unstable_text_format = ["serde"]
 
 [dependencies]
-rbx_dom_weak = { version = "2.9.0", path = "../rbx_dom_weak" }
-rbx_reflection = { version = "4.7.0", path = "../rbx_reflection" }
-rbx_reflection_database = { version = "0.2.12", path = "../rbx_reflection_database" }
+rbx_dom_weak = { version = "4.1.0", path = "../rbx_dom_weak" }
+rbx_reflection = { version = "6.1.0", path = "../rbx_reflection" }
+rbx_reflection_database = { version = "2.0.2", path = "../rbx_reflection_database" }
 
 ahash = "0.8.11"
 log = "0.4.17"
-lz4 = "1.23.3"
+lz4_flex = "0.13.1"
 thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }
 profiling = "1.0.6"
 zstd = "0.13.2"
 
 [dev-dependencies]
-criterion = "0.5.1"
-env_logger = "0.9.0"
-heck = "0.4.0"
+criterion = "0.8.2"
+env_logger = "0.11.10"
+heck = "0.5.0"
 insta = { version = "1.14.1", features = ["yaml"] }
 serde = { version = "1.0.137", features = ["derive"] }
+rbx_reflection_database = { path = "../rbx_reflection_database", features = [
+    "debug_always_use_bundled",
+] }
 
 [[bench]]
 name = "suite"

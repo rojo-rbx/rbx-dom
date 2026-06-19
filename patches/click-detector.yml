@@ -1,0 +1,13 @@
+Change:
+  ClickDetector:
+    CursorIcon:
+      Serialization:
+        Type: Migrate
+        To: CursorIconContent
+        Migration: ContentIdToContent
+  DragDetector: # DragDetector inherits from ClickDetector
+    ActivatedCursorIcon:
+      Serialization:
+        Type: Migrate
+        To: ActivatedCursorIconContent
+        Migration: ContentIdToContent

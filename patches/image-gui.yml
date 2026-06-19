@@ -1,0 +1,23 @@
+Change:
+  ImageButton:
+    Image:
+      Serialization:
+        Type: Migrate
+        To: ImageContent
+        Migration: ContentIdToContent
+    HoverImage:
+      Serialization:
+        Type: Migrate
+        To: HoverImageContent
+        Migration: ContentIdToContent
+    PressedImage:
+      Serialization:
+        Type: Migrate
+        To: PressedImageContent
+        Migration: ContentIdToContent
+  ImageLabel:
+    Image:
+      Serialization:
+        Type: Migrate
+        To: ImageContent
+        Migration: ContentIdToContent

@@ -208,4 +208,28 @@ return {
 			end,
 		},
 	},
+	StyleRule = {
+		Properties = {
+			read = function(instance: StyleRule)
+				return true, instance:GetProperties()
+			end,
+			write = function(instance: StyleRule, _, value: { [any]: any })
+				if typeof(value) ~= "table" then
+					return false, Error.new(Error.Kind.CannotParseBinaryString)
+				end
+
+				local existing = instance:GetProperties()
+
+				instance:SetProperties(value)
+
+				for existingItemName in pairs(existing) do
+					if value[existingItemName] == nil then
+						instance:SetProperty(existingItemName, nil)
+					end
+				end
+
+				return true
+			end,
+		},
+	},
 }

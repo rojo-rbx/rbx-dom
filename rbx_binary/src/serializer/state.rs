@@ -1,31 +1,31 @@
 use std::{
-    borrow::{Borrow, Cow},
-    collections::{btree_map, BTreeMap},
-    convert::TryInto,
+    borrow::Cow,
+    collections::{btree_map, hash_map, BTreeMap},
     io::Write,
 };
 
-use ahash::{HashMap, HashMapExt, HashSetExt};
+use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, Enum, EnumItem, Faces, Font, MaterialColors, Matrix3,
-        NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref,
-        SecurityCapabilities, SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType,
-        Vector2, Vector3, Vector3int16,
+        ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
+        MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence, NumberSequenceKeypoint,
+        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
+        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
     },
-    Instance, Ustr, UstrSet, WeakDom,
+    Instance, Ustr, UstrMap, WeakDom,
 };
 
 use rbx_reflection::{
-    ClassDescriptor, ClassTag, DataType, PropertyKind, PropertyMigration, PropertySerialization,
+    ClassDescriptor, ClassTag, PropertyKind, PropertyMigration, PropertySerialization,
     ReflectionDatabase,
 };
 
 use crate::{
     chunk::ChunkBuilder,
     core::{
-        find_property_descriptors, RbxWriteExt, FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
+        find_property_descriptors, PropertyDescriptors, RbxWriteExt, FILE_MAGIC_HEADER,
+        FILE_SIGNATURE, FILE_VERSION,
     },
     types::Type,
     Serializer,
@@ -69,6 +69,13 @@ pub(super) struct SerializerState<'dom, 'db, W> {
     shared_string_ids: HashMap<SharedString, u32>,
 }
 
+#[derive(Debug, Clone)]
+enum PropInfoResolution {
+    MigratesTo(Vec<usize>),
+    SerializesTo(usize),
+    DoesNotSerialize,
+}
+
 /// An instance class that our serializer knows about. We should have one struct
 /// per unique ClassName.
 #[derive(Debug)]
@@ -85,12 +92,11 @@ struct TypeInfo<'dom, 'db> {
     instances: Vec<&'dom Instance>,
 
     /// All of the defined properties for this type found on any instance of
-    /// this type. Properties are keyed by their canonical name, and only one
-    /// entry should be present for each logical property.
+    /// this type. Only one entry should be present for each logical property.
     ///
-    /// Stored in a sorted map to try to ensure that we write out properties in
-    /// a deterministic order.
-    properties: BTreeMap<Ustr, PropInfo<'db>>,
+    /// Sorted by canonical name just before serialization to ensure that
+    /// we write out properties in a deterministic order.
+    properties: Vec<PropInfo<'dom>>,
 
     /// A reference to the type's class descriptor from rbx_reflection, if this
     /// is a known class.
@@ -99,7 +105,22 @@ struct TypeInfo<'dom, 'db> {
     /// A set containing the properties that we have seen so far in the file and
     /// processed. This helps us avoid traversing the reflection database
     /// multiple times if there are many copies of the same kind of instance.
-    properties_visited: UstrSet,
+    ///
+    /// `PropInfoResolution` entries in this map contain indices into
+    /// `self.properties` of the relevant `PropInfo`s for the property.
+    ///
+    /// Most property names resolve to one serialized property. Migration source
+    /// properties may resolve to several serialized properties when one old
+    /// property expands into multiple new properties.
+    resolved_properties_by_visited_name: UstrMap<PropInfoResolution>,
+
+    /// Maps canonical property names to entries in `self.properties`.
+    ///
+    /// This is intentionally separate from
+    /// `resolved_properties_by_visited_name`: a visited property name may be a
+    /// migration source or an alias, but a canonical property name always
+    /// identifies one concrete `PropInfo`.
+    prop_info_indices_by_canonical_name: UstrMap<usize>,
 }
 
 /// A property on a specific class that our serializer knows about.
@@ -109,7 +130,7 @@ struct TypeInfo<'dom, 'db> {
 /// `BasePart.size` are present in the same document, they should share a
 /// `PropInfo` as they are the same logical property.
 #[derive(Debug)]
-struct PropInfo<'db> {
+struct PropInfo<'dom> {
     /// The binary format type ID that will be use to serialize this property.
     /// This type is related to the type of the serialized form of the logical
     /// property, but is not 1:1.
@@ -119,17 +140,18 @@ struct PropInfo<'db> {
     /// as the `Content` and `String` variants do.
     prop_type: Type,
 
+    /// The canonical name for this property. This is used to sort the
+    /// logical property list just before serialization.
+    canonical_name: Ustr,
+
     /// The serialized name for this property. This is the name that is actually
     /// written as part of the PROP chunk and may not line up with the canonical
     /// name for the property.
     serialized_name: Ustr,
 
-    /// A set containing the names of all aliases discovered while preparing to
-    /// serialize this property. Ideally, this set will remain empty (and not
-    /// allocate) in most cases. However, if an instance is missing a property
-    /// from its canonical name, but does have another variant, we can use this
-    /// set to recover and map those values.
-    aliases: UstrSet,
+    /// References to logical property values.  May be collected from multiple
+    /// property names like `BasePart.Size` and `BasePart.size`.
+    values: Vec<&'dom Variant>,
 
     /// The default value for this property that should be used if any instances
     /// are missing this property.
@@ -141,12 +163,57 @@ struct PropInfo<'db> {
     ///
     /// Default values are first populated from the reflection database, if
     /// present, followed by an educated guess based on the type of the value.
-    default_value: Cow<'db, Variant>,
+    default_value: &'dom Variant,
 
     /// If a logical property has a migration associated with it (i.e. BrickColor ->
     /// Color, Font -> FontFace), this field contains Some(PropertyMigration). Otherwise,
     /// it is None.
-    migration: Option<&'db PropertyMigration>,
+    migration: Option<&'dom PropertyMigration<'dom>>,
+}
+impl<'dom> PropInfo<'dom> {
+    /// This function extends `self.values` with `self.default_value` values.
+    /// Previous instances may not have traversed all properties, but
+    /// all `PropInfo.values` must have the same length as
+    /// `TypeInfo.instances.len()` to serialize PROP chunks correctly.
+    fn extend_with_default(&mut self, desired_len: usize) {
+        let current_len = self.values.len();
+        let Some(additional) = desired_len.checked_sub(current_len) else {
+            panic!(
+                "desired_len ({}) must be greater than or equal to current_len ({})",
+                desired_len, current_len
+            );
+        };
+        self.values
+            .extend(core::iter::repeat_n(self.default_value, additional));
+    }
+
+    /// Add this instance's value, unless this logical property already has one.
+    fn push_value_for_instance(&mut self, desired_len: usize, value: &'dom Variant) {
+        if self.values.len() > desired_len {
+            // This property for this instance has already been assigned a value. This can
+            // happen when this property is a migration target, and the instance has
+            // specified both the *new* migration target property and the *old* migration
+            // source property.
+            //
+            // That's very strange, but the specified value should take precedence, and we
+            // cannot push an additional value because that would corrupt the alignment
+            // between PropInfo.values and TypeInfo.instances.
+            return;
+        }
+
+        self.extend_with_default(desired_len);
+        self.values.push(value);
+    }
+
+    /// Set the migration
+    fn set_migration(&mut self, m_new: &'dom PropertyMigration) {
+        if let Some(m_old) = self.migration {
+            // Check that migrations do not conflict if one already exists
+            assert_eq!(m_old, m_new, "Migration must not change after being set");
+        } else {
+            self.migration = Some(m_new);
+        }
+    }
 }
 
 /// Contains all of the `TypeInfo` objects known to the serializer so far. This
@@ -188,37 +255,18 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
             let is_service = if let Some(descriptor) = &class_descriptor {
                 descriptor.tags.contains(&ClassTag::Service)
             } else {
-                log::info!("The class {} is not known to rbx_binary", class);
+                log::info!("The class {class} is not known to rbx_binary");
                 false
             };
-
-            let mut properties = BTreeMap::new();
-
-            // Every instance has a property named Name. Even though
-            // rbx_dom_weak encodes the name property specially, we still insert
-            // this property into the type info and handle it like a regular
-            // property during encoding.
-            //
-            // We can use a dummy default_value here because instances from
-            // rbx_dom_weak always have a name set.
-            properties.insert(
-                "Name".into(),
-                PropInfo {
-                    prop_type: Type::String,
-                    serialized_name: "Name".into(),
-                    aliases: UstrSet::new(),
-                    default_value: Cow::Owned(Variant::String(String::new())),
-                    migration: None,
-                },
-            );
 
             entry.insert(TypeInfo {
                 type_id,
                 is_service,
                 instances: Vec::new(),
-                properties,
+                properties: Vec::new(),
                 class_descriptor,
-                properties_visited: UstrSet::new(),
+                resolved_properties_by_visited_name: UstrMap::new(),
+                prop_info_indices_by_canonical_name: UstrMap::new(),
             });
         }
 
@@ -228,7 +276,246 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
     }
 }
 
-impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
+struct SerializedProperty {
+    canonical_name: Ustr,
+    serialized_name: Ustr,
+    serialized_ty: VariantType,
+}
+
+impl SerializedProperty {
+    fn from_descriptors(descriptors: PropertyDescriptors<'_>) -> Option<Self> {
+        let serialized = descriptors.serialized?;
+
+        Some(SerializedProperty {
+            canonical_name: descriptors.canonical.name.into(),
+            serialized_name: serialized.name.into(),
+            serialized_ty: serialized.data_type.ty(),
+        })
+    }
+}
+
+enum SerializationResolution<'db> {
+    Property(SerializedProperty),
+    Migration {
+        migration: &'db PropertyMigration<'db>,
+        targets: Vec<SerializedProperty>,
+    },
+}
+
+impl<'db> SerializationResolution<'db> {
+    /// Helper function for `TypeInfo::resolve_visited_property`.
+    /// Returns Some if the property serializes in any way, None if it does not.
+    fn new(
+        class_descriptor: Option<&'db ClassDescriptor<'db>>,
+        database: &'db ReflectionDatabase<'db>,
+        prop_name: Ustr,
+        sample_value: &Variant,
+    ) -> Option<SerializationResolution<'db>> {
+        match find_property_descriptors(database, class_descriptor, &prop_name) {
+            // We found reflection information for this property.
+            Some((superclass_descriptor, descriptors)) => {
+                // For any properties that do not serialize, we return None.
+                let serialized = descriptors.serialized?;
+
+                if let PropertyKind::Canonical {
+                    serialization: PropertySerialization::Migrate(prop_migration),
+                } = &serialized.kind
+                {
+                    // If the property migrates, we need to look up the
+                    // properties it should migrate to and use the reflection
+                    // information of the new properties instead of the old
+                    // properties, because migrated properties should not
+                    // serialize.
+                    //
+                    // Assume that the migration will always be directed
+                    // to properties on the same class.
+                    // This avoids re-walking the superclasses.
+                    let mut targets = Vec::new();
+                    for &new_property_name in prop_migration.new_property_names() {
+                        let new_descriptors = superclass_descriptor
+                            .properties
+                            .get(new_property_name)
+                            .and_then(|prop| PropertyDescriptors::new(superclass_descriptor, prop))
+                            .expect("migration targets should have property descriptors");
+
+                        let serialized_property =
+                            SerializedProperty::from_descriptors(new_descriptors)
+                                .expect("migration target property descriptors should serialize");
+
+                        targets.push(serialized_property);
+                    }
+
+                    return Some(SerializationResolution::Migration {
+                        migration: prop_migration,
+                        targets,
+                    });
+                }
+
+                Some(SerializationResolution::Property(
+                    SerializedProperty::from_descriptors(descriptors)?,
+                ))
+            }
+
+            // If we cannot find any reflection information for this property,
+            // we'll try to serialize it as-is, using the given name as both the
+            // canonical name and the serialized name, and as the given type
+            None => Some(SerializationResolution::Property(SerializedProperty {
+                canonical_name: prop_name,
+                serialized_name: prop_name,
+                serialized_ty: sample_value.ty(),
+            })),
+        }
+    }
+}
+
+/// Get or create a PropInfo given a serialized property.
+//  Return the index into self.properties where the PropInfo is located.
+fn get_or_create_prop_info<'dom>(
+    properties: &mut Vec<PropInfo<'dom>>,
+    prop_info_indices_by_canonical_name: &mut UstrMap<usize>,
+    type_name: Ustr,
+    default_value: &'dom Variant,
+    SerializedProperty {
+        canonical_name,
+        serialized_name,
+        serialized_ty,
+    }: SerializedProperty,
+    migration: Option<&'dom PropertyMigration>,
+) -> Result<usize, InnerError> {
+    let vacant_entry = match prop_info_indices_by_canonical_name.entry(canonical_name) {
+        hash_map::Entry::Occupied(occupied_entry) => {
+            let &prop_info_index = occupied_entry.get();
+            // The visited property may contain a migration that the logical
+            // property has not been made aware of yet.
+            if let Some(migration) = migration {
+                properties[prop_info_index].set_migration(migration);
+            }
+
+            return Ok(prop_info_index);
+        }
+        hash_map::Entry::Vacant(vacant_entry) => vacant_entry,
+    };
+
+    // This is a known value type, but rbx_binary doesn't have a
+    // binary type value for it. rbx_binary might be out of
+    // date?
+    let prop_type =
+        Type::from_rbx_type(serialized_ty).ok_or_else(|| InnerError::UnsupportedPropType {
+            type_name: type_name.to_string(),
+            prop_name: serialized_name.to_string(),
+            prop_type: format!("{:?}", serialized_ty),
+        })?;
+
+    let prop_info = PropInfo {
+        prop_type,
+        canonical_name,
+        serialized_name,
+        values: Vec::new(),
+        default_value,
+        migration,
+    };
+
+    // Insert the new PropInfo into our properties list, and record its index
+    let prop_info_index = properties.len();
+    properties.push(prop_info);
+    vacant_entry.insert(prop_info_index);
+
+    Ok(prop_info_index)
+}
+
+impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
+    /// Resolve a visited property name into a PropInfoResolution, which
+    /// contains the indices into TypeInfo.properties of the relevant PropInfos.
+    fn resolve_visited_property(
+        &mut self,
+        push_sstr: &mut impl FnMut(&Variant),
+        database: &'db ReflectionDatabase<'db>,
+        type_name: Ustr,
+        prop_name: Ustr,
+        sample_value: &Variant,
+    ) -> Result<&PropInfoResolution, InnerError> {
+        let class = self.class_descriptor;
+
+        // Check if visited property has already been resolved, return the
+        // resolved property if so
+        let vacant_entry = match self.resolved_properties_by_visited_name.entry(prop_name) {
+            hash_map::Entry::Occupied(resolved_property) => return Ok(resolved_property.into_mut()),
+            hash_map::Entry::Vacant(vacant_entry) => vacant_entry,
+        };
+
+        let Some(serialization) =
+            SerializationResolution::new(class, database, prop_name, sample_value)
+        else {
+            // Remember that this visited property does not serialize
+            return Ok(vacant_entry.insert(PropInfoResolution::DoesNotSerialize));
+        };
+
+        // Use a closure to reduce the argument count of get_or_create_prop_info
+        let class_descriptor = self.class_descriptor;
+        let mut default_value =
+            |serialized_property: &SerializedProperty| -> Result<_, InnerError> {
+                let default_value = class_descriptor
+                    .and_then(|class| {
+                        database.find_default_property(class, &serialized_property.canonical_name)
+                    })
+                    .or_else(|| fallback_default_value(serialized_property.serialized_ty))
+                    .ok_or_else(|| {
+                        // Since we don't know how to generate the default value
+                        // for this property, we consider it unsupported.
+                        InnerError::UnsupportedPropType {
+                            type_name: type_name.to_string(),
+                            prop_name: serialized_property.canonical_name.to_string(),
+                            prop_type: format!("{:?}", serialized_property.serialized_ty),
+                        }
+                    })?;
+
+                // There's no assurance that the default SharedString value
+                // will actually get serialized inside of the SSTR chunk, so we
+                // check here just to make sure.
+                push_sstr(default_value);
+
+                Ok(default_value)
+            };
+
+        let resolved_property = match serialization {
+            SerializationResolution::Property(serialized_property) => {
+                let default_value = default_value(&serialized_property)?;
+                let prop_info_index = get_or_create_prop_info(
+                    &mut self.properties,
+                    &mut self.prop_info_indices_by_canonical_name,
+                    type_name,
+                    default_value,
+                    serialized_property,
+                    None,
+                )?;
+                PropInfoResolution::SerializesTo(prop_info_index)
+            }
+            SerializationResolution::Migration { migration, targets } => {
+                let mut prop_info_indices = Vec::with_capacity(targets.len());
+
+                for serialized_property in targets {
+                    let default_value = default_value(&serialized_property)?;
+                    let prop_info_index = get_or_create_prop_info(
+                        &mut self.properties,
+                        &mut self.prop_info_indices_by_canonical_name,
+                        type_name,
+                        default_value,
+                        serialized_property,
+                        Some(migration),
+                    )?;
+
+                    prop_info_indices.push(prop_info_index);
+                }
+
+                PropInfoResolution::MigratesTo(prop_info_indices)
+            }
+        };
+
+        Ok(vacant_entry.insert(resolved_property))
+    }
+}
+
+impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     pub fn new(serializer: &'db Serializer<'db>, dom: &'dom WeakDom, output: W) -> Self {
         SerializerState {
             serializer,
@@ -311,170 +598,88 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
     /// Collect information about all the different types of instance and their
     /// properties.
-    // Using the entry API here, as Clippy suggests, would require us to
-    // clone canonical_name in a cold branch. We don't want to do that.
-    #[allow(clippy::map_entry)]
     #[profiling::function]
     pub fn collect_type_info(&mut self, instance: &'dom Instance) -> Result<(), InnerError> {
-        let type_info = self.type_infos.get_or_create(instance.class);
+        let SerializerState {
+            serializer: Serializer { database, .. },
+            type_infos,
+            shared_strings,
+            shared_string_ids,
+            ..
+        } = self;
+
+        let type_info = type_infos.get_or_create(instance.class);
+        // The desired length of all PropInfo.values in this TypeInfo.
+        // Some instances may have missing properties, meaning the
+        // corresponding PropInfo is never visited and no value is inserted.
+        //
+        // Used in the loop below (push_value_for_instance)
+        let desired_len = type_info.instances.len();
         type_info.instances.push(instance);
 
+        // Helper to track a SharedString Variant
+        let mut push_sstr = |variant: &Variant| {
+            if let Variant::SharedString(sstr) = variant {
+                if !shared_string_ids.contains_key(sstr) {
+                    shared_string_ids.insert(sstr.clone(), 0);
+                    shared_strings.push(sstr.clone());
+                }
+            } else if let Variant::NetAssetRef(net) = variant {
+                // NetAssetRef is serialized identically as `SharedString` and
+                // uses the same repository, so we just treat them all the same
+                let sstr_ref = net.as_ref();
+                if !shared_string_ids.contains_key(sstr_ref) {
+                    shared_string_ids.insert(sstr_ref.clone(), 0);
+                    shared_strings.push(sstr_ref.clone())
+                }
+            }
+        };
+
+        // List mapping PropInfo indices to a property value reference, for any
+        // migrated properties.
+        let mut deferred_migrations = Vec::new();
+
         for (prop_name, prop_value) in &instance.properties {
-            // Discover and track any shared strings we come across.
-            if let Variant::SharedString(shared_string) = prop_value {
-                if !self.shared_string_ids.contains_key(shared_string) {
-                    // We insert it with a dummy id of 0 so that we can check for contains_key.
-                    // The actual id is set in `add_instances`
-                    self.shared_string_ids.insert(shared_string.clone(), 0);
-                    self.shared_strings.push(shared_string.clone())
+            let resolved_property = type_info.resolve_visited_property(
+                &mut push_sstr,
+                database,
+                instance.class,
+                *prop_name,
+                prop_value,
+            )?;
+
+            match resolved_property {
+                PropInfoResolution::DoesNotSerialize => {
+                    // Property does not serialize, skip
                 }
-            }
+                PropInfoResolution::MigratesTo(prop_info_indices) => {
+                    // Discover and track any shared strings we come across.
+                    push_sstr(prop_value);
 
-            // Skip this property if we've already seen it.
-            if type_info.properties_visited.contains(prop_name) {
-                continue;
-            }
-
-            // ...but add it to the set of visited properties if we haven't seen
-            // it.
-            type_info.properties_visited.insert(*prop_name);
-
-            let canonical_name;
-            let serialized_name;
-            let serialized_ty;
-            let mut migration = None;
-
-            let database = self.serializer.database;
-            match find_property_descriptors(database, instance.class, *prop_name) {
-                Some(descriptors) => {
-                    // For any properties that do not serialize, we can skip
-                    // adding them to the set of type_infos.
-                    let serialized = match descriptors.serialized {
-                        Some(descriptor) => {
-                            if let PropertyKind::Canonical {
-                                serialization: PropertySerialization::Migrate(prop_migration),
-                            } = &descriptor.kind
-                            {
-                                // If the property migrates, we need to look up the
-                                // property it should migrate to and use the reflection
-                                // information of the new property instead of the old
-                                // property, because migrated properties should not
-                                // serialize
-                                let new_descriptors = find_property_descriptors(
-                                    database,
-                                    instance.class,
-                                    prop_migration.new_property_name.as_str().into(),
-                                );
-
-                                migration = Some(prop_migration);
-
-                                match new_descriptors {
-                                    Some(descriptor) => match descriptor.serialized {
-                                        Some(serialized) => {
-                                            canonical_name =
-                                                descriptor.canonical.name.as_ref().into();
-                                            serialized
-                                        }
-                                        None => continue,
-                                    },
-                                    None => continue,
-                                }
-                            } else {
-                                canonical_name = descriptors.canonical.name.as_ref().into();
-                                descriptor
-                            }
-                        }
-                        None => continue,
-                    };
-
-                    serialized_name = serialized.name.as_ref().into();
-
-                    serialized_ty = match &serialized.data_type {
-                        DataType::Value(ty) => *ty,
-                        DataType::Enum(_) => VariantType::Enum,
-
-                        unknown_ty => {
-                            // rbx_binary is not new enough to handle this kind
-                            // of property, whatever it is.
-                            return Err(InnerError::UnsupportedPropType {
-                                type_name: instance.class.to_string(),
-                                prop_name: prop_name.to_string(),
-                                prop_type: format!("{:?}", unknown_ty),
-                            });
-                        }
-                    };
+                    // This property migrates to one or more other properties. Populate
+                    // deferred_migrations with its indices and value, and wait until
+                    // later to push its instance value, because we don't know yet if the
+                    // instance specifies any of the migration target properties, which
+                    // should take precedence.
+                    deferred_migrations.push((prop_info_indices.clone(), prop_value));
                 }
+                &PropInfoResolution::SerializesTo(prop_info_index) => {
+                    // This property does not migrate, so no need to fill deferred_migrations
+                    // and we may proceed
 
-                None => {
-                    canonical_name = *prop_name;
-                    serialized_name = *prop_name;
-                    serialized_ty = prop_value.ty();
+                    // Discover and track any shared strings we come across.
+                    push_sstr(prop_value);
+
+                    let prop_info = &mut type_info.properties[prop_info_index];
+                    prop_info.push_value_for_instance(desired_len, prop_value);
                 }
-            }
+            };
+        }
 
-            if !type_info.properties.contains_key(&canonical_name) {
-                let default_value = type_info
-                    .class_descriptor
-                    .and_then(|class| {
-                        database
-                            .find_default_property(class, &canonical_name)
-                            .map(Cow::Borrowed)
-                    })
-                    .or_else(|| Self::fallback_default_value(serialized_ty).map(Cow::Owned))
-                    .ok_or_else(|| {
-                        // Since we don't know how to generate the default value
-                        // for this property, we consider it unsupported.
-                        InnerError::UnsupportedPropType {
-                            type_name: instance.class.to_string(),
-                            prop_name: canonical_name.to_string(),
-                            prop_type: format!("{:?}", serialized_ty),
-                        }
-                    })?;
-
-                // There's no assurance that the default SharedString value
-                // will actually get serialized inside of the SSTR chunk, so we
-                // check here just to make sure.
-                if let Variant::SharedString(sstr) = default_value.borrow() {
-                    if !self.shared_string_ids.contains_key(sstr) {
-                        self.shared_string_ids.insert(sstr.clone(), 0);
-                        self.shared_strings.push(sstr.clone());
-                    }
-                }
-
-                let ser_type = Type::from_rbx_type(serialized_ty).ok_or_else(|| {
-                    // This is a known value type, but rbx_binary doesn't have a
-                    // binary type value for it. rbx_binary might be out of
-                    // date?
-                    InnerError::UnsupportedPropType {
-                        type_name: instance.class.to_string(),
-                        prop_name: serialized_name.to_string(),
-                        prop_type: format!("{:?}", serialized_ty),
-                    }
-                })?;
-
-                type_info.properties.insert(
-                    canonical_name,
-                    PropInfo {
-                        prop_type: ser_type,
-                        serialized_name,
-                        aliases: UstrSet::new(),
-                        default_value,
-                        migration,
-                    },
-                );
-            }
-
-            // If the property we found on this instance is different than the
-            // canonical name for this property, stash it into the set of known
-            // aliases for this PropInfo.
-            if *prop_name != canonical_name {
-                let prop_info = type_info.properties.get_mut(&canonical_name).unwrap();
-
-                if !prop_info.aliases.contains(prop_name) {
-                    prop_info.aliases.insert(*prop_name);
-                }
-
-                prop_info.migration = migration;
+        for (prop_info_indices, prop_value) in deferred_migrations {
+            for prop_info_index in prop_info_indices {
+                let prop_info = &mut type_info.properties[prop_info_index];
+                prop_info.push_value_for_instance(desired_len, prop_value);
             }
         }
 
@@ -485,12 +690,15 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     /// be serializing to the model.
     #[profiling::function]
     pub fn generate_referents(&mut self) {
-        self.id_to_referent.reserve(self.relevant_instances.len());
+        // This performs the same check as next_referent.try_into().unwrap() but only once.
+        assert!(self.relevant_instances.len() <= i32::MAX as usize);
 
-        for (next_referent, id) in self.relevant_instances.iter().enumerate() {
-            self.id_to_referent
-                .insert(*id, next_referent.try_into().unwrap());
-        }
+        self.id_to_referent.extend(
+            self.relevant_instances
+                .iter()
+                .enumerate()
+                .map(|(next_referent, id)| (*id, next_referent as i32)),
+        );
 
         log::debug!("Collected {} referents", self.id_to_referent.len());
     }
@@ -605,64 +813,109 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
     pub fn serialize_properties(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing properties");
 
-        for (type_name, type_info) in &self.type_infos.values {
-            for (prop_name, prop_info) in &type_info.properties {
-                profiling::scope!("serialize property", prop_name.borrow());
-                log::trace!(
-                    "Writing property {}.{} (type {:?})",
-                    type_name,
-                    prop_name,
-                    prop_info.prop_type
-                );
+        let name_ustr = rbx_dom_weak::ustr("Name");
+        for (type_name, type_info) in &mut self.type_infos.values {
+            // Sort logical properties by canonical name
+            type_info
+                .properties
+                .sort_by_key(|prop_info| prop_info.canonical_name);
 
+            // Locate the index where "Name" could be inserted
+            let name_location = type_info
+                .properties
+                .binary_search_by_key(&name_ustr, |prop_info| prop_info.canonical_name);
+
+            let (properties_before_name, properties_after_name) = match name_location {
+                // Split properties at the sort location of "Name"
+                Err(name_insert_index) => type_info.properties.split_at_mut(name_insert_index),
+                // "Name" logical property exists.  Ignore it.
+                Ok(name_index) => {
+                    log::warn!("Name property should not exist in Instance.properties. Use Instance.name instead. Property was ignored.");
+
+                    let (properties_before_name, properties_after_name) =
+                        type_info.properties.split_at_mut(name_index);
+
+                    // Skip "Name" logical property
+                    (properties_before_name, &mut properties_after_name[1..])
+                }
+            };
+
+            for prop_info in properties_before_name {
                 let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
 
                 chunk.write_le_u32(type_info.type_id)?;
                 chunk.write_string(&prop_info.serialized_name)?;
                 chunk.write_u8(prop_info.prop_type as u8)?;
 
-                let values = type_info
-                    .instances
-                    .iter()
-                    .map(|instance| {
-                        // We store the Name property in a different field for
-                        // convenience, but when serializing to the binary model
-                        // format we need to handle it just like other properties.
-                        if *prop_name == "Name" {
-                            return Cow::Owned(Variant::String(instance.name.clone()));
-                        }
+                write_prop_info(
+                    prop_info,
+                    &mut chunk,
+                    self.dom,
+                    &self.id_to_referent,
+                    &self.shared_string_ids,
+                    &type_info.instances,
+                    type_name,
+                )?;
 
-                        // Most properties will be stored on instances using the
-                        // property's canonical name, so we'll try that first.
-                        if let Some(property) = instance.properties.get(prop_name) {
-                            return Cow::Borrowed(property);
-                        }
+                chunk.dump(&mut self.output)?;
+            }
 
-                        // If there were any known aliases for this property
-                        // used as part of this file, we can check those next.
-                        for alias in &prop_info.aliases {
-                            if let Some(property) = instance.properties.get(alias) {
-                                return Cow::Borrowed(property);
-                            }
-                        }
+            // Write name properties as a special case
+            {
+                let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
 
-                        // Finally, we can fall back to the default value we
-                        // computed for this PropInfo. This is sourced from the
-                        // reflection database if available, or falls back to a
-                        // reasonable default.
-                        Cow::Borrowed(prop_info.default_value.borrow())
-                    })
-                    .map(|value| {
-                        if let Some(migration) = prop_info.migration {
-                            match migration.perform(&value) {
-                                Ok(new_value) => Cow::Owned(new_value),
-                                Err(_) => value,
-                            }
-                        } else {
-                            value
-                        }
-                    })
-                    .enumerate();
+                chunk.write_le_u32(type_info.type_id)?;
+                chunk.write_string("Name")?;
+                chunk.write_u8(Type::String as u8)?;
+
+                for &instance in &type_info.instances {
+                    chunk.write_string(&instance.name)?;
+                }
+
+                chunk.dump(&mut self.output)?;
+            }
+
+            for prop_info in properties_after_name {
+                let mut chunk = ChunkBuilder::new(b"PROP", self.serializer.compression);
+
+                chunk.write_le_u32(type_info.type_id)?;
+                chunk.write_string(&prop_info.serialized_name)?;
+                chunk.write_u8(prop_info.prop_type as u8)?;
+
+                write_prop_info(
+                    prop_info,
+                    &mut chunk,
+                    self.dom,
+                    &self.id_to_referent,
+                    &self.shared_string_ids,
+                    &type_info.instances,
+                    type_name,
+                )?;
+
+                chunk.dump(&mut self.output)?;
+            }
+
+            fn write_prop_info<'dom>(
+                prop_info: &mut PropInfo<'dom>,
+                chunk: &mut ChunkBuilder,
+                dom: &'dom WeakDom,
+                id_to_referent: &HashMap<Ref, i32>,
+                shared_string_ids: &HashMap<SharedString, u32>,
+                instances: &[&Instance],
+                type_name: &str,
+            ) -> Result<(), InnerError> {
+                profiling::scope!("serialize property", &prop_info.canonical_name);
+                log::trace!(
+                    "Writing property {}.{} (type {:?})",
+                    type_name,
+                    prop_info.canonical_name,
+                    prop_info.prop_type
+                );
+
+                // Ensure the number of values matches the number of referents.
+                // This happens when instances of the same class have different
+                // sets of properties.
+                prop_info.extend_with_default(instances.len());
 
                 // Helper to generate a type mismatch error with context from
                 // this chunk.
@@ -670,29 +923,77 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     |i: usize, bad_value: &Variant, valid_type_names: &'static str| {
                         Err(InnerError::PropTypeMismatch {
                             type_name: type_name.to_string(),
-                            prop_name: prop_name.to_string(),
+                            prop_name: prop_info.canonical_name.to_string(),
                             valid_type_names,
                             actual_type_name: format!("{:?}", bad_value.ty()),
-                            instance_full_name: self
-                                .full_name_for(type_info.instances[i].referent()),
+                            instance_full_name: dom.full_path_of(instances[i].referent(), "."),
                         })
                     };
 
                 let invalid_value = |i: usize, bad_value: &Variant| InnerError::InvalidPropValue {
-                    instance_full_name: self.full_name_for(type_info.instances[i].referent()),
+                    instance_full_name: dom.full_path_of(instances[i].referent(), "."),
                     type_name: type_name.to_string(),
-                    prop_name: prop_name.to_string(),
+                    prop_name: prop_info.canonical_name.to_string(),
                     prop_type: format!("{:?}", bad_value.ty()),
                 };
 
-                match prop_info.prop_type {
+                if let Some(property_migration) = prop_info.migration {
+                    let migrated_values: Vec<_> = prop_info
+                        .values
+                        .iter()
+                        .map(|&value| {
+                            property_migration
+                                .perform(value)
+                                // Take original if migration failed
+                                .map_or(Cow::Borrowed(value), Cow::Owned)
+                        })
+                        .collect();
+
+                    write_prop_values(
+                        chunk,
+                        id_to_referent,
+                        shared_string_ids,
+                        prop_info.prop_type,
+                        migrated_values.iter().map(Cow::as_ref).enumerate(),
+                        type_mismatch,
+                        invalid_value,
+                    )?;
+                } else {
+                    write_prop_values(
+                        chunk,
+                        id_to_referent,
+                        shared_string_ids,
+                        prop_info.prop_type,
+                        prop_info.values.iter().copied().enumerate(),
+                        type_mismatch,
+                        invalid_value,
+                    )?;
+                };
+
+                Ok(())
+            }
+            fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
+                chunk: &mut ChunkBuilder,
+                id_to_referent: &HashMap<Ref, i32>,
+                shared_string_ids: &HashMap<SharedString, u32>,
+                prop_type: Type,
+                values: I,
+                type_mismatch: TypeMismatch,
+                invalid_value: InvalidValue,
+            ) -> Result<(), InnerError>
+            where
+                I: ExactSizeIterator<Item = (usize, &'a Variant)>,
+                TypeMismatch: Fn(usize, &Variant, &'static str) -> Result<(), InnerError>,
+                InvalidValue: Fn(usize, &Variant) -> InnerError,
+            {
+                match prop_type {
                     Type::String => {
                         for (i, rbx_value) in values {
-                            match rbx_value.as_ref() {
+                            match rbx_value {
                                 Variant::String(value) => {
                                     chunk.write_string(value)?;
                                 }
-                                Variant::Content(value) => {
+                                Variant::ContentId(value) => {
                                     chunk.write_string(value.as_ref())?;
                                 }
                                 Variant::BinaryString(value) => {
@@ -707,7 +1008,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
                                     value
                                         .to_writer(&mut buf)
-                                        .map_err(|_| invalid_value(i, &rbx_value))?;
+                                        .map_err(|_| invalid_value(i, rbx_value))?;
 
                                     chunk.write_binary_string(&buf)?;
                                 }
@@ -717,8 +1018,8 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                 _ => {
                                     return type_mismatch(
                                         i,
-                                        &rbx_value,
-                                        "String, Content, Tags, Attributes, MaterialColors, or BinaryString",
+                                        rbx_value,
+                                        "String, ContentId, Tags, Attributes, MaterialColors, or BinaryString",
                                     );
                                 }
                             }
@@ -726,10 +1027,10 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     }
                     Type::Bool => {
                         for (i, rbx_value) in values {
-                            if let Variant::Bool(value) = rbx_value.as_ref() {
+                            if let Variant::Bool(value) = rbx_value {
                                 chunk.write_bool(*value)?;
                             } else {
-                                return type_mismatch(i, &rbx_value, "Bool");
+                                return type_mismatch(i, rbx_value, "Bool");
                             }
                         }
                     }
@@ -737,38 +1038,38 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut buf = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Int32(value) = rbx_value.as_ref() {
+                            if let Variant::Int32(value) = rbx_value {
                                 buf.push(*value);
                             } else {
-                                return type_mismatch(i, &rbx_value, "Int32");
+                                return type_mismatch(i, rbx_value, "Int32");
                             }
                         }
 
-                        chunk.write_interleaved_i32_array(buf.into_iter())?;
+                        chunk.write_interleaved_i32_array(buf)?;
                     }
                     Type::Float32 => {
                         let mut buf = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Float32(value) = rbx_value.as_ref() {
+                            if let Variant::Float32(value) = rbx_value {
                                 buf.push(*value);
                             } else {
-                                return type_mismatch(i, &rbx_value, "Float32");
+                                return type_mismatch(i, rbx_value, "Float32");
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(buf.into_iter())?;
+                        chunk.write_interleaved_f32_array(buf)?;
                     }
                     Type::Float64 => {
                         for (i, rbx_value) in values {
-                            match rbx_value.as_ref() {
+                            match rbx_value {
                                 Variant::Float64(value) => {
                                     chunk.write_le_f64(*value)?;
                                 }
                                 Variant::Float32(value) => {
                                     chunk.write_le_f64(*value as f64)?;
                                 }
-                                _ => return type_mismatch(i, &rbx_value, "Float64"),
+                                _ => return type_mismatch(i, rbx_value, "Float64"),
                             }
                         }
                     }
@@ -777,16 +1078,16 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut offset = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::UDim(value) = rbx_value.as_ref() {
+                            if let Variant::UDim(value) = rbx_value {
                                 scale.push(value.scale);
                                 offset.push(value.offset);
                             } else {
-                                return type_mismatch(i, &rbx_value, "UDim");
+                                return type_mismatch(i, rbx_value, "UDim");
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(scale.into_iter())?;
-                        chunk.write_interleaved_i32_array(offset.into_iter())?;
+                        chunk.write_interleaved_f32_array(scale)?;
+                        chunk.write_interleaved_i32_array(offset)?;
                     }
                     Type::UDim2 => {
                         let mut scale_x = Vec::with_capacity(values.len());
@@ -795,24 +1096,24 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut offset_y = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::UDim2(value) = rbx_value.as_ref() {
+                            if let Variant::UDim2(value) = rbx_value {
                                 scale_x.push(value.x.scale);
                                 scale_y.push(value.y.scale);
                                 offset_x.push(value.x.offset);
                                 offset_y.push(value.y.offset);
                             } else {
-                                return type_mismatch(i, &rbx_value, "UDim2");
+                                return type_mismatch(i, rbx_value, "UDim2");
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(scale_x.into_iter())?;
-                        chunk.write_interleaved_f32_array(scale_y.into_iter())?;
-                        chunk.write_interleaved_i32_array(offset_x.into_iter())?;
-                        chunk.write_interleaved_i32_array(offset_y.into_iter())?;
+                        chunk.write_interleaved_f32_array(scale_x)?;
+                        chunk.write_interleaved_f32_array(scale_y)?;
+                        chunk.write_interleaved_i32_array(offset_x)?;
+                        chunk.write_interleaved_i32_array(offset_y)?;
                     }
                     Type::Font => {
                         for (i, rbx_value) in values {
-                            if let Variant::Font(value) = rbx_value.as_ref() {
+                            if let Variant::Font(value) = rbx_value {
                                 chunk.write_string(&value.family)?;
                                 chunk.write_le_u16(value.weight.as_u16())?;
                                 chunk.write_u8(value.style.as_u8())?;
@@ -820,39 +1121,39 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     value.cached_face_id.as_deref().unwrap_or_default(),
                                 )?;
                             } else {
-                                return type_mismatch(i, &rbx_value, "Font");
+                                return type_mismatch(i, rbx_value, "Font");
                             }
                         }
                     }
                     Type::Ray => {
                         for (i, rbx_value) in values {
-                            if let Variant::Ray(value) = rbx_value.as_ref() {
+                            if let Variant::Ray(value) = rbx_value {
                                 chunk.write_le_f32(value.origin.x)?;
                                 chunk.write_le_f32(value.origin.y)?;
                                 chunk.write_le_f32(value.origin.z)?;
                                 chunk.write_le_f32(value.direction.x)?;
                                 chunk.write_le_f32(value.direction.y)?;
-                                chunk.write_le_f32(value.direction.x)?;
+                                chunk.write_le_f32(value.direction.z)?;
                             } else {
-                                return type_mismatch(i, &rbx_value, "Ray");
+                                return type_mismatch(i, rbx_value, "Ray");
                             }
                         }
                     }
                     Type::Faces => {
                         for (i, rbx_value) in values {
-                            if let Variant::Faces(value) = rbx_value.as_ref() {
+                            if let Variant::Faces(value) = rbx_value {
                                 chunk.write_u8(value.bits())?;
                             } else {
-                                return type_mismatch(i, &rbx_value, "Faces");
+                                return type_mismatch(i, rbx_value, "Faces");
                             }
                         }
                     }
                     Type::Axes => {
                         for (i, rbx_value) in values {
-                            if let Variant::Axes(value) = rbx_value.as_ref() {
+                            if let Variant::Axes(value) = rbx_value {
                                 chunk.write_u8(value.bits())?;
                             } else {
-                                return type_mismatch(i, &rbx_value, "Axes");
+                                return type_mismatch(i, rbx_value, "Axes");
                             }
                         }
                     }
@@ -860,16 +1161,16 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut numbers = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::BrickColor(value) = rbx_value.as_ref() {
+                            if let Variant::BrickColor(value) = rbx_value {
                                 numbers.push(*value as u32);
-                            } else if let Variant::Int32(value) = rbx_value.as_ref() {
+                            } else if let Variant::Int32(value) = rbx_value {
                                 numbers.push(*value as u32);
                             } else {
-                                return type_mismatch(i, &rbx_value, "BrickColor");
+                                return type_mismatch(i, rbx_value, "BrickColor");
                             }
                         }
 
-                        chunk.write_interleaved_u32_array(&numbers)?;
+                        chunk.write_interleaved_u32_array(numbers)?;
                     }
                     Type::Color3 => {
                         let mut r = Vec::with_capacity(values.len());
@@ -877,34 +1178,34 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut b = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Color3(value) = rbx_value.as_ref() {
+                            if let Variant::Color3(value) = rbx_value {
                                 r.push(value.r);
                                 g.push(value.g);
                                 b.push(value.b);
                             } else {
-                                return type_mismatch(i, &rbx_value, "Color3");
+                                return type_mismatch(i, rbx_value, "Color3");
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(r.into_iter())?;
-                        chunk.write_interleaved_f32_array(g.into_iter())?;
-                        chunk.write_interleaved_f32_array(b.into_iter())?;
+                        chunk.write_interleaved_f32_array(r)?;
+                        chunk.write_interleaved_f32_array(g)?;
+                        chunk.write_interleaved_f32_array(b)?;
                     }
                     Type::Vector2 => {
                         let mut x = Vec::with_capacity(values.len());
                         let mut y = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Vector2(value) = rbx_value.as_ref() {
+                            if let Variant::Vector2(value) = rbx_value {
                                 x.push(value.x);
                                 y.push(value.y)
                             } else {
-                                return type_mismatch(i, &rbx_value, "Vector2");
+                                return type_mismatch(i, rbx_value, "Vector2");
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(x.into_iter())?;
-                        chunk.write_interleaved_f32_array(y.into_iter())?;
+                        chunk.write_interleaved_f32_array(x)?;
+                        chunk.write_interleaved_f32_array(y)?;
                     }
                     Type::Vector3 => {
                         let mut x = Vec::with_capacity(values.len());
@@ -912,18 +1213,18 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut z = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Vector3(value) = rbx_value.as_ref() {
+                            if let Variant::Vector3(value) = rbx_value {
                                 x.push(value.x);
                                 y.push(value.y);
                                 z.push(value.z)
                             } else {
-                                return type_mismatch(i, &rbx_value, "Vector3");
+                                return type_mismatch(i, rbx_value, "Vector3");
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(x.into_iter())?;
-                        chunk.write_interleaved_f32_array(y.into_iter())?;
-                        chunk.write_interleaved_f32_array(z.into_iter())?;
+                        chunk.write_interleaved_f32_array(x)?;
+                        chunk.write_interleaved_f32_array(y)?;
+                        chunk.write_interleaved_f32_array(z)?;
                     }
                     Type::CFrame => {
                         let mut rotations = Vec::with_capacity(values.len());
@@ -932,13 +1233,13 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut z = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::CFrame(value) = rbx_value.as_ref() {
+                            if let Variant::CFrame(value) = rbx_value {
                                 rotations.push(value.orientation);
                                 x.push(value.position.x);
                                 y.push(value.position.y);
                                 z.push(value.position.z);
                             } else {
-                                return type_mismatch(i, &rbx_value, "CFrame");
+                                return type_mismatch(i, rbx_value, "CFrame");
                             }
                         }
 
@@ -962,54 +1263,54 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(x.into_iter())?;
-                        chunk.write_interleaved_f32_array(y.into_iter())?;
-                        chunk.write_interleaved_f32_array(z.into_iter())?;
+                        chunk.write_interleaved_f32_array(x)?;
+                        chunk.write_interleaved_f32_array(y)?;
+                        chunk.write_interleaved_f32_array(z)?;
                     }
                     Type::Enum => {
                         let mut buf = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            match rbx_value.as_ref() {
+                            match rbx_value {
                                 Variant::Enum(value) => buf.push(value.to_u32()),
                                 Variant::EnumItem(EnumItem { value, .. }) => buf.push(*value),
-                                _ => return type_mismatch(i, &rbx_value, "Enum or EnumItem"),
+                                _ => return type_mismatch(i, rbx_value, "Enum or EnumItem"),
                             }
                         }
 
-                        chunk.write_interleaved_u32_array(&buf)?;
+                        chunk.write_interleaved_u32_array(buf)?;
                     }
                     Type::Ref => {
                         let mut buf = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Ref(value) = rbx_value.as_ref() {
-                                if let Some(id) = self.id_to_referent.get(value) {
+                            if let Variant::Ref(value) = rbx_value {
+                                if let Some(id) = id_to_referent.get(value) {
                                     buf.push(*id);
                                 } else {
                                     buf.push(-1);
                                 }
                             } else {
-                                return type_mismatch(i, &rbx_value, "Ref");
+                                return type_mismatch(i, rbx_value, "Ref");
                             }
                         }
 
-                        chunk.write_referent_array(buf.into_iter())?;
+                        chunk.write_referent_array(buf)?;
                     }
                     Type::Vector3int16 => {
                         for (i, rbx_value) in values {
-                            if let Variant::Vector3int16(value) = rbx_value.as_ref() {
+                            if let Variant::Vector3int16(value) = rbx_value {
                                 chunk.write_le_i16(value.x)?;
                                 chunk.write_le_i16(value.y)?;
                                 chunk.write_le_i16(value.z)?;
                             } else {
-                                return type_mismatch(i, &rbx_value, "Vector3int16");
+                                return type_mismatch(i, rbx_value, "Vector3int16");
                             }
                         }
                     }
                     Type::NumberSequence => {
                         for (i, rbx_value) in values {
-                            if let Variant::NumberSequence(value) = rbx_value.as_ref() {
+                            if let Variant::NumberSequence(value) = rbx_value {
                                 chunk.write_le_u32(value.keypoints.len() as u32)?;
 
                                 for keypoint in &value.keypoints {
@@ -1018,13 +1319,13 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     chunk.write_le_f32(keypoint.envelope)?;
                                 }
                             } else {
-                                return type_mismatch(i, &rbx_value, "NumberSequence");
+                                return type_mismatch(i, rbx_value, "NumberSequence");
                             }
                         }
                     }
                     Type::ColorSequence => {
                         for (i, rbx_value) in values {
-                            if let Variant::ColorSequence(value) = rbx_value.as_ref() {
+                            if let Variant::ColorSequence(value) = rbx_value {
                                 chunk.write_le_u32(value.keypoints.len() as u32)?;
 
                                 for keypoint in &value.keypoints {
@@ -1037,17 +1338,17 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     chunk.write_le_f32(0.0)?;
                                 }
                             } else {
-                                return type_mismatch(i, &rbx_value, "ColorSequence");
+                                return type_mismatch(i, rbx_value, "ColorSequence");
                             }
                         }
                     }
                     Type::NumberRange => {
                         for (i, rbx_value) in values {
-                            if let Variant::NumberRange(value) = rbx_value.as_ref() {
+                            if let Variant::NumberRange(value) = rbx_value {
                                 chunk.write_le_f32(value.min)?;
                                 chunk.write_le_f32(value.max)?;
                             } else {
-                                return type_mismatch(i, &rbx_value, "NumberRange");
+                                return type_mismatch(i, rbx_value, "NumberRange");
                             }
                         }
                     }
@@ -1058,36 +1359,46 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut y_max = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::Rect(value) = rbx_value.as_ref() {
+                            if let Variant::Rect(value) = rbx_value {
                                 x_min.push(value.min.x);
                                 y_min.push(value.min.y);
                                 x_max.push(value.max.x);
                                 y_max.push(value.max.y);
                             } else {
-                                return type_mismatch(i, &rbx_value, "Rect");
+                                return type_mismatch(i, rbx_value, "Rect");
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(x_min.into_iter())?;
-                        chunk.write_interleaved_f32_array(y_min.into_iter())?;
-                        chunk.write_interleaved_f32_array(x_max.into_iter())?;
-                        chunk.write_interleaved_f32_array(y_max.into_iter())?;
+                        chunk.write_interleaved_f32_array(x_min)?;
+                        chunk.write_interleaved_f32_array(y_min)?;
+                        chunk.write_interleaved_f32_array(x_max)?;
+                        chunk.write_interleaved_f32_array(y_max)?;
                     }
                     Type::PhysicalProperties => {
                         for (i, rbx_value) in values {
-                            if let Variant::PhysicalProperties(value) = rbx_value.as_ref() {
-                                if let PhysicalProperties::Custom(props) = value {
-                                    chunk.write_u8(1)?;
-                                    chunk.write_le_f32(props.density)?;
-                                    chunk.write_le_f32(props.friction)?;
-                                    chunk.write_le_f32(props.elasticity)?;
-                                    chunk.write_le_f32(props.friction_weight)?;
-                                    chunk.write_le_f32(props.elasticity_weight)?;
-                                } else {
-                                    chunk.write_u8(0)?;
+                            if let Variant::PhysicalProperties(value) = rbx_value {
+                                // So that we better roundtrip files, we only
+                                // write the AcousticAbsorption bit if we
+                                // have to.
+                                match value {
+                                    PhysicalProperties::Default => {
+                                        chunk.write_u8(0b00)?;
+                                    }
+                                    PhysicalProperties::Custom(props) => {
+                                        let skip_acoustics = props.acoustic_absorption() == 1.0;
+                                        chunk.write_u8(if skip_acoustics { 0b01 } else { 0b11 })?;
+                                        chunk.write_le_f32(props.density())?;
+                                        chunk.write_le_f32(props.friction())?;
+                                        chunk.write_le_f32(props.elasticity())?;
+                                        chunk.write_le_f32(props.friction_weight())?;
+                                        chunk.write_le_f32(props.elasticity_weight())?;
+                                        if !skip_acoustics {
+                                            chunk.write_le_f32(props.acoustic_absorption())?;
+                                        }
+                                    }
                                 }
                             } else {
-                                return type_mismatch(i, &rbx_value, "PhysicalProperties");
+                                return type_mismatch(i, rbx_value, "PhysicalProperties");
                             }
                         }
                     }
@@ -1097,7 +1408,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut b = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            match rbx_value.as_ref() {
+                            match rbx_value {
                                 Variant::Color3uint8(value) => {
                                     r.push(value.r);
                                     g.push(value.g);
@@ -1110,7 +1421,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     g.push(color.g);
                                     b.push(color.b);
                                 }
-                                _ => return type_mismatch(i, &rbx_value, "Color3uint8 or Color3"),
+                                _ => return type_mismatch(i, rbx_value, "Color3uint8 or Color3"),
                             }
                         }
 
@@ -1122,25 +1433,25 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         let mut buf = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            match rbx_value.as_ref() {
+                            match rbx_value {
                                 Variant::Int64(value) => {
                                     buf.push(*value);
                                 }
                                 Variant::Int32(value) => {
                                     buf.push(*value as i64);
                                 }
-                                _ => return type_mismatch(i, &rbx_value, "Int64"),
+                                _ => return type_mismatch(i, rbx_value, "Int64"),
                             }
                         }
 
-                        chunk.write_interleaved_i64_array(buf.into_iter())?;
+                        chunk.write_interleaved_i64_array(buf)?;
                     }
                     Type::SharedString => {
                         let mut entries = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::SharedString(value) = rbx_value.as_ref() {
-                                if let Some(id) = self.shared_string_ids.get(value) {
+                            if let Variant::SharedString(value) = rbx_value {
+                                if let Some(id) = shared_string_ids.get(value) {
                                     entries.push(*id);
                                 } else {
                                     panic!(
@@ -1148,12 +1459,22 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                         value.hash()
                                     )
                                 }
+                            } else if let Variant::NetAssetRef(value) = rbx_value {
+                                let sstr_ref = value.as_ref();
+                                if let Some(id) = shared_string_ids.get(sstr_ref) {
+                                    entries.push(*id)
+                                } else {
+                                    panic!(
+                                        "NetAssetRef {} was not found during type collection",
+                                        value.hash()
+                                    );
+                                }
                             } else {
-                                return type_mismatch(i, &rbx_value, "SharedString");
+                                return type_mismatch(i, rbx_value, "SharedString or NetAssetRef");
                             }
                         }
 
-                        chunk.write_interleaved_u32_array(&entries)?;
+                        chunk.write_interleaved_u32_array(entries)?;
                     }
                     Type::OptionalCFrame => {
                         let mut rotations = Vec::with_capacity(values.len());
@@ -1165,7 +1486,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                         chunk.write_u8(Type::CFrame as u8)?;
 
                         for (i, rbx_value) in values {
-                            if let Variant::OptionalCFrame(value) = rbx_value.as_ref() {
+                            if let Variant::OptionalCFrame(value) = rbx_value {
                                 if let Some(value) = value {
                                     rotations.push(value.orientation);
                                     x.push(value.position.x);
@@ -1180,7 +1501,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     bools.push(0x00);
                                 }
                             } else {
-                                return type_mismatch(i, &rbx_value, "OptionalCFrame");
+                                return type_mismatch(i, rbx_value, "OptionalCFrame");
                             }
                         }
 
@@ -1204,9 +1525,9 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                             }
                         }
 
-                        chunk.write_interleaved_f32_array(x.into_iter())?;
-                        chunk.write_interleaved_f32_array(y.into_iter())?;
-                        chunk.write_interleaved_f32_array(z.into_iter())?;
+                        chunk.write_interleaved_f32_array(x)?;
+                        chunk.write_interleaved_f32_array(y)?;
+                        chunk.write_interleaved_f32_array(z)?;
 
                         chunk.write_u8(Type::Bool as u8)?;
                         chunk.write_all(bools.as_slice())?;
@@ -1214,7 +1535,7 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                     Type::UniqueId => {
                         let mut blobs = Vec::with_capacity(values.len());
                         for (i, rbx_value) in values {
-                            if let Variant::UniqueId(value) = rbx_value.as_ref() {
+                            if let Variant::UniqueId(value) = rbx_value {
                                 let mut blob = [0; 16];
                                 // This is maybe not the best solution to this
                                 // but we can always change it.
@@ -1224,28 +1545,66 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
                                     .copy_from_slice(&value.random().rotate_left(1).to_be_bytes());
                                 blobs.push(blob);
                             } else {
-                                return type_mismatch(i, &rbx_value, "UniqueId");
+                                return type_mismatch(i, rbx_value, "UniqueId");
                             }
                         }
 
-                        chunk.write_interleaved_bytes::<16>(&blobs)?;
+                        chunk.write_interleaved_bytes::<16, _>(blobs)?;
                     }
                     Type::SecurityCapabilities => {
                         let mut capabilities = Vec::with_capacity(values.len());
 
                         for (i, rbx_value) in values {
-                            if let Variant::SecurityCapabilities(value) = rbx_value.as_ref() {
+                            if let Variant::SecurityCapabilities(value) = rbx_value {
                                 capabilities.push(value.bits() as i64)
                             } else {
-                                return type_mismatch(i, &rbx_value, "SecurityCapabilities");
+                                return type_mismatch(i, rbx_value, "SecurityCapabilities");
                             }
                         }
 
-                        chunk.write_interleaved_i64_array(capabilities.into_iter())?;
+                        chunk.write_interleaved_i64_array(capabilities)?;
+                    }
+                    Type::Content => {
+                        let mut source_types = Vec::with_capacity(values.len());
+                        let mut uris = Vec::with_capacity(values.len());
+                        let mut objects = Vec::new();
+                        for (i, rbx_value) in values {
+                            if let Variant::Content(content) = rbx_value {
+                                source_types.push(match content.value() {
+                                    ContentType::None => 0,
+                                    ContentType::Uri(uri) => {
+                                        uris.push(uri.as_str());
+                                        1
+                                    }
+                                    ContentType::Object(referent) => {
+                                        if let Some(id) = id_to_referent.get(referent) {
+                                            objects.push(*id);
+                                        } else {
+                                            objects.push(-1);
+                                        }
+                                        2
+                                    }
+                                    _ => return Err(invalid_value(i, rbx_value)),
+                                });
+                            } else {
+                                return type_mismatch(i, rbx_value, "Content");
+                            }
+                        }
+                        chunk.write_interleaved_i32_array(source_types)?;
+
+                        chunk.write_le_u32(uris.len() as u32)?;
+                        for uri in uris {
+                            chunk.write_string(uri)?;
+                        }
+                        chunk.write_le_u32(objects.len() as u32)?;
+                        chunk.write_referent_array(objects)?;
+
+                        // If we ever need to support the external referents,
+                        // we will need to add it here.
+                        chunk.write_le_u32(0)?;
                     }
                 }
-
-                chunk.dump(&mut self.output)?;
+                Ok(())
             }
         }
 
@@ -1305,90 +1664,107 @@ impl<'dom, 'db, W: Write> SerializerState<'dom, 'db, W> {
 
         Ok(())
     }
-
-    /// Equivalent to Instance:GetFullName() from Roblox.
-    fn full_name_for(&self, subject_ref: Ref) -> String {
-        let mut components = Vec::new();
-        let mut current_id = subject_ref;
-
-        while current_id.is_some() {
-            let instance = self.dom.get_by_ref(current_id).unwrap();
-            components.push(instance.name.as_str());
-            current_id = instance.parent();
-        }
-
-        let mut name = String::new();
-        for component in components.iter().rev() {
-            name.push_str(component);
-            name.push('.');
-        }
-        name.pop();
-
-        name
-    }
-
-    fn fallback_default_value(rbx_type: VariantType) -> Option<Variant> {
-        Some(match rbx_type {
-            VariantType::String => Variant::String(String::new()),
-            VariantType::BinaryString => Variant::BinaryString(BinaryString::new()),
-            VariantType::Bool => Variant::Bool(false),
-            VariantType::Int32 => Variant::Int32(0),
-            VariantType::Float32 => Variant::Float32(0.0),
-            VariantType::Float64 => Variant::Float64(0.0),
-            VariantType::UDim => Variant::UDim(UDim::new(0.0, 0)),
-            VariantType::UDim2 => Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0))),
-            VariantType::Ray => Variant::Ray(Ray::new(
-                Vector3::new(0.0, 0.0, 0.0),
-                Vector3::new(0.0, 0.0, 0.0),
-            )),
-            VariantType::Faces => Variant::Faces(Faces::from_bits(0)?),
-            VariantType::Axes => Variant::Axes(Axes::from_bits(0)?),
-            VariantType::BrickColor => Variant::BrickColor(BrickColor::MediumStoneGrey),
-            VariantType::CFrame => Variant::CFrame(CFrame::new(
-                Vector3::new(0.0, 0.0, 0.0),
-                Matrix3::identity(),
-            )),
-            VariantType::Enum => Variant::Enum(Enum::from_u32(u32::MAX)),
-            VariantType::Color3 => Variant::Color3(Color3::new(0.0, 0.0, 0.0)),
-            VariantType::Vector2 => Variant::Vector2(Vector2::new(0.0, 0.0)),
-            VariantType::Vector3 => Variant::Vector3(Vector3::new(0.0, 0.0, 0.0)),
-            VariantType::Ref => Variant::Ref(Ref::none()),
-            VariantType::Vector3int16 => Variant::Vector3int16(Vector3int16::new(0, 0, 0)),
-            VariantType::NumberSequence => Variant::NumberSequence(NumberSequence {
-                keypoints: [
-                    NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
-                    NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
-                ]
-                .to_vec(),
-            }),
-            VariantType::ColorSequence => Variant::ColorSequence(ColorSequence {
-                keypoints: [
-                    ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
-                    ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
-                ]
-                .to_vec(),
-            }),
-            VariantType::NumberRange => Variant::NumberRange(NumberRange::new(0.0, 0.0)),
-            VariantType::Rect => {
-                Variant::Rect(Rect::new(Vector2::new(0.0, 0.0), Vector2::new(0.0, 0.0)))
-            }
-            VariantType::PhysicalProperties => {
-                Variant::PhysicalProperties(PhysicalProperties::Default)
-            }
-            VariantType::Color3uint8 => Variant::Color3uint8(Color3uint8::new(0, 0, 0)),
-            VariantType::Int64 => Variant::Int64(0),
-            VariantType::SharedString => Variant::SharedString(SharedString::new(Vec::new())),
-            VariantType::OptionalCFrame => Variant::OptionalCFrame(None),
-            VariantType::Tags => Variant::Tags(Tags::new()),
-            VariantType::Content => Variant::Content(Content::new()),
-            VariantType::Attributes => Variant::Attributes(Attributes::new()),
-            VariantType::UniqueId => Variant::UniqueId(UniqueId::nil()),
-            VariantType::Font => Variant::Font(Font::default()),
-            VariantType::MaterialColors => Variant::MaterialColors(MaterialColors::new()),
-            VariantType::SecurityCapabilities => {
-                Variant::SecurityCapabilities(SecurityCapabilities::default())
-            }
-            _ => return None,
+}
+fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
+    use std::sync::LazyLock;
+    static DEFAULT_STRING: Variant = Variant::String(String::new());
+    static DEFAULT_BINARYSTRING: Variant = Variant::BinaryString(BinaryString::new());
+    static DEFAULT_BOOL: Variant = Variant::Bool(false);
+    static DEFAULT_INT32: Variant = Variant::Int32(0);
+    static DEFAULT_FLOAT32: Variant = Variant::Float32(0.0);
+    static DEFAULT_FLOAT64: Variant = Variant::Float64(0.0);
+    static DEFAULT_UDIM: Variant = Variant::UDim(UDim::new(0.0, 0));
+    static DEFAULT_UDIM2: Variant =
+        Variant::UDim2(UDim2::new(UDim::new(0.0, 0), UDim::new(0.0, 0)));
+    static DEFAULT_RAY: Variant = Variant::Ray(Ray::new(
+        Vector3::new(0.0, 0.0, 0.0),
+        Vector3::new(0.0, 0.0, 0.0),
+    ));
+    static DEFAULT_FACES: Variant = Variant::Faces(Faces::from_bits(0).unwrap());
+    static DEFAULT_AXES: Variant = Variant::Axes(Axes::from_bits(0).unwrap());
+    static DEFAULT_BRICKCOLOR: Variant = Variant::BrickColor(BrickColor::MediumStoneGrey);
+    static DEFAULT_CFRAME: Variant = Variant::CFrame(CFrame::identity());
+    static DEFAULT_ENUM: Variant = Variant::Enum(Enum::from_u32(u32::MAX));
+    static DEFAULT_COLOR3: Variant = Variant::Color3(Color3::new(0.0, 0.0, 0.0));
+    static DEFAULT_VECTOR2: Variant = Variant::Vector2(Vector2::new(0.0, 0.0));
+    static DEFAULT_VECTOR3: Variant = Variant::Vector3(Vector3::new(0.0, 0.0, 0.0));
+    static DEFAULT_REF: Variant = Variant::Ref(Ref::none());
+    static DEFAULT_VECTOR3INT16: Variant = Variant::Vector3int16(Vector3int16::new(0, 0, 0));
+    static DEFAULT_NUMBERSEQUENCE: LazyLock<Variant> = LazyLock::new(|| {
+        Variant::NumberSequence(NumberSequence {
+            keypoints: vec![
+                NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
+                NumberSequenceKeypoint::new(0.0, 0.0, 0.0),
+            ],
         })
-    }
+    });
+    static DEFAULT_COLORSEQUENCE: LazyLock<Variant> = LazyLock::new(|| {
+        Variant::ColorSequence(ColorSequence {
+            keypoints: vec![
+                ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
+                ColorSequenceKeypoint::new(0.0, Color3::new(0.0, 0.0, 0.0)),
+            ],
+        })
+    });
+    static DEFAULT_NUMBERRANGE: Variant = Variant::NumberRange(NumberRange::new(0.0, 0.0));
+    static DEFAULT_RECT: Variant =
+        Variant::Rect(Rect::new(Vector2::new(0.0, 0.0), Vector2::new(0.0, 0.0)));
+    static DEFAULT_PHYSICALPROPERTIES: Variant =
+        Variant::PhysicalProperties(PhysicalProperties::Default);
+    static DEFAULT_COLOR3UINT8: Variant = Variant::Color3uint8(Color3uint8::new(0, 0, 0));
+    static DEFAULT_INT64: Variant = Variant::Int64(0);
+    static DEFAULT_SHAREDSTRING: LazyLock<Variant> =
+        LazyLock::new(|| Variant::SharedString(SharedString::new(Vec::new())));
+    static DEFAULT_OPTIONALCFRAME: Variant = Variant::OptionalCFrame(None);
+    static DEFAULT_TAGS: Variant = Variant::Tags(Tags::new());
+    static DEFAULT_CONTENTID: Variant = Variant::ContentId(ContentId::new());
+    static DEFAULT_ATTRIBUTES: Variant = Variant::Attributes(Attributes::new());
+    static DEFAULT_UNIQUEID: Variant = Variant::UniqueId(UniqueId::nil());
+    static DEFAULT_FONT: LazyLock<Variant> = LazyLock::new(|| Variant::Font(Font::default()));
+    static DEFAULT_MATERIALCOLORS: Variant = Variant::MaterialColors(MaterialColors::new());
+    static DEFAULT_SECURITYCAPABILITIES: Variant =
+        Variant::SecurityCapabilities(SecurityCapabilities::from_bits(0));
+    static DEFAULT_CONTENT: Variant = Variant::Content(Content::none());
+    static DEFAULT_NETASSETREF: LazyLock<Variant> =
+        LazyLock::new(|| Variant::NetAssetRef(NetAssetRef::new(Vec::new())));
+    Some(match rbx_type {
+        VariantType::String => &DEFAULT_STRING,
+        VariantType::BinaryString => &DEFAULT_BINARYSTRING,
+        VariantType::Bool => &DEFAULT_BOOL,
+        VariantType::Int32 => &DEFAULT_INT32,
+        VariantType::Float32 => &DEFAULT_FLOAT32,
+        VariantType::Float64 => &DEFAULT_FLOAT64,
+        VariantType::UDim => &DEFAULT_UDIM,
+        VariantType::UDim2 => &DEFAULT_UDIM2,
+        VariantType::Ray => &DEFAULT_RAY,
+        VariantType::Faces => &DEFAULT_FACES,
+        VariantType::Axes => &DEFAULT_AXES,
+        VariantType::BrickColor => &DEFAULT_BRICKCOLOR,
+        VariantType::CFrame => &DEFAULT_CFRAME,
+        VariantType::Enum => &DEFAULT_ENUM,
+        VariantType::Color3 => &DEFAULT_COLOR3,
+        VariantType::Vector2 => &DEFAULT_VECTOR2,
+        VariantType::Vector3 => &DEFAULT_VECTOR3,
+        VariantType::Ref => &DEFAULT_REF,
+        VariantType::Vector3int16 => &DEFAULT_VECTOR3INT16,
+        VariantType::NumberSequence => &DEFAULT_NUMBERSEQUENCE,
+        VariantType::ColorSequence => &DEFAULT_COLORSEQUENCE,
+        VariantType::NumberRange => &DEFAULT_NUMBERRANGE,
+        VariantType::Rect => &DEFAULT_RECT,
+        VariantType::PhysicalProperties => &DEFAULT_PHYSICALPROPERTIES,
+        VariantType::Color3uint8 => &DEFAULT_COLOR3UINT8,
+        VariantType::Int64 => &DEFAULT_INT64,
+        VariantType::SharedString => &DEFAULT_SHAREDSTRING,
+        VariantType::OptionalCFrame => &DEFAULT_OPTIONALCFRAME,
+        VariantType::Tags => &DEFAULT_TAGS,
+        VariantType::ContentId => &DEFAULT_CONTENTID,
+        VariantType::Attributes => &DEFAULT_ATTRIBUTES,
+        VariantType::UniqueId => &DEFAULT_UNIQUEID,
+        VariantType::Font => &DEFAULT_FONT,
+        VariantType::MaterialColors => &DEFAULT_MATERIALCOLORS,
+        VariantType::SecurityCapabilities => &DEFAULT_SECURITYCAPABILITIES,
+        VariantType::Content => &DEFAULT_CONTENT,
+        VariantType::NetAssetRef => &DEFAULT_NETASSETREF,
+        _ => return None,
+    })
 }

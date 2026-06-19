@@ -1,0 +1,7 @@
+Change:
+  UserInputService:
+    MouseIcon:
+      Serialization:
+        Type: Migrate
+        To: MouseIconContent
+        Migration: ContentIdToContent
