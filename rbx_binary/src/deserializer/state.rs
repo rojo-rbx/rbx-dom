@@ -1307,23 +1307,23 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         });
                     }
 
+                    let optional_markers = chunk.read_slice(instances.len())?;
                     let values = x
                         .zip(y)
                         .zip(z)
                         .map(|((x, y), z)| Vector3::new(x, y, z))
                         .zip(rotations)
-                        .map(|(position, rotation)| {
-                            chunk.read_u8().map(|byte| {
-                                if byte == 0 {
-                                    None
-                                } else {
-                                    Some(CFrame::new(position, rotation))
-                                }
-                            })
+                        .zip(optional_markers)
+                        .map(|((position, rotation), &marker)| {
+                            if marker == 0 {
+                                None
+                            } else {
+                                Some(CFrame::new(position, rotation))
+                            }
                         });
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value?.into());
+                        add_property(instance, &property, value.into());
                     }
                 }
                 invalid_type => {
