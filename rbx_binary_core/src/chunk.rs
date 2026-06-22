@@ -4,12 +4,21 @@ use std::{
     str,
 };
 
-use crate::{
-    core::{RbxReadExt, RbxWriteExt},
-    serializer::CompressionType,
-};
+use crate::core::{RbxReadExt, RbxWriteExt, RbxWriteInterleaved};
 
 const ZSTD_MAGIC_NUMBER: &[u8] = &[0x28, 0xb5, 0x2f, 0xfd];
+
+/// Indicates the types of compression that files can be written with.
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Default)]
+pub enum CompressionType {
+    /// LZ4 compression. This is what Roblox uses by default.
+    #[default]
+    Lz4,
+    /// No compression.
+    None,
+    /// ZSTD compression.
+    Zstd,
+}
 
 /// Represents one chunk from a binary model file.
 #[derive(Debug)]
@@ -78,13 +87,6 @@ impl ChunkBuilder {
         }
     }
 
-    /// Reserve bytes and use a closure to initialize them.
-    pub fn initialize_bytes_with(&mut self, len: usize, initialize_bytes: impl FnOnce(&mut [u8])) {
-        let current_len = self.buffer.len();
-        self.buffer.extend(core::iter::repeat_n(0, len));
-        initialize_bytes(&mut self.buffer[current_len..]);
-    }
-
     /// Consume the chunk and write it to the given writer.
     pub fn dump<W: Write>(self, mut writer: W) -> io::Result<()> {
         writer.write_all(self.chunk_name)?;
@@ -130,6 +132,16 @@ impl Write for ChunkBuilder {
 
     fn flush(&mut self) -> io::Result<()> {
         Ok(())
+    }
+}
+
+impl RbxWriteInterleaved for ChunkBuilder {
+    fn write_interleaved_bytes<const N: usize, I>(&mut self, values: I) -> io::Result<()>
+    where
+        I: IntoIterator<Item = [u8; N]>,
+        <I as IntoIterator>::IntoIter: ExactSizeIterator,
+    {
+        self.buffer.write_interleaved_bytes(values)
     }
 }
 
