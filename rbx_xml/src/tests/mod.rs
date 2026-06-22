@@ -32,9 +32,9 @@ pub fn test_suite(path: PathBuf) -> Result<(), Error> {
     crate::to_writer_default(&mut encoded, &decoded, decoded.root().children())
         .map_err(|e| Error::new(e, "serialize"))?;
 
-    // We don't have the means to display this format as text raw, so the only
-    // way to validate it decoded correctly is to deserialize it again. Sad
-    // but nothing we can fix right now.
+    let encoded_text =
+        std::str::from_utf8(&encoded).map_err(|e| Error::new(e, "display encoded"))?;
+    insta::assert_snapshot!(format!("{test_name}__encoded"), encoded_text);
 
     let roundtrip =
         crate::from_reader_default(encoded.as_slice()).map_err(|e| Error::new(e, "roundtrip"))?;

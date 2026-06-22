@@ -19,3 +19,6 @@ rbx_types = { version = "3.1.0", path = "../rbx_types", features = ["serde"] }
 
 serde = { version = "1.0.137", features = ["derive"] }
 thiserror = "1.0.31"
+
+[dev-dependencies]
+serde_json = "1.0.81"
