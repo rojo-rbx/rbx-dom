@@ -1,4 +1,4 @@
-use std::{collections::BTreeMap, str::FromStr};
+use std::str::FromStr;
 
 use thiserror::Error;
 
@@ -6,17 +6,12 @@ use crate::Color3uint8;
 
 use crate::Error as CrateError;
 
-#[derive(Debug, PartialEq, Clone, Default)]
-#[cfg_attr(
-    feature = "serde",
-    derive(serde::Serialize, serde::Deserialize),
-    serde(transparent)
-)]
+#[derive(Debug, PartialEq, Clone)]
 /// Represents the mapping of materials to colors used by Roblox's `Terrain`.
 pub struct MaterialColors {
     /// The underlying map used by this struct. A `BTreeMap` is used
     /// over a `HashMap` to ensure serialization with serde is ordered.
-    inner: BTreeMap<TerrainMaterials, Color3uint8>,
+    inner: [Color3uint8; NUM_COLORS],
 }
 
 impl MaterialColors {
@@ -25,7 +20,7 @@ impl MaterialColors {
     #[inline]
     pub const fn new() -> Self {
         Self {
-            inner: BTreeMap::new(),
+            inner: DEFAULT_COLORS,
         }
     }
 
@@ -33,17 +28,13 @@ impl MaterialColors {
     /// none is set.
     #[inline]
     pub fn get_color(&self, material: TerrainMaterials) -> Color3uint8 {
-        if let Some(color) = self.inner.get(&material) {
-            *color
-        } else {
-            material.default_color()
-        }
+        self.inner[material as usize]
     }
 
     /// Sets the color for the given material.
     #[inline]
     pub fn set_color(&mut self, material: TerrainMaterials, color: Color3uint8) {
-        self.inner.insert(material, color);
+        self.inner[material as usize] = color;
     }
 
     /// Encodes the `MaterialColors` into a binary blob that can be understood
@@ -53,8 +44,7 @@ impl MaterialColors {
         // 6 reserved bytes
         buffer.extend_from_slice(&[0; 6]);
 
-        for color in MATERIAL_ORDER {
-            let color = self.get_color(color);
+        for color in self.inner {
             buffer.extend_from_slice(&[color.r, color.g, color.b])
         }
 
@@ -67,24 +57,83 @@ impl MaterialColors {
         if buffer.len() != 69 {
             return Err(MaterialColorsError::WrongLength(buffer.len()).into());
         }
-        let mut map = BTreeMap::new();
-        // We have to skip the first 6 bytes, which amounts to 2 chunks
-        for (material, color) in MATERIAL_ORDER.iter().zip(buffer.chunks(3).skip(2)) {
-            map.insert(*material, Color3uint8::new(color[0], color[1], color[2]));
-        }
+        let colors = buffer
+            .chunks(3)
+            // We have to skip the first 6 bytes, which amounts to 2 chunks
+            .skip(2)
+            .map(|color| Color3uint8::new(color[0], color[1], color[2]));
 
-        Ok(Self { inner: map })
+        Ok(IntoIterator::into_iter(MATERIAL_ORDER)
+            .zip(colors)
+            .collect())
+    }
+
+    /// True when all material colors are default values
+    pub fn is_empty(&self) -> bool {
+        self.inner == DEFAULT_COLORS
+    }
+
+    /// Iterator over material colors.
+    pub fn iter(&self) -> MaterialColorsIter {
+        MaterialColorsIter {
+            inner: IntoIterator::into_iter(MATERIAL_ORDER).zip(self.inner),
+        }
+    }
+
+    /// Iterator over non-default material colors.
+    pub fn iter_filter_default(&self) -> impl Iterator<Item = (TerrainMaterials, Color3uint8)> {
+        self.into_iter()
+            .filter(|(material, color)| *color != material.default_color())
     }
 }
 
-impl<T> From<T> for MaterialColors
-where
-    T: Into<BTreeMap<TerrainMaterials, Color3uint8>>,
-{
-    fn from(value: T) -> Self {
-        Self {
-            inner: value.into(),
+impl Default for MaterialColors {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl core::iter::FromIterator<(TerrainMaterials, Color3uint8)> for MaterialColors {
+    fn from_iter<T>(iter: T) -> Self
+    where
+        T: IntoIterator<Item = (TerrainMaterials, Color3uint8)>,
+    {
+        let mut material_colors = Self::new();
+        for (material, color) in iter {
+            material_colors.set_color(material, color);
         }
+        material_colors
+    }
+}
+
+impl IntoIterator for MaterialColors {
+    type Item = (TerrainMaterials, Color3uint8);
+    type IntoIter = MaterialColorsIter;
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
+    }
+}
+impl IntoIterator for &MaterialColors {
+    type Item = (TerrainMaterials, Color3uint8);
+    type IntoIter = MaterialColorsIter;
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
+    }
+}
+
+pub struct MaterialColorsIter {
+    inner: core::iter::Zip<
+        core::array::IntoIter<TerrainMaterials, NUM_COLORS>,
+        core::array::IntoIter<Color3uint8, NUM_COLORS>,
+    >,
+}
+impl Iterator for MaterialColorsIter {
+    type Item = (TerrainMaterials, Color3uint8);
+    fn next(&mut self) -> Option<Self::Item> {
+        self.inner.next()
+    }
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        self.inner.size_hint()
     }
 }
 
@@ -108,7 +157,7 @@ pub(crate) enum MaterialColorsError {
 /// Additionally, makes a constant named `MATERIAL_ORDER` that indicates what
 /// order the colors must be written and read in.
 macro_rules! material_colors {
-    ($($name:ident => [$r:literal, $g:literal, $b:literal]),*$(,)?) => {
+    ($($name:ident => [$r:literal, $g:literal, $b:literal],)*) => {
         // A downside to the macro is that the length of `MATERIAL_ORDER`
         // is hardcoded. There are ways to count macro repetitions, but they
         // all have tangible downsides.
@@ -116,7 +165,8 @@ macro_rules! material_colors {
 
         /// A list of all `TerrainMaterials` in the order they must be read
         /// and written.
-        const MATERIAL_ORDER: [TerrainMaterials; 21] = [$(TerrainMaterials::$name,)*];
+        const MATERIAL_ORDER: [TerrainMaterials; NUM_COLORS] = [$(TerrainMaterials::$name,)*];
+        const DEFAULT_COLORS: [Color3uint8; NUM_COLORS] = [$(Color3uint8::new($r, $g, $b),)*];
 
         /// All materials that are represented by `MaterialColors`.
         ///
@@ -136,12 +186,8 @@ macro_rules! material_colors {
 
         impl TerrainMaterials {
             /// Returns the default color for the given `TerrainMaterial`.
-            pub fn default_color(&self) -> Color3uint8 {
-                match self {
-                    $(
-                        Self::$name => Color3uint8::new($r, $g, $b),
-                    )*
-                }
+            pub const fn default_color(&self) -> Color3uint8 {
+                DEFAULT_COLORS[*self as usize]
             }
         }
 
@@ -149,9 +195,10 @@ macro_rules! material_colors {
             type Err = CrateError;
 
             fn from_str(s: &str) -> Result<Self, Self::Err> {
-                match s {$(
-                    stringify!($name) => Ok(Self::$name),
-                )*
+                match s {
+                    $(
+                        stringify!($name) => Ok(Self::$name),
+                    )*
                     _ => Err(MaterialColorsError::UnknownMaterial(s.to_string()).into()),
                 }
             }
@@ -159,6 +206,8 @@ macro_rules! material_colors {
     };
 }
 
+// If this goes above 21, Variant will become larger than 64 bytes.
+const NUM_COLORS: usize = 21;
 material_colors! {
     Grass => [106, 127, 63],
     Slate => [63, 127, 107],
@@ -181,6 +230,51 @@ material_colors! {
     Salt => [198, 189, 181],
     Limestone => [206, 173, 148],
     Pavement => [148, 148, 140],
+}
+
+#[cfg(feature = "serde")]
+impl serde::Serialize for MaterialColors {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeMap;
+
+        let mut map = serializer.serialize_map(None)?;
+        for (material, color) in self.iter_filter_default() {
+            map.serialize_entry(&material, &color)?;
+        }
+        map.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MaterialColors {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct MaterialColorsVisitor;
+        impl<'de> serde::de::Visitor<'de> for MaterialColorsVisitor {
+            type Value = MaterialColors;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                write!(formatter, "a MaterialColors value")
+            }
+
+            fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                let mut material_colors = MaterialColors::new();
+                while let Some((material, color)) = map.next_entry()? {
+                    material_colors.set_color(material, color);
+                }
+                Ok(material_colors)
+            }
+        }
+
+        deserializer.deserialize_map(MaterialColorsVisitor)
+    }
 }
 
 #[cfg(test)]
