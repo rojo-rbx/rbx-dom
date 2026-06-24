@@ -45,7 +45,7 @@ let dom = WeakDom::new(InstanceBuilder::new("Folder"));
 
 // Using buffered I/O is recommended with rbx_binary
 let output = BufWriter::new(File::create("PlainFolder.rbxm")?);
-rbx_binary::to_writer(output, &dom, &[dom.root_ref()])?;
+rbx_binary::to_writer(output, &dom, &[dom.root_ref().unwrap()])?;
 
 # Ok::<(), Box<dyn std::error::Error>>(())
 ```
