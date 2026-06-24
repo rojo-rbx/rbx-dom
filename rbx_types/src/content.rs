@@ -35,7 +35,11 @@ impl Content {
     /// Constructs a `Content` from the provided referent.
     #[inline]
     pub fn from_referent(referent: Ref) -> Self {
-        Self(ContentType::Object(referent))
+        if referent.is_some() {
+            Self(ContentType::Object(referent))
+        } else {
+            Self::none()
+        }
     }
 
     /// Returns the underlying value of the `Content`.
