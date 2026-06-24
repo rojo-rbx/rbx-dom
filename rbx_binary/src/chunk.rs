@@ -4,12 +4,21 @@ use std::{
     str,
 };
 
-use crate::{
-    core::{RbxReadExt, RbxWriteExt},
-    serializer::CompressionType,
-};
+use crate::core::{RbxReadExt, RbxWriteExt};
 
 const ZSTD_MAGIC_NUMBER: &[u8] = &[0x28, 0xb5, 0x2f, 0xfd];
+
+/// Indicates the types of compression that files can be written with.
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Default)]
+pub enum CompressionType {
+    /// LZ4 compression. This is what Roblox uses by default.
+    #[default]
+    Lz4,
+    /// No compression.
+    None,
+    /// ZSTD compression.
+    Zstd,
+}
 
 /// Represents one chunk from a binary model file.
 #[derive(Debug)]
