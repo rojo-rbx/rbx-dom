@@ -4,7 +4,7 @@ use std::{
 };
 
 use crate::{
-    types::{Ref, Variant},
+    types::{SomeRef, Variant},
     WeakDom,
 };
 use serde::{Deserialize, Serialize};
@@ -17,7 +17,7 @@ use ustr::Ustr;
 /// persist when viewing the same instance multiple times, and should stay the
 /// same across multiple runs of a test.
 pub struct DomViewer {
-    referent_to_id: HashMap<Ref, String>,
+    referent_to_id: HashMap<SomeRef, String>,
     next_id: usize,
 }
 
@@ -33,7 +33,7 @@ impl DomViewer {
     /// View the given `WeakDom`, creating a `ViewedInstance` object that can be
     /// used in a snapshot test.
     pub fn view(&mut self, dom: &WeakDom) -> ViewedInstance {
-        let root_referent = dom.root_ref();
+        let root_referent = dom.root_ref().to_some_ref().expect("Ref value is 0");
         self.populate_referent_map(dom, root_referent);
         self.view_instance(dom, root_referent)
     }
@@ -42,7 +42,7 @@ impl DomViewer {
     /// them as a `Vec<ViewedInstance>`.
     pub fn view_children(&mut self, dom: &WeakDom) -> Vec<ViewedInstance> {
         let root_instance = dom.root();
-        let children = root_instance.children();
+        let children = root_instance.children_internal();
 
         for &referent in children {
             self.populate_referent_map(dom, referent);
@@ -54,7 +54,7 @@ impl DomViewer {
             .collect()
     }
 
-    fn populate_referent_map(&mut self, dom: &WeakDom, referent: Ref) {
+    fn populate_referent_map(&mut self, dom: &WeakDom, referent: SomeRef) {
         let next_id = &mut self.next_id;
         self.referent_to_id.entry(referent).or_insert_with(|| {
             let name = format!("referent-{next_id}");
@@ -62,17 +62,17 @@ impl DomViewer {
             name
         });
 
-        let instance = dom.get_by_ref(referent).unwrap();
-        for referent in instance.children() {
+        let instance = dom.get_by_ref(referent.to_optional_ref()).unwrap();
+        for referent in instance.children_internal() {
             self.populate_referent_map(dom, *referent);
         }
     }
 
-    fn view_instance(&self, dom: &WeakDom, referent: Ref) -> ViewedInstance {
-        let instance = dom.get_by_ref(referent).unwrap();
+    fn view_instance(&self, dom: &WeakDom, referent: SomeRef) -> ViewedInstance {
+        let instance = dom.get_by_ref(referent.to_optional_ref()).unwrap();
 
         let children = instance
-            .children()
+            .children_internal()
             .iter()
             .copied()
             .map(|referent| self.view_instance(dom, referent))
@@ -84,10 +84,10 @@ impl DomViewer {
             .map(|(key, value)| {
                 let new_value = match value {
                     Variant::Ref(referent) => {
-                        if referent.is_some() {
+                        if let Some(some_ref) = referent.to_some_ref() {
                             let referent_str = self
                                 .referent_to_id
-                                .get(referent)
+                                .get(&some_ref)
                                 .cloned()
                                 .unwrap_or_else(|| "[unknown ID]".to_owned());
 
