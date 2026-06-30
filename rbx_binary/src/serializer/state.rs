@@ -248,12 +248,8 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
         database: &'db ReflectionDatabase<'db>,
         class: Ustr,
     ) -> &mut TypeInfo<'dom, 'db> {
-        // Split self into independent mutable references.
-        let TypeInfos {
-            values,
-            next_type_id,
-        } = self;
-        values.entry(class).or_insert_with(|| {
+        let next_type_id = &mut self.next_type_id;
+        self.values.entry(class).or_insert_with(|| {
             let type_id = *next_type_id;
             *next_type_id += 1;
 
