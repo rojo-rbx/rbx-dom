@@ -1711,28 +1711,36 @@ expression: decoded_viewed
           UniqueId: "00000000000000000000000000000000"
         MoonAngularSize:
           Float32: 11
-        MoonTextureId:
-          ContentId: "rbxassetid://6444320592"
-        SkyboxBk:
-          ContentId: "rbxassetid://6444884337"
-        SkyboxDn:
-          ContentId: "rbxassetid://6444884785"
-        SkyboxFt:
-          ContentId: "rbxassetid://6444884337"
-        SkyboxLf:
-          ContentId: "rbxassetid://6444884337"
-        SkyboxRt:
-          ContentId: "rbxassetid://6444884337"
-        SkyboxUp:
-          ContentId: "rbxassetid://6412503613"
+        MoonTextureContent:
+          Content:
+            Uri: "rbxassetid://6444320592"
+        SkyboxBackContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxDownContent:
+          Content:
+            Uri: "rbxassetid://6444884785"
+        SkyboxFrontContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxLeftContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxRightContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxUpContent:
+          Content:
+            Uri: "rbxassetid://6412503613"
         SourceAssetId:
           Int64: 332039975
         StarCount:
           Int32: 3000
         SunAngularSize:
           Float32: 11
-        SunTextureId:
-          ContentId: "rbxassetid://6196665106"
+        SunTextureContent:
+          Content:
+            Uri: "rbxassetid://6196665106"
         Tags:
           Tags: []
         UniqueId:
