@@ -1,6 +1,5 @@
 ---
 source: rbx_xml/src/tests/mod.rs
-assertion_line: 42
 expression: "DomViewer::new().view_children(&roundtrip)"
 ---
 - referent: referent-0
@@ -399,6 +398,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
           properties:
             Attributes:
               Attributes: {}
+            AutoLocalize:
+              Bool: true
             Capabilities:
               SecurityCapabilities: 0
             Color3:
@@ -894,6 +895,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
           properties:
             Attributes:
               Attributes: {}
+            AutoLocalize:
+              Bool: true
             Capabilities:
               SecurityCapabilities: 0
             Color3:
@@ -1106,6 +1109,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
           properties:
             Attributes:
               Attributes: {}
+            AutoLocalize:
+              Bool: true
             Capabilities:
               SecurityCapabilities: 0
             Color3:
@@ -1217,6 +1222,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Enum: 0
     DefaultListenerLocation:
       Enum: 3
+    DiffractionEnabled:
+      Bool: true
     DistanceFactor:
       Float32: 3.33
     DopplerScale:
@@ -1225,7 +1232,30 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       UniqueId: "00000000000000000000000000000000"
     IsNewExpForAudioApiByDefault:
       Bool: false
+    ListenerCFrame:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    ListenerObject: "null"
+    ListenerType:
+      Enum: 0
+    OcclusionEnabled:
+      Bool: true
     RespectFilteringEnabled:
+      Bool: true
+    ReverbEnabled:
       Bool: true
     RolloffScale:
       Float32: 1
@@ -1510,6 +1540,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Bool: true
     CreateDefaultTextChannels:
       Bool: true
+    EnableProtectedChat:
+      Enum: 0
     HasSeenDeprecationDialog:
       Bool: false
     HistoryId:
@@ -1736,10 +1768,14 @@ expression: "DomViewer::new().view_children(&roundtrip)"
               Float32: 0
             Sandboxed:
               Bool: false
+            Scale:
+              Float32: 1
             SourceAssetId:
               Int64: -1
             Tags:
               Tags: []
+            TileMode:
+              Enum: 0
             Transparency:
               NumberSequence:
                 keypoints:
@@ -1749,6 +1785,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
                   - time: 1
                     value: 0
                     envelope: 0
+            Type:
+              Enum: 0
             UniqueId:
               UniqueId: 7ae0e5570bbb7d4c0a5586bb000003ca
           children: []
@@ -2189,6 +2227,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
       Enum: 0
     NameDisplayDistance:
       Float32: 100
+    PlayerModuleStatus:
+      Int32: 0
     Sandboxed:
       Bool: false
     SourceAssetId:
@@ -2891,6 +2931,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
               Bool: false
             CustomWaistAccessoryId:
               Int64: 0
+            EnableEmissives:
+              Bool: true
             EnableSound:
               Bool: true
             EnableVFX:
