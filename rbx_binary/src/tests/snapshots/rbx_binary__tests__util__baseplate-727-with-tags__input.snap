@@ -1,0 +1,9254 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_decoded
+---
+num_types: 80
+num_instances: 82
+chunks:
+  - Sstr:
+      version: 0
+      entries:
+        - len: 0
+          hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+        - len: 4
+          hash: 5ee73426e51f4affba11dbf386fa3da8bca38962dd719566300711822e3f73e5
+        - len: 15
+          hash: 1dc278f08b1ec71d15c4e7be72876159dc9400f2e7c363ba6dcfd16415fcafee
+        - len: 5
+          hash: fcd84509847a8416ee54417aa838d14d47417ba563bfac6934e0fceaffa1209e
+  - Inst:
+      type_id: 0
+      type_name: AssetService
+      object_format: 1
+      referents:
+        - 48
+      remaining: "01"
+  - Inst:
+      type_id: 1
+      type_name: Atmosphere
+      object_format: 0
+      referents:
+        - 67
+  - Inst:
+      type_id: 2
+      type_name: AvatarAbilityRules
+      object_format: 0
+      referents:
+        - 54
+  - Inst:
+      type_id: 3
+      type_name: AvatarAccessoryRules
+      object_format: 0
+      referents:
+        - 56
+  - Inst:
+      type_id: 4
+      type_name: AvatarAnimationRules
+      object_format: 0
+      referents:
+        - 55
+  - Inst:
+      type_id: 5
+      type_name: AvatarBodyRules
+      object_format: 0
+      referents:
+        - 52
+  - Inst:
+      type_id: 6
+      type_name: AvatarClothingRules
+      object_format: 0
+      referents:
+        - 57
+  - Inst:
+      type_id: 7
+      type_name: AvatarCollisionRules
+      object_format: 0
+      referents:
+        - 53
+  - Inst:
+      type_id: 8
+      type_name: AvatarRules
+      object_format: 0
+      referents:
+        - 51
+  - Inst:
+      type_id: 9
+      type_name: AvatarSettings
+      object_format: 1
+      referents:
+        - 50
+      remaining: "01"
+  - Inst:
+      type_id: 10
+      type_name: BloomEffect
+      object_format: 0
+      referents:
+        - 68
+  - Inst:
+      type_id: 11
+      type_name: BubbleChatConfiguration
+      object_format: 0
+      referents:
+        - 22
+  - Inst:
+      type_id: 12
+      type_name: CSGDictionaryService
+      object_format: 1
+      referents:
+        - 13
+      remaining: "01"
+  - Inst:
+      type_id: 13
+      type_name: Camera
+      object_format: 0
+      referents:
+        - 1
+  - Inst:
+      type_id: 14
+      type_name: ChannelTabsConfiguration
+      object_format: 0
+      referents:
+        - 27
+  - Inst:
+      type_id: 15
+      type_name: Chat
+      object_format: 1
+      referents:
+        - 14
+      remaining: "01"
+  - Inst:
+      type_id: 16
+      type_name: ChatInputBarConfiguration
+      object_format: 0
+      referents:
+        - 21
+  - Inst:
+      type_id: 17
+      type_name: ChatWindowConfiguration
+      object_format: 0
+      referents:
+        - 20
+  - Inst:
+      type_id: 18
+      type_name: CollectionService
+      object_format: 1
+      referents:
+        - 37
+      remaining: "01"
+  - Inst:
+      type_id: 19
+      type_name: ConfigureServerService
+      object_format: 1
+      referents:
+        - 61
+      remaining: "01"
+  - Inst:
+      type_id: 20
+      type_name: ContextActionService
+      object_format: 1
+      referents:
+        - 46
+      remaining: "01"
+  - Inst:
+      type_id: 21
+      type_name: CookiesService
+      object_format: 1
+      referents:
+        - 43
+      remaining: "01"
+  - Inst:
+      type_id: 22
+      type_name: DataStoreService
+      object_format: 1
+      referents:
+        - 62
+      remaining: "01"
+  - Inst:
+      type_id: 23
+      type_name: Debris
+      object_format: 1
+      referents:
+        - 42
+      remaining: "01"
+  - Inst:
+      type_id: 24
+      type_name: Decal
+      object_format: 0
+      referents:
+        - 6
+  - Inst:
+      type_id: 25
+      type_name: DepthOfFieldEffect
+      object_format: 0
+      referents:
+        - 69
+  - Inst:
+      type_id: 26
+      type_name: GamePassService
+      object_format: 1
+      referents:
+        - 41
+      remaining: "01"
+  - Inst:
+      type_id: 27
+      type_name: GuidRegistryService
+      object_format: 1
+      referents:
+        - 60
+      remaining: "01"
+  - Inst:
+      type_id: 28
+      type_name: HttpService
+      object_format: 1
+      referents:
+        - 63
+      remaining: "01"
+  - Inst:
+      type_id: 29
+      type_name: ImageLabel
+      object_format: 0
+      referents:
+        - 24
+  - Inst:
+      type_id: 30
+      type_name: InsertService
+      object_format: 1
+      referents:
+        - 39
+      remaining: "01"
+  - Inst:
+      type_id: 31
+      type_name: Lighting
+      object_format: 1
+      referents:
+        - 64
+      remaining: "01"
+  - Inst:
+      type_id: 32
+      type_name: LocalizationService
+      object_format: 1
+      referents:
+        - 35
+      remaining: "01"
+  - Inst:
+      type_id: 33
+      type_name: LodDataService
+      object_format: 1
+      referents:
+        - 58
+      remaining: "01"
+  - Inst:
+      type_id: 34
+      type_name: LuaWebService
+      object_format: 1
+      referents:
+        - 81
+      remaining: "01"
+  - Inst:
+      type_id: 35
+      type_name: MaterialService
+      object_format: 1
+      referents:
+        - 18
+      remaining: "01"
+  - Inst:
+      type_id: 36
+      type_name: NonReplicatedCSGDictionaryService
+      object_format: 1
+      referents:
+        - 12
+      remaining: "01"
+  - Inst:
+      type_id: 37
+      type_name: Packages
+      object_format: 1
+      referents:
+        - 59
+      remaining: "01"
+  - Inst:
+      type_id: 38
+      type_name: Part
+      object_format: 0
+      referents:
+        - 2
+        - 7
+  - Inst:
+      type_id: 39
+      type_name: PermissionsService
+      object_format: 1
+      referents:
+        - 80
+      remaining: "01"
+  - Inst:
+      type_id: 40
+      type_name: PhysicsService
+      object_format: 1
+      referents:
+        - 38
+      remaining: "01"
+  - Inst:
+      type_id: 41
+      type_name: PlayerEmulatorService
+      object_format: 1
+      referents:
+        - 28
+      remaining: "01"
+  - Inst:
+      type_id: 42
+      type_name: Players
+      object_format: 1
+      referents:
+        - 15
+      remaining: "01"
+  - Inst:
+      type_id: 43
+      type_name: ProximityPromptService
+      object_format: 1
+      referents:
+        - 70
+      remaining: "01"
+  - Inst:
+      type_id: 44
+      type_name: ReplicatedFirst
+      object_format: 1
+      referents:
+        - 16
+      remaining: "01"
+  - Inst:
+      type_id: 45
+      type_name: ReplicatedStorage
+      object_format: 1
+      referents:
+        - 71
+      remaining: "01"
+  - Inst:
+      type_id: 46
+      type_name: ScriptService
+      object_format: 1
+      referents:
+        - 47
+      remaining: "01"
+  - Inst:
+      type_id: 47
+      type_name: Selection
+      object_format: 1
+      referents:
+        - 44
+      remaining: "01"
+  - Inst:
+      type_id: 48
+      type_name: ServerScriptService
+      object_format: 1
+      referents:
+        - 72
+      remaining: "01"
+  - Inst:
+      type_id: 49
+      type_name: ServerStorage
+      object_format: 1
+      referents:
+        - 73
+      remaining: "01"
+  - Inst:
+      type_id: 50
+      type_name: ServiceVisibilityService
+      object_format: 1
+      referents:
+        - 74
+      remaining: "01"
+  - Inst:
+      type_id: 51
+      type_name: Sky
+      object_format: 0
+      referents:
+        - 65
+  - Inst:
+      type_id: 52
+      type_name: SoundService
+      object_format: 1
+      referents:
+        - 10
+      remaining: "01"
+  - Inst:
+      type_id: 53
+      type_name: SpawnLocation
+      object_format: 0
+      referents:
+        - 5
+  - Inst:
+      type_id: 54
+      type_name: StarterCharacterScripts
+      object_format: 0
+      referents:
+        - 32
+  - Inst:
+      type_id: 55
+      type_name: StarterGui
+      object_format: 1
+      referents:
+        - 34
+      remaining: "01"
+  - Inst:
+      type_id: 56
+      type_name: StarterPack
+      object_format: 1
+      referents:
+        - 33
+      remaining: "01"
+  - Inst:
+      type_id: 57
+      type_name: StarterPlayer
+      object_format: 1
+      referents:
+        - 30
+      remaining: "01"
+  - Inst:
+      type_id: 58
+      type_name: StarterPlayerScripts
+      object_format: 0
+      referents:
+        - 31
+  - Inst:
+      type_id: 59
+      type_name: StringValue
+      object_format: 0
+      referents:
+        - 40
+  - Inst:
+      type_id: 60
+      type_name: StudioData
+      object_format: 1
+      referents:
+        - 29
+      remaining: "01"
+  - Inst:
+      type_id: 61
+      type_name: SunRaysEffect
+      object_format: 0
+      referents:
+        - 66
+  - Inst:
+      type_id: 62
+      type_name: Teams
+      object_format: 1
+      referents:
+        - 75
+      remaining: "01"
+  - Inst:
+      type_id: 63
+      type_name: TeleportService
+      object_format: 1
+      referents:
+        - 36
+      remaining: "01"
+  - Inst:
+      type_id: 64
+      type_name: Terrain
+      object_format: 0
+      referents:
+        - 4
+  - Inst:
+      type_id: 65
+      type_name: TestService
+      object_format: 1
+      referents:
+        - 76
+      remaining: "01"
+  - Inst:
+      type_id: 66
+      type_name: TextChatService
+      object_format: 1
+      referents:
+        - 19
+      remaining: "01"
+  - Inst:
+      type_id: 67
+      type_name: Texture
+      object_format: 0
+      referents:
+        - 3
+        - 8
+  - Inst:
+      type_id: 68
+      type_name: TimerService
+      object_format: 1
+      referents:
+        - 9
+      remaining: "01"
+  - Inst:
+      type_id: 69
+      type_name: TouchInputService
+      object_format: 1
+      referents:
+        - 49
+      remaining: "01"
+  - Inst:
+      type_id: 70
+      type_name: TweenService
+      object_format: 1
+      referents:
+        - 17
+      remaining: "01"
+  - Inst:
+      type_id: 71
+      type_name: UGCAvatarService
+      object_format: 1
+      referents:
+        - 77
+      remaining: "01"
+  - Inst:
+      type_id: 72
+      type_name: UICorner
+      object_format: 0
+      referents:
+        - 25
+  - Inst:
+      type_id: 73
+      type_name: UIGradient
+      object_format: 0
+      referents:
+        - 23
+  - Inst:
+      type_id: 74
+      type_name: UIPadding
+      object_format: 0
+      referents:
+        - 26
+  - Inst:
+      type_id: 75
+      type_name: VRService
+      object_format: 1
+      referents:
+        - 45
+      remaining: "01"
+  - Inst:
+      type_id: 76
+      type_name: VideoCaptureService
+      object_format: 1
+      referents:
+        - 11
+      remaining: "01"
+  - Inst:
+      type_id: 77
+      type_name: VideoService
+      object_format: 1
+      referents:
+        - 78
+      remaining: "01"
+  - Inst:
+      type_id: 78
+      type_name: VoiceChatService
+      object_format: 1
+      referents:
+        - 79
+      remaining: "01"
+  - Inst:
+      type_id: 79
+      type_name: Workspace
+      object_format: 1
+      referents:
+        - 0
+      remaining: "01"
+  - Prop:
+      type_id: 0
+      prop_name: AllowInsertFreeAssets
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 0
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - AssetService
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000377
+  - Prop:
+      type_id: 1
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 1
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: Color
+      prop_type: Color3
+      values:
+        - - 0.78039217
+          - 0.78039217
+          - 0.78039217
+  - Prop:
+      type_id: 1
+      prop_name: Decay
+      prop_type: Color3
+      values:
+        - - 0.41568628
+          - 0.4392157
+          - 0.49019608
+  - Prop:
+      type_id: 1
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 1
+      prop_name: Density
+      prop_type: Float32
+      values:
+        - 0.3
+  - Prop:
+      type_id: 1
+      prop_name: Glare
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: Haze
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 1
+      prop_name: Name
+      prop_type: String
+      values:
+        - Atmosphere
+  - Prop:
+      type_id: 1
+      prop_name: Offset
+      prop_type: Float32
+      values:
+        - 0.25
+  - Prop:
+      type_id: 1
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 1
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 1
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c4
+  - Prop:
+      type_id: 2
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 2
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 2
+      prop_name: CharacterControllerMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 2
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 2
+      prop_name: EnableClimbing
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableCrouching
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableFallingDown
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableGettingUp
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableHolding
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableJumping
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableReaching
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableRunning
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableSitting
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableSprinting
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableStrafing
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: EnableSwimming
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 2
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 2
+      prop_name: Name
+      prop_type: String
+      values:
+        - AvatarAbilityRules
+  - Prop:
+      type_id: 2
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 2
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 2
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000e03
+  - Prop:
+      type_id: 3
+      prop_name: AccessoryMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 3
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: CustomAccessoryMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: CustomBackAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 3
+      prop_name: CustomBackAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: CustomFaceAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 3
+      prop_name: CustomFaceAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: CustomFrontAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 3
+      prop_name: CustomFrontAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: CustomHairAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 3
+      prop_name: CustomHairAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: CustomHeadAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 3
+      prop_name: CustomHeadAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: CustomNeckAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 3
+      prop_name: CustomNeckAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: CustomShoulderAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 3
+      prop_name: CustomShoulderAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: CustomWaistAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 3
+      prop_name: CustomWaistAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 3
+      prop_name: EnableEmissives
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 3
+      prop_name: EnableSound
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 3
+      prop_name: EnableVFX
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 3
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 3
+      prop_name: LimitBounds
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 3
+      prop_name: LimitMethod
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 3
+      prop_name: Name
+      prop_type: String
+      values:
+        - AvatarAccessoryRules
+  - Prop:
+      type_id: 3
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 3
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 3
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000e05
+  - Prop:
+      type_id: 4
+      prop_name: AnimationClipsMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: AnimationPacksMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 4
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomClimbAnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomClimbAnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomFallAnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomFallAnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomIdleAlt1AnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomIdleAlt1AnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomIdleAlt2AnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomIdleAlt2AnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomIdleAnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomIdleAnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomJumpAnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomJumpAnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomRunAnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomRunAnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomSwimAnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomSwimAnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomSwimIdleAnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomSwimIdleAnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: CustomWalkAnimationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: CustomWalkAnimationId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 4
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 4
+      prop_name: Name
+      prop_type: String
+      values:
+        - AvatarAnimationRules
+  - Prop:
+      type_id: 4
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 4
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 4
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000e04
+  - Prop:
+      type_id: 5
+      prop_name: AppearanceMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 5
+      prop_name: BuildMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomBodyBundleId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomBodyType
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomBodyTypeScale
+      prop_type: NumberRange
+      values:
+        - - 0
+          - 1
+  - Prop:
+      type_id: 5
+      prop_name: CustomEyebrowEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomEyebrowId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomEyelashEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomEyelashId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomFaceEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomFaceId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomHeadEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomHeadId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomHeadScale
+      prop_type: NumberRange
+      values:
+        - - 0.95
+          - 1
+  - Prop:
+      type_id: 5
+      prop_name: CustomHeight
+      prop_type: NumberRange
+      values:
+        - - 5.5
+          - 5.5
+  - Prop:
+      type_id: 5
+      prop_name: CustomHeightScale
+      prop_type: NumberRange
+      values:
+        - - 0.9
+          - 1.05
+  - Prop:
+      type_id: 5
+      prop_name: CustomLeftArmEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomLeftArmId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomLeftLegEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomLeftLegId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomMoodEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomMoodId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomProportionsScale
+      prop_type: NumberRange
+      values:
+        - - 0
+          - 1
+  - Prop:
+      type_id: 5
+      prop_name: CustomRightArmEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomRightArmId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomRightLegEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomRightLegId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomTorsoEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: CustomTorsoId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: CustomWidthScale
+      prop_type: NumberRange
+      values:
+        - - 0.7
+          - 1
+  - Prop:
+      type_id: 5
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 5
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 5
+      prop_name: KeepPlayerHead
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 5
+      prop_name: Name
+      prop_type: String
+      values:
+        - AvatarBodyRules
+  - Prop:
+      type_id: 5
+      prop_name: ScaleMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 5
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 5
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000e01
+  - Prop:
+      type_id: 6
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 6
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: ClothingMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomClassicPantsAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomClassicPantsAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomClassicShirtsAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomClassicShirtsAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomClassicTShirtsAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomClassicTShirtsAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomClothingMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomDressSkirtAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomDressSkirtAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomJacketAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomJacketAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomLeftShoesAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomLeftShoesAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomPantsAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomPantsAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomRightShoesAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomRightShoesAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomShirtAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomShirtAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomShortsAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomShortsAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomSweaterAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomSweaterAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: CustomTShirtAccessoryEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: CustomTShirtAccessoryId
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 6
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 6
+      prop_name: LimitBounds
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 6
+      prop_name: Name
+      prop_type: String
+      values:
+        - AvatarClothingRules
+  - Prop:
+      type_id: 6
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 6
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 6
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000e06
+  - Prop:
+      type_id: 7
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 7
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 7
+      prop_name: CollisionMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 7
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 7
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 7
+      prop_name: HitAndTouchDetectionMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 7
+      prop_name: LegacyCollisionMode
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 7
+      prop_name: Name
+      prop_type: String
+      values:
+        - AvatarCollisionRules
+  - Prop:
+      type_id: 7
+      prop_name: SingleColliderSize
+      prop_type: Vector3
+      values:
+        - - 2
+          - 3
+          - 1
+  - Prop:
+      type_id: 7
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 7
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 7
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000e02
+  - Prop:
+      type_id: 8
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 8
+      prop_name: AvatarType
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 8
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 8
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 8
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 8
+      prop_name: Name
+      prop_type: String
+      values:
+        - DefaultAvatarRules
+  - Prop:
+      type_id: 8
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 8
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 8
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000e00
+  - Prop:
+      type_id: 9
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 9
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 9
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 9
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 9
+      prop_name: Name
+      prop_type: String
+      values:
+        - AvatarSettings
+  - Prop:
+      type_id: 9
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 9
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 9
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000037f
+  - Prop:
+      type_id: 10
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 10
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 10
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 10
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 10
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 10
+      prop_name: Intensity
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 10
+      prop_name: Name
+      prop_type: String
+      values:
+        - Bloom
+  - Prop:
+      type_id: 10
+      prop_name: Size
+      prop_type: Float32
+      values:
+        - 24
+  - Prop:
+      type_id: 10
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 10
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 10
+      prop_name: Threshold
+      prop_type: Float32
+      values:
+        - 2
+  - Prop:
+      type_id: 10
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c5
+  - Prop:
+      type_id: 11
+      prop_name: AdorneeName
+      prop_type: String
+      values:
+        - HumanoidRootPart
+  - Prop:
+      type_id: 11
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 11
+      prop_name: BackgroundColor3
+      prop_type: Color3
+      values:
+        - - 0.98039216
+          - 0.98039216
+          - 0.98039216
+  - Prop:
+      type_id: 11
+      prop_name: BackgroundTransparency
+      prop_type: Float64
+      values:
+        - 0.1
+  - Prop:
+      type_id: 11
+      prop_name: BubbleDuration
+      prop_type: Float32
+      values:
+        - 15
+  - Prop:
+      type_id: 11
+      prop_name: BubblesSpacing
+      prop_type: Float32
+      values:
+        - 6
+  - Prop:
+      type_id: 11
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 11
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 11
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 11
+      prop_name: Font
+      prop_type: Enum
+      values:
+        - 47
+  - Prop:
+      type_id: 11
+      prop_name: FontFace
+      prop_type: Font
+      values:
+        - family: "rbxasset://fonts/families/BuilderSans.json"
+          weight: Medium
+          style: Normal
+          cachedFaceId: "rbxasset://fonts/BuilderSans-Medium.otf"
+  - Prop:
+      type_id: 11
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 11
+      prop_name: LocalPlayerStudsOffset
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 11
+      prop_name: MaxBubbles
+      prop_type: Float32
+      values:
+        - 3
+  - Prop:
+      type_id: 11
+      prop_name: MaxDistance
+      prop_type: Float32
+      values:
+        - 100
+  - Prop:
+      type_id: 11
+      prop_name: MinimizeDistance
+      prop_type: Float32
+      values:
+        - 40
+  - Prop:
+      type_id: 11
+      prop_name: Name
+      prop_type: String
+      values:
+        - BubbleChatConfiguration
+  - Prop:
+      type_id: 11
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 11
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 11
+      prop_name: TailVisible
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 11
+      prop_name: TextColor3
+      prop_type: Color3
+      values:
+        - - 0.22352941
+          - 0.23137255
+          - 0.23921569
+  - Prop:
+      type_id: 11
+      prop_name: TextSize
+      prop_type: Int64
+      values:
+        - 20
+  - Prop:
+      type_id: 11
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c9
+  - Prop:
+      type_id: 11
+      prop_name: VerticalStudsOffset
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 12
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 12
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 12
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 12
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 12
+      prop_name: Name
+      prop_type: String
+      values:
+        - CSGDictionaryService
+  - Prop:
+      type_id: 12
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 12
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 12
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000348
+  - Prop:
+      type_id: 13
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 13
+      prop_name: CFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - -19.696095
+            - 14.091624
+            - -19.303886
+          orientation:
+            - - -0.7061509
+              - 0.31296578
+              - -0.6351404
+            - - 0.000000014901163
+              - 0.8970132
+              - 0.44200373
+            - - 0.7080614
+              - 0.31212133
+              - -0.63342667
+  - Prop:
+      type_id: 13
+      prop_name: CameraSubject
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 13
+      prop_name: CameraType
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 13
+      prop_name: FieldOfView
+      prop_type: Float32
+      values:
+        - 70
+  - Prop:
+      type_id: 13
+      prop_name: FieldOfViewMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: Focus
+      prop_type: CFrame
+      values:
+        - position:
+            - -18.425814
+            - 13.207617
+            - -18.037033
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 13
+      prop_name: HeadLocked
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 13
+      prop_name: HeadScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 13
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 13
+      prop_name: Name
+      prop_type: String
+      values:
+        - Camera
+  - Prop:
+      type_id: 13
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 13
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 13
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003b8
+  - Prop:
+      type_id: 13
+      prop_name: VRTiltAndRollEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 14
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 14
+      prop_name: BackgroundColor3
+      prop_type: Color3
+      values:
+        - - 0.09803922
+          - 0.105882354
+          - 0.11372549
+  - Prop:
+      type_id: 14
+      prop_name: BackgroundTransparency
+      prop_type: Float64
+      values:
+        - 0
+  - Prop:
+      type_id: 14
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 14
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 14
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 14
+      prop_name: FontFace
+      prop_type: Font
+      values:
+        - family: "rbxasset://fonts/families/BuilderSans.json"
+          weight: Bold
+          style: Normal
+          cachedFaceId: "rbxasset://fonts/BuilderSans-Bold.otf"
+  - Prop:
+      type_id: 14
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 14
+      prop_name: HoverBackgroundColor3
+      prop_type: Color3
+      values:
+        - - 0.49019608
+          - 0.49019608
+          - 0.49019608
+  - Prop:
+      type_id: 14
+      prop_name: Name
+      prop_type: String
+      values:
+        - ChannelTabsConfiguration
+  - Prop:
+      type_id: 14
+      prop_name: SelectedTabTextColor3
+      prop_type: Color3
+      values:
+        - - 1
+          - 1
+          - 1
+  - Prop:
+      type_id: 14
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 14
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 14
+      prop_name: TextColor3
+      prop_type: Color3
+      values:
+        - - 0.6862745
+          - 0.6862745
+          - 0.6862745
+  - Prop:
+      type_id: 14
+      prop_name: TextSize
+      prop_type: Int64
+      values:
+        - 18
+  - Prop:
+      type_id: 14
+      prop_name: TextStrokeColor3
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 14
+      prop_name: TextStrokeTransparency
+      prop_type: Float64
+      values:
+        - 1
+  - Prop:
+      type_id: 14
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003ce
+  - Prop:
+      type_id: 15
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 15
+      prop_name: BubbleChatEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 15
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 15
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 15
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 15
+      prop_name: IsAutoMigrated
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 15
+      prop_name: LoadDefaultChat
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 15
+      prop_name: Name
+      prop_type: String
+      values:
+        - Chat
+  - Prop:
+      type_id: 15
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 15
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 15
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000034e
+  - Prop:
+      type_id: 16
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 16
+      prop_name: AutocompleteEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 16
+      prop_name: BackgroundColor3
+      prop_type: Color3
+      values:
+        - - 0.09803922
+          - 0.105882354
+          - 0.11372549
+  - Prop:
+      type_id: 16
+      prop_name: BackgroundTransparency
+      prop_type: Float64
+      values:
+        - 0.2
+  - Prop:
+      type_id: 16
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 16
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 16
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 16
+      prop_name: FontFace
+      prop_type: Font
+      values:
+        - family: "rbxasset://fonts/families/BuilderSans.json"
+          weight: Medium
+          style: Normal
+          cachedFaceId: "rbxasset://fonts/BuilderSans-Medium.otf"
+  - Prop:
+      type_id: 16
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 16
+      prop_name: KeyboardKeyCode
+      prop_type: Enum
+      values:
+        - 47
+  - Prop:
+      type_id: 16
+      prop_name: Name
+      prop_type: String
+      values:
+        - ChatInputBarConfiguration
+  - Prop:
+      type_id: 16
+      prop_name: PlaceholderColor3
+      prop_type: Color3
+      values:
+        - - 0.69803923
+          - 0.69803923
+          - 0.69803923
+  - Prop:
+      type_id: 16
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 16
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 16
+      prop_name: TargetTextChannel
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 16
+      prop_name: TextColor3
+      prop_type: Color3
+      values:
+        - - 1
+          - 1
+          - 1
+  - Prop:
+      type_id: 16
+      prop_name: TextSize
+      prop_type: Int64
+      values:
+        - 18
+  - Prop:
+      type_id: 16
+      prop_name: TextStrokeColor3
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 16
+      prop_name: TextStrokeTransparency
+      prop_type: Float64
+      values:
+        - 0.5
+  - Prop:
+      type_id: 16
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c8
+  - Prop:
+      type_id: 17
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 17
+      prop_name: BackgroundColor3
+      prop_type: Color3
+      values:
+        - - 0.09803922
+          - 0.105882354
+          - 0.11372549
+  - Prop:
+      type_id: 17
+      prop_name: BackgroundTransparency
+      prop_type: Float64
+      values:
+        - 0.3
+  - Prop:
+      type_id: 17
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 17
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 17
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 17
+      prop_name: FontFace
+      prop_type: Font
+      values:
+        - family: "rbxasset://fonts/families/BuilderSans.json"
+          weight: Medium
+          style: Normal
+          cachedFaceId: "rbxasset://fonts/BuilderSans-Medium.otf"
+  - Prop:
+      type_id: 17
+      prop_name: HeightScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 17
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 17
+      prop_name: HorizontalAlignment
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 17
+      prop_name: Name
+      prop_type: String
+      values:
+        - ChatWindowConfiguration
+  - Prop:
+      type_id: 17
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 17
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 17
+      prop_name: TextColor3
+      prop_type: Color3
+      values:
+        - - 1
+          - 1
+          - 1
+  - Prop:
+      type_id: 17
+      prop_name: TextSize
+      prop_type: Int64
+      values:
+        - 18
+  - Prop:
+      type_id: 17
+      prop_name: TextStrokeColor3
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 17
+      prop_name: TextStrokeTransparency
+      prop_type: Float64
+      values:
+        - 0.5
+  - Prop:
+      type_id: 17
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c7
+  - Prop:
+      type_id: 17
+      prop_name: VerticalAlignment
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 17
+      prop_name: WidthScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 18
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 18
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 18
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 18
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 18
+      prop_name: Name
+      prop_type: String
+      values:
+        - CollectionService
+  - Prop:
+      type_id: 18
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 18
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 18
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000339
+  - Prop:
+      type_id: 19
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 19
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 19
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 19
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 19
+      prop_name: Name
+      prop_type: String
+      values:
+        - ConfigureServerService
+  - Prop:
+      type_id: 19
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 19
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 19
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000387
+  - Prop:
+      type_id: 20
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 20
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 20
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 20
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 20
+      prop_name: Name
+      prop_type: String
+      values:
+        - ContextActionService
+  - Prop:
+      type_id: 20
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 20
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 20
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000375
+  - Prop:
+      type_id: 21
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 21
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 21
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 21
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 21
+      prop_name: Name
+      prop_type: String
+      values:
+        - CookiesService
+  - Prop:
+      type_id: 21
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 21
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 21
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000036f
+  - Prop:
+      type_id: 22
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 22
+      prop_name: AutomaticRetry
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 22
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 22
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 22
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 22
+      prop_name: LegacyNamingScheme
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 22
+      prop_name: Name
+      prop_type: String
+      values:
+        - DataStoreService
+  - Prop:
+      type_id: 22
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 22
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 22
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003af
+  - Prop:
+      type_id: 23
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 23
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 23
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 23
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 23
+      prop_name: MaxItems
+      prop_type: Int32
+      values:
+        - 1000
+  - Prop:
+      type_id: 23
+      prop_name: Name
+      prop_type: String
+      values:
+        - Debris
+  - Prop:
+      type_id: 23
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 23
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 23
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000036e
+  - Prop:
+      type_id: 24
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 24
+      prop_name: AutoLocalize
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 24
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 24
+      prop_name: Color3
+      prop_type: Color3
+      values:
+        - - 1
+          - 1
+          - 1
+  - Prop:
+      type_id: 24
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 24
+      prop_name: Face
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 24
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 24
+      prop_name: MetalnessMap
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 24
+      prop_name: Name
+      prop_type: String
+      values:
+        - Decal
+  - Prop:
+      type_id: 24
+      prop_name: NormalMap
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 24
+      prop_name: Rotation
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 24
+      prop_name: RoughnessMap
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 24
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 24
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 24
+      prop_name: Texture
+      prop_type: String
+      values:
+        - "rbxasset://textures/SpawnLocation.png"
+  - Prop:
+      type_id: 24
+      prop_name: TexturePack
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 24
+      prop_name: TexturePackMetadata
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 24
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 24
+      prop_name: UVOffset
+      prop_type: Vector2
+      values:
+        - - 0
+          - 0
+  - Prop:
+      type_id: 24
+      prop_name: UVScale
+      prop_type: Vector2
+      values:
+        - - 1
+          - 1
+  - Prop:
+      type_id: 24
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003bd
+  - Prop:
+      type_id: 24
+      prop_name: ZIndex
+      prop_type: Int32
+      values:
+        - 1
+  - Prop:
+      type_id: 25
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 25
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 25
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 25
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 25
+      prop_name: FarIntensity
+      prop_type: Float32
+      values:
+        - 0.1
+  - Prop:
+      type_id: 25
+      prop_name: FocusDistance
+      prop_type: Float32
+      values:
+        - 0.05
+  - Prop:
+      type_id: 25
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 25
+      prop_name: InFocusRadius
+      prop_type: Float32
+      values:
+        - 30
+  - Prop:
+      type_id: 25
+      prop_name: Name
+      prop_type: String
+      values:
+        - DepthOfField
+  - Prop:
+      type_id: 25
+      prop_name: NearIntensity
+      prop_type: Float32
+      values:
+        - 0.75
+  - Prop:
+      type_id: 25
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 25
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 25
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c6
+  - Prop:
+      type_id: 26
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 26
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 26
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 26
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 26
+      prop_name: Name
+      prop_type: String
+      values:
+        - GamePassService
+  - Prop:
+      type_id: 26
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 26
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 26
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000036d
+  - Prop:
+      type_id: 27
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 27
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 27
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 27
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 27
+      prop_name: Name
+      prop_type: String
+      values:
+        - GuidRegistryService
+  - Prop:
+      type_id: 27
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 27
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 27
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000384
+  - Prop:
+      type_id: 28
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 28
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 28
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 28
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 28
+      prop_name: HttpEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 28
+      prop_name: Name
+      prop_type: String
+      values:
+        - HttpService
+  - Prop:
+      type_id: 28
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 28
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 28
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003ac
+  - Prop:
+      type_id: 29
+      prop_name: Active
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 29
+      prop_name: AnchorPoint
+      prop_type: Vector2
+      values:
+        - - 0
+          - 0
+  - Prop:
+      type_id: 29
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 29
+      prop_name: AutoLocalize
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 29
+      prop_name: AutomaticSize
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: BackgroundColor3
+      prop_type: Color3
+      values:
+        - - 1
+          - 1
+          - 1
+  - Prop:
+      type_id: 29
+      prop_name: BackgroundTransparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: BorderColor3
+      prop_type: Color3
+      values:
+        - - 0.10588236
+          - 0.16470589
+          - 0.20784315
+  - Prop:
+      type_id: 29
+      prop_name: BorderMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: BorderSizePixel
+      prop_type: Int32
+      values:
+        - 1
+  - Prop:
+      type_id: 29
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: ClipsDescendants
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 29
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 29
+      prop_name: Draggable
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 29
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 29
+      prop_name: Image
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 29
+      prop_name: ImageColor3
+      prop_type: Color3
+      values:
+        - - 1
+          - 1
+          - 1
+  - Prop:
+      type_id: 29
+      prop_name: ImageRectOffset
+      prop_type: Vector2
+      values:
+        - - 0
+          - 0
+  - Prop:
+      type_id: 29
+      prop_name: ImageRectSize
+      prop_type: Vector2
+      values:
+        - - 0
+          - 0
+  - Prop:
+      type_id: 29
+      prop_name: ImageTransparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: InputSink
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: Interactable
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 29
+      prop_name: LayoutOrder
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: Name
+      prop_type: String
+      values:
+        - ImageLabel
+  - Prop:
+      type_id: 29
+      prop_name: NextSelectionDown
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 29
+      prop_name: NextSelectionLeft
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 29
+      prop_name: NextSelectionRight
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 29
+      prop_name: NextSelectionUp
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 29
+      prop_name: Position
+      prop_type: UDim2
+      values:
+        - - - 0
+            - 0
+          - - 0
+            - 0
+  - Prop:
+      type_id: 29
+      prop_name: ResampleMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: RootLocalizationTable
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 29
+      prop_name: Rotation
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: ScaleType
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: Selectable
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 29
+      prop_name: SelectionBehaviorDown
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: SelectionBehaviorLeft
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: SelectionBehaviorRight
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: SelectionBehaviorUp
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: SelectionGroup
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 29
+      prop_name: SelectionImageObject
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 29
+      prop_name: SelectionOrder
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: Size
+      prop_type: UDim2
+      values:
+        - - - 0
+            - 100
+          - - 0
+            - 100
+  - Prop:
+      type_id: 29
+      prop_name: SizeConstraint
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: SliceCenter
+      prop_type: Rect
+      values:
+        - - - 0
+            - 0
+          - - 0
+            - 0
+  - Prop:
+      type_id: 29
+      prop_name: SliceScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 29
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 29
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 29
+      prop_name: TileSize
+      prop_type: UDim2
+      values:
+        - - - 1
+            - 0
+          - - 1
+            - 0
+  - Prop:
+      type_id: 29
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003cb
+  - Prop:
+      type_id: 29
+      prop_name: Visible
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 29
+      prop_name: ZIndex
+      prop_type: Int32
+      values:
+        - 1
+  - Prop:
+      type_id: 30
+      prop_name: AllowInsertFreeModels
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 30
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 30
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 30
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 30
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 30
+      prop_name: Name
+      prop_type: String
+      values:
+        - InsertService
+  - Prop:
+      type_id: 30
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 30
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 30
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000036c
+  - Prop:
+      type_id: 31
+      prop_name: Ambient
+      prop_type: Color3
+      values:
+        - - 0.27450982
+          - 0.27450982
+          - 0.27450982
+  - Prop:
+      type_id: 31
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - "\u0002\u0000\u0000\u0000&\u0000\u0000\u0000RBX_LightingTechnologyUnifiedMigration\u0003\u0001 \u0000\u0000\u0000RBX_OriginalTechnologyOnFileLoad\u0004\u0003\u0000\u0000\u0000"
+  - Prop:
+      type_id: 31
+      prop_name: Brightness
+      prop_type: Float32
+      values:
+        - 3
+  - Prop:
+      type_id: 31
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 31
+      prop_name: ColorShift_Bottom
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 31
+      prop_name: ColorShift_Top
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 31
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 31
+      prop_name: EnvironmentDiffuseScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 31
+      prop_name: EnvironmentSpecularScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 31
+      prop_name: ExposureCompensation
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 31
+      prop_name: ExtendLightRangeTo120
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 31
+      prop_name: FogColor
+      prop_type: Color3
+      values:
+        - - 0.75294125
+          - 0.75294125
+          - 0.75294125
+  - Prop:
+      type_id: 31
+      prop_name: FogEnd
+      prop_type: Float32
+      values:
+        - 100000
+  - Prop:
+      type_id: 31
+      prop_name: FogStart
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 31
+      prop_name: GeographicLatitude
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 31
+      prop_name: GlobalShadows
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 31
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 31
+      prop_name: LightingStyle
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 31
+      prop_name: Name
+      prop_type: String
+      values:
+        - Lighting
+  - Prop:
+      type_id: 31
+      prop_name: OutdoorAmbient
+      prop_type: Color3
+      values:
+        - - 0.27450982
+          - 0.27450982
+          - 0.27450982
+  - Prop:
+      type_id: 31
+      prop_name: Outlines
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 31
+      prop_name: PrioritizeLightingQuality
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 31
+      prop_name: ShadowSoftness
+      prop_type: Float32
+      values:
+        - 0.2
+  - Prop:
+      type_id: 31
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 31
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 31
+      prop_name: Technology
+      prop_type: Enum
+      values:
+        - 3
+  - Prop:
+      type_id: 31
+      prop_name: TimeOfDay
+      prop_type: String
+      values:
+        - "14:30:00"
+  - Prop:
+      type_id: 31
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003b0
+  - Prop:
+      type_id: 32
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 32
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 32
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 32
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 32
+      prop_name: Name
+      prop_type: String
+      values:
+        - LocalizationService
+  - Prop:
+      type_id: 32
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 32
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 32
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000363
+  - Prop:
+      type_id: 33
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 33
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 33
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 33
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 33
+      prop_name: Name
+      prop_type: String
+      values:
+        - Instance
+  - Prop:
+      type_id: 33
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 33
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 33
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003b1
+  - Prop:
+      type_id: 34
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 34
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 34
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 34
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 34
+      prop_name: Name
+      prop_type: String
+      values:
+        - LuaWebService
+  - Prop:
+      type_id: 34
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 34
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 34
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000f22
+  - Prop:
+      type_id: 35
+      prop_name: AsphaltName
+      prop_type: String
+      values:
+        - Asphalt
+  - Prop:
+      type_id: 35
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 35
+      prop_name: BasaltName
+      prop_type: String
+      values:
+        - Basalt
+  - Prop:
+      type_id: 35
+      prop_name: BrickName
+      prop_type: String
+      values:
+        - Brick
+  - Prop:
+      type_id: 35
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 35
+      prop_name: CardboardName
+      prop_type: String
+      values:
+        - Cardboard
+  - Prop:
+      type_id: 35
+      prop_name: CarpetName
+      prop_type: String
+      values:
+        - Carpet
+  - Prop:
+      type_id: 35
+      prop_name: CeramicTilesName
+      prop_type: String
+      values:
+        - CeramicTiles
+  - Prop:
+      type_id: 35
+      prop_name: ClayRoofTilesName
+      prop_type: String
+      values:
+        - ClayRoofTiles
+  - Prop:
+      type_id: 35
+      prop_name: CobblestoneName
+      prop_type: String
+      values:
+        - Cobblestone
+  - Prop:
+      type_id: 35
+      prop_name: ConcreteName
+      prop_type: String
+      values:
+        - Concrete
+  - Prop:
+      type_id: 35
+      prop_name: CorrodedMetalName
+      prop_type: String
+      values:
+        - CorrodedMetal
+  - Prop:
+      type_id: 35
+      prop_name: CrackedLavaName
+      prop_type: String
+      values:
+        - CrackedLava
+  - Prop:
+      type_id: 35
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 35
+      prop_name: DiamondPlateName
+      prop_type: String
+      values:
+        - DiamondPlate
+  - Prop:
+      type_id: 35
+      prop_name: FabricName
+      prop_type: String
+      values:
+        - Fabric
+  - Prop:
+      type_id: 35
+      prop_name: FoilName
+      prop_type: String
+      values:
+        - Foil
+  - Prop:
+      type_id: 35
+      prop_name: GlacierName
+      prop_type: String
+      values:
+        - Glacier
+  - Prop:
+      type_id: 35
+      prop_name: GraniteName
+      prop_type: String
+      values:
+        - Granite
+  - Prop:
+      type_id: 35
+      prop_name: GrassName
+      prop_type: String
+      values:
+        - Grass
+  - Prop:
+      type_id: 35
+      prop_name: GroundName
+      prop_type: String
+      values:
+        - Ground
+  - Prop:
+      type_id: 35
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 35
+      prop_name: IceName
+      prop_type: String
+      values:
+        - Ice
+  - Prop:
+      type_id: 35
+      prop_name: LeafyGrassName
+      prop_type: String
+      values:
+        - LeafyGrass
+  - Prop:
+      type_id: 35
+      prop_name: LeatherName
+      prop_type: String
+      values:
+        - Leather
+  - Prop:
+      type_id: 35
+      prop_name: LimestoneName
+      prop_type: String
+      values:
+        - Limestone
+  - Prop:
+      type_id: 35
+      prop_name: MarbleName
+      prop_type: String
+      values:
+        - Marble
+  - Prop:
+      type_id: 35
+      prop_name: MetalName
+      prop_type: String
+      values:
+        - Metal
+  - Prop:
+      type_id: 35
+      prop_name: MudName
+      prop_type: String
+      values:
+        - Mud
+  - Prop:
+      type_id: 35
+      prop_name: Name
+      prop_type: String
+      values:
+        - MaterialService
+  - Prop:
+      type_id: 35
+      prop_name: PavementName
+      prop_type: String
+      values:
+        - Pavement
+  - Prop:
+      type_id: 35
+      prop_name: PebbleName
+      prop_type: String
+      values:
+        - Pebble
+  - Prop:
+      type_id: 35
+      prop_name: PlasterName
+      prop_type: String
+      values:
+        - Plaster
+  - Prop:
+      type_id: 35
+      prop_name: PlasticName
+      prop_type: String
+      values:
+        - Plastic
+  - Prop:
+      type_id: 35
+      prop_name: RockName
+      prop_type: String
+      values:
+        - Rock
+  - Prop:
+      type_id: 35
+      prop_name: RoofShinglesName
+      prop_type: String
+      values:
+        - RoofShingles
+  - Prop:
+      type_id: 35
+      prop_name: RubberName
+      prop_type: String
+      values:
+        - Rubber
+  - Prop:
+      type_id: 35
+      prop_name: SaltName
+      prop_type: String
+      values:
+        - Salt
+  - Prop:
+      type_id: 35
+      prop_name: SandName
+      prop_type: String
+      values:
+        - Sand
+  - Prop:
+      type_id: 35
+      prop_name: SandstoneName
+      prop_type: String
+      values:
+        - Sandstone
+  - Prop:
+      type_id: 35
+      prop_name: SlateName
+      prop_type: String
+      values:
+        - Slate
+  - Prop:
+      type_id: 35
+      prop_name: SmoothPlasticName
+      prop_type: String
+      values:
+        - SmoothPlastic
+  - Prop:
+      type_id: 35
+      prop_name: SnowName
+      prop_type: String
+      values:
+        - Snow
+  - Prop:
+      type_id: 35
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 35
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 35
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000356
+  - Prop:
+      type_id: 35
+      prop_name: Use2022MaterialsXml
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 35
+      prop_name: WoodName
+      prop_type: String
+      values:
+        - Wood
+  - Prop:
+      type_id: 35
+      prop_name: WoodPlanksName
+      prop_type: String
+      values:
+        - WoodPlanks
+  - Prop:
+      type_id: 36
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 36
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 36
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 36
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 36
+      prop_name: Name
+      prop_type: String
+      values:
+        - NonReplicatedCSGDictionaryService
+  - Prop:
+      type_id: 36
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 36
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 36
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000347
+  - Prop:
+      type_id: 37
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 37
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 37
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 37
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 37
+      prop_name: IsDehydrated
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 37
+      prop_name: Name
+      prop_type: String
+      values:
+        - Packages
+  - Prop:
+      type_id: 37
+      prop_name: ShellPackagesCount
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 37
+      prop_name: SkippedInstancesCount
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 37
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 37
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 37
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000383
+  - Prop:
+      type_id: 38
+      prop_name: Anchored
+      prop_type: Bool
+      values:
+        - true
+        - true
+  - Prop:
+      type_id: 38
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 38
+      prop_name: AudioCanCollide
+      prop_type: Bool
+      values:
+        - true
+        - true
+  - Prop:
+      type_id: 38
+      prop_name: BackParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 38
+      prop_name: BackParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 38
+      prop_name: BackSurface
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: BackSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: BottomParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 38
+      prop_name: BottomParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 38
+      prop_name: BottomSurface
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: BottomSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: CFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - -8
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+        - position:
+            - 0
+            - -8
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 38
+      prop_name: CanCollide
+      prop_type: Bool
+      values:
+        - true
+        - true
+  - Prop:
+      type_id: 38
+      prop_name: CanQuery
+      prop_type: Bool
+      values:
+        - true
+        - true
+  - Prop:
+      type_id: 38
+      prop_name: CanTouch
+      prop_type: Bool
+      values:
+        - true
+        - true
+  - Prop:
+      type_id: 38
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: CastShadow
+      prop_type: Bool
+      values:
+        - true
+        - true
+  - Prop:
+      type_id: 38
+      prop_name: CollisionGroup
+      prop_type: String
+      values:
+        - Default
+        - Default
+  - Prop:
+      type_id: 38
+      prop_name: CollisionGroupId
+      prop_type: Int32
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: Color3uint8
+      prop_type: Color3uint8
+      values:
+        - - 91
+          - 91
+          - 91
+        - - 91
+          - 91
+          - 91
+  - Prop:
+      type_id: 38
+      prop_name: CustomPhysicalProperties
+      prop_type: PhysicalProperties
+      values:
+        - Default
+        - Default
+  - Prop:
+      type_id: 38
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+        - false
+  - Prop:
+      type_id: 38
+      prop_name: EnableFluidForces
+      prop_type: Bool
+      values:
+        - true
+        - true
+  - Prop:
+      type_id: 38
+      prop_name: FrontParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 38
+      prop_name: FrontParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 38
+      prop_name: FrontSurface
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: FrontSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+        - 7ae0e5570bbb7d4c0a5586bb000003b9
+  - Prop:
+      type_id: 38
+      prop_name: LeftParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 38
+      prop_name: LeftParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 38
+      prop_name: LeftSurface
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: LeftSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: Locked
+      prop_type: Bool
+      values:
+        - true
+        - true
+  - Prop:
+      type_id: 38
+      prop_name: Massless
+      prop_type: Bool
+      values:
+        - false
+        - false
+  - Prop:
+      type_id: 38
+      prop_name: Material
+      prop_type: Enum
+      values:
+        - 256
+        - 256
+  - Prop:
+      type_id: 38
+      prop_name: MaterialVariantSerialized
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 38
+      prop_name: Name
+      prop_type: String
+      values:
+        - Baseplate
+        - Baseplate
+  - Prop:
+      type_id: 38
+      prop_name: PivotOffset
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 38
+      prop_name: Reflectance
+      prop_type: Float32
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: RightParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 38
+      prop_name: RightParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 38
+      prop_name: RightSurface
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: RightSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: RootPriority
+      prop_type: Int32
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: RotVelocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 38
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+  - Prop:
+      type_id: 38
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 1
+        - 2
+  - Prop:
+      type_id: 38
+      prop_name: TopParamA
+      prop_type: Float32
+      values:
+        - -0.5
+        - -0.5
+  - Prop:
+      type_id: 38
+      prop_name: TopParamB
+      prop_type: Float32
+      values:
+        - 0.5
+        - 0.5
+  - Prop:
+      type_id: 38
+      prop_name: TopSurface
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: TopSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003b9
+        - 7ae0e5570bbb7d4c0a5586bb000008b3
+  - Prop:
+      type_id: 38
+      prop_name: Velocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 38
+      prop_name: formFactorRaw
+      prop_type: Enum
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 38
+      prop_name: shape
+      prop_type: Enum
+      values:
+        - 1
+        - 1
+  - Prop:
+      type_id: 38
+      prop_name: size
+      prop_type: Vector3
+      values:
+        - - 2048
+          - 16
+          - 2048
+        - - 2048
+          - 16
+          - 2048
+  - Prop:
+      type_id: 39
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 39
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 39
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 39
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 39
+      prop_name: Name
+      prop_type: String
+      values:
+        - PermissionsService
+  - Prop:
+      type_id: 39
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 39
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 39
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7edfffb096708e650a5620f100000e07
+  - Prop:
+      type_id: 40
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 40
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 40
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 40
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 40
+      prop_name: Name
+      prop_type: String
+      values:
+        - PhysicsService
+  - Prop:
+      type_id: 40
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 40
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 40
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000369
+  - Prop:
+      type_id: 41
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 41
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 41
+      prop_name: CustomPoliciesEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 41
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 41
+      prop_name: EmulatedCountryCode
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 41
+      prop_name: EmulatedGameLocale
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 41
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 41
+      prop_name: Name
+      prop_type: String
+      values:
+        - PlayerEmulatorService
+  - Prop:
+      type_id: 41
+      prop_name: PlayerEmulationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 41
+      prop_name: PseudolocalizationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 41
+      prop_name: SerializedEmulatedPolicyInfo
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 41
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 41
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 41
+      prop_name: TextElongationFactor
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 41
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000035a
+  - Prop:
+      type_id: 42
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 42
+      prop_name: BanningEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 42
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 42
+      prop_name: CharacterAutoLoads
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 42
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 42
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 42
+      prop_name: MaxPlayersInternal
+      prop_type: Int32
+      values:
+        - 60
+  - Prop:
+      type_id: 42
+      prop_name: Name
+      prop_type: String
+      values:
+        - Players
+  - Prop:
+      type_id: 42
+      prop_name: PreferredPlayersInternal
+      prop_type: Int32
+      values:
+        - 60
+  - Prop:
+      type_id: 42
+      prop_name: RespawnTime
+      prop_type: Float32
+      values:
+        - 3
+  - Prop:
+      type_id: 42
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 42
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 42
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000350
+  - Prop:
+      type_id: 42
+      prop_name: UseStrafingAnimations
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 43
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 43
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 43
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 43
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 43
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 43
+      prop_name: MaxIndicatorsVisible
+      prop_type: Int32
+      values:
+        - 16
+  - Prop:
+      type_id: 43
+      prop_name: MaxPromptsVisible
+      prop_type: Int32
+      values:
+        - 16
+  - Prop:
+      type_id: 43
+      prop_name: Name
+      prop_type: String
+      values:
+        - ProximityPromptService
+  - Prop:
+      type_id: 43
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 43
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 43
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003b2
+  - Prop:
+      type_id: 44
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 44
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 44
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 44
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 44
+      prop_name: Name
+      prop_type: String
+      values:
+        - ReplicatedFirst
+  - Prop:
+      type_id: 44
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 44
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 44
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000353
+  - Prop:
+      type_id: 45
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 45
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 45
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 45
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 45
+      prop_name: Name
+      prop_type: String
+      values:
+        - ReplicatedStorage
+  - Prop:
+      type_id: 45
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 45
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 45
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000398
+  - Prop:
+      type_id: 46
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 46
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 46
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 46
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 46
+      prop_name: Name
+      prop_type: String
+      values:
+        - Instance
+  - Prop:
+      type_id: 46
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 46
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 46
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000376
+  - Prop:
+      type_id: 47
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 47
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 47
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 47
+      prop_name: Name
+      prop_type: String
+      values:
+        - Selection
+  - Prop:
+      type_id: 47
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 47
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 47
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000370
+  - Prop:
+      type_id: 48
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 48
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 48
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 48
+      prop_name: LoadStringEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 48
+      prop_name: Name
+      prop_type: String
+      values:
+        - ServerScriptService
+  - Prop:
+      type_id: 48
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 48
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 48
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000399
+  - Prop:
+      type_id: 49
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 49
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 49
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 49
+      prop_name: Name
+      prop_type: String
+      values:
+        - ServerStorage
+  - Prop:
+      type_id: 49
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 49
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 49
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000039a
+  - Prop:
+      type_id: 50
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 50
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 50
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 50
+      prop_name: HiddenServices
+      prop_type: String
+      values:
+        - "\u0000\u0000\u0000\u0000"
+  - Prop:
+      type_id: 50
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 50
+      prop_name: Name
+      prop_type: String
+      values:
+        - ServiceVisibilityService
+  - Prop:
+      type_id: 50
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 50
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 50
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003a1
+  - Prop:
+      type_id: 50
+      prop_name: VisibleServices
+      prop_type: String
+      values:
+        - "\u0000\u0000\u0000\u0000"
+  - Prop:
+      type_id: 51
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 51
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 51
+      prop_name: CelestialBodiesShown
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 51
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 51
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 51
+      prop_name: MoonAngularSize
+      prop_type: Float32
+      values:
+        - 11
+  - Prop:
+      type_id: 51
+      prop_name: MoonTextureId
+      prop_type: String
+      values:
+        - "rbxassetid://6444320592"
+  - Prop:
+      type_id: 51
+      prop_name: Name
+      prop_type: String
+      values:
+        - Sky
+  - Prop:
+      type_id: 51
+      prop_name: SkyboxBk
+      prop_type: String
+      values:
+        - "rbxassetid://6444884337"
+  - Prop:
+      type_id: 51
+      prop_name: SkyboxDn
+      prop_type: String
+      values:
+        - "rbxassetid://6444884785"
+  - Prop:
+      type_id: 51
+      prop_name: SkyboxFt
+      prop_type: String
+      values:
+        - "rbxassetid://6444884337"
+  - Prop:
+      type_id: 51
+      prop_name: SkyboxLf
+      prop_type: String
+      values:
+        - "rbxassetid://6444884337"
+  - Prop:
+      type_id: 51
+      prop_name: SkyboxOrientation
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 51
+      prop_name: SkyboxRt
+      prop_type: String
+      values:
+        - "rbxassetid://6444884337"
+  - Prop:
+      type_id: 51
+      prop_name: SkyboxUp
+      prop_type: String
+      values:
+        - "rbxassetid://6412503613"
+  - Prop:
+      type_id: 51
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - 332039975
+  - Prop:
+      type_id: 51
+      prop_name: StarCount
+      prop_type: Int32
+      values:
+        - 3000
+  - Prop:
+      type_id: 51
+      prop_name: SunAngularSize
+      prop_type: Float32
+      values:
+        - 11
+  - Prop:
+      type_id: 51
+      prop_name: SunTextureId
+      prop_type: String
+      values:
+        - "rbxassetid://6196665106"
+  - Prop:
+      type_id: 51
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 51
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c2
+  - Prop:
+      type_id: 52
+      prop_name: AcousticSimulationEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 52
+      prop_name: AmbientReverb
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 52
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 52
+      prop_name: AudioApiByDefault
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 52
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 52
+      prop_name: CharacterSoundsUseNewApi
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 52
+      prop_name: DefaultListenerLocation
+      prop_type: Enum
+      values:
+        - 3
+  - Prop:
+      type_id: 52
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 52
+      prop_name: DiffractionEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 52
+      prop_name: DistanceFactor
+      prop_type: Float32
+      values:
+        - 3.33
+  - Prop:
+      type_id: 52
+      prop_name: DopplerScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 52
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 52
+      prop_name: IsNewExpForAudioApiByDefault
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 52
+      prop_name: ListenerCFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 52
+      prop_name: ListenerObject
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 52
+      prop_name: ListenerType
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 52
+      prop_name: Name
+      prop_type: String
+      values:
+        - SoundService
+  - Prop:
+      type_id: 52
+      prop_name: OcclusionEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 52
+      prop_name: RespectFilteringEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 52
+      prop_name: ReverbEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 52
+      prop_name: RolloffScale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 52
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 52
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 52
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000033a
+  - Prop:
+      type_id: 52
+      prop_name: VolumetricAudio
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 53
+      prop_name: AllowTeamChangeOnTouch
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 53
+      prop_name: Anchored
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 53
+      prop_name: AudioCanCollide
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: BackParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 53
+      prop_name: BackParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 53
+      prop_name: BackSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: BackSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: BottomParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 53
+      prop_name: BottomParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 53
+      prop_name: BottomSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: BottomSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: CFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0.5
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 53
+      prop_name: CanCollide
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: CanQuery
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: CanTouch
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: CastShadow
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: CollisionGroup
+      prop_type: String
+      values:
+        - Default
+  - Prop:
+      type_id: 53
+      prop_name: CollisionGroupId
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: Color3uint8
+      prop_type: Color3uint8
+      values:
+        - - 163
+          - 162
+          - 165
+  - Prop:
+      type_id: 53
+      prop_name: CustomPhysicalProperties
+      prop_type: PhysicalProperties
+      values:
+        - Default
+  - Prop:
+      type_id: 53
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 53
+      prop_name: Duration
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: EnableFluidForces
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: FrontParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 53
+      prop_name: FrontParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 53
+      prop_name: FrontSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: FrontSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 53
+      prop_name: LeftParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 53
+      prop_name: LeftParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 53
+      prop_name: LeftSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: LeftSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: Locked
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 53
+      prop_name: Massless
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 53
+      prop_name: Material
+      prop_type: Enum
+      values:
+        - 256
+  - Prop:
+      type_id: 53
+      prop_name: MaterialVariantSerialized
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 53
+      prop_name: Name
+      prop_type: String
+      values:
+        - SpawnLocation
+  - Prop:
+      type_id: 53
+      prop_name: Neutral
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 53
+      prop_name: PivotOffset
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 53
+      prop_name: Reflectance
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: RightParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 53
+      prop_name: RightParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 53
+      prop_name: RightSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: RightSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: RootPriority
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: RotVelocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 53
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 53
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: TeamColor
+      prop_type: BrickColor
+      values:
+        - 194
+  - Prop:
+      type_id: 53
+      prop_name: TopParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 53
+      prop_name: TopParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 53
+      prop_name: TopSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: TopSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 53
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003bc
+  - Prop:
+      type_id: 53
+      prop_name: Velocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 53
+      prop_name: formFactorRaw
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 53
+      prop_name: shape
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 53
+      prop_name: size
+      prop_type: Vector3
+      values:
+        - - 12
+          - 1
+          - 12
+  - Prop:
+      type_id: 54
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 54
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 54
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 54
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 54
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterCharacterScripts
+  - Prop:
+      type_id: 54
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 54
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 54
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c0
+  - Prop:
+      type_id: 55
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 55
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 55
+      prop_name: ClipsDescendantsSupportsRotation
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 55
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 55
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 55
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterGui
+  - Prop:
+      type_id: 55
+      prop_name: ResetPlayerGuiOnSpawn
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 55
+      prop_name: RtlTextSupport
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 55
+      prop_name: ScreenOrientation
+      prop_type: Enum
+      values:
+        - 4
+  - Prop:
+      type_id: 55
+      prop_name: ShowDevelopmentGui
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 55
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 55
+      prop_name: StudioDefaultStyleSheet
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 55
+      prop_name: StudioInsertWidgetLayerCollectorAutoLinkStyleSheet
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 55
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 55
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000361
+  - Prop:
+      type_id: 55
+      prop_name: VirtualCursorMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 56
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 56
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 56
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 56
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 56
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterPack
+  - Prop:
+      type_id: 56
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 56
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 56
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000360
+  - Prop:
+      type_id: 57
+      prop_name: AllowCustomAnimations
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 57
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 57
+      prop_name: AutoJumpEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 57
+      prop_name: AvatarJointUpgrade_SerializedRollout
+      prop_type: Enum
+      values:
+        - 2
+  - Prop:
+      type_id: 57
+      prop_name: CameraMaxZoomDistance
+      prop_type: Float32
+      values:
+        - 128
+  - Prop:
+      type_id: 57
+      prop_name: CameraMinZoomDistance
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 57
+      prop_name: CameraMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: CharacterBreakJointsOnDeath
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 57
+      prop_name: CharacterJumpHeight
+      prop_type: Float32
+      values:
+        - 7.2
+  - Prop:
+      type_id: 57
+      prop_name: CharacterJumpPower
+      prop_type: Float32
+      values:
+        - 50
+  - Prop:
+      type_id: 57
+      prop_name: CharacterMaxSlopeAngle
+      prop_type: Float32
+      values:
+        - 89
+  - Prop:
+      type_id: 57
+      prop_name: CharacterUseJumpPower
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 57
+      prop_name: CharacterWalkSpeed
+      prop_type: Float32
+      values:
+        - 16
+  - Prop:
+      type_id: 57
+      prop_name: ClassicDeath
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 57
+      prop_name: CreateDefaultPlayerModule
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 57
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 57
+      prop_name: DevCameraOcclusionMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: DevComputerCameraMovementMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: DevComputerMovementMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: DevTouchCameraMovementMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: DevTouchMovementMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: EnableDynamicHeads
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: EnableMouseLockOption
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDFace
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDHead
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDLeftArm
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDLeftLeg
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDPants
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDRightArm
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDRightLeg
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDShirt
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDTeeShirt
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAssetIDTorso
+      prop_type: Int64
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsAvatar
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsR15Collision
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsScaleRangeBodyType
+      prop_type: NumberRange
+      values:
+        - - 0
+          - 1
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsScaleRangeHead
+      prop_type: NumberRange
+      values:
+        - - 0.95
+          - 1
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsScaleRangeHeight
+      prop_type: NumberRange
+      values:
+        - - 0.9
+          - 1.05
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsScaleRangeProportion
+      prop_type: NumberRange
+      values:
+        - - 0
+          - 1
+  - Prop:
+      type_id: 57
+      prop_name: GameSettingsScaleRangeWidth
+      prop_type: NumberRange
+      values:
+        - - 0.7
+          - 1
+  - Prop:
+      type_id: 57
+      prop_name: HealthDisplayDistance
+      prop_type: Float32
+      values:
+        - 100
+  - Prop:
+      type_id: 57
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 57
+      prop_name: LoadCharacterAppearance
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 57
+      prop_name: LoadCharacterLayeredClothing
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: LuaCharacterController
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterPlayer
+  - Prop:
+      type_id: 57
+      prop_name: NameDisplayDistance
+      prop_type: Float32
+      values:
+        - 100
+  - Prop:
+      type_id: 57
+      prop_name: PlayerModuleStatus
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 57
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 57
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000035f
+  - Prop:
+      type_id: 57
+      prop_name: UserEmotesEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 58
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 58
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 58
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 58
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 58
+      prop_name: Name
+      prop_type: String
+      values:
+        - StarterPlayerScripts
+  - Prop:
+      type_id: 58
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 58
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 58
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003bf
+  - Prop:
+      type_id: 59
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 59
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 59
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 59
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 59
+      prop_name: Name
+      prop_type: String
+      values:
+        - InsertionHash
+  - Prop:
+      type_id: 59
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 59
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 59
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c1
+  - Prop:
+      type_id: 59
+      prop_name: Value
+      prop_type: String
+      values:
+        - "{a4b4fc84-d3fa-4580-b9d0-98390afa7f7f}"
+  - Prop:
+      type_id: 60
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 60
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 60
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 60
+      prop_name: EnableScriptCollabByDefaultOnLoad
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 60
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 60
+      prop_name: Name
+      prop_type: String
+      values:
+        - StudioData
+  - Prop:
+      type_id: 60
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 60
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 60
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb0000035d
+  - Prop:
+      type_id: 61
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 61
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 61
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 61
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 61
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 61
+      prop_name: Intensity
+      prop_type: Float32
+      values:
+        - 0.01
+  - Prop:
+      type_id: 61
+      prop_name: Name
+      prop_type: String
+      values:
+        - SunRays
+  - Prop:
+      type_id: 61
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 61
+      prop_name: Spread
+      prop_type: Float32
+      values:
+        - 0.1
+  - Prop:
+      type_id: 61
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 61
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003c3
+  - Prop:
+      type_id: 62
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 62
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 62
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 62
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 62
+      prop_name: Name
+      prop_type: String
+      values:
+        - Teams
+  - Prop:
+      type_id: 62
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 62
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 62
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003b3
+  - Prop:
+      type_id: 63
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 63
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 63
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 63
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 63
+      prop_name: Name
+      prop_type: String
+      values:
+        - Teleport Service
+  - Prop:
+      type_id: 63
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 63
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 63
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000367
+  - Prop:
+      type_id: 64
+      prop_name: AcquisitionMethod
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: Anchored
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 64
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 64
+      prop_name: AudioCanCollide
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 64
+      prop_name: BackParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 64
+      prop_name: BackParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 64
+      prop_name: BackSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: BackSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: BottomParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 64
+      prop_name: BottomParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 64
+      prop_name: BottomSurface
+      prop_type: Enum
+      values:
+        - 4
+  - Prop:
+      type_id: 64
+      prop_name: BottomSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: CFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 64
+      prop_name: CanCollide
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 64
+      prop_name: CanQuery
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 64
+      prop_name: CanTouch
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 64
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: CastShadow
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 64
+      prop_name: CollisionGroup
+      prop_type: String
+      values:
+        - Default
+  - Prop:
+      type_id: 64
+      prop_name: CollisionGroupId
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: Color3uint8
+      prop_type: Color3uint8
+      values:
+        - - 163
+          - 162
+          - 165
+  - Prop:
+      type_id: 64
+      prop_name: CustomPhysicalProperties
+      prop_type: PhysicalProperties
+      values:
+        - Default
+  - Prop:
+      type_id: 64
+      prop_name: Decoration
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 64
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 64
+      prop_name: EnableFluidForces
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 64
+      prop_name: FrontParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 64
+      prop_name: FrontParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 64
+      prop_name: FrontSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: FrontSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: GrassLength
+      prop_type: Float32
+      values:
+        - 0.7
+  - Prop:
+      type_id: 64
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 64
+      prop_name: LeftParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 64
+      prop_name: LeftParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 64
+      prop_name: LeftSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: LeftSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: Locked
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 64
+      prop_name: Massless
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 64
+      prop_name: Material
+      prop_type: Enum
+      values:
+        - 256
+  - Prop:
+      type_id: 64
+      prop_name: MaterialColors
+      prop_type: String
+      values:
+        - 00 00 00 00 00 00 6f 7e 3e 58 59 56 98 98 98 8a 61 49 cf cb a7 ac 94 6c 63 64 66 dd e4 e5 eb fd ff 94 7c 5f 79 70 62 4b 4a 4a 8c 82 68 ff 18 43 50 54 54 86 86 76 cc d2 df 6a 86 40 ff ff fe ff f3 c0 8f 90 87
+  - Prop:
+      type_id: 64
+      prop_name: MaterialVariantSerialized
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 64
+      prop_name: Materials
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: Name
+      prop_type: String
+      values:
+        - Terrain
+  - Prop:
+      type_id: 64
+      prop_name: PhysicsGrid
+      prop_type: String
+      values:
+        - "\u0002\u0003\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+  - Prop:
+      type_id: 64
+      prop_name: PivotOffset
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 64
+      prop_name: Reflectance
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: RightParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 64
+      prop_name: RightParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 64
+      prop_name: RightSurface
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: RightSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: RootPriority
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: RotVelocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 64
+      prop_name: SmoothGrid
+      prop_type: String
+      values:
+        - "\u0001\u0005"
+  - Prop:
+      type_id: 64
+      prop_name: SmoothVoxelsUpgraded
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 64
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 64
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: TopParamA
+      prop_type: Float32
+      values:
+        - -0.5
+  - Prop:
+      type_id: 64
+      prop_name: TopParamB
+      prop_type: Float32
+      values:
+        - 0.5
+  - Prop:
+      type_id: 64
+      prop_name: TopSurface
+      prop_type: Enum
+      values:
+        - 3
+  - Prop:
+      type_id: 64
+      prop_name: TopSurfaceInput
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 64
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003bb
+  - Prop:
+      type_id: 64
+      prop_name: Velocity
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 64
+      prop_name: WaterColor
+      prop_type: Color3
+      values:
+        - - 0.04705883
+          - 0.32941177
+          - 0.36078432
+  - Prop:
+      type_id: 64
+      prop_name: WaterReflectance
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 64
+      prop_name: WaterTransparency
+      prop_type: Float32
+      values:
+        - 0.3
+  - Prop:
+      type_id: 64
+      prop_name: WaterWaveSize
+      prop_type: Float32
+      values:
+        - 0.15
+  - Prop:
+      type_id: 64
+      prop_name: WaterWaveSpeed
+      prop_type: Float32
+      values:
+        - 10
+  - Prop:
+      type_id: 64
+      prop_name: size
+      prop_type: Vector3
+      values:
+        - - 2044
+          - 252
+          - 2044
+  - Prop:
+      type_id: 65
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 65
+      prop_name: AutoRuns
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 65
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 65
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 65
+      prop_name: Description
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 65
+      prop_name: ExecuteWithStudioRun
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 65
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 65
+      prop_name: IsPhysicsEnvironmentalThrottled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 65
+      prop_name: IsSleepAllowed
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 65
+      prop_name: Name
+      prop_type: String
+      values:
+        - TestService
+  - Prop:
+      type_id: 65
+      prop_name: NumberOfPlayers
+      prop_type: Int32
+      values:
+        - 0
+  - Prop:
+      type_id: 65
+      prop_name: SimulateSecondsLag
+      prop_type: Float64
+      values:
+        - 0
+  - Prop:
+      type_id: 65
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 65
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 65
+      prop_name: ThrottlePhysicsToRealtime
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 65
+      prop_name: Timeout
+      prop_type: Float64
+      values:
+        - 10
+  - Prop:
+      type_id: 65
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003b4
+  - Prop:
+      type_id: 66
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 66
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 66
+      prop_name: ChatTranslationFTUXShown
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 66
+      prop_name: ChatTranslationToggleEnabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 66
+      prop_name: ChatVersion
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 66
+      prop_name: CreateDefaultCommands
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 66
+      prop_name: CreateDefaultTextChannels
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 66
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 66
+      prop_name: EnableProtectedChat
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 66
+      prop_name: HasSeenDeprecationDialog
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 66
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 66
+      prop_name: IsLegacyChatDisabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 66
+      prop_name: Name
+      prop_type: String
+      values:
+        - TextChatService
+  - Prop:
+      type_id: 66
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 66
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 66
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000357
+  - Prop:
+      type_id: 67
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 67
+      prop_name: AutoLocalize
+      prop_type: Bool
+      values:
+        - true
+        - true
+  - Prop:
+      type_id: 67
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 67
+      prop_name: Color3
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 67
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+        - false
+  - Prop:
+      type_id: 67
+      prop_name: Face
+      prop_type: Enum
+      values:
+        - 1
+        - 1
+  - Prop:
+      type_id: 67
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+        - 7ae0e5570bbb7d4c0a5586bb000003ba
+  - Prop:
+      type_id: 67
+      prop_name: MetalnessMap
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 67
+      prop_name: Name
+      prop_type: String
+      values:
+        - Texture
+        - Texture
+  - Prop:
+      type_id: 67
+      prop_name: NormalMap
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 67
+      prop_name: OffsetStudsU
+      prop_type: Float32
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 67
+      prop_name: OffsetStudsV
+      prop_type: Float32
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 67
+      prop_name: Rotation
+      prop_type: Float32
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 67
+      prop_name: RoughnessMap
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 67
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+        - -1
+  - Prop:
+      type_id: 67
+      prop_name: StudsPerTileU
+      prop_type: Float32
+      values:
+        - 8
+        - 8
+  - Prop:
+      type_id: 67
+      prop_name: StudsPerTileV
+      prop_type: Float32
+      values:
+        - 8
+        - 8
+  - Prop:
+      type_id: 67
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+        - 0
+  - Prop:
+      type_id: 67
+      prop_name: Texture
+      prop_type: String
+      values:
+        - "rbxassetid://6372755229"
+        - "rbxassetid://6372755229"
+  - Prop:
+      type_id: 67
+      prop_name: TexturePack
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 67
+      prop_name: TexturePackMetadata
+      prop_type: String
+      values:
+        - ""
+        - ""
+  - Prop:
+      type_id: 67
+      prop_name: Transparency
+      prop_type: Float32
+      values:
+        - 0.8
+        - 0.8
+  - Prop:
+      type_id: 67
+      prop_name: UVOffset
+      prop_type: Vector2
+      values:
+        - - 0
+          - 0
+        - - 0
+          - 0
+  - Prop:
+      type_id: 67
+      prop_name: UVScale
+      prop_type: Vector2
+      values:
+        - - 1
+          - 1
+        - - 1
+          - 1
+  - Prop:
+      type_id: 67
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003ba
+        - 7ae0e5570bbb7d4c0a5586bb000008b4
+  - Prop:
+      type_id: 67
+      prop_name: ZIndex
+      prop_type: Int32
+      values:
+        - 1
+        - 1
+  - Prop:
+      type_id: 68
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 68
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 68
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 68
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 68
+      prop_name: Name
+      prop_type: String
+      values:
+        - Instance
+  - Prop:
+      type_id: 68
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 68
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 68
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000338
+  - Prop:
+      type_id: 69
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 69
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 69
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 69
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 69
+      prop_name: Name
+      prop_type: String
+      values:
+        - TouchInputService
+  - Prop:
+      type_id: 69
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 69
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 69
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000379
+  - Prop:
+      type_id: 70
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 70
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 70
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 70
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 70
+      prop_name: Name
+      prop_type: String
+      values:
+        - TweenService
+  - Prop:
+      type_id: 70
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 70
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 70
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000355
+  - Prop:
+      type_id: 71
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 71
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 71
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 71
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 71
+      prop_name: Name
+      prop_type: String
+      values:
+        - UGCAvatarService
+  - Prop:
+      type_id: 71
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 71
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 71
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003b5
+  - Prop:
+      type_id: 72
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 72
+      prop_name: BottomLeftRadius
+      prop_type: UDim
+      values:
+        - - 0
+          - 12
+  - Prop:
+      type_id: 72
+      prop_name: BottomRightRadius
+      prop_type: UDim
+      values:
+        - - 0
+          - 12
+  - Prop:
+      type_id: 72
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 72
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 72
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 72
+      prop_name: Name
+      prop_type: String
+      values:
+        - UICorner
+  - Prop:
+      type_id: 72
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 72
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 72
+      prop_name: TopLeftRadius
+      prop_type: UDim
+      values:
+        - - 0
+          - 12
+  - Prop:
+      type_id: 72
+      prop_name: TopRightRadius
+      prop_type: UDim
+      values:
+        - - 0
+          - 12
+  - Prop:
+      type_id: 72
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003cc
+  - Prop:
+      type_id: 73
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 73
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 73
+      prop_name: Color
+      prop_type: ColorSequence
+      values:
+        - keypoints:
+            - time: 0
+              color:
+                - 1
+                - 1
+                - 1
+            - time: 1
+              color:
+                - 1
+                - 1
+                - 1
+  - Prop:
+      type_id: 73
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 73
+      prop_name: Enabled
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 73
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 73
+      prop_name: Name
+      prop_type: String
+      values:
+        - UIGradient
+  - Prop:
+      type_id: 73
+      prop_name: Offset
+      prop_type: Vector2
+      values:
+        - - 0
+          - 0
+  - Prop:
+      type_id: 73
+      prop_name: Rotation
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 73
+      prop_name: Scale
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 73
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 73
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 73
+      prop_name: TileMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 73
+      prop_name: Transparency
+      prop_type: NumberSequence
+      values:
+        - keypoints:
+            - time: 0
+              value: 0
+              envelope: 0
+            - time: 1
+              value: 0
+              envelope: 0
+  - Prop:
+      type_id: 73
+      prop_name: Type
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 73
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003ca
+  - Prop:
+      type_id: 74
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 74
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 74
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 74
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 74
+      prop_name: Name
+      prop_type: String
+      values:
+        - UIPadding
+  - Prop:
+      type_id: 74
+      prop_name: PaddingBottom
+      prop_type: UDim
+      values:
+        - - 0
+          - 8
+  - Prop:
+      type_id: 74
+      prop_name: PaddingLeft
+      prop_type: UDim
+      values:
+        - - 0
+          - 8
+  - Prop:
+      type_id: 74
+      prop_name: PaddingRight
+      prop_type: UDim
+      values:
+        - - 0
+          - 8
+  - Prop:
+      type_id: 74
+      prop_name: PaddingTop
+      prop_type: UDim
+      values:
+        - - 0
+          - 8
+  - Prop:
+      type_id: 74
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 74
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 74
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003cd
+  - Prop:
+      type_id: 75
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 75
+      prop_name: AutomaticScaling
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 75
+      prop_name: AvatarGestures
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 75
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 75
+      prop_name: ControllerModels
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 75
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 75
+      prop_name: FadeOutViewOnCollision
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 75
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 75
+      prop_name: LaserPointer
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 75
+      prop_name: Name
+      prop_type: String
+      values:
+        - VRService
+  - Prop:
+      type_id: 75
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 75
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 75
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000374
+  - Prop:
+      type_id: 76
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 76
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 76
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 76
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 76
+      prop_name: Name
+      prop_type: String
+      values:
+        - VideoCaptureService
+  - Prop:
+      type_id: 76
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 76
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 76
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000346
+  - Prop:
+      type_id: 77
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 77
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 77
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 77
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 77
+      prop_name: Name
+      prop_type: String
+      values:
+        - VideoService
+  - Prop:
+      type_id: 77
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 77
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 77
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003da
+  - Prop:
+      type_id: 78
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 78
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 78
+      prop_name: DefaultDistanceAttenuation
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 78
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 78
+      prop_name: EnableDefaultVoice
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 78
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 78
+      prop_name: Name
+      prop_type: String
+      values:
+        - VoiceChatService
+  - Prop:
+      type_id: 78
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 78
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 78
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb000003b7
+  - Prop:
+      type_id: 78
+      prop_name: UseAudioApi
+      prop_type: Enum
+      values:
+        - 2
+  - Prop:
+      type_id: 79
+      prop_name: AirDensity
+      prop_type: Float32
+      values:
+        - 0.0012
+  - Prop:
+      type_id: 79
+      prop_name: AirTurbulenceIntensity
+      prop_type: Float32
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: AllowThirdPartySales
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 79
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - ""
+  - Prop:
+      type_id: 79
+      prop_name: AuthorityMode
+      prop_type: Enum
+      values:
+        - 1
+  - Prop:
+      type_id: 79
+      prop_name: AvatarUnificationMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: ClientAnimatorThrottling
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: CollisionGroupData
+      prop_type: String
+      values:
+        - 01 01 00 04 ff ff ff ff 07 44 65 66 61 75 6c 74
+  - Prop:
+      type_id: 79
+      prop_name: CurrentCamera
+      prop_type: Ref
+      values:
+        - 1
+  - Prop:
+      type_id: 79
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 79
+      prop_name: DistributedGameTime
+      prop_type: Float64
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: EnableSLIMAvatars
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: ExplicitAutoJoints
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 79
+      prop_name: FallHeightEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 79
+      prop_name: FallenPartsDestroyHeight
+      prop_type: Float32
+      values:
+        - -500
+  - Prop:
+      type_id: 79
+      prop_name: FluidForces
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: GlobalWind
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 79
+      prop_name: Gravity
+      prop_type: Float32
+      values:
+        - 196.2
+  - Prop:
+      type_id: 79
+      prop_name: HistoryId
+      prop_type: UniqueId
+      values:
+        - "00000000000000000000000000000000"
+  - Prop:
+      type_id: 79
+      prop_name: IKControlConstraintSupport
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: ImprovedAnimationConstraint
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: ImprovedPhysicsReplication
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: LayeredClothingCacheOptimizations
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: LevelOfDetail
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: LuauTypeCheckMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: MeshPartHeadsAndAccessories
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: MeshStreamingAndImprovedLods
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: ModelMeshCFrame
+      prop_type: CFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prop:
+      type_id: 79
+      prop_name: ModelMeshData
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: ModelMeshSize
+      prop_type: Vector3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 79
+      prop_name: ModelStreamingBehavior
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: ModelStreamingMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: Name
+      prop_type: String
+      values:
+        - Workspace
+  - Prop:
+      type_id: 79
+      prop_name: NeedsPivotMigration
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 79
+      prop_name: NextGenerationReplication
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: PathfindingUseImprovedSearch
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: PhysicsSteppingMethod
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: PlayerCharacterDestroyBehavior
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: PlayerScriptsUseInputActionSystem
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: PrimalPhysicsSolver
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: PrimaryPart
+      prop_type: Ref
+      values:
+        - -1
+  - Prop:
+      type_id: 79
+      prop_name: RejectCharacterDeletions
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: RenderingCacheOptimizations
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: ReplicateInstanceDestroySetting
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: Retargeting
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: SandboxedInstanceMode
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: ScaleFactor
+      prop_type: Float32
+      values:
+        - 1
+  - Prop:
+      type_id: 79
+      prop_name: SignalBehavior2
+      prop_type: Enum
+      values:
+        - 2
+  - Prop:
+      type_id: 79
+      prop_name: SlimHash
+      prop_type: SharedString
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 79
+      prop_name: StreamOutBehavior
+      prop_type: Enum
+      values:
+        - 2
+  - Prop:
+      type_id: 79
+      prop_name: StreamingEnabled
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 79
+      prop_name: StreamingIntegrityMode
+      prop_type: Enum
+      values:
+        - 3
+  - Prop:
+      type_id: 79
+      prop_name: StreamingMinRadius
+      prop_type: Int32
+      values:
+        - 64
+  - Prop:
+      type_id: 79
+      prop_name: StreamingTargetRadius
+      prop_type: Int32
+      values:
+        - 1024
+  - Prop:
+      type_id: 79
+      prop_name: Tags
+      prop_type: SharedString
+      values:
+        - 3
+  - Prop:
+      type_id: 79
+      prop_name: TerrainWeldsFixed
+      prop_type: Bool
+      values:
+        - true
+  - Prop:
+      type_id: 79
+      prop_name: TouchEventsUseCollisionGroups
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: TouchesUseCollisionGroups
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 79
+      prop_name: UniqueId
+      prop_type: UniqueId
+      values:
+        - 7ae0e5570bbb7d4c0a5586bb00000002
+  - Prop:
+      type_id: 79
+      prop_name: UseFixedSimulation
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: UseNewLuauTypeSolver
+      prop_type: Enum
+      values:
+        - 2
+  - Prop:
+      type_id: 79
+      prop_name: ValidateEnabledProximityPrompt
+      prop_type: Enum
+      values:
+        - 0
+  - Prop:
+      type_id: 79
+      prop_name: WorldPivotData
+      prop_type: OptionalCFrame
+      values:
+        - position:
+            - 0
+            - 0
+            - 0
+          orientation:
+            - - 1
+              - 0
+              - 0
+            - - 0
+              - 1
+              - 0
+            - - 0
+              - 0
+              - 1
+  - Prnt:
+      version: 0
+      links:
+        - - 1
+          - 0
+        - - 3
+          - 2
+        - - 2
+          - 0
+        - - 4
+          - 0
+        - - 6
+          - 5
+        - - 5
+          - 0
+        - - 8
+          - 7
+        - - 7
+          - 0
+        - - 0
+          - -1
+        - - 9
+          - -1
+        - - 10
+          - -1
+        - - 11
+          - -1
+        - - 12
+          - -1
+        - - 13
+          - -1
+        - - 14
+          - -1
+        - - 15
+          - -1
+        - - 16
+          - -1
+        - - 17
+          - -1
+        - - 18
+          - -1
+        - - 20
+          - 19
+        - - 21
+          - 19
+        - - 23
+          - 22
+        - - 24
+          - 22
+        - - 25
+          - 22
+        - - 26
+          - 22
+        - - 22
+          - 19
+        - - 27
+          - 19
+        - - 19
+          - -1
+        - - 28
+          - -1
+        - - 29
+          - -1
+        - - 31
+          - 30
+        - - 32
+          - 30
+        - - 30
+          - -1
+        - - 33
+          - -1
+        - - 34
+          - -1
+        - - 35
+          - -1
+        - - 36
+          - -1
+        - - 37
+          - -1
+        - - 38
+          - -1
+        - - 40
+          - 39
+        - - 39
+          - -1
+        - - 41
+          - -1
+        - - 42
+          - -1
+        - - 43
+          - -1
+        - - 44
+          - -1
+        - - 45
+          - -1
+        - - 46
+          - -1
+        - - 47
+          - -1
+        - - 48
+          - -1
+        - - 49
+          - -1
+        - - 52
+          - 51
+        - - 53
+          - 51
+        - - 54
+          - 51
+        - - 55
+          - 51
+        - - 56
+          - 51
+        - - 57
+          - 51
+        - - 51
+          - 50
+        - - 50
+          - -1
+        - - 58
+          - -1
+        - - 59
+          - -1
+        - - 60
+          - -1
+        - - 61
+          - -1
+        - - 62
+          - -1
+        - - 63
+          - -1
+        - - 65
+          - 64
+        - - 66
+          - 64
+        - - 67
+          - 64
+        - - 68
+          - 64
+        - - 69
+          - 64
+        - - 64
+          - -1
+        - - 70
+          - -1
+        - - 71
+          - -1
+        - - 72
+          - -1
+        - - 73
+          - -1
+        - - 74
+          - -1
+        - - 75
+          - -1
+        - - 76
+          - -1
+        - - 77
+          - -1
+        - - 78
+          - -1
+        - - 79
+          - -1
+        - - 80
+          - -1
+        - - 81
+          - -1
+  - End

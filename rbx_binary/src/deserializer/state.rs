@@ -1241,6 +1241,35 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         add_property(instance, &property, net_asset.into());
                     }
                 }
+                // On 2026-06-30, Roblox began storing Tags in the SharedString index.
+                VariantType::Tags => {
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
+
+                    for (value, instance) in values.zip(instances) {
+                        let tags_shared_string = self
+                            .shared_strings
+                            .get(value as usize)
+                            .ok_or_else(|| InnerError::InvalidPropData {
+                                type_name: type_name.to_string(),
+                                prop_name: prop_name.clone(),
+                                valid_value: "a valid Tags SharedString index",
+                                actual_value: format!("{value:?}"),
+                            })?;
+
+                        add_property(
+                            instance,
+                            &property,
+                            Tags::decode(tags_shared_string.data())
+                                .map_err(|_| InnerError::InvalidPropData {
+                                    type_name: type_name.to_string(),
+                                    prop_name: prop_name.clone(),
+                                    valid_value: "a list of valid null-delimited UTF-8 strings",
+                                    actual_value: "invalid UTF-8".to_string(),
+                                })?
+                                .into(),
+                        );
+                    }
+                }
                 invalid_type => {
                     return Err(InnerError::PropTypeMismatch {
                         type_name: type_name.to_string(),

@@ -72,4 +72,6 @@ As an example, an `Instance` that had the tags `Hello`, `from`, and `Rojo` would
 
 `48 65 6C 6C 6F 00 66 72 6F 6D 00 52 6F 6A 6F`
 
+The `Tags` blob may be stored in the SharedString index. Instances with identical sets of Tags share the same SharedString entry.
+
 [CollectionService]: https://create.roblox.com/docs/reference/engine/classes/CollectionService
