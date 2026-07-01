@@ -80,6 +80,12 @@ Roblox has serialized invalid `PROP` chunks in the past when introducing new pro
 
 This incompatibility cannot be anticipated but some flexibility can be coded into deserialization to prevent this from causing serious error.
 
+### Tags in the SharedString Index
+
+`rbx-binary` normally serializes `Tags` as a `String`-typed property, storing the null-delimited list of tags inline in the `PROP` chunk. However, files downloaded from Roblox's CDN endpoints (`asset-delivery-api` and `assetdelivery`) [have been observed storing `Tags` in the `SharedString` index](https://github.com/rojo-rbx/rbx-dom/pull/634) instead, referencing a shared blob by index rather than embedding the data directly. This is presumably a size optimization, as it lets instances with identical tags deduplicate to a single shared blob.
+
+`rbx-binary` decodes `Tags` stored this way but does not encode them this way, so round-tripping such a file moves the tags back inline as a `String`-typed property. Any `String` or `BinaryString` property could technically be stored in the `SharedString` index using this same pattern, but `Tags` is the only case observed in the wild, so decoding support is currently limited to it. If Roblox begins doing this for other properties, decoding support for those will need to be added as well.
+
 ### Arbitrary Changes
 
 Despite there being a version field present in the format's header, Roblox has made breaking changes without incrementing it in the past. Most notably, this includes support for `zstd` compression in chunks, which has no indication at all beyond the first `4` bytes of a chunk's body being a specific magic number.
