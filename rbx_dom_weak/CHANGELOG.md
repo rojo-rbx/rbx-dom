@@ -1,6 +1,8 @@
 # rbx_dom_weak Changelog
 
 ## Unreleased
+
+## 4.2.0 (2026-07-01)
 * Add `WeakDom::full_path_of` like Roblox's Instance:GetFullName() ([#580])
 
 ## 4.1.0 (2025-11-27)
