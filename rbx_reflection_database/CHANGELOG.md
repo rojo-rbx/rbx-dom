@@ -1,9 +1,13 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased
+
+## 3.0.0+roblox-728 (2026-07-01)
+* Upgraded to `rbx_reflection` v3.0.0
 * Aliased `StarterPlayer.AvatarJointUpgrade` to `StarterPlayer.AvatarJointUpgrade_SerializedRollout`. ([#599])
 * Updated to Roblox version 718. ([#604])
 * Added migrations for `UICorner.CornerRadius`. ([#612])
+* Added a variety of migrations for new Content properties
 
 [#599]: https://github.com/rojo-rbx/rbx-dom/pull/599
 [#604]: https://github.com/rojo-rbx/rbx-dom/pull/604
