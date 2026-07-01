@@ -1,6 +1,9 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+# 3.0.0 (2026-07-01)
+* Upgraded to `rbx_reflection` v3.0.0
 * Changed serializer to not panic when Instance.properties contains Name entry. ([#596])
 * Used exact comparison when determining basic rotation IDs to exactly preserve CFrame inputs. ([#601])
 * Added support for one-to-many property migrations. ([#612])
