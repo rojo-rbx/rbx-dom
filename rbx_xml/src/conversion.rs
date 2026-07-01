@@ -66,7 +66,7 @@ impl ConvertVariant for Variant {
             )),
             (Variant::SharedString(value), VariantType::Tags) => Ok(Cow::Owned(
                 Tags::decode(value.data())
-                    .map_err(|_| "Tags contain invalud UTF-8")?
+                    .map_err(|_| "Tags contain invalid UTF-8")?
                     .into(),
             )),
             (Variant::BinaryString(value), VariantType::Attributes) => {
