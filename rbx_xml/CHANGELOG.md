@@ -1,6 +1,9 @@
 # rbx_xml Changelog
 
 ## Unreleased
+
+# 3.0.0 (2026-07-01)
+* Upgraded to `rbx_reflection` v3.0.0
 * Added support for one-to-many property migrations. ([#612])
 * Added support for converting `SharedString` and `NetAssetRef` values to other values when necessary. ([#634])
 
