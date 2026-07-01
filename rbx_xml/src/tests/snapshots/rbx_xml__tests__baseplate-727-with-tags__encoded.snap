@@ -1,6 +1,5 @@
 ---
 source: rbx_xml/src/tests/mod.rs
-assertion_line: 38
 expression: encoded_text
 ---
 <roblox version="4">
@@ -259,6 +258,7 @@ expression: encoded_text
         <Properties>
           <string name="Name">Texture</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
+          <bool name="AutoLocalize">true</bool>
           <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
           <Color3 name="Color3">
             <R>0</R>
@@ -534,6 +534,7 @@ expression: encoded_text
         <Properties>
           <string name="Name">Decal</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
+          <bool name="AutoLocalize">true</bool>
           <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
           <Color3 name="Color3">
             <R>1</R>
@@ -684,6 +685,7 @@ expression: encoded_text
         <Properties>
           <string name="Name">Texture</string>
           <BinaryString name="AttributesSerialize"></BinaryString>
+          <bool name="AutoLocalize">true</bool>
           <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
           <Color3 name="Color3">
             <R>0</R>
@@ -769,11 +771,30 @@ expression: encoded_text
       <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
       <token name="CharacterSoundsUseNewApi">0</token>
       <token name="DefaultListenerLocation">3</token>
+      <bool name="DiffractionEnabled">true</bool>
       <float name="DistanceFactor">3.33</float>
       <float name="DopplerScale">1</float>
       <UniqueId name="HistoryId">00000000000000000000000000000000</UniqueId>
       <bool name="IsNewExpForAudioApiByDefault">false</bool>
+      <CoordinateFrame name="ListenerCFrame">
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+        <R00>1</R00>
+        <R01>0</R01>
+        <R02>0</R02>
+        <R10>0</R10>
+        <R11>1</R11>
+        <R12>0</R12>
+        <R20>0</R20>
+        <R21>0</R21>
+        <R22>1</R22>
+      </CoordinateFrame>
+      <Ref name="ListenerObject">null</Ref>
+      <token name="ListenerType">0</token>
+      <bool name="OcclusionEnabled">true</bool>
       <bool name="RespectFilteringEnabled">true</bool>
+      <bool name="ReverbEnabled">true</bool>
       <float name="RolloffScale">1</float>
       <bool name="DefinesCapabilities">false</bool>
       <int64 name="SourceAssetId">-1</int64>
@@ -938,6 +959,7 @@ expression: encoded_text
       <token name="ChatVersion">1</token>
       <bool name="CreateDefaultCommands">true</bool>
       <bool name="CreateDefaultTextChannels">true</bool>
+      <token name="EnableProtectedChat">0</token>
       <bool name="HasSeenDeprecationDialog">false</bool>
       <UniqueId name="HistoryId">00000000000000000000000000000000</UniqueId>
       <bool name="IsLegacyChatDisabled">true</bool>
@@ -1102,9 +1124,12 @@ expression: encoded_text
           </Vector2>
           <float name="Rotation">0</float>
           <bool name="DefinesCapabilities">false</bool>
+          <float name="Scale">1</float>
           <int64 name="SourceAssetId">-1</int64>
           <BinaryString name="Tags"></BinaryString>
+          <token name="TileMode">0</token>
           <NumberSequence name="Transparency">0 0 0 1 0 0 </NumberSequence>
+          <token name="Type">0</token>
           <UniqueId name="UniqueId">7ae0e5570bbb7d4c0a5586bb000003ca</UniqueId>
         </Properties>
       </Item>
@@ -1414,6 +1439,7 @@ expression: encoded_text
       <token name="LoadCharacterLayeredClothing">0</token>
       <token name="LuaCharacterController">0</token>
       <float name="NameDisplayDistance">100</float>
+      <int name="PlayerModuleStatus">0</int>
       <bool name="DefinesCapabilities">false</bool>
       <int64 name="SourceAssetId">-1</int64>
       <BinaryString name="Tags"></BinaryString>
@@ -1823,6 +1849,7 @@ expression: encoded_text
           <int64 name="CustomShoulderAccessoryId">0</int64>
           <bool name="CustomWaistAccessoryEnabled">false</bool>
           <int64 name="CustomWaistAccessoryId">0</int64>
+          <bool name="EnableEmissives">true</bool>
           <bool name="EnableSound">true</bool>
           <bool name="EnableVFX">true</bool>
           <UniqueId name="HistoryId">00000000000000000000000000000000</UniqueId>
