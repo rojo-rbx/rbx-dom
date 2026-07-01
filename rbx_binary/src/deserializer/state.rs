@@ -1241,6 +1241,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         add_property(instance, &property, net_asset.into());
                     }
                 }
+                // On 2026-06-30, Roblox began storing Tags in the SharedString index.
                 VariantType::Tags => {
                     let values = chunk.read_interleaved_u32_array(instances.len())?;
 
