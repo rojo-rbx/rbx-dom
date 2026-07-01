@@ -4,10 +4,12 @@
 * Changed serializer to not panic when Instance.properties contains Name entry. ([#596])
 * Used exact comparison when determining basic rotation IDs to exactly preserve CFrame inputs. ([#601])
 * Added support for one-to-many property migrations. ([#612])
+* Added support for reading Tags from a SharedString ([#634])
 
 [#596]: https://github.com/rojo-rbx/rbx-dom/pull/596
 [#601]: https://github.com/rojo-rbx/rbx-dom/pull/601
 [#612]: https://github.com/rojo-rbx/rbx-dom/pull/612
+[#634]: https://github.com/rojo-rbx/rbx-dom/pull/634
 
 ## 2.0.1 (2025-11-27)
 * Improved performance in several ways. Serializing in particular has been dramatically improved.
