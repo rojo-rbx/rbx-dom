@@ -1,0 +1,95 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="TextLabel" referent="0">
+    <Properties>
+      <string name="Name">Bold Denk</string>
+      <bool name="Active">false</bool>
+      <Vector2 name="AnchorPoint">
+        <X>0</X>
+        <Y>0</Y>
+      </Vector2>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <bool name="AutoLocalize">true</bool>
+      <token name="AutomaticSize">0</token>
+      <Color3 name="BackgroundColor3">
+        <R>0.6392157</R>
+        <G>0.63529414</G>
+        <B>0.64705884</B>
+      </Color3>
+      <float name="BackgroundTransparency">0</float>
+      <Color3 name="BorderColor3">
+        <R>0.10588236</R>
+        <G>0.16470589</G>
+        <B>0.20784315</B>
+      </Color3>
+      <token name="BorderMode">0</token>
+      <int name="BorderSizePixel">1</int>
+      <bool name="ClipsDescendants">false</bool>
+      <bool name="Draggable">false</bool>
+      <Font name="FontFace">
+        <Family>
+          <url>rbxasset://fonts/families/SourceSansPro.json</url>
+        </Family>
+        <Weight>400</Weight>
+        <Style>Normal</Style>
+      </Font>
+      <int name="LayoutOrder">0</int>
+      <float name="LineHeight">1</float>
+      <int name="MaxVisibleGraphemes">-1</int>
+      <Ref name="NextSelectionDown">null</Ref>
+      <Ref name="NextSelectionLeft">null</Ref>
+      <Ref name="NextSelectionRight">null</Ref>
+      <Ref name="NextSelectionUp">null</Ref>
+      <UDim2 name="Position">
+        <XS>0</XS>
+        <XO>0</XO>
+        <YS>0</YS>
+        <YO>0</YO>
+      </UDim2>
+      <bool name="RichText">false</bool>
+      <Ref name="RootLocalizationTable">null</Ref>
+      <float name="Rotation">0</float>
+      <bool name="Selectable">false</bool>
+      <token name="SelectionBehaviorDown">0</token>
+      <token name="SelectionBehaviorLeft">0</token>
+      <token name="SelectionBehaviorRight">0</token>
+      <token name="SelectionBehaviorUp">0</token>
+      <bool name="SelectionGroup">false</bool>
+      <Ref name="SelectionImageObject">null</Ref>
+      <int name="SelectionOrder">0</int>
+      <UDim2 name="Size">
+        <XS>0</XS>
+        <XO>0</XO>
+        <YS>0</YS>
+        <YO>0</YO>
+      </UDim2>
+      <token name="SizeConstraint">0</token>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <string name="Text">Example</string>
+      <Color3 name="TextColor3">
+        <R>0.10588236</R>
+        <G>0.16470589</G>
+        <B>0.20784315</B>
+      </Color3>
+      <bool name="TextScaled">false</bool>
+      <float name="TextSize">8</float>
+      <Color3 name="TextStrokeColor3">
+        <R>0</R>
+        <G>0</G>
+        <B>0</B>
+      </Color3>
+      <float name="TextStrokeTransparency">1</float>
+      <float name="TextTransparency">0</float>
+      <token name="TextTruncate">0</token>
+      <bool name="TextWrapped">false</bool>
+      <token name="TextXAlignment">2</token>
+      <token name="TextYAlignment">1</token>
+      <bool name="Visible">true</bool>
+      <int name="ZIndex">1</int>
+    </Properties>
+  </Item>
+</roblox>

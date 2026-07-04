@@ -22,29 +22,30 @@ pub enum MigrationError {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
-enum PropertyMigrationTarget {
-    One(String),
-    Many(Vec<String>),
+enum PropertyMigrationTarget<'a> {
+    One(&'a str),
+    Many(Vec<&'a str>),
 }
 
 #[derive(Debug, Clone, Serialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
-pub struct PropertyMigration {
+pub struct PropertyMigration<'a> {
     #[serde(rename = "To")]
-    new_property_names: PropertyMigrationTarget,
+    new_property_names: PropertyMigrationTarget<'a>,
     migration: MigrationOperation,
 }
 
-impl<'de> Deserialize<'de> for PropertyMigration {
+impl<'a, 'de: 'a> Deserialize<'de> for PropertyMigration<'a> {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
     {
         #[derive(Deserialize)]
         #[serde(rename_all = "PascalCase")]
-        struct PropertyMigrationDeserialize {
+        struct PropertyMigrationDeserialize<'a> {
+            #[serde(borrow)]
             #[serde(rename = "To")]
-            new_property_names: PropertyMigrationTarget,
+            new_property_names: PropertyMigrationTarget<'a>,
             migration: MigrationOperation,
         }
 
@@ -73,10 +74,11 @@ pub enum MigrationOperation {
     BrickColorToColor,
     ContentIdToContent,
     CornerRadiusToCornerRadii,
+    Int64ToContent,
 }
 
-impl PropertyMigration {
-    pub fn new_property_names(&self) -> &[String] {
+impl PropertyMigration<'_> {
+    pub fn new_property_names(&self) -> &[&str] {
         match &self.new_property_names {
             PropertyMigrationTarget::One(string) => std::slice::from_ref(string),
             PropertyMigrationTarget::Many(strings) => strings.as_slice(),
@@ -237,6 +239,21 @@ impl PropertyMigration {
                     })
                 }
             }
+            MigrationOperation::Int64ToContent => {
+                if let Variant::Int64(id) = input {
+                    if *id == 0 {
+                        Ok(Content::none().into())
+                    } else {
+                        Ok(Content::from_uri(format!("rbxassetid://{id}")).into())
+                    }
+                } else {
+                    Err(MigrationError::InvalidTypeForMigration {
+                        migration: MigrationOperation::Int64ToContent,
+                        expected: "Int64",
+                        actual: input.clone(),
+                    })
+                }
+            }
         }
     }
 }
@@ -268,5 +285,50 @@ mod tests {
             migration.new_property_names(),
             ["BottomLeftRadius", "BottomRightRadius"]
         );
+    }
+
+    #[test]
+    fn int64_to_content_zero() {
+        use rbx_types::ContentType;
+
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":["ObviouslyFakeProperty"],"Migration":"Int64ToContent"}"#,
+        )
+        .unwrap();
+        let new_value = migration.perform(&0i64.into()).unwrap();
+
+        match new_value {
+            Variant::Content(content) => match content.value() {
+                ContentType::None => {}
+                other => panic!("expected ContentType::None, got {:?}", other),
+            },
+            other => {
+                panic!("expected Variant::Content, got Variant::{:?}", other.ty())
+            }
+        }
+    }
+
+    #[test]
+    fn int64_to_content_non_zero() {
+        use rbx_types::ContentType;
+
+        let migration = serde_json::from_str::<PropertyMigration>(
+            r#"{"To":["ObviouslyFakeProperty"],"Migration":"Int64ToContent"}"#,
+        )
+        .unwrap();
+        let new_value = migration.perform(&1337i64.into()).unwrap();
+
+        match new_value {
+            Variant::Content(content) => match content.value() {
+                ContentType::Uri(uri) => assert_eq!(uri, "rbxassetid://1337"),
+                other => panic!(
+                    "expected ContentType::Uri(\"rbxassetid://1337\"), got {:?}",
+                    other
+                ),
+            },
+            other => {
+                panic!("expected Variant::Content, got Variant::{:?}", other.ty())
+            }
+        }
     }
 }

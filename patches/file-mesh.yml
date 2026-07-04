@@ -1,0 +1,12 @@
+Change:
+  FileMesh:
+    MeshId:
+      Serialization:
+        Type: Migrate
+        To: MeshContent
+        Migration: ContentIdToContent
+    TextureId:
+      Serialization:
+        Type: Migrate
+        To: TextureContent
+        Migration: ContentIdToContent

@@ -3,7 +3,7 @@ use std::io::Read;
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
-    types::{OptionalRef, SharedString, SomeRef, Variant},
+    types::{NetAssetRef, OptionalRef, SharedString, SomeRef, Variant, VariantType},
     InstanceBuilder, Ustr, WeakDom,
 };
 use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
@@ -27,8 +27,8 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Wea
 
     deserialize_root(&mut iterator, &mut state, root_id)?;
     apply_referent_rewrites(&mut state);
-    apply_shared_string_rewrites(&mut state);
-    apply_net_asset_rewrites(&mut state);
+    apply_shared_string_rewrites(&mut state).map_err(|e| iterator.error(e))?;
+    apply_net_asset_rewrites(&mut state).map_err(|e| iterator.error(e))?;
 
     Ok(tree)
 }
@@ -261,40 +261,116 @@ fn apply_referent_rewrites(state: &mut ParseState) {
     }
 }
 
-fn apply_net_asset_rewrites(state: &mut ParseState) {
+fn apply_net_asset_rewrites(state: &mut ParseState) -> Result<(), DecodeErrorKind> {
     for rewrite in &state.net_asset_rewrites {
         let new_value = match state.known_shared_strings.get(&rewrite.hash) {
-            Some(v) => v.clone(),
+            Some(v) => Variant::NetAssetRef(NetAssetRef::from(v.clone())),
             None => continue,
         };
+        let actual_value;
 
         let instance = state.tree.get_by_ref_mut(rewrite.id).expect(
             "rbx_xml bug: had ID in NetAssetRef rewrite list that didn't end up in the tree",
         );
 
-        instance.properties.insert(
-            rewrite.property_name.as_str().into(),
-            Variant::NetAssetRef(new_value.into()),
-        );
+        let maybe_descriptor = if state.options.use_reflection() {
+            find_canonical_property_descriptor(
+                &instance.class,
+                &rewrite.property_name,
+                state.options.database,
+            )
+        } else {
+            None
+        };
+
+        // TODO This does not support migrations or other oddities. It's a
+        // patchwork for converting NetAssetRef into other values, but it
+        // could be more comprehensive.
+        if let Some(descriptor) = maybe_descriptor {
+            let expected_type = descriptor.data_type.ty();
+            // If this property isn't a NetAssetRef property...
+            if expected_type != VariantType::NetAssetRef {
+                actual_value = match new_value.try_convert(instance.class, expected_type) {
+                    Ok(value) => value,
+                    Err(message) => {
+                        return Err(DecodeErrorKind::UnsupportedPropertyConversion {
+                            class_name: instance.class.to_string(),
+                            property_name: rewrite.property_name.to_string(),
+                            expected_type,
+                            actual_type: VariantType::SharedString,
+                            message,
+                        });
+                    }
+                };
+            } else {
+                actual_value = new_value
+            }
+        } else {
+            actual_value = new_value;
+        }
+
+        instance
+            .properties
+            .insert(rewrite.property_name, actual_value);
     }
+
+    Ok(())
 }
 
-fn apply_shared_string_rewrites(state: &mut ParseState) {
+fn apply_shared_string_rewrites(state: &mut ParseState) -> Result<(), DecodeErrorKind> {
     for rewrite in &state.shared_string_rewrites {
         let new_value = match state.known_shared_strings.get(&rewrite.hash) {
-            Some(v) => v.clone(),
+            Some(v) => Variant::SharedString(v.clone()),
             None => continue,
         };
+        let actual_value;
 
         let instance = state.tree.get_by_ref_mut(rewrite.id).expect(
             "rbx_xml bug: had ID in SharedString rewrite list that didn't end up in the tree",
         );
 
-        instance.properties.insert(
-            rewrite.property_name.as_str().into(),
-            Variant::SharedString(new_value),
-        );
+        let maybe_descriptor = if state.options.use_reflection() {
+            find_canonical_property_descriptor(
+                &instance.class,
+                &rewrite.property_name,
+                state.options.database,
+            )
+        } else {
+            None
+        };
+
+        // TODO This does not support migrations or other oddities. It's a
+        // patchwork for converting SharedString into other values, but it
+        // could be more comprehensive.
+        if let Some(descriptor) = maybe_descriptor {
+            let expected_type = descriptor.data_type.ty();
+            // If this property isn't a SharedString property...
+            if expected_type != VariantType::SharedString {
+                actual_value = match new_value.try_convert(instance.class, expected_type) {
+                    Ok(value) => value,
+                    Err(message) => {
+                        return Err(DecodeErrorKind::UnsupportedPropertyConversion {
+                            class_name: instance.class.to_string(),
+                            property_name: rewrite.property_name.to_string(),
+                            expected_type,
+                            actual_type: VariantType::SharedString,
+                            message,
+                        });
+                    }
+                };
+            } else {
+                actual_value = new_value
+            }
+        } else {
+            actual_value = new_value;
+        }
+
+        instance
+            .properties
+            .insert(rewrite.property_name, actual_value);
     }
+
+    Ok(())
 }
 
 fn deserialize_root<R: Read>(
@@ -600,12 +676,11 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let value =
-                match read_value_xml(reader, state, &xml_type_name, instance_id, &descriptor.name)?
-                {
-                    Some(value) => value,
-                    None => continue,
-                };
+            let Some(value) =
+                read_value_xml(reader, state, &xml_type_name, instance_id, descriptor.name)?
+            else {
+                continue;
+            };
 
             let xml_ty = value.ty();
 
@@ -643,11 +718,11 @@ fn deserialize_properties<R: Read>(
                 PropertyKind::Canonical {
                     serialization: PropertySerialization::Migrate(migration),
                 } => {
-                    let old_property_name = &descriptor.name;
+                    let old_property_name = descriptor.name;
 
                     match migration.perform(&value) {
                         Ok(migrated_value) => {
-                            for new_property_name in migration.new_property_names() {
+                            for &new_property_name in migration.new_property_names() {
                                 let new_property_name = Ustr::from(new_property_name);
                                 props.entry(new_property_name).or_insert_with(|| {
                                     log::trace!(
@@ -664,7 +739,7 @@ fn deserialize_properties<R: Read>(
                     }
                 }
                 _ => {
-                    props.insert(descriptor.name.as_ref().into(), value);
+                    props.insert(descriptor.name.into(), value);
                 }
             };
         } else {

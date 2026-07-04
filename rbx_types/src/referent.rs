@@ -320,8 +320,8 @@ mod serde_test {
     fn non_human() {
         let value = OptionalRef::new();
 
-        let ser = bincode::serialize(&value).unwrap();
-        let de = bincode::deserialize(&ser).unwrap();
+        let ser = rmp_serde::to_vec(&value).unwrap();
+        let de = rmp_serde::from_slice(&ser).unwrap();
 
         assert_eq!(value, de);
     }

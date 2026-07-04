@@ -8,3 +8,15 @@ Change:
       AliasFor: PackageId
     SerializedDefaultAttributes:
       Scriptability: None
+
+    PackageContent:
+      Serialization:
+        Type: SerializesAs
+        As: PackageContentSerialize
+    PackageContentSerialize:
+      AliasFor: PackageContent
+    PackageId:
+      Serialization:
+        Type: Migrate
+        To: PackageContent
+        Migration: ContentIdToContent
