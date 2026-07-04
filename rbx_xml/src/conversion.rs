@@ -64,6 +64,11 @@ impl ConvertVariant for Variant {
                     .map_err(|_| "Tags contain invalid UTF-8")?
                     .into(),
             )),
+            (Variant::SharedString(value), VariantType::Tags) => Ok(Cow::Owned(
+                Tags::decode(value.data())
+                    .map_err(|_| "Tags contain invalid UTF-8")?
+                    .into(),
+            )),
             (Variant::BinaryString(value), VariantType::Attributes) => {
                 let bytes: &[u8] = value.as_ref();
                 match Attributes::from_reader(bytes) {

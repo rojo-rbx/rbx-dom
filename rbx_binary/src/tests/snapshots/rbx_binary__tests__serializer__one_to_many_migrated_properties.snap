@@ -1,0 +1,53 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+expression: decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: UICorner
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: BottomLeftRadius
+      prop_type: UDim
+      values:
+        - - 0.5
+          - 12
+  - Prop:
+      type_id: 0
+      prop_name: BottomRightRadius
+      prop_type: UDim
+      values:
+        - - 0.5
+          - 12
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - UICorner
+  - Prop:
+      type_id: 0
+      prop_name: TopLeftRadius
+      prop_type: UDim
+      values:
+        - - 0.5
+          - 12
+  - Prop:
+      type_id: 0
+      prop_name: TopRightRadius
+      prop_type: UDim
+      values:
+        - - 0.5
+          - 12
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End

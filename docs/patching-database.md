@@ -109,6 +109,22 @@ Change:
         Migration: FontToFontFace # Name of the migration operation that should convert the old property value to the new one
 ```
 
+For one-to-many migrations, `To` can be a list of property names. The migration operation is run once, and the migrated value is written to every listed property:
+
+```yaml
+Change:
+  UICorner:
+    CornerRadius:
+      Serialization:
+        Type: Migrate
+        To:
+          - BottomLeftRadius
+          - BottomRightRadius
+          - TopLeftRadius
+          - TopRightRadius
+        Migration: CornerRadiusToCornerRadii
+```
+
 If this property is present on multiple classes, you may need to specify the Serialization change for multiple properties on multiple classes. For example, the `Font` property is present on `TextLabel`, `TextButton`, `TextBox` without being derived from a superclass, so the real patch is approximately 3 times as long since it needs to be applied to each class.
 
 ## Roblox added a new property, but modifying it from Lua requires a special API

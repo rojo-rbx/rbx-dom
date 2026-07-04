@@ -123,10 +123,10 @@ chunks:
         - PackageLink
   - Prop:
       type_id: 0
-      prop_name: PackageIdSerialize
-      prop_type: String
+      prop_name: PackageContentSerialize
+      prop_type: Content
       values:
-        - "rbxassetid://9111823334"
+        - Uri: "rbxassetid://9111823334"
   - Prop:
       type_id: 0
       prop_name: SourceAssetId

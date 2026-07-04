@@ -1,0 +1,78 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="ParticleEmitter" referent="0">
+    <Properties>
+      <string name="Name">ParticleEmitter</string>
+      <Vector3 name="Acceleration">
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Vector3>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <ColorSequence name="Color">0 1 1 1 0 1 1 1 1 0 </ColorSequence>
+      <float name="Drag">0</float>
+      <token name="EmissionDirection">1</token>
+      <bool name="Enabled">true</bool>
+      <NumberRange name="Lifetime">-20.2 10.1 </NumberRange>
+      <float name="LightEmission">0</float>
+      <float name="LightInfluence">1</float>
+      <bool name="LockedToPart">false</bool>
+      <float name="Rate">2</float>
+      <NumberRange name="RotSpeed">45 46 </NumberRange>
+      <NumberRange name="Rotation">-6.66 6.66 </NumberRange>
+      <NumberSequence name="Size">0 1 0 0.0803674 0.5625 0 0.121699 1.9375 0 0.143513 3.75 0 1 1 0 </NumberSequence>
+      <int64 name="SourceAssetId">-1</int64>
+      <NumberRange name="Speed">2 5 </NumberRange>
+      <Vector2 name="SpreadAngle">
+        <X>0</X>
+        <Y>0</Y>
+      </Vector2>
+      <BinaryString name="Tags"></BinaryString>
+      <Content name="TextureContent">
+        <uri>rbxasset://textures/particles/sparkles_main.dds</uri>
+      </Content>
+      <NumberSequence name="Transparency">0 0 0 1 0 0 </NumberSequence>
+      <float name="VelocityInheritance">0</float>
+      <float name="ZOffset">0</float>
+    </Properties>
+  </Item>
+  <Item class="ParticleEmitter" referent="1">
+    <Properties>
+      <string name="Name">ParticleEmitter</string>
+      <Vector3 name="Acceleration">
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Vector3>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <ColorSequence name="Color">0 1 1 1 0 1 1 1 1 0 </ColorSequence>
+      <float name="Drag">0</float>
+      <token name="EmissionDirection">1</token>
+      <bool name="Enabled">true</bool>
+      <NumberRange name="Lifetime">-20.2 10.1 </NumberRange>
+      <float name="LightEmission">0</float>
+      <float name="LightInfluence">1</float>
+      <bool name="LockedToPart">false</bool>
+      <float name="Rate">2</float>
+      <NumberRange name="RotSpeed">45 46 </NumberRange>
+      <NumberRange name="Rotation">-6.66 6.66 </NumberRange>
+      <NumberSequence name="Size">0 1 0 0.0803674 0.5625 0 0.121699 1.9375 0 0.143513 3.75 0 1 1 0 </NumberSequence>
+      <int64 name="SourceAssetId">-1</int64>
+      <NumberRange name="Speed">2 5 </NumberRange>
+      <Vector2 name="SpreadAngle">
+        <X>0</X>
+        <Y>0</Y>
+      </Vector2>
+      <BinaryString name="Tags"></BinaryString>
+      <Content name="TextureContent">
+        <uri>rbxasset://textures/particles/sparkles_main.dds</uri>
+      </Content>
+      <NumberSequence name="Transparency">0 0 0 1 0 0 </NumberSequence>
+      <float name="VelocityInheritance">0</float>
+      <float name="ZOffset">0</float>
+    </Properties>
+  </Item>
+</roblox>
