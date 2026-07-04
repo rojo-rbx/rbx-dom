@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    725,
+    728,
     0,
-    7251140
+    7280895
   ],
   "Classes": {
     "Accessory": {
@@ -170,7 +170,9 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -1800,6 +1802,19 @@
             "NotReplicated",
             "ReadOnly"
           ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "EnableSkinning": {
+          "Name": "EnableSkinning",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "DoesNotSerialize"
@@ -6182,6 +6197,19 @@
             }
           }
         },
+        "DiffractionEnabled": {
+          "Name": "DiffractionEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "SimulationMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "DistanceAttenuation": {
           "Name": "DistanceAttenuation",
           "Scriptability": "None",
@@ -6195,15 +6223,52 @@
             }
           }
         },
-        "PositionOverride": {
-          "Name": "PositionOverride",
-          "Scriptability": "None",
+        "OcclusionEnabled": {
+          "Name": "OcclusionEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "SimulationMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PositionInstance": {
+          "Name": "PositionInstance",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Ref"
           },
-          "Tags": [
-            "Hidden"
-          ],
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PositionType": {
+          "Name": "PositionType",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "EmitterPositionType"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ReverbEnabled": {
+          "Name": "ReverbEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "SimulationMode"
+          },
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -6245,11 +6310,23 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
+        "DiffractionEnabled": {
+          "Enum": 0
+        },
         "DistanceAttenuation": {
           "BinaryString": "AA=="
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "OcclusionEnabled": {
+          "Enum": 0
+        },
+        "PositionType": {
+          "Enum": 0
+        },
+        "ReverbEnabled": {
+          "Enum": 0
         },
         "Sandboxed": {
           "Bool": false
@@ -6950,6 +7027,19 @@
             }
           }
         },
+        "DiffractionEnabled": {
+          "Name": "DiffractionEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "SimulationMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "DistanceAttenuation": {
           "Name": "DistanceAttenuation",
           "Scriptability": "None",
@@ -6963,15 +7053,52 @@
             }
           }
         },
-        "PositionOverride": {
-          "Name": "PositionOverride",
-          "Scriptability": "None",
+        "OcclusionEnabled": {
+          "Name": "OcclusionEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "SimulationMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PositionInstance": {
+          "Name": "PositionInstance",
+          "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Ref"
           },
-          "Tags": [
-            "Hidden"
-          ],
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PositionType": {
+          "Name": "PositionType",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ListenerPositionType"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ReverbEnabled": {
+          "Name": "ReverbEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "SimulationMode"
+          },
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -7013,11 +7140,23 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
+        "DiffractionEnabled": {
+          "Enum": 0
+        },
         "DistanceAttenuation": {
           "BinaryString": "AA=="
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
+        },
+        "OcclusionEnabled": {
+          "Enum": 0
+        },
+        "PositionType": {
+          "Enum": 0
+        },
+        "ReverbEnabled": {
+          "Enum": 0
         },
         "Sandboxed": {
           "Bool": false
@@ -9175,6 +9314,19 @@
             }
           }
         },
+        "EnableEmissives": {
+          "Name": "EnableEmissives",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "EnableSound": {
           "Name": "EnableSound",
           "Scriptability": "None",
@@ -9291,6 +9443,9 @@
         },
         "CustomWaistAccessoryId": {
           "Int64": 0
+        },
+        "EnableEmissives": {
+          "Bool": true
         },
         "EnableSound": {
           "Bool": true
@@ -11183,6 +11338,19 @@
       "Tags": [],
       "Superclass": "Constraint",
       "Properties": {
+        "EnableSkinning": {
+          "Name": "EnableSkinning",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "LimitsEnabled": {
           "Name": "LimitsEnabled",
           "Scriptability": "ReadWrite",
@@ -18735,6 +18903,27 @@
         }
       }
     },
+    "ClientStorageService": {
+      "Name": "ClientStorageService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
     "ClimbController": {
       "Name": "ClimbController",
       "Tags": [],
@@ -18875,11 +19064,45 @@
             }
           }
         },
+        "Outfit1Content": {
+          "Name": "Outfit1Content",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "Outfit2": {
           "Name": "Outfit2",
           "Scriptability": "None",
           "DataType": {
             "Value": "ContentId"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Outfit2Content": {
+          "Name": "Outfit2Content",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Content"
           },
           "Tags": [
             "Hidden",
@@ -23850,6 +24073,19 @@
       "Tags": [],
       "Superclass": "FaceInstance",
       "Properties": {
+        "AutoLocalize": {
+          "Name": "AutoLocalize",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Color3": {
           "Name": "Color3",
           "Scriptability": "ReadWrite",
@@ -24177,6 +24413,9 @@
         },
         "Attributes": {
           "Attributes": {}
+        },
+        "AutoLocalize": {
+          "Bool": true
         },
         "Capabilities": {
           "SecurityCapabilities": 0
@@ -40602,6 +40841,19 @@
             }
           }
         },
+        "Type": {
+          "Name": "Type",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "InputBindingType"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "UIButton": {
           "Name": "UIButton",
           "Scriptability": "ReadWrite",
@@ -40731,6 +40983,9 @@
         },
         "Tags": {
           "Tags": []
+        },
+        "Type": {
+          "Enum": 0
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -42381,27 +42636,6 @@
     },
     "KeyframeSequenceProvider": {
       "Name": "KeyframeSequenceProvider",
-      "Tags": [
-        "NotCreatable",
-        "NotReplicated",
-        "Service"
-      ],
-      "Superclass": "Instance",
-      "Properties": {},
-      "DefaultProperties": {
-        "Archivable": {
-          "Bool": true
-        },
-        "HistoryId": {
-          "UniqueId": "00000000000000000000000000000000"
-        },
-        "UniqueId": {
-          "UniqueId": "00000000000000000000000000000000"
-        }
-      }
-    },
-    "LSPFileSyncService": {
-      "Name": "LSPFileSyncService",
       "Tags": [
         "NotCreatable",
         "NotReplicated",
@@ -48377,6 +48611,19 @@
             }
           }
         },
+        "EnableSkinning": {
+          "Name": "EnableSkinning",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "ParentName": {
           "Name": "ParentName",
           "Scriptability": "None",
@@ -50759,6 +51006,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "ContentId"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "PantsTemplateContent": {
+          "Name": "PantsTemplateContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
           },
           "Tags": [],
           "Kind": {
@@ -54343,6 +54603,19 @@
             }
           }
         },
+        "AgeChecked": {
+          "Name": "AgeChecked",
+          "Scriptability": "Read",
+          "DataType": {
+            "Enum": "AgeCheckStatus"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "AppearanceDidLoad": {
           "Name": "AppearanceDidLoad",
           "Scriptability": "None",
@@ -54371,6 +54644,22 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "CameraFieldOfView": {
+          "Name": "CameraFieldOfView",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [
+            "Hidden",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -54426,6 +54715,22 @@
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
+            }
+          }
+        },
+        "CameraViewportSize": {
+          "Name": "CameraViewportSize",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Vector2"
+          },
+          "Tags": [
+            "Hidden",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
             }
           }
         },
@@ -57117,6 +57422,21 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "ContentId"
+          },
+          "Tags": [
+            "NotReplicated"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "IconContent": {
+          "Name": "IconContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
           },
           "Tags": [
             "NotReplicated"
@@ -65172,6 +65492,19 @@
               "Serialization": "Serializes"
             }
           }
+        },
+        "ShirtTemplateContent": {
+          "Name": "ShirtTemplateContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
         }
       },
       "DefaultProperties": {
@@ -65234,6 +65567,19 @@
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "ContentId"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TextureContent": {
+          "Name": "TextureContent",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Content"
           },
           "Tags": [],
           "Kind": {
@@ -66368,6 +66714,22 @@
       ],
       "Superclass": "Instance",
       "Properties": {
+        "BoneParentIndices": {
+          "Name": "BoneParentIndices",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "BinaryString"
+          },
+          "Tags": [
+            "Hidden",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "EntityScale": {
           "Name": "EntityScale",
           "Scriptability": "None",
@@ -67781,6 +68143,19 @@
             }
           }
         },
+        "DiffractionEnabled": {
+          "Name": "DiffractionEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "DistanceFactor": {
           "Name": "DistanceFactor",
           "Scriptability": "ReadWrite",
@@ -67822,8 +68197,73 @@
             }
           }
         },
+        "ListenerCFrame": {
+          "Name": "ListenerCFrame",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "CFrame"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ListenerObject": {
+          "Name": "ListenerObject",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ListenerType": {
+          "Name": "ListenerType",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "ListenerType"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "OcclusionEnabled": {
+          "Name": "OcclusionEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "RespectFilteringEnabled": {
           "Name": "RespectFilteringEnabled",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "ReverbEnabled": {
+          "Name": "ReverbEnabled",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -67889,6 +68329,9 @@
         "DefaultListenerLocation": {
           "Enum": 0
         },
+        "DiffractionEnabled": {
+          "Bool": true
+        },
         "DistanceFactor": {
           "Float32": 3.33
         },
@@ -67901,8 +68344,43 @@
         "IsNewExpForAudioApiByDefault": {
           "Bool": false
         },
+        "ListenerCFrame": {
+          "CFrame": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "orientation": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        },
+        "ListenerType": {
+          "Enum": 0
+        },
+        "OcclusionEnabled": {
+          "Bool": true
+        },
         "RespectFilteringEnabled": {
           "Bool": false
+        },
+        "ReverbEnabled": {
+          "Bool": true
         },
         "RolloffScale": {
           "Float32": 1.0
@@ -70111,6 +70589,21 @@
             }
           }
         },
+        "PlayerModuleStatus": {
+          "Name": "PlayerModuleStatus",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Int32"
+          },
+          "Tags": [
+            "Hidden"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "UserEmotesEnabled": {
           "Name": "UserEmotesEnabled",
           "Scriptability": "ReadWrite",
@@ -70281,6 +70774,9 @@
         },
         "NameDisplayDistance": {
           "Float32": 100.0
+        },
+        "PlayerModuleStatus": {
+          "Int32": 0
         },
         "Sandboxed": {
           "Bool": false
@@ -71053,6 +71549,32 @@
             }
           }
         },
+        "Animation Skeleton Scale": {
+          "Name": "Animation Skeleton Scale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Animation Skeleton Transparency": {
+          "Name": "Animation Skeleton Transparency",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Auto Clean Empty Line": {
           "Name": "Auto Clean Empty Line",
           "Scriptability": "ReadWrite",
@@ -71456,6 +71978,19 @@
           "Scriptability": "None",
           "DataType": {
             "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "CameraZoomToMousePosition": {
+          "Name": "CameraZoomToMousePosition",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
           },
           "Tags": [],
           "Kind": {
@@ -73005,6 +73540,71 @@
         },
         "Set Pivot of Imported Parts": {
           "Name": "Set Pivot of Imported Parts",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Show Animation Skeleton": {
+          "Name": "Show Animation Skeleton",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Show Animation Skeleton Attachments": {
+          "Name": "Show Animation Skeleton Attachments",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Show Animation Skeleton Axes": {
+          "Name": "Show Animation Skeleton Axes",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Show Animation Skeleton Rotations": {
+          "Name": "Show Animation Skeleton Rotations",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Show Animation Skeleton Text": {
+          "Name": "Show Animation Skeleton Text",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "Bool"
@@ -78238,6 +78838,24 @@
             }
           }
         },
+        "HasFocus": {
+          "Name": "HasFocus",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "NotScriptable",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "LineHeight": {
           "Name": "LineHeight",
           "Scriptability": "ReadWrite",
@@ -79712,6 +80330,181 @@
         }
       }
     },
+    "TextChannelWindow": {
+      "Name": "TextChannelWindow",
+      "Tags": [
+        "NotBrowsable"
+      ],
+      "Superclass": "GuiObject",
+      "Properties": {
+        "IsRendering": {
+          "Name": "IsRendering",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "Hidden",
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
+        "Target": {
+          "Name": "Target",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        }
+      },
+      "DefaultProperties": {
+        "Active": {
+          "Bool": false
+        },
+        "AnchorPoint": {
+          "Vector2": [
+            0.0,
+            0.0
+          ]
+        },
+        "Archivable": {
+          "Bool": true
+        },
+        "Attributes": {
+          "Attributes": {}
+        },
+        "AutoLocalize": {
+          "Bool": true
+        },
+        "AutomaticSize": {
+          "Enum": 0
+        },
+        "BackgroundColor3": {
+          "Color3": [
+            0.6392157,
+            0.63529414,
+            0.64705884
+          ]
+        },
+        "BackgroundTransparency": {
+          "Float32": 0.0
+        },
+        "BorderColor3": {
+          "Color3": [
+            0.105882354,
+            0.16470589,
+            0.20784314
+          ]
+        },
+        "BorderMode": {
+          "Enum": 0
+        },
+        "BorderSizePixel": {
+          "Int32": 1
+        },
+        "Capabilities": {
+          "SecurityCapabilities": 0
+        },
+        "ClipsDescendants": {
+          "Bool": false
+        },
+        "Draggable": {
+          "Bool": false
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "InputSink": {
+          "Enum": 0
+        },
+        "Interactable": {
+          "Bool": true
+        },
+        "LayoutOrder": {
+          "Int32": 0
+        },
+        "Position": {
+          "UDim2": [
+            [
+              0.0,
+              0
+            ],
+            [
+              0.0,
+              0
+            ]
+          ]
+        },
+        "Rotation": {
+          "Float32": 0.0
+        },
+        "Sandboxed": {
+          "Bool": false
+        },
+        "Selectable": {
+          "Bool": false
+        },
+        "SelectionBehaviorDown": {
+          "Enum": 0
+        },
+        "SelectionBehaviorLeft": {
+          "Enum": 0
+        },
+        "SelectionBehaviorRight": {
+          "Enum": 0
+        },
+        "SelectionBehaviorUp": {
+          "Enum": 0
+        },
+        "SelectionGroup": {
+          "Bool": false
+        },
+        "SelectionOrder": {
+          "Int32": 0
+        },
+        "Size": {
+          "UDim2": [
+            [
+              0.0,
+              0
+            ],
+            [
+              0.0,
+              0
+            ]
+          ]
+        },
+        "SizeConstraint": {
+          "Enum": 0
+        },
+        "SourceAssetId": {
+          "Int64": -1
+        },
+        "Tags": {
+          "Tags": []
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "Visible": {
+          "Bool": true
+        },
+        "ZIndex": {
+          "Int32": 1
+        }
+      }
+    },
     "TextChatCommand": {
       "Name": "TextChatCommand",
       "Tags": [],
@@ -80344,6 +81137,19 @@
             }
           }
         },
+        "EnableProtectedChat": {
+          "Name": "EnableProtectedChat",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "RolloutState"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "HasSeenDeprecationDialog": {
           "Name": "HasSeenDeprecationDialog",
           "Scriptability": "None",
@@ -80400,6 +81206,9 @@
         },
         "CreateDefaultTextChannels": {
           "Bool": true
+        },
+        "EnableProtectedChat": {
+          "Enum": 0
         },
         "HasSeenDeprecationDialog": {
           "Bool": false
@@ -81410,6 +82219,9 @@
         },
         "Attributes": {
           "Attributes": {}
+        },
+        "AutoLocalize": {
+          "Bool": true
         },
         "Capabilities": {
           "SecurityCapabilities": 0
@@ -84560,11 +85372,50 @@
             }
           }
         },
+        "Scale": {
+          "Name": "Scale",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "TileMode": {
+          "Name": "TileMode",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "GradientTileMode"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "Transparency": {
           "Name": "Transparency",
           "Scriptability": "ReadWrite",
           "DataType": {
             "Value": "NumberSequence"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Type": {
+          "Name": "Type",
+          "Scriptability": "ReadWrite",
+          "DataType": {
+            "Enum": "GradientType"
           },
           "Tags": [],
           "Kind": {
@@ -84624,11 +85475,17 @@
         "Sandboxed": {
           "Bool": false
         },
+        "Scale": {
+          "Float32": 1.0
+        },
         "SourceAssetId": {
           "Int64": -1
         },
         "Tags": {
           "Tags": []
+        },
+        "TileMode": {
+          "Enum": 0
         },
         "Transparency": {
           "NumberSequence": {
@@ -84645,6 +85502,9 @@
               }
             ]
           }
+        },
+        "Type": {
+          "Enum": 0
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -85446,9 +86306,7 @@
     },
     "UIShadow": {
       "Name": "UIShadow",
-      "Tags": [
-        "NotBrowsable"
-      ],
+      "Tags": [],
       "Superclass": "UIComponent",
       "Properties": {
         "BlurRadius": {
@@ -87676,6 +88534,19 @@
             "Hidden",
             "NotReplicated"
           ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "VoiceChatVolume": {
+          "Name": "VoiceChatVolume",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Float32"
+          },
+          "Tags": [],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -89927,7 +90798,9 @@
           "DataType": {
             "Enum": "InternalVideoUsage"
           },
-          "Tags": [],
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -89969,7 +90842,9 @@
           "DataType": {
             "Enum": "VideoSampleSize"
           },
-          "Tags": [],
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -90366,7 +91241,9 @@
           "DataType": {
             "Enum": "InternalVideoUsage"
           },
-          "Tags": [],
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -90424,7 +91301,9 @@
           "DataType": {
             "Enum": "VideoSampleSize"
           },
-          "Tags": [],
+          "Tags": [
+            "Hidden"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -92919,21 +93798,6 @@
             }
           }
         },
-        "PhysicsImprovedSleep": {
-          "Name": "PhysicsImprovedSleep",
-          "Scriptability": "None",
-          "DataType": {
-            "Enum": "RolloutState"
-          },
-          "Tags": [
-            "NotScriptable"
-          ],
-          "Kind": {
-            "Canonical": {
-              "Serialization": "Serializes"
-            }
-          }
-        },
         "PhysicsSteppingMethod": {
           "Name": "PhysicsSteppingMethod",
           "Scriptability": "None",
@@ -93532,9 +94396,6 @@
         "PathfindingUseImprovedSearch": {
           "Enum": 0
         },
-        "PhysicsImprovedSleep": {
-          "Enum": 0
-        },
         "PhysicsSteppingMethod": {
           "Enum": 0
         },
@@ -94039,7 +94900,9 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -94112,7 +94975,9 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -94346,7 +95211,9 @@
           "DataType": {
             "Value": "Float32"
           },
-          "Tags": [],
+          "Tags": [
+            "Deprecated"
+          ],
           "Kind": {
             "Canonical": {
               "Serialization": "Serializes"
@@ -94715,6 +95582,13 @@
         "XRayShaded": 3
       }
     },
+    "AgeCheckStatus": {
+      "name": "AgeCheckStatus",
+      "items": {
+        "Checked": 1,
+        "Unchecked": 0
+      }
+    },
     "AlignType": {
       "name": "AlignType",
       "items": {
@@ -94988,7 +95862,8 @@
         "HomePage": 4,
         "Landing": 6,
         "More": 5,
-        "None": 0
+        "None": 0,
+        "WatchPage": 7
       }
     },
     "AppUpdateStatus": {
@@ -95103,6 +95978,7 @@
         "SwimAnimation": 54,
         "TShirt": 2,
         "TShirtAccessory": 64,
+        "TextDocument": 93,
         "Torso": 27,
         "Video": 62,
         "VoxelFragment": 91,
@@ -95617,11 +96493,14 @@
     "CanCollaborateError": {
       "name": "CanCollaborateError",
       "items": {
+        "AgeVerificationCountryBlocked": 11,
         "Invalid": 0,
         "None": 1,
         "NotAgeVerified": 2,
         "NotAuthorized": 8,
         "NotFound": 6,
+        "OtherCollaboratorSettingsPreventTrust": 10,
+        "OtherUserCannotCollaborate": 12,
         "OutsideAgeBucket": 3,
         "OutsideAgeBucketTcPc": 9,
         "OutsideOwnerAgeBucket": 7,
@@ -96569,6 +97448,13 @@
         "WhenScrollable": 0
       }
     },
+    "EmitterPositionType": {
+      "name": "EmitterPositionType",
+      "items": {
+        "Instance": 1,
+        "Parent": 0
+      }
+    },
     "EngagementLevel": {
       "name": "EngagementLevel",
       "items": {
@@ -97061,6 +97947,22 @@
         "WildWest": 10
       }
     },
+    "GradientTileMode": {
+      "name": "GradientTileMode",
+      "items": {
+        "Clamp": 0,
+        "Mirror": 2,
+        "Repeat": 1
+      }
+    },
+    "GradientType": {
+      "name": "GradientType",
+      "items": {
+        "Conical": 2,
+        "Linear": 0,
+        "Radial": 1
+      }
+    },
     "GraphicsMode": {
       "name": "GraphicsMode",
       "items": {
@@ -97197,6 +98099,7 @@
         "CreatorEnvironmentsNotSupportedByService": 15,
         "DnsResolve": 2,
         "InactivityTimeout": 16,
+        "InvalidRangeResponse": 18,
         "InvalidRedirect": 7,
         "InvalidUrl": 1,
         "NetFail": 8,
@@ -97367,6 +98270,13 @@
         "Direction2D": 2,
         "Direction3D": 3,
         "ViewportPosition": 4
+      }
+    },
+    "InputBindingType": {
+      "name": "InputBindingType",
+      "items": {
+        "Automatic": 0,
+        "Scriptable": 1
       }
     },
     "InputSink": {
@@ -97732,6 +98642,13 @@
         "Zero": 48
       }
     },
+    "KeyCodeStringFormat": {
+      "name": "KeyCodeStringFormat",
+      "items": {
+        "Abbreviated": 1,
+        "Default": 0
+      }
+    },
     "KeyInterpolationMode": {
       "name": "KeyInterpolationMode",
       "items": {
@@ -97826,6 +98743,13 @@
         "Character": 2,
         "Default": 0,
         "None": 1
+      }
+    },
+    "ListenerPositionType": {
+      "name": "ListenerPositionType",
+      "items": {
+        "Instance": 1,
+        "Parent": 0
       }
     },
     "ListenerType": {
@@ -98977,8 +99901,10 @@
     "RestPoseModel": {
       "name": "RestPoseModel",
       "items": {
+        "FromCustomClip": 3,
         "FromRigInACE": 0,
-        "FromRigInFile": 1
+        "FromRigInFile": 1,
+        "FromRigInFileZeroedRotations": 2
       }
     },
     "ReturnKeyType": {
@@ -99468,6 +100394,14 @@
         "Immediate": 1
       }
     },
+    "SimulationMode": {
+      "name": "SimulationMode",
+      "items": {
+        "Default": 0,
+        "Disabled": 2,
+        "Enabled": 1
+      }
+    },
     "SizeConstraint": {
       "name": "SizeConstraint",
       "items": {
@@ -99612,13 +100546,16 @@
     "StudioAction": {
       "name": "StudioAction",
       "items": {
+        "ClearSelection": 5,
         "Copy": 61,
         "Cut": 62,
         "DeleteSelected": 3,
+        "DuplicateSelection": 4,
         "Paste": 63,
         "Redo": 1,
         "SelectAll": 2,
-        "Undo": 0
+        "Undo": 0,
+        "ZoomExtents": 6
       }
     },
     "StudioCaptureBufferStatus": {
@@ -100789,6 +101726,7 @@
     "VoiceRccReconnectReason": {
       "name": "VoiceRccReconnectReason",
       "items": {
+        "BlockListChanged": 4,
         "CloseRoom": 2,
         "FAEUpdate": 3,
         "Migration": 1,

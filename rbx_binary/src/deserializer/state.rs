@@ -1,4 +1,4 @@
-use std::{borrow::Cow, collections::VecDeque, convert::TryInto, io::Read};
+use std::{collections::VecDeque, convert::TryInto, io::Read};
 
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use rbx_dom_weak::{
@@ -403,7 +403,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             for instance in instances {
                 let binary_string = chunk.read_binary_string()?;
                 let value = match std::str::from_utf8(binary_string) {
-                    Ok(value) => Cow::Borrowed(value),
+                    Ok(value) => value.to_owned(),
                     Err(_) => {
                         log::warn!(
                             "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
@@ -412,7 +412,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                             prop_name
                         );
 
-                        String::from_utf8_lossy(binary_string)
+                        String::from_utf8_lossy(binary_string).into_owned()
                     }
                 };
                 instance.builder.set_name(value);
@@ -440,7 +440,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     for instance in instances {
                         let binary_string = chunk.read_binary_string()?;
                         let value = match std::str::from_utf8(binary_string) {
-                            Ok(value) => Cow::Borrowed(value),
+                            Ok(value) => value.to_owned(),
                             Err(_) => {
                                 log::warn!(
                             "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
@@ -449,11 +449,11 @@ This may cause unexpected or broken behavior in your final results if you rely o
                                     property.name
                                 );
 
-                                String::from_utf8_lossy(binary_string)
+                                String::from_utf8_lossy(binary_string).into_owned()
                             }
                         };
 
-                        add_property(instance, &property, value.as_ref().into());
+                        add_property(instance, &property, value.into());
                     }
                 }
                 VariantType::ContentId => {
@@ -1233,6 +1233,35 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         );
 
                         add_property(instance, &property, net_asset.into());
+                    }
+                }
+                // On 2026-06-30, Roblox began storing Tags in the SharedString index.
+                VariantType::Tags => {
+                    let values = chunk.read_interleaved_u32_array(instances.len())?;
+
+                    for (value, instance) in values.zip(instances) {
+                        let tags_shared_string = self
+                            .shared_strings
+                            .get(value as usize)
+                            .ok_or_else(|| InnerError::InvalidPropData {
+                                type_name: type_name.to_string(),
+                                prop_name: prop_name.to_owned(),
+                                valid_value: "a valid Tags SharedString index",
+                                actual_value: format!("{value:?}"),
+                            })?;
+
+                        add_property(
+                            instance,
+                            &property,
+                            Tags::decode(tags_shared_string.data())
+                                .map_err(|_| InnerError::InvalidPropData {
+                                    type_name: type_name.to_string(),
+                                    prop_name: prop_name.to_owned(),
+                                    valid_value: "a list of valid null-delimited UTF-8 strings",
+                                    actual_value: "invalid UTF-8".to_string(),
+                                })?
+                                .into(),
+                        );
                     }
                 }
                 invalid_type => {
