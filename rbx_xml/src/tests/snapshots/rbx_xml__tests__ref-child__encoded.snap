@@ -1,0 +1,21 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="ObjectValue" referent="0">
+    <Properties>
+      <string name="Name">Value</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <BinaryString name="Tags"></BinaryString>
+      <Ref name="Value">1</Ref>
+    </Properties>
+    <Item class="Folder" referent="1">
+      <Properties>
+        <string name="Name">Ref Target</string>
+        <BinaryString name="AttributesSerialize"></BinaryString>
+        <BinaryString name="Tags"></BinaryString>
+      </Properties>
+    </Item>
+  </Item>
+</roblox>

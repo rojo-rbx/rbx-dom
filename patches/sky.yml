@@ -1,0 +1,43 @@
+Change:
+  Sky:
+    SunTextureId:
+      Serialization:
+        Type: Migrate
+        To: SunTextureContent
+        Migration: ContentIdToContent
+    MoonTextureId:
+      Serialization:
+        Type: Migrate
+        To: MoonTextureContent
+        Migration: ContentIdToContent
+
+    SkyboxFt:
+      Serialization:
+        Type: Migrate
+        To: SkyboxFrontContent
+        Migration: ContentIdToContent
+    SkyboxDn:
+      Serialization:
+        Type: Migrate
+        To: SkyboxDownContent
+        Migration: ContentIdToContent
+    SkyboxLf:
+      Serialization:
+        Type: Migrate
+        To: SkyboxLeftContent
+        Migration: ContentIdToContent
+    SkyboxBk:
+      Serialization:
+        Type: Migrate
+        To: SkyboxBackContent
+        Migration: ContentIdToContent
+    SkyboxUp:
+      Serialization:
+        Type: Migrate
+        To: SkyboxUpContent
+        Migration: ContentIdToContent
+    SkyboxRt:
+      Serialization:
+        Type: Migrate
+        To: SkyboxRightContent
+        Migration: ContentIdToContent

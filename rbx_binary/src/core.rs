@@ -10,20 +10,12 @@ pub static FILE_MAGIC_HEADER: &[u8] = b"<roblox!";
 pub static FILE_SIGNATURE: &[u8] = b"\x89\xff\x0d\x0a\x1a\x0a";
 pub const FILE_VERSION: u16 = 0;
 
-pub struct ReadInterleavedBytesIter<'a, const N: usize> {
+pub struct InterleavedArrayIter<'a, const N: usize> {
     bytes: &'a [u8],
     index: usize,
     len: usize,
 }
-
-impl<'a, const N: usize> ReadInterleavedBytesIter<'a, N> {
-    fn new(bytes: &'a [u8], len: usize) -> Self {
-        let index = 0;
-        Self { bytes, index, len }
-    }
-}
-
-impl<'a, const N: usize> Iterator for ReadInterleavedBytesIter<'a, N> {
+impl<'a, const N: usize> Iterator for InterleavedArrayIter<'a, N> {
     type Item = [u8; N];
     fn next(&mut self) -> Option<Self::Item> {
         if self.index < self.len {
@@ -36,6 +28,11 @@ impl<'a, const N: usize> Iterator for ReadInterleavedBytesIter<'a, N> {
     }
     fn size_hint(&self) -> (usize, Option<usize>) {
         (self.len, Some(self.len))
+    }
+}
+impl<'a, const N: usize> ExactSizeIterator for InterleavedArrayIter<'a, N> {
+    fn len(&self) -> usize {
+        self.len
     }
 }
 
@@ -142,10 +139,10 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_bytes<const N: usize>(
         &mut self,
         len: usize,
-    ) -> io::Result<ReadInterleavedBytesIter<'a, N>> {
-        let out = self.read_slice(len * N)?;
-
-        Ok(ReadInterleavedBytesIter::new(out, len))
+    ) -> io::Result<InterleavedArrayIter<'a, N>> {
+        let bytes = self.read_slice(len * N)?;
+        let index = 0;
+        Ok(InterleavedArrayIter { bytes, index, len })
     }
 
     /// Creates an iterator of `len` big-endian i32 values.
@@ -153,7 +150,7 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_i32_array(
         &mut self,
         len: usize,
-    ) -> io::Result<impl Iterator<Item = i32> + 'a> {
+    ) -> io::Result<impl ExactSizeIterator<Item = i32> + 'a> {
         Ok(self
             .read_interleaved_bytes(len)?
             .map(|out| untransform_i32(i32::from_be_bytes(out))))
@@ -164,7 +161,7 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_u32_array(
         &mut self,
         len: usize,
-    ) -> io::Result<impl Iterator<Item = u32> + 'a> {
+    ) -> io::Result<impl ExactSizeIterator<Item = u32> + 'a> {
         Ok(self.read_interleaved_bytes(len)?.map(u32::from_be_bytes))
     }
 
@@ -173,7 +170,7 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_f32_array(
         &mut self,
         len: usize,
-    ) -> io::Result<impl Iterator<Item = f32> + 'a> {
+    ) -> io::Result<impl ExactSizeIterator<Item = f32> + 'a> {
         Ok(self
             .read_interleaved_bytes(len)?
             .map(|out| f32::from_bits(u32::from_be_bytes(out).rotate_right(1))))
@@ -182,7 +179,10 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     /// Creates an iterator of `len` big-endian i32 values.
     /// The values are properly untransformed and accumulated
     /// so as to properly read arrays of referent values.
-    fn read_referent_array(&mut self, len: usize) -> io::Result<impl Iterator<Item = i32> + 'a> {
+    fn read_referent_array(
+        &mut self,
+        len: usize,
+    ) -> io::Result<impl ExactSizeIterator<Item = i32> + 'a> {
         let mut last = 0;
         Ok(self
             .read_interleaved_i32_array(len)?
@@ -198,7 +198,7 @@ pub trait RbxReadInterleaved<'a>: ReadSlice<'a> {
     fn read_interleaved_i64_array(
         &mut self,
         len: usize,
-    ) -> io::Result<impl Iterator<Item = i64> + 'a> {
+    ) -> io::Result<impl ExactSizeIterator<Item = i64> + 'a> {
         Ok(self
             .read_interleaved_bytes(len)?
             .map(|out| untransform_i64(i64::from_be_bytes(out))))
@@ -407,7 +407,7 @@ impl<'db> PropertyDescriptors<'db> {
             // return, it's possible that both the canonical and serialized
             // forms are different.
             PropertyKind::Alias { alias_for } => {
-                let canonical = class_descriptor.properties.get(alias_for.as_ref()).unwrap();
+                let canonical = class_descriptor.properties.get(*alias_for).unwrap();
 
                 if let PropertyKind::Canonical { serialization } = &canonical.kind {
                     let serialized =
@@ -485,7 +485,7 @@ fn find_serialized_from_canonical<'db>(
         // This property serializes under an alias. That property should have a
         // corresponding property descriptor within the same class descriptor.
         PropertySerialization::SerializesAs(serialized_name) => {
-            let serialized_descriptor = class.properties.get(serialized_name.as_ref()).unwrap();
+            let serialized_descriptor = class.properties.get(*serialized_name).unwrap();
 
             Some(serialized_descriptor)
         }

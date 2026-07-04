@@ -1,0 +1,17 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="BloomEffect" referent="0">
+    <Properties>
+      <string name="Name">Bloom</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <bool name="Enabled">true</bool>
+      <float name="Intensity">0.45</float>
+      <float name="Size">24.7</float>
+      <BinaryString name="Tags"></BinaryString>
+      <float name="Threshold">2.285</float>
+    </Properties>
+  </Item>
+</roblox>

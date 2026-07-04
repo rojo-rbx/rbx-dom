@@ -167,12 +167,12 @@ chunks:
         - ""
   - Prop:
       type_id: 0
-      prop_name: Texture
-      prop_type: String
+      prop_name: TextureContent
+      prop_type: Content
       values:
-        - ""
-        - ""
-        - ""
+        - None
+        - None
+        - None
   - Prop:
       type_id: 0
       prop_name: TextureLength
@@ -257,4 +257,3 @@ chunks:
         - - 2
           - -1
   - End
-

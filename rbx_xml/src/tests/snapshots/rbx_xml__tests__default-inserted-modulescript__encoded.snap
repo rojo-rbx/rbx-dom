@@ -1,0 +1,22 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="ModuleScript" referent="0">
+    <Properties>
+      <string name="Name">ModuleScript</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <ContentId name="LinkedSource">
+        <null>
+        </null>
+      </ContentId>
+      <string name="ScriptGuid">{27E39FEB-27B7-43EC-9398-04115CF856B2}</string>
+      <string name="Source"><![CDATA[local module = {}
+
+return module
+]]></string>
+      <BinaryString name="Tags"></BinaryString>
+    </Properties>
+  </Item>
+</roblox>
