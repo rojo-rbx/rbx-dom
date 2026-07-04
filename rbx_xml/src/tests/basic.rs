@@ -430,3 +430,35 @@ fn enum_item_to_enum() {
 
     assert_eq!(prop_type, VariantType::Enum);
 }
+
+#[test]
+fn sharedstring_tags() {
+    let _ = env_logger::try_init();
+    let document = r#"
+        <roblox version="4">
+            <Item class="Folder" referent="Unimportant">
+                <Properties>
+                    <SharedString name="Tags">Xp9+1IrNPJ11i2LY/+DKKQ==</SharedString>
+                </Properties>
+            </Item>
+            <SharedStrings>
+                <SharedString md5="Xp9+1IrNPJ11i2LY/+DKKQ==">VGVzdFRhZw==</SharedString>
+            </SharedStrings>
+        </roblox>
+    "#;
+    let tree = crate::from_str_default(document).unwrap();
+
+    let folder = tree.get_by_ref(tree.root().children()[0]).unwrap();
+    assert_eq!(folder.class, "Folder");
+    let tags = folder
+        .properties
+        .get(&"Tags".into())
+        .expect("the read Folder to have Tags");
+
+    let Variant::Tags(inner) = tags else {
+        panic!("read Tags property was a {:?} and not a Tags", tags.ty());
+    };
+
+    assert_eq!(inner.len(), 1);
+    assert_eq!(inner.iter().next(), Some("TestTag"));
+}
