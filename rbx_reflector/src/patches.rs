@@ -10,7 +10,7 @@ use rbx_reflection::{
     ReflectionDatabase, Scriptability,
 };
 use rbx_types::Variant;
-use serde::Deserialize;
+use serde::{Deserialize, Deserializer};
 
 pub struct PatchSource {
     path: PathBuf,
@@ -166,40 +166,53 @@ impl<'a> Patches<'a> {
 
         for (class_name, class_changes) in &self.change {
             for (prop_name, prop_change) in class_changes {
-                let default_value = match &prop_change.default_value {
-                    Some(value) => value,
-                    None => continue,
-                };
-                let prop_data = database
-                    .classes
-                    .get(class_name)
-                    // This is already validated pre-default application, so unwrap is fine
-                    .unwrap()
-                    .properties
-                    .get(prop_name);
-                if let Some(prop_data) = prop_data {
-                    match (prop_data.data_type.ty(), default_value.ty()) {
-                        (existing, new) if existing == new => {}
-                        (expected, actual) => bail!(
-                            "Bad type given for {class_name}.{prop_name}'s DefaultValue patch.\n\
-                            Expected {expected:?}, got {actual:?}"
-                        ),
-                    }
-                }
                 let subclass_list = subclass_map.get(*class_name).ok_or_else(|| {
                     anyhow!(
                         "Class {} modified in patch file does not exist in database",
                         class_name
                     )
                 })?;
-                for descendant in subclass_list {
-                    let class = database
-                        .classes
-                        .get_mut(descendant.as_str())
-                        .expect("class listed in subclass map should exist");
-                    class
-                        .default_properties
-                        .insert(prop_name, default_value.clone());
+
+                match &prop_change.default_value {
+                    Some(Some(default_value)) => {
+                        let prop_data = database
+                            .classes
+                            .get(class_name)
+                            // This is already validated pre-default application, so unwrap is fine
+                            .unwrap()
+                            .properties
+                            .get(prop_name);
+                        if let Some(prop_data) = prop_data {
+                            match (prop_data.data_type.ty(), default_value.ty()) {
+                                (existing, new) if existing == new => {}
+                                (expected, actual) => bail!(
+                                    "Bad type given for {class_name}.{prop_name}'s DefaultValue patch.\n\
+                                    Expected {expected:?}, got {actual:?}"
+                                ),
+                            }
+                        }
+                        for descendant in subclass_list {
+                            let class = database
+                                .classes
+                                .get_mut(descendant.as_str())
+                                .expect("class listed in subclass map should exist");
+                            class
+                                .default_properties
+                                .insert(prop_name, default_value.clone());
+                        }
+                    }
+
+                    Some(None) => {
+                        for descendant in subclass_list {
+                            let class = database
+                                .classes
+                                .get_mut(descendant.as_str())
+                                .expect("class listed in subclass map should exist");
+                            class.default_properties.remove(prop_name);
+                        }
+                    }
+
+                    None => continue,
                 }
             }
         }
@@ -268,9 +281,9 @@ struct PropertyChange<'a> {
     serialization: Option<Serialization<'a>>,
     scriptability: Option<Scriptability>,
 
-    #[serde(with = "yaml_serde::with::singleton_map_recursive")]
+    #[serde(deserialize_with = "deserialize_optional_default_value")]
     #[serde(default)]
-    default_value: Option<Variant>,
+    default_value: Option<Option<Variant>>,
 }
 
 impl<'a> PropertyChange<'a> {
@@ -287,6 +300,18 @@ impl<'a> PropertyChange<'a> {
             _ => panic!("property changes cannot specify AliasFor and Serialization"),
         }
     }
+}
+
+fn deserialize_optional_default_value<'de, D>(
+    deserializer: D,
+) -> Result<Option<Option<Variant>>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let value: Option<Variant> =
+        yaml_serde::with::singleton_map_recursive::deserialize(deserializer)?;
+
+    Ok(Some(value))
 }
 
 #[derive(Deserialize)]
