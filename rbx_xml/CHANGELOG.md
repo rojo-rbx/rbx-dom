@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* `CoordinateFrame` (`CFrame`) values are now deserialized independently of the order in which their component tags appear, and duplicate or unknown component tags are now rejected with a clear error.
 
 # 3.0.0 (2026-07-01)
 * Upgraded to `rbx_reflection` v3.0.0
