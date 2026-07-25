@@ -129,19 +129,12 @@ fn find_property_descriptors<'db>(
             }
         }
 
-        if let Some(superclass_name) = current_class_descriptor.superclass {
-            // If a property descriptor isn't found in our class, check
-            // our superclass.
-
-            current_class_descriptor = database
-                .classes
-                .get(superclass_name)
-                .expect("Superclass in reflection database didn't exist");
-        } else {
-            // This property isn't known by any class in the reflection
-            // database.
-
-            return None;
-        }
+        // If a property descriptor isn't found in our class, check
+        // our superclass.
+        let superclass_name = current_class_descriptor.superclass?;
+        current_class_descriptor = database
+            .classes
+            .get(superclass_name)
+            .expect("Superclass in reflection database didn't exist");
     }
 }

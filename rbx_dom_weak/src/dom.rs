@@ -538,7 +538,7 @@ impl CloneContext {
     fn rewrite_refs(self, dest: &mut WeakDom) {
         let mut existing_dest_refs = AHashSet::new();
 
-        for (_, new_ref) in self.ref_rewrites.iter() {
+        for new_ref in self.ref_rewrites.values() {
             let instance = dest
                 .get_by_ref(*new_ref)
                 .expect("Cannot rewrite refs on an instance that does not exist");
@@ -552,7 +552,7 @@ impl CloneContext {
             }
         }
 
-        for (_, new_ref) in self.ref_rewrites.iter() {
+        for new_ref in self.ref_rewrites.values() {
             let instance = dest
                 .get_by_ref_mut(*new_ref)
                 .expect("Cannot rewrite refs on an instance that does not exist");
