@@ -17,7 +17,7 @@ use std::{
 
 use crate::{Error, Variant};
 
-use self::reader::read_attributes;
+use self::reader::extend_attributes_from_reader;
 use self::writer::write_attributes;
 
 pub(crate) use self::error::AttributeError;
@@ -42,9 +42,15 @@ impl Attributes {
 
     /// Reads from a serialized attributes string, and produces a new `Attributes` from it.
     pub fn from_reader<R: Read>(reader: R) -> Result<Self, Error> {
-        Ok(Attributes {
-            data: read_attributes(reader)?,
-        })
+        let mut attributes = Attributes::new();
+        extend_attributes_from_reader(&mut attributes, reader)?;
+        Ok(attributes)
+    }
+
+    /// Reads from a serialized attributes string, and extends `Self` with the deserialized attributes.
+    pub fn extend_from_reader<R: Read>(&mut self, reader: R) -> Result<(), Error> {
+        extend_attributes_from_reader(self, reader)?;
+        Ok(())
     }
 
     /// Writes the attributes as a serialized string to the writer.

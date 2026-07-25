@@ -1,25 +1,21 @@
-use std::{
-    collections::BTreeMap,
-    io::{self, Read},
-};
+use std::io::{self, Read};
 
 use crate::{
-    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font,
-    FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, Rect,
-    UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+    Attributes, BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint,
+    EnumItem, Font, FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence,
+    NumberSequenceKeypoint, Rect, UDim, UDim2, VariantType, Vector2, Vector3,
 };
 
 use super::{type_id, AttributeError};
 
 /// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
-pub(crate) fn read_attributes<R: Read>(
+pub(crate) fn extend_attributes_from_reader<R: Read>(
+    attributes: &mut Attributes,
     mut value: R,
-) -> Result<BTreeMap<String, Variant>, AttributeError> {
-    let mut attributes = BTreeMap::new();
-
+) -> Result<(), AttributeError> {
     let len = match read_option_u32(&mut value) {
         Ok(Some(len)) => len,
-        Ok(None) => return Ok(attributes),
+        Ok(None) => return Ok(()),
         Err(_) => return Err(AttributeError::InvalidLength),
     };
 
@@ -219,7 +215,7 @@ pub(crate) fn read_attributes<R: Read>(
         attributes.insert(key, value);
     }
 
-    Ok(attributes)
+    Ok(())
 }
 
 fn read_u8<R: Read>(mut reader: R) -> io::Result<u8> {
