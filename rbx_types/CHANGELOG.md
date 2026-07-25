@@ -1,5 +1,8 @@
 # rbx_types Changelog
 
+# Unreleased
+* Added `Attributes::extend_from_reader` to extend an existing `Attributes` with values from a reader. ([#643])
+
 # 3.1.0 (2025-11-27)
 * Fixed `serde::Deserialize` implementations for `BinaryString`, `SharedString`, `NetAssetRef`, `Faces`, and `Axes` to properly utilize visitors. ([#563])
 * Added `CFrame::identity` convenience method to construct an identity CFrame. ([#567])
