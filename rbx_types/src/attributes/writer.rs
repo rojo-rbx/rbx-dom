@@ -1,4 +1,4 @@
-use std::io::{self, Write};
+use std::io::Write;
 
 use super::attribute::AttributeType;
 use super::error::AttributeError;
@@ -27,56 +27,67 @@ impl<W: Write> AttributeWriter<W, false> {
     }
 }
 impl<W: Write> AttributeWriter<W, true> {
-    fn write_i32(&mut self, n: i32) -> io::Result<()> {
-        self.writer.write_all(&n.to_le_bytes())
+    fn write_i32(&mut self, n: i32) -> Result<(), AttributeError> {
+        self.writer.write_all(&n.to_le_bytes())?;
+        Ok(())
     }
 
-    fn write_f32(&mut self, n: f32) -> io::Result<()> {
-        self.writer.write_all(&n.to_le_bytes())
+    fn write_f32(&mut self, n: f32) -> Result<(), AttributeError> {
+        self.writer.write_all(&n.to_le_bytes())?;
+        Ok(())
     }
 
-    fn write_f64(&mut self, n: f64) -> io::Result<()> {
-        self.writer.write_all(&n.to_le_bytes())
+    fn write_f64(&mut self, n: f64) -> Result<(), AttributeError> {
+        self.writer.write_all(&n.to_le_bytes())?;
+        Ok(())
     }
 
-    fn write_u32(&mut self, n: u32) -> io::Result<()> {
-        self.writer.write_all(&n.to_le_bytes())
+    fn write_u32(&mut self, n: u32) -> Result<(), AttributeError> {
+        self.writer.write_all(&n.to_le_bytes())?;
+        Ok(())
     }
 
-    fn write_u16(&mut self, n: u16) -> io::Result<()> {
-        self.writer.write_all(&n.to_le_bytes())
+    fn write_u16(&mut self, n: u16) -> Result<(), AttributeError> {
+        self.writer.write_all(&n.to_le_bytes())?;
+        Ok(())
     }
 
-    fn write_u8(&mut self, n: u8) -> io::Result<()> {
-        self.writer.write_all(&n.to_le_bytes())
+    fn write_u8(&mut self, n: u8) -> Result<(), AttributeError> {
+        self.writer.write_all(&n.to_le_bytes())?;
+        Ok(())
     }
 
-    fn write_color3(&mut self, color: Color3) -> io::Result<()> {
+    fn write_color3(&mut self, color: Color3) -> Result<(), AttributeError> {
         self.write_f32(color.r)?;
         self.write_f32(color.g)?;
-        self.write_f32(color.b)
+        self.write_f32(color.b)?;
+        Ok(())
     }
 
-    fn write_string<T: AsRef<[u8]>>(&mut self, string: T) -> io::Result<()> {
+    fn write_string<T: AsRef<[u8]>>(&mut self, string: T) -> Result<(), AttributeError> {
         let bytes = string.as_ref();
         self.write_u32(bytes.len() as u32)?;
-        self.writer.write_all(bytes)
+        self.writer.write_all(bytes)?;
+        Ok(())
     }
 
-    fn write_udim(&mut self, udim: UDim) -> io::Result<()> {
+    fn write_udim(&mut self, udim: UDim) -> Result<(), AttributeError> {
         self.write_f32(udim.scale)?;
-        self.writer.write_all(&udim.offset.to_le_bytes())
+        self.writer.write_all(&udim.offset.to_le_bytes())?;
+        Ok(())
     }
 
-    fn write_vector2(&mut self, vector2: Vector2) -> io::Result<()> {
+    fn write_vector2(&mut self, vector2: Vector2) -> Result<(), AttributeError> {
         self.write_f32(vector2.x)?;
-        self.write_f32(vector2.y)
+        self.write_f32(vector2.y)?;
+        Ok(())
     }
 
-    fn write_vector3(&mut self, vector3: Vector3) -> io::Result<()> {
+    fn write_vector3(&mut self, vector3: Vector3) -> Result<(), AttributeError> {
         self.write_f32(vector3.x)?;
         self.write_f32(vector3.y)?;
-        self.write_f32(vector3.z)
+        self.write_f32(vector3.z)?;
+        Ok(())
     }
 
     pub fn write_attribute(&mut self, name: &str, variant: &Variant) -> Result<(), AttributeError> {
