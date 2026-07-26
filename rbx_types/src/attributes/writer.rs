@@ -206,8 +206,12 @@ impl_write_attribute! {
         self.write_string(enum_item.ty.as_bytes())?;
         self.write_u32(enum_item.value)?;
     }
+    Ref => fn write_attribute_ref(self, referent: i32) {
+        self.write_i32(referent)?;
+    }
 }
 impl<W: Write> AttributeWriter<W, true> {
+    /// Write a generic attribute.  Does not support writing Ref attributes, use write_attribute_ref.
     pub fn write_attribute(&mut self, name: &str, variant: &Variant) -> Result<(), Error> {
         match variant {
             Variant::Bool(value) => self.write_attribute_bool(name, *value),
@@ -229,6 +233,7 @@ impl<W: Write> AttributeWriter<W, true> {
             Variant::CFrame(value) => self.write_attribute_cframe(name, *value),
             Variant::Font(value) => self.write_attribute_font(name, value),
             Variant::EnumItem(value) => self.write_attribute_enum_item(name, value),
+            // Ref is implicitly unsupported in this function
             other_variant => Err(AttributeError::UnsupportedVariantType(other_variant.ty()).into()),
         }
     }

@@ -42,18 +42,21 @@ impl Attributes {
     }
 
     /// Reads from a serialized attributes string, and produces a new `Attributes` from it.
+    /// Note: Does not support Ref attributes.  Use AttributeReader directly to handle Ref attributes.
     pub fn from_reader<R: Read>(reader: R) -> Result<Self, Error> {
         let attribute_reader = AttributeReader::new(reader);
         let (mut attribute_reader, len) = attribute_reader.read_len()?;
         let mut attributes = Attributes::new();
         for _ in 0..len {
             let (key, value) = attribute_reader.read_attribute()?;
-            attributes.insert(key, value.into_variant());
+            let variant = value.try_into_variant()?;
+            attributes.insert(key, variant);
         }
         Ok(attributes)
     }
 
     /// Writes the attributes as a serialized string to the writer.
+    /// Note: Does not support Ref attributes.  Use AttributeWriter directly to handle Ref attributes.
     pub fn to_writer<W: Write>(&self, writer: W) -> Result<(), Error> {
         if self.is_empty() {
             return Ok(());

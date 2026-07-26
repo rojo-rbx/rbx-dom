@@ -337,6 +337,10 @@ impl<R: Read> AttributeReader<R, true> {
                     value,
                 })
             }
+            AttributeType::Ref => {
+                let referent = self.read_i32()?;
+                Attribute::Ref(referent)
+            }
         };
 
         Ok((key, attribute))
