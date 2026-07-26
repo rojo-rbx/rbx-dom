@@ -4,7 +4,7 @@ use crate::{
 };
 
 macro_rules! impl_attribute {
-    ( $( $id:literal => $variant:ident($t:ty), )* ) => {
+    ( $( $id:literal => $variant:ident($ty:ty), )* ) => {
         #[derive(Debug, Clone)]
         pub(super) enum AttributeType {
             $(
@@ -40,7 +40,7 @@ macro_rules! impl_attribute {
         #[derive(Debug, Clone)]
         pub enum Attribute {
             $(
-                $variant($t),
+                $variant($ty),
             )*
         }
         impl Attribute {
