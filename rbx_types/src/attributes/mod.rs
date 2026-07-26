@@ -16,11 +16,11 @@ use std::{
 };
 
 use crate::{Error, Variant};
-use writer::write_attributes;
 
 pub use attribute::Attribute;
 pub use error::AttributeError;
 pub use reader::AttributeReader;
+pub use writer::AttributeWriter;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 #[cfg_attr(
@@ -53,8 +53,16 @@ impl Attributes {
     }
 
     /// Writes the attributes as a serialized string to the writer.
-    pub fn to_writer<W: Write>(&self, mut writer: W) -> Result<(), Error> {
-        write_attributes(&self.data, &mut writer).map_err(Into::into)
+    pub fn to_writer<W: Write>(&self, writer: W) -> Result<(), Error> {
+        if self.is_empty() {
+            return Ok(());
+        }
+        let attribute_writer = AttributeWriter::new(writer);
+        let mut attribute_writer = attribute_writer.write_len(self.len() as u32)?;
+        for (name, variant) in &self.data {
+            attribute_writer.write_attribute(name, variant)?;
+        }
+        Ok(())
     }
 
     /// Get the attribute with the following key.

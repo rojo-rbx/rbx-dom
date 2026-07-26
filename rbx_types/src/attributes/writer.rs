@@ -1,7 +1,4 @@
-use std::{
-    collections::BTreeMap,
-    io::{self, Write},
-};
+use std::io::{self, Write};
 
 use super::attribute::AttributeType;
 use super::error::AttributeError;
@@ -12,104 +9,111 @@ use crate::{
     Vector3,
 };
 
-/// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
-pub(crate) fn write_attributes<W: Write>(
-    map: &BTreeMap<String, Variant>,
-    mut writer: W,
-) -> Result<(), AttributeError> {
-    if map.is_empty() {
-        return Ok(());
+/// Attribute writer for the binary attributes format.
+/// Call write_len and then write_attribute to write each attribute.
+/// Does not enforce the number of attributes written.
+pub struct AttributeWriter<W, const STATE: bool> {
+    writer: W,
+}
+
+impl<W: Write> AttributeWriter<W, false> {
+    pub fn new(writer: W) -> Self {
+        Self { writer }
     }
-
-    writer.write_all(&(map.len() as u32).to_le_bytes())?;
-
-    for (name, variant) in map {
-        write_string(&mut writer, name)?;
+    pub fn write_len(self, len: u32) -> Result<AttributeWriter<W, true>, AttributeError> {
+        let mut writer = self.writer;
+        write_u32(&mut writer, len)?;
+        Ok(AttributeWriter { writer })
+    }
+}
+impl<W: Write> AttributeWriter<W, true> {
+    pub fn write_attribute(&mut self, name: &str, variant: &Variant) -> Result<(), AttributeError> {
+        write_string(&mut self.writer, name)?;
 
         let attribute_type = AttributeType::from_variant_type(variant.ty())
             .ok_or_else(|| AttributeError::UnsupportedVariantType(variant.ty()))?;
-        writer.write_all(&[attribute_type.to_u8()])?;
+        write_u8(&mut self.writer, attribute_type.to_u8())?;
 
         match variant {
-            Variant::Bool(bool) => writer.write_all(&[*bool as u8])?,
-            Variant::BrickColor(color) => write_u32(&mut writer, *color as u32)?,
-            Variant::Color3(color) => write_color3(&mut writer, *color)?,
+            Variant::Bool(bool) => self.writer.write_all(&[*bool as u8])?,
+            Variant::BrickColor(color) => write_u32(&mut self.writer, *color as u32)?,
+            Variant::Color3(color) => write_color3(&mut self.writer, *color)?,
             Variant::ColorSequence(sequence) => {
-                write_u32(&mut writer, sequence.keypoints.len() as u32)?;
+                write_u32(&mut self.writer, sequence.keypoints.len() as u32)?;
 
                 for keypoint in &sequence.keypoints {
-                    write_f32(&mut writer, 0.0)?; // Envelope
-                    write_f32(&mut writer, keypoint.time)?;
-                    write_color3(&mut writer, keypoint.color)?;
+                    write_f32(&mut self.writer, 0.0)?; // Envelope
+                    write_f32(&mut self.writer, keypoint.time)?;
+                    write_color3(&mut self.writer, keypoint.color)?;
                 }
             }
-            Variant::Int32(int) => write_i32(&mut writer, *int)?,
-            Variant::Float32(float) => write_f32(&mut writer, *float)?,
-            Variant::Float64(float) => write_f64(&mut writer, *float)?,
+            Variant::Int32(int) => write_i32(&mut self.writer, *int)?,
+            Variant::Float32(float) => write_f32(&mut self.writer, *float)?,
+            Variant::Float64(float) => write_f64(&mut self.writer, *float)?,
             Variant::NumberRange(range) => {
-                write_f32(&mut writer, range.min)?;
-                write_f32(&mut writer, range.max)?;
+                write_f32(&mut self.writer, range.min)?;
+                write_f32(&mut self.writer, range.max)?;
             }
             Variant::NumberSequence(sequence) => {
-                write_u32(&mut writer, sequence.keypoints.len() as u32)?;
+                write_u32(&mut self.writer, sequence.keypoints.len() as u32)?;
 
                 for keypoint in &sequence.keypoints {
-                    write_f32(&mut writer, keypoint.envelope)?;
-                    write_f32(&mut writer, keypoint.time)?;
-                    write_f32(&mut writer, keypoint.value)?;
+                    write_f32(&mut self.writer, keypoint.envelope)?;
+                    write_f32(&mut self.writer, keypoint.time)?;
+                    write_f32(&mut self.writer, keypoint.value)?;
                 }
             }
             Variant::Rect(rect) => {
-                write_vector2(&mut writer, rect.min)?;
-                write_vector2(&mut writer, rect.max)?
+                write_vector2(&mut self.writer, rect.min)?;
+                write_vector2(&mut self.writer, rect.max)?
             }
-            Variant::BinaryString(string) => write_string(&mut writer, string)?,
-            Variant::String(string) => write_string(&mut writer, string)?,
-            Variant::UDim(udim) => write_udim(&mut writer, *udim)?,
+            Variant::BinaryString(string) => write_string(&mut self.writer, string)?,
+            Variant::String(string) => write_string(&mut self.writer, string)?,
+            Variant::UDim(udim) => write_udim(&mut self.writer, *udim)?,
             Variant::UDim2(udim2) => {
-                write_udim(&mut writer, udim2.x)?;
-                write_udim(&mut writer, udim2.y)?
+                write_udim(&mut self.writer, udim2.x)?;
+                write_udim(&mut self.writer, udim2.y)?
             }
-            Variant::Vector2(vector2) => write_vector2(&mut writer, *vector2)?,
+            Variant::Vector2(vector2) => write_vector2(&mut self.writer, *vector2)?,
             Variant::Vector3(vector3) => {
-                write_f32(&mut writer, vector3.x)?;
-                write_f32(&mut writer, vector3.y)?;
-                write_f32(&mut writer, vector3.z)?
+                write_f32(&mut self.writer, vector3.x)?;
+                write_f32(&mut self.writer, vector3.y)?;
+                write_f32(&mut self.writer, vector3.z)?
             }
             Variant::CFrame(cframe) => {
-                write_vector3(&mut writer, cframe.position)?;
+                write_vector3(&mut self.writer, cframe.position)?;
 
                 let matrix = cframe.orientation;
 
                 if let Some(rotation_id) = matrix.to_basic_rotation_id() {
-                    write_u8(&mut writer, rotation_id)?;
+                    write_u8(&mut self.writer, rotation_id)?;
                 } else {
-                    write_u8(&mut writer, 0x00)?;
+                    write_u8(&mut self.writer, 0x00)?;
 
-                    write_vector3(&mut writer, matrix.x)?;
-                    write_vector3(&mut writer, matrix.y)?;
-                    write_vector3(&mut writer, matrix.z)?;
+                    write_vector3(&mut self.writer, matrix.x)?;
+                    write_vector3(&mut self.writer, matrix.y)?;
+                    write_vector3(&mut self.writer, matrix.z)?;
                 }
             }
             Variant::Font(font) => {
-                write_u16(&mut writer, font.weight.as_u16())?;
-                write_u8(&mut writer, font.style.as_u8())?;
-                write_string(&mut writer, &font.family)?;
+                write_u16(&mut self.writer, font.weight.as_u16())?;
+                write_u8(&mut self.writer, font.style.as_u8())?;
+                write_string(&mut self.writer, &font.family)?;
                 write_string(
-                    &mut writer,
+                    &mut self.writer,
                     font.cached_face_id.as_deref().unwrap_or_default(),
                 )?;
             }
             Variant::EnumItem(enum_item) => {
-                write_string(&mut writer, &enum_item.ty)?;
-                write_u32(&mut writer, enum_item.value)?;
+                write_string(&mut self.writer, &enum_item.ty)?;
+                write_u32(&mut self.writer, enum_item.value)?;
             }
 
             other_variant => unreachable!("variant {:?} was not implemented", other_variant),
         }
-    }
 
-    Ok(())
+        Ok(())
+    }
 }
 
 fn write_i32<W: Write>(mut writer: W, n: i32) -> io::Result<()> {
