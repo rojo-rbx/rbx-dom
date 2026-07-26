@@ -38,6 +38,7 @@ macro_rules! impl_attribute {
             }
         }
         #[derive(Debug, Clone)]
+        #[non_exhaustive]
         pub enum Attribute {
             $(
                 $variant($ty),
