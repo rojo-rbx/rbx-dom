@@ -1,176 +1,169 @@
-use std::{
-    collections::BTreeMap,
-    io::{self, Read},
-};
+use std::io::{self, Read};
 
 use crate::{
-    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font,
-    FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, Rect,
-    UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+    BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font, FontStyle,
+    FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, UDim, UDim2,
+    Vector2, Vector3,
 };
 
-use super::{type_id, AttributeError};
+use super::attribute::{Attribute, AttributeType};
+use super::error::AttributeError;
 
-/// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
-pub(crate) fn read_attributes<R: Read>(
-    mut value: R,
-) -> Result<BTreeMap<String, Variant>, AttributeError> {
-    let mut attributes = BTreeMap::new();
+/// Attribute reader. STATE is typestate which remembers whether the len has
+/// been read. Does not track how many attributes have been read internally,
+/// use the provided len value to read the correct number of attributes.
+pub struct AttributeReader<R, const STATE: bool> {
+    reader: R,
+}
 
-    let len = match read_option_u32(&mut value) {
-        Ok(Some(len)) => len,
-        Ok(None) => return Ok(attributes),
-        Err(_) => return Err(AttributeError::InvalidLength),
-    };
-
-    for _ in 0..len {
-        let key_buf = read_string(&mut value).map_err(|_| AttributeError::NoKey)?;
+impl<R: Read> AttributeReader<R, false> {
+    pub fn new(reader: R) -> Self {
+        Self { reader }
+    }
+    pub fn read_len(self) -> Result<(AttributeReader<R, true>, u32), AttributeError> {
+        let mut reader = self.reader;
+        let len = match read_option_u32(&mut reader) {
+            Ok(Some(len)) => len,
+            Ok(None) => 0,
+            Err(_) => return Err(AttributeError::InvalidLength),
+        };
+        Ok((AttributeReader { reader }, len))
+    }
+}
+impl<R: Read> AttributeReader<R, true> {
+    pub fn read_attribute(&mut self) -> Result<(String, Attribute), AttributeError> {
+        let key_buf = read_string(&mut self.reader).map_err(|_| AttributeError::NoKey)?;
         let key = String::from_utf8(key_buf).map_err(AttributeError::KeyBadUnicode)?;
 
-        let type_id = read_u8(&mut value).map_err(|_| AttributeError::NoValueType)?;
+        let type_id = read_u8(&mut self.reader).map_err(|_| AttributeError::NoValueType)?;
         let ty =
-            type_id::to_variant_type(type_id).ok_or(AttributeError::InvalidValueType(type_id))?;
+            AttributeType::from_u8(type_id).ok_or(AttributeError::InvalidValueType(type_id))?;
 
-        let value = match ty {
-            VariantType::BrickColor => {
-                let color =
-                    read_u32(&mut value).map_err(|_| AttributeError::ReadType("BrickColor"))?;
+        let attribute = match ty {
+            AttributeType::BrickColor => {
+                let color = read_u32(&mut self.reader)
+                    .map_err(|_| AttributeError::ReadType("BrickColor"))?;
 
-                BrickColor::from_number(color as u16)
-                    .ok_or(AttributeError::InvalidBrickColor(color))?
-                    .into()
+                let brick_color = BrickColor::from_number(color as u16)
+                    .ok_or(AttributeError::InvalidBrickColor(color))?;
+
+                Attribute::BrickColor(brick_color)
             }
 
-            VariantType::Bool => {
-                (read_u8(&mut value).map_err(|_| AttributeError::ReadType("bool"))? != 0).into()
-            }
+            AttributeType::Bool => Attribute::Bool(
+                read_u8(&mut self.reader).map_err(|_| AttributeError::ReadType("bool"))? != 0,
+            ),
 
-            VariantType::Color3 => read_color3(&mut value)
-                .map_err(|_| AttributeError::ReadType("Color3"))?
-                .into(),
-
-            VariantType::ColorSequence => {
-                let size = read_u32(&mut value)
+            AttributeType::Color3 => Attribute::Color3(
+                read_color3(&mut self.reader).map_err(|_| AttributeError::ReadType("Color3"))?,
+            ),
+            AttributeType::ColorSequence => {
+                let size = read_u32(&mut self.reader)
                     .map_err(|_| AttributeError::ReadType("ColorSequence length"))?;
                 let mut keypoints = Vec::with_capacity(size as usize);
 
                 for _ in 0..size {
                     // `envelope` is always zero and can be ignored.
-                    let _envelope = read_f32(&mut value)
+                    let _envelope = read_f32(&mut self.reader)
                         .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint envelope"))?;
 
-                    let time = read_f32(&mut value)
+                    let time = read_f32(&mut self.reader)
                         .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint time"))?;
 
-                    let color = read_color3(&mut value)
+                    let color = read_color3(&mut self.reader)
                         .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint color"))?;
 
                     keypoints.push(ColorSequenceKeypoint::new(time, color));
                 }
 
-                ColorSequence { keypoints }.into()
+                Attribute::ColorSequence(ColorSequence { keypoints })
             }
 
-            VariantType::Int32 => read_i32(&mut value)
-                .map_err(|_| AttributeError::ReadType("int32"))?
-                .into(),
-
-            VariantType::Float32 => read_f32(&mut value)
-                .map_err(|_| AttributeError::ReadType("float32"))?
-                .into(),
-
-            VariantType::Float64 => read_f64(&mut value)
-                .map_err(|_| AttributeError::ReadType("float64"))?
-                .into(),
-
-            VariantType::NumberRange => NumberRange::new(
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("NumberRange min"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("NumberRange max"))?,
-            )
-            .into(),
-
-            VariantType::NumberSequence => {
-                let size = read_u32(&mut value)
+            AttributeType::Int32 => Attribute::Int32(
+                read_i32(&mut self.reader).map_err(|_| AttributeError::ReadType("int32"))?,
+            ),
+            AttributeType::Float32 => Attribute::Float32(
+                read_f32(&mut self.reader).map_err(|_| AttributeError::ReadType("float32"))?,
+            ),
+            AttributeType::Float64 => Attribute::Float64(
+                read_f64(&mut self.reader).map_err(|_| AttributeError::ReadType("float64"))?,
+            ),
+            AttributeType::NumberRange => Attribute::NumberRange(NumberRange::new(
+                read_f32(&mut self.reader)
+                    .map_err(|_| AttributeError::ReadType("NumberRange min"))?,
+                read_f32(&mut self.reader)
+                    .map_err(|_| AttributeError::ReadType("NumberRange max"))?,
+            )),
+            AttributeType::NumberSequence => {
+                let size = read_u32(&mut self.reader)
                     .map_err(|_| AttributeError::ReadType("NumberSequence length"))?;
 
                 let mut keypoints = Vec::with_capacity(size as usize);
 
                 for _ in 0..size {
-                    let envelope = read_f32(&mut value)
+                    let envelope = read_f32(&mut self.reader)
                         .map_err(|_| AttributeError::ReadType("NumberSequence envelope"))?;
 
-                    let time = read_f32(&mut value)
+                    let time = read_f32(&mut self.reader)
                         .map_err(|_| AttributeError::ReadType("NumberSequence time"))?;
 
-                    let value = read_f32(&mut value)
+                    let value = read_f32(&mut self.reader)
                         .map_err(|_| AttributeError::ReadType("NumberSequence value"))?;
 
                     keypoints.push(NumberSequenceKeypoint::new(time, value, envelope));
                 }
 
-                NumberSequence { keypoints }.into()
+                Attribute::NumberSequence(NumberSequence { keypoints })
             }
 
-            VariantType::Rect => Rect::new(
-                read_vector2(&mut value).map_err(|_| AttributeError::ReadType("Rect min"))?,
-                read_vector2(&mut value).map_err(|_| AttributeError::ReadType("Rect max"))?,
-            )
-            .into(),
-
-            VariantType::BinaryString => {
-                let binary_string: BinaryString = read_string(&mut value)
-                    .map_err(|_| AttributeError::ReadType("string"))?
-                    .into();
-                binary_string.into()
+            AttributeType::Rect => Attribute::Rect(Rect::new(
+                read_vector2(&mut self.reader).map_err(|_| AttributeError::ReadType("Rect min"))?,
+                read_vector2(&mut self.reader).map_err(|_| AttributeError::ReadType("Rect max"))?,
+            )),
+            AttributeType::BinaryString => {
+                let data = read_string(&mut self.reader)
+                    .map_err(|_| AttributeError::ReadType("string"))?;
+                Attribute::BinaryString(data.into())
             }
 
-            VariantType::UDim => read_udim(&mut value)
-                .map_err(|_| AttributeError::ReadType("UDim"))?
-                .into(),
-
-            VariantType::UDim2 => UDim2::new(
-                read_udim(&mut value).map_err(|_| AttributeError::ReadType("UDim2 X"))?,
-                read_udim(&mut value).map_err(|_| AttributeError::ReadType("UDim2 Y"))?,
-            )
-            .into(),
-
-            VariantType::Vector2 => Vector2::new(
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector2 X"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector2 Y"))?,
-            )
-            .into(),
-
-            VariantType::Vector3 => Vector3::new(
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector3 X"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector3 Y"))?,
-                read_f32(&mut value).map_err(|_| AttributeError::ReadType("Vector3 Z"))?,
-            )
-            .into(),
-
-            VariantType::CFrame => {
-                let position = read_vector3(&mut value)?;
-                let rotation_id = read_u8(&mut value)?;
+            AttributeType::UDim => Attribute::UDim(
+                read_udim(&mut self.reader).map_err(|_| AttributeError::ReadType("UDim"))?,
+            ),
+            AttributeType::UDim2 => Attribute::UDim2(UDim2::new(
+                read_udim(&mut self.reader).map_err(|_| AttributeError::ReadType("UDim2 X"))?,
+                read_udim(&mut self.reader).map_err(|_| AttributeError::ReadType("UDim2 Y"))?,
+            )),
+            AttributeType::Vector2 => Attribute::Vector2(Vector2::new(
+                read_f32(&mut self.reader).map_err(|_| AttributeError::ReadType("Vector2 X"))?,
+                read_f32(&mut self.reader).map_err(|_| AttributeError::ReadType("Vector2 Y"))?,
+            )),
+            AttributeType::Vector3 => Attribute::Vector3(Vector3::new(
+                read_f32(&mut self.reader).map_err(|_| AttributeError::ReadType("Vector3 X"))?,
+                read_f32(&mut self.reader).map_err(|_| AttributeError::ReadType("Vector3 Y"))?,
+                read_f32(&mut self.reader).map_err(|_| AttributeError::ReadType("Vector3 Z"))?,
+            )),
+            AttributeType::CFrame => {
+                let position = read_vector3(&mut self.reader)?;
+                let rotation_id = read_u8(&mut self.reader)?;
 
                 let rotation = if rotation_id == 0 {
                     Matrix3::new(
-                        read_vector3(&mut value)?,
-                        read_vector3(&mut value)?,
-                        read_vector3(&mut value)?,
+                        read_vector3(&mut self.reader)?,
+                        read_vector3(&mut self.reader)?,
+                        read_vector3(&mut self.reader)?,
                     )
                 } else {
                     Matrix3::from_basic_rotation_id(rotation_id)?
                 };
 
-                CFrame::new(position, rotation)
+                Attribute::CFrame(CFrame::new(position, rotation))
             }
-            .into(),
-
-            VariantType::Font => {
-                let weight = read_u16(&mut value)?;
-                let style = read_u8(&mut value)?;
+            AttributeType::Font => {
+                let weight = read_u16(&mut self.reader)?;
+                let style = read_u8(&mut self.reader)?;
 
                 let family = {
-                    let buf = read_string(&mut value)?;
+                    let buf = read_string(&mut self.reader)?;
 
                     String::from_utf8(buf).map_err(|source| AttributeError::FontBadUnicode {
                         source,
@@ -179,7 +172,7 @@ pub(crate) fn read_attributes<R: Read>(
                 };
 
                 let cached_face_id = {
-                    let buf = read_string(&mut value)?;
+                    let buf = read_string(&mut self.reader)?;
 
                     if buf.is_empty() {
                         None
@@ -193,33 +186,26 @@ pub(crate) fn read_attributes<R: Read>(
                     }
                 };
 
-                Font {
+                Attribute::Font(Font {
                     family,
                     weight: FontWeight::from_u16(weight).unwrap_or_default(),
                     style: FontStyle::from_u8(style).unwrap_or_default(),
                     cached_face_id,
-                }
+                })
             }
-            .into(),
+            AttributeType::EnumItem => {
+                let enum_type = read_string(&mut self.reader)?;
+                let value = read_u32(&mut self.reader)?;
 
-            VariantType::EnumItem => {
-                let enum_type = read_string(&mut value)?;
-                let value = read_u32(&mut value)?;
-
-                EnumItem {
+                Attribute::EnumItem(EnumItem {
                     ty: String::from_utf8(enum_type)?,
                     value,
-                }
+                })
             }
-            .into(),
-
-            other => return Err(AttributeError::UnsupportedVariantType(other)),
         };
 
-        attributes.insert(key, value);
+        Ok((key, attribute))
     }
-
-    Ok(attributes)
 }
 
 fn read_u8<R: Read>(mut reader: R) -> io::Result<u8> {

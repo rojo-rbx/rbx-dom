@@ -2,9 +2,9 @@
 //! together:
 //! https://github.com/RobloxAPI/rbxattr/blob/06116439a68931d9d591d11ffff77ff982c9947d/spec.md
 
+mod attribute;
 mod error;
 mod reader;
-mod type_id;
 mod writer;
 
 use std::{
@@ -16,11 +16,11 @@ use std::{
 };
 
 use crate::{Error, Variant};
+use writer::write_attributes;
 
-use self::reader::read_attributes;
-use self::writer::write_attributes;
-
-pub(crate) use self::error::AttributeError;
+pub use attribute::Attribute;
+pub use error::AttributeError;
+pub use reader::AttributeReader;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 #[cfg_attr(
@@ -42,9 +42,14 @@ impl Attributes {
 
     /// Reads from a serialized attributes string, and produces a new `Attributes` from it.
     pub fn from_reader<R: Read>(reader: R) -> Result<Self, Error> {
-        Ok(Attributes {
-            data: read_attributes(reader)?,
-        })
+        let attribute_reader = AttributeReader::new(reader);
+        let (mut attribute_reader, len) = attribute_reader.read_len()?;
+        let mut attributes = Attributes::new();
+        for _ in 0..len {
+            let (key, value) = attribute_reader.read_attribute()?;
+            attributes.insert(key, value.into_variant());
+        }
+        Ok(attributes)
     }
 
     /// Writes the attributes as a serialized string to the writer.

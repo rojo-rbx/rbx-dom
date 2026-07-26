@@ -5,7 +5,7 @@ use thiserror::Error;
 use crate::VariantType;
 
 #[derive(Debug, Error)]
-pub(crate) enum AttributeError {
+pub enum AttributeError {
     #[error("missing attribute list length")]
     InvalidLength,
 

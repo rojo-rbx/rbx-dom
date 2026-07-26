@@ -3,7 +3,8 @@ use std::{
     io::{self, Write},
 };
 
-use super::{type_id, AttributeError};
+use super::attribute::AttributeType;
+use super::error::AttributeError;
 
 use crate::{
     basic_types::{Color3, UDim, Vector2},
@@ -25,9 +26,9 @@ pub(crate) fn write_attributes<W: Write>(
     for (name, variant) in map {
         write_string(&mut writer, name)?;
 
-        let type_id = type_id::from_variant_type(variant.ty())
+        let attribute_type = AttributeType::from_variant_type(variant.ty())
             .ok_or_else(|| AttributeError::UnsupportedVariantType(variant.ty()))?;
-        writer.write_all(&[type_id])?;
+        writer.write_all(&[attribute_type.to_u8()])?;
 
         match variant {
             Variant::Bool(bool) => writer.write_all(&[*bool as u8])?,
