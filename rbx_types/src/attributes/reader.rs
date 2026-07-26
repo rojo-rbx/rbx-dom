@@ -9,9 +9,10 @@ use crate::{
 use super::attribute::{Attribute, AttributeType};
 use super::error::AttributeError;
 
-/// Attribute reader. STATE is typestate which remembers whether the len has
-/// been read. Does not track how many attributes have been read internally,
-/// use the provided len value to read the correct number of attributes.
+/// Attribute reader for the binary attributes format. STATE is typestate which
+/// remembers whether the len has been read. Does not track how many attributes
+/// have been read internally, use the provided len value to read the correct
+/// number of attributes.
 pub struct AttributeReader<R, const STATE: bool> {
     reader: R,
 }
