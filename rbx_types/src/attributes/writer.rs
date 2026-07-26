@@ -27,6 +27,11 @@ impl<W: Write> AttributeWriter<W, false> {
     }
 }
 impl<W: Write> AttributeWriter<W, true> {
+    fn write_bool(&mut self, value: bool) -> Result<(), AttributeError> {
+        self.writer.write_all(&[value as u8])?;
+        Ok(())
+    }
+
     fn write_i32(&mut self, n: i32) -> Result<(), AttributeError> {
         self.writer.write_all(&n.to_le_bytes())?;
         Ok(())
@@ -98,7 +103,7 @@ impl<W: Write> AttributeWriter<W, true> {
         self.write_u8(attribute_type.to_u8())?;
 
         match variant {
-            Variant::Bool(bool) => self.writer.write_all(&[*bool as u8])?,
+            Variant::Bool(bool) => self.write_bool(*bool)?,
             Variant::BrickColor(color) => self.write_u32(*color as u32)?,
             Variant::Color3(color) => self.write_color3(*color)?,
             Variant::ColorSequence(sequence) => {
