@@ -6,7 +6,7 @@ use super::error::AttributeError;
 use crate::{
     basic_types::{Color3, UDim, Vector2},
     variant::Variant,
-    Vector3,
+    Error, Vector3,
 };
 
 /// Attribute writer for the binary attributes format.
@@ -20,9 +20,11 @@ impl<W: Write> AttributeWriter<W, false> {
     pub fn new(writer: W) -> Self {
         Self { writer }
     }
-    pub fn write_len(self, len: u32) -> Result<AttributeWriter<W, true>, AttributeError> {
+    pub fn write_len(self, len: u32) -> Result<AttributeWriter<W, true>, Error> {
         let mut writer = self.writer;
-        writer.write_all(&len.to_le_bytes())?;
+        writer
+            .write_all(&len.to_le_bytes())
+            .map_err(AttributeError::Io)?;
         Ok(AttributeWriter { writer })
     }
 }
@@ -95,7 +97,7 @@ impl<W: Write> AttributeWriter<W, true> {
         Ok(())
     }
 
-    pub fn write_attribute(&mut self, name: &str, variant: &Variant) -> Result<(), AttributeError> {
+    pub fn write_attribute(&mut self, name: &str, variant: &Variant) -> Result<(), Error> {
         self.write_string(name)?;
 
         let attribute_type = AttributeType::from_variant_type(variant.ty())
