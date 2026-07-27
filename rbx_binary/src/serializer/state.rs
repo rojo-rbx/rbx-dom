@@ -515,6 +515,54 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
     }
 }
 
+fn write_attributes(
+    buf: &mut Vec<u8>,
+    attributes: &Attributes,
+    id_to_referent: &HashMap<Ref, i32>,
+) -> Result<(), rbx_dom_weak::types::Error> {
+    let attribute_writer = rbx_dom_weak::types::AttributeWriter::new(buf);
+    let mut attribute_writer = attribute_writer.write_len(attributes.len() as u32)?;
+    for (name, variant) in attributes {
+        match variant {
+            Variant::BinaryString(value) => {
+                attribute_writer.write_attribute_string(name, value.as_ref())
+            }
+            Variant::String(value) => attribute_writer.write_attribute_string(name, value.as_ref()),
+            Variant::Bool(value) => attribute_writer.write_attribute_bool(name, *value),
+            Variant::Int32(value) => attribute_writer.write_attribute_i32(name, *value),
+            Variant::Float32(value) => attribute_writer.write_attribute_f32(name, *value),
+            Variant::Float64(value) => attribute_writer.write_attribute_f64(name, *value),
+            Variant::UDim(value) => attribute_writer.write_attribute_udim(name, *value),
+            Variant::UDim2(value) => attribute_writer.write_attribute_udim2(name, *value),
+            Variant::BrickColor(value) => {
+                attribute_writer.write_attribute_brick_color(name, *value)
+            }
+            Variant::Color3(value) => attribute_writer.write_attribute_color3(name, *value),
+            Variant::Vector2(value) => attribute_writer.write_attribute_vector2(name, *value),
+            Variant::Vector3(value) => attribute_writer.write_attribute_vector3(name, *value),
+            Variant::CFrame(value) => attribute_writer.write_attribute_cframe(name, *value),
+            Variant::EnumItem(value) => attribute_writer.write_attribute_enum_item(name, value),
+            Variant::NumberSequence(value) => {
+                attribute_writer.write_attribute_number_sequence(name, value)
+            }
+            Variant::ColorSequence(value) => {
+                attribute_writer.write_attribute_color_sequence(name, value)
+            }
+            Variant::NumberRange(value) => {
+                attribute_writer.write_attribute_number_range(name, *value)
+            }
+            Variant::Rect(value) => attribute_writer.write_attribute_rect(name, *value),
+            Variant::Font(value) => attribute_writer.write_attribute_font(name, value),
+            Variant::Ref(referent) => {
+                let referent = id_to_referent.get(referent).cloned().unwrap_or(-1);
+                attribute_writer.write_attribute_ref(name, referent)
+            }
+            _ => todo!(),
+        }?;
+    }
+    Ok(())
+}
+
 impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     pub fn new(serializer: &'db Serializer<'db>, dom: &'dom WeakDom, output: W) -> Self {
         SerializerState {
@@ -1012,10 +1060,10 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                                 }
                                 Variant::Attributes(value) => {
                                     let mut buf = Vec::new();
-
-                                    value
-                                        .to_writer(&mut buf)
-                                        .map_err(|_| invalid_value(i, rbx_value))?;
+                                    if !value.is_empty() {
+                                        write_attributes(&mut buf, value, id_to_referent)
+                                            .map_err(|_| invalid_value(i, rbx_value))?;
+                                    }
 
                                     // Roblox requires PropertiesSerialize to
                                     // write its length even when there are no
