@@ -4,9 +4,9 @@ use super::attribute::AttributeType;
 use super::error::AttributeError;
 
 use crate::{
-    basic_types::{Color3, UDim, Vector2},
+    basic_types::{Color3, UDim, Vector2, Vector3},
+    error::Error,
     variant::Variant,
-    Error, Vector3,
 };
 
 /// Attribute writer for the binary attributes format.
