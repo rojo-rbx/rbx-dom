@@ -246,7 +246,7 @@ fn read_attributes(
             Attribute::NumberRange(value) => Variant::NumberRange(value),
             Attribute::Rect(value) => Variant::Rect(value),
             Attribute::Font(value) => Variant::Font(value),
-            _ => todo!(),
+            _ => unreachable!("rbx_types newer than rbx_binary?"),
         };
         attributes.insert(key, variant);
     }

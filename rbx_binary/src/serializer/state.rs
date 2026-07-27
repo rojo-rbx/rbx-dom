@@ -557,7 +557,7 @@ fn write_attributes(
                 let referent = id_to_referent.get(referent).cloned().unwrap_or(-1);
                 attribute_writer.write_attribute_ref(name, referent)
             }
-            _ => todo!(),
+            _ => todo!("How to return AttributeError::UnsupportedVariantType?"),
         }?;
     }
     Ok(())
