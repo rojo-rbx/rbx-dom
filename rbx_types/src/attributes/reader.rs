@@ -31,6 +31,7 @@ impl<R: Read> AttributeReader<R, false> {
         Ok((AttributeReader { reader }, len))
     }
 }
+
 impl<R: Read, const STATE: bool> AttributeReader<R, STATE> {
     fn read_u8(&mut self) -> Result<u8, AttributeError> {
         let mut bytes = [0u8; 1];

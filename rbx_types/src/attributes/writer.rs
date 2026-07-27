@@ -26,6 +26,7 @@ impl<W: Write> AttributeWriter<W, false> {
         Ok(AttributeWriter { writer })
     }
 }
+
 impl<W: Write, const STATE: bool> AttributeWriter<W, STATE> {
     fn write_bool(&mut self, value: bool) -> Result<(), AttributeError> {
         self.writer.write_all(&[value as u8])?;
