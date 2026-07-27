@@ -28,6 +28,9 @@ macro_rules! impl_attribute {
                     $(
                         $happy_id => Some(Self::$happy_variant),
                     )*
+                    $(
+                        $sad_id => Some(Self::$sad_variant),
+                    )*
                     _ => None
                 }
             }
