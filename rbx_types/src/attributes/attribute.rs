@@ -23,7 +23,7 @@ macro_rules! impl_attribute {
             )*
         }
         impl AttributeType {
-            pub(super) fn from_u8(id: u8) -> Option<Self> {
+            pub(super) const fn from_u8(id: u8) -> Option<Self> {
                 match id {
                     $(
                         $happy_id => Some(Self::$happy_variant),
@@ -34,7 +34,7 @@ macro_rules! impl_attribute {
                     _ => None
                 }
             }
-            pub(super) fn to_u8(&self) -> u8 {
+            pub(super) const fn to_u8(&self) -> u8 {
                 match self {
                     $(
                         Self::$happy_variant => $happy_id,
