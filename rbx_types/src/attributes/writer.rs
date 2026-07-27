@@ -4,8 +4,13 @@ use super::attribute::AttributeType;
 use super::error::AttributeError;
 
 use crate::{
-    basic_types::{Color3, UDim, Vector2, Vector3},
+    basic_types::{
+        CFrame, Color3, ColorSequence, EnumItem, NumberRange, NumberSequence, Rect, UDim, UDim2,
+        Vector2, Vector3,
+    },
+    brick_color::BrickColor,
     error::Error,
+    font::Font,
     variant::Variant,
 };
 
@@ -70,8 +75,7 @@ impl<W: Write, const STATE: bool> AttributeWriter<W, STATE> {
         Ok(())
     }
 
-    fn write_string<T: AsRef<[u8]>>(&mut self, string: T) -> Result<(), AttributeError> {
-        let bytes = string.as_ref();
+    fn write_string(&mut self, bytes: &[u8]) -> Result<(), AttributeError> {
         self.write_u32(bytes.len() as u32)?;
         self.writer.write_all(bytes)?;
         Ok(())
@@ -97,89 +101,135 @@ impl<W: Write, const STATE: bool> AttributeWriter<W, STATE> {
     }
 }
 
+// Helper macro to automate 3 lines of code per method.
+macro_rules! impl_write_attribute {
+    (
+        $($variant:ident => fn $method: ident ($self:ident, $value:ident : $ty:ty) $impl: block)*
+    ) => {
+        impl<W: Write> AttributeWriter<W, true> {
+            $(
+                pub fn $method(&mut $self, name: &str, $value: $ty) -> Result<(), Error> {
+                    $self.write_string(name.as_bytes())?;
+                    $self.write_u8(AttributeType::$variant.to_u8())?;
+                    $impl
+                    Ok(())
+                }
+            )*
+        }
+    };
+}
+impl_write_attribute! {
+    Bool => fn write_attribute_bool(self, value: bool) {
+        self.write_bool(value)?;
+    }
+    BrickColor => fn write_attribute_brick_color(self, value: BrickColor) {
+        self.write_u32(value as u32)?;
+    }
+    Color3 => fn write_attribute_color3(self, value: Color3) {
+        self.write_color3(value)?;
+    }
+    ColorSequence => fn write_attribute_color_sequence(self, sequence: &ColorSequence) {
+        self.write_u32(sequence.keypoints.len() as u32)?;
+
+        for keypoint in &sequence.keypoints {
+            self.write_f32(0.0)?; // Envelope
+            self.write_f32(keypoint.time)?;
+            self.write_color3(keypoint.color)?;
+        }
+    }
+    Int32 => fn write_attribute_i32(self, value: i32) {
+        self.write_i32(value)?;
+    }
+    Float32 => fn write_attribute_f32(self, value: f32) {
+        self.write_f32(value)?;
+    }
+    Float64 => fn write_attribute_f64(self, value: f64) {
+        self.write_f64(value)?;
+    }
+    NumberRange => fn write_attribute_number_range(self, range: NumberRange) {
+        self.write_f32(range.min)?;
+        self.write_f32(range.max)?;
+    }
+    NumberSequence => fn write_attribute_number_sequence(self, sequence: &NumberSequence) {
+        self.write_u32(sequence.keypoints.len() as u32)?;
+
+        for keypoint in &sequence.keypoints {
+            self.write_f32(keypoint.envelope)?;
+            self.write_f32(keypoint.time)?;
+            self.write_f32(keypoint.value)?;
+        }
+    }
+    Rect => fn write_attribute_rect(self, rect: Rect) {
+        self.write_vector2(rect.min)?;
+        self.write_vector2(rect.max)?;
+    }
+    BinaryString => fn write_attribute_string(self, value: &[u8]) {
+        self.write_string(value)?;
+    }
+    UDim => fn write_attribute_udim(self, udim: UDim) {
+        self.write_udim(udim)?;
+    }
+    UDim2 => fn write_attribute_udim2(self, udim2: UDim2) {
+        self.write_udim(udim2.x)?;
+        self.write_udim(udim2.y)?;
+    }
+    Vector2 => fn write_attribute_vector2(self, vector2: Vector2) {
+        self.write_vector2(vector2)?;
+    }
+    Vector3 => fn write_attribute_vector3(self, vector3: Vector3) {
+        self.write_f32(vector3.x)?;
+        self.write_f32(vector3.y)?;
+        self.write_f32(vector3.z)?;
+    }
+    CFrame => fn write_attribute_cframe(self, cframe: CFrame) {
+        self.write_vector3(cframe.position)?;
+
+        let matrix = cframe.orientation;
+
+        if let Some(rotation_id) = matrix.to_basic_rotation_id() {
+            self.write_u8(rotation_id)?;
+        } else {
+            self.write_u8(0x00)?;
+
+            self.write_vector3(matrix.x)?;
+            self.write_vector3(matrix.y)?;
+            self.write_vector3(matrix.z)?;
+        }
+    }
+    Font => fn write_attribute_font(self, font: &Font) {
+        self.write_u16(font.weight.as_u16())?;
+        self.write_u8(font.style.as_u8())?;
+        self.write_string(font.family.as_bytes())?;
+        self.write_string(font.cached_face_id.as_deref().unwrap_or_default().as_bytes())?;
+    }
+    EnumItem => fn write_attribute_enum_item(self, enum_item: &EnumItem) {
+        self.write_string(enum_item.ty.as_bytes())?;
+        self.write_u32(enum_item.value)?;
+    }
+}
 impl<W: Write> AttributeWriter<W, true> {
     pub fn write_attribute(&mut self, name: &str, variant: &Variant) -> Result<(), Error> {
-        self.write_string(name)?;
-
-        let attribute_type = AttributeType::from_variant_type(variant.ty())
-            .ok_or_else(|| AttributeError::UnsupportedVariantType(variant.ty()))?;
-        self.write_u8(attribute_type.to_u8())?;
-
         match variant {
-            Variant::Bool(bool) => self.write_bool(*bool)?,
-            Variant::BrickColor(color) => self.write_u32(*color as u32)?,
-            Variant::Color3(color) => self.write_color3(*color)?,
-            Variant::ColorSequence(sequence) => {
-                self.write_u32(sequence.keypoints.len() as u32)?;
-
-                for keypoint in &sequence.keypoints {
-                    self.write_f32(0.0)?; // Envelope
-                    self.write_f32(keypoint.time)?;
-                    self.write_color3(keypoint.color)?;
-                }
-            }
-            Variant::Int32(int) => self.write_i32(*int)?,
-            Variant::Float32(float) => self.write_f32(*float)?,
-            Variant::Float64(float) => self.write_f64(*float)?,
-            Variant::NumberRange(range) => {
-                self.write_f32(range.min)?;
-                self.write_f32(range.max)?;
-            }
-            Variant::NumberSequence(sequence) => {
-                self.write_u32(sequence.keypoints.len() as u32)?;
-
-                for keypoint in &sequence.keypoints {
-                    self.write_f32(keypoint.envelope)?;
-                    self.write_f32(keypoint.time)?;
-                    self.write_f32(keypoint.value)?;
-                }
-            }
-            Variant::Rect(rect) => {
-                self.write_vector2(rect.min)?;
-                self.write_vector2(rect.max)?;
-            }
-            Variant::BinaryString(string) => self.write_string(string)?,
-            Variant::String(string) => self.write_string(string)?,
-            Variant::UDim(udim) => self.write_udim(*udim)?,
-            Variant::UDim2(udim2) => {
-                self.write_udim(udim2.x)?;
-                self.write_udim(udim2.y)?;
-            }
-            Variant::Vector2(vector2) => self.write_vector2(*vector2)?,
-            Variant::Vector3(vector3) => {
-                self.write_f32(vector3.x)?;
-                self.write_f32(vector3.y)?;
-                self.write_f32(vector3.z)?;
-            }
-            Variant::CFrame(cframe) => {
-                self.write_vector3(cframe.position)?;
-
-                let matrix = cframe.orientation;
-
-                if let Some(rotation_id) = matrix.to_basic_rotation_id() {
-                    self.write_u8(rotation_id)?;
-                } else {
-                    self.write_u8(0x00)?;
-
-                    self.write_vector3(matrix.x)?;
-                    self.write_vector3(matrix.y)?;
-                    self.write_vector3(matrix.z)?;
-                }
-            }
-            Variant::Font(font) => {
-                self.write_u16(font.weight.as_u16())?;
-                self.write_u8(font.style.as_u8())?;
-                self.write_string(&font.family)?;
-                self.write_string(font.cached_face_id.as_deref().unwrap_or_default())?;
-            }
-            Variant::EnumItem(enum_item) => {
-                self.write_string(&enum_item.ty)?;
-                self.write_u32(enum_item.value)?;
-            }
-
-            other_variant => unreachable!("variant {:?} was not implemented", other_variant),
+            Variant::Bool(value) => self.write_attribute_bool(name, *value),
+            Variant::BrickColor(value) => self.write_attribute_brick_color(name, *value),
+            Variant::Color3(value) => self.write_attribute_color3(name, *value),
+            Variant::ColorSequence(value) => self.write_attribute_color_sequence(name, value),
+            Variant::Int32(value) => self.write_attribute_i32(name, *value),
+            Variant::Float32(value) => self.write_attribute_f32(name, *value),
+            Variant::Float64(value) => self.write_attribute_f64(name, *value),
+            Variant::NumberRange(value) => self.write_attribute_number_range(name, *value),
+            Variant::NumberSequence(value) => self.write_attribute_number_sequence(name, value),
+            Variant::Rect(value) => self.write_attribute_rect(name, *value),
+            Variant::BinaryString(value) => self.write_attribute_string(name, value.as_ref()),
+            Variant::String(value) => self.write_attribute_string(name, value.as_ref()),
+            Variant::UDim(value) => self.write_attribute_udim(name, *value),
+            Variant::UDim2(value) => self.write_attribute_udim2(name, *value),
+            Variant::Vector2(value) => self.write_attribute_vector2(name, *value),
+            Variant::Vector3(value) => self.write_attribute_vector3(name, *value),
+            Variant::CFrame(value) => self.write_attribute_cframe(name, *value),
+            Variant::Font(value) => self.write_attribute_font(name, value),
+            Variant::EnumItem(value) => self.write_attribute_enum_item(name, value),
+            other_variant => Err(AttributeError::UnsupportedVariantType(other_variant.ty()).into()),
         }
-
-        Ok(())
     }
 }

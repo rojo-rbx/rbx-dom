@@ -1,6 +1,6 @@
 use crate::{
     BinaryString, BrickColor, CFrame, Color3, ColorSequence, EnumItem, Font, NumberRange,
-    NumberSequence, Rect, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+    NumberSequence, Rect, UDim, UDim2, Variant, Vector2, Vector3,
 };
 
 macro_rules! impl_attribute {
@@ -17,15 +17,6 @@ macro_rules! impl_attribute {
                     $(
                         $id => Some(Self::$variant),
                     )*
-                    _ => None
-                }
-            }
-            pub(super) fn from_variant_type(ty: VariantType) -> Option<Self> {
-                match ty {
-                    $(
-                        VariantType::$variant => Some(Self::$variant),
-                    )*
-                    VariantType::String => Some(Self::BinaryString),
                     _ => None
                 }
             }
