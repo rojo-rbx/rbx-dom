@@ -136,20 +136,20 @@ impl<W: Write> AttributeWriter<W, true> {
             }
             Variant::Rect(rect) => {
                 self.write_vector2(rect.min)?;
-                self.write_vector2(rect.max)?
+                self.write_vector2(rect.max)?;
             }
             Variant::BinaryString(string) => self.write_string(string)?,
             Variant::String(string) => self.write_string(string)?,
             Variant::UDim(udim) => self.write_udim(*udim)?,
             Variant::UDim2(udim2) => {
                 self.write_udim(udim2.x)?;
-                self.write_udim(udim2.y)?
+                self.write_udim(udim2.y)?;
             }
             Variant::Vector2(vector2) => self.write_vector2(*vector2)?,
             Variant::Vector3(vector3) => {
                 self.write_f32(vector3.x)?;
                 self.write_f32(vector3.y)?;
-                self.write_f32(vector3.z)?
+                self.write_f32(vector3.z)?;
             }
             Variant::CFrame(cframe) => {
                 self.write_vector3(cframe.position)?;
