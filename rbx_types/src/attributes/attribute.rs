@@ -6,10 +6,10 @@ use crate::{
 
 macro_rules! impl_attribute {
     (
-        happy{
+        happy {
             $( $happy_id:literal => $happy_variant:ident($happy_ty:ty), )*
         }
-        sad{
+        sad {
             $( $sad_id:literal => $sad_variant:ident($sad_ty:ty), )*
         }
     ) => {
