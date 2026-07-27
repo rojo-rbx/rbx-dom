@@ -32,33 +32,33 @@ impl<W: Write, const STATE: bool> AttributeWriter<W, STATE> {
         Ok(())
     }
 
-    fn write_i32(&mut self, n: i32) -> Result<(), AttributeError> {
-        self.writer.write_all(&n.to_le_bytes())?;
+    fn write_i32(&mut self, value: i32) -> Result<(), AttributeError> {
+        self.writer.write_all(&value.to_le_bytes())?;
         Ok(())
     }
 
-    fn write_f32(&mut self, n: f32) -> Result<(), AttributeError> {
-        self.writer.write_all(&n.to_le_bytes())?;
+    fn write_f32(&mut self, value: f32) -> Result<(), AttributeError> {
+        self.writer.write_all(&value.to_le_bytes())?;
         Ok(())
     }
 
-    fn write_f64(&mut self, n: f64) -> Result<(), AttributeError> {
-        self.writer.write_all(&n.to_le_bytes())?;
+    fn write_f64(&mut self, value: f64) -> Result<(), AttributeError> {
+        self.writer.write_all(&value.to_le_bytes())?;
         Ok(())
     }
 
-    fn write_u32(&mut self, n: u32) -> Result<(), AttributeError> {
-        self.writer.write_all(&n.to_le_bytes())?;
+    fn write_u32(&mut self, value: u32) -> Result<(), AttributeError> {
+        self.writer.write_all(&value.to_le_bytes())?;
         Ok(())
     }
 
-    fn write_u16(&mut self, n: u16) -> Result<(), AttributeError> {
-        self.writer.write_all(&n.to_le_bytes())?;
+    fn write_u16(&mut self, value: u16) -> Result<(), AttributeError> {
+        self.writer.write_all(&value.to_le_bytes())?;
         Ok(())
     }
 
-    fn write_u8(&mut self, n: u8) -> Result<(), AttributeError> {
-        self.writer.write_all(&n.to_le_bytes())?;
+    fn write_u8(&mut self, value: u8) -> Result<(), AttributeError> {
+        self.writer.write_all(&value.to_le_bytes())?;
         Ok(())
     }
 
