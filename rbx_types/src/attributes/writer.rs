@@ -20,15 +20,13 @@ impl<W: Write> AttributeWriter<W, false> {
     pub fn new(writer: W) -> Self {
         Self { writer }
     }
-    pub fn write_len(self, len: u32) -> Result<AttributeWriter<W, true>, Error> {
-        let mut writer = self.writer;
-        writer
-            .write_all(&len.to_le_bytes())
-            .map_err(AttributeError::Io)?;
+    pub fn write_len(mut self, len: u32) -> Result<AttributeWriter<W, true>, Error> {
+        self.write_u32(len)?;
+        let writer = self.writer;
         Ok(AttributeWriter { writer })
     }
 }
-impl<W: Write> AttributeWriter<W, true> {
+impl<W: Write, const STATE: bool> AttributeWriter<W, STATE> {
     fn write_bool(&mut self, value: bool) -> Result<(), AttributeError> {
         self.writer.write_all(&[value as u8])?;
         Ok(())
@@ -96,7 +94,9 @@ impl<W: Write> AttributeWriter<W, true> {
         self.write_f32(vector3.z)?;
         Ok(())
     }
+}
 
+impl<W: Write> AttributeWriter<W, true> {
     pub fn write_attribute(&mut self, name: &str, variant: &Variant) -> Result<(), Error> {
         self.write_string(name)?;
 

@@ -21,21 +21,17 @@ impl<R: Read> AttributeReader<R, false> {
     pub fn new(reader: R) -> Self {
         Self { reader }
     }
-    pub fn read_len(self) -> Result<(AttributeReader<R, true>, u32), Error> {
-        let reader = self.reader;
-        // This is technicaly an invalid state.  We haven't read the len yet,
-        // but say that we have to get access to the complex read_option_u32
-        // function.
-        let mut scary_reader = AttributeReader { reader };
-        let len = match scary_reader.read_option_u32() {
+    pub fn read_len(mut self) -> Result<(AttributeReader<R, true>, u32), Error> {
+        let len = match self.read_option_u32() {
             Ok(Some(len)) => len,
             Ok(None) => 0,
             Err(_) => return Err(AttributeError::InvalidLength.into()),
         };
-        Ok((scary_reader, len))
+        let reader = self.reader;
+        Ok((AttributeReader { reader }, len))
     }
 }
-impl<R: Read> AttributeReader<R, true> {
+impl<R: Read, const STATE: bool> AttributeReader<R, STATE> {
     fn read_u8(&mut self) -> Result<u8, AttributeError> {
         let mut bytes = [0u8; 1];
         self.reader.read_exact(&mut bytes)?;
@@ -140,7 +136,9 @@ impl<R: Read> AttributeReader<R, true> {
             Ok(true)
         }
     }
+}
 
+impl<R: Read> AttributeReader<R, true> {
     pub fn read_attribute(&mut self) -> Result<(String, Attribute), Error> {
         let key_buf = self.read_string().map_err(|_| AttributeError::NoKey)?;
         let key = String::from_utf8(key_buf).map_err(AttributeError::KeyBadUnicode)?;
