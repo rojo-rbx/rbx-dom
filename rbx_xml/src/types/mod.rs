@@ -119,7 +119,7 @@ macro_rules! declare_rbx_types {
                 Variant::Ref(value) => write_ref(writer, xml_property_name, *value, state),
                 Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
                 Variant::Tags(value) => write_tags(writer, xml_property_name, value),
-                Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
+                Variant::Attributes(value) => write_attributes(writer, xml_property_name, value, state),
                 Variant::MaterialColors(value) => write_material_colors(writer, xml_property_name, value),
                 Variant::NetAssetRef(value) => write_net_asset_ref(writer, xml_property_name, value, state),
 
