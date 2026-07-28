@@ -121,6 +121,7 @@ macro_rules! declare_rbx_types {
                 Variant::BrickColor(value) =>
                     (*value as i32).write_outer_xml(xml_property_name, writer),
 
+                Variant::BinaryString(value) => value.write_outer_xml(xml_property_name, writer),
                 Variant::Ref(value) => write_ref(writer, xml_property_name, *value, state),
                 Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
                 Variant::Tags(value) => write_tags(writer, xml_property_name, value),
