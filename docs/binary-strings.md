@@ -14,12 +14,62 @@ The following is a list of `BinaryString` blobs and their formatting. For clarit
 
 When a format is sufficiently complex, it may be stored in its own document for clarity.
 
-### AttributeSerialized
+### AttributeSerialize
 **Used By:** `Instance.AttributesSerialize`
 
 This blob is used to serialize [attributes][Attributes]. Due to the complexity of the format, a specification is located [here](attributes.md).
 
 [Attributes]: https://create.roblox.com/docs/studio/instance-attributes
+
+# Properties Serialized Via AttributesSerialize
+
+Several properties across different classes reuse the shared `AttributesSerialize` routine to encode a table of key→value pairs, but each has its own empty-case bytes and call signature. These are documented individually below rather than assumed to share a single template.
+
+### SerializedEmulatedPolicyInfo
+**Used By:** `PlayerEmulatorService.SerializedEmulatedPolicyInfo`
+
+This blob serializes the result of `GetEmulatedPolicyInfo()` via `AttributesSerialize`.
+
+If there is nothing to serialize, the blob is empty (`0` bytes) — there is no count header at all:
+
+`` (empty string)
+
+Otherwise, the blob is written as a plain call to `AttributesSerialize(table)`, with no extra prefix arguments.
+
+### PropertiesSerialize (StyleRule)
+**Used By:** `StyleRule.PropertiesSerialize`
+
+This blob serializes the result of `GetProperties()` via `AttributesSerialize`.
+
+If there are no properties, the blob is written as a fixed 4-byte header, a bare `u32` count of `0`:
+
+`00 00 00 00`
+
+Otherwise, the blob is written as a plain call to `AttributesSerialize(table)`, with no extra prefix arguments.
+
+### PropertyTransitionsSerialize
+**Used By:** `StyleRule.PropertyTransitionsSerialize`
+
+This blob serializes the result of `GetPropertyTransitions()` via `AttributesSerialize`, called with an extra 2-byte prefix argument `{0x02, 0x00}` — the only property of this group that passes one.
+
+If there are no transitions, the blob is written as a fixed 6-byte sequence:
+
+`02 00 00 00 00 00`
+
+This is not simply a padded zero count: the leading byte is `02`, matching the `0x02` prefix byte used in the non-empty path, followed by 5 zero bytes. This suggests the empty case is effectively "prefix bytes + zero count" rather than an unrelated constant, though this should be confirmed against `AttributesSerialize`'s own source once available.
+
+Otherwise, the blob is written via `AttributesSerialize(table, {0x02, 0x00})`.
+
+### ConditionsSerialize
+**Used By:** `StyleQuery.ConditionsSerialize`
+
+This blob serializes the result of `GetConditions()` via `AttributesSerialize`.
+
+If there are no conditions, the blob is written as a fixed 4-byte header, a bare `u32` count of `0`:
+
+`00 00 00 00`
+
+Otherwise, the blob is written as a plain call to `AttributesSerialize(table)`, with no extra prefix arguments. This is byte-identical to the `PropertiesSerialize` empty case above, despite belonging to a different class.
 
 ### MaterialColors
 **Used By:** `Terrain.MaterialColors`
