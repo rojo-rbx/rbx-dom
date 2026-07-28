@@ -974,6 +974,10 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                 Ok(())
             }
+            // TODO: Remove serialized_name. It's only used for special casing
+            // PropertiesSerialize so to write the 0 length when they're
+            // empty.
+            #[allow(clippy::too_many_arguments)]
             fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
                 chunk: &mut ChunkBuilder,
                 id_to_referent: &HashMap<Ref, i32>,
