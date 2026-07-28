@@ -80,7 +80,7 @@ Followed by one entry per control point:
 
 | Size (Bytes) | Field | Description |
 |:------------:|:------|:------------|
-| `1` | Type Tag | Constant value identifying the control point value type (`u8`). |
+| `1` | Type ID | Constant value identifying the control point value type (`u8`). |
 | `48` | Data | The control point's encoded value. |
 
 
