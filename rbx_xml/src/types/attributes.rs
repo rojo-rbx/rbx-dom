@@ -1,12 +1,15 @@
-use std::io::Write;
+use std::io::{Read, Write};
 
-use rbx_dom_weak::types::{Attributes, Ref, Variant};
+use rbx_dom_weak::types::{Attributes, BinaryString, Ref, Variant};
 
 use crate::{
+    core::XmlType,
+    deserializer::ParseState,
+    deserializer_core::{XmlEventReader, XmlReadEvent},
+    error::{DecodeError, DecodeErrorKind, EncodeError},
     serializer::EmitState,
     serializer_core::{XmlEventWriter, XmlWriteEvent},
     types::referent::write_ref,
-    EncodeError,
 };
 
 pub const XML_TAG_NAME: &str = "BinaryString";
@@ -85,6 +88,8 @@ pub fn write_attributes<W: Write>(
     // Roblox requires PropertiesSerialize to write its length even when there
     // are no attributes. An empty attributes value serializes to nothing, so we
     // write a 0 count in its place.
+    //
+    // TODO: reconcile this with if attributes.is_empty() in serialize_attributes
     if buffer.is_empty() && property_name == "PropertiesSerialize" {
         buffer.extend_from_slice(&0u32.to_le_bytes());
     }
@@ -102,4 +107,70 @@ pub fn write_attributes<W: Write>(
     }
 
     Ok(())
+}
+
+pub fn read_attributes<R: Read>(
+    reader: &mut XmlEventReader<R>,
+    id: Ref,
+    state: &mut ParseState,
+) -> Result<Variant, DecodeError> {
+    let value = BinaryString::read_xml(reader)?;
+
+    let bytes: &[u8] = value.as_ref();
+    let attributes = match Attributes::from_reader(bytes) {
+        Ok(attributes) => Variant::Attributes(attributes),
+        Err(err) => {
+            log::warn!(
+                "Failed to parse Attributes because {err:?}; falling back to BinaryString.
+
+rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning."
+            );
+
+            Variant::BinaryString(value)
+        }
+    };
+
+    // peek and consume Ref tags that appear directly after the AttributesSerialize tag
+    loop {
+        match reader.expect_peek()? {
+            XmlReadEvent::StartElement {
+                name, attributes, ..
+            } if name.local_name == "Ref" => {
+                let mut xml_property_name = None;
+
+                for attribute in attributes {
+                    if attribute.name.local_name == "name" {
+                        xml_property_name = Some(attribute.value.to_owned());
+                        break;
+                    }
+                }
+
+                let xml_property_name = match xml_property_name {
+                    Some(value) => value,
+                    None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name"))),
+                };
+
+                if let Some(("__attrRef_", name)) =
+                    xml_property_name.split_at_checked("__attrRef_".len())
+                {
+                    let ref_contents = reader.read_tag_contents(super::referent::XML_TAG_NAME)?;
+
+                    if ref_contents != "null" {
+                        // We need to rewrite this attribute as part of a follow-up pass.
+                        //
+                        // We might not know which ID this referent points to yet, so instead of
+                        // trying to handle the case where we do here, we just let all referents
+                        // get written later.
+                        state.add_attribute_referent_rewrite(id, name.to_owned(), ref_contents);
+                    }
+                } else {
+                    // Not attrRef, we're done
+                    break;
+                }
+            }
+            _ => break,
+        }
+    }
+
+    Ok(attributes)
 }

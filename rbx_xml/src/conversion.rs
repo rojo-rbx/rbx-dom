@@ -6,7 +6,7 @@ use std::convert::TryInto;
 
 use rbx_dom_weak::types::{ContentId, ContentType, Enum};
 use rbx_dom_weak::{
-    types::{Attributes, BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType},
+    types::{BrickColor, Color3uint8, MaterialColors, Tags, Variant, VariantType},
     Ustr,
 };
 
@@ -69,21 +69,6 @@ impl ConvertVariant for Variant {
                     .map_err(|_| "Tags contain invalid UTF-8")?
                     .into(),
             )),
-            (Variant::BinaryString(value), VariantType::Attributes) => {
-                let bytes: &[u8] = value.as_ref();
-                match Attributes::from_reader(bytes) {
-                    Ok(attributes) => Ok(Cow::Owned(attributes.into())),
-                    Err(err) => {
-                        log::warn!(
-                            "Failed to parse Attributes on {class_name} because {err:?}; falling back to BinaryString.
-
-rbx-dom may require changes to fully support this property. Please open an issue at https://github.com/rojo-rbx/rbx-dom/issues and show this warning."
-                        );
-
-                        Ok(Cow::Owned(value.clone().into()))
-                    }
-                }
-            }
             (Variant::BinaryString(value), VariantType::MaterialColors) => {
                 match MaterialColors::decode(value.as_ref()) {
                     Ok(material_colors) => Ok(Cow::Owned(material_colors.into())),

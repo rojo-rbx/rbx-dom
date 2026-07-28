@@ -3,7 +3,7 @@ use std::io::Read;
 use ahash::{HashMap, HashMapExt, HashSet, HashSetExt};
 use log::trace;
 use rbx_dom_weak::{
-    types::{NetAssetRef, Ref, SharedString, Variant, VariantType},
+    types::{Attributes, NetAssetRef, Ref, SharedString, Variant, VariantType},
     InstanceBuilder, Ustr, WeakDom,
 };
 use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
@@ -136,6 +136,11 @@ pub struct ParseState<'dom, 'db> {
     /// correct Ref value by using the referents map.
     referent_rewrites: Vec<ReferentRewrite>,
 
+    /// A list of Ref attribute rewrites to apply. After the first
+    /// deserialization pass, we enumerate over this list and fill in the
+    /// correct Ref value by using the referents map.
+    attribute_referent_rewrites: Vec<AttributeReferentRewrite>,
+
     /// A map from shared string hashes (currently MD5, decided by Roblox) to
     /// the actual SharedString type.
     known_shared_strings: HashMap<String, SharedString>,
@@ -161,6 +166,12 @@ struct ReferentRewrite {
     referent_value: String,
 }
 
+struct AttributeReferentRewrite {
+    id: Ref,
+    attribute_name: String,
+    referent_value: String,
+}
+
 struct HashRewrites {
     id: Ref,
     property_name: Ustr,
@@ -175,6 +186,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
             metadata: HashMap::new(),
             referents_to_ids: HashMap::new(),
             referent_rewrites: Vec::new(),
+            attribute_referent_rewrites: Vec::new(),
             known_shared_strings: HashMap::new(),
             shared_string_rewrites: Vec::new(),
             net_asset_rewrites: Vec::new(),
@@ -212,6 +224,24 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
         });
     }
 
+    /// Marks that an attribute on this instance needs to be rewritten once we
+    /// have a complete view of how referents map to Ref values.
+    ///
+    /// This is used to deserialize non-null Ref values correctly.
+    pub fn add_attribute_referent_rewrite(
+        &mut self,
+        id: Ref,
+        attribute_name: String,
+        referent_value: String,
+    ) {
+        self.attribute_referent_rewrites
+            .push(AttributeReferentRewrite {
+                id,
+                attribute_name,
+                referent_value,
+            });
+    }
+
     /// Marks that a property on this instance needs to be rewritten once we
     /// have a complete view of values in the `SharedString` repository.
     ///
@@ -238,9 +268,11 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
 }
 
 fn apply_referent_rewrites(state: &mut ParseState) {
-    for rewrite in &state.referent_rewrites {
+    // Property rewrites
+    for rewrite in state.referent_rewrites.drain(..) {
         let new_value = match state.referents_to_ids.get(&rewrite.referent_value) {
             Some(id) => *id,
+            // read_ref returns Ref::none(), so the value is already correct.
             None => continue,
         };
 
@@ -249,10 +281,33 @@ fn apply_referent_rewrites(state: &mut ParseState) {
             .get_by_ref_mut(rewrite.id)
             .expect("rbx_xml bug: had ID in referent rewrite list that didn't end up in the tree");
 
-        instance.properties.insert(
-            rewrite.property_name.as_str().into(),
-            Variant::Ref(new_value),
-        );
+        instance
+            .properties
+            .insert(rewrite.property_name, Variant::Ref(new_value));
+    }
+
+    // Attribute rewrites
+    let attributes_ustr = Ustr::from("Attributes");
+    for rewrite in state.attribute_referent_rewrites.drain(..) {
+        let new_value = match state.referents_to_ids.get(&rewrite.referent_value) {
+            Some(id) => *id,
+            // an attribute not existing is different from it being set to a null ref.
+            // As opposed to referent_rewrites, we did not create an attribute yet, so we must create it now.
+            None => Ref::none(),
+        };
+
+        let instance = state
+            .tree
+            .get_by_ref_mut(rewrite.id)
+            .expect("rbx_xml bug: had ID in referent rewrite list that didn't end up in the tree");
+
+        if let Variant::Attributes(attributes) = instance
+            .properties
+            .entry(attributes_ustr)
+            .or_insert_with(|| Variant::Attributes(Attributes::new()))
+        {
+            attributes.insert(rewrite.attribute_name, Variant::Ref(new_value));
+        }
     }
 }
 

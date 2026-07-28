@@ -55,7 +55,7 @@ use crate::{
 };
 
 use self::{
-    attributes::write_attributes,
+    attributes::{read_attributes, write_attributes},
     material_colors::write_material_colors,
     net_asset_ref::{read_net_asset_ref, write_net_asset_ref},
     referent::{read_ref, write_ref},
@@ -87,6 +87,11 @@ macro_rules! declare_rbx_types {
                     Ok(Some(Variant::String(value.0)))
                 },
 
+                // Attributes may need to read additional tags so is special cased.
+                BinaryString::XML_TAG_NAME => match property_name {
+                    "Attributes" => read_attributes(reader, instance_id, state).map(Some),
+                    _ => Ok(Some(Variant::BinaryString(BinaryString::read_outer_xml(reader)?))),
+                }
                 self::referent::XML_TAG_NAME => Ok(Some(Variant::Ref(read_ref(reader, instance_id, property_name, state)?))),
                 self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state).map(Some),
                 self::net_asset_ref::XML_TAG_NAME => read_net_asset_ref(reader, instance_id, property_name, state).map(Some),
@@ -133,7 +138,6 @@ macro_rules! declare_rbx_types {
 
 declare_rbx_types! {
     Axes: Axes,
-    BinaryString: BinaryString,
     Bool: bool,
     CFrame: CFrame,
     Color3: Color3,
