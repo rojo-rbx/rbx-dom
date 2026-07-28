@@ -163,13 +163,14 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         // get written later.
                         state.add_attribute_referent_rewrite(id, name.to_owned(), ref_contents);
                     }
-                } else {
-                    // Not attrRef, we're done
-                    break;
+
+                    // look for another Ref attribute
+                    continue;
                 }
             }
-            _ => break,
+            _ => {},
         }
+        break;
     }
 
     Ok(attributes)
