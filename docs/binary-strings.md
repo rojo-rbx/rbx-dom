@@ -21,6 +21,23 @@ This blob is used to serialize [attributes][Attributes]. Due to the complexity o
 
 [Attributes]: https://create.roblox.com/docs/studio/instance-attributes
 
+### GuidBinaryString
+**Used By:** `AnimationClip.GuidBinaryString`
+
+> **Note:** Reading this property requires `RobloxScriptSecurity`, meaning it is not accessible from ordinary scripts.
+
+This blob serializes the `AnimationClip.Guid` string property as a compact 16-byte binary representation, rather than storing the GUID as readable text. It is produced by stripping the GUID's braces (`{`/`}`) and hyphens (`-`), then converting each pair of remaining hex characters into a single byte.
+
+| Size (Bytes) | Field | Description                                                        |
+|:------------:|:------|:-----------------------------------------------------------------------|
+| `16`         | GUID  | The 32 hex digits of the GUID, packed as 16 raw bytes (`u8` × 16), in the same left-to-right order they appear in the string form. |
+
+As an example, the GUID string `{01234567-89AB-CDEF-0123-456789ABCDEF}` would be stripped to `0123456789ABCDEF0123456789ABCDEF`, then packed as:
+
+```
+01 23 45 67 89 AB CD EF 01 23 45 67 89 AB CD EF
+```
+
 ### MaterialColors
 **Used By:** `Terrain.MaterialColors`
 
