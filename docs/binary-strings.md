@@ -14,6 +14,59 @@ The following is a list of `BinaryString` blobs and their formatting. For clarit
 
 When a format is sufficiently complex, it may be stored in its own document for clarity.
 
+### AccessoryBlob
+**Used By:** `HumanoidDescription.AccessoryBlob`
+
+This blob serializes the accessories worn by a `Humanoid` (via `Humanoid:GetAccessories(false)`) as a JSON-encoded array. Unlike other `BinaryString` blobs in this document, this format is plain JSON text rather than a custom binary layout.
+
+Each element of the array is an object with the following fields:
+
+| Field            | Type      | Description                                                        |
+|:-----------------|:----------|:---------------------------------------------------------------------|
+| `AssetId`        | `number`  | The asset ID of the accessory.                                       |
+| `Order`          | `number`  | The accessory's `Order` value, controlling layering/render order.    |
+| `AccessoryType`  | `string`  | The name of the accessory's [`AccessoryType`][AccessoryType] enum value (e.g. `"Hair"`, `"Hat"`). |
+| `Puffiness`      | `number`  | The accessory's `Puffiness` value.                                    |
+
+If the `Humanoid` has no accessories, the blob is an empty JSON array: `[]`.
+
+As an example, a `Humanoid` with a single hat accessory might serialize as:
+
+```json
+[{"AssetId":1234567,"Order":0,"AccessoryType":"Hat","Puffiness":0.5}]
+```
+
+[AccessoryType]: https://create.roblox.com/docs/reference/engine/enums/AccessoryType
+
+### EmotesDataInternal
+**Used By:** `HumanoidDescription.EmotesDataInternal`
+
+This blob serializes the set of emotes known to a `HumanoidDescription` (via `HumanoidDescription:GetEmotes()`), mapping each emote name to one or more associated asset IDs. The format is a plain-text string using `^` and `\` as delimiters — there is no binary length-prefixing.
+
+Each emote entry is formatted as:
+`Name^Id1^Id2^...^IdN^\`
+
+Where `Name` is the emote's name and each `Id` is an asset ID associated with that emote (an emote may have multiple IDs, e.g. for variants). Each entry, including the last, is terminated with a trailing `^\` — entries are not joined with a separator, they are simply concatenated one after another, each ending in its own `^\`.
+
+If a `HumanoidDescription` has no emotes, the blob is an empty string.
+
+As an example, a `HumanoidDescription` with two emotes, `"Wave"` (single ID) and `"Dance"` (two IDs), would be serialized as:
+`Wave^123456^\Dance^234567^234568^\`
+
+### EquippedEmotesDataInternal
+**Used By:** `HumanoidDescription.EquippedEmotesDataInternal`
+
+This blob serializes the emotes currently equipped on a `HumanoidDescription` (via `HumanoidDescription:GetEquippedEmotes()`), along with the hotbar slot each is equipped to. Like `EmotesDataInternal`, this is a plain-text format using `^` and `\` as delimiters.
+
+Each equipped emote entry is formatted as:
+`Slot^Name\`
+
+Where `Slot` is the numeric hotbar slot the emote is equipped to, and `Name` is the emote's name. Each entry, including the last, is terminated with a trailing `\` — entries are not joined with a separator, they are simply concatenated one after another, each ending in its own `\`.
+
+If no emotes are equipped, the blob is an empty string.
+
+As an example, a `HumanoidDescription` with `"Wave"` equipped to slot `1` and `"Dance"` equipped to slot `2` would be serialized as:
+
 ### AttributeSerialized
 **Used By:** `Instance.AttributesSerialize`
 
