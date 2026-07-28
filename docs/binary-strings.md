@@ -54,6 +54,29 @@ The serialized data would be:
 
 [PhysicsService]: https://create.roblox.com/docs/reference/engine/classes/PhysicsService#GetRegisteredCollisionGroups
 
+### CollisionGroups
+**Used By:** `Workspace.CollisionGroups`
+
+> **Note:** This property is deprecated in favor of `WorldRoot.CollisionGroupData` (see above). It is documented here for compatibility with older files that may still use it.
+
+This blob serializes the collision groups registered via [`PhysicsService`][PhysicsService] as a plain-text string, using `^` and `\` as delimiters — there is no binary length-prefixing.
+
+Each collision group entry is formatted as:
+`Name^Id^Mask`
+
+Where `Name` is the group's name, `Id` is the group's ID (a zero-indexed integer based on the group's position in the registered list), and `Mask` is the group's collision mask, written as a plain decimal integer (which may be negative). Multiple entries are joined together using `\` as a separator; unlike the emote blobs above, there is no trailing delimiter after the final entry.
+
+If there are no registered collision groups, the blob is an empty string.
+
+As an example, given three collision groups:
+
+1. Name: `"Default"`, ID: `0`, Mask: `-1`
+2. Name: `"Group1"`, ID: `1`, Mask: `-3`
+3. Name: `"Group2"`, ID: `2`, Mask: `-5`
+
+The serialized data would be:
+`Default^0^-1\Group1^1^-3\Group2^2^-5`
+
 ### MaterialColors
 **Used By:** `Terrain.MaterialColors`
 
