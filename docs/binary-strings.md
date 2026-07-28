@@ -14,6 +14,30 @@ The following is a list of `BinaryString` blobs and their formatting. For clarit
 
 When a format is sufficiently complex, it may be stored in its own document for clarity.
 
+### AngleAttenuation / DistanceAttenuation
+**Used By:** `AudioEmitter.AngleAttenuation`, `AudioEmitter.DistanceAttenuation`, `AudioListener.AngleAttenuation`, `AudioListener.DistanceAttenuation`
+
+These blobs serialize an attenuation curve — a set of key-value pairs mapping an angle or distance (the key) to a volume level (the value), as returned by `GetAngleAttenuation()` / `GetDistanceAttenuation()`. All four properties share the same underlying format.
+
+If the attenuation curve has no points, the blob is a single zero byte: `00`.
+
+| Size (Bytes) | Field         | Description                                          |
+|:------------:|:--------------|:-------------------------------------------------------|
+| `1`          | Version (?)   | Constant (`0x00`).                                     |
+
+Followed by one entry per curve point, sorted in ascending order by key:
+
+| Size (Bytes) | Field         | Description                                          |
+|:------------:|:--------------|:-------------------------------------------------------|
+| `4`          | Key           | The angle or distance value (`f32`).                   |
+| `4`          | Volume        | The volume at this key (`f32`).                        |
+
+As an example, a distance attenuation curve with two points — `0` mapped to volume `1.0`, and `50` mapped to volume `0.0` — would be serialized as:
+
+```
+00 00 00 00 00 00 00 80 3F 00 00 48 42 00 00 00 00
+```
+
 ### AttributeSerialized
 **Used By:** `Instance.AttributesSerialize`
 
