@@ -21,9 +21,13 @@ fn serialize_attributes<'a>(
     buf: &mut Vec<u8>,
     attributes: &'a Attributes,
 ) -> Result<AdditionalAttributes<'a>, rbx_dom_weak::types::Error> {
+    let mut additional = AdditionalAttributes { refs: Vec::new() };
+    if attributes.is_empty() {
+        return Ok(additional);
+    }
+
     let attribute_writer = rbx_dom_weak::types::AttributeWriter::new(buf);
     let mut attribute_writer = attribute_writer.write_len(attributes.len() as u32)?;
-    let mut additional = AdditionalAttributes { refs: Vec::new() };
     for (name, variant) in attributes {
         match variant {
             Variant::BinaryString(value) => {
