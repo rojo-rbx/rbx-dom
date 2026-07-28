@@ -954,6 +954,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         id_to_referent,
                         shared_string_ids,
                         prop_info.prop_type,
+                        prop_info.serialized_name.as_str(),
                         migrated_values.iter().map(Cow::as_ref).enumerate(),
                         type_mismatch,
                         invalid_value,
@@ -964,6 +965,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         id_to_referent,
                         shared_string_ids,
                         prop_info.prop_type,
+                        prop_info.serialized_name.as_str(),
                         prop_info.values.iter().copied().enumerate(),
                         type_mismatch,
                         invalid_value,
@@ -972,11 +974,16 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                 Ok(())
             }
+            // TODO: Remove serialized_name. It's only used for special casing
+            // PropertiesSerialize so to write the 0 length when they're
+            // empty.
+            #[allow(clippy::too_many_arguments)]
             fn write_prop_values<'a, I, TypeMismatch, InvalidValue>(
                 chunk: &mut ChunkBuilder,
                 id_to_referent: &HashMap<Ref, i32>,
                 shared_string_ids: &HashMap<SharedString, u32>,
                 prop_type: Type,
+                serialized_name: &str,
                 values: I,
                 type_mismatch: TypeMismatch,
                 invalid_value: InvalidValue,
@@ -1009,6 +1016,15 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                                     value
                                         .to_writer(&mut buf)
                                         .map_err(|_| invalid_value(i, rbx_value))?;
+
+                                    // Roblox requires PropertiesSerialize to
+                                    // write its length even when there are no
+                                    // attributes. An empty attributes value
+                                    // serializes to nothing, so we write a 0
+                                    // count in its place.
+                                    if buf.is_empty() && serialized_name == "PropertiesSerialize" {
+                                        buf.extend_from_slice(&0u32.to_le_bytes());
+                                    }
 
                                     chunk.write_binary_string(&buf)?;
                                 }

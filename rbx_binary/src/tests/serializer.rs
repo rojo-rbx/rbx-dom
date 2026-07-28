@@ -1,7 +1,7 @@
 use rbx_dom_weak::{
     types::{
-        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, UDim,
-        Variant, Vector3,
+        Attributes, BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3,
+        SharedString, UDim, Variant, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
@@ -283,6 +283,23 @@ fn default_shared_string() {
     let _ = to_writer(&mut buf, &tree, &[ref_1, ref_2]);
 
     let decoded = DecodedModel::from_reader(buf.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
+/// Roblox requires that an empty `PropertiesSerialize` (StyleRule.Properties)
+/// still writes its attribute count. An empty Attributes value normally
+/// serializes to nothing, so the serializer must write a `0` count in its
+/// place. See https://github.com/rojo-rbx/rbx-dom/issues/639.
+#[test]
+fn empty_properties_serialize() {
+    let tree = WeakDom::new(
+        InstanceBuilder::new("StyleRule").with_property("Properties", Attributes::new()),
+    );
+
+    let mut buffer = Vec::new();
+    to_writer(&mut buffer, &tree, &[tree.root_ref()]).expect("failed to encode model");
+
+    let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
 }
 

@@ -74,6 +74,23 @@ fn write_empty_tags() {
     insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
 }
 
+/// Roblox requires that an empty `PropertiesSerialize` (StyleRule.Properties)
+/// still writes its attribute count. An empty Attributes value normally
+/// serializes to nothing, so the serializer must write a `0` count (base64
+/// `AAAAAA==`) in its place. See https://github.com/rojo-rbx/rbx-dom/issues/639.
+#[test]
+fn write_empty_properties_serialize() {
+    let _ = env_logger::try_init();
+
+    let style_rule =
+        InstanceBuilder::new("StyleRule").with_property("Properties", Attributes::new());
+    let dom = WeakDom::new(style_rule);
+
+    let mut encoded = Vec::new();
+    crate::to_writer_default(&mut encoded, &dom, &[dom.root_ref()]).unwrap();
+    insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
+}
+
 #[test]
 fn write_tags() {
     let _ = env_logger::try_init();
