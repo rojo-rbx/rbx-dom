@@ -114,7 +114,7 @@ pub fn read_attributes<R: Read>(
     id: Ref,
     state: &mut ParseState,
 ) -> Result<Variant, DecodeError> {
-    let value = BinaryString::read_xml(reader)?;
+    let value = BinaryString::read_outer_xml(reader)?;
 
     let bytes: &[u8] = value.as_ref();
     let attributes = match Attributes::from_reader(bytes) {
