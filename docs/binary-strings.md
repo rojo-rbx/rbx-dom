@@ -61,6 +61,29 @@ The first two rows appear to be unused at this moment and should always be writt
 [MaterialColors]: https://create.roblox.com/docs/reference/engine/classes/Terrain#MaterialColors
 [Material]: https://create.roblox.com/docs/reference/engine/enums/Material
 
+### PropertiesSerialize (Path2D)
+**Used By:** `Path2D.PropertiesSerialize`
+
+This blob serializes the shape's control points as an array of fixed-format entries. It does not use the attribute-encoding format described elsewhere — this is a dedicated encoding for a single, fixed value type.
+
+If there are no control points, the blob is written as a fixed 4-byte header, a bare `u32` count of `0`:
+
+`00 00 00 00`
+
+Otherwise, the blob is written as:
+
+| Size (Bytes) | Field | Description |
+|:------------:|:------|:------------|
+| `4` | Count | Number of control points (`u32`). |
+
+Followed by one entry per control point:
+
+| Size (Bytes) | Field | Description |
+|:------------:|:------|:------------|
+| `1` | Type Tag | Constant value identifying the control point value type (`u8`). |
+| `48` | Data | The control point's encoded value. |
+
+
 ### Tags
 **Used By:** `Instance.Tags`
 
