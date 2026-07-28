@@ -21,6 +21,39 @@ This blob is used to serialize [attributes][Attributes]. Due to the complexity o
 
 [Attributes]: https://create.roblox.com/docs/studio/instance-attributes
 
+### CollisionGroupData
+**Used By:** `WorldRoot.CollisionGroupData`
+
+This blob serializes the collision groups registered via [`PhysicsService`][PhysicsService]. It encodes, for each group, the group's ID, mask, and name.
+
+If there are no registered collision groups, the blob is written as just the version and a count of `0`: `01 00`.
+
+| Size (Bytes) | Field         | Description                                     |
+|:------------:|:--------------|:-------------------------------------------------|
+| `1`          | Version       | Constant (`0x01`).                                |
+| `1`          | Group Count   | Total number of collision groups (`u8`).          |
+
+Followed by one entry per group, in ascending ID order:
+
+| Size (Bytes) | Field         | Description                                     |
+|:------------:|:--------------|:-------------------------------------------------|
+| `1`          | ID            | Group ID (`u8`), starting at `0`.                 |
+| `1`          | Type ID       | Constant (`0x04`), denoting an `int32` value.     |
+| `4`          | Mask          | Collision mask (`i32`, little-endian).            |
+| `1`          | Name Length   | Length of the group name in bytes (`u8`).         |
+| `N`          | Name          | Group name (`string`, not null-terminated).       |
+
+As an example, given three collision groups:
+
+1. Name: `"Default"`, ID: `0`, Mask: `-1`
+2. Name: `"Group1"`, ID: `1`, Mask: `-3`
+3. Name: `"Group2"`, ID: `2`, Mask: `-5`
+
+The serialized data would be:
+`01 03 00 04 FF FF FF FF 07 44 65 66 61 75 6C 74 01 04 FD FF FF FF 06 47 72 6F 75 70 31 02 04 FB FF FF FF 06 47 72 6F 75 70 32`
+
+[PhysicsService]: https://create.roblox.com/docs/reference/engine/classes/PhysicsService#GetRegisteredCollisionGroups
+
 ### MaterialColors
 **Used By:** `Terrain.MaterialColors`
 
