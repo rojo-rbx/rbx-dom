@@ -18,10 +18,10 @@ use std::{
 use crate::{Error, Variant};
 
 pub(crate) use error::AttributeError;
-pub use writer::error_unsupported_variant_type;
 
 pub use attribute::Attribute;
 pub use reader::AttributeReader;
+pub use writer::error_unsupported_variant_type;
 pub use writer::AttributeWriter;
 
 #[derive(Debug, Default, Clone, PartialEq)]
