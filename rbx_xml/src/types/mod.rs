@@ -41,8 +41,8 @@ use std::io::{Read, Write};
 use rbx_dom_weak::types::{
     Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, ContentId, Enum,
     Faces, Font, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref,
-    SecurityCapabilities, UDim, UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3,
-    Vector3int16,
+    SecurityCapabilities, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector2int16,
+    Vector3, Vector3int16,
 };
 
 use crate::{
@@ -77,6 +77,7 @@ macro_rules! declare_rbx_types {
             xml_type_name: &str,
             instance_id: Ref,
             property_name: &str,
+            expected_type: Option<VariantType>,
         ) -> Result<Option<Variant>, DecodeError> {
             match xml_type_name {
                 $(<$inner_type>::XML_TAG_NAME => Ok(Some(Variant::$variant_name(<$inner_type>::read_outer_xml(reader)?))),)*
@@ -88,8 +89,8 @@ macro_rules! declare_rbx_types {
                 },
 
                 // Attributes may need to read additional tags so is special cased.
-                BinaryString::XML_TAG_NAME => match property_name {
-                    "Attributes" => read_attributes(reader, instance_id, state).map(Some),
+                BinaryString::XML_TAG_NAME => match expected_type {
+                    Some(VariantType::Attributes) => read_attributes(reader, instance_id, state).map(Some),
                     _ => Ok(Some(Variant::BinaryString(BinaryString::read_outer_xml(reader)?))),
                 }
                 self::referent::XML_TAG_NAME => Ok(Some(Variant::Ref(read_ref(reader, instance_id, property_name, state)?))),

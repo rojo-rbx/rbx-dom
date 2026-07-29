@@ -726,8 +726,16 @@ fn deserialize_properties<R: Read>(
         };
 
         if let Some(descriptor) = maybe_descriptor {
-            let Some(value) =
-                read_value_xml(reader, state, &xml_type_name, instance_id, descriptor.name)?
+            let expected_type = descriptor.data_type.ty();
+
+            let Some(value) = read_value_xml(
+                reader,
+                state,
+                &xml_type_name,
+                instance_id,
+                descriptor.name,
+                Some(expected_type),
+            )?
             else {
                 continue;
             };
@@ -743,7 +751,6 @@ fn deserialize_properties<R: Read>(
             // For example:
             // - Int/Float widening from 32-bit to 64-bit
             // - BrickColor properties turning into Color3
-            let expected_type = descriptor.data_type.ty();
             log::trace!("property's read type: {xml_ty:?}, canonical type: {expected_type:?}");
 
             let value = match value.try_convert(class_name, expected_type) {
@@ -804,6 +811,7 @@ fn deserialize_properties<R: Read>(
                         &xml_type_name,
                         instance_id,
                         &xml_property_name,
+                        None,
                     )?;
                 }
                 DecodePropertyBehavior::ReadUnknown | DecodePropertyBehavior::NoReflection => {
@@ -816,6 +824,7 @@ fn deserialize_properties<R: Read>(
                         &xml_type_name,
                         instance_id,
                         &xml_property_name,
+                        None,
                     )? {
                         Some(value) => value,
                         None => continue,
