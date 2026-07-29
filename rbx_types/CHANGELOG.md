@@ -1,15 +1,11 @@
 # rbx_types Changelog
+
 # Unreleased
 * Added Attribute, AttributeReader, AttributeWriter, to prepare for Ref attributes ([#647])
 * Added support for Ref attributes ([#646])
 
 [#647]: https://github.com/rojo-rbx/rbx-dom/pull/647
 [#646]: https://github.com/rojo-rbx/rbx-dom/pull/646
-
-# Unreleased
-* Added Attribute, AttributeReader, AttributeWriter, to prepare for Ref attributes ([#647])
-
-[#647]: https://github.com/rojo-rbx/rbx-dom/pull/647
 
 # 3.1.0 (2025-11-27)
 * Fixed `serde::Deserialize` implementations for `BinaryString`, `SharedString`, `NetAssetRef`, `Faces`, and `Axes` to properly utilize visitors. ([#563])
