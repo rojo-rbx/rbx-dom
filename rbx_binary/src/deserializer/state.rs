@@ -246,7 +246,10 @@ fn read_attributes(
             Attribute::NumberRange(value) => Variant::NumberRange(value),
             Attribute::Rect(value) => Variant::Rect(value),
             Attribute::Font(value) => Variant::Font(value),
-            _ => unreachable!("rbx_types newer than rbx_binary?"),
+            // rbx_types::Attribute is non-exhaustive, but we reasonably expect rbx_binary to be updated at the same time.
+            _ => {
+                unreachable!("Unknown Attribute! Update rbx_binary to match the rbx_types version.")
+            }
         };
         attributes.insert(key, variant);
     }
