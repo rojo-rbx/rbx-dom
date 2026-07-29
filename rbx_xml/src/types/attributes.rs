@@ -24,13 +24,9 @@ fn serialize_attributes<'a>(
     buf: &mut Vec<u8>,
     attributes: &'a Attributes,
 ) -> Result<AdditionalAttributes<'a>, rbx_dom_weak::types::Error> {
-    let mut additional = AdditionalAttributes { refs: Vec::new() };
-    if attributes.is_empty() {
-        return Ok(additional);
-    }
-
     let attribute_writer = rbx_dom_weak::types::AttributeWriter::new(buf);
     let mut attribute_writer = attribute_writer.write_len(attributes.len() as u32)?;
+    let mut additional = AdditionalAttributes { refs: Vec::new() };
     for (name, variant) in attributes {
         match variant {
             Variant::BinaryString(value) => {
@@ -80,19 +76,17 @@ pub fn write_attributes<W: Write>(
 ) -> Result<(), EncodeError> {
     let mut buffer = Vec::new();
 
-    let additional = match serialize_attributes(&mut buffer, value) {
-        Ok(additional) => additional,
-        Err(write_error) => return Err(writer.error(write_error)),
-    };
-
     // Roblox requires PropertiesSerialize to write its length even when there
-    // are no attributes. An empty attributes value serializes to nothing, so we
-    // write a 0 count in its place.
-    //
-    // TODO: reconcile this with if attributes.is_empty() in serialize_attributes
-    if buffer.is_empty() && property_name == "PropertiesSerialize" {
-        buffer.extend_from_slice(&0u32.to_le_bytes());
-    }
+    // are no attributes. Serializing an empty attributes does exactly that.
+    let additional = if !value.is_empty() || property_name == "PropertiesSerialize" {
+        match serialize_attributes(&mut buffer, value) {
+            Ok(additional) => additional,
+            Err(write_error) => return Err(writer.error(write_error)),
+        }
+    } else {
+        // dummy value
+        AdditionalAttributes { refs: Vec::new() }
+    };
 
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
     writer.write_string(&base64::encode(&buffer))?;

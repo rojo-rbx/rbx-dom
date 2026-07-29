@@ -1060,18 +1060,15 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                                 }
                                 Variant::Attributes(value) => {
                                     let mut buf = Vec::new();
-                                    if !value.is_empty() {
-                                        write_attributes(&mut buf, value, id_to_referent)
-                                            .map_err(|_| invalid_value(i, rbx_value))?;
-                                    }
 
                                     // Roblox requires PropertiesSerialize to
                                     // write its length even when there are no
-                                    // attributes. An empty attributes value
-                                    // serializes to nothing, so we write a 0
-                                    // count in its place.
-                                    if buf.is_empty() && serialized_name == "PropertiesSerialize" {
-                                        buf.extend_from_slice(&0u32.to_le_bytes());
+                                    // attributes.  Serializing an empty
+                                    // attributes does exactly that.
+                                    if !value.is_empty() || serialized_name == "PropertiesSerialize"
+                                    {
+                                        write_attributes(&mut buf, value, id_to_referent)
+                                            .map_err(|_| invalid_value(i, rbx_value))?;
                                     }
 
                                     chunk.write_binary_string(&buf)?;
