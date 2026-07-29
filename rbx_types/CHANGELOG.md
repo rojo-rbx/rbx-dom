@@ -1,4 +1,10 @@
 # rbx_types Changelog
+# Unreleased
+* Added Attribute, AttributeReader, AttributeWriter, to prepare for Ref attributes ([#647])
+* Added support for Ref attributes ([#646])
+
+[#647]: https://github.com/rojo-rbx/rbx-dom/pull/647
+[#646]: https://github.com/rojo-rbx/rbx-dom/pull/646
 
 # Unreleased
 * Added Attribute, AttributeReader, AttributeWriter, to prepare for Ref attributes ([#647])
