@@ -14,9 +14,9 @@ use crate::{
 
 pub const XML_TAG_NAME: &str = "BinaryString";
 
-// Ref attributes are not written into the attributes binary
-// format because the xml format does not use i32 ref ids
 struct AdditionalAttributes<'a> {
+    // Ref attributes are not written into the attributes binary
+    // format because the xml format does not use i32 ref ids
     refs: Vec<(&'a str, Ref)>,
 }
 
