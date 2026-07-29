@@ -269,8 +269,7 @@ impl<'dom, 'db> ParseState<'dom, 'db> {
 }
 
 fn apply_referent_rewrites(state: &mut ParseState) {
-    // Property rewrites
-    for rewrite in state.referent_rewrites.drain(..) {
+    for rewrite in &state.referent_rewrites {
         let new_value = match state.referents_to_ids.get(&rewrite.referent_value) {
             Some(id) => *id,
             // read_ref returns Ref::none(), so the value is already correct.
