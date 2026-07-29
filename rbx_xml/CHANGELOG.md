@@ -2,11 +2,9 @@
 
 ## Unreleased
 * Changed serializer to always write a length for empty `PropertiesSerialize` values, which Roblox requires. ([#639])
-* Added Attribute, AttributeReader, AttributeWriter, to prepare for Ref attributes ([#647])
 * Added support for Ref attributes ([#646])
 
 [#639]: https://github.com/rojo-rbx/rbx-dom/issues/639
-[#647]: https://github.com/rojo-rbx/rbx-dom/pull/647
 [#646]: https://github.com/rojo-rbx/rbx-dom/pull/646
 
 # 3.0.0 (2026-07-01)
