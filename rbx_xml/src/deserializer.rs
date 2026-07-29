@@ -27,6 +27,7 @@ pub fn decode_internal<R: Read>(source: R, options: DecodeOptions) -> Result<Wea
 
     deserialize_root(&mut iterator, &mut state, root_id)?;
     apply_referent_rewrites(&mut state);
+    apply_attribute_referent_rewrites(&mut state);
     apply_shared_string_rewrites(&mut state).map_err(|e| iterator.error(e))?;
     apply_net_asset_rewrites(&mut state).map_err(|e| iterator.error(e))?;
 
@@ -285,8 +286,9 @@ fn apply_referent_rewrites(state: &mut ParseState) {
             .properties
             .insert(rewrite.property_name, Variant::Ref(new_value));
     }
+}
 
-    // Attribute rewrites
+fn apply_attribute_referent_rewrites(state: &mut ParseState) {
     let attributes_ustr = Ustr::from("Attributes");
     for rewrite in state.attribute_referent_rewrites.drain(..) {
         let new_value = match state.referents_to_ids.get(&rewrite.referent_value) {
