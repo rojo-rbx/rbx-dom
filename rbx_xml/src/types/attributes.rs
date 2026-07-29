@@ -131,44 +131,42 @@ rbx-dom may require changes to fully support this property. Please open an issue
     };
 
     // peek and consume Ref tags that appear directly after the AttributesSerialize tag
-    loop {
-        match reader.expect_peek()? {
-            XmlReadEvent::StartElement {
-                name, attributes, ..
-            } if name.local_name == "Ref" => {
-                let mut xml_property_name = None;
+    while let XmlReadEvent::StartElement {
+        name, attributes, ..
+    } = reader.expect_peek()?
+    {
+        // TODO: rust 2024 if let chains
+        if name.local_name == "Ref" {
+            let mut xml_property_name = None;
 
-                for attribute in attributes {
-                    if attribute.name.local_name == "name" {
-                        xml_property_name = Some(attribute.value.to_owned());
-                        break;
-                    }
-                }
-
-                let xml_property_name = match xml_property_name {
-                    Some(value) => value,
-                    None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name"))),
-                };
-
-                if let Some(("__attrRef_", name)) =
-                    xml_property_name.split_at_checked("__attrRef_".len())
-                {
-                    let ref_contents = reader.read_tag_contents(super::referent::XML_TAG_NAME)?;
-
-                    if ref_contents != "null" {
-                        // We need to rewrite this attribute as part of a follow-up pass.
-                        //
-                        // We might not know which ID this referent points to yet, so instead of
-                        // trying to handle the case where we do here, we just let all referents
-                        // get written later.
-                        state.add_attribute_referent_rewrite(id, name.to_owned(), ref_contents);
-                    }
-
-                    // look for another Ref attribute
-                    continue;
+            for attribute in attributes {
+                if attribute.name.local_name == "name" {
+                    xml_property_name = Some(attribute.value.as_str());
+                    break;
                 }
             }
-            _ => {},
+
+            let xml_property_name = match xml_property_name {
+                Some(value) => value,
+                None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name"))),
+            };
+
+            if let Some(("__attrRef_", name)) =
+                xml_property_name.split_at_checked("__attrRef_".len())
+            {
+                let name = name.to_owned();
+                let ref_contents = reader.read_tag_contents(super::referent::XML_TAG_NAME)?;
+
+                // We need to rewrite this attribute as part of a follow-up pass.
+                //
+                // We might not know which ID this referent points to yet, so instead of
+                // trying to handle the case where we do here, we just let all referents
+                // get written later.
+                state.add_attribute_referent_rewrite(id, name, ref_contents);
+
+                // look for another Ref attribute
+                continue;
+            }
         }
         break;
     }
