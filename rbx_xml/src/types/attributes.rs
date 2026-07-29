@@ -62,7 +62,11 @@ fn serialize_attributes<'a>(
                 additional.refs.push((name, *referent));
                 continue;
             }
-            _ => todo!("How to return AttributeError::UnsupportedVariantType?"),
+            other => {
+                return Err(rbx_dom_weak::types::error_unsupported_variant_type(
+                    other.ty(),
+                ))
+            }
         }?;
     }
     Ok(additional)

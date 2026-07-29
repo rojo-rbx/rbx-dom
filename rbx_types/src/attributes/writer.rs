@@ -14,6 +14,11 @@ use crate::{
     variant::Variant,
 };
 
+/// dedicated function to generate an UnsupportedVariantType error
+pub fn error_unsupported_variant_type(ty: crate::VariantType) -> Error {
+    AttributeError::UnsupportedVariantType(ty).into()
+}
+
 /// Attribute writer for the binary attributes format.
 /// Call write_len and then write_attribute to write each attribute.
 /// Does not enforce the number of attributes written.
