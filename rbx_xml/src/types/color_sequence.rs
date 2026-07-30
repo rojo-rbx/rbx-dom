@@ -46,15 +46,7 @@ impl XmlType for ColorSequence {
             ))
         };
 
-        // Because next() returns Option<Result<_>> here, it's cleaner to use
-        // loop instead of while-let.
-        #[allow(clippy::while_let_loop)]
-        loop {
-            let time = match pieces.next() {
-                Some(value) => value?,
-                None => break,
-            };
-
+        while let Some(time) = pieces.next().transpose()? {
             let r = pieces.next().ok_or_else(wrong_length)??;
             let g = pieces.next().ok_or_else(wrong_length)??;
             let b = pieces.next().ok_or_else(wrong_length)??;
