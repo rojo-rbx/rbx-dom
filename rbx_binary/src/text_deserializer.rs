@@ -66,8 +66,8 @@ impl DecodedModel {
         }
 
         DecodedModel {
-            num_types: header.num_types,
-            num_instances: header.num_instances,
+            num_types: header.num_types(),
+            num_instances: header.num_instances(),
             chunks,
         }
     }
