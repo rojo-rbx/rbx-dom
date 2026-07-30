@@ -14,6 +14,95 @@ The following is a list of `BinaryString` blobs and their formatting. For clarit
 
 When a format is sufficiently complex, it may be stored in its own document for clarity.
 
+### label
+**Used By:** `AnimationRigData.label`
+
+> **Note:** Reading this property requires `RobloxScriptSecurity`, meaning it is not accessible from ordinary scripts.
+
+This blob serializes the set of rig labels for an `AnimationRigData` instance, as returned by `GetLabels()`. Each label is stored as a 32-bit identifier rather than a string directly — likely an index or hash into a separate label table.
+
+If there are no labels, the blob is written as a fixed 8-byte header with a count of `0`: `01 00 00 00 00 00 00 00`.
+
+| Size (Bytes) | Field         | Description                                       |
+|:------------:|:--------------|:------------------------------------------------------|
+| `4`          | Version (?)   | Constant (`0x00000001`, `u32`).                        |
+| `4`          | Label Count   | Total number of labels (`u32`).                        |
+
+Followed by one entry per label:
+
+| Size (Bytes) | Field         | Description                                       |
+|:------------:|:--------------|:------------------------------------------------------|
+| `4`          | Label ID      | A 32-bit label identifier (`u32`).                     |
+
+### name
+**Used By:** `AnimationRigData.name`
+
+> **Note:** Reading this property requires `RobloxScriptSecurity`, meaning it is not accessible from ordinary scripts.
+
+This blob serializes the set of rig part/joint names for an `AnimationRigData` instance, as returned by `GetNames()`. Unlike `label`, names are stored as raw strings rather than IDs, using a separate-arrays layout: all name lengths are written first, followed by all name contents.
+
+If there are no names, the blob is written as a fixed 8-byte header with a count of `0`: `01 00 00 00 00 00 00 00`.
+
+| Size (Bytes) | Field         | Description                                       |
+|:------------:|:--------------|:------------------------------------------------------|
+| `4`          | Version (?)   | Constant (`0x00000001`, `u32`).                        |
+| `4`          | Name Count    | Total number of names (`u32`).                         |
+
+Followed by one length entry per name:
+
+| Size (Bytes) | Field         | Description                                       |
+|:------------:|:--------------|:------------------------------------------------------|
+| `4`          | Name Length   | Length of the corresponding name in bytes (`u32`).     |
+
+Followed immediately by the name contents themselves, in the same order as the lengths, with no padding or separators between them:
+
+| Size (Bytes) | Field         | Description                                       |
+|:------------:|:--------------|:------------------------------------------------------|
+| `N`          | Name          | The name's raw bytes (`string`, not null-terminated).  |
+
+### parent
+**Used By:** `AnimationRigData.parent`
+
+> **Note:** Reading this property requires `RobloxScriptSecurity`, meaning it is not accessible from ordinary scripts.
+
+This blob serializes the parent-index table for an `AnimationRigData` instance, as returned by `GetParents()`. Each entry is a 16-bit index, likely referring to another entry's position within this same rig data (e.g. indicating which part/joint is the parent of the part/joint at a given index).
+
+If there are no parents, the blob is written as a fixed 8-byte header with a count of `0`: `01 00 00 00 00 00 00 00`.
+
+| Size (Bytes) | Field         | Description                                       |
+|:------------:|:--------------|:------------------------------------------------------|
+| `4`          | Version (?)   | Constant (`0x00000001`, `u32`).                        |
+| `4`          | Parent Count  | Total number of entries (`u32`).                        |
+
+Followed by one entry per parent:
+
+| Size (Bytes) | Field         | Description                                       |
+|:------------:|:--------------|:------------------------------------------------------|
+| `2`          | Parent Index  | A 16-bit index (`u16`).                                |
+
+### postTransform / preTransform / transform
+**Used By:** `AnimationRigData.postTransform`, `AnimationRigData.preTransform`, `AnimationRigData.transform`
+
+> **Note:** Reading these properties requires `RobloxScriptSecurity`, meaning they are not accessible from ordinary scripts.
+
+These blobs serialize a list of `CFrame` transforms — the pre-transform, post-transform, or base transform of each part/joint in an `AnimationRigData` instance, as returned by `GetPreTransforms()`, `GetPostTransforms()`, or `GetTransforms()` respectively. All three share the same underlying format.
+
+If there are no transforms, the blob is written as a fixed 8-byte header with a count of `0`: `01 00 00 00 00 00 00 00`.
+
+| Size (Bytes) | Field         | Description                                       |
+|:------------:|:--------------|:------------------------------------------------------|
+| `4`          | Version (?)   | Constant (`0x00000001`, `u32`).                        |
+| `4`          | Transform Count | Total number of transforms (`u32`).                  |
+
+Followed by one 48-byte entry per transform, consisting of the CFrame's rotation matrix (as three basis vectors) and position, each written as three consecutive 32-bit floats:
+
+| Size (Bytes) | Field         | Description                                       |
+|:------------:|:--------------|:------------------------------------------------------|
+| `12`         | X Basis       | The CFrame's X (right) basis vector: `R00, R01, R02` (`f32` × 3). |
+| `12`         | Y Basis       | The CFrame's Y (up) basis vector: `R10, R11, R12` (`f32` × 3).    |
+| `12`         | Z Basis       | The CFrame's Z (back) basis vector: `R20, R21, R22` (`f32` × 3).  |
+| `12`         | Position      | The CFrame's position: `X, Y, Z` (`f32` × 3).                     |
+
 ### AttributeSerialized
 **Used By:** `Instance.AttributesSerialize`
 
