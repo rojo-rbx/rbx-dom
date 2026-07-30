@@ -98,7 +98,7 @@ fn decode_sstr_chunk<R: Read>(mut reader: R) -> DecodedChunk {
         let mut hash = [0; 16];
         reader.read_exact(&mut hash).unwrap();
         let data = reader.read_binary_string().unwrap();
-        entries.push(SharedString::new(data));
+        entries.push(SharedString::new(&data));
     }
 
     let mut remaining = Vec::new();
