@@ -1,7 +1,5 @@
 use std::fmt;
 
-use crate::lister::Lister;
-
 bitflags::bitflags! {
     #[derive(Clone, Copy, PartialEq, Eq)]
     struct AxisFlags: u8 {
@@ -32,6 +30,8 @@ impl Axes {
     pub const Z: Self = Self {
         flags: AxisFlags::Z,
     };
+
+    const AXIS_NAMES: [(Axes, &'static str); 3] = [(Axes::X, "X"), (Axes::Y, "Y"), (Axes::Z, "Z")];
 }
 
 impl Axes {
@@ -66,24 +66,24 @@ impl Axes {
     fn len(self) -> usize {
         self.bits().count_ones() as usize
     }
+
+    fn iter_names(self) -> impl Iterator<Item = &'static str> {
+        IntoIterator::into_iter(Self::AXIS_NAMES)
+            .filter_map(move |(axis, name)| self.contains(axis).then_some(name))
+    }
 }
 
 impl fmt::Debug for Axes {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
-        let mut list = Lister::new();
-
         write!(out, "Axes(")?;
 
-        if self.contains(Self::X) {
-            list.write(out, "X")?;
-        }
+        let mut iter = self.iter_names();
 
-        if self.contains(Self::Y) {
-            list.write(out, "Y")?;
-        }
-
-        if self.contains(Self::Z) {
-            list.write(out, "Z")?;
+        if let Some(first_name) = iter.next() {
+            write!(out, "{first_name}")?;
+            for name in iter {
+                write!(out, ", {name}")?;
+            }
         }
 
         write!(out, ")")
@@ -107,16 +107,8 @@ mod serde_impl {
             if serializer.is_human_readable() {
                 let mut seq = serializer.serialize_seq(Some(self.len()))?;
 
-                if self.contains(Self::X) {
-                    seq.serialize_element("X")?;
-                }
-
-                if self.contains(Self::Y) {
-                    seq.serialize_element("Y")?;
-                }
-
-                if self.contains(Self::Z) {
-                    seq.serialize_element("Z")?;
+                for name in self.iter_names() {
+                    seq.serialize_element(name)?;
                 }
 
                 seq.end()
