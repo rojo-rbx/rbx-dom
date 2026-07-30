@@ -19,7 +19,7 @@ use rbx_dom_weak::types::{
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
-use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
+use crate::{chunk::Chunk, core::RbxReadExt, header::FileHeader, types::Type};
 
 #[derive(Debug, Serialize)]
 pub struct DecodedModel {
@@ -66,8 +66,8 @@ impl DecodedModel {
         }
 
         DecodedModel {
-            num_types: header.num_types,
-            num_instances: header.num_instances,
+            num_types: header.num_types(),
+            num_instances: header.num_instances(),
             chunks,
         }
     }
