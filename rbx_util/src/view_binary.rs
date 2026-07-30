@@ -30,7 +30,7 @@ impl ViewBinaryCommand {
         log::debug!("Writing to stdout");
         let stdout = io::stdout();
         let output = BufWriter::new(stdout.lock());
-        serde_yaml::to_writer(output, &model)?;
+        yaml_serde::to_writer(output, &model)?;
 
         Ok(())
     }

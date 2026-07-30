@@ -1,5 +1,22 @@
 # rbx_binary Changelog
 
+## Unreleased
+* Changed serializer to always write a length for empty `PropertiesSerialize` values, which Roblox requires. ([#639])
+
+[#639]: https://github.com/rojo-rbx/rbx-dom/issues/639
+
+# 3.0.0 (2026-07-01)
+* Upgraded to `rbx_reflection` v3.0.0
+* Changed serializer to not panic when Instance.properties contains Name entry. ([#596])
+* Used exact comparison when determining basic rotation IDs to exactly preserve CFrame inputs. ([#601])
+* Added support for one-to-many property migrations. ([#612])
+* Added support for reading Tags from a SharedString ([#634])
+
+[#596]: https://github.com/rojo-rbx/rbx-dom/pull/596
+[#601]: https://github.com/rojo-rbx/rbx-dom/pull/601
+[#612]: https://github.com/rojo-rbx/rbx-dom/pull/612
+[#634]: https://github.com/rojo-rbx/rbx-dom/pull/634
+
 ## 2.0.1 (2025-11-27)
 * Improved performance in several ways. Serializing in particular has been dramatically improved.
 

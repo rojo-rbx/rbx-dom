@@ -26,6 +26,12 @@ In the XML format, `QDir` and `QFont` properties are deliberately not supported 
 
 Properties of these types will not raise parsing errors if encountered, but if Roblox ever decides to use them for user-facing files, support would need to be added.
 
+### Tags in the SharedString Index
+
+`rbx-binary` and `rbx-xml` normally serialize `Tags` as a `String`-like property (either a `String` or `BinaryString` respectively). However, files produced by Roblox have [begun storing `Tags` in the `SharedString` index](https://github.com/rojo-rbx/rbx-dom/pull/634) instead, referencing a shared blob by index rather than embedding the data directly. This is presumably a size optimization, as it lets instances with identical tags deduplicate to a single shared blob.
+
+`rbx-binary` and `rbx-xml` decode `Tags` stored this way, but do not encode them this way, so round-tripping such a file moves the tags back inline as a `String`-like property. Any `String` or `BinaryString` property could technically be stored in the `SharedString` index using this same pattern, but `Tags` is the only case observe in the wild so decoding support is currently limited to it. If Roblox begins doing this for other properties, decoding support for this will need to be added as well.
+
 ## XML
 
 Issues of this category would impact the usage of `rbx-xml` if Roblox makes a breaking change.

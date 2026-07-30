@@ -1,0 +1,7 @@
+Change:
+  ImageHandleAdornment:
+    Image:
+      Serialization:
+        Type: Migrate
+        To: ImageContent
+        Migration: ContentIdToContent

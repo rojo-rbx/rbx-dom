@@ -1,11 +1,12 @@
 use rbx_dom_weak::{
     types::{
-        BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3, SharedString, Vector3,
+        Attributes, BrickColor, CFrame, Color3, Color3uint8, Enum, Font, Ref, Region3,
+        SharedString, UDim, Variant, Vector3,
     },
     InstanceBuilder, WeakDom,
 };
 
-use crate::{text_deserializer::DecodedModel, to_writer};
+use crate::{text_deserializer::DecodedModel, to_writer, Deserializer, Serializer};
 
 /// A basic test to make sure we can serialize the simplest instance: a Folder.
 #[test]
@@ -121,6 +122,95 @@ fn migrated_properties() {
     insta::assert_yaml_snapshot!(decoded);
 }
 
+#[test]
+fn one_to_many_migrated_properties() {
+    let tree = WeakDom::new(
+        InstanceBuilder::new("UICorner").with_property("CornerRadius", UDim::new(0.5, 12)),
+    );
+
+    let mut buffer = Vec::new();
+    Serializer::new()
+        .serialize(&mut buffer, &tree, &[tree.root_ref()])
+        .expect("failed to encode model");
+
+    let decoded = DecodedModel::from_reader(buffer.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
+#[test]
+fn one_to_many_migrated_properties_deserialize() {
+    let tree = WeakDom::new(
+        InstanceBuilder::new("UICorner").with_property("CornerRadius", UDim::new(0.5, 12)),
+    );
+
+    let mut buffer = Vec::new();
+    Serializer::new()
+        .serialize(&mut buffer, &tree, &[tree.root_ref()])
+        .expect("failed to encode model");
+
+    let decoded = Deserializer::new()
+        .deserialize(buffer.as_slice())
+        .expect("failed to decode model");
+
+    let ui_corner = decoded
+        .get_by_ref(decoded.root().children()[0])
+        .expect("missing UICorner");
+    let expected = Variant::UDim(UDim::new(0.5, 12));
+
+    for property_name in [
+        "BottomLeftRadius",
+        "BottomRightRadius",
+        "TopLeftRadius",
+        "TopRightRadius",
+    ] {
+        assert_eq!(
+            ui_corner.properties.get(&property_name.into()),
+            Some(&expected),
+            "{property_name} should receive the migrated CornerRadius value",
+        );
+    }
+    assert!(!ui_corner.properties.contains_key(&"CornerRadius".into()));
+}
+
+#[test]
+fn one_to_many_migrated_properties_preserve_explicit_targets() {
+    let migrated = UDim::new(0.5, 12);
+    let explicit = UDim::new(0.25, 4);
+    let tree = WeakDom::new(
+        InstanceBuilder::new("UICorner")
+            .with_property("CornerRadius", migrated)
+            .with_property("BottomLeftRadius", explicit),
+    );
+
+    let mut buffer = Vec::new();
+    Serializer::new()
+        .serialize(&mut buffer, &tree, &[tree.root_ref()])
+        .expect("failed to encode model");
+
+    let decoded = Deserializer::new()
+        .deserialize(buffer.as_slice())
+        .expect("failed to decode model");
+
+    let ui_corner = decoded
+        .get_by_ref(decoded.root().children()[0])
+        .expect("missing UICorner");
+
+    assert_eq!(
+        ui_corner.properties.get(&"BottomLeftRadius".into()),
+        Some(&Variant::UDim(explicit)),
+    );
+
+    for property_name in ["BottomRightRadius", "TopLeftRadius", "TopRightRadius"] {
+        assert_eq!(
+            ui_corner.properties.get(&property_name.into()),
+            Some(&Variant::UDim(migrated)),
+            "{property_name} should receive the migrated CornerRadius value",
+        );
+    }
+
+    assert!(!ui_corner.properties.contains_key(&"CornerRadius".into()));
+}
+
 /// Ensures that only one name for each logical property is serialized to a
 /// file. Here, we use BasePart.Size and BasePart.size, which alias and both
 /// serialize to BasePart.size.
@@ -193,6 +283,23 @@ fn default_shared_string() {
     let _ = to_writer(&mut buf, &tree, &[ref_1, ref_2]);
 
     let decoded = DecodedModel::from_reader(buf.as_slice());
+    insta::assert_yaml_snapshot!(decoded);
+}
+
+/// Roblox requires that an empty `PropertiesSerialize` (StyleRule.Properties)
+/// still writes its attribute count. An empty Attributes value normally
+/// serializes to nothing, so the serializer must write a `0` count in its
+/// place. See https://github.com/rojo-rbx/rbx-dom/issues/639.
+#[test]
+fn empty_properties_serialize() {
+    let tree = WeakDom::new(
+        InstanceBuilder::new("StyleRule").with_property("Properties", Attributes::new()),
+    );
+
+    let mut buffer = Vec::new();
+    to_writer(&mut buffer, &tree, &[tree.root_ref()]).expect("failed to encode model");
+
+    let decoded = DecodedModel::from_reader(buffer.as_slice());
     insta::assert_yaml_snapshot!(decoded);
 }
 
