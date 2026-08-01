@@ -298,14 +298,25 @@ EasingDirection | `u32`  | The easing direction of the Tween, an enum value     
 Reverses        | `u8`   | Whether the Tween reverses direction                     |
 
 A TweenInfo built in Roblox Lua:
-```
+```lua
 TweenInfo.new(
-	1.5, -- time: number?,
-	Enum.EasingStyle.Sine, -- easingStyle: Enum.EasingStyle?, (value 1)
-	Enum.EasingDirection.InOut, -- easingDirection: Enum.EasingDirection?, (value 2)
-	4.5, -- repeatCount: number?, (implicitly converted to int value 4)
-	false, -- reverses: boolean?,
-	6.5 -- delayTime: number?
+	-- time: number?,
+	1.5,
+
+	-- easingStyle: Enum.EasingStyle?,
+	Enum.EasingStyle.Sine, -- value 1
+
+	-- easingDirection: Enum.EasingDirection?,
+	Enum.EasingDirection.InOut, -- value 2
+
+	-- repeatCount: number?,
+	4.5, -- implicitly converted to int value 4
+
+	-- reverses: boolean?,
+	false,
+
+	-- delayTime: number?
+	6.5
 )
 ```
 Would have the following form after serialization: `00 00 c0 3f 00 00 d0 40 04 00 00 00 01 00 00 00 02 00 00 00 00`
