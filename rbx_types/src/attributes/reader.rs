@@ -4,9 +4,9 @@ use std::{
 };
 
 use crate::{
-    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font,
-    FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, Rect,
-    UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, Enum, EnumItem,
+    Font, FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
+    Rect, TweenInfo, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
 };
 
 use super::{type_id, AttributeError};
@@ -210,6 +210,24 @@ pub(crate) fn read_attributes<R: Read>(
                     ty: String::from_utf8(enum_type)?,
                     value,
                 }
+            }
+            .into(),
+
+            VariantType::TweenInfo => {
+                let time = read_f32(&mut value)?;
+                let delay_time = read_f32(&mut value)?;
+                let repeat_count = read_i32(&mut value)?;
+                let easing_style = read_u32(&mut value)?;
+                let easing_direction = read_u32(&mut value)?;
+                let reverses = read_u8(&mut value)? != 0;
+                TweenInfo::new(
+                    time,
+                    Enum::from_u32(easing_style),
+                    Enum::from_u32(easing_direction),
+                    repeat_count,
+                    reverses,
+                    delay_time,
+                )
             }
             .into(),
 

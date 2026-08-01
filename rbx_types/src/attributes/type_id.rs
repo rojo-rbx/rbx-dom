@@ -50,4 +50,5 @@ type_ids! {
     NumberRange => 0x1B,
     Rect => 0x1C,
     Font => 0x21,
+    TweenInfo => 0x24,
 }
