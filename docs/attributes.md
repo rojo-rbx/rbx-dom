@@ -286,7 +286,7 @@ A regular `Source Sans Pro` font will be stored as `90 01 00 2C 00 00 00 72 62 7
 ### TweenInfo
 **Type ID `0x24`**
 
-The `TweenInfo` type is a struct composed of `f32`, `f32`, `i32`, `u32`, `u32`, and `u8`,
+The `TweenInfo` type is a struct composed of `f32`, `f32`, `i32`, `u32`, `u32`, and `u8`:
 
 | Field Name    | Format | Value                                                    |
 |:--------------|:-------|:---------------------------------------------------------|
