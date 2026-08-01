@@ -297,7 +297,7 @@ EasingStyle     | `u32`  | The easing style of the Tween, an enum value         
 EasingDirection | `u32`  | The easing direction of the Tween, an enum value         |
 Reverses        | `u8`   | Whether the Tween reverses direction                     |
 
-A TweenInfo built in Roblox Lua:
+A TweenInfo built in Roblox Lua as follows:
 ```lua
 TweenInfo.new(
 	-- time: number?,
@@ -319,4 +319,4 @@ TweenInfo.new(
 	6.5
 )
 ```
-Would have the following form after serialization: `00 00 c0 3f 00 00 d0 40 04 00 00 00 01 00 00 00 02 00 00 00 00`
+has the following form after serialization: `00 00 c0 3f 00 00 d0 40 04 00 00 00 01 00 00 00 02 00 00 00 00`
