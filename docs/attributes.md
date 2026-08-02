@@ -24,6 +24,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [NumberRange](#numberrange)
     - [Rect](#rect)
     - [Font](#font)
+    - [Ref](#ref)
 
 ## Document Conventions
 
@@ -281,3 +282,13 @@ The `Weight` and `Style` values refer to the `FontWeight` and `FontStyle` enums 
 The `CachedFaceId` field will always be present, but may be an empty string.
 
 A regular `Source Sans Pro` font will be stored as `90 01 00 2C 00 00 00 72 62 78 61 73 73 65 74 3A 2F 2F 66 6F 6E 74 73 2F 66 61 6D 69 6C 69 65 73 2F 53 6F 75 72 63 65 53 61 6E 73 50 72 6F 2E 6A 73 6F 6E 2A 00 00 00 72 62 78 61 73 73 65 74 3A 2F 2F 66 6F 6E 74 73 2F 53 6F 75 72 63 65 53 61 6E 73 50 72 6F 2D 52 65 67 75 6C 61 72 2E 74 74 66`
+
+### Ref
+**Type ID `0x25`**
+
+In the binary format, `Ref` type is serialized as a single `i32` value.  This
+is the same `i32` values used to serialize other Ref values in the binary file
+format.  In the XML format, Ref attributes are not included in the
+AttributesSerialize BinaryString blob, but are tacked on as fake Ref properties
+with the name `__attrRef_key` directly after the AttributesSerialize XML tag,
+where `key` is the name of the attribute, i.e. `Part:SetAttribute("key", Part)`
