@@ -24,6 +24,7 @@ This document describes the Attribute binary format. In this format there is no 
     - [NumberRange](#numberrange)
     - [Rect](#rect)
     - [Font](#font)
+    - [TweenInfo](#tweeninfo)
 
 ## Document Conventions
 
@@ -281,3 +282,41 @@ The `Weight` and `Style` values refer to the `FontWeight` and `FontStyle` enums 
 The `CachedFaceId` field will always be present, but may be an empty string.
 
 A regular `Source Sans Pro` font will be stored as `90 01 00 2C 00 00 00 72 62 78 61 73 73 65 74 3A 2F 2F 66 6F 6E 74 73 2F 66 61 6D 69 6C 69 65 73 2F 53 6F 75 72 63 65 53 61 6E 73 50 72 6F 2E 6A 73 6F 6E 2A 00 00 00 72 62 78 61 73 73 65 74 3A 2F 2F 66 6F 6E 74 73 2F 53 6F 75 72 63 65 53 61 6E 73 50 72 6F 2D 52 65 67 75 6C 61 72 2E 74 74 66`
+
+### TweenInfo
+**Type ID `0x24`**
+
+The `TweenInfo` type is a struct composed of `f32`, `f32`, `i32`, `u32`, `u32`, and `u8`:
+
+| Field Name    | Format | Value                                                    |
+|:--------------|:-------|:---------------------------------------------------------|
+Time            | `f32`  | The time of the Tween in seconds                         |
+DelayTime       | `f32`  | The delay in seconds                                     |
+RepeatCount     | `i32`  | The repeat count of the Tween, -1 to repeat indefinitely |
+EasingStyle     | `u32`  | The easing style of the Tween, an enum value             |
+EasingDirection | `u32`  | The easing direction of the Tween, an enum value         |
+Reverses        | `u8`   | Whether the Tween reverses direction                     |
+
+A TweenInfo built in Roblox Lua as follows:
+```lua
+TweenInfo.new(
+	-- time: number?,
+	1.5,
+
+	-- easingStyle: Enum.EasingStyle?,
+	Enum.EasingStyle.Sine, -- value 1
+
+	-- easingDirection: Enum.EasingDirection?,
+	Enum.EasingDirection.InOut, -- value 2
+
+	-- repeatCount: number?,
+	4.5, -- implicitly converted to int value 4
+
+	-- reverses: boolean?,
+	false,
+
+	-- delayTime: number?
+	6.5
+)
+```
+has the following form after serialization: `00 00 c0 3f 00 00 d0 40 04 00 00 00 01 00 00 00 02 00 00 00 00`
