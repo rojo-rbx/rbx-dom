@@ -1,9 +1,9 @@
 {
   "Version": [
     0,
-    728,
+    729,
     0,
-    7280895
+    7290838
   ],
   "Classes": {
     "Accessory": {
@@ -17811,7 +17811,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "OverlayTextureContent",
+                  "Migration": "Int64ToContent"
+                }
+              }
             }
           }
         }
@@ -17838,8 +17843,8 @@
         "MeshContent": {
           "Content": "None"
         },
-        "OverlayTextureId": {
-          "Int64": 0
+        "OverlayTextureContent": {
+          "Content": "None"
         },
         "Sandboxed": {
           "Bool": false
@@ -24628,6 +24633,27 @@
         }
       }
     },
+    "DeviceDisplayService": {
+      "Name": "DeviceDisplayService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
     "DeviceIdService": {
       "Name": "DeviceIdService",
       "Tags": [
@@ -25943,6 +25969,26 @@
         },
         "ThumbSize": {
           "Float32": 0.0
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "DisplayWakeLock": {
+      "Name": "DisplayWakeLock",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -51010,7 +51056,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "PantsTemplateContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -51048,8 +51099,8 @@
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
-        "PantsTemplate": {
-          "ContentId": ""
+        "PantsTemplateContent": {
+          "Content": "None"
         },
         "Sandboxed": {
           "Bool": false
@@ -55333,6 +55384,22 @@
             }
           }
         },
+        "PendingRequestedTool": {
+          "Name": "PendingRequestedTool",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Ref"
+          },
+          "Tags": [
+            "Hidden",
+            "NotScriptable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "PlatformName": {
           "Name": "PlatformName",
           "Scriptability": "None",
@@ -57428,7 +57495,12 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "DoesNotSerialize"
+              "Serialization": {
+                "Migrate": {
+                  "To": "IconContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -57586,6 +57658,27 @@
           }
         }
       },
+      "DefaultProperties": {
+        "Archivable": {
+          "Bool": true
+        },
+        "HistoryId": {
+          "UniqueId": "00000000000000000000000000000000"
+        },
+        "UniqueId": {
+          "UniqueId": "00000000000000000000000000000000"
+        }
+      }
+    },
+    "PopLatencyService": {
+      "Name": "PopLatencyService",
+      "Tags": [
+        "NotCreatable",
+        "NotReplicated",
+        "Service"
+      ],
+      "Superclass": "Instance",
+      "Properties": {},
       "DefaultProperties": {
         "Archivable": {
           "Bool": true
@@ -58852,6 +58945,22 @@
       "Tags": [],
       "Superclass": "Instance",
       "Properties": {
+        "AudioInputActive": {
+          "Name": "AudioInputActive",
+          "Scriptability": "Read",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [
+            "NotReplicated",
+            "ReadOnly"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        },
         "ForwardInput": {
           "Name": "ForwardInput",
           "Scriptability": "None",
@@ -60736,7 +60845,21 @@
       "Name": "RigidConstraint",
       "Tags": [],
       "Superclass": "Constraint",
-      "Properties": {},
+      "Properties": {
+        "EnableSkinning": {
+          "Name": "EnableSkinning",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {
         "Archivable": {
           "Bool": true
@@ -65489,7 +65612,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "ShirtTemplateContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65530,8 +65658,8 @@
         "Sandboxed": {
           "Bool": false
         },
-        "ShirtTemplate": {
-          "ContentId": ""
+        "ShirtTemplateContent": {
+          "Content": "None"
         },
         "SourceAssetId": {
           "Int64": -1
@@ -65571,7 +65699,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "TextureContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -65606,9 +65739,6 @@
             1.0
           ]
         },
-        "Graphic": {
-          "ContentId": ""
-        },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
         },
@@ -65620,6 +65750,9 @@
         },
         "Tags": {
           "Tags": []
+        },
+        "TextureContent": {
+          "Content": "None"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -72402,6 +72535,19 @@
         },
         "Enable Autocomplete Doc View": {
           "Name": "Enable Autocomplete Doc View",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
+        "Enable Client/Server MDI": {
+          "Name": "Enable Client/Server MDI",
           "Scriptability": "None",
           "DataType": {
             "Value": "Bool"
@@ -92281,6 +92427,21 @@
             }
           }
         },
+        "EnableVoiceVolumeControls": {
+          "Name": "EnableVoiceVolumeControls",
+          "Scriptability": "None",
+          "DataType": {
+            "Enum": "RolloutState"
+          },
+          "Tags": [
+            "NotBrowsable"
+          ],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "Serializes"
+            }
+          }
+        },
         "UseAudioApi": {
           "Name": "UseAudioApi",
           "Scriptability": "ReadWrite",
@@ -92400,6 +92561,9 @@
         },
         "EnableDefaultVoice": {
           "Bool": true
+        },
+        "EnableVoiceVolumeControls": {
+          "Enum": 0
         },
         "HistoryId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -92779,7 +92943,21 @@
       "Name": "Weld",
       "Tags": [],
       "Superclass": "JointInstance",
-      "Properties": {},
+      "Properties": {
+        "EnableSkinning": {
+          "Name": "EnableSkinning",
+          "Scriptability": "None",
+          "DataType": {
+            "Value": "Bool"
+          },
+          "Tags": [],
+          "Kind": {
+            "Canonical": {
+              "Serialization": "DoesNotSerialize"
+            }
+          }
+        }
+      },
       "DefaultProperties": {
         "Archivable": {
           "Bool": true

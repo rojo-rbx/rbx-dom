@@ -1,0 +1,7 @@
+Change:
+  PluginToolbarButton:
+    Icon:
+      Serialization:
+        Type: Migrate
+        To: IconContent
+        Migration: ContentIdToContent

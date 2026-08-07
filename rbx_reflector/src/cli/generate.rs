@@ -74,6 +74,7 @@ impl GenerateSubcommand {
             patches.apply_pre_default(&mut database)?;
             apply_defaults(&mut database, &defaults_place_path)?;
             patches.apply_post_default(&mut database)?;
+            patches.validate_migrations(&database)?;
         } else {
             apply_defaults(&mut database, &defaults_place_path)?;
         }

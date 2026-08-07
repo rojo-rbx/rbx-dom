@@ -1,0 +1,7 @@
+Change:
+  Pants:
+    PantsTemplate:
+      Serialization:
+        Type: Migrate
+        To: PantsTemplateContent
+        Migration: ContentIdToContent
