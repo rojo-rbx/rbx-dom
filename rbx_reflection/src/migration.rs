@@ -241,7 +241,7 @@ impl PropertyMigration<'_> {
             }
             MigrationOperation::Int64ToContent => {
                 if let Variant::Int64(id) = input {
-                    if *id == 0 {
+                    if *id <= 0 {
                         Ok(Content::none().into())
                     } else {
                         Ok(Content::from_uri(format!("rbxassetid://{id}")).into())
@@ -288,7 +288,7 @@ mod tests {
     }
 
     #[test]
-    fn int64_to_content_zero() {
+    fn int64_to_content_none() {
         use rbx_types::ContentType;
 
         let migration = serde_json::from_str::<PropertyMigration>(
@@ -306,10 +306,22 @@ mod tests {
                 panic!("expected Variant::Content, got Variant::{:?}", other.ty())
             }
         }
+
+        let new_value_2 = migration.perform(&Variant::Int64(-1)).unwrap();
+
+        match new_value_2 {
+            Variant::Content(content) => match content.value() {
+                ContentType::None => {}
+                other => panic!("expected ContentType::None, got {:?}", other),
+            },
+            other => {
+                panic!("expected Variant::Content, got Variant::{:?}", other.ty())
+            }
+        }
     }
 
     #[test]
-    fn int64_to_content_non_zero() {
+    fn int64_to_content_some() {
         use rbx_types::ContentType;
 
         let migration = serde_json::from_str::<PropertyMigration>(

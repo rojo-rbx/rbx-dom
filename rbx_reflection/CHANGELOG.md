@@ -1,11 +1,18 @@
 # rbx_reflection Changelog
 
 ## Unreleased
+* Corrected migration `Int64ToContent` to convert any value below zero to `Content::None` ([#641])
+
+[#641]: https://github.com/rojo-rbx/rbx-dom/pull/641
+
+## 7.0.0 (2026-07-01)
 * Made `ReflectionDatabase` zero-copy. This involved removing `Cow`. ([#528])
 * Added support for one-to-many property migrations and added migrations for `UICorner.CornerRadius`. ([#612])
+* Added migration `Int64ToContent` for moving legacy ID properties to `Content` ([#628])
 
 [#528]: https://github.com/rojo-rbx/rbx-dom/pull/528
 [#612]: https://github.com/rojo-rbx/rbx-dom/pull/612
+[#628]: https://github.com/rojo-rbx/rbx-dom/pull/628
 
 ## 6.1.0 (2025-11-27)
 * Added `DataType::ty` to convert to `VariantType` infallibly. ([#540])
