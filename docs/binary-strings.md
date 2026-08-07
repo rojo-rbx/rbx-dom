@@ -21,6 +21,31 @@ This blob is used to serialize [attributes][Attributes]. Due to the complexity o
 
 [Attributes]: https://create.roblox.com/docs/studio/instance-attributes
 
+### InputPinData
+**Used By:** `AnimationNodeDefinition.InputPinData`
+
+This blob serializes the list of input pin names for an `AnimationNodeDefinition`, as returned by `GetInputPins()`. Each name is encoded using the same `string` value format as attribute string values (a length prefix followed by raw bytes), written back-to-back with no separators.
+
+If there are no input pins, the blob is written as a fixed 8-byte header with a count of `0`: `01 00 00 00 00 00 00 00`.
+
+| Size (Bytes) | Field           | Description                                       |
+|:------------:|:----------------|:------------------------------------------------------|
+| `4`          | Version (?)     | Constant (`0x00000001`, `u32`).                        |
+| `4`          | Pin Count       | Total number of input pins (`u32`).                     |
+
+Followed by one entry per pin, in the same order as returned by `GetInputPins()`:
+
+| Size (Bytes) | Field           | Description                                       |
+|:------------:|:----------------|:------------------------------------------------------|
+| `4`          | Name Length     | Length of the pin name in bytes (`u32`).               |
+| `N`          | Name            | The pin name (`string`, not null-terminated).          |
+
+As an example, an `AnimationNodeDefinition` with two input pins, `"A"` and `"B"`, would be serialized as:
+
+```
+01 00 00 00 02 00 00 00 01 00 00 00 41 01 00 00 00 42
+```
+
 ### MaterialColors
 **Used By:** `Terrain.MaterialColors`
 
