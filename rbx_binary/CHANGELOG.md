@@ -1,6 +1,8 @@
 # rbx_binary Changelog
 
 ## Unreleased
+
+# 3.0.1 (2026-10-01)
 * Changed serializer to always write a length for empty `PropertiesSerialize` values, which Roblox requires. ([#639])
 
 [#639]: https://github.com/rojo-rbx/rbx-dom/issues/639
