@@ -67,24 +67,6 @@ impl MaterialColors {
             .zip(colors)
             .collect())
     }
-
-    /// True when all material colors are default values
-    pub fn is_empty(&self) -> bool {
-        self.inner == DEFAULT_COLORS
-    }
-
-    /// Iterator over material colors.
-    pub fn iter(&self) -> MaterialColorsIter {
-        MaterialColorsIter {
-            inner: IntoIterator::into_iter(MATERIAL_ORDER).zip(self.inner),
-        }
-    }
-
-    /// Iterator over non-default material colors.
-    pub fn iter_filter_default(&self) -> impl Iterator<Item = (TerrainMaterials, Color3uint8)> {
-        self.into_iter()
-            .filter(|(material, color)| *color != material.default_color())
-    }
 }
 
 impl Default for MaterialColors {
@@ -103,37 +85,6 @@ impl core::iter::FromIterator<(TerrainMaterials, Color3uint8)> for MaterialColor
             material_colors.set_color(material, color);
         }
         material_colors
-    }
-}
-
-impl IntoIterator for MaterialColors {
-    type Item = (TerrainMaterials, Color3uint8);
-    type IntoIter = MaterialColorsIter;
-    fn into_iter(self) -> Self::IntoIter {
-        self.iter()
-    }
-}
-impl IntoIterator for &MaterialColors {
-    type Item = (TerrainMaterials, Color3uint8);
-    type IntoIter = MaterialColorsIter;
-    fn into_iter(self) -> Self::IntoIter {
-        self.iter()
-    }
-}
-
-pub struct MaterialColorsIter {
-    inner: core::iter::Zip<
-        core::array::IntoIter<TerrainMaterials, NUM_COLORS>,
-        core::array::IntoIter<Color3uint8, NUM_COLORS>,
-    >,
-}
-impl Iterator for MaterialColorsIter {
-    type Item = (TerrainMaterials, Color3uint8);
-    fn next(&mut self) -> Option<Self::Item> {
-        self.inner.next()
-    }
-    fn size_hint(&self) -> (usize, Option<usize>) {
-        self.inner.size_hint()
     }
 }
 
@@ -241,7 +192,10 @@ impl serde::Serialize for MaterialColors {
         use serde::ser::SerializeMap;
 
         let mut map = serializer.serialize_map(None)?;
-        for (material, color) in self.iter_filter_default() {
+        for (material, color) in IntoIterator::into_iter(MATERIAL_ORDER)
+            .zip(self.inner)
+            .filter(|(material, color)| *color != material.default_color())
+        {
             map.serialize_entry(&material, &color)?;
         }
         map.end()
