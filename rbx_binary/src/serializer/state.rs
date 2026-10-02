@@ -1,8 +1,4 @@
-use std::{
-    borrow::Cow,
-    collections::{btree_map, hash_map, BTreeMap},
-    io::Write,
-};
+use std::{borrow::Cow, collections::hash_map::Entry, io::Write};
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
@@ -224,10 +220,11 @@ struct TypeInfos<'dom, 'db> {
     database: &'db ReflectionDatabase<'db>,
     /// A map containing one entry for each unique ClassName discovered in the
     /// DOM.
-    ///
-    /// These are stored sorted so that we naturally iterate over them in order
-    /// and improve our chances of being deterministic.
-    values: BTreeMap<Ustr, TypeInfo<'dom, 'db>>,
+    values: UstrMap<TypeInfo<'dom, 'db>>,
+
+    /// Values are moved into here and sorted just before serialization
+    /// to ensure determinism.
+    values_sorted: Vec<(Ustr, TypeInfo<'dom, 'db>)>,
 
     /// The next type ID that should be assigned if a type is discovered and
     /// added to the serializer.
@@ -238,7 +235,8 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
     fn new(database: &'db ReflectionDatabase<'db>) -> Self {
         Self {
             database,
-            values: BTreeMap::new(),
+            values: UstrMap::new(),
+            values_sorted: Vec::new(),
             next_type_id: 0,
         }
     }
@@ -246,7 +244,7 @@ impl<'dom, 'db> TypeInfos<'dom, 'db> {
     /// Finds the type info from the given ClassName if it exists, or creates
     /// one and returns a reference to it if not.
     fn get_or_create(&mut self, class: Ustr) -> &mut TypeInfo<'dom, 'db> {
-        if let btree_map::Entry::Vacant(entry) = self.values.entry(class) {
+        if let Entry::Vacant(entry) = self.values.entry(class) {
             let type_id = self.next_type_id;
             self.next_type_id += 1;
 
@@ -383,7 +381,7 @@ fn get_or_create_prop_info<'dom>(
     migration: Option<&'dom PropertyMigration>,
 ) -> Result<usize, InnerError> {
     let vacant_entry = match prop_info_indices_by_canonical_name.entry(canonical_name) {
-        hash_map::Entry::Occupied(occupied_entry) => {
+        Entry::Occupied(occupied_entry) => {
             let &prop_info_index = occupied_entry.get();
             // The visited property may contain a migration that the logical
             // property has not been made aware of yet.
@@ -393,7 +391,7 @@ fn get_or_create_prop_info<'dom>(
 
             return Ok(prop_info_index);
         }
-        hash_map::Entry::Vacant(vacant_entry) => vacant_entry,
+        Entry::Vacant(vacant_entry) => vacant_entry,
     };
 
     // This is a known value type, but rbx_binary doesn't have a
@@ -439,8 +437,8 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
         // Check if visited property has already been resolved, return the
         // resolved property if so
         let vacant_entry = match self.resolved_properties_by_visited_name.entry(prop_name) {
-            hash_map::Entry::Occupied(resolved_property) => return Ok(resolved_property.into_mut()),
-            hash_map::Entry::Vacant(vacant_entry) => vacant_entry,
+            Entry::Occupied(resolved_property) => return Ok(resolved_property.into_mut()),
+            Entry::Vacant(vacant_entry) => vacant_entry,
         };
 
         let Some(serialization) =
@@ -758,7 +756,16 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     pub fn serialize_instances(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing instance chunks");
 
-        for (type_name, type_info) in &self.type_infos.values {
+        // move type infos into values_sorted.  use sort_unstable because
+        // it's marginally faster and we know there are no duplicates.
+        self.type_infos
+            .values_sorted
+            .extend(self.type_infos.values.drain());
+        self.type_infos
+            .values_sorted
+            .sort_unstable_by_key(|&(k, _)| k);
+
+        for (type_name, type_info) in &self.type_infos.values_sorted {
             log::trace!(
                 "Writing chunk for {} ({} instances)",
                 type_name,
@@ -814,7 +821,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
         log::trace!("Writing properties");
 
         let name_ustr = rbx_dom_weak::ustr("Name");
-        for (type_name, type_info) in &mut self.type_infos.values {
+        for (type_name, type_info) in &mut self.type_infos.values_sorted {
             // Sort logical properties by canonical name
             type_info
                 .properties
