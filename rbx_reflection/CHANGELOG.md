@@ -1,6 +1,8 @@
 # rbx_reflection Changelog
 
 ## Unreleased
+
+## 7.0.0 (2026-07-01)
 * Made `ReflectionDatabase` zero-copy. This involved removing `Cow`. ([#528])
 * Added support for one-to-many property migrations and added migrations for `UICorner.CornerRadius`. ([#612])
 
