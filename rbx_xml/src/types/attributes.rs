@@ -129,18 +129,11 @@ rbx-dom may require changes to fully support this property. Please open an issue
     {
         // TODO: rust 2024 if let chains
         if name.local_name == "Ref" {
-            let mut xml_property_name = None;
-
-            for attribute in attributes {
-                if attribute.name.local_name == "name" {
-                    xml_property_name = Some(attribute.value.as_str());
-                    break;
-                }
-            }
-
-            let xml_property_name = match xml_property_name {
-                Some(value) => value,
-                None => return Err(reader.error(DecodeErrorKind::MissingAttribute("name"))),
+            // Find "name" attribute value
+            let Some(xml_property_name) = attributes.iter().find_map(|attribute| {
+                (attribute.name.local_name == "name").then_some(attribute.value.as_str())
+            }) else {
+                return Err(reader.error(DecodeErrorKind::MissingAttribute("name")));
             };
 
             if let Some(("__attrRef_", name)) =
