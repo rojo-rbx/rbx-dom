@@ -8,6 +8,8 @@ chunks:
   - Sstr:
       version: 0
       entries:
+        - len: 323
+          hash: 86953fe7a3ce59e9468133ff20048f431dd502d3e6bf84578436420b33fd3ea7
         - len: 0
           hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
   - Inst:
@@ -7377,7 +7379,7 @@ chunks:
       prop_name: Materials
       prop_type: SharedString
       values:
-        - 0
+        - 1
   - Prop:
       type_id: 3
       prop_name: Name
@@ -8840,7 +8842,7 @@ chunks:
       prop_name: ModelMeshData
       prop_type: SharedString
       values:
-        - 0
+        - 1
   - Prop:
       type_id: 6
       prop_name: ModelMeshSize
@@ -8968,7 +8970,7 @@ chunks:
       prop_name: SlimHash
       prop_type: SharedString
       values:
-        - 0
+        - 1
   - Prop:
       type_id: 6
       prop_name: SourceAssetId
