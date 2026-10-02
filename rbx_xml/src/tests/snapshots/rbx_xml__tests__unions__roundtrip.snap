@@ -8,8 +8,6 @@ expression: "DomViewer::new().view_children(&roundtrip)"
   properties:
     Anchored:
       Bool: false
-    AssetId:
-      ContentId: ""
     Attributes:
       Attributes: {}
     BackParamA:
@@ -57,6 +55,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - 196
         - 40
         - 28
+    Content:
+      Content: None
     CustomPhysicalProperties:
       PhysicalProperties: Default
     FormFactor:
@@ -149,8 +149,6 @@ expression: "DomViewer::new().view_children(&roundtrip)"
   properties:
     Anchored:
       Bool: false
-    AssetId:
-      ContentId: ""
     Attributes:
       Attributes: {}
     BackParamA:
@@ -198,6 +196,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - 196
         - 40
         - 28
+    Content:
+      Content: None
     CustomPhysicalProperties:
       PhysicalProperties: Default
     FormFactor:
@@ -290,8 +290,6 @@ expression: "DomViewer::new().view_children(&roundtrip)"
   properties:
     Anchored:
       Bool: false
-    AssetId:
-      ContentId: ""
     Attributes:
       Attributes: {}
     BackParamA:
@@ -339,6 +337,8 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - 13
         - 105
         - 172
+    Content:
+      Content: None
     CustomPhysicalProperties:
       PhysicalProperties: Default
     FormFactor:
@@ -425,4 +425,3 @@ expression: "DomViewer::new().view_children(&roundtrip)"
         - 0
         - 0
   children: []
-

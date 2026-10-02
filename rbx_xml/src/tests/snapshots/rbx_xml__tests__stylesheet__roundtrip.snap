@@ -1,0 +1,77 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: "DomViewer::new().view_children(&roundtrip)"
+---
+- referent: referent-0
+  name: StyleSheet
+  class: StyleSheet
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    Sandboxed:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children:
+    - referent: referent-1
+      name: Frame
+      class: StyleRule
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        Priority:
+          Int32: 0
+        Properties:
+          Attributes:
+            Size:
+              UDim2:
+                - - 1
+                  - 0
+                - - 0.5
+                  - 0
+        PropertyTransitionsSerialize:
+          BinaryString: AgABAAAABAAAAFNpemUkzcxMPgAAAAAAAAAACAAAAAEAAAAA
+        Sandboxed:
+          Bool: false
+        Selector:
+          String: Frame
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+      children:
+        - referent: referent-2
+          name: ":hover"
+          class: StyleRule
+          properties:
+            Attributes:
+              Attributes: {}
+            Capabilities:
+              SecurityCapabilities: 0
+            Priority:
+              Int32: 0
+            Properties:
+              Attributes:
+                Size:
+                  UDim2:
+                    - - 1
+                      - 0
+                    - - 0.85
+                      - 0
+            PropertyTransitionsSerialize:
+              BinaryString: AgAAAAAA
+            Sandboxed:
+              Bool: false
+            Selector:
+              String: ":hover"
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+          children: []

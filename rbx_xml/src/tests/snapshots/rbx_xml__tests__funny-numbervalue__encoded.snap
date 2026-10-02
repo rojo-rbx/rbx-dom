@@ -1,0 +1,14 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="NumberValue" referent="0">
+    <Properties>
+      <string name="Name">Value</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <BinaryString name="Tags"></BinaryString>
+      <double name="Value">1.23456</double>
+    </Properties>
+  </Item>
+</roblox>

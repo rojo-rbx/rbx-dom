@@ -1,0 +1,11 @@
+Change:
+  UICorner:
+    CornerRadius:
+      Serialization:
+        Type: Migrate
+        To:
+          - BottomLeftRadius
+          - BottomRightRadius
+          - TopLeftRadius
+          - TopRightRadius
+        Migration: CornerRadiusToCornerRadii

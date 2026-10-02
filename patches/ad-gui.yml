@@ -1,0 +1,7 @@
+Change:
+  AdGui:
+    FallbackImage:
+      Serialization:
+        Type: Migrate
+        To: FallbackImageContent
+        Migration: ContentIdToContent

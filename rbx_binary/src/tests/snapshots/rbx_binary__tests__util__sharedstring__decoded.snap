@@ -68,8 +68,6 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AssetId:
-          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -126,6 +124,9 @@ expression: decoded_viewed
             - 159
             - 161
             - 172
+        Content:
+          Content:
+            Uri: "https://www.roblox.com//asset/?id=2892119179"
         CustomPhysicalProperties:
           PhysicalProperties: Default
         FormFactor:
@@ -239,8 +240,6 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AssetId:
-          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -297,6 +296,9 @@ expression: decoded_viewed
             - 159
             - 161
             - 172
+        Content:
+          Content:
+            Uri: "https://www.roblox.com//asset/?id=2892119179"
         CustomPhysicalProperties:
           PhysicalProperties: Default
         FormFactor:
@@ -410,8 +412,6 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AssetId:
-          ContentId: ""
         Attributes:
           Attributes: {}
         BackParamA:
@@ -468,6 +468,8 @@ expression: decoded_viewed
             - 248
             - 248
             - 248
+        Content:
+          Content: None
         CustomPhysicalProperties:
           PhysicalProperties: Default
         FormFactor:
@@ -581,8 +583,6 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AssetId:
-          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -639,6 +639,9 @@ expression: decoded_viewed
             - 159
             - 161
             - 172
+        Content:
+          Content:
+            Uri: "https://www.roblox.com//asset/?id=2892119179"
         CustomPhysicalProperties:
           PhysicalProperties: Default
         FormFactor:
@@ -752,8 +755,6 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AssetId:
-          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -810,6 +811,9 @@ expression: decoded_viewed
             - 159
             - 161
             - 172
+        Content:
+          Content:
+            Uri: "https://www.roblox.com//asset/?id=2892119179"
         CustomPhysicalProperties:
           PhysicalProperties: Default
         FormFactor:
@@ -923,8 +927,6 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AssetId:
-          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -981,6 +983,9 @@ expression: decoded_viewed
             - 159
             - 161
             - 172
+        Content:
+          Content:
+            Uri: "https://www.roblox.com//asset/?id=2892119179"
         CustomPhysicalProperties:
           PhysicalProperties: Default
         FormFactor:
@@ -1094,8 +1099,6 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AssetId:
-          ContentId: ""
         Attributes:
           Attributes: {}
         BackParamA:
@@ -1152,6 +1155,8 @@ expression: decoded_viewed
             - 248
             - 248
             - 248
+        Content:
+          Content: None
         CustomPhysicalProperties:
           PhysicalProperties: Default
         FormFactor:
@@ -1265,8 +1270,6 @@ expression: decoded_viewed
       properties:
         Anchored:
           Bool: false
-        AssetId:
-          ContentId: "https://www.roblox.com//asset/?id=2892119179"
         Attributes:
           Attributes: {}
         BackParamA:
@@ -1323,6 +1326,9 @@ expression: decoded_viewed
             - 159
             - 161
             - 172
+        Content:
+          Content:
+            Uri: "https://www.roblox.com//asset/?id=2892119179"
         CustomPhysicalProperties:
           PhysicalProperties: Default
         FormFactor:

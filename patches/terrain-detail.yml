@@ -20,3 +20,8 @@ Change:
         Type: Migrate
         To: ColorMapContent
         Migration: ContentIdToContent
+    TexturePack:
+      Serialization:
+        Type: Migrate
+        To: TexturePackContent
+        Migration: ContentIdToContent

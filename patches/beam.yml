@@ -1,0 +1,7 @@
+Change:
+  Beam:
+    Texture:
+      Serialization:
+        Type: Migrate
+        To: TextureContent
+        Migration: ContentIdToContent

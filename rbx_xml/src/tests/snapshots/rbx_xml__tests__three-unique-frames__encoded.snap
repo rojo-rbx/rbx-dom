@@ -1,0 +1,165 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="Frame" referent="0">
+    <Properties>
+      <string name="Name">Frame1</string>
+      <bool name="Active">false</bool>
+      <Vector2 name="AnchorPoint">
+        <X>0.1</X>
+        <Y>0.2</Y>
+      </Vector2>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <bool name="AutoLocalize">true</bool>
+      <Color3 name="BackgroundColor3">
+        <R>1</R>
+        <G>0.49803922</G>
+        <B>0</B>
+      </Color3>
+      <float name="BackgroundTransparency">0</float>
+      <Color3 name="BorderColor3">
+        <R>1</R>
+        <G>0</G>
+        <B>0.49803922</B>
+      </Color3>
+      <token name="BorderMode">0</token>
+      <int name="BorderSizePixel">1</int>
+      <bool name="ClipsDescendants">false</bool>
+      <bool name="Draggable">false</bool>
+      <int name="LayoutOrder">0</int>
+      <Ref name="NextSelectionDown">null</Ref>
+      <Ref name="NextSelectionLeft">null</Ref>
+      <Ref name="NextSelectionRight">null</Ref>
+      <Ref name="NextSelectionUp">null</Ref>
+      <UDim2 name="Position">
+        <XS>0.1</XS>
+        <XO>2</XO>
+        <YS>0.2</YS>
+        <YO>4</YO>
+      </UDim2>
+      <Ref name="RootLocalizationTable">null</Ref>
+      <float name="Rotation">0</float>
+      <bool name="Selectable">false</bool>
+      <Ref name="SelectionImageObject">null</Ref>
+      <UDim2 name="Size">
+        <XS>0.1</XS>
+        <XO>2</XO>
+        <YS>0.2</YS>
+        <YO>4</YO>
+      </UDim2>
+      <token name="SizeConstraint">1</token>
+      <token name="Style">0</token>
+      <BinaryString name="Tags"></BinaryString>
+      <bool name="Visible">true</bool>
+      <int name="ZIndex">1</int>
+    </Properties>
+  </Item>
+  <Item class="Frame" referent="1">
+    <Properties>
+      <string name="Name">Frame2</string>
+      <bool name="Active">false</bool>
+      <Vector2 name="AnchorPoint">
+        <X>0.3</X>
+        <Y>0.4</Y>
+      </Vector2>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <bool name="AutoLocalize">true</bool>
+      <Color3 name="BackgroundColor3">
+        <R>0</R>
+        <G>1</G>
+        <B>0</B>
+      </Color3>
+      <float name="BackgroundTransparency">0.1</float>
+      <Color3 name="BorderColor3">
+        <R>0</R>
+        <G>0</G>
+        <B>1</B>
+      </Color3>
+      <token name="BorderMode">0</token>
+      <int name="BorderSizePixel">2</int>
+      <bool name="ClipsDescendants">false</bool>
+      <bool name="Draggable">false</bool>
+      <int name="LayoutOrder">1</int>
+      <Ref name="NextSelectionDown">null</Ref>
+      <Ref name="NextSelectionLeft">null</Ref>
+      <Ref name="NextSelectionRight">null</Ref>
+      <Ref name="NextSelectionUp">null</Ref>
+      <UDim2 name="Position">
+        <XS>0.3</XS>
+        <XO>16</XO>
+        <YS>0.4</YS>
+        <YO>32</YO>
+      </UDim2>
+      <Ref name="RootLocalizationTable">null</Ref>
+      <float name="Rotation">1</float>
+      <bool name="Selectable">false</bool>
+      <Ref name="SelectionImageObject">null</Ref>
+      <UDim2 name="Size">
+        <XS>0.3</XS>
+        <XO>16</XO>
+        <YS>0.4</YS>
+        <YO>32</YO>
+      </UDim2>
+      <token name="SizeConstraint">0</token>
+      <token name="Style">0</token>
+      <BinaryString name="Tags"></BinaryString>
+      <bool name="Visible">true</bool>
+      <int name="ZIndex">1</int>
+    </Properties>
+  </Item>
+  <Item class="Frame" referent="2">
+    <Properties>
+      <string name="Name">Frame3</string>
+      <bool name="Active">false</bool>
+      <Vector2 name="AnchorPoint">
+        <X>0.5</X>
+        <Y>0.6</Y>
+      </Vector2>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <bool name="AutoLocalize">true</bool>
+      <Color3 name="BackgroundColor3">
+        <R>1</R>
+        <G>0</G>
+        <B>1</B>
+      </Color3>
+      <float name="BackgroundTransparency">0.2</float>
+      <Color3 name="BorderColor3">
+        <R>1</R>
+        <G>1</G>
+        <B>0</B>
+      </Color3>
+      <token name="BorderMode">0</token>
+      <int name="BorderSizePixel">3</int>
+      <bool name="ClipsDescendants">false</bool>
+      <bool name="Draggable">false</bool>
+      <int name="LayoutOrder">2</int>
+      <Ref name="NextSelectionDown">null</Ref>
+      <Ref name="NextSelectionLeft">null</Ref>
+      <Ref name="NextSelectionRight">null</Ref>
+      <Ref name="NextSelectionUp">null</Ref>
+      <UDim2 name="Position">
+        <XS>0.5</XS>
+        <XO>64</XO>
+        <YS>0.6</YS>
+        <YO>128</YO>
+      </UDim2>
+      <Ref name="RootLocalizationTable">null</Ref>
+      <float name="Rotation">2</float>
+      <bool name="Selectable">false</bool>
+      <Ref name="SelectionImageObject">null</Ref>
+      <UDim2 name="Size">
+        <XS>0.5</XS>
+        <XO>64</XO>
+        <YS>0.6</YS>
+        <YO>128</YO>
+      </UDim2>
+      <token name="SizeConstraint">2</token>
+      <token name="Style">0</token>
+      <BinaryString name="Tags"></BinaryString>
+      <bool name="Visible">true</bool>
+      <int name="ZIndex">1</int>
+    </Properties>
+  </Item>
+</roblox>

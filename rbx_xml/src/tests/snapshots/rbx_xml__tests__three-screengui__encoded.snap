@@ -1,0 +1,48 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="ScreenGui" referent="0">
+    <Properties>
+      <string name="Name">DisplayOrder0</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <bool name="AutoLocalize">true</bool>
+      <int name="DisplayOrder">0</int>
+      <bool name="Enabled">true</bool>
+      <bool name="ResetOnSpawn">true</bool>
+      <Ref name="RootLocalizationTable">null</Ref>
+      <token name="ScreenInsets">2</token>
+      <BinaryString name="Tags"></BinaryString>
+      <token name="ZIndexBehavior">1</token>
+    </Properties>
+  </Item>
+  <Item class="ScreenGui" referent="1">
+    <Properties>
+      <string name="Name">DisplayOrder1</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <bool name="AutoLocalize">true</bool>
+      <int name="DisplayOrder">1</int>
+      <bool name="Enabled">true</bool>
+      <bool name="ResetOnSpawn">true</bool>
+      <Ref name="RootLocalizationTable">null</Ref>
+      <token name="ScreenInsets">2</token>
+      <BinaryString name="Tags"></BinaryString>
+      <token name="ZIndexBehavior">1</token>
+    </Properties>
+  </Item>
+  <Item class="ScreenGui" referent="2">
+    <Properties>
+      <string name="Name">DisplayOrder2</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <bool name="AutoLocalize">true</bool>
+      <int name="DisplayOrder">2</int>
+      <bool name="Enabled">true</bool>
+      <bool name="ResetOnSpawn">true</bool>
+      <Ref name="RootLocalizationTable">null</Ref>
+      <token name="ScreenInsets">2</token>
+      <BinaryString name="Tags"></BinaryString>
+      <token name="ZIndexBehavior">1</token>
+    </Properties>
+  </Item>
+</roblox>

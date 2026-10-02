@@ -1,0 +1,7 @@
+Change:
+  ParticleEmitter:
+    Texture:
+      Serialization:
+        Type: Migrate
+        To: TextureContent
+        Migration: ContentIdToContent

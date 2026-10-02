@@ -1,0 +1,31 @@
+---
+source: rbx_binary/src/tests/serializer.rs
+expression: decoded
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: StyleRule
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - StyleRule
+  - Prop:
+      type_id: 0
+      prop_name: PropertiesSerialize
+      prop_type: String
+      values:
+        - "\u0000\u0000\u0000\u0000"
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End

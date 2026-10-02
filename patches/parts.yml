@@ -62,3 +62,10 @@ Change:
         Type: Migrate
         To: TextureContent
         Migration: ContentIdToContent
+
+  PartOperation:
+    AssetId:
+      Serialization:
+        Type: Migrate
+        To: Content
+        Migration: ContentIdToContent

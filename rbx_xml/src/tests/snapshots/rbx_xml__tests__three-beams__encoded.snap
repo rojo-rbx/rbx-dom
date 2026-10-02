@@ -1,0 +1,93 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="Beam" referent="0">
+    <Properties>
+      <string name="Name">Beam</string>
+      <Ref name="Attachment0">null</Ref>
+      <Ref name="Attachment1">null</Ref>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <ColorSequence name="Color">0 1 1 1 0 0.5 0 0 0 0 1 1 1 1 0 </ColorSequence>
+      <float name="CurveSize0">0</float>
+      <float name="CurveSize1">0</float>
+      <bool name="Enabled">true</bool>
+      <bool name="FaceCamera">false</bool>
+      <float name="LightEmission">0</float>
+      <float name="LightInfluence">1</float>
+      <int name="Segments">10</int>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <Content name="TextureContent">
+        <null>
+        </null>
+      </Content>
+      <float name="TextureLength">1</float>
+      <token name="TextureMode">0</token>
+      <float name="TextureSpeed">1</float>
+      <NumberSequence name="Transparency">0 0.5 0 1 0.5 0 </NumberSequence>
+      <float name="Width0">1</float>
+      <float name="Width1">1</float>
+      <float name="ZOffset">0</float>
+    </Properties>
+  </Item>
+  <Item class="Beam" referent="1">
+    <Properties>
+      <string name="Name">Beam</string>
+      <Ref name="Attachment0">null</Ref>
+      <Ref name="Attachment1">null</Ref>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <ColorSequence name="Color">0 1 1 1 0 1 1 1 1 0 </ColorSequence>
+      <float name="CurveSize0">0</float>
+      <float name="CurveSize1">0</float>
+      <bool name="Enabled">false</bool>
+      <bool name="FaceCamera">false</bool>
+      <float name="LightEmission">0</float>
+      <float name="LightInfluence">1</float>
+      <int name="Segments">10</int>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <Content name="TextureContent">
+        <null>
+        </null>
+      </Content>
+      <float name="TextureLength">1</float>
+      <token name="TextureMode">0</token>
+      <float name="TextureSpeed">1</float>
+      <NumberSequence name="Transparency">0 0.5 0 1 0.5 0 </NumberSequence>
+      <float name="Width0">1</float>
+      <float name="Width1">1</float>
+      <float name="ZOffset">0</float>
+    </Properties>
+  </Item>
+  <Item class="Beam" referent="2">
+    <Properties>
+      <string name="Name">Beam</string>
+      <Ref name="Attachment0">null</Ref>
+      <Ref name="Attachment1">null</Ref>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <ColorSequence name="Color">0 1 0 0 0 0.5 0 1 0 0 1 0 0 1 0 </ColorSequence>
+      <float name="CurveSize0">0</float>
+      <float name="CurveSize1">0</float>
+      <bool name="Enabled">true</bool>
+      <bool name="FaceCamera">false</bool>
+      <float name="LightEmission">0</float>
+      <float name="LightInfluence">1</float>
+      <int name="Segments">10</int>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+      <Content name="TextureContent">
+        <null>
+        </null>
+      </Content>
+      <float name="TextureLength">1</float>
+      <token name="TextureMode">0</token>
+      <float name="TextureSpeed">1</float>
+      <NumberSequence name="Transparency">0 0.5 0 1 0.5 0 </NumberSequence>
+      <float name="Width0">1</float>
+      <float name="Width1">1</float>
+      <float name="ZOffset">0</float>
+    </Properties>
+  </Item>
+</roblox>

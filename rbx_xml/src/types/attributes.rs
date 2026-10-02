@@ -20,6 +20,13 @@ pub fn write_attributes<W: Write>(
         return Err(writer.error(write_error));
     }
 
+    // Roblox requires PropertiesSerialize to write its length even when there
+    // are no attributes. An empty attributes value serializes to nothing, so we
+    // write a 0 count in its place.
+    if buffer.is_empty() && property_name == "PropertiesSerialize" {
+        buffer.extend_from_slice(&0u32.to_le_bytes());
+    }
+
     writer.write(XmlWriteEvent::start_element(XML_TAG_NAME).attr("name", property_name))?;
     writer.write_string(&base64::encode(&buffer))?;
     writer.write(XmlWriteEvent::end_element())?;

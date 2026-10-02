@@ -1,0 +1,42 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="Color3Value" referent="0">
+    <Properties>
+      <string name="Name">Value</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <BinaryString name="Tags"></BinaryString>
+      <Color3 name="Value">
+        <R>0</R>
+        <G>0.3137255</G>
+        <B>0.49803922</B>
+      </Color3>
+    </Properties>
+  </Item>
+  <Item class="Color3Value" referent="1">
+    <Properties>
+      <string name="Name">Value</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <BinaryString name="Tags"></BinaryString>
+      <Color3 name="Value">
+        <R>1</R>
+        <G>0.7058824</G>
+        <B>0.078431375</B>
+      </Color3>
+    </Properties>
+  </Item>
+  <Item class="Color3Value" referent="2">
+    <Properties>
+      <string name="Name">Value</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <BinaryString name="Tags"></BinaryString>
+      <Color3 name="Value">
+        <R>2.0078433</R>
+        <G>1.0196079</G>
+        <B>0.039215688</B>
+      </Color3>
+    </Properties>
+  </Item>
+</roblox>

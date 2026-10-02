@@ -1,0 +1,7 @@
+Change:
+  ShirtGraphic:
+    Graphic:
+      Serialization:
+        Type: Migrate
+        To: TextureContent
+        Migration: ContentIdToContent

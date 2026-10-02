@@ -1,9 +1,14 @@
-Change:
+Add:
   StyleRule:
-    PropertiesSerialize:
+    Properties:
       DataType:
         Value: "Attributes"
       Serialization:
         Type: SerializesAs
         As: PropertiesSerialize
       Scriptability: Custom
+
+Change:
+  StyleRule:
+    PropertiesSerialize:
+      AliasFor: Properties

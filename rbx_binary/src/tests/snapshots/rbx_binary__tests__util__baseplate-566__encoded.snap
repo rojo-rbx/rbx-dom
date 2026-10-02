@@ -2755,10 +2755,10 @@ chunks:
         - 11
   - Prop:
       type_id: 48
-      prop_name: MoonTextureId
-      prop_type: String
+      prop_name: MoonTextureContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444320592"
+        - Uri: "rbxassetid://6444320592"
   - Prop:
       type_id: 48
       prop_name: Name
@@ -2767,40 +2767,40 @@ chunks:
         - Sky
   - Prop:
       type_id: 48
-      prop_name: SkyboxBk
-      prop_type: String
+      prop_name: SkyboxBackContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884337"
+        - Uri: "rbxassetid://6444884337"
   - Prop:
       type_id: 48
-      prop_name: SkyboxDn
-      prop_type: String
+      prop_name: SkyboxDownContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884785"
+        - Uri: "rbxassetid://6444884785"
   - Prop:
       type_id: 48
-      prop_name: SkyboxFt
-      prop_type: String
+      prop_name: SkyboxFrontContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884337"
+        - Uri: "rbxassetid://6444884337"
   - Prop:
       type_id: 48
-      prop_name: SkyboxLf
-      prop_type: String
+      prop_name: SkyboxLeftContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884337"
+        - Uri: "rbxassetid://6444884337"
   - Prop:
       type_id: 48
-      prop_name: SkyboxRt
-      prop_type: String
+      prop_name: SkyboxRightContent
+      prop_type: Content
       values:
-        - "rbxassetid://6444884337"
+        - Uri: "rbxassetid://6444884337"
   - Prop:
       type_id: 48
-      prop_name: SkyboxUp
-      prop_type: String
+      prop_name: SkyboxUpContent
+      prop_type: Content
       values:
-        - "rbxassetid://6412503613"
+        - Uri: "rbxassetid://6412503613"
   - Prop:
       type_id: 48
       prop_name: SourceAssetId
@@ -2821,10 +2821,10 @@ chunks:
         - 11
   - Prop:
       type_id: 48
-      prop_name: SunTextureId
-      prop_type: String
+      prop_name: SunTextureContent
+      prop_type: Content
       values:
-        - "rbxassetid://6196665106"
+        - Uri: "rbxassetid://6196665106"
   - Prop:
       type_id: 48
       prop_name: Tags

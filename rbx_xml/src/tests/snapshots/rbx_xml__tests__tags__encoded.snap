@@ -1,0 +1,14 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="Folder" referent="0">
+    <Properties>
+      <string name="Name">Folder</string>
+      <BinaryString name="AttributesSerialize"></BinaryString>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags">Q29vbABNeQBUYWdz</BinaryString>
+    </Properties>
+  </Item>
+</roblox>

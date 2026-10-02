@@ -52,7 +52,7 @@ chunks:
           direction:
             - -4
             - -5
-            - -4
+            - -6
         - origin:
             - inf
             - -inf
@@ -60,7 +60,7 @@ chunks:
           direction:
             - 0.5
             - 0.15625
-            - 0.5
+            - 0.1
   - Prnt:
       version: 0
       links:
@@ -69,4 +69,3 @@ chunks:
         - - 1
           - -1
   - End
-
