@@ -245,6 +245,43 @@ impl<'a> Patches<'a> {
 
         Ok(())
     }
+
+    /// Validates that all migrations in this `Patches` point to valid
+    /// properties.
+    ///
+    /// This could be done in `apply_pre_default` but it runs into issues with
+    /// the borrow checker, so it is easier done after mutating the database
+    /// is done.
+    pub fn validate_migrations<'db>(
+        &'db self,
+        database: &ReflectionDatabase<'db>,
+    ) -> anyhow::Result<()> {
+        for (class_name, class_changes) in &self.change {
+            let class = database.classes.get(class_name).ok_or_else(|| {
+                anyhow!(
+                    "Class {} referenced in change patch does not exist in database",
+                    class_name
+                )
+            })?;
+            for (prop_name, prop_change) in class_changes {
+                let Some(new_serialization) = &prop_change.serialization else {
+                    continue;
+                };
+                match new_serialization {
+                    Serialization::Migrate(migration) => {
+                        for new_name in migration.new_property_names() {
+                            if !class.properties.contains_key(*new_name) {
+                                bail!("Property {class_name}.{new_name} referenced in Migration for {class_name}.{prop_name} does not exist in database")
+                            }
+                        }
+                    }
+                    _ => continue,
+                }
+            }
+        }
+
+        Ok(())
+    }
 }
 
 #[derive(Deserialize)]

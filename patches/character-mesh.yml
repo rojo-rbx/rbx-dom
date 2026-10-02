@@ -11,3 +11,8 @@ Change:
         Type: Migrate
         To: MeshContent
         Migration: Int64ToContent
+    OverlayTextureId:
+      Serialization:
+        Type: Migrate
+        To: OverlayTextureContent
+        Migration: Int64ToContent

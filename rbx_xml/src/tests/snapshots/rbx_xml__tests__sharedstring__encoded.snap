@@ -55,9 +55,6 @@ expression: encoded_text
       <Properties>
         <string name="Name">Union</string>
         <bool name="Anchored">false</bool>
-        <ContentId name="AssetId">
-          <url>https://www.roblox.com//asset/?id=2892119179</url>
-        </ContentId>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <float name="BackParamA">-0.5</float>
         <float name="BackParamB">0.5</float>
@@ -91,6 +88,9 @@ expression: encoded_text
         <string name="CollisionGroup">Default</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">10461612</Color3uint8>
+        <Content name="Content">
+          <uri>https://www.roblox.com//asset/?id=2892119179</uri>
+        </Content>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>
@@ -169,9 +169,6 @@ expression: encoded_text
       <Properties>
         <string name="Name">Union</string>
         <bool name="Anchored">false</bool>
-        <ContentId name="AssetId">
-          <url>https://www.roblox.com//asset/?id=2892119179</url>
-        </ContentId>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <float name="BackParamA">-0.5</float>
         <float name="BackParamB">0.5</float>
@@ -205,6 +202,9 @@ expression: encoded_text
         <string name="CollisionGroup">Default</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">10461612</Color3uint8>
+        <Content name="Content">
+          <uri>https://www.roblox.com//asset/?id=2892119179</uri>
+        </Content>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>
@@ -283,10 +283,6 @@ expression: encoded_text
       <Properties>
         <string name="Name">Union</string>
         <bool name="Anchored">false</bool>
-        <ContentId name="AssetId">
-          <null>
-          </null>
-        </ContentId>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <float name="BackParamA">-0.5</float>
         <float name="BackParamB">0.5</float>
@@ -320,6 +316,10 @@ expression: encoded_text
         <string name="CollisionGroup">Default</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">16316664</Color3uint8>
+        <Content name="Content">
+          <null>
+          </null>
+        </Content>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>
@@ -398,9 +398,6 @@ expression: encoded_text
       <Properties>
         <string name="Name">Union</string>
         <bool name="Anchored">false</bool>
-        <ContentId name="AssetId">
-          <url>https://www.roblox.com//asset/?id=2892119179</url>
-        </ContentId>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <float name="BackParamA">-0.5</float>
         <float name="BackParamB">0.5</float>
@@ -434,6 +431,9 @@ expression: encoded_text
         <string name="CollisionGroup">Default</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">10461612</Color3uint8>
+        <Content name="Content">
+          <uri>https://www.roblox.com//asset/?id=2892119179</uri>
+        </Content>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>
@@ -512,9 +512,6 @@ expression: encoded_text
       <Properties>
         <string name="Name">Union</string>
         <bool name="Anchored">false</bool>
-        <ContentId name="AssetId">
-          <url>https://www.roblox.com//asset/?id=2892119179</url>
-        </ContentId>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <float name="BackParamA">-0.5</float>
         <float name="BackParamB">0.5</float>
@@ -548,6 +545,9 @@ expression: encoded_text
         <string name="CollisionGroup">Default</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">10461612</Color3uint8>
+        <Content name="Content">
+          <uri>https://www.roblox.com//asset/?id=2892119179</uri>
+        </Content>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>
@@ -626,9 +626,6 @@ expression: encoded_text
       <Properties>
         <string name="Name">Union</string>
         <bool name="Anchored">false</bool>
-        <ContentId name="AssetId">
-          <url>https://www.roblox.com//asset/?id=2892119179</url>
-        </ContentId>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <float name="BackParamA">-0.5</float>
         <float name="BackParamB">0.5</float>
@@ -662,6 +659,9 @@ expression: encoded_text
         <string name="CollisionGroup">Default</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">10461612</Color3uint8>
+        <Content name="Content">
+          <uri>https://www.roblox.com//asset/?id=2892119179</uri>
+        </Content>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>
@@ -740,10 +740,6 @@ expression: encoded_text
       <Properties>
         <string name="Name">Union</string>
         <bool name="Anchored">false</bool>
-        <ContentId name="AssetId">
-          <null>
-          </null>
-        </ContentId>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <float name="BackParamA">-0.5</float>
         <float name="BackParamB">0.5</float>
@@ -777,6 +773,10 @@ expression: encoded_text
         <string name="CollisionGroup">Default</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">16316664</Color3uint8>
+        <Content name="Content">
+          <null>
+          </null>
+        </Content>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>
@@ -855,9 +855,6 @@ expression: encoded_text
       <Properties>
         <string name="Name">Union</string>
         <bool name="Anchored">false</bool>
-        <ContentId name="AssetId">
-          <url>https://www.roblox.com//asset/?id=2892119179</url>
-        </ContentId>
         <BinaryString name="AttributesSerialize"></BinaryString>
         <float name="BackParamA">-0.5</float>
         <float name="BackParamB">0.5</float>
@@ -891,6 +888,9 @@ expression: encoded_text
         <string name="CollisionGroup">Default</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">10461612</Color3uint8>
+        <Content name="Content">
+          <uri>https://www.roblox.com//asset/?id=2892119179</uri>
+        </Content>
         <PhysicalProperties name="CustomPhysicalProperties">
           <CustomPhysics>false</CustomPhysics>
         </PhysicalProperties>

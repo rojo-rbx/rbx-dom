@@ -162,19 +162,6 @@ chunks:
         - false
   - Prop:
       type_id: 0
-      prop_name: AssetId
-      prop_type: String
-      values:
-        - "https://www.roblox.com//asset/?id=2892119179"
-        - "https://www.roblox.com//asset/?id=2892119179"
-        - ""
-        - "https://www.roblox.com//asset/?id=2892119179"
-        - "https://www.roblox.com//asset/?id=2892119179"
-        - "https://www.roblox.com//asset/?id=2892119179"
-        - ""
-        - "https://www.roblox.com//asset/?id=2892119179"
-  - Prop:
-      type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
       values:
@@ -540,6 +527,19 @@ chunks:
         - - 159
           - 161
           - 172
+  - Prop:
+      type_id: 0
+      prop_name: Content
+      prop_type: Content
+      values:
+        - Uri: "https://www.roblox.com//asset/?id=2892119179"
+        - Uri: "https://www.roblox.com//asset/?id=2892119179"
+        - None
+        - Uri: "https://www.roblox.com//asset/?id=2892119179"
+        - Uri: "https://www.roblox.com//asset/?id=2892119179"
+        - Uri: "https://www.roblox.com//asset/?id=2892119179"
+        - None
+        - Uri: "https://www.roblox.com//asset/?id=2892119179"
   - Prop:
       type_id: 0
       prop_name: CustomPhysicalProperties

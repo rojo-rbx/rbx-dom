@@ -11,8 +11,6 @@ expression: decoded_viewed
       hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
     Anchored:
       Bool: false
-    AssetId:
-      ContentId: ""
     Attributes:
       Attributes: {}
     AudioCanCollide:
@@ -75,6 +73,8 @@ expression: decoded_viewed
         - 165
     ComponentIndex:
       Int32: -1
+    Content:
+      Content: None
     CustomPhysicalProperties:
       PhysicalProperties: Default
     EnableFluidForces:
@@ -221,8 +221,6 @@ expression: decoded_viewed
       hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
     Anchored:
       Bool: false
-    AssetId:
-      ContentId: ""
     Attributes:
       Attributes: {}
     AudioCanCollide:
@@ -285,6 +283,8 @@ expression: decoded_viewed
         - 165
     ComponentIndex:
       Int32: -1
+    Content:
+      Content: None
     CustomPhysicalProperties:
       PhysicalProperties: Default
     EnableFluidForces:

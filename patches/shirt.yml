@@ -1,0 +1,7 @@
+Change:
+  Shirt:
+    ShirtTemplate:
+      Serialization:
+        Type: Migrate
+        To: ShirtTemplateContent
+        Migration: ContentIdToContent

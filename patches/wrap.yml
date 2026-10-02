@@ -5,9 +5,24 @@ Change:
         Type: Migrate
         To: CageMeshContent
         Migration: ContentIdToContent
+    HSRAssetId:
+      Serialization:
+        Type: Migrate
+        To: HSRContent
+        Migration: ContentIdToContent
+    TemporaryCageMeshId:
+      Serialization:
+        Type: Migrate
+        To: TemporaryCageMeshContent
+        Migration: ContentIdToContent
   WrapLayer:
     ReferenceMeshId:
       Serialization:
         Type: Migrate
         To: ReferenceMeshContent
+        Migration: ContentIdToContent
+    TemporaryReferenceId:
+      Serialization:
+        Type: Migrate
+        To: TemporaryReferenceMeshContent
         Migration: ContentIdToContent

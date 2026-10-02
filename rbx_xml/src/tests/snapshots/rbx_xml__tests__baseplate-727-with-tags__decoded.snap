@@ -1540,8 +1540,6 @@ expression: "DomViewer::new().view_children(&decoded)"
       Bool: true
     CreateDefaultTextChannels:
       Bool: true
-    EnableProtectedChat:
-      Enum: 0
     HasSeenDeprecationDialog:
       Bool: false
     HistoryId:
@@ -1847,8 +1845,6 @@ expression: "DomViewer::new().view_children(&decoded)"
                 - 0
             ImageTransparency:
               Float32: 0
-            InputSink:
-              Enum: 0
             Interactable:
               Bool: true
             LayoutOrder:
@@ -2171,50 +2167,10 @@ expression: "DomViewer::new().view_children(&decoded)"
       Enum: 0
     EnableMouseLockOption:
       Bool: true
-    GameSettingsAssetIDFace:
-      Int64: 0
-    GameSettingsAssetIDHead:
-      Int64: 0
-    GameSettingsAssetIDLeftArm:
-      Int64: 0
-    GameSettingsAssetIDLeftLeg:
-      Int64: 0
-    GameSettingsAssetIDPants:
-      Int64: 0
-    GameSettingsAssetIDRightArm:
-      Int64: 0
-    GameSettingsAssetIDRightLeg:
-      Int64: 0
-    GameSettingsAssetIDShirt:
-      Int64: 0
-    GameSettingsAssetIDTeeShirt:
-      Int64: 0
-    GameSettingsAssetIDTorso:
-      Int64: 0
     GameSettingsAvatar:
       Enum: 1
     GameSettingsR15Collision:
       Enum: 0
-    GameSettingsScaleRangeBodyType:
-      NumberRange:
-        - 0
-        - 1
-    GameSettingsScaleRangeHead:
-      NumberRange:
-        - 0.95
-        - 1
-    GameSettingsScaleRangeHeight:
-      NumberRange:
-        - 0.9
-        - 1.05
-    GameSettingsScaleRangeProportion:
-      NumberRange:
-        - 0
-        - 1
-    GameSettingsScaleRangeWidth:
-      NumberRange:
-        - 0.7
-        - 1
     HealthDisplayDistance:
       Float32: 100
     HistoryId:
@@ -2808,8 +2764,6 @@ expression: "DomViewer::new().view_children(&decoded)"
             EnableSitting:
               Bool: true
             EnableSprinting:
-              Bool: true
-            EnableStrafing:
               Bool: true
             EnableSwimming:
               Bool: true

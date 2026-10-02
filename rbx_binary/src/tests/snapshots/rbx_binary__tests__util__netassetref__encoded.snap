@@ -47,13 +47,6 @@ chunks:
         - false
   - Prop:
       type_id: 0
-      prop_name: AssetId
-      prop_type: String
-      values:
-        - ""
-        - ""
-  - Prop:
-      type_id: 0
       prop_name: AttributesSerialize
       prop_type: String
       values:
@@ -236,6 +229,13 @@ chunks:
       values:
         - -1
         - -1
+  - Prop:
+      type_id: 0
+      prop_name: Content
+      prop_type: Content
+      values:
+        - None
+        - None
   - Prop:
       type_id: 0
       prop_name: CustomPhysicalProperties
