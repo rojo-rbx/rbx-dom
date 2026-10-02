@@ -28,6 +28,7 @@ macro_rules! model_tests {
 
 model_tests! {
     attributes,
+    attributes_tween_info,
     axes,
     bloomeffect,
     cframe_case_mixture,

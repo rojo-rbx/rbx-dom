@@ -1,0 +1,16 @@
+---
+source: rbx_xml/src/tests/mod.rs
+expression: encoded_text
+---
+<roblox version="4">
+  <Item class="Folder" referent="0">
+    <Properties>
+      <string name="Name">TweenInfoAttributes</string>
+      <BinaryString name="AttributesSerialize">BgAAAAoAAABEb2NFeGFtcGxlJAAAwD8AANBABAAAAAEAAAACAAAAAAsAAABGYXN0UXVhZE91dCRvEoM8zczMPQoAAAACAAAAAAAAAAEPAAAARnJhY3Rpb25hbFF1YXJ0JAAAAD4AAMA+AQAAAAQAAAABAAAAAQ4AAABJbmZpbml0ZVJlcGVhdCQAAIA+AAAAP/////8AAAAAAQAAAAEOAAAATG9uZ0N1YmljRGVsYXkkAAAgQAAATEEDAAAAAwAAAAIAAAAACgAAAFplcm9WYWx1ZXMkAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryString>
+      <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+      <bool name="DefinesCapabilities">false</bool>
+      <int64 name="SourceAssetId">-1</int64>
+      <BinaryString name="Tags"></BinaryString>
+    </Properties>
+  </Item>
+</roblox>
