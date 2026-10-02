@@ -2,15 +2,20 @@
 
 ## Unreleased
 
+## 3.0.1+roblox-741 (2026-10-01)
+* Updated to Roblox version 741
+* Added migrations for a large amount of ContentId properties to their Content variants (see linked PR) ([#642])
+
+[#642]: https://github.com/rojo-rbx/rbx-dom/pull/642
+
 ## 3.0.0+roblox-728 (2026-07-01)
 * Upgraded to `rbx_reflection` v3.0.0
 * Aliased `StarterPlayer.AvatarJointUpgrade` to `StarterPlayer.AvatarJointUpgrade_SerializedRollout`. ([#599])
-* Updated to Roblox version 718. ([#604])
+* Updated to Roblox version 728.
 * Added migrations for `UICorner.CornerRadius`. ([#612])
 * Added a variety of migrations for new Content properties
 
 [#599]: https://github.com/rojo-rbx/rbx-dom/pull/599
-[#604]: https://github.com/rojo-rbx/rbx-dom/pull/604
 [#612]: https://github.com/rojo-rbx/rbx-dom/pull/612
 
 ## 2.0.2+roblox-700 (2025-11-27)
