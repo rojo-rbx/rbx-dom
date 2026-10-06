@@ -1,5 +1,11 @@
 # rbx_types Changelog
 
+# Unreleased
+* Added TweenInfo value and variant type ([#663])
+* Added support for TweenInfo attributes ([#663])
+
+[#663]: https://github.com/rojo-rbx/rbx-dom/pull/663
+
 # 3.1.0 (2025-11-27)
 * Fixed `serde::Deserialize` implementations for `BinaryString`, `SharedString`, `NetAssetRef`, `Faces`, and `Axes` to properly utilize visitors. ([#563])
 * Added `CFrame::identity` convenience method to construct an identity CFrame. ([#567])

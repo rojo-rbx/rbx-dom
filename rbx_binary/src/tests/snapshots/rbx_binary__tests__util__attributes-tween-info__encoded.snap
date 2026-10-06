@@ -1,0 +1,63 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: text_roundtrip
+---
+num_types: 1
+num_instances: 1
+chunks:
+  - Inst:
+      type_id: 0
+      type_name: Folder
+      object_format: 0
+      referents:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: AttributesSerialize
+      prop_type: String
+      values:
+        - 06 00 00 00 0a 00 00 00 44 6f 63 45 78 61 6d 70 6c 65 24 00 00 c0 3f 00 00 d0 40 04 00 00 00 01 00 00 00 02 00 00 00 00 0b 00 00 00 46 61 73 74 51 75 61 64 4f 75 74 24 6f 12 83 3c cd cc cc 3d 0a 00 00 00 02 00 00 00 00 00 00 00 01 0f 00 00 00 46 72 61 63 74 69 6f 6e 61 6c 51 75 61 72 74 24 00 00 00 3e 00 00 c0 3e 01 00 00 00 04 00 00 00 01 00 00 00 01 0e 00 00 00 49 6e 66 69 6e 69 74 65 52 65 70 65 61 74 24 00 00 80 3e 00 00 00 3f ff ff ff ff 00 00 00 00 01 00 00 00 01 0e 00 00 00 4c 6f 6e 67 43 75 62 69 63 44 65 6c 61 79 24 00 00 20 40 00 00 4c 41 03 00 00 00 03 00 00 00 02 00 00 00 00 0a 00 00 00 5a 65 72 6f 56 61 6c 75 65 73 24 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  - Prop:
+      type_id: 0
+      prop_name: Capabilities
+      prop_type: SecurityCapabilities
+      values:
+        - 0
+  - Prop:
+      type_id: 0
+      prop_name: IconTint
+      prop_type: Color3
+      values:
+        - - 0
+          - 0
+          - 0
+  - Prop:
+      type_id: 0
+      prop_name: Name
+      prop_type: String
+      values:
+        - TweenInfoAttributes
+  - Prop:
+      type_id: 0
+      prop_name: DefinesCapabilities
+      prop_type: Bool
+      values:
+        - false
+  - Prop:
+      type_id: 0
+      prop_name: SourceAssetId
+      prop_type: Int64
+      values:
+        - -1
+  - Prop:
+      type_id: 0
+      prop_name: Tags
+      prop_type: String
+      values:
+        - ""
+  - Prnt:
+      version: 0
+      links:
+        - - 0
+          - -1
+  - End

@@ -673,6 +673,21 @@ impl NumberSequenceKeypoint {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(rename_all = "camelCase")
+)]
+pub struct TweenInfo {
+    pub time: f32,
+    pub easing_style: Enum,
+    pub easing_direction: Enum,
+    pub repeat_count: i32,
+    pub reverses: bool,
+    pub delay_time: f32,
+}
+
 #[cfg(feature = "serde")]
 serde_tuple! {
     Vector2(x: f32, y: f32),

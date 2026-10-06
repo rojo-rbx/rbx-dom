@@ -1,0 +1,72 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: TweenInfoAttributes
+  class: Folder
+  properties:
+    Attributes:
+      Attributes:
+        DocExample:
+          TweenInfo:
+            time: 1.5
+            easingStyle: 1
+            easingDirection: 2
+            repeatCount: 4
+            reverses: false
+            delayTime: 6.5
+        FastQuadOut:
+          TweenInfo:
+            time: 0.016
+            easingStyle: 2
+            easingDirection: 0
+            repeatCount: 10
+            reverses: true
+            delayTime: 0.1
+        FractionalQuart:
+          TweenInfo:
+            time: 0.125
+            easingStyle: 4
+            easingDirection: 1
+            repeatCount: 1
+            reverses: true
+            delayTime: 0.375
+        InfiniteRepeat:
+          TweenInfo:
+            time: 0.25
+            easingStyle: 0
+            easingDirection: 1
+            repeatCount: -1
+            reverses: true
+            delayTime: 0.5
+        LongCubicDelay:
+          TweenInfo:
+            time: 2.5
+            easingStyle: 3
+            easingDirection: 2
+            repeatCount: 3
+            reverses: false
+            delayTime: 12.75
+        ZeroValues:
+          TweenInfo:
+            time: 0
+            easingStyle: 0
+            easingDirection: 0
+            repeatCount: 0
+            reverses: false
+            delayTime: 0
+    Capabilities:
+      SecurityCapabilities: 0
+    IconTint:
+      Color3:
+        - 0
+        - 0
+        - 0
+    Sandboxed:
+      Bool: false
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+  children: []
