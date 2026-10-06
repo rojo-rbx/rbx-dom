@@ -1,4 +1,5 @@
 local CollectionService = game:GetService("CollectionService")
+local HttpService = game:GetService("HttpService")
 local ScriptEditorService = game:GetService("ScriptEditorService")
 
 local Error = require(script.Parent.Error)
@@ -121,8 +122,63 @@ return {
 	},
 	LocalizationTable = {
 		Contents = {
+			-- Guarantee a specific order of both fields and entries so that diff always match up
 			read = function(instance, _)
-				return true, instance:GetContents()
+				-- JSONDecode of Contents since that's the format we're using between server and client,
+				-- not the one from :GetEntries().
+				local sortedEntries = HttpService:JSONDecode(instance:GetContents())
+				table.sort(sortedEntries, function(entryA, entryB)
+					if entryA.key ~= entryB.key then
+						return (entryA.key or "") < (entryB.key or "")
+					end
+
+					return (entryA.source or "") < (entryB.source or "")
+				end)
+
+				local pieces = {}
+
+				local function writeSortedDictionary(input)
+					table.insert(pieces, "{")
+
+					local sortedPairs = {}
+					for key, value in input do
+						table.insert(sortedPairs, {
+							key = key,
+							value = value,
+						})
+					end
+
+					table.sort(sortedPairs, function(pairA, pairB)
+						return pairA.key < pairB.key
+					end)
+
+					for index, pair in sortedPairs do
+						table.insert(pieces, `"{pair.key}":`)
+
+						if typeof(pair.value) == "table" then
+							assert(pair.value[1] == nil, "CSV has an unexpected array")
+							writeSortedDictionary(pair.value)
+						else
+							table.insert(pieces, HttpService:JSONEncode(pair.value))
+						end
+
+						if index ~= #sortedPairs then
+							table.insert(pieces, ",")
+						end
+					end
+
+					table.insert(pieces, "}")
+				end
+
+				for index, sortedEntry in sortedEntries do
+					writeSortedDictionary(sortedEntry)
+
+					if index ~= #sortedEntries then
+						table.insert(pieces, ",")
+					end
+				end
+
+				return true, `[{table.concat(pieces)}]`
 			end,
 			write = function(instance, _, value)
 				instance:SetContents(value)
