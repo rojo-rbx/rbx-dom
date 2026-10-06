@@ -1,6 +1,7 @@
 # rbx_xml Changelog
 
 ## Unreleased
+* `CoordinateFrame` (`CFrame`) values are now deserialized independently of the order in which their component tags appear, and duplicate or unknown component tags are now rejected with a clear error.
 
 # 3.0.1 (2026-10-01)
 * Changed serializer to always write a length for empty `PropertiesSerialize` values, which Roblox requires. ([#639])
