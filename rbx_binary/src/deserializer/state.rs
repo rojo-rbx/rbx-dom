@@ -208,6 +208,55 @@ fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty,
     }
 }
 
+fn read_attributes(
+    buffer: &[u8],
+    instance_key_by_ref: &HashMap<i32, InstanceKey>,
+) -> Result<Attributes, rbx_dom_weak::types::Error> {
+    use rbx_dom_weak::types::{Attribute, AttributeReader};
+
+    let attribute_reader = AttributeReader::new(buffer);
+    let (mut attribute_reader, len) = attribute_reader.read_len()?;
+    let mut attributes = Attributes::new();
+    for _ in 0..len {
+        let (key, value) = attribute_reader.read_attribute()?;
+        let variant = match value {
+            Attribute::Ref(referent) => {
+                let referent = if let Some(key) = instance_key_by_ref.get(&referent) {
+                    key.referent
+                } else {
+                    Ref::none()
+                };
+                Variant::Ref(referent)
+            }
+            Attribute::BinaryString(value) => Variant::BinaryString(value),
+            Attribute::Bool(value) => Variant::Bool(value),
+            Attribute::Int32(value) => Variant::Int32(value),
+            Attribute::Float32(value) => Variant::Float32(value),
+            Attribute::Float64(value) => Variant::Float64(value),
+            Attribute::UDim(value) => Variant::UDim(value),
+            Attribute::UDim2(value) => Variant::UDim2(value),
+            Attribute::BrickColor(value) => Variant::BrickColor(value),
+            Attribute::Color3(value) => Variant::Color3(value),
+            Attribute::Vector2(value) => Variant::Vector2(value),
+            Attribute::Vector3(value) => Variant::Vector3(value),
+            Attribute::CFrame(value) => Variant::CFrame(value),
+            Attribute::EnumItem(value) => Variant::EnumItem(value),
+            Attribute::NumberSequence(value) => Variant::NumberSequence(value),
+            Attribute::ColorSequence(value) => Variant::ColorSequence(value),
+            Attribute::NumberRange(value) => Variant::NumberRange(value),
+            Attribute::Rect(value) => Variant::Rect(value),
+            Attribute::Font(value) => Variant::Font(value),
+            // rbx_types::Attribute is non-exhaustive, but we reasonably expect rbx_binary to be updated at the same time.
+            _ => {
+                unreachable!("Unknown Attribute! Update rbx_binary to match the rbx_types version.")
+            }
+        };
+        attributes.insert(key, variant);
+    }
+
+    Ok(attributes)
+}
+
 impl<'db, R: Read> DeserializerState<'db, R> {
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
@@ -489,7 +538,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
-                        match Attributes::from_reader(buffer.as_slice()) {
+                        match read_attributes(&buffer, &self.instance_key_by_ref) {
                             Ok(value) => {
                                 add_property(instance, &property, value.into());
                             }

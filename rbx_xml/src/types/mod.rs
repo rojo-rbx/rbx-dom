@@ -41,8 +41,8 @@ use std::io::{Read, Write};
 use rbx_dom_weak::types::{
     Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, ContentId, Enum,
     Faces, Font, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref,
-    SecurityCapabilities, UDim, UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3,
-    Vector3int16,
+    SecurityCapabilities, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector2int16,
+    Vector3, Vector3int16,
 };
 
 use crate::{
@@ -55,7 +55,7 @@ use crate::{
 };
 
 use self::{
-    attributes::write_attributes,
+    attributes::{read_attributes, write_attributes},
     material_colors::write_material_colors,
     net_asset_ref::{read_net_asset_ref, write_net_asset_ref},
     referent::{read_ref, write_ref},
@@ -77,6 +77,7 @@ macro_rules! declare_rbx_types {
             xml_type_name: &str,
             instance_id: Ref,
             property_name: &str,
+            expected_type: Option<VariantType>,
         ) -> Result<Option<Variant>, DecodeError> {
             match xml_type_name {
                 $(<$inner_type>::XML_TAG_NAME => Ok(Some(Variant::$variant_name(<$inner_type>::read_outer_xml(reader)?))),)*
@@ -87,6 +88,11 @@ macro_rules! declare_rbx_types {
                     Ok(Some(Variant::String(value.0)))
                 },
 
+                // Attributes may need to read additional tags so is special cased.
+                BinaryString::XML_TAG_NAME => match expected_type {
+                    Some(VariantType::Attributes) => read_attributes(reader, instance_id, state).map(Some),
+                    _ => Ok(Some(Variant::BinaryString(BinaryString::read_outer_xml(reader)?))),
+                }
                 self::referent::XML_TAG_NAME => Ok(Some(Variant::Ref(read_ref(reader, instance_id, property_name, state)?))),
                 self::shared_string::XML_TAG_NAME => read_shared_string(reader, instance_id, property_name, state).map(Some),
                 self::net_asset_ref::XML_TAG_NAME => read_net_asset_ref(reader, instance_id, property_name, state).map(Some),
@@ -116,10 +122,11 @@ macro_rules! declare_rbx_types {
                 Variant::BrickColor(value) =>
                     (*value as i32).write_outer_xml(xml_property_name, writer),
 
+                Variant::BinaryString(value) => value.write_outer_xml(xml_property_name, writer),
                 Variant::Ref(value) => write_ref(writer, xml_property_name, *value, state),
                 Variant::SharedString(value) => write_shared_string(writer, xml_property_name, value, state),
                 Variant::Tags(value) => write_tags(writer, xml_property_name, value),
-                Variant::Attributes(value) => write_attributes(writer, xml_property_name, value),
+                Variant::Attributes(value) => write_attributes(writer, xml_property_name, value, state),
                 Variant::MaterialColors(value) => write_material_colors(writer, xml_property_name, value),
                 Variant::NetAssetRef(value) => write_net_asset_ref(writer, xml_property_name, value, state),
 
@@ -133,7 +140,6 @@ macro_rules! declare_rbx_types {
 
 declare_rbx_types! {
     Axes: Axes,
-    BinaryString: BinaryString,
     Bool: bool,
     CFrame: CFrame,
     Color3: Color3,
