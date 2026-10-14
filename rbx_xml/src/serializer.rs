@@ -1,4 +1,4 @@
-use std::{collections::BTreeMap, io::Write};
+use std::io::Write;
 
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
@@ -126,7 +126,7 @@ pub struct EmitState<'db> {
 
     /// A map of all shared strings referenced so far while generating XML. This
     /// map will be written as the file's SharedString dictionary.
-    shared_strings_to_emit: BTreeMap<SharedStringHash, SharedString>,
+    shared_strings_to_emit: HashMap<SharedStringHash, SharedString>,
 }
 
 impl<'db> EmitState<'db> {
@@ -135,7 +135,7 @@ impl<'db> EmitState<'db> {
             options,
             referent_map: HashMap::new(),
             next_referent: 0,
-            shared_strings_to_emit: BTreeMap::new(),
+            shared_strings_to_emit: HashMap::new(),
         }
     }
 
@@ -278,10 +278,12 @@ fn serialize_shared_strings<W: Write>(
 
     writer.write(XmlWriteEvent::start_element("SharedStrings"))?;
 
-    for value in state.shared_strings_to_emit.values() {
+    let mut sorted_shared_strings: Vec<_> = state.shared_strings_to_emit.iter().collect();
+    sorted_shared_strings.sort_unstable_by_key(|&(k, _)| k);
+
+    for (full_hash, value) in sorted_shared_strings {
         // Roblox expects SharedString hashes to be the same length as an MD5
         // hash: 16 bytes, so we truncate our larger hashes to fit.
-        let full_hash = value.hash();
         let truncated_hash = &full_hash.as_bytes()[..16];
 
         writer.write(

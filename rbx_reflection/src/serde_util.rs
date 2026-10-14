@@ -1,5 +1,5 @@
 use std::{
-    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
+    collections::{HashMap, HashSet},
     hash::Hash,
 };
 
@@ -11,8 +11,14 @@ where
     V: Serialize,
     S: Serializer,
 {
-    let ordered: BTreeMap<_, _> = value.iter().collect();
-    ordered.serialize(serializer)
+    use serde::ser::SerializeMap;
+    let mut ordered: Vec<_> = value.iter().collect();
+    ordered.sort_unstable_by_key(|&(k, _)| k);
+    let mut map = serializer.serialize_map(Some(ordered.len()))?;
+    for (key, value) in ordered {
+        map.serialize_entry(key, value)?;
+    }
+    map.end()
 }
 
 pub(crate) fn ordered_set<S, V>(value: &HashSet<V>, serializer: S) -> Result<S::Ok, S::Error>
@@ -20,6 +26,7 @@ where
     V: Hash + Ord + Serialize,
     S: Serializer,
 {
-    let ordered: BTreeSet<_> = value.iter().collect();
+    let mut ordered: Vec<_> = value.iter().collect();
+    ordered.sort_unstable();
     ordered.serialize(serializer)
 }
