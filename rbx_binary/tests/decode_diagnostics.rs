@@ -1,10 +1,12 @@
+use std::convert::TryFrom;
+
 use behave::prelude::*;
 use rbx_binary::{
-    BinaryStringFallbackCause, DecodeDiagnostic, DecodeReport, Deserializer, InstanceLocation,
-    PropertyLocation, PropertySkipReason, ReferenceKind,
+    BinaryStringFallbackCause, DecodeDiagnostic, DecodeReport, Deserializer, FontFallback,
+    InstanceLocation, PropertyLocation, PropertySkipReason, ReferenceKind,
 };
 use rbx_dom_weak::types::VariantType;
-use rbx_dom_weak::types::{Content, Ref, Variant};
+use rbx_dom_weak::types::{Content, Font, FontStyle, FontWeight, Ref, Variant};
 use rbx_reflection::{
     ClassDescriptor, DataType, MigrationError, PropertyDescriptor, PropertyKind,
     PropertySerialization, ReflectionDatabase,
@@ -17,6 +19,48 @@ use native_model::{interleaved, referents, strings, Model};
 
 behave! {
     "Reading binary models with retained loss evidence" {
+        "unknown font weights and styles retain their raw discriminators instead of silently becoming defaults" {
+            // @behavior native-font-default-substitution-evidence
+            // @boundary before=unknown-font-weight-and-style at=public-native-decoder after=typed-source-discriminators-and-preserved-defaults
+            // @red Invalid weight123/style2 decoded with an empty diagnostic slice.
+            // @green Both substitutions retain their source identity and typed replacement.
+            let mut model = Model::new("Folder")?;
+            let mut fonts = vec![0x20];
+            let family = "rbxasset://fonts/families/SourceSansPro.json";
+            for (weight, style) in [(123u16, 2u8), (400, 0)] {
+                fonts.extend(u32::try_from(family.len())?.to_le_bytes());
+                fonts.extend(family.as_bytes());
+                fonts.extend(weight.to_le_bytes());
+                fonts.push(style);
+                fonts.extend(0u32.to_le_bytes());
+            }
+            model.property("Typeface", &fonts)?;
+            let bytes = model.finish()?;
+            let report = Deserializer::new().deserialize_with_diagnostics(bytes.as_slice())?;
+            expect!(report.diagnostics().len()).to_equal(2)?;
+            match report.diagnostics() {
+                [DecodeDiagnostic::FontFallback { property, instance, fallback: FontFallback::Weight { found: 123, replacement: FontWeight::Regular } },
+                 DecodeDiagnostic::FontFallback { property: style_property, instance: style_instance, fallback: FontFallback::Style { found: 2, replacement: FontStyle::Normal } }] => {
+                    expect!(property).to_equal(style_property)?;
+                    expect!(property.property_name()).to_equal("Typeface")?;
+                    expect!(property.class_name()).to_equal("Folder")?;
+                    expect!(property.type_id()).to_equal(7)?;
+                    expect!(instance).to_equal(style_instance)?;
+                    expect!(instance.document_referent()).to_equal(10)?;
+                    expect!(report.dom().root().children().first()).to_equal(Some(&instance.dom_ref()))?;
+                }
+                found => expect!(format!("{found:?}")).to_equal("weight and style source evidence".to_owned())?,
+            }
+            let expected = Variant::Font(Font::regular(family));
+            let legacy = rbx_binary::from_reader(bytes.as_slice())?;
+            for dom in [report.dom(), &legacy] {
+                for referent in dom.root().children() {
+                    expect!(dom.get_by_ref(*referent).and_then(|node| node.properties.get(&"Typeface".into())))
+                        .to_equal(Some(&expected))?;
+                }
+            }
+        }
+
         "valid native string values do not manufacture a loss" {
             // @behavior native-decode-no-spurious-loss
             // @boundary before=native-source-bytes at=public-deserializer after=dom-with-structured-source-losses

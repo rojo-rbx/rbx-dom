@@ -3,8 +3,8 @@ use std::str::Utf8Error;
 use rbx_reflection::MigrationError;
 
 use crate::{
-    BinaryStringFallbackCause, InstanceLocation, PropertyLocation, PropertySkipReason,
-    ReferenceKind,
+    BinaryStringFallbackCause, FontFallback, InstanceLocation, PropertyLocation,
+    PropertySkipReason, ReferenceKind,
 };
 
 /// A source distinction omitted or replaced by permissive binary decoding.
@@ -14,6 +14,15 @@ use crate::{
 /// An unparented instance's allocated ref is absent from the returned DOM.
 #[derive(Debug)]
 pub enum DecodeDiagnostic {
+    /// An unknown Font weight or style was replaced with a default value.
+    FontFallback {
+        /// The original serialized property identity.
+        property: PropertyLocation,
+        /// The original document ID and this pass's allocated DOM identity.
+        instance: InstanceLocation,
+        /// The raw discriminator and the typed replacement inserted in the DOM.
+        fallback: FontFallback,
+    },
     /// An unrecognized chunk was ignored in full.
     UnknownChunk {
         /// The exact four-byte chunk name, including non-UTF-8 bytes.

@@ -60,6 +60,7 @@ mod core;
 mod decode_diagnostic;
 mod decode_report;
 mod deserializer;
+mod font_fallback;
 mod instance_location;
 mod property_location;
 mod property_skip_reason;
@@ -88,6 +89,7 @@ pub use crate::{
     decode_diagnostic::DecodeDiagnostic,
     decode_report::DecodeReport,
     deserializer::{Deserializer, Error as DecodeError},
+    font_fallback::FontFallback,
     instance_location::InstanceLocation,
     property_location::PropertyLocation,
     property_skip_reason::PropertySkipReason,

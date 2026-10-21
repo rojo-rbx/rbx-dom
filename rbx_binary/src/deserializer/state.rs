@@ -19,7 +19,7 @@ use crate::{
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt},
     types::Type,
-    BinaryStringFallbackCause, DecodeDiagnostic, InstanceLocation, PropertyLocation,
+    BinaryStringFallbackCause, DecodeDiagnostic, FontFallback, InstanceLocation, PropertyLocation,
     PropertySkipReason, ReferenceKind,
 };
 
@@ -1132,8 +1132,38 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::Font => {
                     for instance in instances {
                         let family = chunk.read_string()?;
-                        let weight = FontWeight::from_u16(chunk.read_le_u16()?).unwrap_or_default();
-                        let style = FontStyle::from_u8(chunk.read_u8()?).unwrap_or_default();
+                        let raw_weight = chunk.read_le_u16()?;
+                        let weight = match FontWeight::from_u16(raw_weight) {
+                            Some(weight) => weight,
+                            None => {
+                                let replacement = FontWeight::default();
+                                instance.record(|location| DecodeDiagnostic::FontFallback {
+                                    property: property.source.location(),
+                                    instance: location,
+                                    fallback: FontFallback::Weight {
+                                        found: raw_weight,
+                                        replacement,
+                                    },
+                                });
+                                replacement
+                            }
+                        };
+                        let raw_style = chunk.read_u8()?;
+                        let style = match FontStyle::from_u8(raw_style) {
+                            Some(style) => style,
+                            None => {
+                                let replacement = FontStyle::default();
+                                instance.record(|location| DecodeDiagnostic::FontFallback {
+                                    property: property.source.location(),
+                                    instance: location,
+                                    fallback: FontFallback::Style {
+                                        found: raw_style,
+                                        replacement,
+                                    },
+                                });
+                                replacement
+                            }
+                        };
                         let cached_face_id = chunk.read_string()?;
 
                         let cached_face_id = if cached_face_id.is_empty() {
