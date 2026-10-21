@@ -1,5 +1,6 @@
 use std::str::Utf8Error;
 
+use rbx_dom_weak::types::AttributeDecodeDiagnostic;
 use rbx_reflection::MigrationError;
 
 use crate::{
@@ -14,6 +15,15 @@ use crate::{
 /// An unparented instance's allocated ref is absent from the returned DOM.
 #[derive(Debug)]
 pub enum DecodeDiagnostic {
+    /// An otherwise successful Attributes value replaced a source distinction.
+    AttributeLoss {
+        /// The original serialized property identity containing the attributes.
+        property: PropertyLocation,
+        /// The original document ID and this pass's allocated DOM identity.
+        instance: InstanceLocation,
+        /// The evidence produced by the actual Attributes decoding pass.
+        diagnostic: AttributeDecodeDiagnostic,
+    },
     /// An unknown Font weight or style was replaced with a default value.
     FontFallback {
         /// The original serialized property identity.

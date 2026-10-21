@@ -6,7 +6,9 @@ use rbx_binary::{
     InstanceLocation, PropertyLocation, PropertySkipReason, ReferenceKind,
 };
 use rbx_dom_weak::types::VariantType;
-use rbx_dom_weak::types::{Content, Font, FontStyle, FontWeight, Ref, Variant};
+use rbx_dom_weak::types::{
+    AttributeDecodeDiagnostic, Attributes, Content, Font, FontStyle, FontWeight, Ref, Variant,
+};
 use rbx_reflection::{
     ClassDescriptor, DataType, MigrationError, PropertyDescriptor, PropertyKind,
     PropertySerialization, ReflectionDatabase,
@@ -19,6 +21,52 @@ use native_model::{interleaved, referents, strings, Model};
 
 behave! {
     "Reading binary models with retained loss evidence" {
+        "Font substitutions inside successful Attributes keep the native instance identity" {
+            // @behavior native-nested-attribute-font-evidence
+            // @boundary before=successful-attributes-font-fallback at=public-native-report after=nested-source-evidence
+            // @red The successful Attributes decode leaves the native report empty.
+            // @green Both substitutions carry their attribute and native instance location.
+            let mut attributes = 1u32.to_le_bytes().to_vec();
+            attributes.extend(4u32.to_le_bytes());
+            attributes.extend(b"Face");
+            attributes.push(0x21);
+            attributes.extend(123u16.to_le_bytes());
+            attributes.push(2);
+            let family = "rbxasset://fonts/families/SourceSansPro.json";
+            attributes.extend(u32::try_from(family.len())?.to_le_bytes());
+            attributes.extend(family.as_bytes());
+            attributes.extend(0u32.to_le_bytes());
+            let mut model = Model::new("Folder")?;
+            model.property("AttributesSerialize", &strings(&attributes, &0u32.to_le_bytes())?)?;
+            let bytes = model.finish()?;
+            let report = Deserializer::new().deserialize_with_diagnostics(bytes.as_slice())?;
+            expect!(report.diagnostics().len()).to_equal(2)?;
+            let mut nested = Vec::new();
+            for diagnostic in report.diagnostics() { match diagnostic {
+                DecodeDiagnostic::AttributeLoss { property, instance, diagnostic } => {
+                    expect!(property.property_name()).to_equal("AttributesSerialize")?;
+                    expect!(property.class_name()).to_equal("Folder")?;
+                    expect!(property.type_id()).to_equal(7)?;
+                    expect!(instance.document_referent()).to_equal(10)?;
+                    expect!(report.dom().root().children().first()).to_equal(Some(&instance.dom_ref()))?;
+                    nested.push(diagnostic.clone());
+                }
+                found => expect!(format!("{found:?}")).to_equal("nested Attributes evidence".to_owned())?,
+            } }
+            expect!(nested).to_equal(vec![
+                AttributeDecodeDiagnostic::FontFallback { attribute: "Face".to_owned(), index: 0, fallback: FontFallback::Weight { found: 123, replacement: FontWeight::Regular } },
+                AttributeDecodeDiagnostic::FontFallback { attribute: "Face".to_owned(), index: 0, fallback: FontFallback::Style { found: 2, replacement: FontStyle::Normal } },
+            ])?;
+            let legacy = rbx_binary::from_reader(bytes.as_slice())?;
+            for dom in [report.dom(), &legacy] {
+                let expected = [Attributes::new().with("Face", Font::default()), Attributes::new()];
+                for (referent, attributes) in dom.root().children().iter().zip(expected) {
+                    expect!(dom.get_by_ref(*referent).and_then(|node| node.properties.get(&"Attributes".into())))
+                        .to_equal(Some(&Variant::Attributes(attributes)))?;
+                }
+            }
+        }
+
         "unknown font weights and styles retain their raw discriminators instead of silently becoming defaults" {
             // @behavior native-font-default-substitution-evidence
             // @boundary before=unknown-font-weight-and-style at=public-native-decoder after=typed-source-discriminators-and-preserved-defaults

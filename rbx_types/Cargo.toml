@@ -24,6 +24,7 @@ thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }
 
 [dev-dependencies]
+behave = "0.9.2"
 insta = { version = "1.14.1", features = ["yaml"] }
 rmp = "0.8.15"
 rmp-serde = "1.1.0"

@@ -1,4 +1,9 @@
-use rbx_dom_weak::WeakDom;
+use std::io::Read;
+
+use rbx_dom_weak::{
+    types::{AttributeDecodeDiagnostic, Attributes, Error as TypeError},
+    WeakDom,
+};
 
 use crate::{DecodeDiagnostic, DecodeReport};
 
@@ -12,6 +17,13 @@ pub(super) trait DiagnosticSink: Default {
 
     /// Preserves instance grouping without allowing mixed retention modes.
     fn append(&mut self, other: &mut Self);
+
+    /// Selects the same retention mode at the nested Attributes decoder boundary.
+    fn read_attributes<R: Read>(
+        &mut self,
+        reader: R,
+        make: impl FnMut(AttributeDecodeDiagnostic) -> DecodeDiagnostic,
+    ) -> Result<Attributes, TypeError>;
 
     /// Combines the DOM with retained evidence only for an audited entry.
     fn finish(self, dom: WeakDom) -> Self::Output;
@@ -34,6 +46,17 @@ impl DiagnosticSink for CollectDiagnostics {
         self.diagnostics.append(&mut other.diagnostics);
     }
 
+    fn read_attributes<R: Read>(
+        &mut self,
+        reader: R,
+        make: impl FnMut(AttributeDecodeDiagnostic) -> DecodeDiagnostic,
+    ) -> Result<Attributes, TypeError> {
+        let (attributes, diagnostics) =
+            Attributes::from_reader_with_diagnostics(reader)?.into_parts();
+        self.diagnostics.extend(diagnostics.into_iter().map(make));
+        Ok(attributes)
+    }
+
     fn finish(self, dom: WeakDom) -> DecodeReport {
         DecodeReport::new(dom, self.diagnostics)
     }
@@ -49,6 +72,14 @@ impl DiagnosticSink for DiscardDiagnostics {
     fn record(&mut self, _make: impl FnOnce() -> DecodeDiagnostic) {}
 
     fn append(&mut self, _other: &mut Self) {}
+
+    fn read_attributes<R: Read>(
+        &mut self,
+        reader: R,
+        _make: impl FnMut(AttributeDecodeDiagnostic) -> DecodeDiagnostic,
+    ) -> Result<Attributes, TypeError> {
+        Attributes::from_reader(reader)
+    }
 
     fn finish(self, dom: WeakDom) -> WeakDom {
         dom

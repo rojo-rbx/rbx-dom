@@ -262,6 +262,21 @@ impl<S: DiagnosticSink> Instance<S> {
             .record(|| make(InstanceLocation::new(document_referent, dom_ref)));
     }
 
+    fn read_attributes(
+        &mut self,
+        bytes: &[u8],
+        property: &CanonicalProperty,
+    ) -> Result<Attributes, rbx_dom_weak::types::Error> {
+        let document_referent = self.document_referent;
+        let dom_ref = self.builder.referent();
+        self.diagnostics
+            .read_attributes(bytes, |diagnostic| DecodeDiagnostic::AttributeLoss {
+                property: property.source.location(),
+                instance: InstanceLocation::new(document_referent, dom_ref),
+                diagnostic,
+            })
+    }
+
     fn add_property(&mut self, canonical_property: &CanonicalProperty, value: Variant) {
         if let Some(PropertySerialization::Migrate(migration)) = canonical_property.migration {
             let old_property_name = canonical_property.name;
@@ -627,7 +642,7 @@ This may cause unexpected or broken behavior in your final results if you rely o
                     for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
-                        match Attributes::from_reader(buffer.as_slice()) {
+                        match instance.read_attributes(buffer.as_slice(), &property) {
                             Ok(value) => {
                                 instance.add_property(&property, value.into());
                             }

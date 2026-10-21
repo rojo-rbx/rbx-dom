@@ -5,8 +5,8 @@ use std::{
 
 use crate::{
     BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font,
-    FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, Rect,
-    UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+    FontFallback, FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence,
+    NumberSequenceKeypoint, Rect, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
 };
 
 use super::{type_id, AttributeError};
@@ -14,6 +14,7 @@ use super::{type_id, AttributeError};
 /// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
 pub(crate) fn read_attributes<R: Read>(
     mut value: R,
+    mut record: impl FnMut(u32, &str, FontFallback),
 ) -> Result<BTreeMap<String, Variant>, AttributeError> {
     let mut attributes = BTreeMap::new();
 
@@ -23,7 +24,7 @@ pub(crate) fn read_attributes<R: Read>(
         Err(_) => return Err(AttributeError::InvalidLength),
     };
 
-    for _ in 0..len {
+    for index in 0..len {
         let key_buf = read_string(&mut value).map_err(|_| AttributeError::NoKey)?;
         let key = String::from_utf8(key_buf).map_err(AttributeError::KeyBadUnicode)?;
 
@@ -193,10 +194,41 @@ pub(crate) fn read_attributes<R: Read>(
                     }
                 };
 
+                let weight = match FontWeight::from_u16(weight) {
+                    Some(weight) => weight,
+                    None => {
+                        let replacement = FontWeight::default();
+                        record(
+                            index,
+                            &key,
+                            FontFallback::Weight {
+                                found: weight,
+                                replacement,
+                            },
+                        );
+                        replacement
+                    }
+                };
+                let style = match FontStyle::from_u8(style) {
+                    Some(style) => style,
+                    None => {
+                        let replacement = FontStyle::default();
+                        record(
+                            index,
+                            &key,
+                            FontFallback::Style {
+                                found: style,
+                                replacement,
+                            },
+                        );
+                        replacement
+                    }
+                };
+
                 Font {
                     family,
-                    weight: FontWeight::from_u16(weight).unwrap_or_default(),
-                    style: FontStyle::from_u8(style).unwrap_or_default(),
+                    weight,
+                    style,
                     cached_face_id,
                 }
             }

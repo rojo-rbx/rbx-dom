@@ -8,7 +8,7 @@ use std::{
 
 use behave::prelude::*;
 use rbx_binary::{DecodeError, Deserializer};
-use rbx_dom_weak::WeakDom;
+use rbx_dom_weak::{types::Attributes, WeakDom};
 
 #[path = "support/native_model.rs"]
 mod native_model;
@@ -21,7 +21,13 @@ use native_model::{strings, Model};
 const PAYLOAD_LENGTH: usize = 65_537;
 
 thread_local! {
-    static LIVE_PAYLOADS: Cell<Option<isize>> = const { Cell::new(None) };
+    static LIVE_PAYLOADS: Cell<Option<AllocationCounts>> = const { Cell::new(None) };
+}
+
+#[derive(Clone, Copy, Default)]
+struct AllocationCounts {
+    live: isize,
+    peak: isize,
 }
 
 struct PayloadAllocator;
@@ -34,7 +40,11 @@ enum CounterAccess {
 fn account_payload(change: isize) -> CounterAccess {
     match LIVE_PAYLOADS.try_with(|counter| {
         if let Some(current) = counter.get() {
-            counter.set(Some(current + change));
+            let live = current.live + change;
+            counter.set(Some(AllocationCounts {
+                live,
+                peak: current.peak.max(live),
+            }));
         }
     }) {
         Ok(()) => CounterAccess::Available,
@@ -111,8 +121,8 @@ impl Read for BoundaryReader {
     fn read(&mut self, buffer: &mut [u8]) -> io::Result<usize> {
         if self.boundaries.contains(&self.input.position()) {
             LIVE_PAYLOADS.with(|counter| {
-                if let Some(live) = counter.get() {
-                    self.observations.borrow_mut().push(live);
+                if let Some(counts) = counter.get() {
+                    self.observations.borrow_mut().push(counts.live);
                 }
             });
         }
@@ -138,23 +148,70 @@ behave! {
             let deserializer = Deserializer::new();
             let audited_observations = Rc::new(RefCell::new(Vec::with_capacity(5)));
             let audited_reader = BoundaryReader::new(Rc::clone(&audited_observations))?;
-            LIVE_PAYLOADS.with(|counter| counter.set(Some(0)));
+            LIVE_PAYLOADS.with(|counter| counter.set(Some(AllocationCounts::default())));
             let report = deserializer.deserialize_with_diagnostics(audited_reader)?;
             expect!(audited_observations.borrow().as_slice()).to_equal(&[0, 1, 2, 3, 4][..])?;
             expect!(report.diagnostics().len()).to_equal(4)?;
             drop(report);
             let remaining = LIVE_PAYLOADS.with(|counter| counter.replace(None));
-            expect!(remaining).to_equal(Some(0))?;
+            expect!(remaining.map(|counts| counts.live)).to_equal(Some(0))?;
 
             for decode in [legacy_deserializer, legacy_from_reader] {
                 let observations = Rc::new(RefCell::new(Vec::with_capacity(5)));
                 let reader = BoundaryReader::new(Rc::clone(&observations))?;
-                LIVE_PAYLOADS.with(|counter| counter.set(Some(0)));
+                LIVE_PAYLOADS.with(|counter| counter.set(Some(AllocationCounts::default())));
                 let dom = decode(reader)?;
                 let remaining = LIVE_PAYLOADS.with(|counter| counter.replace(None));
                 expect!(observations.borrow().as_slice()).to_equal(&[0, 0, 0, 0, 0][..])?;
-                expect!(remaining).to_equal(Some(0))?;
+                expect!(remaining.map(|counts| counts.live)).to_equal(Some(0))?;
                 expect!(dom.root().children().len()).to_equal(2)?;
+            }
+        }
+
+        "legacy Attributes and native entries allocate no copied diagnostic attribute names" {
+            // @behavior legacy-nested-attribute-evidence-allocation
+            // @boundary before=unknown-font-with-unique-sized-attribute-name at=public-attributes-and-native-readers after=only-audited-entries-copy-evidence
+            // @red Collecting and discarding nested evidence raises the legacy peak above its single map key.
+            // @green Legacy entries allocate only the map key; audited entries retain two evidence names too.
+            // Only the attribute key and its diagnostic copies have the marker size.
+            // Fixture and native chunk allocations have different lengths.
+            let mut attributes = 1u32.to_le_bytes().to_vec();
+            attributes.extend(u32::try_from(PAYLOAD_LENGTH)?.to_le_bytes());
+            attributes.extend(std::iter::repeat_n(b'x', PAYLOAD_LENGTH));
+            attributes.push(0x21);
+            attributes.extend(123u16.to_le_bytes());
+            attributes.push(2);
+            attributes.extend(0u32.to_le_bytes());
+            attributes.extend(0u32.to_le_bytes());
+            let mut model = Model::new("Folder")?;
+            model.property("AttributesSerialize", &strings(&attributes, &0u32.to_le_bytes())?)?;
+            let model = model.finish()?;
+
+            for audited in [false, true] {
+                let expected = if audited { 3 } else { 1 };
+                LIVE_PAYLOADS.with(|counter| counter.set(Some(AllocationCounts::default())));
+                if audited {
+                    let report = Attributes::from_reader_with_diagnostics(attributes.as_slice())?;
+                    expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| (counts.live, counts.peak)))).to_equal(Some((expected, expected)))?;
+                    drop(report);
+                } else {
+                    let value = Attributes::from_reader(attributes.as_slice())?;
+                    expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| (counts.live, counts.peak)))).to_equal(Some((expected, expected)))?;
+                    drop(value);
+                }
+                expect!(LIVE_PAYLOADS.with(|counter| counter.replace(None).map(|counts| counts.live))).to_equal(Some(0))?;
+
+                LIVE_PAYLOADS.with(|counter| counter.set(Some(AllocationCounts::default())));
+                if audited {
+                    let report = Deserializer::new().deserialize_with_diagnostics(model.as_slice())?;
+                    expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| (counts.live, counts.peak)))).to_equal(Some((expected, expected)))?;
+                    drop(report);
+                } else {
+                    let value = rbx_binary::from_reader(model.as_slice())?;
+                    expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| (counts.live, counts.peak)))).to_equal(Some((expected, expected)))?;
+                    drop(value);
+                }
+                expect!(LIVE_PAYLOADS.with(|counter| counter.replace(None).map(|counts| counts.live))).to_equal(Some(0))?;
             }
         }
     }
