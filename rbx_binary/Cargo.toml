@@ -16,6 +16,12 @@ edition = "2018"
 
 [features]
 unstable_text_format = ["serde"]
+typescript = [
+    "serde",
+    "dep:ts-rs",
+    "rbx_dom_weak/typescript",
+    "rbx_reflection/typescript",
+]
 
 [dependencies]
 rbx_dom_weak = { version = "4.2.0", path = "../rbx_dom_weak" }
@@ -27,6 +33,7 @@ log = "0.4.17"
 lz4_flex = "0.13.1"
 thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }
+ts-rs = { version = "12.0.1", optional = true }
 profiling = "1.0.6"
 zstd = "0.13.2"
 
@@ -37,6 +44,7 @@ env_logger = "0.11.10"
 heck = "0.5.0"
 insta = { version = "1.14.1", features = ["yaml"] }
 serde = { version = "1.0.137", features = ["derive"] }
+serde_json = "1.0.81"
 rbx_reflection_database = { path = "../rbx_reflection_database", features = [
     "debug_always_use_bundled",
 ] }

@@ -2,8 +2,11 @@ use rbx_dom_weak::types::Ref;
 
 /// Correlates a native document instance with the identity allocated in this pass.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub struct InstanceLocation {
     document_referent: i32,
+    #[cfg_attr(feature = "typescript", ts(as = "String"))]
     dom_ref: Ref,
 }
 

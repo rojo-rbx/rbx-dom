@@ -14,6 +14,8 @@ use crate::{
 /// actual DOM identities allocated during this pass, not reconstructed IDs.
 /// An unparented instance's allocated ref is absent from the returned DOM.
 #[derive(Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub enum DecodeDiagnostic {
     /// An otherwise successful Attributes value replaced a source distinction.
     AttributeLoss {
@@ -82,6 +84,11 @@ pub enum DecodeDiagnostic {
         /// The original bytes before lossy UTF-8 replacement.
         bytes: Vec<u8>,
         /// The standard UTF-8 decoder's exact invalid-sequence location.
+        #[cfg_attr(
+            feature = "serde",
+            serde(serialize_with = "rbx_dom_weak::types::Utf8ErrorFacts::serialize_error")
+        )]
+        #[cfg_attr(feature = "typescript", ts(as = "rbx_dom_weak::types::Utf8ErrorFacts"))]
         cause: Utf8Error,
     },
     /// Binary bytes survived but their intended semantic value was unavailable.

@@ -1,5 +1,7 @@
 /// Explains why an entire serialized property was omitted from the DOM.
 #[derive(Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub enum PropertySkipReason {
     /// The PROP ended immediately after its property name.
     MissingType,

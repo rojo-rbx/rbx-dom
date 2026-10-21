@@ -1,5 +1,7 @@
 /// Identifies a serialized property before reflection renaming or migration.
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub struct PropertyLocation {
     class_name: String,
     property_name: String,
