@@ -77,7 +77,7 @@ use std::io::{Read, Write};
 
 use rbx_dom_weak::{types::Ref, WeakDom};
 
-pub use rbx_dom_weak::types::FontFallback;
+pub use rbx_dom_weak::types::{ColorSequenceEnvelope, FontFallback};
 
 /// An unstable textual format that can be used to debug binary models.
 #[cfg(feature = "unstable_text_format")]

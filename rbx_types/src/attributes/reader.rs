@@ -5,15 +5,15 @@ use std::{
 };
 
 use crate::{
-    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font,
-    FontFallback, FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, Rect, UDim, UDim2, VariantType, Vector2, Vector3,
+    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceEnvelope,
+    ColorSequenceKeypoint, EnumItem, Font, FontFallback, FontStyle, FontWeight, Matrix3,
+    NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, UDim, UDim2, VariantType, Vector2,
+    Vector3,
 };
 
 use super::{
-    color_sequence_envelope::{ColorSequenceEnvelopeSource, WRITTEN_ENVELOPE_BITS},
-    diagnostic_sink::AttributeReadSink,
-    type_id, AttributeError,
+    color_sequence_envelope_source::ColorSequenceEnvelopeSource,
+    diagnostic_sink::AttributeReadSink, type_id, AttributeError,
 };
 
 /// Decodes AttributesSerialize once using the entry's selected evidence retention.
@@ -67,7 +67,7 @@ pub(super) fn read_attributes<R: Read, S: AttributeReadSink>(
                 for keypoint_index in 0..size {
                     let found_bits = read_u32(&mut value)
                         .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint envelope"))?;
-                    if found_bits != WRITTEN_ENVELOPE_BITS {
+                    if found_bits != ColorSequenceEnvelope::NORMALIZED_BITS {
                         diagnostics.color_sequence_envelope(ColorSequenceEnvelopeSource {
                             attribute: &key,
                             index,

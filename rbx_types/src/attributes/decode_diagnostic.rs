@@ -1,4 +1,4 @@
-use crate::{FontFallback, Variant};
+use crate::{ColorSequenceEnvelope, FontFallback, Variant};
 
 /// A source distinction replaced while decoding an otherwise valid attribute.
 #[derive(Debug, Clone, PartialEq)]
@@ -11,10 +11,8 @@ pub enum AttributeDecodeDiagnostic {
         index: u32,
         /// The zero-based keypoint index within that attribute's sequence.
         keypoint_index: u32,
-        /// The exact original IEEE 754 single-precision envelope bits.
-        found_bits: u32,
-        /// The positive-zero bits emitted for this field by the attribute writer.
-        normalized_bits: u32,
+        /// The exact original bits and the shared writer normalization.
+        envelope: ColorSequenceEnvelope,
     },
     /// A later entry with the same name displaced an already decoded value.
     DuplicateEntry {

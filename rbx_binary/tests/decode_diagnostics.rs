@@ -38,7 +38,10 @@ behave! {
             let report = Deserializer::new().deserialize_with_diagnostics(bytes.as_slice())?;
             expect!(report.diagnostics().len()).to_equal(1)?;
             match report.diagnostics() {
-                [DecodeDiagnostic::AttributeLoss { property, instance, diagnostic: AttributeDecodeDiagnostic::ColorSequenceEnvelope { attribute, index: 0, keypoint_index: 0, found_bits: 0x8000_0000, normalized_bits: 0 } }] => {
+                [DecodeDiagnostic::AttributeLoss { property, instance, diagnostic: AttributeDecodeDiagnostic::ColorSequenceEnvelope { attribute, index: 0, keypoint_index: 0, envelope } }] => {
+                    let envelope: &rbx_binary::ColorSequenceEnvelope = envelope;
+                    expect!(envelope.bits()).to_equal(0x8000_0000)?;
+                    expect!(envelope.normalized_bits()).to_equal(0)?;
                     expect!(attribute.as_str()).to_equal("C")?;
                     expect!(property.property_name()).to_equal("AttributesSerialize")?;
                     expect!(property.class_name()).to_equal("Folder")?;

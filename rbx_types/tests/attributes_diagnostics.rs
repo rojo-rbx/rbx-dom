@@ -60,8 +60,9 @@ behave! {
                 let mut found = Vec::new();
                 for diagnostic in report.diagnostics() {
                     match diagnostic {
-                        AttributeDecodeDiagnostic::ColorSequenceEnvelope { attribute, index, keypoint_index, found_bits, normalized_bits } => {
-                            found.push((attribute.as_str(), *index, *keypoint_index, *found_bits, *normalized_bits));
+                        AttributeDecodeDiagnostic::ColorSequenceEnvelope { attribute, index, keypoint_index, envelope } => {
+                            let envelope: &rbx_types::ColorSequenceEnvelope = envelope;
+                            found.push((attribute.as_str(), *index, *keypoint_index, envelope.bits(), envelope.normalized_bits()));
                         }
                         found => expect!(format!("{found:?}")).to_equal("a color envelope source distinction".to_owned())?,
                     }

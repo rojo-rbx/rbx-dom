@@ -1,8 +1,8 @@
 use std::collections::BTreeMap;
 
-use crate::{FontFallback, Variant};
+use crate::{ColorSequenceEnvelope, FontFallback, Variant};
 
-use super::color_sequence_envelope::{ColorSequenceEnvelopeSource, WRITTEN_ENVELOPE_BITS};
+use super::color_sequence_envelope_source::ColorSequenceEnvelopeSource;
 use super::{AttributeDecodeDiagnostic, Attributes, AttributesDecodeReport};
 
 /// Selects source retention without adding diagnostic state to legacy values.
@@ -68,8 +68,7 @@ impl AttributeReadSink for CollectAttributeDiagnostics {
                 attribute: source.attribute.to_owned(),
                 index: source.index,
                 keypoint_index: source.keypoint_index,
-                found_bits: source.found_bits,
-                normalized_bits: WRITTEN_ENVELOPE_BITS,
+                envelope: ColorSequenceEnvelope::from_bits(source.found_bits),
             });
     }
 

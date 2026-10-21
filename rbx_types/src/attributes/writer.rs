@@ -3,12 +3,12 @@ use std::{
     io::{self, Write},
 };
 
-use super::{color_sequence_envelope::WRITTEN_ENVELOPE_BITS, type_id, AttributeError};
+use super::{type_id, AttributeError};
 
 use crate::{
     basic_types::{Color3, UDim, Vector2},
     variant::Variant,
-    Vector3,
+    ColorSequenceEnvelope, Vector3,
 };
 
 /// Writes the attribute property (AttributesSerialize) from a map of attribute names -> values.
@@ -37,7 +37,7 @@ pub(crate) fn write_attributes<W: Write>(
                 write_u32(&mut writer, sequence.keypoints.len() as u32)?;
 
                 for keypoint in &sequence.keypoints {
-                    writer.write_all(&WRITTEN_ENVELOPE_BITS.to_le_bytes())?;
+                    writer.write_all(&ColorSequenceEnvelope::NORMALIZED_BITS.to_le_bytes())?;
                     write_f32(&mut writer, keypoint.time)?;
                     write_color3(&mut writer, keypoint.color)?;
                 }
