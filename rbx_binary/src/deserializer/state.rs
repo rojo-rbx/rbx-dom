@@ -19,13 +19,13 @@ use crate::{
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt},
     types::Type,
-    BinaryStringFallbackCause, DecodeDiagnostic, DecodeReport, InstanceLocation, PropertyLocation,
+    BinaryStringFallbackCause, DecodeDiagnostic, InstanceLocation, PropertyLocation,
     PropertySkipReason, ReferenceKind,
 };
 
-use super::{error::InnerError, header::FileHeader, Deserializer};
+use super::{diagnostic_sink::DiagnosticSink, error::InnerError, header::FileHeader, Deserializer};
 
-pub(super) struct DeserializerState<'db, R> {
+pub(super) struct DeserializerState<'db, R, S> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
 
@@ -53,7 +53,7 @@ pub(super) struct DeserializerState<'db, R> {
     instance_key_by_ref: HashMap<i32, InstanceKey>,
 
     /// All of the instances known by the deserializer.
-    instances: Vec<Instance>,
+    instances: Vec<Instance<S>>,
 
     /// Referents for all of the instances with no parent, in order they appear
     /// in the file.
@@ -65,7 +65,7 @@ pub(super) struct DeserializerState<'db, R> {
     unknown_type_ids: HashSet<u8>,
 
     /// Source evidence for chunks or properties skipped before instance decoding.
-    diagnostics: Vec<DecodeDiagnostic>,
+    diagnostics: S,
 }
 
 /// Represents a unique instance class. Binary models define all their instance
@@ -92,7 +92,7 @@ struct InstanceKey {
 /// Contains all the information we need to gather in order to construct an
 /// instance. Incrementally built up by the deserializer as we decode different
 /// chunks.
-struct Instance {
+struct Instance<S> {
     /// The original native ID, independent of the allocated DOM referent.
     document_referent: i32,
 
@@ -100,7 +100,7 @@ struct Instance {
     class_name: Ustr,
 
     /// Losses discovered while reading this instance, in decode order.
-    diagnostics: Vec<DecodeDiagnostic>,
+    diagnostics: S,
 
     /// A work-in-progress builder that will be used to construct this instance.
     builder: InstanceBuilder,
@@ -115,40 +115,55 @@ struct Instance {
 /// contains a migration for some properties Roblox has replaced with
 /// others (like Font, which has been superceded by FontFace).
 #[derive(Debug)]
-struct CanonicalProperty<'db> {
+struct CanonicalProperty<'db, 'source> {
     name: Ustr,
     ty: VariantType,
     migration: Option<&'db PropertySerialization<'db>>,
-    source: PropertyLocation,
+    source: PropertySource<'source>,
 }
 
-struct CanonicalPropertyRequest<'de> {
-    database: &'de ReflectionDatabase<'de>,
+#[derive(Debug, Clone, Copy)]
+struct PropertySource<'source> {
+    class_name: Ustr,
+    property_name: &'source str,
+    type_id: u32,
+}
+
+impl PropertySource<'_> {
+    fn location(self) -> PropertyLocation {
+        PropertyLocation::new(
+            self.class_name.to_string(),
+            self.property_name.to_owned(),
+            self.type_id,
+        )
+    }
+}
+
+struct CanonicalPropertyRequest<'db, 'source, 'call, S> {
+    database: &'db ReflectionDatabase<'db>,
     binary_type: Type,
     binary_type_byte: u8,
-    class_descriptor: Option<&'de ClassDescriptor<'de>>,
-    source: PropertyLocation,
+    class_descriptor: Option<&'db ClassDescriptor<'db>>,
+    source: PropertySource<'source>,
+    instances: &'call [Instance<S>],
+    diagnostics: &'call mut S,
+    payload: &'call [u8],
 }
 
-enum CanonicalPropertyResolution<'de> {
-    Use(CanonicalProperty<'de>),
-    Skip {
-        source: PropertyLocation,
-        reason: PropertySkipReason,
-    },
-}
-
-fn find_canonical_property<'de>(
-    request: CanonicalPropertyRequest<'de>,
-) -> CanonicalPropertyResolution<'de> {
+fn find_canonical_property<'db, 'source, S: DiagnosticSink>(
+    request: CanonicalPropertyRequest<'db, 'source, '_, S>,
+) -> Option<CanonicalProperty<'db, 'source>> {
     let CanonicalPropertyRequest {
         database,
         binary_type,
         binary_type_byte,
         class_descriptor,
         source,
+        instances,
+        diagnostics,
+        payload,
     } = request;
-    match find_property_descriptors(database, class_descriptor, source.property_name()) {
+    match find_property_descriptors(database, class_descriptor, source.property_name) {
         Some((_, descriptors)) => {
             // If this descriptor is known but wasn't supposed to be
             // serialized, we should skip it.
@@ -173,13 +188,16 @@ fn find_canonical_property<'de>(
                     "Skipping property {} as it is canonical and should not serialize.",
                     descriptors.canonical.name
                 );
-                return CanonicalPropertyResolution::Skip {
-                    source,
+                diagnostics.record(|| DecodeDiagnostic::PropertySkipped {
+                    property: source.location(),
+                    instances: instances.iter().map(Instance::location).collect(),
                     reason: PropertySkipReason::DoesNotSerialize {
                         canonical_property: descriptors.canonical.name.to_owned(),
                         binary_type: binary_type_byte,
                     },
-                };
+                    data: payload.to_vec(),
+                });
+                return None;
             }
 
             let canonical_name = descriptors.canonical.name;
@@ -195,7 +213,7 @@ fn find_canonical_property<'de>(
                 "Known prop, canonical name {canonical_name} and type {canonical_type:?}, with {migration:?} migration",
             );
 
-            CanonicalPropertyResolution::Use(CanonicalProperty {
+            Some(CanonicalProperty {
                 name: canonical_name.into(),
                 ty: canonical_type,
                 migration,
@@ -207,19 +225,22 @@ fn find_canonical_property<'de>(
                 Some(rbx_type) => rbx_type,
                 None => {
                     log::warn!("Unsupported prop type {binary_type:?}, skipping property");
-                    return CanonicalPropertyResolution::Skip {
-                        source,
+                    diagnostics.record(|| DecodeDiagnostic::PropertySkipped {
+                        property: source.location(),
+                        instances: instances.iter().map(Instance::location).collect(),
                         reason: PropertySkipReason::UnsupportedType {
                             binary_type: binary_type_byte,
                         },
-                    };
+                        data: payload.to_vec(),
+                    });
+                    return None;
                 }
             };
 
             log::trace!("Unknown prop, using type {canonical_type:?}");
 
-            CanonicalPropertyResolution::Use(CanonicalProperty {
-                name: source.property_name().into(),
+            Some(CanonicalProperty {
+                name: source.property_name.into(),
                 ty: canonical_type,
                 migration: None,
                 source,
@@ -229,9 +250,16 @@ fn find_canonical_property<'de>(
 }
 
 /// Records evidence on the same instance that receives each decoded value.
-impl Instance {
+impl<S: DiagnosticSink> Instance<S> {
     fn location(&self) -> InstanceLocation {
         InstanceLocation::new(self.document_referent, self.builder.referent())
+    }
+
+    fn record(&mut self, make: impl FnOnce(InstanceLocation) -> DecodeDiagnostic) {
+        let document_referent = self.document_referent;
+        let dom_ref = self.builder.referent();
+        self.diagnostics
+            .record(|| make(InstanceLocation::new(document_referent, dom_ref)));
     }
 
     fn add_property(&mut self, canonical_property: &CanonicalProperty, value: Variant) {
@@ -251,9 +279,9 @@ impl Instance {
                 }
                 Err(cause) => {
                     log::warn!("Failed to migrate property {old_property_name} because: {cause}");
-                    self.diagnostics.push(DecodeDiagnostic::MigrationFailed {
-                        property: canonical_property.source.clone(),
-                        instance: self.location(),
+                    self.record(|location| DecodeDiagnostic::MigrationFailed {
+                        property: canonical_property.source.location(),
+                        instance: location,
                         canonical_property: canonical_property.name.to_string(),
                         cause,
                     });
@@ -265,7 +293,7 @@ impl Instance {
     }
 }
 
-impl<'db, R: Read> DeserializerState<'db, R> {
+impl<'db, R: Read, S: DiagnosticSink> DeserializerState<'db, R, S> {
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
         mut input: R,
@@ -291,12 +319,12 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             instances,
             root_instance_refs: Vec::new(),
             unknown_type_ids: HashSet::new(),
-            diagnostics: Vec::new(),
+            diagnostics: S::default(),
         })
     }
 
     pub(super) fn ignore_unknown_chunk(&mut self, chunk: Chunk) {
-        self.diagnostics.push(DecodeDiagnostic::UnknownChunk {
+        self.diagnostics.record(|| DecodeDiagnostic::UnknownChunk {
             name: chunk.name,
             data: chunk.data,
         });
@@ -386,7 +414,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             self.instances.push(Instance {
                 document_referent: referent,
                 class_name: type_name.as_str().into(),
-                diagnostics: Vec::new(),
+                diagnostics: S::default(),
                 builder,
                 children: Vec::new(),
             });
@@ -434,15 +462,14 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let binary_type_byte = match chunk.read_u8() {
             Ok(byte) => byte,
             Err(_) => {
-                self.diagnostics.push(DecodeDiagnostic::PropertySkipped {
-                    property: PropertyLocation::new(type_name.to_string(), prop_name, type_id),
-                    instances: self.instances[instances.clone()]
-                        .iter()
-                        .map(Instance::location)
-                        .collect(),
-                    reason: PropertySkipReason::MissingType,
-                    data: Vec::new(),
-                });
+                let source_instances = &self.instances[instances.clone()];
+                self.diagnostics
+                    .record(|| DecodeDiagnostic::PropertySkipped {
+                        property: PropertyLocation::new(type_name.to_string(), prop_name, type_id),
+                        instances: source_instances.iter().map(Instance::location).collect(),
+                        reason: PropertySkipReason::MissingType,
+                        data: Vec::new(),
+                    });
                 return Ok(());
             }
         };
@@ -460,15 +487,14 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                     );
                 }
 
-                self.diagnostics.push(DecodeDiagnostic::PropertySkipped {
-                    property: PropertyLocation::new(type_name.to_string(), prop_name, type_id),
-                    instances: self.instances[instances.clone()]
-                        .iter()
-                        .map(Instance::location)
-                        .collect(),
-                    reason: PropertySkipReason::UnknownType(binary_type_byte),
-                    data: chunk.to_vec(),
-                });
+                let source_instances = &self.instances[instances.clone()];
+                self.diagnostics
+                    .record(|| DecodeDiagnostic::PropertySkipped {
+                        property: PropertyLocation::new(type_name.to_string(), prop_name, type_id),
+                        instances: source_instances.iter().map(Instance::location).collect(),
+                        reason: PropertySkipReason::UnknownType(binary_type_byte),
+                        data: chunk.to_vec(),
+                    });
                 return Ok(());
             }
         };
@@ -494,13 +520,13 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 let value = match std::str::from_utf8(&binary_string) {
                     Ok(value) => value.to_owned(),
                     Err(cause) => {
-                        instance.diagnostics.push(DecodeDiagnostic::InvalidUtf8 {
+                        instance.record(|location| DecodeDiagnostic::InvalidUtf8 {
                             property: PropertyLocation::new(
                                 type_name.to_string(),
                                 prop_name.clone(),
                                 type_id,
                             ),
-                            instance: instance.location(),
+                            instance: location,
                             bytes: binary_string.clone(),
                             cause,
                         });
@@ -520,24 +546,23 @@ This may cause unexpected or broken behavior in your final results if you rely o
             return Ok(());
         }
 
-        let source = PropertyLocation::new(type_name.to_string(), prop_name.clone(), type_id);
+        let source = PropertySource {
+            class_name: type_name,
+            property_name: &prop_name,
+            type_id,
+        };
         let property = match find_canonical_property(CanonicalPropertyRequest {
             database: self.deserializer.database,
             binary_type,
             binary_type_byte,
             class_descriptor,
             source,
+            instances,
+            diagnostics: &mut self.diagnostics,
+            payload: chunk,
         }) {
-            CanonicalPropertyResolution::Use(property) => property,
-            CanonicalPropertyResolution::Skip { source, reason } => {
-                self.diagnostics.push(DecodeDiagnostic::PropertySkipped {
-                    property: source,
-                    instances: instances.iter().map(Instance::location).collect(),
-                    reason,
-                    data: chunk.to_vec(),
-                });
-                return Ok(());
-            }
+            Some(property) => property,
+            None => return Ok(()),
         };
 
         let canonical_type = property.ty;
@@ -550,9 +575,9 @@ This may cause unexpected or broken behavior in your final results if you rely o
                         let value = match std::str::from_utf8(&binary_string) {
                             Ok(value) => value.to_owned(),
                             Err(cause) => {
-                                instance.diagnostics.push(DecodeDiagnostic::InvalidUtf8 {
-                                    property: property.source.clone(),
-                                    instance: instance.location(),
+                                instance.record(|location| DecodeDiagnostic::InvalidUtf8 {
+                                    property: property.source.location(),
+                                    instance: location,
                                     bytes: binary_string.clone(),
                                     cause,
                                 });
@@ -615,14 +640,14 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                     err
                                 );
 
-                                instance
-                                    .diagnostics
-                                    .push(DecodeDiagnostic::BinaryStringFallback {
-                                        property: property.source.clone(),
-                                        instance: instance.location(),
+                                instance.record(|location| {
+                                    DecodeDiagnostic::BinaryStringFallback {
+                                        property: property.source.location(),
+                                        instance: location,
                                         bytes: buffer.clone(),
                                         cause: BinaryStringFallbackCause::Attributes(err),
-                                    });
+                                    }
+                                });
                                 instance.add_property(&property, BinaryString::from(buffer).into());
                             }
                         }
@@ -642,14 +667,14 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                     err
                                 );
 
-                                instance
-                                    .diagnostics
-                                    .push(DecodeDiagnostic::BinaryStringFallback {
-                                        property: property.source.clone(),
-                                        instance: instance.location(),
+                                instance.record(|location| {
+                                    DecodeDiagnostic::BinaryStringFallback {
+                                        property: property.source.location(),
+                                        instance: location,
                                         bytes: buffer.clone(),
                                         cause: BinaryStringFallbackCause::MaterialColors(err),
-                                    });
+                                    }
+                                });
                                 instance.add_property(&property, BinaryString::from(buffer).into());
                             }
                         }
@@ -1059,14 +1084,12 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             key.referent
                         } else {
                             if value != -1 {
-                                instance
-                                    .diagnostics
-                                    .push(DecodeDiagnostic::UnresolvedReference {
-                                        property: property.source.clone(),
-                                        instance: instance.location(),
-                                        target: value,
-                                        kind: ReferenceKind::Ref,
-                                    });
+                                instance.record(|location| DecodeDiagnostic::UnresolvedReference {
+                                    property: property.source.location(),
+                                    instance: location,
+                                    target: value,
+                                    kind: ReferenceKind::Ref,
+                                });
                             }
                             Ref::none()
                         };
@@ -1559,16 +1582,16 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let external_count = chunk.read_le_u32()?;
                     // Roblox reserves this section for internal use. Preserve
                     // its source bytes as evidence rather than interpreting it.
-                    let mut bytes = Vec::new();
-                    chunk.read_to_end(&mut bytes)?;
-                    if external_count != 0 || !bytes.is_empty() {
-                        self.diagnostics
-                            .push(DecodeDiagnostic::ExternalContentReferencesIgnored {
-                                property: property.source.clone(),
+                    let external_data = chunk;
+                    if external_count != 0 || !external_data.is_empty() {
+                        self.diagnostics.record(|| {
+                            DecodeDiagnostic::ExternalContentReferencesIgnored {
+                                property: property.source.location(),
                                 instances: instances.iter().map(Instance::location).collect(),
                                 count: external_count,
-                                data: bytes,
-                            });
+                                data: external_data.to_vec(),
+                            }
+                        });
                     }
 
                     for (ty, instance) in values.zip(instances) {
@@ -1601,14 +1624,14 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                     Content::from_referent(key.referent)
                                 } else {
                                     if read_value != -1 {
-                                        instance.diagnostics.push(
+                                        instance.record(|location| {
                                             DecodeDiagnostic::UnresolvedReference {
-                                                property: property.source.clone(),
-                                                instance: instance.location(),
+                                                property: property.source.location(),
+                                                instance: location,
                                                 target: read_value,
                                                 kind: ReferenceKind::ContentObject,
-                                            },
-                                        );
+                                            }
+                                        });
                                     }
                                     Content::none()
                                 }
@@ -1693,7 +1716,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     #[profiling::function]
-    pub(super) fn finish(mut self) -> DecodeReport {
+    pub(super) fn finish(mut self) -> S::Output {
         log::trace!("Constructing tree from deserialized data");
 
         for instance in &mut self.instances {
@@ -1724,7 +1747,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             let impostor = Instance {
                 document_referent: referent,
                 class_name: empty_ustr,
-                diagnostics: Vec::new(),
+                diagnostics: S::default(),
                 builder: InstanceBuilder::new(empty_ustr),
                 children: Vec::new(),
             };
@@ -1741,13 +1764,14 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 .instance_key_by_ref
                 .contains_key(&instance.document_referent)
             {
-                self.diagnostics.push(DecodeDiagnostic::UnparentedInstance {
-                    instance: instance.location(),
-                    class_name: instance.class_name.to_string(),
-                });
+                self.diagnostics
+                    .record(|| DecodeDiagnostic::UnparentedInstance {
+                        instance: instance.location(),
+                        class_name: instance.class_name.to_string(),
+                    });
             }
         }
 
-        DecodeReport::new(self.tree, self.diagnostics)
+        self.diagnostics.finish(self.tree)
     }
 }

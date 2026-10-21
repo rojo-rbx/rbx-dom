@@ -1,3 +1,4 @@
+mod diagnostic_sink;
 mod error;
 mod header;
 mod state;
@@ -7,6 +8,7 @@ use std::{io::Read, str};
 use rbx_dom_weak::WeakDom;
 use rbx_reflection::ReflectionDatabase;
 
+use self::diagnostic_sink::{CollectDiagnostics, DiagnosticSink, DiscardDiagnostics};
 use self::state::DeserializerState;
 use crate::DecodeReport;
 
@@ -69,8 +71,11 @@ impl<'db> Deserializer<'db> {
 
     /// Deserialize a Roblox binary model or place from the given stream using
     /// this deserializer.
+    ///
+    /// This entry does not retain diagnostic payloads. Use
+    /// [`Self::deserialize_with_diagnostics`] when source-loss evidence is needed.
     pub fn deserialize<R: Read>(&self, reader: R) -> Result<WeakDom, Error> {
-        Ok(self.deserialize_with_diagnostics(reader)?.into_dom())
+        self.deserialize_with_sink::<R, DiscardDiagnostics>(reader)
     }
 
     /// Decodes once, returning the DOM together with structured evidence of
@@ -83,9 +88,16 @@ impl<'db> Deserializer<'db> {
     /// See [`DecodeDiagnostic`](crate::DecodeDiagnostic) for the recorded loss
     /// conditions and [`DecodeReport::diagnostics`] for their ordering.
     pub fn deserialize_with_diagnostics<R: Read>(&self, reader: R) -> Result<DecodeReport, Error> {
+        self.deserialize_with_sink::<R, CollectDiagnostics>(reader)
+    }
+
+    fn deserialize_with_sink<R: Read, S: DiagnosticSink>(
+        &self,
+        reader: R,
+    ) -> Result<S::Output, Error> {
         profiling::scope!("rbx_binary::deserialize");
 
-        let mut deserializer = DeserializerState::new(self, reader)?;
+        let mut deserializer = DeserializerState::<R, S>::new(self, reader)?;
 
         loop {
             let chunk = deserializer.next_chunk()?;
