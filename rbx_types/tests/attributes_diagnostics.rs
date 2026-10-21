@@ -2,7 +2,8 @@ use std::convert::TryFrom;
 
 use behave::prelude::*;
 use rbx_types::{
-    AttributeDecodeDiagnostic, Attributes, Font, FontFallback, FontStyle, FontWeight, Variant,
+    AttributeDecodeDiagnostic, Attributes, BrickColor, Font, FontFallback, FontStyle, FontWeight,
+    Variant,
 };
 
 fn unknown_font() -> Result<Vec<u8>, std::num::TryFromIntError> {
@@ -17,6 +18,30 @@ fn unknown_font() -> Result<Vec<u8>, std::num::TryFromIntError> {
     bytes.extend(family.as_bytes());
     bytes.extend(0u32.to_le_bytes());
     Ok(bytes)
+}
+
+behave! {
+    "Reading attribute colors" {
+        "known colors keep their full declared numbers without diagnostic noise" {
+            // @behavior attribute-brick-color-known-value-control
+            // @boundary before=known-color-numbers at=public-attributes-readers after=unchanged-known-colors
+            // @red An incorrect range repair could reject valid colors or alter their numbers.
+            // @green White1 and MediumStoneGrey194 still decode without diagnostics and roundtrip unchanged.
+            for (raw, expected) in [(1u32, BrickColor::White), (194, BrickColor::MediumStoneGrey)] {
+                let mut bytes = vec![1, 0, 0, 0, 1, 0, 0, 0, b'A', 0x0e];
+                bytes.extend(raw.to_le_bytes());
+                let legacy = Attributes::from_reader(bytes.as_slice())?;
+                let report = Attributes::from_reader_with_diagnostics(bytes.as_slice())?;
+                expect!(report.attributes()).to_equal(&legacy)?;
+                expect!(report.attributes().get("A")).to_equal(Some(&Variant::BrickColor(expected)))?;
+                expect!(report.diagnostics().len()).to_equal(0)?;
+                let mut rewritten = Vec::new();
+                report.attributes().to_writer(&mut rewritten)?;
+                expect!(rewritten).to_equal(bytes)?;
+            }
+        }
+
+    }
 }
 
 behave! {

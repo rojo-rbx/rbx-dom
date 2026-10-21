@@ -21,6 +21,32 @@ use native_model::{interleaved, referents, strings, Model};
 
 behave! {
     "Reading binary models with retained loss evidence" {
+        "an out-of-range attribute color remains raw bytes with its original typed decoder error" {
+            // @behavior native-attribute-brick-color-full-width-refusal
+            // @boundary before=attribute-color65537 at=public-native-report after=raw-buffer-and-original-semantic-error
+            // @red The native report currently accepts65537 as White with no fallback.
+            // @green The original typed Attributes error and complete buffer survive native fallback.
+            let mut attributes = vec![1, 0, 0, 0, 1, 0, 0, 0, b'A', 0x0e];
+            attributes.extend(65_537u32.to_le_bytes());
+            let mut model = Model::new("Folder")?;
+            model.property("AttributesSerialize", &strings(&attributes, &0u32.to_le_bytes())?)?;
+            let bytes = model.finish()?;
+            let report = Deserializer::new().deserialize_with_diagnostics(bytes.as_slice())?;
+            expect!(report.diagnostics().len()).to_equal(1)?;
+            match report.diagnostics() {
+                [DecodeDiagnostic::BinaryStringFallback { property, instance, bytes: retained, cause: BinaryStringFallbackCause::Attributes(cause) }] => {
+                    let cause: &rbx_dom_weak::types::Error = cause;
+                    expect!(cause.to_string()).to_equal("invalid BrickColor value: 65537".to_owned())?;
+                    expect!(retained).to_equal(&attributes)?;
+                    expect!(property.property_name()).to_equal("AttributesSerialize")?;
+                    expect!(instance.document_referent()).to_equal(10)?;
+                    expect!(report.dom().get_by_ref(instance.dom_ref()).and_then(|node| node.properties.get(&"Attributes".into())))
+                        .to_equal(Some(&Variant::BinaryString(attributes.into())))?;
+                }
+                found => expect!(format!("{found:?}")).to_equal("one typed Attributes binary fallback".to_owned())?,
+            }
+        }
+
         "Font substitutions inside successful Attributes keep the native instance identity" {
             // @behavior native-nested-attribute-font-evidence
             // @boundary before=successful-attributes-font-fallback at=public-native-report after=nested-source-evidence

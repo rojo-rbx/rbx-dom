@@ -1,5 +1,6 @@
 use std::{
     collections::BTreeMap,
+    convert::TryFrom,
     io::{self, Read},
 };
 
@@ -37,7 +38,11 @@ pub(crate) fn read_attributes<R: Read>(
                 let color =
                     read_u32(&mut value).map_err(|_| AttributeError::ReadType("BrickColor"))?;
 
-                BrickColor::from_number(color as u16)
+                let number = match u16::try_from(color) {
+                    Ok(number) => number,
+                    Err(_) => return Err(AttributeError::InvalidBrickColor(color)),
+                };
+                BrickColor::from_number(number)
                     .ok_or(AttributeError::InvalidBrickColor(color))?
                     .into()
             }
