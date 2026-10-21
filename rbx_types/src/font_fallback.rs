@@ -1,4 +1,4 @@
-use rbx_dom_weak::types::{FontStyle, FontWeight};
+use crate::{FontStyle, FontWeight};
 
 /// Identifies an unknown native Font discriminator and the default substituted.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

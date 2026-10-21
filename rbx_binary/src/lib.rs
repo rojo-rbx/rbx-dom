@@ -60,7 +60,6 @@ mod core;
 mod decode_diagnostic;
 mod decode_report;
 mod deserializer;
-mod font_fallback;
 mod instance_location;
 mod property_location;
 mod property_skip_reason;
@@ -78,6 +77,8 @@ use std::io::{Read, Write};
 
 use rbx_dom_weak::{types::Ref, WeakDom};
 
+pub use rbx_dom_weak::types::FontFallback;
+
 /// An unstable textual format that can be used to debug binary models.
 #[cfg(feature = "unstable_text_format")]
 pub mod text_format {
@@ -89,7 +90,6 @@ pub use crate::{
     decode_diagnostic::DecodeDiagnostic,
     decode_report::DecodeReport,
     deserializer::{Deserializer, Error as DecodeError},
-    font_fallback::FontFallback,
     instance_location::InstanceLocation,
     property_location::PropertyLocation,
     property_skip_reason::PropertySkipReason,
