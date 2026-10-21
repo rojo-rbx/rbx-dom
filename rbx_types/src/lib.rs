@@ -10,6 +10,12 @@ mod binary_string;
 mod brick_color;
 mod color_sequence_envelope;
 mod content;
+#[cfg(feature = "serde")]
+mod diagnostic_serde;
+#[cfg(feature = "serde")]
+mod diagnostic_serialization_error;
+#[cfg(feature = "serde")]
+mod diagnostic_value;
 mod error;
 mod faces;
 mod font;
@@ -32,6 +38,10 @@ pub use binary_string::*;
 pub use brick_color::*;
 pub use color_sequence_envelope::*;
 pub use content::*;
+#[cfg(feature = "serde")]
+pub use diagnostic_serialization_error::*;
+#[cfg(feature = "serde")]
+pub use diagnostic_value::*;
 pub use error::*;
 pub use faces::*;
 pub use font::*;
