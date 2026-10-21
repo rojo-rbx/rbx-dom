@@ -7,6 +7,7 @@
 /// [FontWeight-rbx]: https://create.roblox.com/docs/reference/engine/enums/FontWeight
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 #[non_exhaustive]
 pub enum FontWeight {
     Thin,
@@ -71,6 +72,7 @@ impl FontWeight {
 /// [FontStyle-rbx]: https://create.roblox.com/docs/reference/engine/enums/FontStyle
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 #[non_exhaustive]
 pub enum FontStyle {
     #[default]

@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{ser::Error, Serialize, Serializer};
 use serde_value::Value;
 
 use crate::{DiagnosticSerializationError, Variant};
@@ -75,6 +75,19 @@ impl DiagnosticValue {
         serde_value::to_value(value)
             .map(Self::from_value)
             .map_err(|source| DiagnosticSerializationError::Value { source })
+    }
+
+    /// Applies this projection to a native diagnostic's original Variant field.
+    ///
+    /// This signature follows Serde's field-adapter contract. A projection refusal
+    /// becomes a serializer failure; the caller still owns the original diagnostic.
+    pub fn serialize_variant<S: Serializer>(
+        value: &Variant,
+        serializer: S,
+    ) -> Result<S::Ok, S::Error> {
+        Self::from_variant(value)
+            .map_err(S::Error::custom)?
+            .serialize(serializer)
     }
 
     fn from_value(value: Value) -> Self {

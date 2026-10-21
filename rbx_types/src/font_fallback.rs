@@ -2,6 +2,8 @@ use crate::{FontStyle, FontWeight};
 
 /// Identifies an unknown native Font discriminator and the default substituted.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub enum FontFallback {
     /// An unknown two-byte weight was replaced with the native default weight.
     Weight {

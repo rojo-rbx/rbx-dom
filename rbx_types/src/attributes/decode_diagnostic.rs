@@ -2,6 +2,8 @@ use crate::{ColorSequenceEnvelope, FontFallback, Variant};
 
 /// A source distinction replaced while decoding an otherwise valid attribute.
 #[derive(Debug, Clone, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub enum AttributeDecodeDiagnostic {
     /// A color envelope's source bits differed from those emitted by the writer.
     ColorSequenceEnvelope {
@@ -23,6 +25,11 @@ pub enum AttributeDecodeDiagnostic {
         /// The serialized entry index whose value replaced it.
         replacement_index: u32,
         /// The actual decoded value removed from the resulting attribute map.
+        #[cfg_attr(
+            feature = "serde",
+            serde(serialize_with = "crate::DiagnosticValue::serialize_variant")
+        )]
+        #[cfg_attr(feature = "typescript", ts(as = "crate::DiagnosticValue"))]
         displaced_value: Variant,
     },
     /// An unknown Font weight or style became a native default.

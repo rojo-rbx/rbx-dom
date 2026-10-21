@@ -5,6 +5,8 @@ use crate::{AttributeError, MaterialColorsError, Matrix3Error, UniqueIdError};
 /// Represents an error that occurred when using a fallible method.
 #[derive(Debug, Error)]
 #[error(transparent)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize), serde(transparent))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS), ts(as = "ErrorKind"))]
 pub struct Error {
     source: Box<ErrorKind>,
 }
@@ -51,6 +53,8 @@ impl From<UniqueIdError> for Error {
 
 /// The original structured cause of a native value operation's failure.
 #[derive(Debug, Error)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub enum ErrorKind {
     /// An attribute read or write failed.
     #[error(transparent)]

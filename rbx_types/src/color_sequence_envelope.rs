@@ -4,6 +4,11 @@
 /// decide whether the source differs from the writer's normalization before
 /// constructing diagnostic evidence.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(
+    feature = "typescript",
+    derive(ts_rs::TS),
+    ts(as = "ColorSequenceEnvelopeDeclaration")
+)]
 pub struct ColorSequenceEnvelope {
     bits: u32,
 }
@@ -27,4 +32,28 @@ impl ColorSequenceEnvelope {
     pub const fn normalized_bits(&self) -> u32 {
         Self::NORMALIZED_BITS
     }
+}
+
+/// Writes the original bits beside the normalization they were replaced by,
+/// both read from this one value.
+#[cfg(feature = "serde")]
+impl serde::Serialize for ColorSequenceEnvelope {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        use serde::ser::SerializeStruct;
+
+        let mut state = serializer.serialize_struct("ColorSequenceEnvelope", 2)?;
+        state.serialize_field("bits", &self.bits())?;
+        state.serialize_field("normalized_bits", &self.normalized_bits())?;
+        state.end()
+    }
+}
+
+/// Declares the same two fields the serializer writes.
+#[cfg(feature = "typescript")]
+#[derive(ts_rs::TS)]
+#[ts(rename = "ColorSequenceEnvelope")]
+#[allow(dead_code)]
+struct ColorSequenceEnvelopeDeclaration {
+    bits: u32,
+    normalized_bits: u32,
 }

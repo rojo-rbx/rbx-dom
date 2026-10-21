@@ -22,6 +22,8 @@ lazy_static! {
 
 /// Represents an error that can occur when constructing a new `UniqueId`.
 #[derive(Debug, Error)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub enum UniqueIdError {
     /// The current system time precedes the native epoch.
     #[error("SystemTime generated a timestamp that is before the UniqueId epoch")]
@@ -37,6 +39,11 @@ pub enum UniqueIdError {
     FromStrParseError {
         /// The original component parser failure; the input itself is not stored.
         #[from]
+        #[cfg_attr(
+            feature = "serde",
+            serde(serialize_with = "crate::IntErrorFacts::serialize_error")
+        )]
+        #[cfg_attr(feature = "typescript", ts(as = "crate::IntErrorFacts"))]
         err: ParseIntError,
     },
 }

@@ -231,6 +231,8 @@ pub struct Matrix3 {
 
 /// The original invalid discriminator encountered by a compressed rotation decoder.
 #[derive(Debug, Error)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub enum Matrix3Error {
     /// The source ID has no basic rotation.
     #[error("invalid rotation ID: {id}")]
