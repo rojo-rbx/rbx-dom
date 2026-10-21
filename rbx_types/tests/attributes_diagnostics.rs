@@ -21,6 +21,29 @@ fn unknown_font() -> Result<Vec<u8>, std::num::TryFromIntError> {
 }
 
 behave! {
+    "Reading repeated attribute entries" {
+        "each displaced healthy value keeps its original source entry" {
+            // @behavior attribute-duplicate-discard-evidence
+            // @boundary before=three-healthy-entries-with-one-name at=public-attributes-report after=actual-displaced-values-and-indices
+            // @red Last-value decoding succeeds with no diagnostics for the two displaced values.
+            // @green The audited report retains both displaced values without changing the legacy winner.
+            let mut bytes = 3u32.to_le_bytes().to_vec();
+            for value in [0, 1, 0] {
+                bytes.extend([1, 0, 0, 0, b'A', 3, value]);
+            }
+            let legacy = Attributes::from_reader(bytes.as_slice())?;
+            let report = Attributes::from_reader_with_diagnostics(bytes.as_slice())?;
+            expect!(report.attributes()).to_equal(&legacy)?;
+            expect!(report.attributes().get("A")).to_equal(Some(&Variant::Bool(false)))?;
+            expect!(report.diagnostics()).to_equal(&[
+                AttributeDecodeDiagnostic::DuplicateEntry { attribute: "A".to_owned(), index: 0, replacement_index: 1, displaced_value: Variant::Bool(false) },
+                AttributeDecodeDiagnostic::DuplicateEntry { attribute: "A".to_owned(), index: 1, replacement_index: 2, displaced_value: Variant::Bool(true) },
+            ][..])?;
+        }
+    }
+}
+
+behave! {
     "Reading attribute colors" {
         "known colors keep their full declared numbers without diagnostic noise" {
             // @behavior attribute-brick-color-known-value-control
@@ -74,8 +97,9 @@ behave! {
             bytes[..4].copy_from_slice(&2u32.to_le_bytes());
             bytes.extend_from_within(4..);
             let report = Attributes::from_reader_with_diagnostics(bytes.as_slice())?;
-            let positions: Vec<_> = report.diagnostics().iter().map(|diagnostic| match diagnostic {
-                AttributeDecodeDiagnostic::FontFallback { attribute, index, .. } => (attribute.as_str(), *index),
+            let positions: Vec<_> = report.diagnostics().iter().filter_map(|diagnostic| match diagnostic {
+                AttributeDecodeDiagnostic::FontFallback { attribute, index, .. } => Some((attribute.as_str(), *index)),
+                AttributeDecodeDiagnostic::DuplicateEntry { .. } => None,
             }).collect();
             expect!(positions).to_equal(vec![("Face", 0), ("Face", 0), ("Face", 1), ("Face", 1)])?;
             expect!(report.attributes().iter().count()).to_equal(1)?;

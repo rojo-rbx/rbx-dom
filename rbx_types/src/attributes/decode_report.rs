@@ -10,7 +10,7 @@ pub struct AttributesDecodeReport {
     diagnostics: Vec<AttributeDecodeDiagnostic>,
 }
 
-/// Keeps permissively decoded values paired with their original substitutions.
+/// Keeps permissively decoded values paired with their source loss evidence.
 impl AttributesDecodeReport {
     pub(super) fn new(attributes: Attributes, diagnostics: Vec<AttributeDecodeDiagnostic>) -> Self {
         Self {
@@ -24,7 +24,10 @@ impl AttributesDecodeReport {
         &self.attributes
     }
 
-    /// Borrows each substitution in serialized entry and field order.
+    /// Borrows losses in decoder encounter order.
+    ///
+    /// A duplicate-entry loss appears when a later entry displaces its value;
+    /// its retained source index identifies the original, earlier entry.
     pub fn diagnostics(&self) -> &[AttributeDecodeDiagnostic] {
         &self.diagnostics
     }

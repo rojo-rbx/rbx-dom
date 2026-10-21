@@ -21,6 +21,33 @@ use native_model::{interleaved, referents, strings, Model};
 
 behave! {
     "Reading binary models with retained loss evidence" {
+        "a displaced healthy attribute remains evidence on its containing native instance" {
+            // @behavior native-attribute-duplicate-discard-evidence
+            // @boundary before=duplicate-healthy-attributes at=public-native-report after=displaced-value-and-native-identity
+            // @red Successful native decoding returns an empty report after discarding the first value.
+            // @green The nested actual decoded value carries the source entry and native location.
+            let attributes = [2, 0, 0, 0, 1, 0, 0, 0, b'A', 3, 0, 1, 0, 0, 0, b'A', 3, 1];
+            let mut model = Model::new("Folder")?;
+            model.property("AttributesSerialize", &strings(&attributes, &0u32.to_le_bytes())?)?;
+            let bytes = model.finish()?;
+            let report = Deserializer::new().deserialize_with_diagnostics(bytes.as_slice())?;
+            expect!(report.diagnostics().len()).to_equal(1)?;
+            match report.diagnostics() {
+                [DecodeDiagnostic::AttributeLoss { property, instance, diagnostic: AttributeDecodeDiagnostic::DuplicateEntry { attribute, index: 0, replacement_index: 1, displaced_value: Variant::Bool(false) } }] => {
+                    expect!(attribute.as_str()).to_equal("A")?;
+                    expect!(property.property_name()).to_equal("AttributesSerialize")?;
+                    expect!(instance.document_referent()).to_equal(10)?;
+                    expect!(report.dom().root().children().first()).to_equal(Some(&instance.dom_ref()))?;
+                    expect!(report.dom().get_by_ref(instance.dom_ref()).and_then(|node| node.properties.get(&"Attributes".into())))
+                        .to_equal(Some(&Variant::Attributes(Attributes::new().with("A", true))))?;
+                }
+                found => expect!(format!("{found:?}")).to_equal("one displaced healthy attribute".to_owned())?,
+            }
+            let legacy = rbx_binary::from_reader(bytes.as_slice())?;
+            expect!(legacy.root().children().first().and_then(|referent| legacy.get_by_ref(*referent)).and_then(|node| node.properties.get(&"Attributes".into())))
+                .to_equal(Some(&Variant::Attributes(Attributes::new().with("A", true))))?;
+        }
+
         "an out-of-range attribute color remains raw bytes with its original typed decoder error" {
             // @behavior native-attribute-brick-color-full-width-refusal
             // @boundary before=attribute-color65537 at=public-native-report after=raw-buffer-and-original-semantic-error

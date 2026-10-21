@@ -1,5 +1,5 @@
 use std::{
-    collections::BTreeMap,
+    collections::{btree_map::Entry, BTreeMap},
     convert::TryFrom,
     io::{self, Read},
 };
@@ -7,21 +7,21 @@ use std::{
 use crate::{
     BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font,
     FontFallback, FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence,
-    NumberSequenceKeypoint, Rect, UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+    NumberSequenceKeypoint, Rect, UDim, UDim2, VariantType, Vector2, Vector3,
 };
 
-use super::{type_id, AttributeError};
+use super::{diagnostic_sink::AttributeReadSink, type_id, AttributeError};
 
-/// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
-pub(crate) fn read_attributes<R: Read>(
+/// Decodes AttributesSerialize once using the entry's selected evidence retention.
+pub(super) fn read_attributes<R: Read, S: AttributeReadSink>(
     mut value: R,
-    mut record: impl FnMut(u32, &str, FontFallback),
-) -> Result<BTreeMap<String, Variant>, AttributeError> {
+    mut diagnostics: S,
+) -> Result<S::Output, AttributeError> {
     let mut attributes = BTreeMap::new();
 
     let len = match read_option_u32(&mut value) {
         Ok(Some(len)) => len,
-        Ok(None) => return Ok(attributes),
+        Ok(None) => return Ok(diagnostics.finish(attributes)),
         Err(_) => return Err(AttributeError::InvalidLength),
     };
 
@@ -203,7 +203,7 @@ pub(crate) fn read_attributes<R: Read>(
                     Some(weight) => weight,
                     None => {
                         let replacement = FontWeight::default();
-                        record(
+                        diagnostics.font_fallback(
                             index,
                             &key,
                             FontFallback::Weight {
@@ -218,7 +218,7 @@ pub(crate) fn read_attributes<R: Read>(
                     Some(style) => style,
                     None => {
                         let replacement = FontStyle::default();
-                        record(
+                        diagnostics.font_fallback(
                             index,
                             &key,
                             FontFallback::Style {
@@ -253,10 +253,18 @@ pub(crate) fn read_attributes<R: Read>(
             other => return Err(AttributeError::UnsupportedVariantType(other)),
         };
 
-        attributes.insert(key, value);
+        match attributes.entry(key) {
+            Entry::Vacant(entry) => {
+                entry.insert(S::store(index, value));
+            }
+            Entry::Occupied(mut entry) => {
+                let displaced = entry.insert(S::store(index, value));
+                diagnostics.displaced(entry.key(), index, displaced);
+            }
+        }
     }
 
-    Ok(attributes)
+    Ok(diagnostics.finish(attributes))
 }
 
 fn read_u8<R: Read>(mut reader: R) -> io::Result<u8> {

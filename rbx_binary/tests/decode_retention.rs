@@ -140,6 +140,49 @@ fn legacy_from_reader(reader: BoundaryReader) -> Result<WeakDom, DecodeError> {
 
 behave! {
     "Reading ignored native chunks" {
+        "legacy duplicate entries allocate no diagnostic names while audited entries retain the displaced source name" {
+            // @behavior legacy-duplicate-attribute-evidence-allocation
+            // @boundary before=healthy-duplicate-attributes-with-unique-sized-names at=public-attributes-and-native-readers after=legacy-allocation-shape-preserved
+            // @red Audited entries currently retain only the winning map key and lose the displaced source.
+            // @green Audited entries retain one evidence name; legacy entries never allocate it, even transiently.
+            let mut attributes = 2u32.to_le_bytes().to_vec();
+            for value in [0, 1] {
+                attributes.extend(u32::try_from(PAYLOAD_LENGTH)?.to_le_bytes());
+                attributes.extend(std::iter::repeat_n(b'x', PAYLOAD_LENGTH));
+                attributes.extend([3, value]);
+            }
+            let mut model = Model::new("Folder")?;
+            model.property("AttributesSerialize", &strings(&attributes, &0u32.to_le_bytes())?)?;
+            let model = model.finish()?;
+
+            for audited in [false, true] {
+                let expected_live = if audited { 2 } else { 1 };
+                LIVE_PAYLOADS.with(|counter| counter.set(Some(AllocationCounts::default())));
+                if audited {
+                    let report = Attributes::from_reader_with_diagnostics(attributes.as_slice())?;
+                    expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| counts.live))).to_equal(Some(expected_live))?;
+                    drop(report);
+                } else {
+                    let value = Attributes::from_reader(attributes.as_slice())?;
+                    expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| (counts.live, counts.peak)))).to_equal(Some((expected_live, 2)))?;
+                    drop(value);
+                }
+                expect!(LIVE_PAYLOADS.with(|counter| counter.replace(None).map(|counts| counts.live))).to_equal(Some(0))?;
+
+                LIVE_PAYLOADS.with(|counter| counter.set(Some(AllocationCounts::default())));
+                if audited {
+                    let report = Deserializer::new().deserialize_with_diagnostics(model.as_slice())?;
+                    expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| counts.live))).to_equal(Some(expected_live))?;
+                    drop(report);
+                } else {
+                    let value = rbx_binary::from_reader(model.as_slice())?;
+                    expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| (counts.live, counts.peak)))).to_equal(Some((expected_live, 2)))?;
+                    drop(value);
+                }
+                expect!(LIVE_PAYLOADS.with(|counter| counter.replace(None).map(|counts| counts.live))).to_equal(Some(0))?;
+            }
+        }
+
         "legacy entries release ignored payloads before reading the next chunk while audited decoding retains them" {
             // @behavior native-legacy-ignored-payload-retention
             // @boundary before=repeated-unknown-native-chunks at=public-reader-chunk-boundaries after=legacy-releases-and-audited-retains

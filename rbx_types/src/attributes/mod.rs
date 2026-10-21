@@ -4,6 +4,7 @@
 
 mod decode_diagnostic;
 mod decode_report;
+mod diagnostic_sink;
 mod error;
 mod reader;
 mod type_id;
@@ -19,6 +20,7 @@ use std::{
 
 use crate::{Error, Variant};
 
+use self::diagnostic_sink::{CollectAttributeDiagnostics, DiscardAttributeDiagnostics};
 use self::reader::read_attributes;
 use self::writer::write_attributes;
 
@@ -47,30 +49,17 @@ impl Attributes {
 
     /// Reads from a serialized attributes string, and produces a new `Attributes` from it.
     pub fn from_reader<R: Read>(reader: R) -> Result<Self, Error> {
-        Ok(Attributes {
-            data: read_attributes(reader, |_, _, _| {})?,
-        })
+        read_attributes(reader, DiscardAttributeDiagnostics).map_err(Into::into)
     }
 
-    /// Reads attributes once while retaining documented source substitutions.
+    /// Reads attributes once while retaining documented source losses.
     ///
     /// Values and errors match [`Self::from_reader`]. Evidence is returned only
     /// when the complete attributes value decodes successfully.
     pub fn from_reader_with_diagnostics<R: Read>(
         reader: R,
     ) -> Result<AttributesDecodeReport, Error> {
-        let mut diagnostics = Vec::new();
-        let data = read_attributes(reader, |index, attribute, fallback| {
-            diagnostics.push(AttributeDecodeDiagnostic::FontFallback {
-                attribute: attribute.to_owned(),
-                index,
-                fallback,
-            });
-        })?;
-        Ok(AttributesDecodeReport::new(
-            Attributes { data },
-            diagnostics,
-        ))
+        read_attributes(reader, CollectAttributeDiagnostics::default()).map_err(Into::into)
     }
 
     /// Writes the attributes as a serialized string to the writer.
