@@ -8,6 +8,7 @@ use rbx_dom_weak::WeakDom;
 use rbx_reflection::ReflectionDatabase;
 
 use self::state::DeserializerState;
+use crate::DecodeReport;
 
 #[cfg(any(test, feature = "unstable_text_format"))]
 pub(crate) use self::header::FileHeader;
@@ -69,6 +70,19 @@ impl<'db> Deserializer<'db> {
     /// Deserialize a Roblox binary model or place from the given stream using
     /// this deserializer.
     pub fn deserialize<R: Read>(&self, reader: R) -> Result<WeakDom, Error> {
+        Ok(self.deserialize_with_diagnostics(reader)?.into_dom())
+    }
+
+    /// Decodes once, returning the DOM together with structured evidence of
+    /// source information that permissive decoding omitted or replaced.
+    ///
+    /// This accepts the same inputs as [`Self::deserialize`]. Repeated losses
+    /// are retained even when their log messages are suppressed. Errors that
+    /// prevent decoding still return `Err`, rather than a partial report.
+    ///
+    /// See [`DecodeDiagnostic`](crate::DecodeDiagnostic) for the recorded loss
+    /// conditions and [`DecodeReport::diagnostics`] for their ordering.
+    pub fn deserialize_with_diagnostics<R: Read>(&self, reader: R) -> Result<DecodeReport, Error> {
         profiling::scope!("rbx_binary::deserialize");
 
         let mut deserializer = DeserializerState::new(self, reader)?;
@@ -86,10 +100,13 @@ impl<'db> Deserializer<'db> {
                     deserializer.decode_end_chunk(&chunk.data)?;
                     break;
                 }
-                _ => match str::from_utf8(&chunk.name) {
-                    Ok(name) => log::info!("Unknown binary chunk name {name}"),
-                    Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
-                },
+                _ => {
+                    match str::from_utf8(&chunk.name) {
+                        Ok(name) => log::info!("Unknown binary chunk name {name}"),
+                        Err(_) => log::info!("Unknown binary chunk name {:?}", chunk.name),
+                    }
+                    deserializer.ignore_unknown_chunk(chunk);
+                }
             }
         }
 
