@@ -31,6 +31,7 @@ profiling = "1.0.6"
 zstd = "0.13.2"
 
 [dev-dependencies]
+behave = "0.9.2"
 criterion = "0.8.2"
 env_logger = "0.11.10"
 heck = "0.5.0"

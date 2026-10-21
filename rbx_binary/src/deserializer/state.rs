@@ -1432,19 +1432,39 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let mut objects: VecDeque<i32> =
                         chunk.read_referent_array(object_count)?.collect();
 
-                    let external_count = chunk.read_le_u32().unwrap() as usize;
+                    chunk.read_le_u32()?;
                     // We are advised by Roblox to just ignore this, as it's
                     // meant for internal use. If we want to use it in the
                     // future, it's a referent array.
-                    let mut bytes = vec![0; external_count * 4];
+                    let mut bytes = Vec::new();
                     chunk.read_to_end(&mut bytes)?;
 
                     for (ty, instance) in values.zip(instances) {
                         let value = match ty {
                             0 => Content::none(),
-                            1 => Content::from_uri(uris.pop_back().unwrap()),
+                            1 => {
+                                let uri =
+                                    uris.pop_back().ok_or_else(|| InnerError::InvalidPropData {
+                                        type_name: type_name.to_string(),
+                                        prop_name: prop_name.clone(),
+                                        valid_value: "one URI per Uri source",
+                                        actual_value: format!(
+                                            "URI array exhausted after {uri_count} entries"
+                                        ),
+                                    })?;
+                                Content::from_uri(uri)
+                            }
                             2 => {
-                                let read_value = objects.pop_back().unwrap();
+                                let read_value = objects.pop_front().ok_or_else(|| {
+                                    InnerError::InvalidPropData {
+                                        type_name: type_name.to_string(),
+                                        prop_name: prop_name.clone(),
+                                        valid_value: "one object referent per Object source",
+                                        actual_value: format!(
+                                            "object referent array exhausted after {object_count} entries"
+                                        ),
+                                    }
+                                })?;
                                 if let Some(key) = self.instance_key_by_ref.get(&read_value) {
                                     Content::from_referent(key.referent)
                                 } else {
