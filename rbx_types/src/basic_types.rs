@@ -229,10 +229,15 @@ pub struct Matrix3 {
     pub z: Vector3,
 }
 
+/// The original invalid discriminator encountered by a compressed rotation decoder.
 #[derive(Debug, Error)]
-pub(crate) enum Matrix3Error {
+pub enum Matrix3Error {
+    /// The source ID has no basic rotation.
     #[error("invalid rotation ID: {id}")]
-    BadRotationId { id: u8 },
+    BadRotationId {
+        /// The original compressed rotation ID.
+        id: u8,
+    },
 }
 
 impl Matrix3 {

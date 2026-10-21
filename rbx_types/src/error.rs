@@ -6,7 +6,15 @@ use crate::{AttributeError, MaterialColorsError, Matrix3Error, UniqueIdError};
 #[derive(Debug, Error)]
 #[error(transparent)]
 pub struct Error {
-    source: Box<InnerError>,
+    source: Box<ErrorKind>,
+}
+
+/// Exposes the existing cause while preserving the original error and source chain.
+impl Error {
+    /// Borrows the native value decoder's structured cause without parsing text.
+    pub fn kind(&self) -> &ErrorKind {
+        &self.source
+    }
 }
 
 impl From<AttributeError> for Error {
@@ -41,17 +49,22 @@ impl From<UniqueIdError> for Error {
     }
 }
 
+/// The original structured cause of a native value operation's failure.
 #[derive(Debug, Error)]
-enum InnerError {
+pub enum ErrorKind {
+    /// An attribute read or write failed.
     #[error(transparent)]
     Attribute(#[from] AttributeError),
 
+    /// A compressed rotation ID was invalid.
     #[error(transparent)]
     Matrix3(#[from] Matrix3Error),
 
+    /// Material colors or a material name could not be decoded.
     #[error(transparent)]
     MaterialColors(#[from] MaterialColorsError),
 
+    /// A unique ID could not be constructed or parsed.
     #[error(transparent)]
     UniqueId(#[from] UniqueIdError),
 }
@@ -60,7 +73,7 @@ enum InnerError {
 mod tests {
     use behave::prelude::*;
 
-    use super::{AttributeError, Error, InnerError};
+    use super::{AttributeError, Error, ErrorKind};
     use crate::{Attributes, AttributesDecodeReport};
 
     behave! {
@@ -80,7 +93,7 @@ mod tests {
                     for result in entries {
                         match result {
                             Err(Error { source }) => match *source {
-                                InnerError::Attribute(AttributeError::InvalidBrickColor(found)) => expect!(found).to_equal(raw)?,
+                                ErrorKind::Attribute(AttributeError::InvalidBrickColor(found)) => expect!(found).to_equal(raw)?,
                                 found => expect!(format!("{found:?}")).to_equal("InvalidBrickColor".to_owned())?,
                             },
                             Ok(found) => expect!(format!("{found:?}")).to_equal("a full-width color refusal".to_owned())?,

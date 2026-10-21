@@ -25,7 +25,7 @@ use self::diagnostic_sink::{CollectAttributeDiagnostics, DiscardAttributeDiagnos
 use self::reader::read_attributes;
 use self::writer::write_attributes;
 
-pub(crate) use self::error::AttributeError;
+pub use self::error::AttributeError;
 pub use self::{
     decode_diagnostic::AttributeDecodeDiagnostic, decode_report::AttributesDecodeReport,
 };

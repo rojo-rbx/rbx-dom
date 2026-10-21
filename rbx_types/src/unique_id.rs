@@ -22,15 +22,20 @@ lazy_static! {
 
 /// Represents an error that can occur when constructing a new `UniqueId`.
 #[derive(Debug, Error)]
-pub(crate) enum UniqueIdError {
+pub enum UniqueIdError {
+    /// The current system time precedes the native epoch.
     #[error("SystemTime generated a timestamp that is before the UniqueId epoch")]
     SystemPastTime,
+    /// The elapsed epoch seconds cannot fit in a native timestamp.
     #[error("UniqueId timestamp is more than 2^32 - 1 seconds past epoch")]
     Overflow,
+    /// The input length differed from the required 32 characters.
     #[error("expected string to contain 32 characters, got one that contained {0}")]
     FromStrBadLen(usize),
+    /// A component's original integer parser error.
     #[error("string passed to UniqueId::from_str could not be read because: {err}")]
     FromStrParseError {
+        /// The original component parser failure; the input itself is not stored.
         #[from]
         err: ParseIntError,
     },
