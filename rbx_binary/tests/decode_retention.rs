@@ -213,19 +213,28 @@ behave! {
 
         "legacy Attributes and native entries allocate no copied diagnostic attribute names" {
             // @behavior legacy-nested-attribute-evidence-allocation
-            // @boundary before=unknown-font-with-unique-sized-attribute-name at=public-attributes-and-native-readers after=only-audited-entries-copy-evidence
+            // @boundary before=nested-losses-with-unique-sized-attribute-names at=public-attributes-and-native-readers after=only-audited-entries-copy-evidence
             // @red Collecting and discarding nested evidence raises the legacy peak above its single map key.
             // @green Legacy entries allocate only the map key; audited entries retain two evidence names too.
             // Only the attribute key and its diagnostic copies have the marker size.
             // Fixture and native chunk allocations have different lengths.
+            let mut font = vec![0x21];
+            font.extend(123u16.to_le_bytes());
+            font.push(2);
+            font.extend(0u32.to_le_bytes());
+            font.extend(0u32.to_le_bytes());
+            let mut sequence = vec![0x19];
+            sequence.extend(2u32.to_le_bytes());
+            for (bits, time) in [(0x8000_0000u32, 0.0f32), (0x7fc1_2345, 1.0)] {
+                sequence.extend(bits.to_le_bytes());
+                sequence.extend(time.to_le_bytes());
+                for _ in 0..3 { sequence.extend(time.to_le_bytes()); }
+            }
+            for source_value in [font, sequence] {
             let mut attributes = 1u32.to_le_bytes().to_vec();
             attributes.extend(u32::try_from(PAYLOAD_LENGTH)?.to_le_bytes());
             attributes.extend(std::iter::repeat_n(b'x', PAYLOAD_LENGTH));
-            attributes.push(0x21);
-            attributes.extend(123u16.to_le_bytes());
-            attributes.push(2);
-            attributes.extend(0u32.to_le_bytes());
-            attributes.extend(0u32.to_le_bytes());
+            attributes.extend(source_value);
             let mut model = Model::new("Folder")?;
             model.property("AttributesSerialize", &strings(&attributes, &0u32.to_le_bytes())?)?;
             let model = model.finish()?;
@@ -255,6 +264,7 @@ behave! {
                     drop(value);
                 }
                 expect!(LIVE_PAYLOADS.with(|counter| counter.replace(None).map(|counts| counts.live))).to_equal(Some(0))?;
+            }
             }
         }
     }

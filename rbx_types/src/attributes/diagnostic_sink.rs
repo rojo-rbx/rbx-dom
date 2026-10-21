@@ -2,6 +2,7 @@ use std::collections::BTreeMap;
 
 use crate::{FontFallback, Variant};
 
+use super::color_sequence_envelope::{ColorSequenceEnvelopeSource, WRITTEN_ENVELOPE_BITS};
 use super::{AttributeDecodeDiagnostic, Attributes, AttributesDecodeReport};
 
 /// Selects source retention without adding diagnostic state to legacy values.
@@ -15,6 +16,8 @@ pub(super) trait AttributeReadSink {
     fn store(index: u32, value: Variant) -> Self::Stored;
     /// Copies a source name only when its substitution will be retained.
     fn font_fallback(&mut self, index: u32, attribute: &str, fallback: FontFallback);
+    /// Retains omitted envelope bits only when the audited entry requested them.
+    fn color_sequence_envelope(&mut self, source: ColorSequenceEnvelopeSource<'_>);
     /// Takes ownership of the actual removed value without cloning it.
     fn displaced(&mut self, attribute: &str, replacement_index: u32, value: Self::Stored);
     /// Returns the values and only the evidence requested by this entry.
@@ -59,6 +62,17 @@ impl AttributeReadSink for CollectAttributeDiagnostics {
             });
     }
 
+    fn color_sequence_envelope(&mut self, source: ColorSequenceEnvelopeSource<'_>) {
+        self.diagnostics
+            .push(AttributeDecodeDiagnostic::ColorSequenceEnvelope {
+                attribute: source.attribute.to_owned(),
+                index: source.index,
+                keypoint_index: source.keypoint_index,
+                found_bits: source.found_bits,
+                normalized_bits: WRITTEN_ENVELOPE_BITS,
+            });
+    }
+
     fn finish(self, values: BTreeMap<String, IndexedAttribute>) -> AttributesDecodeReport {
         let data = values
             .into_iter()
@@ -80,6 +94,8 @@ impl AttributeReadSink for DiscardAttributeDiagnostics {
     }
 
     fn font_fallback(&mut self, _index: u32, _attribute: &str, _fallback: FontFallback) {}
+
+    fn color_sequence_envelope(&mut self, _source: ColorSequenceEnvelopeSource<'_>) {}
 
     fn displaced(&mut self, _attribute: &str, _replacement_index: u32, _value: Variant) {}
 

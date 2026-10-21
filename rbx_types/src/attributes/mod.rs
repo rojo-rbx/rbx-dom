@@ -2,6 +2,7 @@
 //! together:
 //! https://github.com/RobloxAPI/rbxattr/blob/06116439a68931d9d591d11ffff77ff982c9947d/spec.md
 
+mod color_sequence_envelope;
 mod decode_diagnostic;
 mod decode_report;
 mod diagnostic_sink;

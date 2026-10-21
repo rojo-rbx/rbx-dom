@@ -21,6 +21,39 @@ use native_model::{interleaved, referents, strings, Model};
 
 behave! {
     "Reading binary models with retained loss evidence" {
+        "an ignored negative-zero envelope keeps its exact bits and native instance identity" {
+            // @behavior native-color-sequence-envelope-evidence
+            // @boundary before=negative-zero-color-envelope at=public-native-report after=exact-envelope-bits-and-native-location
+            // @red The native audited entry currently omits this source distinction.
+            // @green Actual nested envelope evidence retains the original bits and containing native identity.
+            let mut attributes = vec![1, 0, 0, 0, 1, 0, 0, 0, b'C', 0x19, 2, 0, 0, 0];
+            for (bits, time) in [(0x8000_0000u32, 0.0f32), (0, 1.0)] {
+                attributes.extend(bits.to_le_bytes());
+                attributes.extend(time.to_le_bytes());
+                for _ in 0..3 { attributes.extend(time.to_le_bytes()); }
+            }
+            let mut model = Model::new("Folder")?;
+            model.property("AttributesSerialize", &strings(&attributes, &0u32.to_le_bytes())?)?;
+            let bytes = model.finish()?;
+            let report = Deserializer::new().deserialize_with_diagnostics(bytes.as_slice())?;
+            expect!(report.diagnostics().len()).to_equal(1)?;
+            match report.diagnostics() {
+                [DecodeDiagnostic::AttributeLoss { property, instance, diagnostic: AttributeDecodeDiagnostic::ColorSequenceEnvelope { attribute, index: 0, keypoint_index: 0, found_bits: 0x8000_0000, normalized_bits: 0 } }] => {
+                    expect!(attribute.as_str()).to_equal("C")?;
+                    expect!(property.property_name()).to_equal("AttributesSerialize")?;
+                    expect!(property.class_name()).to_equal("Folder")?;
+                    expect!(instance.document_referent()).to_equal(10)?;
+                    expect!(report.dom().root().children().first()).to_equal(Some(&instance.dom_ref()))?;
+                }
+                found => expect!(format!("{found:?}")).to_equal("one exact negative-zero envelope loss".to_owned())?,
+            }
+            let legacy = rbx_binary::from_reader(bytes.as_slice())?;
+            for (audited, ordinary) in report.dom().root().children().iter().zip(legacy.root().children()) {
+                expect!(report.dom().get_by_ref(*audited).map(|node| &node.properties))
+                    .to_equal(legacy.get_by_ref(*ordinary).map(|node| &node.properties))?;
+            }
+        }
+
         "a displaced healthy attribute remains evidence on its containing native instance" {
             // @behavior native-attribute-duplicate-discard-evidence
             // @boundary before=duplicate-healthy-attributes at=public-native-report after=displaced-value-and-native-identity

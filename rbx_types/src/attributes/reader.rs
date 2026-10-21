@@ -10,7 +10,11 @@ use crate::{
     NumberSequenceKeypoint, Rect, UDim, UDim2, VariantType, Vector2, Vector3,
 };
 
-use super::{diagnostic_sink::AttributeReadSink, type_id, AttributeError};
+use super::{
+    color_sequence_envelope::{ColorSequenceEnvelopeSource, WRITTEN_ENVELOPE_BITS},
+    diagnostic_sink::AttributeReadSink,
+    type_id, AttributeError,
+};
 
 /// Decodes AttributesSerialize once using the entry's selected evidence retention.
 pub(super) fn read_attributes<R: Read, S: AttributeReadSink>(
@@ -60,10 +64,17 @@ pub(super) fn read_attributes<R: Read, S: AttributeReadSink>(
                     .map_err(|_| AttributeError::ReadType("ColorSequence length"))?;
                 let mut keypoints = Vec::with_capacity(size as usize);
 
-                for _ in 0..size {
-                    // `envelope` is always zero and can be ignored.
-                    let _envelope = read_f32(&mut value)
+                for keypoint_index in 0..size {
+                    let found_bits = read_u32(&mut value)
                         .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint envelope"))?;
+                    if found_bits != WRITTEN_ENVELOPE_BITS {
+                        diagnostics.color_sequence_envelope(ColorSequenceEnvelopeSource {
+                            attribute: &key,
+                            index,
+                            keypoint_index,
+                            found_bits,
+                        });
+                    }
 
                     let time = read_f32(&mut value)
                         .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint time"))?;
