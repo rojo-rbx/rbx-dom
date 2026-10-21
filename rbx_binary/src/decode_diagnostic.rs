@@ -4,8 +4,8 @@ use rbx_dom_weak::types::AttributeDecodeDiagnostic;
 use rbx_reflection::MigrationError;
 
 use crate::{
-    BinaryStringFallbackCause, FontFallback, InstanceLocation, PropertyLocation,
-    PropertySkipReason, ReferenceKind,
+    BinaryStringFallbackCause, ColorSequenceEnvelope, FontFallback, InstanceLocation,
+    PropertyLocation, PropertySkipReason, ReferenceKind,
 };
 
 /// A source distinction omitted or replaced by permissive binary decoding.
@@ -23,6 +23,17 @@ pub enum DecodeDiagnostic {
         instance: InstanceLocation,
         /// The evidence produced by the actual Attributes decoding pass.
         diagnostic: AttributeDecodeDiagnostic,
+    },
+    /// A native color envelope's source bits differed from writer normalization.
+    ColorSequenceEnvelope {
+        /// The original serialized property identity.
+        property: PropertyLocation,
+        /// The original document ID and this pass's allocated DOM identity.
+        instance: InstanceLocation,
+        /// The zero-based source keypoint index within this property's value.
+        keypoint_index: u32,
+        /// The exact original bits and the shared writer normalization.
+        envelope: ColorSequenceEnvelope,
     },
     /// An unknown Font weight or style was replaced with a default value.
     FontFallback {

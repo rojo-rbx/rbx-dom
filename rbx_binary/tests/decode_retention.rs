@@ -15,9 +15,9 @@ mod native_model;
 
 use native_model::{strings, Model};
 
-// Native Chunk::decode allocates exactly the uncompressed payload length.
-// Fixture storage is built before observation, and its aggregate allocation
-// size differs from this marker. Reader bookkeeping contains only five counts.
+// This exact size isolates decoded source payload/name allocations from fixture
+// storage, keypoint vectors, interning arenas, and the small reader counters.
+// Fixtures are built before observation; decoded bytes and copied names match.
 const PAYLOAD_LENGTH: usize = 65_537;
 
 thread_local! {
@@ -140,6 +140,40 @@ fn legacy_from_reader(reader: BoundaryReader) -> Result<WeakDom, DecodeError> {
 
 behave! {
     "Reading ignored native chunks" {
+        "legacy native color envelopes allocate no diagnostic property names" {
+            // @behavior legacy-native-color-envelope-evidence-allocation
+            // @boundary before=noncanonical-prop-envelopes-with-unique-sized-property-name at=public-native-decoders after=only-audited-entry-copies-evidence
+            // @red Audited PROP decoding currently retains no evidence names for its two omitted envelopes.
+            // @green Legacy decoding keeps the original one-name parsing peak; audited evidence retains two source names.
+            // Chunk and Ustr arena allocation sizes differ from this marker.
+            let property = "x".repeat(PAYLOAD_LENGTH);
+            let mut values = vec![0x16];
+            for envelopes in [[0x8000_0000u32, 0x7fc1_2345], [0, 0]] {
+                values.extend(2u32.to_le_bytes());
+                for (bits, time) in envelopes.iter().copied().zip([0.0f32, 1.0]) {
+                    values.extend(time.to_le_bytes());
+                    for _ in 0..3 { values.extend(time.to_le_bytes()); }
+                    values.extend(bits.to_le_bytes());
+                }
+            }
+            let mut model = Model::new("Folder")?;
+            model.property(&property, &values)?;
+            let model = model.finish()?;
+            drop(property);
+
+            LIVE_PAYLOADS.with(|counter| counter.set(Some(AllocationCounts::default())));
+            let legacy = rbx_binary::from_reader(model.as_slice())?;
+            expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| (counts.live, counts.peak)))).to_equal(Some((0, 1)))?;
+            drop(legacy);
+            expect!(LIVE_PAYLOADS.with(|counter| counter.replace(None).map(|counts| counts.live))).to_equal(Some(0))?;
+
+            LIVE_PAYLOADS.with(|counter| counter.set(Some(AllocationCounts::default())));
+            let report = Deserializer::new().deserialize_with_diagnostics(model.as_slice())?;
+            expect!(LIVE_PAYLOADS.with(|counter| counter.get().map(|counts| counts.live))).to_equal(Some(2))?;
+            drop(report);
+            expect!(LIVE_PAYLOADS.with(|counter| counter.replace(None).map(|counts| counts.live))).to_equal(Some(0))?;
+        }
+
         "legacy duplicate entries allocate no diagnostic names while audited entries retain the displaced source name" {
             // @behavior legacy-duplicate-attribute-evidence-allocation
             // @boundary before=healthy-duplicate-attributes-with-unique-sized-names at=public-attributes-and-native-readers after=legacy-allocation-shape-preserved

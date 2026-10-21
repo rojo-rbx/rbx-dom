@@ -7,7 +7,8 @@ use rbx_binary::{
 };
 use rbx_dom_weak::types::VariantType;
 use rbx_dom_weak::types::{
-    AttributeDecodeDiagnostic, Attributes, Content, Font, FontStyle, FontWeight, Ref, Variant,
+    AttributeDecodeDiagnostic, Attributes, Color3, ColorSequence, ColorSequenceKeypoint, Content,
+    Font, FontStyle, FontWeight, Ref, Variant,
 };
 use rbx_reflection::{
     ClassDescriptor, DataType, MigrationError, PropertyDescriptor, PropertyKind,
@@ -21,6 +22,60 @@ use native_model::{interleaved, referents, strings, Model};
 
 behave! {
     "Reading binary models with retained loss evidence" {
+        "native color envelopes retain every noncanonical pattern on its exact source keypoint" {
+            // @behavior native-prop-color-sequence-envelope-evidence
+            // @boundary before=noncanonical-native-color-envelopes at=public-native-decoder after=shared-envelope-leaf-and-keypoint-location
+            // @red Direct PROP envelopes decode successfully with no evidence for the discarded source bits.
+            // @green Canonical positive zero adds no loss; repeated negative zero, finite and nonfinite bits retain every source position.
+            let patterns = [0u32, 0x8000_0000, 0x3f80_0000, 0x7f80_0000, 0x7fc1_2345, 0x8000_0000];
+            let times = [0.0f32, 0.2, 0.4, 0.6, 0.8, 1.0];
+            let expected = Variant::ColorSequence(ColorSequence {
+                keypoints: times.iter().copied().map(|time| ColorSequenceKeypoint::new(time, Color3::new(0.25, 0.5, 0.75))).collect(),
+            });
+            for envelopes in [[0; 6], patterns] {
+                let mut values = vec![0x16];
+                for instance_envelopes in [envelopes, [0; 6]] {
+                    values.extend(6u32.to_le_bytes());
+                    for (time, bits) in times.iter().copied().zip(instance_envelopes.iter().copied()) {
+                        values.extend(time.to_le_bytes());
+                        for color in [0.25f32, 0.5, 0.75] { values.extend(color.to_le_bytes()); }
+                        values.extend(bits.to_le_bytes());
+                    }
+                }
+                let mut model = Model::new("Folder")?;
+                model.property("Gradient", &values)?;
+                let bytes = model.finish()?;
+                let report = Deserializer::new().deserialize_with_diagnostics(bytes.as_slice())?;
+                expect!(report.diagnostics().len()).to_equal(envelopes.iter().filter(|bits| **bits != 0).count())?;
+                let mut found = Vec::new();
+                for diagnostic in report.diagnostics() {
+                    match diagnostic {
+                        DecodeDiagnostic::ColorSequenceEnvelope { property, instance, keypoint_index, envelope } => {
+                            let envelope: &rbx_binary::ColorSequenceEnvelope = envelope;
+                            expect!(property.property_name()).to_equal("Gradient")?;
+                            expect!(property.class_name()).to_equal("Folder")?;
+                            expect!(property.type_id()).to_equal(7)?;
+                            expect!(instance.document_referent()).to_equal(10)?;
+                            expect!(report.dom().root().children().first()).to_equal(Some(&instance.dom_ref()))?;
+                            found.push((*keypoint_index, envelope.bits(), envelope.normalized_bits()));
+                        }
+                        found => expect!(format!("{found:?}")).to_equal("a native color envelope loss".to_owned())?,
+                    }
+                }
+                let expected_evidence: Vec<_> = envelopes.iter().copied().zip(0u32..)
+                    .filter(|(bits, _)| *bits != 0)
+                    .map(|(bits, keypoint)| (keypoint, bits, 0u32)).collect();
+                expect!(found).to_equal(expected_evidence)?;
+                let legacy = rbx_binary::from_reader(bytes.as_slice())?;
+                for dom in [report.dom(), &legacy] {
+                    for referent in dom.root().children() {
+                        expect!(dom.get_by_ref(*referent).and_then(|node| node.properties.get(&"Gradient".into())))
+                            .to_equal(Some(&expected))?;
+                    }
+                }
+            }
+        }
+
         "an ignored negative-zero envelope keeps its exact bits and native instance identity" {
             // @behavior native-color-sequence-envelope-evidence
             // @boundary before=negative-zero-color-envelope at=public-native-report after=exact-envelope-bits-and-native-location

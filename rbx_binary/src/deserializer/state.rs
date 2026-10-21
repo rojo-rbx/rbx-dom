@@ -19,8 +19,8 @@ use crate::{
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt},
     types::Type,
-    BinaryStringFallbackCause, DecodeDiagnostic, FontFallback, InstanceLocation, PropertyLocation,
-    PropertySkipReason, ReferenceKind,
+    BinaryStringFallbackCause, ColorSequenceEnvelope, DecodeDiagnostic, FontFallback,
+    InstanceLocation, PropertyLocation, PropertySkipReason, ReferenceKind,
 };
 
 use super::{diagnostic_sink::DiagnosticSink, error::InnerError, header::FileHeader, Deserializer};
@@ -1240,7 +1240,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let keypoint_count = chunk.read_le_u32()? as usize;
                         let mut keypoints = Vec::with_capacity(keypoint_count);
 
-                        for _ in 0..keypoint_count {
+                        for keypoint_index in (0u32..).take(keypoint_count) {
                             keypoints.push(ColorSequenceKeypoint::new(
                                 chunk.read_le_f32()?,
                                 Color3::new(
@@ -1250,8 +1250,17 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 ),
                             ));
 
-                            // envelope is serialized but doesn't do anything; don't do anything with it
-                            chunk.read_le_f32()?;
+                            let found_bits = chunk.read_le_u32()?;
+                            if found_bits != ColorSequenceEnvelope::NORMALIZED_BITS {
+                                instance.record(|location| {
+                                    DecodeDiagnostic::ColorSequenceEnvelope {
+                                        property: property.source.location(),
+                                        instance: location,
+                                        keypoint_index,
+                                        envelope: ColorSequenceEnvelope::from_bits(found_bits),
+                                    }
+                                });
+                            }
                         }
 
                         instance.add_property(&property, ColorSequence { keypoints }.into())
