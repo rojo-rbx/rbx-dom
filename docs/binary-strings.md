@@ -14,12 +14,62 @@ The following is a list of `BinaryString` blobs and their formatting. For clarit
 
 When a format is sufficiently complex, it may be stored in its own document for clarity.
 
-### AttributeSerialized
+### AttributeSerialize
 **Used By:** `Instance.AttributesSerialize`
 
 This blob is used to serialize [attributes][Attributes]. Due to the complexity of the format, a specification is located [here](attributes.md).
 
 [Attributes]: https://create.roblox.com/docs/studio/instance-attributes
+
+# Attribute-Style Serialized Properties
+
+These properties encode a set of key→value entries using the shared attribute-encoding format described in `attributes.md`. Each has its own empty-case bytes and header layout, which are not derivable from a single template.
+
+### SerializedEmulatedPolicyInfo
+**Used By:** `PlayerEmulatorService.SerializedEmulatedPolicyInfo`
+
+This blob serializes the instance's emulated policy info as a set of key→value entries.
+
+If there is nothing to serialize, the blob is empty (`0` bytes) — there is no count header at all:
+
+`` (empty string)
+
+Otherwise, the blob follows the standard attribute-encoding format with no additional prefix bytes.
+
+### PropertiesSerialize (StyleRule)
+**Used By:** `StyleRule.PropertiesSerialize`
+
+This blob serializes the rule's properties as a set of key→value entries.
+
+If there are no properties, the blob is written as a fixed 4-byte header, a bare `u32` count of `0`:
+
+`00 00 00 00`
+
+Otherwise, the blob follows the standard attribute-encoding format with no additional prefix bytes.
+
+### PropertyTransitionsSerialize
+**Used By:** `StyleRule.PropertyTransitionsSerialize`
+
+This blob serializes the rule's property transitions as a set of key→value entries, with an additional 2-byte prefix (`02 00`) written ahead of the payload — the only property in this group with such a prefix.
+
+If there are no transitions, the blob is written as a fixed 6-byte sequence:
+
+`02 00 00 00 00 00`
+
+This is not simply a padded zero count: the leading bytes (`02 00`) match the prefix used in the non-empty case, followed by a 4-byte zero count. This suggests the empty case is effectively "prefix + zero count" rather than an unrelated constant.
+
+Otherwise, the blob is written as the 2-byte prefix (`02 00`) followed by the standard attribute-encoding format.
+
+### ConditionsSerialize
+**Used By:** `StyleQuery.ConditionsSerialize`
+
+This blob serializes the query's conditions as a set of key→value entries.
+
+If there are no conditions, the blob is written as a fixed 4-byte header, a bare `u32` count of `0`:
+
+`00 00 00 00`
+
+Otherwise, the blob follows the standard attribute-encoding format with no additional prefix bytes. This is byte-identical to the `PropertiesSerialize` empty case above, despite belonging to a different class.
 
 ### MaterialColors
 **Used By:** `Terrain.MaterialColors`
