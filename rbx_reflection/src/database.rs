@@ -1,6 +1,6 @@
 // Creating a default reflection database implicitly doesn't really make sense
 // for most cases.
-#![allow(clippy::new_without_default)]
+#![expect(clippy::new_without_default)]
 
 use std::collections::{HashMap, HashSet};
 
