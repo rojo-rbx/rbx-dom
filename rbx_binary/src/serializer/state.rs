@@ -22,7 +22,7 @@ use rbx_reflection::{
 };
 
 use crate::{
-    chunk::ChunkBuilder,
+    chunk::{ChunkBuilder, CompressionType},
     core::{
         find_property_descriptors, PropertyDescriptors, RbxWriteExt, FILE_MAGIC_HEADER,
         FILE_SIGNATURE, FILE_VERSION,
@@ -32,7 +32,6 @@ use crate::{
 };
 
 use super::error::InnerError;
-use super::CompressionType;
 
 static FILE_FOOTER: &[u8] = b"</roblox>";
 
