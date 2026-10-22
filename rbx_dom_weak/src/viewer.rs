@@ -195,7 +195,7 @@ mod test {
     #[test]
     fn redact_values() {
         let root = InstanceBuilder::new("ObjectValue").with_name("Root");
-        let root_ref = root.referent;
+        let root_ref = root.referent();
         let root = root.with_property("Value", root_ref);
 
         let dom = WeakDom::new(root);
