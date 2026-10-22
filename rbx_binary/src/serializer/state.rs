@@ -23,10 +23,8 @@ use rbx_reflection::{
 
 use crate::{
     chunk::ChunkBuilder,
-    core::{
-        find_property_descriptors, PropertyDescriptors, RbxWriteExt, FILE_MAGIC_HEADER,
-        FILE_SIGNATURE, FILE_VERSION,
-    },
+    core::{find_property_descriptors, PropertyDescriptors, RbxWriteExt},
+    header::{FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION},
     types::Type,
     Serializer,
 };
@@ -706,8 +704,8 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
     pub fn write_header(&mut self) -> Result<(), InnerError> {
         log::trace!("Writing header");
 
-        self.output.write_all(FILE_MAGIC_HEADER)?;
-        self.output.write_all(FILE_SIGNATURE)?;
+        self.output.write_all(&FILE_MAGIC_HEADER)?;
+        self.output.write_all(&FILE_SIGNATURE)?;
         self.output.write_le_u16(FILE_VERSION)?;
 
         self.output

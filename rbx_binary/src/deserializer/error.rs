@@ -2,7 +2,7 @@ use std::io;
 
 use thiserror::Error;
 
-use crate::types::InvalidTypeError;
+use crate::{header::HeaderError, types::InvalidTypeError};
 
 /// Represents an error that occurred during deserialization.
 #[derive(Debug, Error)]
@@ -15,6 +15,17 @@ impl From<InnerError> for Error {
     fn from(inner: InnerError) -> Self {
         Self {
             source: Box::new(inner),
+        }
+    }
+}
+impl From<HeaderError> for InnerError {
+    fn from(error: HeaderError) -> Self {
+        match error {
+            HeaderError::Io { source } => InnerError::Io { source },
+            HeaderError::BadHeader => InnerError::BadHeader,
+            HeaderError::UnknownFileVersion { version } => {
+                InnerError::UnknownFileVersion { version }
+            }
         }
     }
 }
