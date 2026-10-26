@@ -8,10 +8,11 @@ use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
     types::{
         Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
-        MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
-        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        ColorSequenceEnvelope, ColorSequenceKeypoint, Content, ContentId, ContentType, Enum,
+        EnumItem, Faces, Font, MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence,
+        NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities,
+        SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
+        Vector3int16,
     },
     Instance, Ustr, UstrMap, WeakDom,
 };
@@ -1350,8 +1351,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                                     chunk.write_le_f32(keypoint.color.g)?;
                                     chunk.write_le_f32(keypoint.color.b)?;
 
-                                    // write out a dummy value for envelope, which is serialized but doesn't do anything
-                                    chunk.write_le_f32(0.0)?;
+                                    chunk.write_le_u32(ColorSequenceEnvelope::NORMALIZED_BITS)?;
                                 }
                             } else {
                                 return type_mismatch(i, rbx_value, "ColorSequence");

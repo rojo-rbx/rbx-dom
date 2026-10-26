@@ -90,7 +90,9 @@ where
 
 /// An error that can occur when deserializing or working with MaterialColors and TerrainMaterials.
 #[derive(Debug, Error)]
-pub(crate) enum MaterialColorsError {
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
+pub enum MaterialColorsError {
     /// The `MaterialColors` blob was the wrong number of bytes.
     #[error(
         "MaterialColors blob was the wrong length (expected it to be 69 bytes, it was {0} bytes)"

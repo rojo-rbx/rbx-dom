@@ -53,9 +53,16 @@ rbx_binary::to_writer(output, &dom, &[dom.root_ref()])?;
 
 #![deny(missing_docs)]
 
+mod binary_string_fallback_cause;
 mod chunk;
 mod core;
+mod decode_diagnostic;
+mod decode_report;
 mod deserializer;
+mod instance_location;
+mod property_location;
+mod property_skip_reason;
+mod reference_kind;
 mod serializer;
 mod types;
 
@@ -69,6 +76,8 @@ use std::io::{Read, Write};
 
 use rbx_dom_weak::{types::Ref, WeakDom};
 
+pub use rbx_dom_weak::types::{ColorSequenceEnvelope, FontFallback};
+
 /// An unstable textual format that can be used to debug binary models.
 #[cfg(feature = "unstable_text_format")]
 pub mod text_format {
@@ -76,7 +85,14 @@ pub mod text_format {
 }
 
 pub use crate::{
+    binary_string_fallback_cause::BinaryStringFallbackCause,
+    decode_diagnostic::DecodeDiagnostic,
+    decode_report::DecodeReport,
     deserializer::{Deserializer, Error as DecodeError},
+    instance_location::InstanceLocation,
+    property_location::PropertyLocation,
+    property_skip_reason::PropertySkipReason,
+    reference_kind::ReferenceKind,
     serializer::{CompressionType, Error as EncodeError, Serializer},
 };
 

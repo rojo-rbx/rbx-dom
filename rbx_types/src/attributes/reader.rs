@@ -1,29 +1,35 @@
 use std::{
-    collections::BTreeMap,
+    collections::{btree_map::Entry, BTreeMap},
+    convert::TryFrom,
     io::{self, Read},
 };
 
 use crate::{
-    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceKeypoint, EnumItem, Font,
-    FontStyle, FontWeight, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, Rect,
-    UDim, UDim2, Variant, VariantType, Vector2, Vector3,
+    BinaryString, BrickColor, CFrame, Color3, ColorSequence, ColorSequenceEnvelope,
+    ColorSequenceKeypoint, EnumItem, Font, FontFallback, FontStyle, FontWeight, Matrix3,
+    NumberRange, NumberSequence, NumberSequenceKeypoint, Rect, UDim, UDim2, VariantType, Vector2,
+    Vector3,
 };
 
-use super::{type_id, AttributeError};
+use super::{
+    color_sequence_envelope_source::ColorSequenceEnvelopeSource,
+    diagnostic_sink::AttributeReadSink, type_id, AttributeError,
+};
 
-/// Reads through an attribute property (AttributesSerialize) and returns a map of attribute names -> values.
-pub(crate) fn read_attributes<R: Read>(
+/// Decodes AttributesSerialize once using the entry's selected evidence retention.
+pub(super) fn read_attributes<R: Read, S: AttributeReadSink>(
     mut value: R,
-) -> Result<BTreeMap<String, Variant>, AttributeError> {
+    mut diagnostics: S,
+) -> Result<S::Output, AttributeError> {
     let mut attributes = BTreeMap::new();
 
     let len = match read_option_u32(&mut value) {
         Ok(Some(len)) => len,
-        Ok(None) => return Ok(attributes),
+        Ok(None) => return Ok(diagnostics.finish(attributes)),
         Err(_) => return Err(AttributeError::InvalidLength),
     };
 
-    for _ in 0..len {
+    for index in 0..len {
         let key_buf = read_string(&mut value).map_err(|_| AttributeError::NoKey)?;
         let key = String::from_utf8(key_buf).map_err(AttributeError::KeyBadUnicode)?;
 
@@ -36,7 +42,11 @@ pub(crate) fn read_attributes<R: Read>(
                 let color =
                     read_u32(&mut value).map_err(|_| AttributeError::ReadType("BrickColor"))?;
 
-                BrickColor::from_number(color as u16)
+                let number = match u16::try_from(color) {
+                    Ok(number) => number,
+                    Err(_) => return Err(AttributeError::InvalidBrickColor(color)),
+                };
+                BrickColor::from_number(number)
                     .ok_or(AttributeError::InvalidBrickColor(color))?
                     .into()
             }
@@ -54,10 +64,17 @@ pub(crate) fn read_attributes<R: Read>(
                     .map_err(|_| AttributeError::ReadType("ColorSequence length"))?;
                 let mut keypoints = Vec::with_capacity(size as usize);
 
-                for _ in 0..size {
-                    // `envelope` is always zero and can be ignored.
-                    let _envelope = read_f32(&mut value)
+                for keypoint_index in 0..size {
+                    let found_bits = read_u32(&mut value)
                         .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint envelope"))?;
+                    if found_bits != ColorSequenceEnvelope::NORMALIZED_BITS {
+                        diagnostics.color_sequence_envelope(ColorSequenceEnvelopeSource {
+                            attribute: &key,
+                            index,
+                            keypoint_index,
+                            found_bits,
+                        });
+                    }
 
                     let time = read_f32(&mut value)
                         .map_err(|_| AttributeError::ReadType("ColorSequenceKeypoint time"))?;
@@ -193,10 +210,41 @@ pub(crate) fn read_attributes<R: Read>(
                     }
                 };
 
+                let weight = match FontWeight::from_u16(weight) {
+                    Some(weight) => weight,
+                    None => {
+                        let replacement = FontWeight::default();
+                        diagnostics.font_fallback(
+                            index,
+                            &key,
+                            FontFallback::Weight {
+                                found: weight,
+                                replacement,
+                            },
+                        );
+                        replacement
+                    }
+                };
+                let style = match FontStyle::from_u8(style) {
+                    Some(style) => style,
+                    None => {
+                        let replacement = FontStyle::default();
+                        diagnostics.font_fallback(
+                            index,
+                            &key,
+                            FontFallback::Style {
+                                found: style,
+                                replacement,
+                            },
+                        );
+                        replacement
+                    }
+                };
+
                 Font {
                     family,
-                    weight: FontWeight::from_u16(weight).unwrap_or_default(),
-                    style: FontStyle::from_u8(style).unwrap_or_default(),
+                    weight,
+                    style,
                     cached_face_id,
                 }
             }
@@ -216,10 +264,18 @@ pub(crate) fn read_attributes<R: Read>(
             other => return Err(AttributeError::UnsupportedVariantType(other)),
         };
 
-        attributes.insert(key, value);
+        match attributes.entry(key) {
+            Entry::Vacant(entry) => {
+                entry.insert(S::store(index, value));
+            }
+            Entry::Occupied(mut entry) => {
+                let displaced = entry.insert(S::store(index, value));
+                diagnostics.displaced(entry.key(), index, displaced);
+            }
+        }
     }
 
-    Ok(attributes)
+    Ok(diagnostics.finish(attributes))
 }
 
 fn read_u8<R: Read>(mut reader: R) -> io::Result<u8> {

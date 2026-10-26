@@ -18,11 +18,13 @@ use crate::{
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt},
     types::Type,
+    BinaryStringFallbackCause, ColorSequenceEnvelope, DecodeDiagnostic, FontFallback,
+    InstanceLocation, PropertyLocation, PropertySkipReason, ReferenceKind,
 };
 
-use super::{error::InnerError, header::FileHeader, Deserializer};
+use super::{diagnostic_sink::DiagnosticSink, error::InnerError, header::FileHeader, Deserializer};
 
-pub(super) struct DeserializerState<'db, R> {
+pub(super) struct DeserializerState<'db, R, S> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
 
@@ -50,7 +52,7 @@ pub(super) struct DeserializerState<'db, R> {
     instance_key_by_ref: HashMap<i32, InstanceKey>,
 
     /// All of the instances known by the deserializer.
-    instances: Vec<Instance>,
+    instances: Vec<Instance<S>>,
 
     /// Referents for all of the instances with no parent, in order they appear
     /// in the file.
@@ -60,6 +62,9 @@ pub(super) struct DeserializerState<'db, R> {
     /// deserializing this file. We use this map in order to ensure we only
     /// print one warning per unknown type ID when deserializing a file.
     unknown_type_ids: HashSet<u8>,
+
+    /// Source evidence for chunks or properties skipped before instance decoding.
+    diagnostics: S,
 }
 
 /// Represents a unique instance class. Binary models define all their instance
@@ -86,7 +91,16 @@ struct InstanceKey {
 /// Contains all the information we need to gather in order to construct an
 /// instance. Incrementally built up by the deserializer as we decode different
 /// chunks.
-struct Instance {
+struct Instance<S> {
+    /// The original native ID, independent of the allocated DOM referent.
+    document_referent: i32,
+
+    /// Original class identity retained even if this node is unreachable.
+    class_name: Ustr,
+
+    /// Losses discovered while reading this instance, in decode order.
+    diagnostics: S,
+
     /// A work-in-progress builder that will be used to construct this instance.
     builder: InstanceBuilder,
 
@@ -100,19 +114,55 @@ struct Instance {
 /// contains a migration for some properties Roblox has replaced with
 /// others (like Font, which has been superceded by FontFace).
 #[derive(Debug)]
-struct CanonicalProperty<'db> {
+struct CanonicalProperty<'db, 'source> {
     name: Ustr,
     ty: VariantType,
     migration: Option<&'db PropertySerialization<'db>>,
+    source: PropertySource<'source>,
 }
 
-fn find_canonical_property<'de>(
-    database: &'de ReflectionDatabase,
+#[derive(Debug, Clone, Copy)]
+struct PropertySource<'source> {
+    class_name: Ustr,
+    property_name: &'source str,
+    type_id: u32,
+}
+
+impl PropertySource<'_> {
+    fn location(self) -> PropertyLocation {
+        PropertyLocation::new(
+            self.class_name.to_string(),
+            self.property_name.to_owned(),
+            self.type_id,
+        )
+    }
+}
+
+struct CanonicalPropertyRequest<'db, 'source, 'call, S> {
+    database: &'db ReflectionDatabase<'db>,
     binary_type: Type,
-    class_descriptor: Option<&'de ClassDescriptor<'de>>,
-    prop_name: &str,
-) -> Option<CanonicalProperty<'de>> {
-    match find_property_descriptors(database, class_descriptor, prop_name) {
+    binary_type_byte: u8,
+    class_descriptor: Option<&'db ClassDescriptor<'db>>,
+    source: PropertySource<'source>,
+    instances: &'call [Instance<S>],
+    diagnostics: &'call mut S,
+    payload: &'call [u8],
+}
+
+fn find_canonical_property<'db, 'source, S: DiagnosticSink>(
+    request: CanonicalPropertyRequest<'db, 'source, '_, S>,
+) -> Option<CanonicalProperty<'db, 'source>> {
+    let CanonicalPropertyRequest {
+        database,
+        binary_type,
+        binary_type_byte,
+        class_descriptor,
+        source,
+        instances,
+        diagnostics,
+        payload,
+    } = request;
+    match find_property_descriptors(database, class_descriptor, source.property_name) {
         Some((_, descriptors)) => {
             // If this descriptor is known but wasn't supposed to be
             // serialized, we should skip it.
@@ -129,17 +179,26 @@ fn find_canonical_property<'de>(
             // In case we run into a model serialized during that period, or
             // this happens again, we need to make sure that the name we
             // found is the one that's supposed to serialize.
-            if let PropertyKind::Canonical { serialization } = &descriptors.canonical.kind {
-                if matches!(serialization, PropertySerialization::DoesNotSerialize) {
-                    log::debug!(
-                        "Skipping property {} as it is canonical and should not serialize.",
-                        descriptors.canonical.name
-                    );
-                    return None;
-                }
+            if let PropertyKind::Canonical {
+                serialization: PropertySerialization::DoesNotSerialize,
+            } = &descriptors.canonical.kind
+            {
+                log::debug!(
+                    "Skipping property {} as it is canonical and should not serialize.",
+                    descriptors.canonical.name
+                );
+                diagnostics.record(|| DecodeDiagnostic::PropertySkipped {
+                    property: source.location(),
+                    instances: instances.iter().map(Instance::location).collect(),
+                    reason: PropertySkipReason::DoesNotSerialize {
+                        canonical_property: descriptors.canonical.name.to_owned(),
+                        binary_type: binary_type_byte,
+                    },
+                    data: payload.to_vec(),
+                });
+                return None;
             }
 
-            // TODO: Do we need an additional fix here?
             let canonical_name = descriptors.canonical.name;
             let canonical_type = descriptors.canonical.data_type.ty();
             let migration = match &descriptors.canonical.kind {
@@ -157,6 +216,7 @@ fn find_canonical_property<'de>(
                 name: canonical_name.into(),
                 ty: canonical_type,
                 migration,
+                source,
             })
         }
         None => {
@@ -164,6 +224,14 @@ fn find_canonical_property<'de>(
                 Some(rbx_type) => rbx_type,
                 None => {
                     log::warn!("Unsupported prop type {binary_type:?}, skipping property");
+                    diagnostics.record(|| DecodeDiagnostic::PropertySkipped {
+                        property: source.location(),
+                        instances: instances.iter().map(Instance::location).collect(),
+                        reason: PropertySkipReason::UnsupportedType {
+                            binary_type: binary_type_byte,
+                        },
+                        data: payload.to_vec(),
+                    });
                     return None;
                 }
             };
@@ -171,44 +239,75 @@ fn find_canonical_property<'de>(
             log::trace!("Unknown prop, using type {canonical_type:?}");
 
             Some(CanonicalProperty {
-                name: prop_name.into(),
+                name: source.property_name.into(),
                 ty: canonical_type,
                 migration: None,
+                source,
             })
         }
     }
 }
 
-fn add_property(instance: &mut Instance, canonical_property: &CanonicalProperty, value: Variant) {
-    if let Some(PropertySerialization::Migrate(migration)) = canonical_property.migration {
-        let old_property_name = canonical_property.name;
-        match migration.perform(&value) {
-            Ok(new_value) => {
-                for &new_property_name in migration.new_property_names() {
-                    if !instance.builder.has_property(new_property_name) {
-                        log::trace!(
+/// Records evidence on the same instance that receives each decoded value.
+impl<S: DiagnosticSink> Instance<S> {
+    fn location(&self) -> InstanceLocation {
+        InstanceLocation::new(self.document_referent, self.builder.referent())
+    }
+
+    fn record(&mut self, make: impl FnOnce(InstanceLocation) -> DecodeDiagnostic) {
+        let document_referent = self.document_referent;
+        let dom_ref = self.builder.referent();
+        self.diagnostics
+            .record(|| make(InstanceLocation::new(document_referent, dom_ref)));
+    }
+
+    fn read_attributes(
+        &mut self,
+        bytes: &[u8],
+        property: &CanonicalProperty,
+    ) -> Result<Attributes, rbx_dom_weak::types::Error> {
+        let document_referent = self.document_referent;
+        let dom_ref = self.builder.referent();
+        self.diagnostics
+            .read_attributes(bytes, |diagnostic| DecodeDiagnostic::AttributeLoss {
+                property: property.source.location(),
+                instance: InstanceLocation::new(document_referent, dom_ref),
+                diagnostic,
+            })
+    }
+
+    fn add_property(&mut self, canonical_property: &CanonicalProperty, value: Variant) {
+        if let Some(PropertySerialization::Migrate(migration)) = canonical_property.migration {
+            let old_property_name = canonical_property.name;
+            match migration.perform(&value) {
+                Ok(new_value) => {
+                    for &new_property_name in migration.new_property_names() {
+                        if !self.builder.has_property(new_property_name) {
+                            log::trace!(
                                 "Attempting to migrate property {old_property_name} to {new_property_name}"
                             );
-
-                        instance
-                            .builder
-                            .add_property(new_property_name, new_value.clone());
+                            self.builder
+                                .add_property(new_property_name, new_value.clone());
+                        }
                     }
                 }
-            }
-
-            Err(e) => {
-                log::warn!("Failed to migrate property {old_property_name} because: {e}");
-            }
-        };
-    } else {
-        instance
-            .builder
-            .add_property(canonical_property.name, value)
+                Err(cause) => {
+                    log::warn!("Failed to migrate property {old_property_name} because: {cause}");
+                    self.record(|location| DecodeDiagnostic::MigrationFailed {
+                        property: canonical_property.source.location(),
+                        instance: location,
+                        canonical_property: canonical_property.name.to_string(),
+                        cause,
+                    });
+                }
+            };
+        } else {
+            self.builder.add_property(canonical_property.name, value)
+        }
     }
 }
 
-impl<'db, R: Read> DeserializerState<'db, R> {
+impl<'db, R: Read, S: DiagnosticSink> DeserializerState<'db, R, S> {
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
         mut input: R,
@@ -234,7 +333,15 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             instances,
             root_instance_refs: Vec::new(),
             unknown_type_ids: HashSet::new(),
+            diagnostics: S::default(),
         })
+    }
+
+    pub(super) fn ignore_unknown_chunk(&mut self, chunk: Chunk) {
+        self.diagnostics.record(|| DecodeDiagnostic::UnknownChunk {
+            name: chunk.name,
+            data: chunk.data,
+        });
     }
 
     pub(super) fn next_chunk(&mut self) -> Result<Chunk, InnerError> {
@@ -319,6 +426,9 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             };
 
             self.instances.push(Instance {
+                document_referent: referent,
+                class_name: type_name.as_str().into(),
+                diagnostics: S::default(),
                 builder,
                 children: Vec::new(),
             });
@@ -365,7 +475,17 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         // that end immediately after the prop name, so we do the same.
         let binary_type_byte = match chunk.read_u8() {
             Ok(byte) => byte,
-            Err(_) => return Ok(()),
+            Err(_) => {
+                let source_instances = &self.instances[instances.clone()];
+                self.diagnostics
+                    .record(|| DecodeDiagnostic::PropertySkipped {
+                        property: PropertyLocation::new(type_name.to_string(), prop_name, type_id),
+                        instances: source_instances.iter().map(Instance::location).collect(),
+                        reason: PropertySkipReason::MissingType,
+                        data: Vec::new(),
+                    });
+                return Ok(());
+            }
         };
 
         let binary_type: Type = match binary_type_byte.try_into() {
@@ -381,6 +501,14 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                     );
                 }
 
+                let source_instances = &self.instances[instances.clone()];
+                self.diagnostics
+                    .record(|| DecodeDiagnostic::PropertySkipped {
+                        property: PropertyLocation::new(type_name.to_string(), prop_name, type_id),
+                        instances: source_instances.iter().map(Instance::location).collect(),
+                        reason: PropertySkipReason::UnknownType(binary_type_byte),
+                        data: chunk.to_vec(),
+                    });
                 return Ok(());
             }
         };
@@ -405,7 +533,17 @@ impl<'db, R: Read> DeserializerState<'db, R> {
                 let binary_string = chunk.read_binary_string()?;
                 let value = match std::str::from_utf8(&binary_string) {
                     Ok(value) => value.to_owned(),
-                    Err(_) => {
+                    Err(cause) => {
+                        instance.record(|location| DecodeDiagnostic::InvalidUtf8 {
+                            property: PropertyLocation::new(
+                                type_name.to_string(),
+                                prop_name.clone(),
+                                type_id,
+                            ),
+                            instance: location,
+                            bytes: binary_string.clone(),
+                            cause,
+                        });
                         log::warn!(
                             "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
 This may cause unexpected or broken behavior in your final results if you rely on this property being non UTF-8.",
@@ -422,15 +560,23 @@ This may cause unexpected or broken behavior in your final results if you rely o
             return Ok(());
         }
 
-        let property = if let Some(property) = find_canonical_property(
-            self.deserializer.database,
+        let source = PropertySource {
+            class_name: type_name,
+            property_name: &prop_name,
+            type_id,
+        };
+        let property = match find_canonical_property(CanonicalPropertyRequest {
+            database: self.deserializer.database,
             binary_type,
+            binary_type_byte,
             class_descriptor,
-            &prop_name,
-        ) {
-            property
-        } else {
-            return Ok(());
+            source,
+            instances,
+            diagnostics: &mut self.diagnostics,
+            payload: chunk,
+        }) {
+            Some(property) => property,
+            None => return Ok(()),
         };
 
         let canonical_type = property.ty;
@@ -442,7 +588,13 @@ This may cause unexpected or broken behavior in your final results if you rely o
                         let binary_string = chunk.read_binary_string()?;
                         let value = match std::str::from_utf8(&binary_string) {
                             Ok(value) => value.to_owned(),
-                            Err(_) => {
+                            Err(cause) => {
+                                instance.record(|location| DecodeDiagnostic::InvalidUtf8 {
+                                    property: property.source.location(),
+                                    instance: location,
+                                    bytes: binary_string.clone(),
+                                    cause,
+                                });
                                 log::warn!(
                             "Performing lossy string conversion on property {}.{} because it did not contain UTF-8.
 This may cause unexpected or broken behavior in your final results if you rely on this property being non UTF-8.",
@@ -454,19 +606,19 @@ This may cause unexpected or broken behavior in your final results if you rely o
                             }
                         };
 
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 VariantType::ContentId => {
                     for instance in instances {
                         let value = chunk.read_string()?;
-                        add_property(instance, &property, ContentId::from(value).into());
+                        instance.add_property(&property, ContentId::from(value).into());
                     }
                 }
                 VariantType::BinaryString => {
                     for instance in instances {
                         let value: BinaryString = chunk.read_binary_string()?.into();
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 VariantType::Tags => {
@@ -482,16 +634,16 @@ This may cause unexpected or broken behavior in your final results if you rely o
                             }
                         })?;
 
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 VariantType::Attributes => {
                     for instance in instances {
                         let buffer = chunk.read_binary_string()?;
 
-                        match Attributes::from_reader(buffer.as_slice()) {
+                        match instance.read_attributes(buffer.as_slice(), &property) {
                             Ok(value) => {
-                                add_property(instance, &property, value.into());
+                                instance.add_property(&property, value.into());
                             }
                             Err(err) => {
                                 log::warn!(
@@ -502,11 +654,15 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                     err
                                 );
 
-                                add_property(
-                                    instance,
-                                    &property,
-                                    BinaryString::from(buffer).into(),
-                                );
+                                instance.record(|location| {
+                                    DecodeDiagnostic::BinaryStringFallback {
+                                        property: property.source.location(),
+                                        instance: location,
+                                        bytes: buffer.clone(),
+                                        cause: BinaryStringFallbackCause::Attributes(err),
+                                    }
+                                });
+                                instance.add_property(&property, BinaryString::from(buffer).into());
                             }
                         }
                     }
@@ -515,7 +671,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     for instance in instances {
                         let buffer = chunk.read_binary_string()?;
                         match MaterialColors::decode(&buffer) {
-                            Ok(value) => add_property(instance, &property, value.into()),
+                            Ok(value) => instance.add_property(&property, value.into()),
                             Err(err) => {
                                 log::warn!(
                                     "Failed to parse MaterialColors on {} because {:?}; falling back to BinaryString.
@@ -525,11 +681,15 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                     err
                                 );
 
-                                add_property(
-                                    instance,
-                                    &property,
-                                    BinaryString::from(buffer).into(),
-                                );
+                                instance.record(|location| {
+                                    DecodeDiagnostic::BinaryStringFallback {
+                                        property: property.source.location(),
+                                        instance: location,
+                                        bytes: buffer.clone(),
+                                        cause: BinaryStringFallbackCause::MaterialColors(err),
+                                    }
+                                });
+                                instance.add_property(&property, BinaryString::from(buffer).into());
                             }
                         }
                     }
@@ -548,7 +708,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::Bool => {
                     for instance in instances {
                         let value = chunk.read_bool()?;
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -565,7 +725,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_i32_array(instances.len())?;
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 // This branch allows values serialized as Int32 to be converted to Int64 when we expect a Int64
@@ -576,7 +736,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
                     for (value, instance) in values.zip(instances) {
                         let value_converted = i64::from(value);
-                        add_property(instance, &property, value_converted.into());
+                        instance.add_property(&property, value_converted.into());
                     }
                 }
                 invalid_type => {
@@ -593,7 +753,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_f32_array(instances.len())?;
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -609,7 +769,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::Float64 => {
                     for instance in instances {
                         let value = chunk.read_le_f64()?;
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 // This branch allows values serialized as Float32 to be converted to Float64 when we expect a Float64
@@ -620,7 +780,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
                     for (value, instance) in values.zip(instances) {
                         let converted_value = f64::from(value);
-                        add_property(instance, &property, converted_value.into());
+                        instance.add_property(&property, converted_value.into());
                     }
                 }
                 invalid_type => {
@@ -642,7 +802,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         .map(|(scale, offset)| UDim::new(scale, offset));
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -673,7 +833,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = x.zip(y).map(|(x, y)| UDim2::new(x, y));
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -695,8 +855,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let direction_y = chunk.read_le_f32()?;
                         let direction_z = chunk.read_le_f32()?;
 
-                        add_property(
-                            instance,
+                        instance.add_property(
                             &property,
                             Ray::new(
                                 Vector3::new(origin_x, origin_y, origin_z),
@@ -727,7 +886,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 actual_value: value.to_string(),
                             })?;
 
-                        add_property(instance, &property, faces.into());
+                        instance.add_property(&property, faces.into());
                     }
                 }
                 invalid_type => {
@@ -752,7 +911,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 actual_value: value.to_string(),
                             })?;
 
-                        add_property(instance, &property, axes.into());
+                        instance.add_property(&property, axes.into());
                     }
                 }
                 invalid_type => {
@@ -780,7 +939,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 actual_value: value.to_string(),
                             })?;
 
-                        add_property(instance, &property, color.into());
+                        instance.add_property(&property, color.into());
                     }
                 }
                 invalid_type => {
@@ -801,7 +960,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = r.zip(g).zip(b).map(|((r, g), b)| Color3::new(r, g, b));
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -821,7 +980,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = x.zip(y).map(|(x, y)| Vector2::new(x, y));
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -842,7 +1001,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = x.zip(y).zip(z).map(|((x, y), z)| Vector3::new(x, y, z));
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -901,7 +1060,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         .map(|(position, rotation)| CFrame::new(position, rotation));
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -918,7 +1077,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_u32_array(instances.len())?;
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, Enum::from_u32(value).into());
+                        instance.add_property(&property, Enum::from_u32(value).into());
                     }
                 }
                 invalid_type => {
@@ -938,9 +1097,17 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let rbx_value = if let Some(key) = self.instance_key_by_ref.get(&value) {
                             key.referent
                         } else {
+                            if value != -1 {
+                                instance.record(|location| DecodeDiagnostic::UnresolvedReference {
+                                    property: property.source.location(),
+                                    instance: location,
+                                    target: value,
+                                    kind: ReferenceKind::Ref,
+                                });
+                            }
                             Ref::none()
                         };
-                        add_property(instance, &property, rbx_value.into());
+                        instance.add_property(&property, rbx_value.into());
                     }
                 }
                 invalid_type => {
@@ -955,8 +1122,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::Vector3int16 => match canonical_type {
                 VariantType::Vector3int16 => {
                     for instance in instances {
-                        add_property(
-                            instance,
+                        instance.add_property(
                             &property,
                             Vector3int16::new(
                                 chunk.read_le_i16()?,
@@ -980,8 +1146,38 @@ rbx-dom may require changes to fully support this property. Please open an issue
                 VariantType::Font => {
                     for instance in instances {
                         let family = chunk.read_string()?;
-                        let weight = FontWeight::from_u16(chunk.read_le_u16()?).unwrap_or_default();
-                        let style = FontStyle::from_u8(chunk.read_u8()?).unwrap_or_default();
+                        let raw_weight = chunk.read_le_u16()?;
+                        let weight = match FontWeight::from_u16(raw_weight) {
+                            Some(weight) => weight,
+                            None => {
+                                let replacement = FontWeight::default();
+                                instance.record(|location| DecodeDiagnostic::FontFallback {
+                                    property: property.source.location(),
+                                    instance: location,
+                                    fallback: FontFallback::Weight {
+                                        found: raw_weight,
+                                        replacement,
+                                    },
+                                });
+                                replacement
+                            }
+                        };
+                        let raw_style = chunk.read_u8()?;
+                        let style = match FontStyle::from_u8(raw_style) {
+                            Some(style) => style,
+                            None => {
+                                let replacement = FontStyle::default();
+                                instance.record(|location| DecodeDiagnostic::FontFallback {
+                                    property: property.source.location(),
+                                    instance: location,
+                                    fallback: FontFallback::Style {
+                                        found: raw_style,
+                                        replacement,
+                                    },
+                                });
+                                replacement
+                            }
+                        };
                         let cached_face_id = chunk.read_string()?;
 
                         let cached_face_id = if cached_face_id.is_empty() {
@@ -990,8 +1186,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             Some(cached_face_id)
                         };
 
-                        add_property(
-                            instance,
+                        instance.add_property(
                             &property,
                             Font {
                                 family,
@@ -1026,7 +1221,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             ))
                         }
 
-                        add_property(instance, &property, NumberSequence { keypoints }.into())
+                        instance.add_property(&property, NumberSequence { keypoints }.into())
                     }
                 }
                 invalid_type => {
@@ -1044,7 +1239,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         let keypoint_count = chunk.read_le_u32()? as usize;
                         let mut keypoints = Vec::with_capacity(keypoint_count);
 
-                        for _ in 0..keypoint_count {
+                        for keypoint_index in (0u32..).take(keypoint_count) {
                             keypoints.push(ColorSequenceKeypoint::new(
                                 chunk.read_le_f32()?,
                                 Color3::new(
@@ -1054,11 +1249,20 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 ),
                             ));
 
-                            // envelope is serialized but doesn't do anything; don't do anything with it
-                            chunk.read_le_f32()?;
+                            let found_bits = chunk.read_le_u32()?;
+                            if found_bits != ColorSequenceEnvelope::NORMALIZED_BITS {
+                                instance.record(|location| {
+                                    DecodeDiagnostic::ColorSequenceEnvelope {
+                                        property: property.source.location(),
+                                        instance: location,
+                                        keypoint_index,
+                                        envelope: ColorSequenceEnvelope::from_bits(found_bits),
+                                    }
+                                });
+                            }
                         }
 
-                        add_property(instance, &property, ColorSequence { keypoints }.into())
+                        instance.add_property(&property, ColorSequence { keypoints }.into())
                     }
                 }
                 invalid_type => {
@@ -1073,8 +1277,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::NumberRange => match canonical_type {
                 VariantType::NumberRange => {
                     for instance in instances {
-                        add_property(
-                            instance,
+                        instance.add_property(
                             &property,
                             NumberRange::new(chunk.read_le_f32()?, chunk.read_le_f32()?).into(),
                         )
@@ -1104,7 +1307,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     );
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into())
+                        instance.add_property(&property, value.into())
                     }
                 }
                 invalid_type => {
@@ -1145,7 +1348,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                             _ => return Err(InnerError::BadPhysicalPropertiesType(discriminator)),
                         };
 
-                        add_property(instance, &property, value);
+                        instance.add_property(&property, value);
                     }
                 }
                 invalid_type => {
@@ -1175,7 +1378,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         .map(|((r, g), b)| Color3uint8::new(r, g, b));
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -1192,7 +1395,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = chunk.read_interleaved_i64_array(instances.len())?;
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into());
+                        instance.add_property(&property, value.into());
                     }
                 }
                 invalid_type => {
@@ -1219,7 +1422,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 }
                             })?;
 
-                        add_property(instance, &property, shared_string.clone().into());
+                        instance.add_property(&property, shared_string.clone().into());
                     }
                 }
                 VariantType::NetAssetRef => {
@@ -1238,7 +1441,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 .clone(),
                         );
 
-                        add_property(instance, &property, net_asset.into());
+                        instance.add_property(&property, net_asset.into());
                     }
                 }
                 // On 2026-06-30, Roblox began storing Tags in the SharedString index.
@@ -1256,8 +1459,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                                 actual_value: format!("{value:?}"),
                             })?;
 
-                        add_property(
-                            instance,
+                        instance.add_property(
                             &property,
                             Tags::decode(tags_shared_string.data())
                                 .map_err(|_| InnerError::InvalidPropData {
@@ -1358,7 +1560,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         });
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value?.into());
+                        instance.add_property(&property, value?.into());
                     }
                 }
                 invalid_type => {
@@ -1377,8 +1579,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
 
                     for (value, instance) in values.zip(instances) {
                         let mut value = value.as_slice();
-                        add_property(
-                            instance,
+                        instance.add_property(
                             &property,
                             UniqueId::new(
                                 value.read_be_u32()?,
@@ -1405,7 +1606,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let values = values.map(|value| SecurityCapabilities::from_bits(value as u64));
 
                     for (value, instance) in values.zip(instances) {
-                        add_property(instance, &property, value.into())
+                        instance.add_property(&property, value.into())
                     }
                 }
                 invalid_type => {
@@ -1431,28 +1632,66 @@ rbx-dom may require changes to fully support this property. Please open an issue
                     let mut objects: VecDeque<i32> =
                         chunk.read_referent_array(object_count)?.collect();
 
-                    let external_count = chunk.read_le_u32().unwrap() as usize;
-                    // We are advised by Roblox to just ignore this, as it's
-                    // meant for internal use. If we want to use it in the
-                    // future, it's a referent array.
-                    let mut bytes = vec![0; external_count * 4];
-                    chunk.read_to_end(&mut bytes)?;
+                    let external_count = chunk.read_le_u32()?;
+                    // Roblox reserves this section for internal use. Preserve
+                    // its source bytes as evidence rather than interpreting it.
+                    let external_data = chunk;
+                    if external_count != 0 || !external_data.is_empty() {
+                        self.diagnostics.record(|| {
+                            DecodeDiagnostic::ExternalContentReferencesIgnored {
+                                property: property.source.location(),
+                                instances: instances.iter().map(Instance::location).collect(),
+                                count: external_count,
+                                data: external_data.to_vec(),
+                            }
+                        });
+                    }
 
                     for (ty, instance) in values.zip(instances) {
                         let value = match ty {
                             0 => Content::none(),
-                            1 => Content::from_uri(uris.pop_back().unwrap()),
+                            1 => {
+                                let uri =
+                                    uris.pop_back().ok_or_else(|| InnerError::InvalidPropData {
+                                        type_name: type_name.to_string(),
+                                        prop_name: prop_name.clone(),
+                                        valid_value: "one URI per Uri source",
+                                        actual_value: format!(
+                                            "URI array exhausted after {uri_count} entries"
+                                        ),
+                                    })?;
+                                Content::from_uri(uri)
+                            }
                             2 => {
-                                let read_value = objects.pop_back().unwrap();
+                                let read_value = objects.pop_front().ok_or_else(|| {
+                                    InnerError::InvalidPropData {
+                                        type_name: type_name.to_string(),
+                                        prop_name: prop_name.clone(),
+                                        valid_value: "one object referent per Object source",
+                                        actual_value: format!(
+                                            "object referent array exhausted after {object_count} entries"
+                                        ),
+                                    }
+                                })?;
                                 if let Some(key) = self.instance_key_by_ref.get(&read_value) {
                                     Content::from_referent(key.referent)
                                 } else {
+                                    if read_value != -1 {
+                                        instance.record(|location| {
+                                            DecodeDiagnostic::UnresolvedReference {
+                                                property: property.source.location(),
+                                                instance: location,
+                                                target: read_value,
+                                                kind: ReferenceKind::ContentObject,
+                                            }
+                                        });
+                                    }
                                     Content::none()
                                 }
                             }
                             n => return Err(InnerError::BadContentType(n)),
                         };
-                        add_property(instance, &property, value.into())
+                        instance.add_property(&property, value.into())
                     }
                 }
                 invalid_type => {
@@ -1513,8 +1752,12 @@ rbx-dom may require changes to fully support this property. Please open an issue
     /// Combines together all the decoded information to build and emplace
     /// instances in our tree.
     #[profiling::function]
-    pub(super) fn finish(mut self) -> WeakDom {
+    pub(super) fn finish(mut self) -> S::Output {
         log::trace!("Constructing tree from deserialized data");
+
+        for instance in &mut self.instances {
+            self.diagnostics.append(&mut instance.diagnostics);
+        }
 
         // Track all the instances we need to construct. Order of construction
         // is important to preserve for both determinism and sometimes
@@ -1538,6 +1781,9 @@ rbx-dom may require changes to fully support this property. Please open an issue
             // We guarantee this is done once by removing the key from `instance_key_by_ref`.
             let instance_key = self.instance_key_by_ref.remove(&referent).unwrap().key;
             let impostor = Instance {
+                document_referent: referent,
+                class_name: empty_ustr,
+                diagnostics: S::default(),
                 builder: InstanceBuilder::new(empty_ustr),
                 children: Vec::new(),
             };
@@ -1549,6 +1795,19 @@ rbx-dom may require changes to fully support this property. Please open an issue
             }
         }
 
-        self.tree
+        for instance in &self.instances {
+            if self
+                .instance_key_by_ref
+                .contains_key(&instance.document_referent)
+            {
+                self.diagnostics
+                    .record(|| DecodeDiagnostic::UnparentedInstance {
+                        instance: instance.location(),
+                        class_name: instance.class_name.to_string(),
+                    });
+            }
+        }
+
+        self.diagnostics.finish(self.tree)
     }
 }
