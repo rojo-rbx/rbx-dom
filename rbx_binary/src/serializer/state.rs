@@ -7,11 +7,12 @@ use std::{
 use ahash::{HashMap, HashMapExt};
 use rbx_dom_weak::{
     types::{
-        Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-        ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem, Faces, Font,
-        MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence, NumberSequenceKeypoint,
-        PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities, SharedString, Tags, UDim, UDim2,
-        UniqueId, Variant, VariantType, Vector2, Vector3, Vector3int16,
+        AssetContentMap, Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8,
+        ColorSequence, ColorSequenceKeypoint, Content, ContentId, ContentType, Enum, EnumItem,
+        Faces, Font, MaterialColors, Matrix3, NetAssetRef, NumberRange, NumberSequence,
+        NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Ref, SecurityCapabilities,
+        SharedString, Tags, UDim, UDim2, UniqueId, Variant, VariantType, Vector2, Vector3,
+        Vector3int16,
     },
     Instance, Ustr, UstrMap, WeakDom,
 };
@@ -22,6 +23,7 @@ use rbx_reflection::{
 };
 
 use crate::{
+    asset_content_map::write_asset_content_map,
     chunk::ChunkBuilder,
     core::{
         find_property_descriptors, PropertyDescriptors, RbxWriteExt, FILE_MAGIC_HEADER,
@@ -1619,6 +1621,15 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                         // we will need to add it here.
                         chunk.write_le_u32(0)?;
                     }
+                    Type::AssetContentMap => {
+                        for (i, rbx_value) in values {
+                            if let Variant::AssetContentMap(value) = rbx_value {
+                                write_asset_content_map(chunk, value)?;
+                            } else {
+                                return type_mismatch(i, rbx_value, "AssetContentMap");
+                            }
+                        }
+                    }
                 }
                 Ok(())
             }
@@ -1743,6 +1754,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
     static DEFAULT_CONTENT: Variant = Variant::Content(Content::none());
     static DEFAULT_NETASSETREF: LazyLock<Variant> =
         LazyLock::new(|| Variant::NetAssetRef(NetAssetRef::new(Vec::new())));
+    static DEFAULT_ASSETCONTENTMAP: Variant = Variant::AssetContentMap(AssetContentMap::new());
     Some(match rbx_type {
         VariantType::String => &DEFAULT_STRING,
         VariantType::BinaryString => &DEFAULT_BINARYSTRING,
@@ -1781,6 +1793,7 @@ fn fallback_default_value(rbx_type: VariantType) -> Option<&'static Variant> {
         VariantType::SecurityCapabilities => &DEFAULT_SECURITYCAPABILITIES,
         VariantType::Content => &DEFAULT_CONTENT,
         VariantType::NetAssetRef => &DEFAULT_NETASSETREF,
+        VariantType::AssetContentMap => &DEFAULT_ASSETCONTENTMAP,
         _ => return None,
     })
 }

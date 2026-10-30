@@ -329,3 +329,36 @@ fn does_not_serialize() {
     let decoded = DecodedModel::from_reader(buf.as_slice());
     insta::assert_yaml_snapshot!(decoded);
 }
+
+/// Expanded Terrain stores its voxels in `Terrain.VoxelGridAssetContentMap`;
+/// dropping it during a round trip deletes the terrain.
+#[test]
+fn terrain_voxel_grid_round_trip() {
+    use rbx_dom_weak::types::{AssetContentMap, BinaryString};
+
+    let mut map = AssetContentMap::new();
+    map.insert(
+        "L3;0,0,0;N4".to_owned(),
+        BinaryString::from(b"VXFG\x02\x00\xff".to_vec()),
+    );
+    map.insert("L7;0,0,0;N4".to_owned(), BinaryString::new());
+
+    let tree = WeakDom::new(
+        InstanceBuilder::new("Terrain").with_property("VoxelGridAssetContentMap", map.clone()),
+    );
+
+    let mut buffer = Vec::new();
+    to_writer(&mut buffer, &tree, &[tree.root_ref()]).expect("failed to encode model");
+
+    let decoded = Deserializer::new()
+        .deserialize(buffer.as_slice())
+        .expect("failed to decode model");
+    let terrain = decoded
+        .get_by_ref(decoded.root().children()[0])
+        .expect("missing Terrain");
+
+    assert_eq!(
+        terrain.properties.get(&"VoxelGridAssetContentMap".into()),
+        Some(&Variant::AssetContentMap(map)),
+    );
+}

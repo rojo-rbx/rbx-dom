@@ -1,4 +1,5 @@
 //! Tests to ensure the functionality of the parser.
+mod asset_content_map;
 mod basic;
 mod edge_cases;
 mod formatting;

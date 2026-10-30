@@ -12,14 +12,17 @@ use std::{
 };
 
 use rbx_dom_weak::types::{
-    Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence, ColorSequenceKeypoint,
-    CustomPhysicalProperties, Enum, Faces, Font, FontStyle, FontWeight, Matrix3, NumberRange,
-    NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, SecurityCapabilities,
-    SharedString, UDim, UDim2, UniqueId, Vector2, Vector3, Vector3int16,
+    AssetContentMap, Axes, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
+    ColorSequenceKeypoint, CustomPhysicalProperties, Enum, Faces, Font, FontStyle, FontWeight,
+    Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint, PhysicalProperties, Ray, Rect,
+    SecurityCapabilities, SharedString, UDim, UDim2, UniqueId, Vector2, Vector3, Vector3int16,
 };
 use serde::{ser::SerializeSeq, Serialize, Serializer};
 
-use crate::{chunk::Chunk, core::RbxReadExt, deserializer::FileHeader, types::Type};
+use crate::{
+    asset_content_map::read_asset_content_map, chunk::Chunk, core::RbxReadExt,
+    deserializer::FileHeader, types::Type,
+};
 
 #[derive(Debug, Serialize)]
 pub struct DecodedModel {
@@ -226,6 +229,7 @@ pub enum DecodedValues {
     Font(Vec<Font>),
     SecurityCapabilities(Vec<SecurityCapabilities>),
     Content(Vec<SerializedContentType>),
+    AssetContentMap(Vec<AssetContentMap>),
 }
 
 impl DecodedValues {
@@ -724,6 +728,15 @@ impl DecodedValues {
                 }
 
                 Some(DecodedValues::Content(values))
+            }
+            Type::AssetContentMap => {
+                let mut values = Vec::with_capacity(prop_count);
+
+                for _ in 0..prop_count {
+                    values.push(read_asset_content_map(&mut reader).unwrap());
+                }
+
+                Some(DecodedValues::AssetContentMap(values))
             }
         }
     }

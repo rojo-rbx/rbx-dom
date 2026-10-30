@@ -53,6 +53,7 @@ rbx_binary::to_writer(output, &dom, &[dom.root_ref()])?;
 
 #![deny(missing_docs)]
 
+mod asset_content_map;
 mod chunk;
 mod core;
 mod deserializer;

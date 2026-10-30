@@ -43,6 +43,7 @@ pub enum Type {
     Font = 0x20,
     SecurityCapabilities = 0x21,
     Content = 0x22,
+    AssetContentMap = 0x23,
 }
 
 impl Type {
@@ -87,6 +88,7 @@ impl Type {
             VariantType::Font => Type::Font,
             VariantType::SecurityCapabilities => Type::SecurityCapabilities,
             VariantType::Content => Type::Content,
+            VariantType::AssetContentMap => Type::AssetContentMap,
             _ => return None,
         })
     }
@@ -126,6 +128,7 @@ impl Type {
             Type::Font => VariantType::Font,
             Type::SecurityCapabilities => VariantType::SecurityCapabilities,
             Type::Content => VariantType::Content,
+            Type::AssetContentMap => VariantType::AssetContentMap,
         })
     }
 }
@@ -168,6 +171,7 @@ impl TryFrom<u8> for Type {
             0x20 => Font,
             0x21 => SecurityCapabilities,
             0x22 => Content,
+            0x23 => AssetContentMap,
             _ => return Err(InvalidTypeError(value)),
         })
     }

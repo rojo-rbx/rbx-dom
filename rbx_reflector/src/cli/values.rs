@@ -3,11 +3,11 @@ use std::{collections::BTreeMap, fs, path::PathBuf};
 use anyhow::bail;
 use clap::Parser;
 use rbx_types::{
-    Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8, ColorSequence,
-    ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum, EnumItem, Faces,
-    Font, MaterialColors, Matrix3, NumberRange, NumberSequence, NumberSequenceKeypoint,
-    PhysicalProperties, Ray, Rect, Region3int16, Tags, TerrainMaterials, UDim, UDim2, Variant,
-    VariantType, Vector2, Vector2int16, Vector3, Vector3int16,
+    AssetContentMap, Attributes, Axes, BinaryString, BrickColor, CFrame, Color3, Color3uint8,
+    ColorSequence, ColorSequenceKeypoint, Content, ContentId, CustomPhysicalProperties, Enum,
+    EnumItem, Faces, Font, MaterialColors, Matrix3, NumberRange, NumberSequence,
+    NumberSequenceKeypoint, PhysicalProperties, Ray, Rect, Region3int16, Tags, TerrainMaterials,
+    UDim, UDim2, Variant, VariantType, Vector2, Vector2int16, Vector3, Vector3int16,
 };
 use serde::Serialize;
 
@@ -26,6 +26,14 @@ impl ValuesSubcommand {
 
         let mut values: BTreeMap<&str, Variant> = BTreeMap::new();
 
+        values.insert("AssetContentMap", {
+            let mut map = AssetContentMap::new();
+            map.insert(
+                "L3;0,0,0;N4".to_owned(),
+                BinaryString::from("Hello!".as_bytes()),
+            );
+            map.into()
+        });
         values.insert(
             "Attributes",
             Attributes::new()

@@ -54,6 +54,7 @@ This document is based on:
 	- [UniqueId](#uniqueid)
 	- [Font](#font)
 	- [Content](#content)
+	- [AssetContentMap](#assetcontentmap)
 - [Data Storage Notes](#data-storage-notes)
 	- [Integer Transformations](#integer-transformations)
 	- [Byte Interleaving](#byte-interleaving)
@@ -768,6 +769,35 @@ The `Content` type is a struct composed of the following fields:
 
 [Content-type]: https://create.roblox.com/docs/reference/engine/datatypes/Content
 [Object-class]: https://create.roblox.com/docs/reference/engine/classes/Object
+
+### AssetContentMap
+**Type ID `0x23`**
+
+The `AssetContentMap` type is a map of string keys to binary data. It is currently used by `Terrain.VoxelGridAssetContentMap`, which holds the voxel data of places that use Expanded Terrain. In those places, `Terrain.SmoothGrid` only contains a header, so this property MUST be preserved to preserve the terrain.
+
+Unlike most types, `AssetContentMap` values are not interleaved. Each value is stored one after another, and each has the following fields:
+
+| Field Name    | Format          | Value                                                              |
+|:--------------|:----------------|:-------------------------------------------------------------------|
+| Flags         | `u8`            | Indicates which of the following fields are present                |
+| BundleAssetId | `String`        | Present if bit `0` (`0x01`) of `Flags` is set                      |
+| EntryCount    | `i64`           | Present if bit `1` (`0x02`) of `Flags` is set                      |
+| Entries       | Array(`Entry`)  | `EntryCount` entries, present if bit `1` (`0x02`) of `Flags` is set |
+
+Each `Entry` has the following fields:
+
+| Field Name | Format   | Value                         |
+|:-----------|:---------|:------------------------------|
+| Key        | `String` | The key of the entry          |
+| Data       | `String` | The binary data of the entry  |
+
+`EntryCount` is stored little-endian and is not transformed.
+
+`BundleAssetId` is the ID of an uploaded asset, written as decimal digits, that contains the entries instead of the file. An ID of `0` means there is no bundle. Roblox writes either `BundleAssetId` or the entries but not both; decoders SHOULD accept both being present.
+
+Keys are unique and their order is not significant. If a key appears more than once, Roblox keeps the first entry. The contents of `Data` are opaque to implementors.
+
+An empty `AssetContentMap` is stored as `02 00 00 00 00 00 00 00 00`.
 
 ## Data Storage Notes
 

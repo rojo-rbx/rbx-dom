@@ -1,6 +1,9 @@
 # rbx_binary Changelog
 
 ## Unreleased
+* Implement support for serializing and deserializing the `AssetContentMap` type, used by `Terrain.VoxelGridAssetContentMap` to store Expanded Terrain voxels. ([#610])
+
+[#610]: https://github.com/rojo-rbx/rbx-dom/issues/610
 
 # 3.0.1 (2026-10-01)
 * Changed serializer to always write a length for empty `PropertiesSerialize` values, which Roblox requires. ([#639])
