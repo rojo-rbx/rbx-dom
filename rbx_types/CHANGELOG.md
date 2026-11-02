@@ -1,7 +1,7 @@
 # rbx_types Changelog
 
 ## Unreleased
-* Implement support for serializing and deserializing the `AssetContentMap` type. ([#610])
+* Implement support for the `AssetContentMap` type. ([#610])
 
 [#610]: https://github.com/rojo-rbx/rbx-dom/issues/610
 
