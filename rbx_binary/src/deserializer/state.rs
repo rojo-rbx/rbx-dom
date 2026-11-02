@@ -15,7 +15,7 @@ use rbx_dom_weak::{
 use rbx_reflection::{ClassDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
-    asset_content_map::{read_asset_content_map, AssetContentMapDecodeError},
+    asset_content_map::read_asset_content_map,
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt},
     types::Type,
@@ -1468,26 +1468,7 @@ rbx-dom may require changes to fully support this property. Please open an issue
             Type::AssetContentMap => match canonical_type {
                 VariantType::AssetContentMap => {
                     for instance in instances {
-                        let value =
-                            read_asset_content_map(&mut chunk).map_err(|err| match err {
-                                AssetContentMapDecodeError::Io(source) => InnerError::Io { source },
-                                AssetContentMapDecodeError::InvalidBundleAssetId(id) => {
-                                    InnerError::InvalidPropData {
-                                        type_name: type_name.to_string(),
-                                        prop_name: prop_name.clone(),
-                                        valid_value: "a decimal bundle asset ID",
-                                        actual_value: format!("{id:?}"),
-                                    }
-                                }
-                                AssetContentMapDecodeError::NegativeEntryCount(count) => {
-                                    InnerError::InvalidPropData {
-                                        type_name: type_name.to_string(),
-                                        prop_name: prop_name.clone(),
-                                        valid_value: "a non-negative entry count",
-                                        actual_value: count.to_string(),
-                                    }
-                                }
-                            })?;
+                        let value = read_asset_content_map(&mut chunk)?;
 
                         add_property(instance, &property, value.into());
                     }

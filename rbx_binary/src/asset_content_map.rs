@@ -16,28 +16,17 @@ use std::io::{self, Read, Write};
 
 use rbx_dom_weak::types::AssetContentMap;
 
-use crate::core::{RbxReadExt, RbxWriteExt};
+use crate::{
+    core::{RbxReadExt, RbxWriteExt},
+    deserializer::InnerError,
+};
 
 const HAS_BUNDLE_ID: u8 = 1 << 0;
 const HAS_BINARY_DATA: u8 = 1 << 1;
 
-/// Reasons an `AssetContentMap` value could not be decoded.
-#[derive(Debug)]
-pub(crate) enum AssetContentMapDecodeError {
-    Io(io::Error),
-    InvalidBundleAssetId(String),
-    NegativeEntryCount(i64),
-}
-
-impl From<io::Error> for AssetContentMapDecodeError {
-    fn from(error: io::Error) -> Self {
-        Self::Io(error)
-    }
-}
-
 pub(crate) fn read_asset_content_map<R: Read>(
     reader: &mut R,
-) -> Result<AssetContentMap, AssetContentMapDecodeError> {
+) -> Result<AssetContentMap, InnerError> {
     let flags = reader.read_u8()?;
     let mut map = AssetContentMap::new();
 
@@ -45,7 +34,7 @@ pub(crate) fn read_asset_content_map<R: Read>(
         let id_string = reader.read_string()?;
         let id: i64 = id_string
             .parse()
-            .map_err(|_| AssetContentMapDecodeError::InvalidBundleAssetId(id_string))?;
+            .map_err(|_| InnerError::BadAssetContentMapBundleId(id_string))?;
 
         map.set_bundle_asset_id(Some(id));
     }
@@ -55,7 +44,7 @@ pub(crate) fn read_asset_content_map<R: Read>(
         reader.read_exact(&mut count_bytes)?;
         let count = i64::from_le_bytes(count_bytes);
         if count < 0 {
-            return Err(AssetContentMapDecodeError::NegativeEntryCount(count));
+            return Err(InnerError::BadAssetContentMapEntryCount(count));
         }
 
         for _ in 0..count {
@@ -204,7 +193,7 @@ mod test {
 
         assert!(matches!(
             read_asset_content_map(&mut buffer.as_slice()),
-            Err(AssetContentMapDecodeError::InvalidBundleAssetId(_))
+            Err(InnerError::BadAssetContentMapBundleId(_))
         ));
     }
 
@@ -215,7 +204,7 @@ mod test {
 
         assert!(matches!(
             read_asset_content_map(&mut buffer.as_slice()),
-            Err(AssetContentMapDecodeError::NegativeEntryCount(-1))
+            Err(InnerError::BadAssetContentMapEntryCount(-1))
         ));
     }
 
@@ -225,7 +214,7 @@ mod test {
 
         assert!(matches!(
             read_asset_content_map(&mut buffer.as_slice()),
-            Err(AssetContentMapDecodeError::Io(_))
+            Err(InnerError::Io { .. })
         ));
     }
 }
