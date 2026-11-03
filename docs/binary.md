@@ -773,7 +773,7 @@ The `Content` type is a struct composed of the following fields:
 ### AssetContentMap
 **Type ID `0x23`**
 
-The `AssetContentMap` type is a map of string keys to binary data. It is currently used by `Terrain.VoxelGridAssetContentMap`, which holds the voxel data of places that use Expanded Terrain. In those places, `Terrain.SmoothGrid` only contains a header, so this property MUST be preserved to preserve the terrain.
+The `AssetContentMap` type is a map of string keys to binary data. It is currently used by `Terrain.VoxelGridAssetContentMap`, which holds the voxel data of places that use Expanded Terrain. In those places, `Terrain.SmoothGrid` only contains a header and the voxels are stored in this property.
 
 Unlike most types, `AssetContentMap` values are not interleaved. Each value is stored one after another, and each has the following fields:
 

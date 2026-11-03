@@ -7,9 +7,7 @@ use crate::BinaryString;
 ///
 /// Roblox uses this type to hold content that it may upload separately from
 /// the place or model it belongs to. For example, `Terrain.VoxelGridAssetContentMap`
-/// holds the voxel data of places that use Expanded Terrain; in those places,
-/// `Terrain.SmoothGrid` only contains a small header, so dropping this value
-/// deletes the terrain.
+/// holds the voxel data of places that use Expanded Terrain.
 ///
 /// A map has two independent parts:
 ///

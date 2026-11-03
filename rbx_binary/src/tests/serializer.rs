@@ -330,8 +330,6 @@ fn does_not_serialize() {
     insta::assert_yaml_snapshot!(decoded);
 }
 
-/// Expanded Terrain stores its voxels in `Terrain.VoxelGridAssetContentMap`;
-/// dropping it during a round trip deletes the terrain.
 #[test]
 fn terrain_voxel_grid_round_trip() {
     use rbx_dom_weak::types::{AssetContentMap, BinaryString};

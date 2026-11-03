@@ -17,8 +17,6 @@ fn voxel_map() -> AssetContentMap {
     map
 }
 
-/// Expanded Terrain stores its voxels in `Terrain.VoxelGridAssetContentMap`;
-/// dropping it during a round trip deletes the terrain.
 #[test]
 fn terrain_voxel_grid_round_trip() {
     let tree = WeakDom::new(InstanceBuilder::new("Workspace").with_child(

@@ -23,8 +23,7 @@ use crate::{
     serializer_core::XmlEventWriter,
 };
 
-/// One element of the JSON array, as read from a file. `Cow` lets values
-/// without JSON escapes borrow from the XML text instead of allocating.
+/// One element of the JSON array, as read from a file.
 #[derive(Deserialize)]
 struct EntryIn<'a> {
     #[serde(borrow)]
@@ -65,7 +64,6 @@ impl XmlType for AssetContentMap {
             return Err(writer.error(EncodeErrorKind::UnsupportedAssetContentMapBundle));
         }
 
-        // Serializing plain strings and byte slices to a String cannot fail.
         let json = serde_json::to_string(&EntriesOut(self)).unwrap();
         writer.write_string(&json)?;
 
@@ -88,7 +86,7 @@ impl XmlType for AssetContentMap {
 
         let mut map = AssetContentMap::new();
         for EntryIn { key, data } in entries {
-            // Studio wraps base64 with line feeds, which the decoder rejects.
+            // Studio wraps long base64 values with line feeds.
             let data = if data.contains(char::is_whitespace) {
                 let stripped: String = data.chars().filter(|c| !c.is_whitespace()).collect();
                 base64::decode(stripped)
