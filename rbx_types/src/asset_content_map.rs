@@ -18,15 +18,29 @@ use crate::BinaryString;
 /// - An optional **bundle asset ID**, which refers to an uploaded asset that
 ///   holds the entries instead. Roblox downloads it when the value is loaded.
 ///   rbx-dom does not download it, and only preserves the reference.
-#[derive(Debug, Clone, Default, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
     serde(rename_all = "camelCase")
 )]
 pub struct AssetContentMap {
+    #[cfg_attr(
+        feature = "serde",
+        serde(default, deserialize_with = "deserialize_bundle_asset_id")
+    )]
     bundle_asset_id: Option<i64>,
     entries: BTreeMap<String, BinaryString>,
+}
+
+/// Keeps the invariant that a bundle asset ID is never `Some(0)`, matching
+/// [`AssetContentMap::set_bundle_asset_id`].
+#[cfg(feature = "serde")]
+fn deserialize_bundle_asset_id<'de, D: serde::Deserializer<'de>>(
+    deserializer: D,
+) -> Result<Option<i64>, D::Error> {
+    let id: Option<i64> = serde::Deserialize::deserialize(deserializer)?;
+    Ok(id.filter(|&id| id != 0))
 }
 
 impl AssetContentMap {
@@ -117,6 +131,10 @@ impl<'a> Iterator for AssetContentMapIter<'a> {
     fn next(&mut self) -> Option<Self::Item> {
         self.iter.next()
     }
+
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        self.iter.size_hint()
+    }
 }
 
 #[cfg(test)]
@@ -185,5 +203,20 @@ mod serde_test {
         let de: AssetContentMap = rmp_serde::from_slice(&ser).unwrap();
 
         assert_eq!(de, map);
+    }
+
+    #[test]
+    fn zero_bundle_id_is_none() {
+        let de: AssetContentMap =
+            serde_json::from_str(r#"{"bundleAssetId":0,"entries":{}}"#).unwrap();
+
+        assert_eq!(de, AssetContentMap::new());
+    }
+
+    #[test]
+    fn missing_bundle_id_is_none() {
+        let de: AssetContentMap = serde_json::from_str(r#"{"entries":{}}"#).unwrap();
+
+        assert_eq!(de, AssetContentMap::new());
     }
 }
