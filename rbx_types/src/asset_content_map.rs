@@ -89,17 +89,33 @@ impl AssetContentMap {
 
     /// Returns an iterator over the inline entries, sorted by key.
     #[inline]
-    pub fn iter(&self) -> btree_map::Iter<'_, String, BinaryString> {
-        self.entries.iter()
+    pub fn iter(&self) -> AssetContentMapIter<'_> {
+        AssetContentMapIter {
+            iter: self.entries.iter(),
+        }
     }
 }
 
 impl<'a> IntoIterator for &'a AssetContentMap {
     type Item = (&'a String, &'a BinaryString);
-    type IntoIter = btree_map::Iter<'a, String, BinaryString>;
+    type IntoIter = AssetContentMapIter<'a>;
 
     fn into_iter(self) -> Self::IntoIter {
         self.iter()
+    }
+}
+
+/// A borrowed iterator over the inline entries of an `AssetContentMap`,
+/// sorted by key. This is created by [`AssetContentMap::iter`].
+pub struct AssetContentMapIter<'a> {
+    iter: btree_map::Iter<'a, String, BinaryString>,
+}
+
+impl<'a> Iterator for AssetContentMapIter<'a> {
+    type Item = (&'a String, &'a BinaryString);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.iter.next()
     }
 }
 
