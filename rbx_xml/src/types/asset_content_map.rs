@@ -7,10 +7,14 @@
 //! `data` is base64 and may contain line breaks. Roblox has no XML form for
 //! a bundle asset ID, so maps that only refer to a bundle cannot be written.
 
-use std::io::{Read, Write};
+use std::{
+    borrow::Cow,
+    io::{Read, Write},
+};
 
+use base64::display::Base64Display;
 use rbx_dom_weak::types::AssetContentMap;
-use serde_json::Value;
+use serde::{Deserialize, Serialize, Serializer};
 
 use crate::{
     core::XmlType,
@@ -18,6 +22,40 @@ use crate::{
     error::{DecodeError, DecodeErrorKind, EncodeError, EncodeErrorKind},
     serializer_core::XmlEventWriter,
 };
+
+/// One element of the JSON array, as read from a file. `Cow` lets values
+/// without JSON escapes borrow from the XML text instead of allocating.
+#[derive(Deserialize)]
+struct EntryIn<'a> {
+    #[serde(borrow)]
+    key: Cow<'a, str>,
+    #[serde(borrow)]
+    data: Cow<'a, str>,
+}
+
+/// One element of the JSON array, as written. Fields are declared in the
+/// order Studio writes them.
+#[derive(Serialize)]
+struct EntryOut<'a> {
+    key: &'a str,
+    #[serde(serialize_with = "serialize_base64")]
+    data: &'a [u8],
+}
+
+fn serialize_base64<S: Serializer>(data: &&[u8], serializer: S) -> Result<S::Ok, S::Error> {
+    serializer.collect_str(&Base64Display::with_config(data, base64::STANDARD))
+}
+
+struct EntriesOut<'a>(&'a AssetContentMap);
+
+impl Serialize for EntriesOut<'_> {
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.collect_seq(self.0.iter().map(|(key, data)| EntryOut {
+            key,
+            data: data.as_ref(),
+        }))
+    }
+}
 
 impl XmlType for AssetContentMap {
     const XML_TAG_NAME: &'static str = "AssetContentMap";
@@ -27,17 +65,9 @@ impl XmlType for AssetContentMap {
             return Err(writer.error(EncodeErrorKind::UnsupportedAssetContentMapBundle));
         }
 
-        let entries: Vec<Value> = self
-            .iter()
-            .map(|(key, data)| {
-                serde_json::json!({
-                    "key": key,
-                    "data": base64::encode(data),
-                })
-            })
-            .collect();
-
-        writer.write_string(&Value::Array(entries).to_string())?;
+        // Serializing plain strings and byte slices to a String cannot fail.
+        let json = serde_json::to_string(&EntriesOut(self)).unwrap();
+        writer.write_string(&json)?;
 
         Ok(())
     }
@@ -52,28 +82,23 @@ impl XmlType for AssetContentMap {
 
         let invalid = |explain| reader.error(DecodeErrorKind::InvalidContent(explain));
 
-        let root: Value = serde_json::from_str(&contents)
-            .map_err(|_| invalid("AssetContentMap is not valid JSON"))?;
-        let entries = root
-            .as_array()
-            .ok_or_else(|| invalid("AssetContentMap must be a JSON array"))?;
+        let entries: Vec<EntryIn> = serde_json::from_str(&contents).map_err(|_| {
+            invalid("AssetContentMap must be a JSON array of objects with string 'key' and 'data' fields")
+        })?;
 
         let mut map = AssetContentMap::new();
-        for entry in entries {
-            let key = entry
-                .get("key")
-                .and_then(Value::as_str)
-                .ok_or_else(|| invalid("AssetContentMap entry has no string 'key'"))?;
-            let encoded = entry
-                .get("data")
-                .and_then(Value::as_str)
-                .ok_or_else(|| invalid("AssetContentMap entry has no string 'data'"))?;
-
-            let encoded: String = encoded.chars().filter(|c| !c.is_whitespace()).collect();
-            let data = base64::decode(encoded).map_err(|err| reader.error(err))?;
+        for EntryIn { key, data } in entries {
+            // Studio wraps base64 with line feeds, which the decoder rejects.
+            let data = if data.contains(char::is_whitespace) {
+                let stripped: String = data.chars().filter(|c| !c.is_whitespace()).collect();
+                base64::decode(stripped)
+            } else {
+                base64::decode(data.as_bytes())
+            }
+            .map_err(|err| reader.error(err))?;
 
             // Roblox rejects the whole value when a key repeats.
-            if map.insert(key.to_owned(), data.into()).is_some() {
+            if map.insert(key.into_owned(), data.into()).is_some() {
                 return Err(invalid("AssetContentMap has a duplicate key"));
             }
         }
@@ -159,6 +184,23 @@ mod test {
     #[test]
     fn reject_non_array() {
         let result = decode(r#"<AssetContentMap name="foo">{}</AssetContentMap>"#);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn serialize_key_before_data() {
+        let mut map = AssetContentMap::new();
+        map.insert("k".to_owned(), b"Rojo is cool!".to_vec().into());
+
+        test_util::test_xml_serialize(
+            r#"<AssetContentMap name="foo">[{"key":"k","data":"Um9qbyBpcyBjb29sIQ=="}]</AssetContentMap>"#,
+            &map,
+        );
+    }
+
+    #[test]
+    fn reject_missing_data() {
+        let result = decode(r#"<AssetContentMap name="foo">[{"key":"k"}]</AssetContentMap>"#);
         assert!(result.is_err());
     }
 
