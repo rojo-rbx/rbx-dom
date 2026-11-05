@@ -24,6 +24,11 @@ use crate::{
 };
 
 /// One element of the JSON array, as read from a file.
+///
+/// The fields are `Cow` rather than `&str` because a borrowed `&str` can only
+/// point into the input when the JSON string contains no escapes. Studio
+/// line-wraps long base64 values with `\n` escapes, so `data` usually needs
+/// unescaping into an owned string; escape-free values are still borrowed.
 #[derive(Deserialize)]
 struct EntryIn<'a> {
     #[serde(borrow)]
