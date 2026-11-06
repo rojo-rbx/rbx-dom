@@ -27,6 +27,13 @@ local EncodedValue = {}
 
 local types
 types = {
+	-- AssetContentMap values (such as Terrain.VoxelGridAssetContentMap) are
+	-- not exposed to Luau, so they are passed through as their pod form.
+	AssetContentMap = {
+		fromPod = identity,
+		toPod = identity,
+	},
+
 	Attributes = {
 		fromPod = function(pod)
 			local output = {}

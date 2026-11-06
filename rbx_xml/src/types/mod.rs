@@ -7,6 +7,7 @@
 //! 2. Add a 'mod' statement immediately below this comment
 //! 3. Add the type(s) to the declare_rbx_types! macro invocation
 
+mod asset_content_map;
 mod attributes;
 mod axes;
 mod binary_string;
@@ -39,8 +40,8 @@ mod vectors;
 use std::io::{Read, Write};
 
 use rbx_dom_weak::types::{
-    Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content, ContentId, Enum,
-    Faces, Font, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref,
+    AssetContentMap, Axes, BinaryString, CFrame, Color3, Color3uint8, ColorSequence, Content,
+    ContentId, Enum, Faces, Font, NumberRange, NumberSequence, PhysicalProperties, Ray, Rect, Ref,
     SecurityCapabilities, UDim, UDim2, UniqueId, Variant, Vector2, Vector2int16, Vector3,
     Vector3int16,
 };
@@ -132,6 +133,7 @@ macro_rules! declare_rbx_types {
 }
 
 declare_rbx_types! {
+    AssetContentMap: AssetContentMap,
     Axes: Axes,
     BinaryString: BinaryString,
     Bool: bool,

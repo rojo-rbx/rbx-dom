@@ -1,0 +1,3341 @@
+---
+source: rbx_binary/src/tests/util.rs
+expression: decoded_viewed
+---
+- referent: referent-0
+  name: Workspace
+  class: Workspace
+  properties:
+    AirDensity:
+      Float32: 0.0012
+    AirTurbulenceIntensity:
+      Float32: 0
+    AllowThirdPartySales:
+      Bool: false
+    Attributes:
+      Attributes: {}
+    AuthorityMode:
+      Enum: 1
+    AutoSimulate:
+      Bool: true
+    AvatarUnificationMode:
+      Enum: 0
+    Capabilities:
+      SecurityCapabilities: 0
+    ClientAnimatorThrottling:
+      Enum: 0
+    CollisionGroupData:
+      BinaryString: AQEABP////8HRGVmYXVsdA==
+    CurrentCamera: referent-3
+    DistributedGameTime:
+      Float64: 0
+    EnableSLIMAvatars:
+      Enum: 0
+    ExpandedTerrain:
+      Enum: 2
+    ExplicitAutoJoints:
+      Bool: true
+    FallHeightEnabled:
+      Bool: true
+    FallenPartsDestroyHeight:
+      Float32: -500
+    FluidForces:
+      Enum: 0
+    GlobalWind:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    Gravity:
+      Float32: 196.2
+    GravityDirection:
+      Vector3:
+        - 0
+        - -1
+        - 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    IKControlConstraintSupport:
+      Enum: 0
+    ImprovedAnimationConstraint:
+      Enum: 0
+    ImprovedPhysicsReplication:
+      Enum: 0
+    LayeredClothingCacheOptimizations:
+      Enum: 0
+    LevelOfDetail:
+      Enum: 0
+    LuauTypeCheckMode:
+      Enum: 0
+    MapTVRemoteToGamepadKeycodes:
+      Enum: 0
+    MeshPartHeadsAndAccessories:
+      Enum: 0
+    MeshStreamingAndImprovedLods:
+      Enum: 0
+    ModelMeshCFrame:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    ModelMeshData:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    ModelMeshSize:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    ModelStreamingBehavior:
+      Enum: 0
+    ModelStreamingMode:
+      Enum: 0
+    NeedsPivotMigration:
+      Bool: false
+    NextGenerationReplication:
+      Enum: 0
+    PathfindingUseImprovedSearch:
+      Enum: 0
+    PhysicsSteppingMethod:
+      Enum: 0
+    PlayerCharacterDestroyBehavior:
+      Enum: 2
+    PlayerScriptsUseInputActionSystem:
+      Enum: 2
+    PredictiveStreamingMode:
+      Enum: 0
+    PrimalPhysicsSolver:
+      Enum: 0
+    PrimaryPart: "null"
+    RejectCharacterDeletions:
+      Enum: 0
+    RenderingCacheOptimizations:
+      Enum: 0
+    ReplicateInstanceDestroySetting:
+      Enum: 0
+    ReplicationFrequency:
+      Enum: 0
+    ReplicationThroughput:
+      Enum: 0
+    Retargeting:
+      Enum: 0
+    Sandboxed:
+      Bool: false
+    SandboxedInstanceMode:
+      Enum: 0
+    Scale:
+      Float32: 1
+    SerializedOverrides:
+      BinaryString: ""
+    SignalBehavior:
+      Enum: 2
+    SimulationRate:
+      Float32: 1
+    SlimHash:
+      len: 0
+      hash: af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262
+    SourceAssetId:
+      Int64: -1
+    StreamOutBehavior:
+      Enum: 2
+    StreamingAdaptiveRadius:
+      Bool: false
+    StreamingEnabled:
+      Bool: true
+    StreamingIntegrityMode:
+      Enum: 3
+    StreamingMinRadius:
+      Int32: 64
+    StreamingTargetRadius:
+      Int32: 1024
+    Tags:
+      Tags: []
+    TerrainWeldsFixed:
+      Bool: true
+    TouchEventsUseCollisionGroups:
+      Enum: 0
+    TouchesUseCollisionGroups:
+      Bool: false
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000002
+    UseFixedSimulation:
+      Enum: 0
+    UseInputSink:
+      Enum: 0
+    UseNewLuauTypeSolver:
+      Enum: 2
+    ValidateEnabledProximityPrompt:
+      Enum: 0
+    Wind:
+      Float32: 0
+    WindDirection:
+      Vector3:
+        - 0
+        - 0
+        - 0
+    WorldPivotData:
+      OptionalCFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+  children:
+    - referent: referent-1
+      name: Terrain
+      class: Terrain
+      properties:
+        AcquisitionMethod:
+          Enum: 11
+        Anchored:
+          Bool: true
+        Attributes:
+          Attributes: {}
+        AudioCanCollide:
+          Bool: true
+        BackParamA:
+          Float32: -0.5
+        BackParamB:
+          Float32: 0.5
+        BackSurface:
+          Enum: 0
+        BackSurfaceInput:
+          Enum: 0
+        BottomParamA:
+          Float32: -0.5
+        BottomParamB:
+          Float32: 0.5
+        BottomSurface:
+          Enum: 4
+        BottomSurfaceInput:
+          Enum: 0
+        CFrame:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        CanCollide:
+          Bool: true
+        CanQuery:
+          Bool: true
+        CanTouch:
+          Bool: true
+        Capabilities:
+          SecurityCapabilities: 0
+        CastShadow:
+          Bool: true
+        CollisionGroup:
+          String: Default
+        CollisionGroupId:
+          Int32: 0
+        Color:
+          Color3uint8:
+            - 163
+            - 162
+            - 165
+        CustomPhysicalProperties:
+          PhysicalProperties: Default
+        Decoration:
+          Bool: true
+        EnableFluidForces:
+          Bool: true
+        FrontParamA:
+          Float32: -0.5
+        FrontParamB:
+          Float32: 0.5
+        FrontSurface:
+          Enum: 0
+        FrontSurfaceInput:
+          Enum: 0
+        GrassLength:
+          Float32: 0.7
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        LeftParamA:
+          Float32: -0.5
+        LeftParamB:
+          Float32: 0.5
+        LeftSurface:
+          Enum: 0
+        LeftSurfaceInput:
+          Enum: 0
+        Locked:
+          Bool: true
+        Massless:
+          Bool: false
+        Material:
+          Enum: 256
+        MaterialColors:
+          MaterialColors:
+            Grass:
+              - 111
+              - 126
+              - 62
+            Slate:
+              - 88
+              - 89
+              - 86
+            Concrete:
+              - 152
+              - 152
+              - 152
+            Brick:
+              - 138
+              - 97
+              - 73
+            Sand:
+              - 207
+              - 203
+              - 167
+            WoodPlanks:
+              - 172
+              - 148
+              - 108
+            Rock:
+              - 99
+              - 100
+              - 102
+            Glacier:
+              - 221
+              - 228
+              - 229
+            Snow:
+              - 235
+              - 253
+              - 255
+            Sandstone:
+              - 148
+              - 124
+              - 95
+            Mud:
+              - 121
+              - 112
+              - 98
+            Basalt:
+              - 75
+              - 74
+              - 74
+            Ground:
+              - 140
+              - 130
+              - 104
+            CrackedLava:
+              - 255
+              - 24
+              - 67
+            Asphalt:
+              - 80
+              - 84
+              - 84
+            Cobblestone:
+              - 134
+              - 134
+              - 118
+            Ice:
+              - 204
+              - 210
+              - 223
+            LeafyGrass:
+              - 106
+              - 134
+              - 64
+            Salt:
+              - 255
+              - 255
+              - 254
+            Limestone:
+              - 255
+              - 243
+              - 192
+            Pavement:
+              - 143
+              - 144
+              - 135
+        MaterialVariant:
+          String: ""
+        Materials:
+          len: 338
+          hash: a749bd2bf808f824b77afe7c7e4765b082bd7576f3390696a6d5ab1aa5fc9371
+        PhysicsGrid:
+          BinaryString: AgMAAAAI////////////////AAAAAAAAAAAAAAABAAD/AAD/AAD/AAH/AAAAAAAAAAAAAAABAP//AP//AP//Af//AAAAAAAAAAAAAAABAAD/AAD/AAD/AAH/AAAAAAAAAAAAAAABAAAAAAAAAAA=
+        PivotOffset:
+          CFrame:
+            position:
+              - 0
+              - 0
+              - 0
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        Reflectance:
+          Float32: 0
+        RightParamA:
+          Float32: -0.5
+        RightParamB:
+          Float32: 0.5
+        RightSurface:
+          Enum: 0
+        RightSurfaceInput:
+          Enum: 0
+        RootPriority:
+          Int32: 0
+        RotVelocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        Size:
+          Vector3:
+            - 2044
+            - 252
+            - 2044
+        SmoothGrid:
+          BinaryString: AwQE
+        SmoothVoxelsUpgraded:
+          Bool: false
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TopParamA:
+          Float32: -0.5
+        TopParamB:
+          Float32: 0.5
+        TopSurface:
+          Enum: 3
+        TopSurfaceInput:
+          Enum: 0
+        Transparency:
+          Float32: 0
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a000003f6
+        Velocity:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        VoxelGridAssetContentMap:
+          AssetContentMap:
+            bundleAssetId: 91493717546084
+            entries: {}
+        WaterColor:
+          Color3:
+            - 0.04705883
+            - 0.32941177
+            - 0.36078432
+        WaterReflectance:
+          Float32: 1
+        WaterTransparency:
+          Float32: 0.3
+        WaterWaveSize:
+          Float32: 0.15
+        WaterWaveSpeed:
+          Float32: 10
+      children:
+        - referent: referent-2
+          name: MaterialNames
+          class: Configuration
+          properties:
+            Attributes:
+              Attributes:
+                "23":
+                  BinaryString: Ymx1ZUdyYXNz
+            Capabilities:
+              SecurityCapabilities: 0
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            Sandboxed:
+              Bool: false
+            SerializedOverrides:
+              BinaryString: ""
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            UniqueId:
+              UniqueId: 287ea0c69cfbf9320af67d1a00002239
+          children: []
+    - referent: referent-3
+      name: Camera
+      class: Camera
+      properties:
+        Attributes:
+          Attributes: {}
+        CFrame:
+          CFrame:
+            position:
+              - -38.07669
+              - 41.58264
+              - 5.695963
+            orientation:
+              - - 0.18304068
+                - 0.66102433
+                - -0.7277027
+              - - -0.000000017923131
+                - 0.7402069
+                - 0.6723832
+              - - 0.98310757
+                - -0.123073265
+                - 0.13548733
+        CameraSubject: "null"
+        CameraType:
+          Enum: 0
+        Capabilities:
+          SecurityCapabilities: 0
+        FieldOfView:
+          Float32: 70
+        FieldOfViewMode:
+          Enum: 0
+        Focus:
+          CFrame:
+            position:
+              - -36.621284
+              - 40.237877
+              - 5.4249883
+            orientation:
+              - - 1
+                - 0
+                - 0
+              - - 0
+                - 1
+                - 0
+              - - 0
+                - 0
+                - 1
+        HeadLocked:
+          Bool: true
+        HeadScale:
+          Float32: 1
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        OrthographicMode:
+          Enum: 0
+        OrthographicSize:
+          Float32: 35
+        ProjectionType:
+          Enum: 0
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a000003f3
+        VRTiltAndRollEnabled:
+          Bool: false
+        ViewStretch:
+          Float32: 1
+      children: []
+- referent: referent-4
+  name: Instance
+  class: TimerService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000036a
+  children: []
+- referent: referent-5
+  name: SoundService
+  class: SoundService
+  properties:
+    AcousticSimulationEnabled:
+      Bool: false
+    AmbientReverb:
+      Enum: 0
+    Attributes:
+      Attributes: {}
+    AudioApiByDefault:
+      Enum: 0
+    Capabilities:
+      SecurityCapabilities: 0
+    CharacterSoundsUseNewApi:
+      Enum: 0
+    DefaultListenerLocation:
+      Enum: 3
+    DiffractionEnabled:
+      Bool: true
+    DistanceFactor:
+      Float32: 3.33
+    DopplerScale:
+      Float32: 1
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    IsNewExpForAudioApiByDefault:
+      Bool: false
+    ListenerCFrame:
+      CFrame:
+        position:
+          - 0
+          - 0
+          - 0
+        orientation:
+          - - 1
+            - 0
+            - 0
+          - - 0
+            - 1
+            - 0
+          - - 0
+            - 0
+            - 1
+    ListenerObject: "null"
+    ListenerType:
+      Enum: 0
+    OcclusionEnabled:
+      Bool: true
+    RespectFilteringEnabled:
+      Bool: true
+    ReverbEnabled:
+      Bool: true
+    RolloffScale:
+      Float32: 1
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000036c
+    VolumetricAudio:
+      Enum: 1
+  children: []
+- referent: referent-6
+  name: VideoCaptureService
+  class: VideoCaptureService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000378
+  children: []
+- referent: referent-7
+  name: NonReplicatedCSGDictionaryService
+  class: NonReplicatedCSGDictionaryService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000379
+  children: []
+- referent: referent-8
+  name: CSGDictionaryService
+  class: CSGDictionaryService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000037a
+  children: []
+- referent: referent-9
+  name: Chat
+  class: Chat
+  properties:
+    Attributes:
+      Attributes: {}
+    BubbleChatEnabled:
+      Bool: true
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    IsAutoMigrated:
+      Bool: true
+    LoadDefaultChat:
+      Bool: true
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000380
+  children: []
+- referent: referent-10
+  name: Players
+  class: Players
+  properties:
+    Attributes:
+      Attributes: {}
+    BanningEnabled:
+      Bool: true
+    Capabilities:
+      SecurityCapabilities: 0
+    CharacterAutoLoads:
+      Bool: true
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    MaxPlayers:
+      Int32: 60
+    PreferredPlayers:
+      Int32: 60
+    RespawnTime:
+      Float32: 3
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000382
+    UseStrafingAnimations:
+      Bool: false
+  children: []
+- referent: referent-11
+  name: ReplicatedFirst
+  class: ReplicatedFirst
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000385
+  children: []
+- referent: referent-12
+  name: TweenService
+  class: TweenService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000388
+  children: []
+- referent: referent-13
+  name: MaterialService
+  class: MaterialService
+  properties:
+    AsphaltName:
+      String: Asphalt
+    Attributes:
+      Attributes: {}
+    BasaltName:
+      String: Basalt
+    BrickName:
+      String: Brick
+    Capabilities:
+      SecurityCapabilities: 0
+    CardboardName:
+      String: Cardboard
+    CarpetName:
+      String: Carpet
+    CeramicTilesName:
+      String: CeramicTiles
+    ClayRoofTilesName:
+      String: ClayRoofTiles
+    CobblestoneName:
+      String: Cobblestone
+    ConcreteName:
+      String: Concrete
+    CorrodedMetalName:
+      String: CorrodedMetal
+    CrackedLavaName:
+      String: CrackedLava
+    DiamondPlateName:
+      String: DiamondPlate
+    FabricName:
+      String: Fabric
+    FoilName:
+      String: Foil
+    GlacierName:
+      String: Glacier
+    GraniteName:
+      String: Granite
+    GrassName:
+      String: Grass
+    GroundName:
+      String: Ground
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    IceName:
+      String: Ice
+    LeafyGrassName:
+      String: LeafyGrass
+    LeatherName:
+      String: Leather
+    LimestoneName:
+      String: Limestone
+    MarbleName:
+      String: Marble
+    MetalName:
+      String: Metal
+    MudName:
+      String: Mud
+    PavementName:
+      String: Pavement
+    PebbleName:
+      String: Pebble
+    PlasterName:
+      String: Plaster
+    PlasticName:
+      String: Plastic
+    RockName:
+      String: Rock
+    RoofShinglesName:
+      String: RoofShingles
+    RubberName:
+      String: Rubber
+    SaltName:
+      String: Salt
+    SandName:
+      String: Sand
+    Sandboxed:
+      Bool: false
+    SandstoneName:
+      String: Sandstone
+    SerializedOverrides:
+      BinaryString: ""
+    SlateName:
+      String: Slate
+    SmoothPlasticName:
+      String: SmoothPlastic
+    SnowName:
+      String: Snow
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000389
+    Use2022MaterialsXml:
+      Bool: true
+    WoodName:
+      String: Wood
+    WoodPlanksName:
+      String: WoodPlanks
+  children: []
+- referent: referent-14
+  name: TextChatService
+  class: TextChatService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    ChatTranslationFTUXShown:
+      Bool: true
+    ChatTranslationToggleEnabled:
+      Bool: false
+    ChatVersion:
+      Enum: 1
+    CreateDefaultCommands:
+      Bool: true
+    CreateDefaultTextChannels:
+      Bool: true
+    HasSeenDeprecationDialog:
+      Bool: false
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    IsLegacyChatDisabled:
+      Bool: true
+    PlatformIntegratedChat:
+      Enum: 0
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000038a
+  children:
+    - referent: referent-15
+      name: ChatWindowConfiguration
+      class: ChatWindowConfiguration
+      properties:
+        Attributes:
+          Attributes: {}
+        BackgroundColor3:
+          Color3:
+            - 0.09803922
+            - 0.105882354
+            - 0.11372549
+        BackgroundTransparency:
+          Float64: 0.3
+        Capabilities:
+          SecurityCapabilities: 0
+        Enabled:
+          Bool: true
+        FontFace:
+          Font:
+            family: "rbxasset://fonts/families/BuilderSans.json"
+            weight: Medium
+            style: Normal
+            cachedFaceId: "rbxasset://fonts/BuilderSans-Medium.otf"
+        HeightScale:
+          Float32: 1
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        HorizontalAlignment:
+          Enum: 1
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TextChannelDisplayMode:
+          Enum: 0
+        TextColor3:
+          Color3:
+            - 1
+            - 1
+            - 1
+        TextSize:
+          Int64: 18
+        TextStrokeColor3:
+          Color3:
+            - 0
+            - 0
+            - 0
+        TextStrokeTransparency:
+          Float64: 0.5
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a00000409
+        VerticalAlignment:
+          Enum: 1
+        WidthScale:
+          Float32: 1
+      children: []
+    - referent: referent-16
+      name: ChatInputBarConfiguration
+      class: ChatInputBarConfiguration
+      properties:
+        Attributes:
+          Attributes: {}
+        AutocompleteEnabled:
+          Bool: true
+        BackgroundColor3:
+          Color3:
+            - 0.09803922
+            - 0.105882354
+            - 0.11372549
+        BackgroundTransparency:
+          Float64: 0.2
+        Capabilities:
+          SecurityCapabilities: 0
+        Enabled:
+          Bool: true
+        FontFace:
+          Font:
+            family: "rbxasset://fonts/families/BuilderSans.json"
+            weight: Medium
+            style: Normal
+            cachedFaceId: "rbxasset://fonts/BuilderSans-Medium.otf"
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        KeyboardKeyCode:
+          Enum: 47
+        PlaceholderColor3:
+          Color3:
+            - 0.69803923
+            - 0.69803923
+            - 0.69803923
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TargetTextChannel: "null"
+        TextColor3:
+          Color3:
+            - 1
+            - 1
+            - 1
+        TextSize:
+          Int64: 18
+        TextStrokeColor3:
+          Color3:
+            - 0
+            - 0
+            - 0
+        TextStrokeTransparency:
+          Float64: 0.5
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a0000040a
+      children: []
+    - referent: referent-17
+      name: BubbleChatConfiguration
+      class: BubbleChatConfiguration
+      properties:
+        AdorneeName:
+          String: HumanoidRootPart
+        Attributes:
+          Attributes: {}
+        BackgroundColor3:
+          Color3:
+            - 0.98039216
+            - 0.98039216
+            - 0.98039216
+        BackgroundTransparency:
+          Float64: 0.1
+        BubbleDuration:
+          Float32: 15
+        BubblesSpacing:
+          Float32: 6
+        Capabilities:
+          SecurityCapabilities: 0
+        Enabled:
+          Bool: true
+        Font:
+          Enum: 47
+        FontFace:
+          Font:
+            family: "rbxasset://fonts/families/BuilderSans.json"
+            weight: Medium
+            style: Normal
+            cachedFaceId: "rbxasset://fonts/BuilderSans-Medium.otf"
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        LocalPlayerStudsOffset:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        MaxBubbles:
+          Float32: 3
+        MaxDistance:
+          Float32: 100
+        MinimizeDistance:
+          Float32: 40
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TailVisible:
+          Bool: true
+        TextColor3:
+          Color3:
+            - 0.22352941
+            - 0.23137255
+            - 0.23921569
+        TextSize:
+          Int64: 20
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a0000040b
+        VerticalStudsOffset:
+          Float32: 0
+      children:
+        - referent: referent-18
+          name: UIGradient
+          class: UIGradient
+          properties:
+            Attributes:
+              Attributes: {}
+            Capabilities:
+              SecurityCapabilities: 0
+            Color:
+              ColorSequence:
+                keypoints:
+                  - time: 0
+                    color:
+                      - 1
+                      - 1
+                      - 1
+                  - time: 1
+                    color:
+                      - 1
+                      - 1
+                      - 1
+            Enabled:
+              Bool: false
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            Offset:
+              Vector2:
+                - 0
+                - 0
+            Rotation:
+              Float32: 0
+            Sandboxed:
+              Bool: false
+            Scale:
+              Float32: 1
+            SerializedOverrides:
+              BinaryString: ""
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            TileMode:
+              Enum: 0
+            Transparency:
+              NumberSequence:
+                keypoints:
+                  - time: 0
+                    value: 0
+                    envelope: 0
+                  - time: 1
+                    value: 0
+                    envelope: 0
+            Type:
+              Enum: 0
+            UniqueId:
+              UniqueId: 287ea0c69cfbf9320af67d1a0000040c
+          children: []
+        - referent: referent-19
+          name: ImageLabel
+          class: ImageLabel
+          properties:
+            Active:
+              Bool: false
+            AnchorPoint:
+              Vector2:
+                - 0
+                - 0
+            Attributes:
+              Attributes: {}
+            AutoLocalize:
+              Bool: true
+            AutomaticSize:
+              Enum: 0
+            BackgroundColor3:
+              Color3:
+                - 1
+                - 1
+                - 1
+            BackgroundTransparency:
+              Float32: 0
+            BorderColor3:
+              Color3:
+                - 0.10588236
+                - 0.16470589
+                - 0.20784315
+            BorderMode:
+              Enum: 0
+            BorderSizePixel:
+              Int32: 1
+            Capabilities:
+              SecurityCapabilities: 0
+            ClipsDescendants:
+              Bool: false
+            Draggable:
+              Bool: false
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            ImageColor3:
+              Color3:
+                - 1
+                - 1
+                - 1
+            ImageContent:
+              Content: None
+            ImageRectOffset:
+              Vector2:
+                - 0
+                - 0
+            ImageRectSize:
+              Vector2:
+                - 0
+                - 0
+            ImageTransparency:
+              Float32: 0
+            Interactable:
+              Bool: true
+            LayoutOrder:
+              Int32: 0
+            NextSelectionDown: "null"
+            NextSelectionLeft: "null"
+            NextSelectionRight: "null"
+            NextSelectionUp: "null"
+            Position:
+              UDim2:
+                - - 0
+                  - 0
+                - - 0
+                  - 0
+            ResampleMode:
+              Enum: 0
+            RootLocalizationTable: "null"
+            Rotation:
+              Float32: 0
+            Sandboxed:
+              Bool: false
+            ScaleType:
+              Enum: 0
+            Selectable:
+              Bool: false
+            SelectionBehaviorDown:
+              Enum: 0
+            SelectionBehaviorLeft:
+              Enum: 0
+            SelectionBehaviorRight:
+              Enum: 0
+            SelectionBehaviorUp:
+              Enum: 0
+            SelectionGroup:
+              Bool: false
+            SelectionImageObject: "null"
+            SelectionOrder:
+              Int32: 0
+            SerializedOverrides:
+              BinaryString: ""
+            Sink:
+              Enum: 0
+            Size:
+              UDim2:
+                - - 0
+                  - 100
+                - - 0
+                  - 100
+            SizeConstraint:
+              Enum: 0
+            SliceCenter:
+              Rect:
+                - - 0
+                  - 0
+                - - 0
+                  - 0
+            SliceScale:
+              Float32: 1
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            TileSize:
+              UDim2:
+                - - 1
+                  - 0
+                - - 1
+                  - 0
+            UniqueId:
+              UniqueId: 287ea0c69cfbf9320af67d1a0000040d
+            Visible:
+              Bool: true
+            ZIndex:
+              Int32: 1
+          children: []
+        - referent: referent-20
+          name: UICorner
+          class: UICorner
+          properties:
+            Attributes:
+              Attributes: {}
+            BottomLeftRadius:
+              UDim:
+                - 0
+                - 12
+            BottomRightRadius:
+              UDim:
+                - 0
+                - 12
+            Capabilities:
+              SecurityCapabilities: 0
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            Sandboxed:
+              Bool: false
+            SerializedOverrides:
+              BinaryString: ""
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            TopLeftRadius:
+              UDim:
+                - 0
+                - 12
+            TopRightRadius:
+              UDim:
+                - 0
+                - 12
+            UniqueId:
+              UniqueId: 287ea0c69cfbf9320af67d1a0000040e
+          children: []
+        - referent: referent-21
+          name: UIPadding
+          class: UIPadding
+          properties:
+            Attributes:
+              Attributes: {}
+            Capabilities:
+              SecurityCapabilities: 0
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            PaddingBottom:
+              UDim:
+                - 0
+                - 8
+            PaddingLeft:
+              UDim:
+                - 0
+                - 8
+            PaddingRight:
+              UDim:
+                - 0
+                - 8
+            PaddingTop:
+              UDim:
+                - 0
+                - 8
+            Sandboxed:
+              Bool: false
+            SerializedOverrides:
+              BinaryString: ""
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            UniqueId:
+              UniqueId: 287ea0c69cfbf9320af67d1a0000040f
+          children: []
+    - referent: referent-22
+      name: ChannelTabsConfiguration
+      class: ChannelTabsConfiguration
+      properties:
+        Attributes:
+          Attributes: {}
+        BackgroundColor3:
+          Color3:
+            - 0.09803922
+            - 0.105882354
+            - 0.11372549
+        BackgroundTransparency:
+          Float64: 0
+        Capabilities:
+          SecurityCapabilities: 0
+        Enabled:
+          Bool: false
+        FontFace:
+          Font:
+            family: "rbxasset://fonts/families/BuilderSans.json"
+            weight: Bold
+            style: Normal
+            cachedFaceId: "rbxasset://fonts/BuilderSans-Bold.otf"
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        HoverBackgroundColor3:
+          Color3:
+            - 0.49019608
+            - 0.49019608
+            - 0.49019608
+        Sandboxed:
+          Bool: false
+        SelectedTabTextColor3:
+          Color3:
+            - 1
+            - 1
+            - 1
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        TextColor3:
+          Color3:
+            - 0.6862745
+            - 0.6862745
+            - 0.6862745
+        TextSize:
+          Int64: 18
+        TextStrokeColor3:
+          Color3:
+            - 0
+            - 0
+            - 0
+        TextStrokeTransparency:
+          Float64: 1
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a00000410
+      children: []
+- referent: referent-23
+  name: PlayerEmulatorService
+  class: PlayerEmulatorService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    CustomPoliciesEnabled:
+      Bool: false
+    EmulatedCountryCode:
+      String: ""
+    EmulatedGameLocale:
+      String: ""
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    PlayerEmulationEnabled:
+      Bool: false
+    PseudolocalizationEnabled:
+      Bool: false
+    Sandboxed:
+      Bool: false
+    SerializedEmulatedPolicyInfo:
+      BinaryString: ""
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    TextElongationFactor:
+      Int32: 0
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000038d
+  children: []
+- referent: referent-24
+  name: StudioData
+  class: StudioData
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    EnableScriptCollabByDefaultOnLoad:
+      Bool: false
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000390
+  children: []
+- referent: referent-25
+  name: StarterPlayer
+  class: StarterPlayer
+  properties:
+    AllowCustomAnimations:
+      Bool: true
+    Attributes:
+      Attributes: {}
+    AutoJumpEnabled:
+      Bool: true
+    AvatarJointUpgrade:
+      Enum: 2
+    CameraMaxZoomDistance:
+      Float32: 128
+    CameraMinZoomDistance:
+      Float32: 0.5
+    CameraMode:
+      Enum: 0
+    Capabilities:
+      SecurityCapabilities: 0
+    CharacterBreakJointsOnDeath:
+      Bool: false
+    CharacterJumpHeight:
+      Float32: 7.2
+    CharacterJumpPower:
+      Float32: 50
+    CharacterMaxSlopeAngle:
+      Float32: 89
+    CharacterUseJumpPower:
+      Bool: false
+    CharacterWalkSpeed:
+      Float32: 16
+    ClassicDeath:
+      Bool: true
+    CreateDefaultPlayerModule:
+      Bool: true
+    DevCameraOcclusionMode:
+      Enum: 0
+    DevComputerCameraMovementMode:
+      Enum: 0
+    DevComputerMovementMode:
+      Enum: 0
+    DevTouchCameraMovementMode:
+      Enum: 0
+    DevTouchMovementMode:
+      Enum: 0
+    EnableDynamicHeads:
+      Enum: 0
+    EnableMouseLockOption:
+      Bool: true
+    GameSettingsAvatar:
+      Enum: 1
+    GameSettingsR15Collision:
+      Enum: 0
+    HealthDisplayDistance:
+      Float32: 100
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    LoadCharacterAppearance:
+      Bool: true
+    LoadCharacterLayeredClothing:
+      Enum: 0
+    LuaCharacterController:
+      Enum: 0
+    NameDisplayDistance:
+      Float32: 100
+    PlaceAvatarRules: "null"
+    PlayerModuleStatus:
+      Int32: 0
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000392
+    UseImprovedCharacterEvents:
+      Enum: 0
+    UserEmotesEnabled:
+      Bool: true
+  children:
+    - referent: referent-26
+      name: StarterPlayerScripts
+      class: StarterPlayerScripts
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a000003fa
+      children: []
+    - referent: referent-27
+      name: StarterCharacterScripts
+      class: StarterCharacterScripts
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a000003fb
+      children: []
+- referent: referent-28
+  name: StarterPack
+  class: StarterPack
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000393
+  children: []
+- referent: referent-29
+  name: StarterGui
+  class: StarterGui
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    ClipsDescendantsSupportsRotation:
+      Enum: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    ResetPlayerGuiOnSpawn:
+      Bool: true
+    RtlTextSupport:
+      Enum: 0
+    Sandboxed:
+      Bool: false
+    ScreenOrientation:
+      Enum: 4
+    SerializedOverrides:
+      BinaryString: ""
+    ShowDevelopmentGui:
+      Bool: true
+    SourceAssetId:
+      Int64: -1
+    StudioDefaultStyleSheet: "null"
+    StudioInsertWidgetLayerCollectorAutoLinkStyleSheet: "null"
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000394
+    VirtualCursorMode:
+      Enum: 0
+  children: []
+- referent: referent-30
+  name: LocalizationService
+  class: LocalizationService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000396
+  children: []
+- referent: referent-31
+  name: Teleport Service
+  class: TeleportService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000039a
+  children: []
+- referent: referent-32
+  name: CollectionService
+  class: CollectionService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000036b
+  children: []
+- referent: referent-33
+  name: PhysicsService
+  class: PhysicsService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000039c
+  children: []
+- referent: referent-34
+  name: InsertService
+  class: InsertService
+  properties:
+    AllowInsertFreeModels:
+      Bool: false
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000039f
+  children:
+    - referent: referent-35
+      name: InsertionHash
+      class: StringValue
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a000003fc
+        Value:
+          String: "{e340b48e-80f4-44b2-8bfc-b2eb6f99ace4}"
+      children: []
+- referent: referent-36
+  name: GamePassService
+  class: GamePassService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003a0
+  children: []
+- referent: referent-37
+  name: Debris
+  class: Debris
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    MaxItems:
+      Int32: 1000
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003a1
+  children: []
+- referent: referent-38
+  name: CookiesService
+  class: CookiesService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003a2
+  children: []
+- referent: referent-39
+  name: Selection
+  class: Selection
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003a3
+  children: []
+- referent: referent-40
+  name: VRService
+  class: VRService
+  properties:
+    Attributes:
+      Attributes: {}
+    AutomaticScaling:
+      Enum: 0
+    AvatarGestures:
+      Bool: false
+    Capabilities:
+      SecurityCapabilities: 0
+    ControllerModels:
+      Enum: 1
+    FadeOutViewOnCollision:
+      Bool: true
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    LaserPointer:
+      Enum: 1
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003a7
+  children: []
+- referent: referent-41
+  name: ContextActionService
+  class: ContextActionService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003a8
+  children: []
+- referent: referent-42
+  name: Instance
+  class: ScriptService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003a9
+  children: []
+- referent: referent-43
+  name: AssetService
+  class: AssetService
+  properties:
+    AllowInsertFreeAssets:
+      Bool: false
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003aa
+  children: []
+- referent: referent-44
+  name: TouchInputService
+  class: TouchInputService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003ac
+  children: []
+- referent: referent-45
+  name: AvatarSettings
+  class: AvatarSettings
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    RulesSchemaVersion:
+      Int32: 0
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003b2
+  children:
+    - referent: referent-46
+      name: DefaultAvatarRules
+      class: AvatarRules
+      properties:
+        Attributes:
+          Attributes: {}
+        AvatarType:
+          Enum: 1
+        Capabilities:
+          SecurityCapabilities: 0
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        UniqueId:
+          UniqueId: 7a260df4977457cf0af68fc500000ea1
+      children:
+        - referent: referent-47
+          name: AvatarBodyRules
+          class: AvatarBodyRules
+          properties:
+            AppearanceMode:
+              Enum: 0
+            Attributes:
+              Attributes: {}
+            AvatarType:
+              Enum: 1
+            BuildMode:
+              Enum: 0
+            Capabilities:
+              SecurityCapabilities: 0
+            CustomBodyBundleId:
+              Int64: 0
+            CustomBodyType:
+              Enum: 0
+            CustomBodyTypeScale:
+              NumberRange:
+                - 0
+                - 1
+            CustomBuildBodyType:
+              NumberRange:
+                - 0
+                - 1
+            CustomBuildHead:
+              NumberRange:
+                - 0.95
+                - 1
+            CustomBuildHeight:
+              NumberRange:
+                - 0.9
+                - 1.05
+            CustomBuildProportions:
+              NumberRange:
+                - 0
+                - 1
+            CustomBuildWidth:
+              NumberRange:
+                - 0.7
+                - 1
+            CustomEyebrowEnabled:
+              Bool: false
+            CustomEyebrowId:
+              Int64: 0
+            CustomEyelashEnabled:
+              Bool: false
+            CustomEyelashId:
+              Int64: 0
+            CustomFaceEnabled:
+              Bool: false
+            CustomFaceId:
+              Int64: 0
+            CustomHeadEnabled:
+              Bool: false
+            CustomHeadId:
+              Int64: 0
+            CustomHeadScale:
+              NumberRange:
+                - 0.95
+                - 1
+            CustomHeight:
+              NumberRange:
+                - 5.5
+                - 5.5
+            CustomHeightScale:
+              NumberRange:
+                - 0.9
+                - 1.05
+            CustomLeftArmEnabled:
+              Bool: false
+            CustomLeftArmId:
+              Int64: 0
+            CustomLeftLegEnabled:
+              Bool: false
+            CustomLeftLegId:
+              Int64: 0
+            CustomMoodEnabled:
+              Bool: false
+            CustomMoodId:
+              Int64: 0
+            CustomProportionsScale:
+              NumberRange:
+                - 0
+                - 1
+            CustomRightArmEnabled:
+              Bool: false
+            CustomRightArmId:
+              Int64: 0
+            CustomRightLegEnabled:
+              Bool: false
+            CustomRightLegId:
+              Int64: 0
+            CustomTorsoEnabled:
+              Bool: false
+            CustomTorsoId:
+              Int64: 0
+            CustomWidthScale:
+              NumberRange:
+                - 0.7
+                - 1
+            CustomWorldHeight:
+              NumberRange:
+                - 5.5
+                - 5.5
+            HeadOverride:
+              Int64: 0
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            KeepPlayerHead:
+              Bool: true
+            LeftArmOverride:
+              Int64: 0
+            LeftLegOverride:
+              Int64: 0
+            RightArmOverride:
+              Int64: 0
+            RightLegOverride:
+              Int64: 0
+            Sandboxed:
+              Bool: false
+            ScaleMode:
+              Enum: 0
+            SerializedOverrides:
+              BinaryString: ""
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            TorsoOverride:
+              Int64: 0
+            UniqueId:
+              UniqueId: 7a260df4977457cf0af68fc500000ea2
+          children: []
+        - referent: referent-48
+          name: AvatarCollisionRules
+          class: AvatarCollisionRules
+          properties:
+            Attributes:
+              Attributes: {}
+            BodyPartsCollidableOnDeath:
+              Bool: true
+            Capabilities:
+              SecurityCapabilities: 0
+            CollisionMode:
+              Enum: 0
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            HitAndTouchDetectionMode:
+              Enum: 0
+            LegacyCollisionMode:
+              Enum: 1
+            Sandboxed:
+              Bool: false
+            SerializedOverrides:
+              BinaryString: ""
+            SingleColliderSize:
+              Vector3:
+                - 2
+                - 3
+                - 1
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            UniqueId:
+              UniqueId: 7a260df4977457cf0af68fc500000ea3
+          children: []
+        - referent: referent-49
+          name: AvatarAnimationRules
+          class: AvatarAnimationRules
+          properties:
+            AnimationClipsMode:
+              Enum: 0
+            AnimationPacksMode:
+              Enum: 0
+            Attributes:
+              Attributes: {}
+            Capabilities:
+              SecurityCapabilities: 0
+            ClimbAnimationOverride:
+              Int64: 0
+            CustomClimbAnimationEnabled:
+              Bool: false
+            CustomClimbAnimationId:
+              Int64: 0
+            CustomFallAnimationEnabled:
+              Bool: false
+            CustomFallAnimationId:
+              Int64: 0
+            CustomIdleAlt1AnimationEnabled:
+              Bool: false
+            CustomIdleAlt1AnimationId:
+              Int64: 0
+            CustomIdleAlt2AnimationEnabled:
+              Bool: false
+            CustomIdleAlt2AnimationId:
+              Int64: 0
+            CustomIdleAnimationEnabled:
+              Bool: false
+            CustomIdleAnimationId:
+              Int64: 0
+            CustomJumpAnimationEnabled:
+              Bool: false
+            CustomJumpAnimationId:
+              Int64: 0
+            CustomRunAnimationEnabled:
+              Bool: false
+            CustomRunAnimationId:
+              Int64: 0
+            CustomSwimAnimationEnabled:
+              Bool: false
+            CustomSwimAnimationId:
+              Int64: 0
+            CustomSwimIdleAnimationEnabled:
+              Bool: false
+            CustomSwimIdleAnimationId:
+              Int64: 0
+            CustomWalkAnimationEnabled:
+              Bool: false
+            CustomWalkAnimationId:
+              Int64: 0
+            FallAnimationOverride:
+              Int64: 0
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            IdleAltAnimationOverride:
+              Int64: 0
+            IdleAnimationOverride:
+              Int64: 0
+            JumpAnimationOverride:
+              Int64: 0
+            MoodAnimationOverride:
+              Int64: 0
+            RunAnimationOverride:
+              Int64: 0
+            Sandboxed:
+              Bool: false
+            SerializedOverrides:
+              BinaryString: ""
+            SourceAssetId:
+              Int64: -1
+            SwimAnimationOverride:
+              Int64: 0
+            SwimIdleAnimationOverride:
+              Int64: 0
+            Tags:
+              Tags: []
+            UniqueId:
+              UniqueId: 7a260df4977457cf0af68fc500000ea4
+            WalkAnimationOverride:
+              Int64: 0
+          children: []
+        - referent: referent-50
+          name: AvatarAccessoryRules
+          class: AvatarAccessoryRules
+          properties:
+            AccessoryMode:
+              Enum: 0
+            Attributes:
+              Attributes: {}
+            BackAccessoryOverride:
+              Int64: 0
+            Capabilities:
+              SecurityCapabilities: 0
+            CustomAccessoryMode:
+              Enum: 0
+            CustomBackAccessoryEnabled:
+              Bool: false
+            CustomBackAccessoryId:
+              Int64: 0
+            CustomFaceAccessoryEnabled:
+              Bool: false
+            CustomFaceAccessoryId:
+              Int64: 0
+            CustomFrontAccessoryEnabled:
+              Bool: false
+            CustomFrontAccessoryId:
+              Int64: 0
+            CustomHairAccessoryEnabled:
+              Bool: false
+            CustomHairAccessoryId:
+              Int64: 0
+            CustomHeadAccessoryEnabled:
+              Bool: false
+            CustomHeadAccessoryId:
+              Int64: 0
+            CustomNeckAccessoryEnabled:
+              Bool: false
+            CustomNeckAccessoryId:
+              Int64: 0
+            CustomShoulderAccessoryEnabled:
+              Bool: false
+            CustomShoulderAccessoryId:
+              Int64: 0
+            CustomWaistAccessoryEnabled:
+              Bool: false
+            CustomWaistAccessoryId:
+              Int64: 0
+            EnableEmissives:
+              Bool: true
+            EnableSound:
+              Bool: true
+            EnableVFX:
+              Bool: true
+            FaceAccessoryOverride:
+              Int64: 0
+            FrontAccessoryOverride:
+              Int64: 0
+            HairAccessoryOverride:
+              Int64: 0
+            HeadAccessoryOverride:
+              Int64: 0
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            LimitBounds:
+              Vector3:
+                - 0
+                - 0
+                - 0
+            LimitMethod:
+              Enum: 1
+            NeckAccessoryOverride:
+              Int64: 0
+            Sandboxed:
+              Bool: false
+            SerializedOverrides:
+              BinaryString: ""
+            ShoulderAccessoryOverride:
+              Int64: 0
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            UniqueId:
+              UniqueId: 7a260df4977457cf0af68fc500000ea5
+            WaistAccessoryOverride:
+              Int64: 0
+          children: []
+        - referent: referent-51
+          name: AvatarClothingRules
+          class: AvatarClothingRules
+          properties:
+            Attributes:
+              Attributes: {}
+            Capabilities:
+              SecurityCapabilities: 0
+            ClassicPantsOverride:
+              Int64: 0
+            ClassicShirtOverride:
+              Int64: 0
+            ClassicTShirtOverride:
+              Int64: 0
+            ClothingMode:
+              Enum: 0
+            CustomClassicPantsAccessoryEnabled:
+              Bool: false
+            CustomClassicPantsAccessoryId:
+              Int64: 0
+            CustomClassicShirtsAccessoryEnabled:
+              Bool: false
+            CustomClassicShirtsAccessoryId:
+              Int64: 0
+            CustomClassicTShirtsAccessoryEnabled:
+              Bool: false
+            CustomClassicTShirtsAccessoryId:
+              Int64: 0
+            CustomClothingMode:
+              Enum: 0
+            CustomDressSkirtAccessoryEnabled:
+              Bool: false
+            CustomDressSkirtAccessoryId:
+              Int64: 0
+            CustomJacketAccessoryEnabled:
+              Bool: false
+            CustomJacketAccessoryId:
+              Int64: 0
+            CustomLeftShoesAccessoryEnabled:
+              Bool: false
+            CustomLeftShoesAccessoryId:
+              Int64: 0
+            CustomPantsAccessoryEnabled:
+              Bool: false
+            CustomPantsAccessoryId:
+              Int64: 0
+            CustomRightShoesAccessoryEnabled:
+              Bool: false
+            CustomRightShoesAccessoryId:
+              Int64: 0
+            CustomShirtAccessoryEnabled:
+              Bool: false
+            CustomShirtAccessoryId:
+              Int64: 0
+            CustomShortsAccessoryEnabled:
+              Bool: false
+            CustomShortsAccessoryId:
+              Int64: 0
+            CustomSweaterAccessoryEnabled:
+              Bool: false
+            CustomSweaterAccessoryId:
+              Int64: 0
+            CustomTShirtAccessoryEnabled:
+              Bool: false
+            CustomTShirtAccessoryId:
+              Int64: 0
+            DressSkirtAccessoryOverride:
+              Int64: 0
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            JacketAccessoryOverride:
+              Int64: 0
+            LeftShoeAccessoryOverride:
+              Int64: 0
+            LimitBounds:
+              Vector3:
+                - 0
+                - 0
+                - 0
+            PantsAccessoryOverride:
+              Int64: 0
+            RightShoeAccessoryOverride:
+              Int64: 0
+            Sandboxed:
+              Bool: false
+            SerializedOverrides:
+              BinaryString: ""
+            ShirtAccessoryOverride:
+              Int64: 0
+            ShortsAccessoryOverride:
+              Int64: 0
+            SourceAssetId:
+              Int64: -1
+            SweaterAccessoryOverride:
+              Int64: 0
+            TShirtAccessoryOverride:
+              Int64: 0
+            Tags:
+              Tags: []
+            UniqueId:
+              UniqueId: 7a260df4977457cf0af68fc500000ea6
+          children: []
+        - referent: referent-52
+          name: AvatarAbilityRules
+          class: AvatarAbilityRules
+          properties:
+            Attributes:
+              Attributes: {}
+            Capabilities:
+              SecurityCapabilities: 0
+            CharacterControllerMode:
+              Enum: 0
+            EnableClimbing:
+              Bool: true
+            EnableCrouching:
+              Bool: true
+            EnableFallingDown:
+              Bool: true
+            EnableGettingUp:
+              Bool: true
+            EnableHolding:
+              Bool: true
+            EnableJumping:
+              Bool: true
+            EnableReaching:
+              Bool: true
+            EnableRunning:
+              Bool: true
+            EnableSitting:
+              Bool: true
+            EnableSprinting:
+              Bool: true
+            EnableSwimming:
+              Bool: true
+            EnableTurning:
+              Bool: true
+            HistoryId:
+              UniqueId: "00000000000000000000000000000000"
+            Sandboxed:
+              Bool: false
+            SerializedOverrides:
+              BinaryString: ""
+            SourceAssetId:
+              Int64: -1
+            Tags:
+              Tags: []
+            UniqueId:
+              UniqueId: 7a260df4977457cf0af68fc500000ea7
+          children: []
+- referent: referent-53
+  name: Instance
+  class: LodDataService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003ec
+  children: []
+- referent: referent-54
+  name: Packages
+  class: Packages
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    IsDehydrated:
+      Bool: false
+    OverridesRecalculated:
+      Bool: false
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    ShellPackagesCount:
+      Int32: 0
+    SkippedInstancesCount:
+      Int32: 0
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003b6
+  children: []
+- referent: referent-55
+  name: GuidRegistryService
+  class: GuidRegistryService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003b7
+  children: []
+- referent: referent-56
+  name: ConfigureServerService
+  class: ConfigureServerService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 7a260df4977457cf0af68fc5000003ba
+  children: []
+- referent: referent-57
+  name: DataStoreService
+  class: DataStoreService
+  properties:
+    Attributes:
+      Attributes: {}
+    AutomaticRetry:
+      Bool: true
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    LegacyNamingScheme:
+      Bool: false
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003ea
+  children: []
+- referent: referent-58
+  name: HttpService
+  class: HttpService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    HttpEnabled:
+      Bool: false
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003dc
+  children: []
+- referent: referent-59
+  name: Lighting
+  class: Lighting
+  properties:
+    Ambient:
+      Color3:
+        - 0.27450982
+        - 0.27450982
+        - 0.27450982
+    Attributes:
+      Attributes:
+        RBX_LightingTechnologyUnifiedMigration:
+          Bool: true
+        RBX_OriginalTechnologyOnFileLoad:
+          Int32: 3
+    Brightness:
+      Float32: 3
+    Capabilities:
+      SecurityCapabilities: 0
+    ColorShift_Bottom:
+      Color3:
+        - 0
+        - 0
+        - 0
+    ColorShift_Top:
+      Color3:
+        - 0
+        - 0
+        - 0
+    EnvironmentDiffuseScale:
+      Float32: 1
+    EnvironmentSpecularScale:
+      Float32: 1
+    ExposureCompensation:
+      Float32: 0
+    ExtendLightRangeTo120:
+      Enum: 0
+    FogColor:
+      Color3:
+        - 0.75294125
+        - 0.75294125
+        - 0.75294125
+    FogEnd:
+      Float32: 100000
+    FogStart:
+      Float32: 0
+    GeographicLatitude:
+      Float32: 0
+    GlobalShadows:
+      Bool: true
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    LightingStyle:
+      Enum: 1
+    OutdoorAmbient:
+      Color3:
+        - 0.27450982
+        - 0.27450982
+        - 0.27450982
+    Outlines:
+      Bool: false
+    PrioritizeLightingQuality:
+      Bool: true
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    ShadowSoftness:
+      Float32: 0.2
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    Technology:
+      Enum: 3
+    TimeOfDay:
+      String: "14:30:00"
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003eb
+  children:
+    - referent: referent-60
+      name: Sky
+      class: Sky
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        CelestialBodiesShown:
+          Bool: true
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        MoonAngularSize:
+          Float32: 11
+        MoonTextureContent:
+          Content:
+            Uri: "rbxassetid://6444320592"
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SkyboxBackContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxDownContent:
+          Content:
+            Uri: "rbxassetid://6444884785"
+        SkyboxFrontContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxLeftContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxOrientation:
+          Vector3:
+            - 0
+            - 0
+            - 0
+        SkyboxRightContent:
+          Content:
+            Uri: "rbxassetid://6444884337"
+        SkyboxUpContent:
+          Content:
+            Uri: "rbxassetid://6412503613"
+        SourceAssetId:
+          Int64: 332039975
+        StarCount:
+          Int32: 3000
+        SunAngularSize:
+          Float32: 11
+        SunTextureContent:
+          Content:
+            Uri: "rbxassetid://6196665106"
+        Tags:
+          Tags: []
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a00000404
+      children: []
+    - referent: referent-61
+      name: SunRays
+      class: SunRaysEffect
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        Enabled:
+          Bool: true
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        Intensity:
+          Float32: 0.01
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Spread:
+          Float32: 0.1
+        Tags:
+          Tags: []
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a00000405
+      children: []
+    - referent: referent-62
+      name: Atmosphere
+      class: Atmosphere
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        Color:
+          Color3:
+            - 0.78039217
+            - 0.78039217
+            - 0.78039217
+        Decay:
+          Color3:
+            - 0.41568628
+            - 0.4392157
+            - 0.49019608
+        Density:
+          Float32: 0.3
+        Glare:
+          Float32: 0
+        Haze:
+          Float32: 0
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        Offset:
+          Float32: 0.25
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a00000406
+      children: []
+    - referent: referent-63
+      name: Bloom
+      class: BloomEffect
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        Enabled:
+          Bool: true
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        Intensity:
+          Float32: 1
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        Size:
+          Float32: 24
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        Threshold:
+          Float32: 2
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a00000407
+      children: []
+    - referent: referent-64
+      name: DepthOfField
+      class: DepthOfFieldEffect
+      properties:
+        Attributes:
+          Attributes: {}
+        Capabilities:
+          SecurityCapabilities: 0
+        Enabled:
+          Bool: false
+        FarIntensity:
+          Float32: 0.1
+        FocusDistance:
+          Float32: 0.05
+        HistoryId:
+          UniqueId: "00000000000000000000000000000000"
+        InFocusRadius:
+          Float32: 30
+        NearIntensity:
+          Float32: 0.75
+        Sandboxed:
+          Bool: false
+        SerializedOverrides:
+          BinaryString: ""
+        SourceAssetId:
+          Int64: -1
+        Tags:
+          Tags: []
+        UniqueId:
+          UniqueId: 287ea0c69cfbf9320af67d1a00000408
+      children: []
+- referent: referent-65
+  name: Preloaded
+  class: Preloaded
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000386
+  children: []
+- referent: referent-66
+  name: ProximityPromptService
+  class: ProximityPromptService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    Enabled:
+      Bool: true
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    MaxIndicatorsVisible:
+      Int32: 16
+    MaxPromptsVisible:
+      Int32: 16
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003ed
+  children: []
+- referent: referent-67
+  name: ReplicatedStorage
+  class: ReplicatedStorage
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003c0
+  children: []
+- referent: referent-68
+  name: SerializationService
+  class: SerializationService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a00000689
+  children: []
+- referent: referent-69
+  name: ServerScriptService
+  class: ServerScriptService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    LoadStringEnabled:
+      Bool: false
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003c1
+  children: []
+- referent: referent-70
+  name: ServerStorage
+  class: ServerStorage
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003c2
+  children: []
+- referent: referent-71
+  name: ServiceVisibilityService
+  class: ServiceVisibilityService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HiddenServices:
+      BinaryString: AAAAAA==
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003d7
+    VisibleServices:
+      BinaryString: AAAAAA==
+  children: []
+- referent: referent-72
+  name: Teams
+  class: Teams
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003ee
+  children: []
+- referent: referent-73
+  name: TestService
+  class: TestService
+  properties:
+    Attributes:
+      Attributes: {}
+    AutoRuns:
+      Bool: true
+    Capabilities:
+      SecurityCapabilities: 0
+    Description:
+      String: ""
+    ExecuteWithStudioRun:
+      Bool: false
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    IsPhysicsEnvironmentalThrottled:
+      Bool: true
+    IsSleepAllowed:
+      Bool: true
+    NumberOfPlayers:
+      Int32: 0
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SimulateSecondsLag:
+      Float64: 0
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    ThrottlePhysicsToRealtime:
+      Bool: true
+    Timeout:
+      Float64: 10
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003ef
+  children: []
+- referent: referent-74
+  name: UGCAvatarService
+  class: UGCAvatarService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003f0
+  children: []
+- referent: referent-75
+  name: VideoScreenCaptureService
+  class: VideoScreenCaptureService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a0000041e
+  children: []
+- referent: referent-76
+  name: VideoService
+  class: VideoService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003db
+  children: []
+- referent: referent-77
+  name: VoiceChatService
+  class: VoiceChatService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    DefaultDistanceAttenuation:
+      Enum: 0
+    EnableDefaultVoice:
+      Bool: true
+    EnableVoiceVolumeControls:
+      Enum: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 287ea0c69cfbf9320af67d1a000003f2
+    UseAudioApi:
+      Enum: 2
+  children: []
+- referent: referent-78
+  name: PermissionsService
+  class: PermissionsService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 7a260df4977457cf0af68fc500000ea8
+  children: []
+- referent: referent-79
+  name: LuaWebService
+  class: LuaWebService
+  properties:
+    Attributes:
+      Attributes: {}
+    Capabilities:
+      SecurityCapabilities: 0
+    HistoryId:
+      UniqueId: "00000000000000000000000000000000"
+    Sandboxed:
+      Bool: false
+    SerializedOverrides:
+      BinaryString: ""
+    SourceAssetId:
+      Int64: -1
+    Tags:
+      Tags: []
+    UniqueId:
+      UniqueId: 7a260df4977457cf0af68fc500000fc4
+  children: []

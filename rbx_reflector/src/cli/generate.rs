@@ -297,6 +297,7 @@ fn apply_dump<'db>(database: &mut ReflectionDatabase<'db>, dump: &'db Dump) -> a
 fn variant_type_from_str(type_name: &str) -> Option<VariantType> {
     Some(match type_name {
         "Axes" => VariantType::Axes,
+        "AssetContentMap" => VariantType::AssetContentMap,
         "BinaryString" => VariantType::BinaryString,
         "BrickColor" => VariantType::BrickColor,
         "CFrame" => VariantType::CFrame,

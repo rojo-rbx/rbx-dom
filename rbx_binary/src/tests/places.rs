@@ -27,4 +27,5 @@ macro_rules! place_tests {
 place_tests! {
     baseplate_566,
     baseplate_727_with_tags,
+    expanded_terrain_published,
 }

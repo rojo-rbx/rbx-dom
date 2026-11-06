@@ -15,6 +15,7 @@ use rbx_dom_weak::{
 use rbx_reflection::{ClassDescriptor, PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
+    asset_content_map::read_asset_content_map,
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt},
     types::Type,
@@ -1460,6 +1461,23 @@ rbx-dom may require changes to fully support this property. Please open an issue
                         type_name: type_name.to_string(),
                         prop_name,
                         valid_type_names: "Content",
+                        actual_type_name: format!("{invalid_type:?}"),
+                    });
+                }
+            },
+            Type::AssetContentMap => match canonical_type {
+                VariantType::AssetContentMap => {
+                    for instance in instances {
+                        let value = read_asset_content_map(&mut chunk)?;
+
+                        add_property(instance, &property, value.into());
+                    }
+                }
+                invalid_type => {
+                    return Err(InnerError::PropTypeMismatch {
+                        type_name: type_name.to_string(),
+                        prop_name,
+                        valid_type_names: "AssetContentMap",
                         actual_type_name: format!("{invalid_type:?}"),
                     });
                 }

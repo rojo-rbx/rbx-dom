@@ -1,6 +1,10 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased
+* Updated to Roblox version 745
+* Added `Terrain.VoxelGridAssetContentMap`, which stores the voxels of places using Expanded Terrain, as an `AssetContentMap` property. ([#610])
+
+[#610]: https://github.com/rojo-rbx/rbx-dom/issues/610
 
 ## 3.0.1+roblox-741 (2026-10-01)
 * Updated to Roblox version 741

@@ -13,6 +13,7 @@ use self::state::DeserializerState;
 pub(crate) use self::header::FileHeader;
 
 pub use self::error::Error;
+pub(crate) use self::error::InnerError;
 
 /// A configurable deserializer for Roblox binary models and places.
 ///

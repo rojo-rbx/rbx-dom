@@ -86,6 +86,12 @@ pub(crate) enum InnerError {
     #[error("'PhysicalProperties' discriminator {0:b} is not supported")]
     BadPhysicalPropertiesType(u8),
 
+    #[error("'AssetContentMap' bundle asset ID {0:?} is not a valid integer")]
+    BadAssetContentMapBundleId(String),
+
+    #[error("'AssetContentMap' entry count {0} is negative")]
+    BadAssetContentMapEntryCount(i64),
+
     #[error("Malformed file: Referent {referent} has already appeared in the file")]
     DuplicateReferent { referent: i32 },
 

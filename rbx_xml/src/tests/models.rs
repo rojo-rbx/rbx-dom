@@ -73,4 +73,5 @@ model_tests! {
     physical_properties_acoustics,
     netassetref,
     stylesheet,
+    expanded_terrain,
 }

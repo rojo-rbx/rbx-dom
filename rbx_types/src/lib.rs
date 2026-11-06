@@ -2,6 +2,7 @@
 #[macro_use]
 mod serde_util;
 
+mod asset_content_map;
 mod attributes;
 mod axes;
 mod basic_types;
@@ -21,6 +22,7 @@ mod tags;
 mod unique_id;
 mod variant;
 
+pub use asset_content_map::*;
 pub use attributes::*;
 pub use axes::*;
 pub use basic_types::*;

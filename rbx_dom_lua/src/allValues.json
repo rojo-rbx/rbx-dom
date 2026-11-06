@@ -1,4 +1,15 @@
 {
+  "AssetContentMap": {
+    "value": {
+      "AssetContentMap": {
+        "bundleAssetId": null,
+        "entries": {
+          "L3;0,0,0;N4": "SGVsbG8h"
+        }
+      }
+    },
+    "ty": "AssetContentMap"
+  },
   "Attributes": {
     "value": {
       "Attributes": {

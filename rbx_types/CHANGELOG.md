@@ -1,5 +1,10 @@
 # rbx_types Changelog
 
+## Unreleased
+* Implement support for the `AssetContentMap` type. ([#610])
+
+[#610]: https://github.com/rojo-rbx/rbx-dom/issues/610
+
 # 3.1.0 (2025-11-27)
 * Fixed `serde::Deserialize` implementations for `BinaryString`, `SharedString`, `NetAssetRef`, `Faces`, and `Axes` to properly utilize visitors. ([#563])
 * Added `CFrame::identity` convenience method to construct an identity CFrame. ([#567])

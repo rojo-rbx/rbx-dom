@@ -17,6 +17,7 @@ The XML model format has generally been replaced by the newer, more efficient [b
 - [SharedStrings](#sharedstrings)
 	- [SharedString][SharedString-def] (definition)
 - [Type Elements](#type-elements)
+	- [AssetContentMap](#assetcontentmap)
 	- [Axes](#axes)
 	- [BinaryString](#binarystring)
 	- [bool](#bool)
@@ -185,6 +186,26 @@ The following attributes are REQUIRED for all property elements, regardless of t
 The `name` of a property does not necessarily reflect its in-engine name, and some properties serialize with unexpected names. Additionally, not every property is both serialized and deserialized by Roblox. A property may be deserialized without being serialized, vice versa, or not be read or written by Roblox.
 
 The format for each data type is listed below.
+
+### AssetContentMap
+
+The `AssetContentMap` data type is represented by a JSON array. Each element of the array is an object with two string fields: `key`, the key of the entry, and `data`, the entry's binary data encoded with Base64 as per [RFC 2045](https://www.rfc-editor.org/rfc/rfc2045). Decoders MUST ignore whitespace inside `data`.
+
+Keys MUST be unique, and Roblox rejects the whole value if a key is repeated. The order of entries is not significant.
+
+The XML format has no representation for the bundle asset ID described in the [binary format](binary.md#assetcontentmap). Encoders MUST NOT write an `AssetContentMap` that only refers to a bundle as if it were empty.
+
+An empty `AssetContentMap` appears as follows:
+
+```xml
+<AssetContentMap name="VoxelGridAssetContentMap">[]</AssetContentMap>
+```
+
+An `AssetContentMap` with a single entry whose data is `Rojo is cool!` appears as follows:
+
+```xml
+<AssetContentMap name="AssetContentMapExample">[{"key":"example","data":"Um9qbyBpcyBjb29sIQ=="}]</AssetContentMap>
+```
 
 ### Axes
 

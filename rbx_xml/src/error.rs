@@ -226,6 +226,7 @@ pub(crate) enum EncodeErrorKind {
         message: String,
     },
     UnsupportedFontStyle(rbx_dom_weak::types::FontStyle),
+    UnsupportedAssetContentMapBundle,
 }
 
 impl fmt::Display for EncodeErrorKind {
@@ -255,7 +256,11 @@ impl fmt::Display for EncodeErrorKind {
                 "Property {class_name}.{property_name} is expected to be of type {expected_type:?}, but it was of type {actual_type:?} \
                  When trying to convert the value, this error occured: {message}"
             ),
-            UnsupportedFontStyle(style) => write!(output, "Cannot serialize FontStyle of type {style:?}")
+            UnsupportedFontStyle(style) => write!(output, "Cannot serialize FontStyle of type {style:?}"),
+            UnsupportedAssetContentMapBundle => write!(
+                output,
+                "AssetContentMap values that refer to a bundle asset cannot be written to XML files"
+            ),
         }
     }
 }
@@ -272,7 +277,8 @@ impl std::error::Error for EncodeErrorKind {
             UnknownProperty { .. }
             | UnsupportedPropertyType(_)
             | UnsupportedPropertyConversion { .. }
-            | UnsupportedFontStyle(_) => None,
+            | UnsupportedFontStyle(_)
+            | UnsupportedAssetContentMapBundle => None,
         }
     }
 }
