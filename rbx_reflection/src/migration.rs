@@ -2,7 +2,8 @@ use rbx_types::{Content, Enum, Font, FontStyle, FontWeight, Variant};
 use serde::{de, Deserialize, Deserializer, Serialize};
 use thiserror::Error;
 
-#[derive(Debug, Error)]
+#[derive(Debug, Error, Serialize)]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 pub enum MigrationError {
     #[error(
         "Invalid type for migration {migration:?}: expected a type of {expected}, got {actual:?}"
@@ -10,12 +11,16 @@ pub enum MigrationError {
     InvalidTypeForMigration {
         migration: MigrationOperation,
         expected: &'static str,
+        #[serde(serialize_with = "rbx_types::DiagnosticValue::serialize_variant")]
+        #[cfg_attr(feature = "typescript", ts(as = "rbx_types::DiagnosticValue"))]
         actual: Variant,
     },
     #[error("Invalid value for migration {migration:?}: expected {expected}, got {actual:?}")]
     InvalidValueForMigration {
         migration: MigrationOperation,
         expected: &'static str,
+        #[serde(serialize_with = "rbx_types::DiagnosticValue::serialize_variant")]
+        #[cfg_attr(feature = "typescript", ts(as = "rbx_types::DiagnosticValue"))]
         actual: Variant,
     },
 }
@@ -67,6 +72,7 @@ impl<'a, 'de: 'a> Deserialize<'de> for PropertyMigration<'a> {
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq)]
+#[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
 #[non_exhaustive]
 pub enum MigrationOperation {
     IgnoreGuiInsetToScreenInsets,
