@@ -45,25 +45,22 @@ pub fn find_canonical_property_descriptor<'db>(
     database: &'db ReflectionDatabase<'db>,
 ) -> Option<&'db PropertyDescriptor<'db>> {
     find_property_descriptors(class_name, property_name, database)
+        .filter(|(_canonical, serialized)| serialized.is_some())
         .map(|(canonical, _serialized)| canonical)
-}
-
-pub fn find_serialized_property_descriptor<'db>(
-    class_name: &str,
-    property_name: &str,
-    database: &'db ReflectionDatabase<'db>,
-) -> Option<&'db PropertyDescriptor<'db>> {
-    find_property_descriptors(class_name, property_name, database)
-        .map(|(_canonical, serialized)| serialized)
 }
 
 /// Find both the canonical and serialized property descriptors for a given
 /// class and property name pair. These might be the same descriptor!
-fn find_property_descriptors<'db>(
+///
+/// The serialized descriptor is `None` if the property does not serialize.
+pub fn find_property_descriptors<'db>(
     class_name: &str,
     property_name: &str,
     database: &'db ReflectionDatabase<'db>,
-) -> Option<(&'db PropertyDescriptor<'db>, &'db PropertyDescriptor<'db>)> {
+) -> Option<(
+    &'db PropertyDescriptor<'db>,
+    Option<&'db PropertyDescriptor<'db>>,
+)> {
     let class_descriptor = database.classes.get(class_name)?;
 
     let mut current_class_descriptor = class_descriptor;
@@ -80,11 +77,10 @@ fn find_property_descriptors<'db>(
             match &property_descriptor.kind {
                 PropertyKind::Canonical { serialization } => match serialization {
                     PropertySerialization::Serializes | PropertySerialization::Migrate { .. } => {
-                        return Some((property_descriptor, property_descriptor))
+                        return Some((property_descriptor, Some(property_descriptor)))
                     }
                     PropertySerialization::DoesNotSerialize => {
-                        // FIXME: Is this the correct solution?
-                        return None;
+                        return Some((property_descriptor, None));
                     }
                     PropertySerialization::SerializesAs(serialized_name) => {
                         let serialized_descriptor = current_class_descriptor
@@ -92,7 +88,7 @@ fn find_property_descriptors<'db>(
                             .get(serialized_name)
                             .unwrap();
 
-                        return Some((property_descriptor, serialized_descriptor));
+                        return Some((property_descriptor, Some(serialized_descriptor)));
                     }
                     _ => unimplemented!(),
                 },
@@ -105,11 +101,10 @@ fn find_property_descriptors<'db>(
                         PropertyKind::Canonical { serialization } => match serialization {
                             PropertySerialization::Serializes
                             | PropertySerialization::Migrate { .. } => {
-                                return Some((canonical_descriptor, canonical_descriptor))
+                                return Some((canonical_descriptor, Some(canonical_descriptor)))
                             }
                             PropertySerialization::DoesNotSerialize => {
-                                // FIXME: Is this the correct solution?
-                                return None;
+                                return Some((canonical_descriptor, None));
                             }
                             PropertySerialization::SerializesAs(serialized_name) => {
                                 let serialized_descriptor = current_class_descriptor
@@ -117,7 +112,7 @@ fn find_property_descriptors<'db>(
                                     .get(serialized_name)
                                     .unwrap();
 
-                                return Some((canonical_descriptor, serialized_descriptor));
+                                return Some((canonical_descriptor, Some(serialized_descriptor)));
                             }
                             _ => unimplemented!(),
                         },
