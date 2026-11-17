@@ -73,12 +73,34 @@ impl<'db> Serializer<'db> {
         }
     }
 
+    /// Enables archive scene encoding and sends opaque envelopes to a container
+    /// writer. Ordinary binary encoding rejects embedded Content values.
+    pub fn serialize_with_sink<W: Write>(
+        &self,
+        writer: W,
+        dom: &WeakDom,
+        refs: &[Ref],
+        sink: &dyn crate::EmbeddedContentSink,
+    ) -> Result<(), Error> {
+        self.serialize_impl(writer, dom, refs, Some(sink))
+    }
+
     /// Serialize a Roblox binary model or place into the given stream using
     /// this serializer.
     pub fn serialize<W: Write>(&self, writer: W, dom: &WeakDom, refs: &[Ref]) -> Result<(), Error> {
+        self.serialize_impl(writer, dom, refs, None)
+    }
+
+    fn serialize_impl<W: Write>(
+        &self,
+        writer: W,
+        dom: &WeakDom,
+        refs: &[Ref],
+        sink: Option<&dyn crate::EmbeddedContentSink>,
+    ) -> Result<(), Error> {
         profiling::scope!("rbx_binary::seserialize");
 
-        let mut serializer = SerializerState::new(self, dom, writer);
+        let mut serializer = SerializerState::new(self, dom, writer, sink);
 
         serializer.add_instances(refs)?;
         serializer.generate_referents();

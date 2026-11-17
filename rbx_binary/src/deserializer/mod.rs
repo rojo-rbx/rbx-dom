@@ -66,12 +66,31 @@ impl<'db> Deserializer<'db> {
         Self { database }
     }
 
+    /// Resolves embedded PROP references when decoding a scene from an archive.
+    /// Without a resolver, embedded references produce an error instead of
+    /// silently discarding their values.
+    pub fn deserialize_with_resolver<R: Read>(
+        &self,
+        reader: R,
+        resolver: &dyn crate::EmbeddedContentResolver,
+    ) -> Result<WeakDom, Error> {
+        self.deserialize_impl(reader, Some(resolver))
+    }
+
     /// Deserialize a Roblox binary model or place from the given stream using
     /// this deserializer.
     pub fn deserialize<R: Read>(&self, reader: R) -> Result<WeakDom, Error> {
+        self.deserialize_impl(reader, None)
+    }
+
+    fn deserialize_impl<R: Read>(
+        &self,
+        reader: R,
+        resolver: Option<&dyn crate::EmbeddedContentResolver>,
+    ) -> Result<WeakDom, Error> {
         profiling::scope!("rbx_binary::deserialize");
 
-        let mut deserializer = DeserializerState::new(self, reader)?;
+        let mut deserializer = DeserializerState::new(self, reader, resolver)?;
 
         loop {
             let chunk = deserializer.next_chunk()?;

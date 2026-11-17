@@ -8,6 +8,10 @@ Usage:
 # Convert between rbxmx, rbxm, rbxl, and rbxlx
 rbx-util convert input.rbxmx output.rbxm
 
+# Read or write a place archive
+rbx-util convert input.rbxl output.rbx
+rbx-util convert input.rbx output.rbx
+
 # Debug the contents of a binary model
 rbx-util view-binary output.rbxm
 
@@ -15,3 +19,8 @@ rbx-util view-binary output.rbxm
 # Then, write the resulting file the provided output.
 rbx-util remove-prop input.rbxmx ClassName PropertyName --output output.rbxm
 ```
+
+Archives containing opaque Content cannot be exported to binary or XML without
+first replacing or removing those values; conversion returns an error.
+Archive conversion through a DOM retains instance properties, but does not retain
+unattached archive objects or arbitrary manifest metadata.

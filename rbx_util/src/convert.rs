@@ -27,6 +27,8 @@ impl ConvertCommand {
 
         log::debug!("Reading file into WeakDom");
         let dom = match input_kind {
+            ModelKind::Archive => rbx_archive::from_reader(input_file)
+                .with_context(|| format!("Failed to read {}", self.input_path.display()))?,
             ModelKind::Xml => {
                 let options = rbx_xml::DecodeOptions::new()
                     .property_behavior(rbx_xml::DecodePropertyBehavior::ReadUnknown);
@@ -45,6 +47,8 @@ impl ConvertCommand {
 
         log::debug!("Writing into new file at {}", self.output_path.display());
         match output_kind {
+            ModelKind::Archive => rbx_archive::to_writer(output_file, &dom, root_ids)
+                .with_context(|| format!("Failed to write {}", self.output_path.display()))?,
             ModelKind::Xml => {
                 let options = rbx_xml::EncodeOptions::new()
                     .property_behavior(rbx_xml::EncodePropertyBehavior::WriteUnknown);

@@ -1,6 +1,7 @@
 use std::{
     borrow::Cow,
     collections::{btree_map, hash_map, BTreeMap},
+    convert::TryFrom,
     io::Write,
 };
 
@@ -43,6 +44,7 @@ static FILE_FOOTER: &[u8] = b"</roblox>";
 /// a binary model file.
 pub(super) struct SerializerState<'dom, 'db, W> {
     serializer: &'db Serializer<'db>,
+    embedded_sink: Option<&'dom dyn crate::EmbeddedContentSink>,
 
     /// The dom containing all of the instances that we're serializing.
     dom: &'dom WeakDom,
@@ -518,9 +520,15 @@ impl<'dom, 'db: 'dom> TypeInfo<'dom, 'db> {
 }
 
 impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
-    pub fn new(serializer: &'db Serializer<'db>, dom: &'dom WeakDom, output: W) -> Self {
+    pub fn new(
+        serializer: &'db Serializer<'db>,
+        dom: &'dom WeakDom,
+        output: W,
+        embedded_sink: Option<&'dom dyn crate::EmbeddedContentSink>,
+    ) -> Self {
         SerializerState {
             serializer,
+            embedded_sink,
             dom,
             output,
             relevant_instances: Vec::new(),
@@ -847,7 +855,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                 chunk.write_le_u32(type_info.type_id)?;
                 chunk.write_string(&prop_info.serialized_name)?;
-                chunk.write_u8(prop_info.prop_type as u8)?;
+                write_property_header(
+                    prop_info,
+                    type_info.instances.len(),
+                    self.embedded_sink,
+                    &mut chunk,
+                )?;
 
                 write_prop_info(
                     prop_info,
@@ -882,7 +895,12 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
 
                 chunk.write_le_u32(type_info.type_id)?;
                 chunk.write_string(&prop_info.serialized_name)?;
-                chunk.write_u8(prop_info.prop_type as u8)?;
+                write_property_header(
+                    prop_info,
+                    type_info.instances.len(),
+                    self.embedded_sink,
+                    &mut chunk,
+                )?;
 
                 write_prop_info(
                     prop_info,
@@ -895,6 +913,57 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                 )?;
 
                 chunk.dump(&mut self.output)?;
+            }
+
+            fn write_property_header(
+                property: &mut PropInfo<'_>,
+                count: usize,
+                sink: Option<&dyn crate::EmbeddedContentSink>,
+                chunk: &mut ChunkBuilder,
+            ) -> Result<(), InnerError> {
+                use crate::embedded::{invalid, EmbeddedReference};
+
+                property.extend_with_default(count);
+                fn embedded<'a>(
+                    value: &&'a Variant,
+                ) -> Option<&'a rbx_dom_weak::types::EmbeddedContent> {
+                    match value {
+                        Variant::Content(content) => match content.value() {
+                            ContentType::Embedded(content) => Some(content),
+                            _ => None,
+                        },
+                        _ => None,
+                    }
+                }
+                if property
+                    .values
+                    .iter()
+                    .any(|value| embedded(value).is_some())
+                {
+                    if property.prop_type != Type::Content {
+                        return Err(
+                            invalid("embedded Content requires Content wire encoding").into()
+                        );
+                    }
+                    let sink =
+                        sink.ok_or_else(|| invalid("embedded Content requires an archive writer"))?;
+                    chunk.write_u8(0x82)?;
+                    for value in &property.values {
+                        if let Some(content) = embedded(value) {
+                            sink.store(content)?;
+                            let mut reference = Vec::new();
+                            EmbeddedReference::encode_content(content, &mut reference)?;
+                            let len = i32::try_from(reference.len())
+                                .map_err(|_| invalid("embedded metadata too large"))?;
+                            chunk.write_all(&len.to_le_bytes())?;
+                            chunk.write_all(&reference)?;
+                        } else {
+                            chunk.write_le_u32(0)?;
+                        }
+                    }
+                }
+                chunk.write_u8(property.prop_type as u8)?;
+                Ok(())
             }
 
             fn write_prop_info<'dom>(
@@ -1590,6 +1659,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                             if let Variant::Content(content) = rbx_value {
                                 source_types.push(match content.value() {
                                     ContentType::None => 0,
+                                    ContentType::Embedded(_) => 0,
                                     ContentType::Uri(uri) => {
                                         uris.push(uri.as_str());
                                         1

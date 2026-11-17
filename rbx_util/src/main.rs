@@ -34,7 +34,7 @@ impl Options {
 enum Subcommand {
     /// Displays a binary file in a text format.
     ViewBinary(ViewBinaryCommand),
-    /// Convert between the XML and binary formats for places and models.
+    /// Convert between XML, binary, and archive formats for places and models.
     Convert(ConvertCommand),
     /// Removes a specific property from a specific class within a Roblox file.
     RemoveProp(RemovePropCommand),
@@ -52,6 +52,7 @@ struct GlobalOptions {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ModelKind {
+    Archive,
     Binary,
     Xml,
 }
@@ -60,6 +61,7 @@ impl ModelKind {
     pub fn from_path(path: &Path) -> anyhow::Result<ModelKind> {
         log::trace!("Resolving type of file for path {}", path.display());
         match path.extension().and_then(|ext| ext.to_str()) {
+            Some("rbx") => Ok(ModelKind::Archive),
             Some("rbxm") | Some("rbxl") => Ok(ModelKind::Binary),
             Some("rbxmx") | Some("rbxlx") => Ok(ModelKind::Xml),
 

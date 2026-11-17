@@ -5,7 +5,7 @@ use rbx_dom_weak::types::{Content, ContentId, ContentType};
 use crate::{
     core::XmlType,
     deserializer_core::{XmlEventReader, XmlReadEvent},
-    error::{DecodeError, DecodeErrorKind, EncodeError},
+    error::{DecodeError, DecodeErrorKind, EncodeError, EncodeErrorKind},
     serializer_core::{XmlEventWriter, XmlWriteEvent},
 };
 
@@ -24,7 +24,11 @@ impl XmlType for Content {
                 writer.write(XmlWriteEvent::start_element("uri"))?;
                 writer.write_string(uri)?;
             }
-            ty => todo!("ContentType {:?} is not yet supported", ty),
+            _ => {
+                return Err(writer.error(EncodeErrorKind::UnsupportedPropertyType(
+                    rbx_dom_weak::types::VariantType::Content,
+                )))
+            }
         }
 
         writer.write(XmlWriteEvent::end_element())?;
