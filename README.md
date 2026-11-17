@@ -39,6 +39,11 @@ Serializer and deserializer for for Roblox's XML model and place formats, `rbxmx
 
 Serializer and deserializer for for Roblox's binary model and place formats, `rbxm` and `rbxl`.
 
+## [rbx_archive](rbx_archive)
+
+Serializer and deserializer for JSONL place archives (`rbx`), built on `rbx_binary`.
+Restores embedded strings and preserves opaque Content envelopes and file-local identities.
+
 ## [rbx_reflection](rbx_reflection)
 [![rbx_reflection on crates.io](https://img.shields.io/crates/v/rbx_reflection.svg)](https://crates.io/crates/rbx_reflection)
 [![rbx_reflection docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_reflection)

@@ -57,6 +57,7 @@ mod asset_content_map;
 mod chunk;
 mod core;
 mod deserializer;
+mod embedded;
 mod serializer;
 mod types;
 
@@ -78,6 +79,7 @@ pub mod text_format {
 
 pub use crate::{
     deserializer::{Deserializer, Error as DecodeError},
+    embedded::{EmbeddedContentResolver, EmbeddedContentSink, EmbeddedReference},
     serializer::{CompressionType, Error as EncodeError, Serializer},
 };
 

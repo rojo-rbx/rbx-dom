@@ -18,6 +18,7 @@ use crate::{
     asset_content_map::read_asset_content_map,
     chunk::Chunk,
     core::{find_property_descriptors, RbxReadExt},
+    embedded::{invalid, read_references, EmbeddedReference},
     types::Type,
 };
 
@@ -26,6 +27,7 @@ use super::{error::InnerError, header::FileHeader, Deserializer};
 pub(super) struct DeserializerState<'db, R> {
     /// The user-provided configuration that we should use.
     deserializer: &'db Deserializer<'db>,
+    embedded_resolver: Option<&'db dyn crate::EmbeddedContentResolver>,
 
     /// The input data encoded as a binary model.
     input: R,
@@ -61,6 +63,7 @@ pub(super) struct DeserializerState<'db, R> {
     /// deserializing this file. We use this map in order to ensure we only
     /// print one warning per unknown type ID when deserializing a file.
     unknown_type_ids: HashSet<u8>,
+    archive_properties: HashSet<(u32, String)>,
 }
 
 /// Represents a unique instance class. Binary models define all their instance
@@ -213,6 +216,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
     pub(super) fn new(
         deserializer: &'db Deserializer<'db>,
         mut input: R,
+        embedded_resolver: Option<&'db dyn crate::EmbeddedContentResolver>,
     ) -> Result<Self, InnerError> {
         let mut tree = WeakDom::new(InstanceBuilder::new("DataModel"));
 
@@ -226,6 +230,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
 
         Ok(DeserializerState {
             deserializer,
+            embedded_resolver,
             input,
             tree,
             metadata: HashMap::new(),
@@ -235,6 +240,7 @@ impl<'db, R: Read> DeserializerState<'db, R> {
             instances,
             root_instance_refs: Vec::new(),
             unknown_type_ids: HashSet::new(),
+            archive_properties: HashSet::new(),
         })
     }
 
@@ -348,6 +354,12 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         let type_id = chunk.read_le_u32()?;
         let prop_name = chunk.read_string()?;
 
+        if self.embedded_resolver.is_some()
+            && !self.archive_properties.insert((type_id, prop_name.clone()))
+        {
+            return Err(invalid("duplicate archive property column").into());
+        }
+
         let &TypeInfo {
             type_name,
             ref instances,
@@ -364,10 +376,36 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         // serialized format was just a type ID followed by the prop name. This
         // leads us to believe that Roblox will silently ignore any PROP chunks
         // that end immediately after the prop name, so we do the same.
-        let binary_type_byte = match chunk.read_u8() {
+        let mut binary_type_byte = match chunk.read_u8() {
             Ok(byte) => byte,
             Err(_) => return Ok(()),
         };
+
+        let embedded = if binary_type_byte == 0x82 {
+            let references = read_references(&mut chunk, instances.len())?;
+            binary_type_byte = chunk.read_u8()?;
+            if binary_type_byte >= 0x80 {
+                return Err(invalid("multiple property metadata blocks are unsupported").into());
+            }
+            if self.embedded_resolver.is_none() && references.iter().any(Option::is_some) {
+                return Err(
+                    invalid("embedded properties require an archive object resolver").into(),
+                );
+            }
+            Some(references)
+        } else {
+            if self.embedded_resolver.is_some() && binary_type_byte >= 0x80 {
+                return Err(invalid("unsupported property metadata in archive scene").into());
+            }
+            None
+        };
+        if embedded
+            .as_ref()
+            .is_some_and(|refs| refs.iter().any(Option::is_some))
+            && ![1, 28, 34].contains(&binary_type_byte)
+        {
+            return Err(invalid("embedded reference on an unsupported wire type").into());
+        }
 
         let binary_type: Type = match binary_type_byte.try_into() {
             Ok(ty) => ty,
@@ -398,6 +436,12 @@ impl<'db, R: Read> DeserializerState<'db, R> {
         // The `Name` prop is special and is routed to a different spot for
         // rbx_dom_weak, so we handle it specially here.
         if prop_name == "Name" {
+            if embedded
+                .as_ref()
+                .is_some_and(|refs| refs.iter().any(Option::is_some))
+            {
+                return Err(invalid("Name cannot reference an embedded object").into());
+            }
             // TODO: If an instance is never assigned a name through this code
             // path, we should use the reflection database to figure out its
             // default name. This should be rare: effectively never!
@@ -431,10 +475,28 @@ This may cause unexpected or broken behavior in your final results if you rely o
         ) {
             property
         } else {
+            if embedded
+                .as_ref()
+                .is_some_and(|refs| refs.iter().any(Option::is_some))
+            {
+                return Err(
+                    invalid("embedded reference on a property omitted by reflection").into(),
+                );
+            }
             return Ok(());
         };
 
         let canonical_type = property.ty;
+
+        if let Some(references) = embedded.filter(|refs| refs.iter().any(Option::is_some)) {
+            let values =
+                self.decode_embedded_values(chunk, binary_type, canonical_type, &references)?;
+            let instances = &mut self.instances[self.type_infos[&type_id].instances.clone()];
+            for (instance, value) in instances.iter_mut().zip(values) {
+                add_property(instance, &property, value);
+            }
+            return Ok(());
+        }
 
         match binary_type {
             Type::String => match canonical_type {
@@ -1485,6 +1547,141 @@ rbx-dom may require changes to fully support this property. Please open an issue
         }
 
         Ok(())
+    }
+
+    fn decode_embedded_values(
+        &self,
+        mut chunk: &[u8],
+        wire_type: Type,
+        canonical_type: VariantType,
+        references: &[Option<EmbeddedReference>],
+    ) -> Result<Vec<Variant>, InnerError> {
+        let count = references.len();
+        let mut values = Vec::with_capacity(count);
+        match wire_type {
+            Type::String | Type::SharedString => {
+                if !matches!(
+                    canonical_type,
+                    VariantType::String | VariantType::BinaryString | VariantType::SharedString
+                ) {
+                    return Err(invalid("embedded bytes require a string property").into());
+                }
+                let indices = if wire_type == Type::SharedString {
+                    Some(chunk.read_interleaved_u32_array(count)?.collect::<Vec<_>>())
+                } else {
+                    None
+                };
+                for (index, reference) in references.iter().enumerate() {
+                    let bytes = if let Some(indices) = &indices {
+                        self.shared_strings
+                            .get(indices[index] as usize)
+                            .ok_or_else(|| invalid("invalid embedded SharedString index"))?
+                            .clone()
+                    } else {
+                        SharedString::new(chunk.read_binary_string()?)
+                    };
+                    let bytes = if let Some(reference) = reference {
+                        if reference.identity.is_some() || !bytes.data().is_empty() {
+                            return Err(invalid(
+                                "embedded string requires version 1 and an empty placeholder",
+                            )
+                            .into());
+                        }
+                        self.resolve_embedded(reference)?
+                    } else {
+                        bytes
+                    };
+                    values.push(match canonical_type {
+                        VariantType::String => {
+                            String::from_utf8_lossy(bytes.data()).into_owned().into()
+                        }
+                        VariantType::BinaryString => {
+                            BinaryString::from(bytes.data().to_vec()).into()
+                        }
+                        VariantType::SharedString => bytes.into(),
+                        _ => unreachable!(),
+                    });
+                }
+            }
+            Type::Content if canonical_type == VariantType::Content => {
+                let sources = chunk.read_interleaved_i32_array(count)?.collect::<Vec<_>>();
+                let uri_count = chunk.read_le_u32()? as usize;
+                if uri_count > count {
+                    return Err(invalid("invalid Content URI count").into());
+                }
+                let mut uris = Vec::with_capacity(uri_count);
+                for _ in 0..uri_count {
+                    uris.push(chunk.read_string()?);
+                }
+                let object_count = chunk.read_le_u32()? as usize;
+                if object_count > count {
+                    return Err(invalid("invalid Content object count").into());
+                }
+                let objects = chunk.read_referent_array(object_count)?.collect::<Vec<_>>();
+                if chunk.read_le_u32()? != 0 {
+                    return Err(invalid(
+                        "archive Content cannot contain external runtime referents",
+                    )
+                    .into());
+                }
+                let mut uris = uris.into_iter();
+                let mut objects = objects.into_iter();
+                for (source, reference) in sources.into_iter().zip(references) {
+                    let value = if let Some(reference) = reference {
+                        let identity = reference
+                            .identity
+                            .as_ref()
+                            .ok_or_else(|| invalid("embedded Content requires version 2"))?;
+                        if source != 0 {
+                            return Err(
+                                invalid("embedded Content requires a None placeholder").into()
+                            );
+                        }
+                        Content::from_embedded(identity.clone(), self.resolve_embedded(reference)?)
+                    } else {
+                        match source {
+                            0 => Content::none(),
+                            1 => Content::from_uri(
+                                uris.next().ok_or_else(|| invalid("missing Content URI"))?,
+                            ),
+                            2 => {
+                                let referent = objects
+                                    .next()
+                                    .ok_or_else(|| invalid("missing Content object"))?;
+                                self.instance_key_by_ref
+                                    .get(&referent)
+                                    .map_or_else(Content::none, |key| {
+                                        Content::from_referent(key.referent)
+                                    })
+                            }
+                            _ => return Err(invalid("invalid Content source type").into()),
+                        }
+                    };
+                    values.push(value.into());
+                }
+                if uris.next().is_some() || objects.next().is_some() {
+                    return Err(invalid("unused Content values").into());
+                }
+            }
+            _ => return Err(invalid("embedded reference on an unsupported property type").into()),
+        }
+        if !chunk.is_empty() {
+            return Err(invalid("trailing embedded property data").into());
+        }
+        Ok(values)
+    }
+
+    fn resolve_embedded(&self, reference: &EmbeddedReference) -> Result<SharedString, InnerError> {
+        let resolver = self
+            .embedded_resolver
+            .ok_or_else(|| invalid("embedded properties require an archive object resolver"))?;
+        let bytes = resolver.resolve(reference)?;
+        if bytes.data().len() as u64 != reference.size
+            || bytes.hash().as_bytes()[..16] != reference.digest
+        {
+            return Err(invalid("embedded object size or digest mismatch").into());
+        }
+        Ok(bytes)
     }
 
     #[profiling::function]

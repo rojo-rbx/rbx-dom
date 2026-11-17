@@ -1,4 +1,4 @@
-use crate::Ref;
+use crate::{Ref, SharedString};
 
 /// A reference to a Roblox asset.
 ///
@@ -18,6 +18,22 @@ pub enum ContentType {
     None,
     Uri(String),
     Object(Ref),
+    /// File-local identity and runtime envelope stored in an archive object.
+    /// The identity is not an asset URI or a live engine object.
+    Embedded(EmbeddedContent),
+}
+
+/// An opaque archive value. Clones share the envelope bytes.
+///
+/// `data` contains the complete versioned runtime envelope, including its
+/// metadata. Consumers must not interpret the identity as a URI to fetch.
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct EmbeddedContent {
+    /// File-local sharing identity; never a URI to fetch.
+    pub identity: String,
+    /// Complete versioned runtime envelope, including metadata.
+    pub data: SharedString,
 }
 
 impl Content {
@@ -30,6 +46,11 @@ impl Content {
     /// Constructs a `Content` from the provided URI.
     pub fn from_uri<S: Into<String>>(uri: S) -> Self {
         Self(ContentType::Uri(uri.into()))
+    }
+
+    /// Constructs a content value from an archive identity and runtime envelope.
+    pub fn from_embedded(identity: String, data: SharedString) -> Self {
+        Self(ContentType::Embedded(EmbeddedContent { identity, data }))
     }
 
     /// Constructs a `Content` from the provided referent.
@@ -155,5 +176,24 @@ impl AsMut<str> for ContentId {
 impl AsMut<String> for ContentId {
     fn as_mut(&mut self) -> &mut String {
         &mut self.url
+    }
+}
+
+#[cfg(all(test, feature = "serde"))]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn embedded_content_serde_preserves_bytes_and_identity() {
+        let content = Content::from_embedded(
+            "rbxruntime://test".into(),
+            SharedString::new(vec![0, 255, 128, 42]),
+        );
+        let json = serde_json::to_string(&content).unwrap();
+        assert_eq!(serde_json::from_str::<Content>(&json).unwrap(), content);
+        let msgpack = rmp_serde::to_vec(&content).unwrap();
+        assert_eq!(rmp_serde::from_slice::<Content>(&msgpack).unwrap(), content);
+        assert_eq!(content.as_uri(), None);
+        assert_eq!(content.as_object(), None);
     }
 }

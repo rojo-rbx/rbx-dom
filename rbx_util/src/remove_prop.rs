@@ -31,6 +31,8 @@ impl RemovePropCommand {
 
         log::debug!("Reading from {input_kind:?} file {}", self.input.display());
         let mut dom = match input_kind {
+            ModelKind::Archive => rbx_archive::from_reader(input_file)
+                .with_context(|| format!("Failed to read {}", self.input.display()))?,
             ModelKind::Xml => {
                 let options = rbx_xml::DecodeOptions::new()
                     .property_behavior(rbx_xml::DecodePropertyBehavior::ReadUnknown);
@@ -57,6 +59,8 @@ impl RemovePropCommand {
 
         let root_ids = dom.root().children();
         match output_kind {
+            ModelKind::Archive => rbx_archive::to_writer(output_file, &dom, root_ids)
+                .with_context(|| format!("Failed to write {}", self.output.display()))?,
             ModelKind::Xml => {
                 let options = rbx_xml::EncodeOptions::new()
                     .property_behavior(rbx_xml::EncodePropertyBehavior::WriteUnknown);
