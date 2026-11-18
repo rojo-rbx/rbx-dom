@@ -81,6 +81,68 @@ impl Faces {
     fn len(self) -> usize {
         self.bits().count_ones() as usize
     }
+
+    /// Returns whether or not the 'right' field is enabled for this `Faces`.
+    #[inline]
+    pub const fn right(&self) -> bool {
+        self.flags.contains(FaceFlags::RIGHT)
+    }
+
+    /// Returns whether or not the 'top' field is enabled for this `Faces`.
+    #[inline]
+    pub const fn top(&self) -> bool {
+        self.flags.contains(FaceFlags::TOP)
+    }
+
+    /// Returns whether or not the 'back' field is enabled for this `Faces`.
+    #[inline]
+    pub const fn back(&self) -> bool {
+        self.flags.contains(FaceFlags::BACK)
+    }
+
+    /// Returns whether or not the 'left' field is enabled for this `Faces`.
+    #[inline]
+    pub const fn left(&self) -> bool {
+        self.flags.contains(FaceFlags::LEFT)
+    }
+
+    /// Returns whether or not the 'bottom' field is enabled for this `Faces`.
+    #[inline]
+    pub const fn bottom(&self) -> bool {
+        self.flags.contains(FaceFlags::BOTTOM)
+    }
+
+    /// Returns whether or not the 'front' field is enabled for this `Faces`.
+    #[inline]
+    pub const fn front(&self) -> bool {
+        self.flags.contains(FaceFlags::FRONT)
+    }
+
+    /// Combines this `Faces` with another one, returning the result:
+    ///
+    /// ```
+    /// # use rbx_types::Faces;
+    /// assert_eq!(Faces::TOP, Faces::empty().union(Faces::TOP));
+    /// ```
+    #[inline]
+    pub const fn union(self, other: Self) -> Self {
+        Self {
+            flags: self.flags.union(other.flags),
+        }
+    }
+
+    /// Returns the difference between this `Faces` and another one:
+    ///
+    /// ```
+    /// # use rbx_types::Faces;
+    /// assert_eq!(Faces::empty(), Faces::TOP.difference(Faces::TOP));
+    /// ```
+    #[inline]
+    pub const fn difference(self, other: Self) -> Self {
+        Self {
+            flags: self.flags.difference(other.flags),
+        }
+    }
 }
 
 impl fmt::Debug for Faces {

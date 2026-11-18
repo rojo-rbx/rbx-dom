@@ -66,6 +66,50 @@ impl Axes {
     fn len(self) -> usize {
         self.bits().count_ones() as usize
     }
+
+    /// Returns whether or not the 'x' field is enabled for this `Axes`.
+    #[inline]
+    pub const fn x(&self) -> bool {
+        self.flags.contains(AxisFlags::X)
+    }
+
+    /// Returns whether or not the 'y' field is enabled for this `Axes`.
+    #[inline]
+    pub const fn y(&self) -> bool {
+        self.flags.contains(AxisFlags::Y)
+    }
+
+    /// Returns whether or not the 'z' field is enabled for this `Axes`.
+    #[inline]
+    pub const fn z(&self) -> bool {
+        self.flags.contains(AxisFlags::Z)
+    }
+
+    /// Combines this `Axes` with another one, returning the result:
+    ///
+    /// ```
+    /// # use rbx_types::Axes;
+    /// assert_eq!(Axes::X, Axes::empty().union(Axes::X));
+    /// ```
+    #[inline]
+    pub const fn union(self, other: Self) -> Self {
+        Self {
+            flags: self.flags.union(other.flags),
+        }
+    }
+
+    /// Returns the difference between this `Axes` and another one:
+    ///
+    /// ```
+    /// # use rbx_types::Axes;
+    /// assert_eq!(Axes::empty(), Axes::X.difference(Axes::X));
+    /// ```
+    #[inline]
+    pub const fn difference(self, other: Self) -> Self {
+        Self {
+            flags: self.flags.difference(other.flags),
+        }
+    }
 }
 
 impl fmt::Debug for Axes {

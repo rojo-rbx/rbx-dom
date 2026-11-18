@@ -2,8 +2,11 @@
 
 ## Unreleased
 * Implement support for the `AssetContentMap` type. ([#610])
+* Added `Faces::union`, `Faces::difference`, `Axes::union`, and `Axes::difference` to facilitate actually using the types. ([#676])
+* Added helper functions to `Faces` and `Axes` to quickly check whether a given field is enabled. ([#676])
 
 [#610]: https://github.com/rojo-rbx/rbx-dom/issues/610
+[#676]: https://github.com/rojo-rbx/rbx-dom/issues/676
 
 # 3.1.0 (2025-11-27)
 * Fixed `serde::Deserialize` implementations for `BinaryString`, `SharedString`, `NetAssetRef`, `Faces`, and `Axes` to properly utilize visitors. ([#563])
