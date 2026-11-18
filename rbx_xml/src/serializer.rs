@@ -9,7 +9,7 @@ use rbx_reflection::{PropertyKind, PropertySerialization, ReflectionDatabase};
 
 use crate::{
     conversion::ConvertVariant,
-    core::find_serialized_property_descriptor,
+    core::find_property_descriptors,
     error::{EncodeError as NewEncodeError, EncodeErrorKind},
     types::write_value_xml,
 };
@@ -192,11 +192,12 @@ fn serialize_instance<'dom, W: Write>(
 
     for (property_name, value) in property_buffer.drain(..) {
         let maybe_serialized_descriptor = if state.options.use_reflection() {
-            find_serialized_property_descriptor(
-                &instance.class,
-                property_name,
-                state.options.database,
-            )
+            match find_property_descriptors(&instance.class, property_name, state.options.database)
+            {
+                Some((_canonical, Some(serialized))) => Some(serialized),
+                Some((_canonical, None)) => continue,
+                None => None,
+            }
         } else {
             None
         };

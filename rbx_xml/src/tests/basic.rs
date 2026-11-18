@@ -108,6 +108,48 @@ fn write_tags() {
 }
 
 #[test]
+fn write_unknown_does_not_serialize() {
+    let _ = env_logger::try_init();
+
+    let part = InstanceBuilder::new("Part")
+        .with_property("Position", Vector3::new(1.0, 2.0, 3.0))
+        .with_property("Mass", 5.0f32)
+        .with_property("MadeUpProperty", true);
+    let dom = WeakDom::new(part);
+
+    let mut encoded = Vec::new();
+    crate::to_writer(
+        &mut encoded,
+        &dom,
+        &[dom.root_ref()],
+        crate::EncodeOptions::new().property_behavior(crate::EncodePropertyBehavior::WriteUnknown),
+    )
+    .unwrap();
+    insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
+}
+
+#[test]
+fn error_on_unknown_does_not_serialize() {
+    let _ = env_logger::try_init();
+
+    let part = InstanceBuilder::new("Part")
+        .with_property("Position", Vector3::new(1.0, 2.0, 3.0))
+        .with_property("Mass", 5.0f32);
+    let dom = WeakDom::new(part);
+
+    let mut encoded = Vec::new();
+    crate::to_writer(
+        &mut encoded,
+        &dom,
+        &[dom.root_ref()],
+        crate::EncodeOptions::new()
+            .property_behavior(crate::EncodePropertyBehavior::ErrorOnUnknown),
+    )
+    .unwrap();
+    insta::assert_snapshot!(std::str::from_utf8(&encoded).unwrap());
+}
+
+#[test]
 fn read_attributes() {
     let _ = env_logger::try_init();
 
