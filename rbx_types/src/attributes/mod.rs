@@ -2,6 +2,10 @@
 //! together:
 //! https://github.com/RobloxAPI/rbxattr/blob/06116439a68931d9d591d11ffff77ff982c9947d/spec.md
 
+mod color_sequence_envelope_source;
+mod decode_diagnostic;
+mod decode_report;
+mod diagnostic_sink;
 mod error;
 mod reader;
 mod type_id;
@@ -17,10 +21,14 @@ use std::{
 
 use crate::{Error, Variant};
 
+use self::diagnostic_sink::{CollectAttributeDiagnostics, DiscardAttributeDiagnostics};
 use self::reader::read_attributes;
 use self::writer::write_attributes;
 
-pub(crate) use self::error::AttributeError;
+pub use self::error::AttributeError;
+pub use self::{
+    decode_diagnostic::AttributeDecodeDiagnostic, decode_report::AttributesDecodeReport,
+};
 
 #[derive(Debug, Default, Clone, PartialEq)]
 #[cfg_attr(
@@ -42,9 +50,17 @@ impl Attributes {
 
     /// Reads from a serialized attributes string, and produces a new `Attributes` from it.
     pub fn from_reader<R: Read>(reader: R) -> Result<Self, Error> {
-        Ok(Attributes {
-            data: read_attributes(reader)?,
-        })
+        read_attributes(reader, DiscardAttributeDiagnostics).map_err(Into::into)
+    }
+
+    /// Reads attributes once while retaining documented source losses.
+    ///
+    /// Values and errors match [`Self::from_reader`]. Evidence is returned only
+    /// when the complete attributes value decodes successfully.
+    pub fn from_reader_with_diagnostics<R: Read>(
+        reader: R,
+    ) -> Result<AttributesDecodeReport, Error> {
+        read_attributes(reader, CollectAttributeDiagnostics::default()).map_err(Into::into)
     }
 
     /// Writes the attributes as a serialized string to the writer.

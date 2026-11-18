@@ -62,6 +62,7 @@ macro_rules! make_variant {
             feature = "serde",
             derive(serde::Serialize, serde::Deserialize),
         )]
+        #[cfg_attr(feature = "typescript", derive(ts_rs::TS))]
         pub enum VariantType {
             $(
                 $variant_name,
