@@ -108,7 +108,11 @@ impl ChunkBuilder {
                 writer.write_all(&self.buffer)?;
             }
             CompressionType::Zstd => {
-                let compressed = zrip::compress(&self.buffer, 0).map_err(io::Error::other)?;
+                // Level 3 and no checksum, like libzstd's defaults and the
+                // frames Roblox writes.
+                let options = zrip::Options::default().content_checksum(false);
+                let compressed =
+                    zrip::compress_opts(&self.buffer, 3, &options).map_err(io::Error::other)?;
 
                 writer.write_le_u32(compressed.len() as u32)?;
                 writer.write_le_u32(self.buffer.len() as u32)?;
