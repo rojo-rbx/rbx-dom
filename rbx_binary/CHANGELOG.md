@@ -2,8 +2,10 @@
 
 ## Unreleased
 * Implement support for serializing and deserializing the `AssetContentMap` type, used by `Terrain.VoxelGridAssetContentMap` to store Expanded Terrain voxels. ([#610])
+* Changed zstd chunks to compress and decompress with `zrip`, a pure Rust implementation, instead of the `zstd` C bindings. `rbx_binary` now builds for WebAssembly without a C toolchain. Places with zstd chunks read about 4x faster and write about 3x faster, at about the same size. ([#677])
 
 [#610]: https://github.com/rojo-rbx/rbx-dom/issues/610
+[#677]: https://github.com/rojo-rbx/rbx-dom/issues/677
 
 # 3.0.1 (2026-10-01)
 * Changed serializer to always write a length for empty `PropertiesSerialize` values, which Roblox requires. ([#639])

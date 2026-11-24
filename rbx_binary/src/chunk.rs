@@ -38,7 +38,8 @@ impl Chunk {
 
             if &compressed_data[0..4] == ZSTD_MAGIC_NUMBER {
                 log::trace!("ZSTD compression");
-                zstd::bulk::decompress(&compressed_data, header.len as usize)?
+                zrip::decompress_with_limit(&compressed_data, header.len as usize)
+                    .map_err(io::Error::other)?
             } else {
                 log::trace!("LZ4 compression");
                 lz4_flex::block::decompress(&compressed_data, header.len as usize)
@@ -107,7 +108,11 @@ impl ChunkBuilder {
                 writer.write_all(&self.buffer)?;
             }
             CompressionType::Zstd => {
-                let compressed = zstd::bulk::compress(&self.buffer, 0)?;
+                // Level 3 and no checksum, like libzstd's defaults and the
+                // frames Roblox writes.
+                let options = zrip::Options::default().content_checksum(false);
+                let compressed =
+                    zrip::compress_opts(&self.buffer, 3, &options).map_err(io::Error::other)?;
 
                 writer.write_le_u32(compressed.len() as u32)?;
                 writer.write_le_u32(self.buffer.len() as u32)?;
