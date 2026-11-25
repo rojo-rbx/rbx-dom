@@ -14,6 +14,27 @@ The following is a list of `BinaryString` blobs and their formatting. For clarit
 
 When a format is sufficiently complex, it may be stored in its own document for clarity.
 
+### AccessList
+**Used By:** `AudioDeviceInput.AccessList`
+
+> **Note:** This property has both `CanSave` and `CanLoad` set to `false`, meaning it is not persisted to place/model files and will not round-trip through serialization. It is documented here for completeness.
+
+This blob serializes the list of user IDs permitted to access an `AudioDeviceInput`, as returned by `AudioDeviceInput:GetUserIdAccessList()`. The blob is simply a tightly-packed array of 64-bit integers, with no header, count, or delimiters.
+
+| Size (Bytes) | Field    | Description                          |
+|:------------:|:---------|:----------------------------------------|
+| `8`          | User ID  | A user ID (`i64`, little-endian).       |
+
+This entry repeats once per user ID in the access list, in the same order as returned by `GetUserIdAccessList()`.
+
+If the access list is empty, the blob is an empty string.
+
+As an example, an `AudioDeviceInput` with an access list containing user IDs `123456789` and `987654321` would be serialized as:
+
+```
+15 CD 5B 07 00 00 00 00 B1 68 DE 3A 00 00 00 00
+```
+
 ### AttributeSerialized
 **Used By:** `Instance.AttributesSerialize`
 
