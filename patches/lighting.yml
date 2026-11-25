@@ -3,3 +3,12 @@ Change:
     ClockTime:
       Serialization:
         Type: Serializes
+    Brightness:
+      DefaultValue:
+        Float32: 1.0
+    Technology:
+      DefaultValue: null
+    PrioritizeLightingQuality:
+      DefaultValue: null
+    LightingStyle:
+      DefaultValue: null
