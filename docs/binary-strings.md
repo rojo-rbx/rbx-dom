@@ -75,3 +75,32 @@ As an example, an `Instance` that had the tags `Hello`, `from`, and `Rojo` would
 The `Tags` blob may be stored in the SharedString index. Instances with identical sets of Tags share the same SharedString entry.
 
 [CollectionService]: https://create.roblox.com/docs/reference/engine/classes/CollectionService
+
+### HiddenServices / VisibleServices
+**Used By:** `ServiceVisibilityService.HiddenServices`, `ServiceVisibilityService.VisibleServices`
+
+> **Note:** This service does not exist outside of Studio.
+
+Both properties serialize the set of top-level services whose visibility state matches a fixed target (`HiddenServices` for hidden services, `VisibleServices` for visible ones). They share the same underlying encoding, differing only in which visibility state they filter for.
+
+Each qualifying service contributes its class name, written using the standard [`String`](attributes.md#string) encoding, prefixed with a `String` Type ID byte — matching the shape of a string-typed entry in an attribute array, though this isn't a full attribute table (no keys, no other value types possible).
+
+If no services match, the blob is written as a fixed 4-byte header, a bare `u32` count of `0`:
+
+`00 00 00 00`
+
+Otherwise, the blob is written as:
+
+| Size (Bytes) | Field | Description |
+|:------------:|:------|:------------|
+| `4` | Count | Number of qualifying service names (`u32`). |
+
+Followed by one entry per service, in ascending alphabetical order of class name:
+
+| Size (Bytes) | Field | Description |
+|:------------:|:------|:------------|
+| `1` | Type ID | Constant, the Type ID for `String` values (`u8`). |
+| `4` | Name Length | Length of the class name string (`u32`). |
+| variable | Name | The class name bytes. |
+
+Note the ordering: entries are sorted by class name before writing, so the byte output is deterministic regardless of the order `game:GetChildren()` happens to return.
