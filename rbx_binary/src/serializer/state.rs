@@ -26,8 +26,8 @@ use crate::{
     asset_content_map::write_asset_content_map,
     chunk::ChunkBuilder,
     core::{
-        find_property_descriptors, PropertyDescriptors, RbxWriteExt, FILE_MAGIC_HEADER,
-        FILE_SIGNATURE, FILE_VERSION,
+        find_property_descriptors, PropertyDescriptors, RbxWriteExt, RbxWriteInterleaved,
+        FILE_MAGIC_HEADER, FILE_SIGNATURE, FILE_VERSION,
     },
     types::Type,
     Serializer,
@@ -1567,7 +1567,7 @@ impl<'dom, 'db: 'dom, W: Write> SerializerState<'dom, 'db, W> {
                             }
                         }
 
-                        chunk.write_interleaved_bytes::<16, _>(blobs)?;
+                        chunk.write_interleaved_bytes(blobs)?;
                     }
                     Type::SecurityCapabilities => {
                         let mut capabilities = Vec::with_capacity(values.len());
