@@ -23,6 +23,10 @@ function Error.new(kind, extra)
 end
 
 function Error:__tostring()
+	if self.instanceFullName ~= nil then
+		return ("Error(%s: %s, on instance %s)"):format(self.kind, tostring(self.extra), self.instanceFullName)
+	end
+
 	return ("Error(%s: %s)"):format(self.kind, tostring(self.extra))
 end
 

@@ -72,7 +72,7 @@ function PropertyDescriptor:read(instance)
 	error(("Internal error: unexpected value of 'scriptability': %s"):format(tostring(self.scriptability)), 2)
 end
 
-function PropertyDescriptor:write(instance, value)
+local function write(self, instance, value)
 	if self.scriptability == "ReadWrite" or self.scriptability == "Write" then
 		local success, err = xpcall(set, debug.traceback, instance, self.name, value)
 
@@ -99,6 +99,16 @@ function PropertyDescriptor:write(instance, value)
 
 		return false, Error.new(Error.Kind.PropertyNotWritable, fullName)
 	end
+end
+
+function PropertyDescriptor:write(instance, value)
+	local success, err = write(self, instance, value)
+
+	if not success and type(err) == "table" and getmetatable(err) == Error then
+		err.instanceFullName = instance:GetFullName()
+	end
+
+	return success, err
 end
 
 return PropertyDescriptor
